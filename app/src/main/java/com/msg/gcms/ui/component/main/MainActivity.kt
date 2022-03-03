@@ -1,8 +1,8 @@
-package com.msg.gcms
+package com.msg.gcms.ui.component.main
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.msg.msg_gcms.R
+import com.msg.gcms.R
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
