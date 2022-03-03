@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MSGGCMS">
         <activity
-            android:name="com.msg.gcms.MainActivity"
+            android:name="com.msg.gcms.ui.component.main.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

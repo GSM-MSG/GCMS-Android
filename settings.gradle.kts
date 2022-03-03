@@ -13,4 +13,4 @@ dependencyResolutionManagement {
     }
 }
 rootProject.name = "MSG-GCMS"
-include ':app'
+include (":app")
