@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import java.util.logging.ErrorManager
 import javax.inject.Inject
 
-class BaseViewModel : ViewModel() {
+abstract class BaseViewModel : ViewModel() {
     @Inject
     lateinit var errorManager: ErrorManager
 
