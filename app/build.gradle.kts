@@ -50,12 +50,14 @@ dependencies {
     implementation(Dependency.AndroidX.LIFECYCLE_VIEWMODEL_KTX)
 
     implementation(Dependency.AndroidX.ROOM_KTX)
-    implementation("androidx.legacy:legacy-support-v4:1.0.0")
+    implementation(Dependency.AndroidX.LEGACY_SUPPORT)
+
     kapt(Dependency.AndroidX.ROOM_COMPILER)
 
     implementation(Dependency.Kotlin.COROUTINES_CORE)
     implementation(Dependency.Kotlin.COROUTINES_ANDROID)
 
+    implementation(Dependency.Google.GMS)
     implementation(Dependency.Google.MATERIAL)
     implementation(Dependency.Google.HILT_ANDROID)
     kapt(Dependency.Google.HILT_ANDROID_COMPILER)

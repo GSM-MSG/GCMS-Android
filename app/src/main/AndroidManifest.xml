@@ -10,13 +10,17 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MSGGCMS">
         <activity
-            android:name="com.msg.gcms.ui.component.main.MainActivity"
-            android:exported="true">
+            android:name=".ui.component.login.LoginActivity"
+            android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".ui.component.main.MainActivity"
+            android:exported="true">
         </activity>
     </application>
 

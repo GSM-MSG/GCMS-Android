@@ -16,14 +16,16 @@ object Versions {
 
     const val CONSTRAINT_LAYOUT = "2.1.2"
     const val CORE_KTX = "1.5.0"
-    const val APP_COMPAT = "1.3.0"
+    const val APP_COMPAT = "1.4.1"
     const val ACTIVITY_KTX = "1.2.3"
     const val FRAGMENT_KTX = "1.3.4"
     const val LIFECYCLE_KTX = "2.3.1"
     const val ROOM = "2.3.0"
+    const val LEGACY = "1.0.0"
 
     const val HILT = "2.38.1"
     const val MATERIAL = "1.3.0"
+    const val GMS = "18.0.1"
 
     const val MOSHI = "1.13.0"
 
@@ -36,4 +38,6 @@ object Versions {
     const val ESPRESSO_CORE = "3.3.0"
 
     const val NAV = "2.3.5"
+
+
 }

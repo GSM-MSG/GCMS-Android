@@ -3,6 +3,15 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/z0103/AndroidStudioProjects/GCMS-Android/app/src/main/res/drawable/google.xml" value="0.1" />
+        <entry key="..\:/Users/z0103/AndroidStudioProjects/GCMS-Android/app/src/main/res/drawable/ic_google_login_btn.xml" value="0.1125" />
+        <entry key="..\:/Users/z0103/AndroidStudioProjects/GCMS-Android/app/src/main/res/drawable/ic_logo.xml" value="0.1125" />
+        <entry key="..\:/Users/z0103/AndroidStudioProjects/GCMS-Android/app/src/main/res/layout/activity_login.xml" value="0.264" />
+        <entry key="..\:/Users/z0103/AndroidStudioProjects/GCMS-Android/app/src/main/res/layout/activity_main.xml" value="0.24947916666666667" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" project-jdk-name="1.8" project-jdk-type="JavaSDK">
         <entry key="..\:/Users/user/Documents/GitHub/GCMS-Android/app/src/main/res/drawable/ic_personal_text_close.xml" value="0.26979166666666665" />
         <entry key="..\:/Users/user/Documents/GitHub/GCMS-Android/app/src/main/res/drawable/selector_nav_bg.xml" value="0.26979166666666665" />
         <entry key="..\:/Users/user/Documents/GitHub/GCMS-Android/app/src/main/res/drawable/selector_nav_text.xml" value="0.20572916666666666" />
