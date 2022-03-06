@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/majorFragment"
+        android:title="전공동아리"
+        android:icon="@drawable/selector_nav_text_major"/>
+    <item
+        android:id="@+id/freeFragment"
+        android:title="자율동아리"
+        android:icon="@drawable/selector_nav_text_free"/>
+    <item
+        android:id="@+id/personalFragment"
+        android:title="사설동아리"
+        android:icon="@drawable/selector_nav_text_personal"/>
+</menu>
