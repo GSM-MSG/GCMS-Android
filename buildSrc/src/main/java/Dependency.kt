@@ -30,13 +30,15 @@ object Dependency {
         const val ROOM_RUNTIME = "androidx.room:room-runtime:${Versions.ROOM}"
         const val ROOM_KTX = "androidx.room:room-ktx:${Versions.ROOM}"
         const val ROOM_COMPILER = "androidx.room:room-compiler:${Versions.ROOM}"
+
+        const val LEGACY_SUPPORT = "androidx.legacy:legacy-support-v4:${Versions.LEGACY}"
     }
 
     object Google {
         const val HILT_ANDROID = "com.google.dagger:hilt-android:${Versions.HILT}"
         const val HILT_ANDROID_COMPILER = "com.google.dagger:hilt-android-compiler:${Versions.HILT}"
-
         const val MATERIAL = "com.google.android.material:material:${Versions.MATERIAL}"
+        const val GMS = "com.google.android.gms:play-services-base:${Versions.GMS}"
     }
 
     object Libraries {
