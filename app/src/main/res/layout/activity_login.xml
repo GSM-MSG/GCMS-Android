@@ -21,7 +21,7 @@
             android:fontFamily="@font/notosans"
             android:text="GSM 동아리\n관리의\n모든것"
             android:textColor="@color/white"
-            android:textSize="36dp"
+            android:textSize="36sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -46,7 +46,7 @@
             android:fontFamily="@font/roboto"
             android:text="GCMS"
             android:textColor="#4D54FF"
-            android:textSize="48dp"
+            android:textSize="48sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
