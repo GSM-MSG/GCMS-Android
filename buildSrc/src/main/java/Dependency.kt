@@ -35,10 +35,13 @@ object Dependency {
     }
 
     object Google {
+        const val GMS_PLAY_SERVICE_AUTH = "com.google.android.gms:play-services-auth:${Versions.GMS_PLAY_SERVICE_AUTH}"
+        const val GMS_GOOGLE_SERVICE = "com.google.gms:google-services:${Versions.GMS_GOOGLE_SERVICE}"
         const val HILT_ANDROID = "com.google.dagger:hilt-android:${Versions.HILT}"
         const val HILT_ANDROID_COMPILER = "com.google.dagger:hilt-android-compiler:${Versions.HILT}"
         const val MATERIAL = "com.google.android.material:material:${Versions.MATERIAL}"
-        const val GMS = "com.google.android.gms:play-services-base:${Versions.GMS}"
+        const val GMS_PLAY_SERVICE_BASE = "com.google.android.gms:play-services-base:${Versions.GMS_PLAY_SERVICE_BASE}"
+        const val FIREBASE = "com.google.firebase:firebase-auth-ktx:${Versions.FIREBASE}"
     }
 
     object Libraries {
