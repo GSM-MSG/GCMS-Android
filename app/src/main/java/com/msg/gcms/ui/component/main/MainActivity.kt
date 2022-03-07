@@ -27,9 +27,9 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         binding.bottomNavigation.setOnNavigationItemSelectedListener { navSelected(it) }
     }
 
-    private fun navSelected(item: MenuItem): Boolean{
+    private fun navSelected(item: MenuItem): Boolean {
         val checked = item.setChecked(true)
-        when(checked.itemId){
+        when (checked.itemId) {
             R.id.majorFragment -> {
                 binding.fragmentView.currentItem = 0
             }
@@ -42,4 +42,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         }
         return false
     }
+
+
 }
