@@ -5,8 +5,8 @@
     <data>
 
         <variable
-            name="announcement"
-            type="com.msg.gcms.ui.component.announcement.AnnouncementFragment" />
+            name="application"
+            type="com.msg.gcms.ui.component.application.ApplicationFragment" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
