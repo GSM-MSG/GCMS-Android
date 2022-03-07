@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">MSG-GCMS</string>
+    <string name="club_application_deadline">동아리 신청마감하기</string>
+    <string name="application_list">가입 대기자명단</string>
 </resources>
