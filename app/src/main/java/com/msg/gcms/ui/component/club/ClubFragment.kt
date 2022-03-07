@@ -7,7 +7,6 @@ import com.msg.gcms.ui.base.BaseFragment
 import com.msg.viewmodel.MainViewModel
 
 class ClubFragment: BaseFragment<FragmentClubBinding>(R.layout.fragment_club) {
-    private val mainViewModel by viewModels<MainViewModel> ()
     override fun init() {
     }
 }
