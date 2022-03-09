@@ -2,4 +2,23 @@
     <string name="app_name">MSG-GCMS</string>
     <string name="club_application_deadline">동아리 신청마감하기</string>
     <string name="application_list">가입 대기자명단</string>
+    <string name="create_club">동아리 개설</string>
+    <string name="banner">배너</string>
+    <string name="add_picture">사진을 추가해 주세요.</string>
+    <string name="club_type">동아리 종류</string>
+    <string name="major">전공</string>
+    <string name="free">자율</string>
+    <string name="personal">사설</string>
+    <string name="club_name">동아리 이름</string>
+    <string name="enter_club_name">동아리 이름을 입력해주세요.</string>
+    <string name="club_introduction">동아리 설명</string>
+    <string name="enter_club_introduction">동아리 설명을 입력해주세요.</string>
+    <string name="teacher_in_charge">담당 선생님</string>
+    <string name="who_teacher_in_charge">담당 선생님 성함을 입력해주세요.</string>
+    <string name="contact_number">연락처</string>
+    <string name="contact_number_example">연락처를 입력해주세요.(디스코드, 이메일 등)</string>
+    <string name="club_picture">동아리 사진</string>
+    <string name="club_member">동아리 구성원</string>
+    <string name="completion">완료</string>
+
 </resources>
