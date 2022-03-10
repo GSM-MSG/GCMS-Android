@@ -4,8 +4,8 @@
     <data>
 
         <variable
-            name="club"
-            type="com.msg.gcms.ui.component.club.ClubFragment" />
+            name="detail"
+            type="com.msg.gcms.ui.component.club.detail.DetailFragment" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"

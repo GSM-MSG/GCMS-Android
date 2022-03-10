@@ -2,7 +2,6 @@ package com.msg.gcms.ui.component.main
 
 import android.content.Intent
 import android.view.MenuItem
-import android.view.View
 import androidx.activity.viewModels
 import com.msg.gcms.R
 import com.msg.gcms.databinding.ActivityMainBinding
