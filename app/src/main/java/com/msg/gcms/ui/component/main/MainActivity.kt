@@ -1,32 +1,26 @@
 package com.msg.gcms.ui.component.main
 
-import android.content.Intent
+import androidx.appcompat.app.AppCompatActivity
+import android.os.Bundle
 import android.view.MenuItem
-import android.view.View
-import androidx.activity.viewModels
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.ui.setupWithNavController
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.msg.gcms.R
 import com.msg.gcms.databinding.ActivityMainBinding
 import com.msg.gcms.ui.base.BaseActivity
-import com.msg.gcms.ui.component.profile.ProfileActivity
-import com.msg.viewmodel.MainViewModel
 
 class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
-
-    private val mainViewModel by viewModels<MainViewModel> ()
-
     override fun viewSetting() {
         initBottomNav()
-        clickProfileBtn()
     }
 
     override fun observeEvent() {
-        mainViewModel.clubName.observe(this, {
-            binding.clubNameTxt.text = it
-        })
+
     }
 
     private fun initBottomNav() {
-        binding.fragmentClub.apply {
+        binding.fragmentView.apply {
             adapter = PagerAdapter(supportFragmentManager, lifecycle)
             registerOnPageChangeCallback(PageChangeCallback(binding.bottomNavigation))
         }
@@ -35,26 +29,19 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
     private fun navSelected(item: MenuItem): Boolean {
         val checked = item.setChecked(true)
-        mainViewModel.setClubName(binding.fragmentClub.currentItem)
         when (checked.itemId) {
             R.id.majorFragment -> {
-                binding.fragmentClub.currentItem = 0
+                binding.fragmentView.currentItem = 0
             }
             R.id.freeFragment -> {
-                binding.fragmentClub.currentItem = 1
+                binding.fragmentView.currentItem = 1
             }
             R.id.personalFragment -> {
-                binding.fragmentClub.currentItem = 2
+                binding.fragmentView.currentItem = 2
             }
         }
         return false
     }
 
-    private fun clickProfileBtn(){
-        binding.profileBtn.setOnClickListener {
-            val intent = Intent(this, ProfileActivity::class.java)
-            intent.flags = Intent.FLAG_ACTIVITY_NO_ANIMATION
-            startActivity(intent)
-        }
-    }
+
 }
