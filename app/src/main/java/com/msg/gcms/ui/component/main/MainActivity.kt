@@ -1,10 +1,13 @@
 package com.msg.gcms.ui.component.main
 
+import android.content.Intent
 import android.view.MenuItem
+import android.view.View
 import androidx.activity.viewModels
 import com.msg.gcms.R
 import com.msg.gcms.databinding.ActivityMainBinding
 import com.msg.gcms.ui.base.BaseActivity
+import com.msg.gcms.ui.component.profile.ProfileActivity
 import com.msg.viewmodel.MainViewModel
 
 class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
@@ -13,6 +16,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
     override fun viewSetting() {
         initBottomNav()
+        clickProfileBtn()
     }
 
     override fun observeEvent() {
@@ -44,5 +48,13 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
             }
         }
         return false
+    }
+
+    private fun clickProfileBtn(){
+        binding.profileBtn.setOnClickListener {
+            val intent = Intent(this, ProfileActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_NO_ANIMATION
+            startActivity(intent)
+        }
     }
 }
