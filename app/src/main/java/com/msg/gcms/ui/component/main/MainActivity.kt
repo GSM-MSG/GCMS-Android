@@ -16,9 +16,9 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
     }
 
     override fun observeEvent() {
-        mainViewModel.clubName.observe(this, {
+        mainViewModel.clubName.observe(this) {
             binding.clubNameTxt.text = it
-        })
+        }
     }
 
     private fun initBottomNav() {

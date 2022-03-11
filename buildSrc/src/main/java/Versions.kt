@@ -39,5 +39,9 @@ object Versions {
 
     const val NAV = "2.3.5"
 
+    const val RX_BINDING = "4.0.0"
+    const val RX_JAVA = "3.0.3"
+    const val RX_ANDROID = "3.0.0"
+
 
 }

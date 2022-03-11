@@ -2,7 +2,6 @@ package com.msg.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.msg.gcms.R
 import com.msg.gcms.ui.base.BaseViewModel
 
 class MainViewModel : BaseViewModel() {
@@ -17,4 +16,6 @@ class MainViewModel : BaseViewModel() {
             2 -> _clubName.value = "사설동아리"
         }
     }
+
+
 }
