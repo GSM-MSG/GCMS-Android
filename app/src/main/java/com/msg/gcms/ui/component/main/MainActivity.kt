@@ -13,6 +13,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
     private val mainViewModel by viewModels<MainViewModel> ()
     override fun viewSetting() {
         initBottomNav()
+        clickProfile()
     }
 
     override fun observeEvent() {
@@ -46,9 +47,11 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         return false
     }
 
-    fun clickProfile(){
-        val intent = Intent(this, ProfileActivity::class.java)
-        intent.flags = Intent.FLAG_ACTIVITY_NO_ANIMATION
-        startActivity(intent)
+    private fun clickProfile(){
+        binding.profileBtn.setOnClickListener {
+            val intent = Intent(this, ProfileActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_NO_ANIMATION
+            startActivity(intent)
+        }
     }
 }
