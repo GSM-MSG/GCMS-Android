@@ -20,5 +20,8 @@
     <string name="club_picture">동아리 사진</string>
     <string name="club_member">동아리 구성원</string>
     <string name="completion">완료</string>
+    <string name="search_member">너, 내 동료가 돼라</string>
+
+    <string name="example_text">...</string>
 
 </resources>
