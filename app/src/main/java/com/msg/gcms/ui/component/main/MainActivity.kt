@@ -20,7 +20,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
     }
 
     private fun initBottomNav() {
-        binding.fragmentView.apply {
+        binding.fragmentClub.apply {
             adapter = PagerAdapter(supportFragmentManager, lifecycle)
             registerOnPageChangeCallback(PageChangeCallback(binding.bottomNavigation))
         }
@@ -31,13 +31,13 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         val checked = item.setChecked(true)
         when (checked.itemId) {
             R.id.majorFragment -> {
-                binding.fragmentView.currentItem = 0
+                binding.fragmentClub.currentItem = 0
             }
             R.id.freeFragment -> {
-                binding.fragmentView.currentItem = 1
+                binding.fragmentClub.currentItem = 1
             }
             R.id.personalFragment -> {
-                binding.fragmentView.currentItem = 2
+                binding.fragmentClub.currentItem = 2
             }
         }
         return false
