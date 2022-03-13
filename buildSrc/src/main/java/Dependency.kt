@@ -69,4 +69,10 @@ object Dependency {
         const val NAV_FRAGMENT = "androidx.navigation:navigation-fragment-ktx:${Versions.NAV}"
         const val NAV_UI = "androidx.navigation:navigation-ui-ktx:${Versions.NAV}"
     }
+
+    object Rx {
+        const val RX_BINNDING = "com.jakewharton.rxbinding4:rxbinding:${Versions.RX_BINDING}"
+        const val RX_JAVA = "io.reactivex.rxjava3:rxjava:${Versions.RX_JAVA}"
+        const val RX_ANDROID = "io.reactivex.rxjava3:rxandroid:${Versions.RX_ANDROID}"
+    }
 }

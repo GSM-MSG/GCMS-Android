@@ -81,4 +81,8 @@ dependencies {
 
     implementation(Dependency.BottomNav.NAV_FRAGMENT)
     implementation(Dependency.BottomNav.NAV_UI)
+
+    implementation(Dependency.Rx.RX_BINNDING)
+    implementation(Dependency.Rx.RX_JAVA)
+    implementation(Dependency.Rx.RX_ANDROID)
 }
