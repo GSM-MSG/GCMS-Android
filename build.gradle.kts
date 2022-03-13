@@ -8,7 +8,7 @@ buildscript {
         classpath (Dependency.GradlePlugin.GRADLE_ANDROID)
         classpath (Dependency.GradlePlugin.GRADLE_KOTLIN)
         classpath (Dependency.GradlePlugin.GRADLE_HILT)
-        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.6.10")
+        classpath(Dependency.Google.GMS_GOOGLE_SERVICE)
     }
 }
 
