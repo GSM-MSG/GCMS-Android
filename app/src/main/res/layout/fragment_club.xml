@@ -4,7 +4,7 @@
     <data>
 
         <variable
-            name="free"
+            name="club"
             type="com.msg.gcms.ui.component.club.ClubFragment" />
     </data>
 
@@ -13,7 +13,10 @@
         android:layout_height="match_parent">
 
         <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/club_fragment_view"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent"
+            app:defaultNavHost="true"
+            app:navGraph="@navigation/club_fragment_graph" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
