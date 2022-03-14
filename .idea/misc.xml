@@ -14,6 +14,12 @@
         <entry key="..\:/Users/user/AndroidStudioProjects/GCMS-Android/app/src/main/res/drawable/ic_announcement.xml" value="0.198" />
         <entry key="..\:/Users/user/AndroidStudioProjects/GCMS-Android/app/src/main/res/drawable/ic_free_text_activate.xml" value="0.198" />
         <entry key="..\:/Users/user/AndroidStudioProjects/GCMS-Android/app/src/main/res/drawable/ic_login_btn.xml" value="0.198" />
+        <entry key="..\:/Users/user/AndroidStudioProjects/GCMS-Android/app/src/main/res/drawable/ic_logo.xml" value="0.198" />
+        <entry key="..\:/Users/user/AndroidStudioProjects/GCMS-Android/app/src/main/res/drawable/ic_main_background.xml" value="0.1" />
+        <entry key="..\:/Users/user/AndroidStudioProjects/GCMS-Android/app/src/main/res/drawable/ic_main_foreground.xml" value="0.198" />
+        <entry key="..\:/Users/user/AndroidStudioProjects/GCMS-Android/app/src/main/res/drawable/ic_major_text_close.xml" value="0.198" />
+        <entry key="..\:/Users/user/AndroidStudioProjects/GCMS-Android/app/src/main/res/drawable/ic_personal_text_activate.xml" value="0.198" />
+        <entry key="..\:/Users/user/AndroidStudioProjects/GCMS-Android/app/src/main/res/drawable/ic_profile.xml" value="0.198" />
         <entry key="..\:/Users/user/AndroidStudioProjects/GCMS-Android/app/src/main/res/drawable/selector_check_box.xml" value="0.198" />
         <entry key="..\:/Users/user/AndroidStudioProjects/GCMS-Android/app/src/main/res/drawable/selector_club_type.xml" value="0.198" />
         <entry key="..\:/Users/user/AndroidStudioProjects/GCMS-Android/app/src/main/res/drawable/selector_make_club_text.xml" value="0.198" />
@@ -21,7 +27,7 @@
         <entry key="..\:/Users/user/AndroidStudioProjects/GCMS-Android/app/src/main/res/drawable/selector_nav_text_free.xml" value="0.198" />
         <entry key="..\:/Users/user/AndroidStudioProjects/GCMS-Android/app/src/main/res/drawable/selector_nav_text_major.xml" value="0.198" />
         <entry key="..\:/Users/user/AndroidStudioProjects/GCMS-Android/app/src/main/res/drawable/selector_nav_text_personal.xml" value="0.198" />
-        <entry key="..\:/Users/user/AndroidStudioProjects/GCMS-Android/app/src/main/res/layout/activity_login.xml" value="0.25364583333333335" />
+        <entry key="..\:/Users/user/AndroidStudioProjects/GCMS-Android/app/src/main/res/layout/activity_login.xml" value="0.264" />
         <entry key="..\:/Users/user/AndroidStudioProjects/GCMS-Android/app/src/main/res/layout/activity_main.xml" value="0.25377800937988537" />
         <entry key="..\:/Users/user/AndroidStudioProjects/GCMS-Android/app/src/main/res/layout/activity_test.xml" value="0.25364583333333335" />
         <entry key="..\:/Users/user/AndroidStudioProjects/GCMS-Android/app/src/main/res/layout/fragment_add_member.xml" value="0.2" />
@@ -33,6 +39,12 @@
         <entry key="..\:/Users/user/AndroidStudioProjects/GCMS-Android/app/src/main/res/layout/list_club_member.xml" value="0.536" />
         <entry key="..\:/Users/user/AndroidStudioProjects/GCMS-Android/app/src/main/res/layout/list_search_member.xml" value="0.264" />
         <entry key="..\:/Users/user/AndroidStudioProjects/GCMS-Android/app/src/main/res/menu/bottom_navigation_menu.xml" value="0.25364583333333335" />
+        <entry key="..\:/Users/user/AndroidStudioProjects/GCMS-Android/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.198" />
+        <entry key="..\:/Users/user/AndroidStudioProjects/GCMS-Android/app/src/main/res/mipmap-anydpi-v26/ic_main.xml" value="0.198" />
+        <entry key="..\:/Users/user/AndroidStudioProjects/GCMS-Android/app/src/main/res/mipmap-anydpi-v26/ic_main_round.xml" value="0.198" />
+        <entry key="..\:/Users/user/Documents/GitHub/GCMS-Android/app/src/main/res/layout/activity_profile.xml" value="0.14791666666666667" />
+        <entry key="..\:/Users/user/Documents/GitHub/GCMS-Android/app/src/main/res/layout/fragment_club.xml" value="0.10833333333333334" />
+        <entry key="..\:/Users/user/Documents/GitHub/GCMS-Android/app/src/main/res/layout/fragment_make_club.xml" value="0.1766304347826087" />
       </map>
     </option>
   </component>
