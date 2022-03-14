@@ -329,7 +329,6 @@
                 android:layout_width="0dp"
                 android:layout_height="80dp"
                 android:layout_marginTop="8dp"
-                app:layoutMananger="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_constraintEnd_toStartOf="@+id/guideline10"
                 app:layout_constraintStart_toStartOf="@+id/guideline8"
                 app:layout_constraintTop_toBottomOf="@id/textView10"
