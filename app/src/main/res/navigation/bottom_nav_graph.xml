@@ -7,15 +7,15 @@
 
     <fragment
         android:id="@+id/freeFragment"
-        android:name="com.msg.gcms.ui.component.club.ClubFragment"
-        tools:layout="@layout/fragment_club"/>
+        android:name="com.msg.gcms.ui.component.club.home.HomeFragment"
+        tools:layout="@layout/fragment_club_home"/>
     <fragment
         android:id="@+id/majorFragment"
-        android:name="com.msg.gcms.ui.component.club.ClubFragment"
-        tools:layout="@layout/fragment_club"/>
+        android:name="com.msg.gcms.ui.component.club.home.HomeFragment"
+        tools:layout="@layout/fragment_club_home"/>
     <fragment
         android:id="@+id/personalFragment"
-        android:name="com.msg.gcms.ui.component.club.ClubFragment"
-        tools:layout="@layout/fragment_club"/>
+        android:name="com.msg.gcms.ui.component.club.home.HomeFragment"
+        tools:layout="@layout/fragment_club_home"/>
 
 </navigation>
