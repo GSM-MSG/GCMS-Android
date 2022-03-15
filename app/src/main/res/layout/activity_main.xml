@@ -96,12 +96,15 @@
                 app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <androidx.viewpager2.widget.ViewPager2
+        <androidx.fragment.app.FragmentContainerView
             android:id="@+id/fragment_club"
+            android:name="androidx.navigation.fragment.NavHostFragment"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             app:layout_constraintTop_toTopOf="@id/guideline4"
-            app:layout_constraintBottom_toBottomOf="@id/guideline5"/>
+            app:layout_constraintBottom_toBottomOf="@id/guideline5"
+            app:defaultNavHost="true"
+            app:navGraph="@navigation/bottom_nav_graph" />
 
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/bottom_navigation"
