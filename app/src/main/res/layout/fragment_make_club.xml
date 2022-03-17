@@ -332,7 +332,7 @@
                 app:layout_constraintEnd_toStartOf="@+id/guideline10"
                 app:layout_constraintStart_toStartOf="@+id/guideline8"
                 app:layout_constraintTop_toBottomOf="@id/textView10"
-                tools:listitem="@layout/list_club_member"/>
+                tools:listitem="@layout/list_club_member" />
 
             <TextView
                 android:id="@+id/submitBtn"

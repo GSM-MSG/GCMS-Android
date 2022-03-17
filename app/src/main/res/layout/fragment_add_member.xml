@@ -102,26 +102,26 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:orientation="vertical"
-            tools:listitem="@layout/list_search_member"
             app:layout_constraintBottom_toTopOf="@+id/guideline16"
             app:layout_constraintEnd_toStartOf="@+id/guideline14"
             app:layout_constraintStart_toStartOf="@+id/guideline11"
-            app:layout_constraintTop_toTopOf="@+id/guideline15" />
+            app:layout_constraintTop_toTopOf="@+id/guideline15"
+            tools:listitem="@layout/list_search_member" />
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="0dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/guideline16"
             android:background="@color/dark_blue"
+            android:fontFamily="@font/notosans"
+            android:gravity="center"
             android:text="@string/completion"
             android:textColor="@color/white_2"
             android:textSize="14sp"
-            android:fontFamily="@font/notosans"
-            android:gravity="center"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/guideline16" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

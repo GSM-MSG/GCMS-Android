@@ -7,14 +7,14 @@
 
         <variable
             name="login"
-            type="com.msg.gcms.ui.component.login.LoginActivity" />
+            type="com.msg.gcms.ui.component.intro.IntroActivity" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/black"
-        tools:context=".ui.component.login.LoginActivity">
+        tools:context=".ui.component.intro.IntroActivity">
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline22"
@@ -132,8 +132,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/login_page_gcms"
-            android:textSize="14sp"
             android:textColor="@color/gray_6"
+            android:textSize="14sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -144,17 +144,17 @@
             android:id="@+id/loginBtn"
             android:layout_width="0dp"
             android:layout_height="0dp"
+            android:background="@drawable/bg_login_btn"
+            android:fontFamily="@font/notosans"
+            android:gravity="center"
+            android:text="@string/login"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@+id/guideline20"
             app:layout_constraintEnd_toStartOf="@+id/guideline18"
             app:layout_constraintStart_toStartOf="@+id/guideline17"
-            app:layout_constraintTop_toTopOf="@+id/guideline19"
-            android:background="@drawable/bg_login_btn"
-            android:text="@string/login"
-            android:fontFamily="@font/notosans"
-            android:textStyle="bold"
-            android:textColor="@color/white"
-            android:textSize="16sp"
-            android:gravity="center"/>
+            app:layout_constraintTop_toTopOf="@+id/guideline19" />
 
         <TextView
             android:id="@+id/signInBtn"

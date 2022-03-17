@@ -1,14 +1,13 @@
-package com.msg.gcms.ui.component.login
-
+package com.msg.gcms.ui.component.intro
 
 
 import android.content.Intent
 import com.msg.gcms.R
-import com.msg.gcms.databinding.ActivityLoginBinding
 import com.msg.gcms.ui.base.BaseActivity
 import com.msg.gcms.ui.component.main.MainActivity
+import com.msg.gcms.databinding.ActivityIntroBinding
 
-class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login) {
+class IntroActivity : BaseActivity<ActivityIntroBinding>(R.layout.activity_intro) {
     override fun viewSetting() {
 
     }

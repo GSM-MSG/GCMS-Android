@@ -13,7 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MSGGCMS">
         <activity
-            android:name=".ui.component.login.LoginActivity"
+            android:name=".ui.component.intro.IntroActivity"
             android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
