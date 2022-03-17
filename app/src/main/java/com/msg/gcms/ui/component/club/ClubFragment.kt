@@ -6,6 +6,5 @@ import com.msg.gcms.ui.base.BaseFragment
 
 class ClubFragment: BaseFragment<FragmentClubBinding>(R.layout.fragment_club) {
     override fun init() {
-
     }
 }

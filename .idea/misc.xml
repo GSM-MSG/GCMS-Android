@@ -36,11 +36,13 @@
         <entry key="..\:/Users/user/Documents/GitHub/GCMS-Android/app/src/main/res/layout/activity_main.xml" value="0.12635869565217392" />
         <entry key="..\:/Users/user/Documents/GitHub/GCMS-Android/app/src/main/res/layout/activity_profile.xml" value="0.14791666666666667" />
         <entry key="..\:/Users/user/Documents/GitHub/GCMS-Android/app/src/main/res/layout/club.xml" value="0.1296875" />
+        <entry key="..\:/Users/user/Documents/GitHub/GCMS-Android/app/src/main/res/layout/fragment_application.xml" value="0.11458333333333333" />
         <entry key="..\:/Users/user/Documents/GitHub/GCMS-Android/app/src/main/res/layout/fragment_club.xml" value="0.10833333333333334" />
         <entry key="..\:/Users/user/Documents/GitHub/GCMS-Android/app/src/main/res/layout/fragment_club_detail.xml" value="0.1" />
         <entry key="..\:/Users/user/Documents/GitHub/GCMS-Android/app/src/main/res/layout/fragment_club_home.xml" value="0.12635869565217392" />
         <entry key="..\:/Users/user/Documents/GitHub/GCMS-Android/app/src/main/res/layout/fragment_make_club.xml" value="0.1766304347826087" />
         <entry key="..\:/Users/user/Documents/GitHub/GCMS-Android/app/src/main/res/layout/item_my_club.xml" value="0.1296875" />
+        <entry key="..\:/Users/user/Documents/GitHub/GCMS-Android/app/src/main/res/menu/bottom_navigation_menu.xml" value="0.14947916666666666" />
       </map>
     </option>
   </component>
