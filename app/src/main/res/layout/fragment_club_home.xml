@@ -27,14 +27,14 @@
             android:layout_width="match_parent"
             android:layout_height="0.5dp"
             android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.97"/>
+            app:layout_constraintGuide_percent="0.97" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/club_home_recyclerview"
-            android:background="@color/black"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            app:layout_constraintStart_toStartOf="@id/guideline1"
-            app:layout_constraintEnd_toEndOf="@id/guideline2" />
+            android:background="@color/black"
+            app:layout_constraintEnd_toEndOf="@id/guideline2"
+            app:layout_constraintStart_toStartOf="@id/guideline1" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
