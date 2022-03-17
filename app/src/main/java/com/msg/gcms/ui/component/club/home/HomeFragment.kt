@@ -1,5 +1,6 @@
 package com.msg.gcms.ui.component.club.home
 
+import android.content.Intent
 import android.view.View
 import androidx.navigation.fragment.findNavController
 import com.msg.gcms.R
@@ -13,7 +14,7 @@ class HomeFragment: BaseFragment<FragmentClubHomeBinding>(R.layout.fragment_club
 
     override fun onClick(view: View) {
         when(view.id){
-            R.id.btn -> findNavController().navigate(R.id.action_homeFragment_to_detailFragment)
+            R.id.btn -> this.findNavController().navigate(R.id.action_homeFragment_to_detailFragment)
         }
     }
 
