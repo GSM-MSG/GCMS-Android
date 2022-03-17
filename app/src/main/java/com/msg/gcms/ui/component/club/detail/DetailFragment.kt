@@ -12,7 +12,7 @@ class DetailFragment: BaseFragment<FragmentClubDetailBinding>(R.layout.fragment_
 
     private fun clickBackBtn() {
         binding.backBtn.setOnClickListener {
-            this.findNavController().popBackStack()
+            findNavController().popBackStack()
         }
     }
 }

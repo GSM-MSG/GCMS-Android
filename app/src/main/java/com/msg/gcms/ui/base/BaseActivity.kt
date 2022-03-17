@@ -14,9 +14,9 @@ abstract class BaseActivity<T : ViewDataBinding>(
     protected lateinit var binding: T
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, layoutResId)
         binding.lifecycleOwner = this
-        super.onCreate(savedInstanceState)
         viewSetting()
         observeEvent()
     }
