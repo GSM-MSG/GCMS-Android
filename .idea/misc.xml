@@ -5,9 +5,11 @@
       <map>
         <entry key="..\:/Users/user/AndroidStudioProjects/GCMS-Android/app/src/main/res/drawable/bg_banner_placeholder.xml" value="0.198" />
         <entry key="..\:/Users/user/AndroidStudioProjects/GCMS-Android/app/src/main/res/drawable/bg_club_type.xml" value="0.198" />
+        <entry key="..\:/Users/user/AndroidStudioProjects/GCMS-Android/app/src/main/res/drawable/bg_login_btn.xml" value="0.198" />
         <entry key="..\:/Users/user/AndroidStudioProjects/GCMS-Android/app/src/main/res/drawable/bg_make_club_ed.xml" value="0.198" />
         <entry key="..\:/Users/user/AndroidStudioProjects/GCMS-Android/app/src/main/res/drawable/bg_make_club_et.xml" value="0.198" />
         <entry key="..\:/Users/user/AndroidStudioProjects/GCMS-Android/app/src/main/res/drawable/bg_selected_check_box.xml" value="0.198" />
+        <entry key="..\:/Users/user/AndroidStudioProjects/GCMS-Android/app/src/main/res/drawable/bg_sign_btn.xml" value="0.198" />
         <entry key="..\:/Users/user/AndroidStudioProjects/GCMS-Android/app/src/main/res/drawable/bg_user_profile.xml" value="0.1235" />
         <entry key="..\:/Users/user/AndroidStudioProjects/GCMS-Android/app/src/main/res/drawable/ic__announcement_.xml" value="0.198" />
         <entry key="..\:/Users/user/AndroidStudioProjects/GCMS-Android/app/src/main/res/drawable/ic__announcement_btn.xml" value="0.198" />
@@ -18,6 +20,7 @@
         <entry key="..\:/Users/user/AndroidStudioProjects/GCMS-Android/app/src/main/res/drawable/ic_main_background.xml" value="0.1" />
         <entry key="..\:/Users/user/AndroidStudioProjects/GCMS-Android/app/src/main/res/drawable/ic_main_foreground.xml" value="0.198" />
         <entry key="..\:/Users/user/AndroidStudioProjects/GCMS-Android/app/src/main/res/drawable/ic_major_text_close.xml" value="0.198" />
+        <entry key="..\:/Users/user/AndroidStudioProjects/GCMS-Android/app/src/main/res/drawable/ic_moiza_logo.xml" value="0.198" />
         <entry key="..\:/Users/user/AndroidStudioProjects/GCMS-Android/app/src/main/res/drawable/ic_personal_text_activate.xml" value="0.198" />
         <entry key="..\:/Users/user/AndroidStudioProjects/GCMS-Android/app/src/main/res/drawable/ic_profile.xml" value="0.198" />
         <entry key="..\:/Users/user/AndroidStudioProjects/GCMS-Android/app/src/main/res/drawable/selector_check_box.xml" value="0.198" />
@@ -27,7 +30,7 @@
         <entry key="..\:/Users/user/AndroidStudioProjects/GCMS-Android/app/src/main/res/drawable/selector_nav_text_free.xml" value="0.198" />
         <entry key="..\:/Users/user/AndroidStudioProjects/GCMS-Android/app/src/main/res/drawable/selector_nav_text_major.xml" value="0.198" />
         <entry key="..\:/Users/user/AndroidStudioProjects/GCMS-Android/app/src/main/res/drawable/selector_nav_text_personal.xml" value="0.198" />
-        <entry key="..\:/Users/user/AndroidStudioProjects/GCMS-Android/app/src/main/res/layout/activity_login.xml" value="0.264" />
+        <entry key="..\:/Users/user/AndroidStudioProjects/GCMS-Android/app/src/main/res/layout/activity_login.xml" value="0.136" />
         <entry key="..\:/Users/user/AndroidStudioProjects/GCMS-Android/app/src/main/res/layout/activity_main.xml" value="0.25377800937988537" />
         <entry key="..\:/Users/user/AndroidStudioProjects/GCMS-Android/app/src/main/res/layout/activity_profile.xml" value="0.25364583333333335" />
         <entry key="..\:/Users/user/AndroidStudioProjects/GCMS-Android/app/src/main/res/layout/activity_test.xml" value="0.25364583333333335" />

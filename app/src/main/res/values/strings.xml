@@ -25,5 +25,10 @@
     <string name="example_text">...</string>
 
     <string name="default_web_client_id" translatable="false">406780900894-65a7e8dd282hr8pltn2bsiaf59b7rche.apps.googleusercontent.com</string>
+    <string name="login">로그인</string>
+    <string name="sign_in">회원가입</string>
+    <string name="gsm_title">GSM동아리\n관리의 모든것</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="login_page_gcms">it’s GCMS sign up now</string>
 
 </resources>
