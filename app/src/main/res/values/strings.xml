@@ -24,4 +24,6 @@
 
     <string name="example_text">...</string>
 
+    <string name="default_web_client_id" translatable="false">406780900894-65a7e8dd282hr8pltn2bsiaf59b7rche.apps.googleusercontent.com</string>
+
 </resources>
