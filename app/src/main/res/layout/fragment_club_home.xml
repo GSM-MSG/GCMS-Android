@@ -35,6 +35,12 @@
             android:layout_height="50dp"
             app:layout_constraintTop_toTopOf="parent"/>
 
+        <Button
+            android:id="@+id/btn"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            app:layout_constraintTop_toTopOf="parent"/>
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/club_home_recyclerview"
             android:layout_width="0dp"
