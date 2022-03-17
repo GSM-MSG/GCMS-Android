@@ -4,16 +4,22 @@
     <data>
 
         <variable
-            name="free"
+            name="club"
             type="com.msg.gcms.ui.component.club.ClubFragment" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        tools:context=".ui.component.club.ClubFragment">
 
         <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/club_fragment_view"
+            android:name="androidx.navigation.fragment.NavHostFragment"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent"
+            app:defaultNavHost="true"
+            app:navGraph="@navigation/club_fragment_graph" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
