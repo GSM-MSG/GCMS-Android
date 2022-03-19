@@ -30,5 +30,13 @@
     <string name="gsm_title">GSM동아리\n관리의 모든것</string>
     <string name="sign_up">Sign Up</string>
     <string name="login_page_gcms">it’s GCMS sign up now</string>
+    <string name="back">되돌아가기</string>
+
+    <string name="login_en">Login</string>
+    <string name="school_email">학교 이메일을 입력해주세요.</string>
+    <string name="password">비밀번호를 입력해주세요.</string>
+    <string name="gsm_hs_kr">gsm.hs.kr</string>
+    <string name="forget_password">비밀번호를 잊으셨나요?</string>
+    <string name="find_password">비밀번호 찾기</string>
 
 </resources>
