@@ -1,6 +1,5 @@
 package com.msg.gcms.ui.component.club.home
 
-import android.content.Intent
 import android.view.View
 import androidx.navigation.fragment.findNavController
 import com.msg.gcms.R
