@@ -20,6 +20,7 @@ abstract class BaseFragment<B : ViewDataBinding>(@LayoutRes private val LayoutRe
         savedInstanceState: Bundle?
     ): View? {
         _binding = DataBindingUtil.inflate(inflater, LayoutResId, container, false)
+        init()
         return binding.root
     }
 
