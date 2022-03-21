@@ -33,6 +33,13 @@
             android:layout_width="wrap_content"
             android:layout_height="0.5dp"
             android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.45" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline40"
+            android:layout_width="wrap_content"
+            android:layout_height="0.5dp"
+            android:orientation="horizontal"
             app:layout_constraintGuide_percent="0.485" />
 
         <androidx.constraintlayout.widget.Guideline
@@ -64,13 +71,28 @@
             android:orientation="vertical"
             app:layout_constraintGuide_percent="0.9455" />
 
-        <ImageView
-            android:id="@+id/imageView5"
+        <View
+            android:id="@+id/wave2"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:scaleType="fitXY"
-            android:src="@drawable/ic_login_background"
-            app:layout_constraintBottom_toTopOf="@+id/guideline31"
+            android:layout_marginStart="-110dp"
+            android:layout_marginTop="-250dp"
+            android:layout_marginEnd="-110dp"
+            android:background="@drawable/bg_wave2"
+            app:layout_constraintBottom_toTopOf="@+id/guideline40"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <View
+            android:id="@+id/wave1"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="-110dp"
+            android:layout_marginTop="-250dp"
+            android:layout_marginEnd="-110dp"
+            android:background="@drawable/bg_wave1"
+            app:layout_constraintBottom_toTopOf="@+id/guideline40"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
