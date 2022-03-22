@@ -30,7 +30,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login
 
 
     override fun onClick(v: View?) {
-        when(v!!.id) {
+        when (v!!.id) {
             binding.backBtn.id -> {
                 val introIntent = Intent(this, IntroActivity::class.java)
                 startActivity(introIntent)
@@ -42,9 +42,19 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login
             binding.loginBtn.id -> {
                 binding.errorMessage.visibility = View.VISIBLE
                 binding.idEditText.background = getDrawable(R.drawable.bg_login_edit_text_error)
-                binding.textInputLayout.startAnimation(AnimationUtils.loadAnimation(this@LoginActivity, R.anim.edit_text_error_animation))
+                binding.textInputLayout.startAnimation(
+                    AnimationUtils.loadAnimation(
+                        this@LoginActivity,
+                        R.anim.edit_text_error_animation
+                    )
+                )
                 binding.pwEditText.background = getDrawable(R.drawable.bg_login_edit_text_error)
-                binding.textInputLayout2.startAnimation(AnimationUtils.loadAnimation(this@LoginActivity, R.anim.edit_text_error_animation))
+                binding.textInputLayout2.startAnimation(
+                    AnimationUtils.loadAnimation(
+                        this@LoginActivity,
+                        R.anim.edit_text_error_animation
+                    )
+                )
                 Handler().postDelayed({
                     binding.errorMessage.visibility = View.GONE
                     binding.idEditText.background = getDrawable(R.drawable.bg_login_edit_text)
@@ -54,17 +64,27 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login
         }
     }
 
-    private fun setAnim(){
+    private fun setAnim() {
         binding.apply {
-            wave1.startAnimation(AnimationUtils.loadAnimation(this@LoginActivity, R.anim.login_animation1))
+            wave1.startAnimation(
+                AnimationUtils.loadAnimation(
+                    this@LoginActivity,
+                    R.anim.login_animation1
+                )
+            )
             Handler().postDelayed({
-                wave2.startAnimation(AnimationUtils.loadAnimation(this@LoginActivity, R.anim.login_animation2))
+                wave2.startAnimation(
+                    AnimationUtils.loadAnimation(
+                        this@LoginActivity,
+                        R.anim.login_animation2
+                    )
+                )
             }, 800)
         }
     }
 
-    private fun setTyping(){
-        binding.idEditText.addTextChangedListener(object : TextWatcher{
+    private fun setTyping() {
+        binding.idEditText.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
             }
 
@@ -72,11 +92,10 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login
             }
 
             override fun afterTextChanged(p0: Editable?) {
-                if(p0!!.length > 0) binding.textInputLayout.isHintEnabled = false
-                else binding.textInputLayout.isHintEnabled = true
+                binding.textInputLayout.isHintEnabled = p0!!.length <= 0
             }
         })
-        binding.pwEditText.addTextChangedListener(object : TextWatcher{
+        binding.pwEditText.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
             }
 
@@ -84,8 +103,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login
             }
 
             override fun afterTextChanged(p0: Editable?) {
-                if(p0!!.length > 0) binding.textInputLayout2.isHintEnabled = false
-                else binding.textInputLayout2.isHintEnabled = true
+                binding.textInputLayout2.isHintEnabled = p0!!.length <= 0
             }
         })
     }
