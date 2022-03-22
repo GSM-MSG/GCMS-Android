@@ -4,7 +4,8 @@ import com.msg.gcms.R
 import com.msg.gcms.databinding.FragmentApplicationBinding
 import com.msg.gcms.ui.base.BaseFragment
 
-class ApplicationFragment : BaseFragment<FragmentApplicationBinding> (R.layout.fragment_application) {
+class ApplicationFragment :
+    BaseFragment<FragmentApplicationBinding>(R.layout.fragment_application) {
     override fun init() {
 
     }

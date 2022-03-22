@@ -7,7 +7,7 @@ import android.widget.TextView
 import androidx.viewpager.widget.PagerAdapter
 import com.msg.gcms.R
 
-class ProfileClubAdapter: PagerAdapter() {
+class ProfileClubAdapter : PagerAdapter() {
     override fun getCount(): Int = 3
 
     val clubNameTxt = arrayOf(
@@ -25,7 +25,8 @@ class ProfileClubAdapter: PagerAdapter() {
     }
 
     override fun instantiateItem(container: ViewGroup, position: Int): Any {
-        val view = LayoutInflater.from(container.context).inflate(R.layout.item_my_club, container,false)
+        val view =
+            LayoutInflater.from(container.context).inflate(R.layout.item_my_club, container, false)
         view.findViewById<TextView>(R.id.club_name_txt).text = clubNameTxt[position]
         container.addView(view)
         return view

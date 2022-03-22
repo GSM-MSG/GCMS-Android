@@ -264,8 +264,6 @@
             app:layout_constraintStart_toStartOf="@+id/guideline6"
             app:layout_constraintTop_toTopOf="@+id/guideline5" />
 
-
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

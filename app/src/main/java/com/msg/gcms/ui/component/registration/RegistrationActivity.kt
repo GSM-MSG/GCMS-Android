@@ -6,7 +6,8 @@ import com.msg.gcms.databinding.ActivityRegistrationBinding
 import com.msg.gcms.ui.base.BaseActivity
 
 class RegistrationActivity :
-    BaseActivity<ActivityRegistrationBinding>(R.layout.activity_registration), View.OnClickListener {
+    BaseActivity<ActivityRegistrationBinding>(R.layout.activity_registration),
+    View.OnClickListener {
 
 
     override fun viewSetting() {
