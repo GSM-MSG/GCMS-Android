@@ -24,6 +24,26 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login
 
     }
 
+    private fun editTextCheck() {
+        if (binding.emailEt.text!!.isEmpty()) {
+            binding.textInputLayout.error = "이메일을 입력해주세요"
+        }
+        else if (binding.emailEt.text!!.isNotEmpty()) {
+            binding.textInputLayout.error = null
+        }
+        if (binding.passwordEt.text!!.isEmpty()) {
+            binding.textInputLayout2.error = "비밀번호를 입력해주세요"
+        }
+        else if (binding.passwordEt.text!!.isNotEmpty()) {
+            binding.textInputLayout2.error = null
+        }
+        if (binding.emailEt.text!!.isNotEmpty() && binding.passwordEt.text!!.isNotEmpty()) {
+            val mainIntent = Intent(this,MainActivity::class.java)
+            startActivity(mainIntent)
+            finish()
+        }
+    }
+
 
     override fun onClick(v: View?) {
         when (v!!.id) {
@@ -35,20 +55,8 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login
             binding.findPasswordBtn.id -> {
                 shortToast("업데이트 예정입니다.")
             }
-            binding.loginBtn.id -> {
-                if (binding.emailEt.text!!.isEmpty()) {
-                    binding.textInputLayout.error = "이메일을 입력해주세요"
-                }
-                else if (binding.emailEt.text!!.isNotEmpty()) {
-                    binding.textInputLayout.error = null
-                }
-                if (binding.passwordEt.text!!.isEmpty()) {
-                    binding.textInputLayout2.error = "비밀번호를 입력해주세요"
-                }
-                else if (binding.passwordEt.text!!.isNotEmpty()) {
-                    binding.textInputLayout2.error = null
-                }
-            }
+            binding.loginBtn.id ->
+                editTextCheck()
         }
     }
 }
