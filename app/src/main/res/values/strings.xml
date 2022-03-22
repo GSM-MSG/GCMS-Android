@@ -38,5 +38,6 @@
     <string name="gsm_hs_kr">gsm.hs.kr</string>
     <string name="forget_password">비밀번호를 잊으셨나요?</string>
     <string name="find_password">비밀번호 찾기</string>
+    <string name="email_access">이메일 인증하기</string>
 
 </resources>
