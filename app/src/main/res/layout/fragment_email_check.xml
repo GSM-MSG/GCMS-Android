@@ -72,6 +72,27 @@
             android:orientation="horizontal"
             app:layout_constraintGuide_percent="0.075" />
 
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline9"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.95" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline10"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.1" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline11"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.9" />
+
         <ImageView
             android:id="@+id/back_btn"
             android:layout_width="wrap_content"
@@ -103,10 +124,10 @@
             app:layout_constraintTop_toTopOf="@+id/guideline1" />
 
         <TextView
-            android:gravity="center"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/notosans"
+            android:gravity="center"
             android:text="@string/send_check_email_msg"
             android:textColor="@color/white"
             android:textSize="18sp"
@@ -116,58 +137,72 @@
             app:layout_constraintTop_toTopOf="@+id/guideline2" />
 
 
-        <EditText
+        <TextView
             android:id="@+id/email_check_edittext_1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/ic_email_check_textinput"
+            android:fontFamily="@font/roboto"
             android:gravity="center"
-            android:inputType="number"
+            android:textColor="@color/white"
+            android:textSize="30sp"
+            android:textStyle="bold"
             app:layout_constraintEnd_toStartOf="@+id/email_check_edittext_2"
             app:layout_constraintStart_toStartOf="@+id/guideline3"
             app:layout_constraintTop_toTopOf="@+id/guideline5" />
 
-        <EditText
+        <TextView
             android:id="@+id/email_check_edittext_2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/ic_email_check_textinput"
+            android:fontFamily="@font/roboto"
             android:gravity="center"
-            android:inputType="number"
+            android:textColor="@color/white"
+            android:textSize="30sp"
+            android:textStyle="bold"
             app:layout_constraintEnd_toStartOf="@+id/email_check_edittext_3"
             app:layout_constraintStart_toEndOf="@id/email_check_edittext_1"
             app:layout_constraintTop_toTopOf="@+id/guideline5" />
 
-        <EditText
+        <TextView
             android:id="@+id/email_check_edittext_3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/ic_email_check_textinput"
+            android:fontFamily="@font/roboto"
             android:gravity="center"
-            android:inputType="number"
+            android:textColor="@color/white"
+            android:textSize="30sp"
+            android:textStyle="bold"
             app:layout_constraintEnd_toStartOf="@+id/email_check_edittext_4"
             app:layout_constraintStart_toEndOf="@id/email_check_edittext_2"
             app:layout_constraintTop_toTopOf="@+id/guideline5" />
 
-        <EditText
+        <TextView
             android:id="@+id/email_check_edittext_4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/ic_email_check_textinput"
+            android:fontFamily="@font/roboto"
             android:gravity="center"
-            android:inputType="number"
+            android:textColor="@color/white"
+            android:textSize="30sp"
+            android:textStyle="bold"
             app:layout_constraintEnd_toStartOf="@+id/guideline4"
             app:layout_constraintStart_toEndOf="@id/email_check_edittext_3"
             app:layout_constraintTop_toTopOf="@+id/guideline5" />
 
-        <ImageButton
-            android:id="@+id/send_again_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/ic_send_again_btn"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/guideline6" />
+        <TextView
+            android:layout_width="98dp"
+            android:layout_height="57dp"
+            android:fontFamily="@font/roboto"
+            android:gravity="center"
+            android:text="1"
+            android:textColor="@color/white"
+            android:textSize="30sp"
+            app:layout_constraintStart_toEndOf="@id/guideline10"
+            app:layout_constraintTop_toTopOf="@id/guideline6" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

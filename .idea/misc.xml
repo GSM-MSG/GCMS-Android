@@ -42,7 +42,6 @@
         <entry key="..\:/Users/user/AndroidStudioProjects/GCMS-Android/app/src/main/res/layout/fragment_major.xml" value="0.25364583333333335" />
         <entry key="..\:/Users/user/AndroidStudioProjects/GCMS-Android/app/src/main/res/layout/fragment_make_club.xml" value="0.2" />
         <entry key="..\:/Users/user/AndroidStudioProjects/GCMS-Android/app/src/main/res/layout/fragment_registration.xml" value="0.176" />
-        <entry key="..\:/Users/user/AndroidStudioProjects/GCMS-Android/app/src/main/res/layout/fragment_sign_up.xml" value="0.176" />
         <entry key="..\:/Users/user/AndroidStudioProjects/GCMS-Android/app/src/main/res/layout/item_my_club.xml" value="0.25364583333333335" />
         <entry key="..\:/Users/user/AndroidStudioProjects/GCMS-Android/app/src/main/res/layout/list_club_member.xml" value="0.536" />
         <entry key="..\:/Users/user/AndroidStudioProjects/GCMS-Android/app/src/main/res/layout/list_search_member.xml" value="0.264" />
@@ -66,6 +65,8 @@
         <entry key="..\:/Users/z0103/AndroidStudioProjects/GCMS-Android/app/src/main/res/layout/fragment_add_member.xml" value="0.24947916666666667" />
         <entry key="..\:/Users/z0103/AndroidStudioProjects/GCMS-Android/app/src/main/res/layout/fragment_club_detail.xml" value="0.24947916666666667" />
         <entry key="..\:/Users/z0103/AndroidStudioProjects/GCMS-Android/app/src/main/res/layout/fragment_email_check.xml" value="0.2" />
+        <entry key="..\:/Users/z0103/AndroidStudioProjects/GCMS-Android/app/src/main/res/layout/fragment_make_club.xml" value="0.24947916666666667" />
+        <entry key="..\:/Users/z0103/AndroidStudioProjects/GCMS-Android/app/src/main/res/layout/fragment_sign_up.xml" value="0.24947916666666667" />
       </map>
     </option>
   </component>
