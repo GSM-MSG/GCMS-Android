@@ -7,14 +7,14 @@
 
         <variable
             name="email"
-            type="com.msg.gcms.ui.component.registration.EmailCheckFragment" />
+            type="com.msg.gcms.ui.component.emailcheck.EmailCheckFragment" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#29292C"
-        tools:context=".ui.component.registration.EmailCheckFragment">
+        tools:context=".ui.component.emailcheck.EmailCheckFragment">
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline1"
@@ -194,6 +194,7 @@
             app:layout_constraintTop_toTopOf="@+id/guideline5" />
 
         <TextView
+            android:id="@+id/number_1"
             android:layout_width="98dp"
             android:layout_height="57dp"
             android:fontFamily="@font/roboto"
@@ -201,8 +202,166 @@
             android:text="1"
             android:textColor="@color/white"
             android:textSize="30sp"
+            app:layout_constraintBottom_toTopOf="@id/number_4"
+            app:layout_constraintEnd_toStartOf="@id/number_2"
             app:layout_constraintStart_toEndOf="@id/guideline10"
             app:layout_constraintTop_toTopOf="@id/guideline6" />
+
+        <TextView
+            android:id="@+id/number_2"
+            android:layout_width="98dp"
+            android:layout_height="57dp"
+            android:fontFamily="@font/roboto"
+            android:gravity="center"
+            android:text="2"
+            android:textColor="@color/white"
+            android:textSize="30sp"
+            app:layout_constraintBottom_toTopOf="@id/number_5"
+            app:layout_constraintEnd_toStartOf="@id/number_3"
+            app:layout_constraintStart_toEndOf="@id/number_1"
+            app:layout_constraintTop_toTopOf="@id/guideline6" />
+
+        <TextView
+            android:id="@+id/number_3"
+            android:layout_width="98dp"
+            android:layout_height="57dp"
+            android:fontFamily="@font/roboto"
+            android:gravity="center"
+            android:text="3"
+            android:textColor="@color/white"
+            android:textSize="30sp"
+            app:layout_constraintBottom_toTopOf="@id/number_6"
+            app:layout_constraintEnd_toStartOf="@id/guideline11"
+            app:layout_constraintStart_toEndOf="@id/number_2"
+            app:layout_constraintTop_toTopOf="@id/guideline6" />
+
+        <TextView
+            android:id="@+id/number_4"
+            android:layout_width="98dp"
+            android:layout_height="57dp"
+            android:fontFamily="@font/roboto"
+            android:gravity="center"
+            android:text="4"
+            android:textColor="@color/white"
+            android:textSize="30sp"
+            app:layout_constraintBottom_toTopOf="@id/number_7"
+            app:layout_constraintEnd_toStartOf="@id/number_2"
+            app:layout_constraintStart_toEndOf="@id/guideline10"
+            app:layout_constraintTop_toBottomOf="@id/number_1" />
+
+        <TextView
+            android:id="@+id/number_5"
+            android:layout_width="98dp"
+            android:layout_height="57dp"
+            android:fontFamily="@font/roboto"
+            android:gravity="center"
+            android:text="5"
+            android:textColor="@color/white"
+            android:textSize="30sp"
+            app:layout_constraintBottom_toTopOf="@id/number_8"
+            app:layout_constraintEnd_toStartOf="@id/number_3"
+            app:layout_constraintStart_toEndOf="@id/number_1"
+            app:layout_constraintTop_toBottomOf="@id/number_2" />
+
+        <TextView
+            android:id="@+id/number_6"
+            android:layout_width="98dp"
+            android:layout_height="57dp"
+            android:fontFamily="@font/roboto"
+            android:gravity="center"
+            android:text="6"
+            android:textColor="@color/white"
+            android:textSize="30sp"
+            app:layout_constraintBottom_toTopOf="@id/number_9"
+            app:layout_constraintEnd_toStartOf="@id/guideline11"
+            app:layout_constraintStart_toEndOf="@id/number_2"
+            app:layout_constraintTop_toBottomOf="@id/number_3" />
+
+
+        <TextView
+            android:id="@+id/number_7"
+            android:layout_width="98dp"
+            android:layout_height="57dp"
+            android:fontFamily="@font/roboto"
+            android:gravity="center"
+            android:text="7"
+            android:textColor="@color/white"
+            android:textSize="30sp"
+            app:layout_constraintBottom_toTopOf="@id/blank"
+            app:layout_constraintEnd_toStartOf="@id/number_2"
+            app:layout_constraintStart_toEndOf="@id/guideline10"
+            app:layout_constraintTop_toBottomOf="@id/number_4" />
+
+        <TextView
+            android:id="@+id/number_8"
+            android:layout_width="98dp"
+            android:layout_height="57dp"
+            android:fontFamily="@font/roboto"
+            android:gravity="center"
+            android:text="8"
+            android:textColor="@color/white"
+            android:textSize="30sp"
+            app:layout_constraintBottom_toTopOf="@id/number_0"
+            app:layout_constraintEnd_toStartOf="@id/number_3"
+            app:layout_constraintStart_toEndOf="@id/number_1"
+            app:layout_constraintTop_toBottomOf="@id/number_5" />
+
+        <TextView
+            android:id="@+id/number_9"
+            android:layout_width="98dp"
+            android:layout_height="57dp"
+            android:fontFamily="@font/roboto"
+            android:gravity="center"
+            android:text="9"
+            android:textColor="@color/white"
+            android:textSize="30sp"
+            app:layout_constraintBottom_toTopOf="@id/erase_btn"
+            app:layout_constraintEnd_toStartOf="@id/guideline11"
+            app:layout_constraintStart_toEndOf="@id/number_2"
+            app:layout_constraintTop_toBottomOf="@id/number_6" />
+
+
+        <TextView
+            android:id="@+id/blank"
+            android:layout_width="98dp"
+            android:layout_height="57dp"
+            android:fontFamily="@font/roboto"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:textSize="30sp"
+            app:layout_constraintBottom_toTopOf="@id/guideline9"
+            app:layout_constraintEnd_toStartOf="@id/number_2"
+            app:layout_constraintStart_toEndOf="@id/guideline10"
+            app:layout_constraintTop_toBottomOf="@id/number_7" />
+
+        <TextView
+            android:id="@+id/number_0"
+            android:layout_width="98dp"
+            android:layout_height="57dp"
+            android:fontFamily="@font/roboto"
+            android:gravity="center"
+            android:text="0"
+            android:textColor="@color/white"
+            android:textSize="30sp"
+            app:layout_constraintBottom_toTopOf="@id/guideline9"
+            app:layout_constraintEnd_toStartOf="@id/number_3"
+            app:layout_constraintStart_toEndOf="@id/number_1"
+            app:layout_constraintTop_toBottomOf="@id/number_8" />
+
+        <ImageView
+            android:id="@+id/erase_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="57dp"
+            android:fontFamily="@font/roboto"
+            android:gravity="center"
+            android:src="@drawable/ic_erase_btn"
+            android:textColor="@color/white"
+            android:textSize="30sp"
+            app:layout_constraintBottom_toTopOf="@id/guideline9"
+            app:layout_constraintEnd_toStartOf="@id/guideline11"
+            app:layout_constraintStart_toEndOf="@id/number_2"
+            app:layout_constraintTop_toBottomOf="@id/number_9" />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
