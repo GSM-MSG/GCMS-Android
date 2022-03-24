@@ -12,10 +12,8 @@ class RegistrationActivity :
     private val registrationViewModel by viewModels<RegistrationViewModel>()
 
 
-
     override fun observeEvent() {
     }
-
 
 
     override fun viewSetting() {
