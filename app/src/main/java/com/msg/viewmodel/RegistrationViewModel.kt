@@ -1,5 +1,7 @@
 package com.msg.viewmodel
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.msg.gcms.ui.base.BaseViewModel
 import kotlinx.coroutines.launch
@@ -14,5 +16,9 @@ class RegistrationViewModel constructor() : BaseViewModel() {
         viewModelScope.launch {
 
         }
+    }
+
+    fun emailCheckLogic(emailCode: String) {
+
     }
 }
