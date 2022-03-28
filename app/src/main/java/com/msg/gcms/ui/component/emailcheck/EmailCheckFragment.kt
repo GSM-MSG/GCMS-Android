@@ -1,38 +1,35 @@
 package com.msg.gcms.ui.component.emailcheck
 
+import android.os.Bundle
 import android.util.Log
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.LifecycleObserver
 import com.msg.gcms.R
 import com.msg.gcms.databinding.FragmentEmailCheckBinding
 import com.msg.gcms.ui.base.BaseFragment
 import com.msg.viewmodel.RegistrationViewModel
+import java.util.Observer
 
 
 class EmailCheckFragment : BaseFragment<FragmentEmailCheckBinding>(R.layout.fragment_email_check),
     View.OnClickListener {
 
-    private val emailCode = ArrayList<String>()
     private val registrationViewModel by activityViewModels<RegistrationViewModel>()
 
     override fun init() {
         viewSetting()
+        bindState()
     }
 
     private fun viewSetting() {
         binding.apply {
-            number0.setOnClickListener(this@EmailCheckFragment)
-            number1.setOnClickListener(this@EmailCheckFragment)
-            number2.setOnClickListener(this@EmailCheckFragment)
-            number3.setOnClickListener(this@EmailCheckFragment)
-            number4.setOnClickListener(this@EmailCheckFragment)
-            number5.setOnClickListener(this@EmailCheckFragment)
-            number6.setOnClickListener(this@EmailCheckFragment)
-            number7.setOnClickListener(this@EmailCheckFragment)
-            number8.setOnClickListener(this@EmailCheckFragment)
-            number9.setOnClickListener(this@EmailCheckFragment)
-            eraseBtn.setOnClickListener(this@EmailCheckFragment)
-            backBtn.setOnClickListener(this@EmailCheckFragment)
+            listOf(
+                number0, number1, number2, number3, number4, number5, number6,
+                number7, number8, number9, eraseBtn, backBtn
+            ).forEach { it.setOnClickListener(this@EmailCheckFragment) }
         }
     }
 
@@ -51,44 +48,31 @@ class EmailCheckFragment : BaseFragment<FragmentEmailCheckBinding>(R.layout.frag
             binding.eraseBtn.id -> eraseText()
             binding.backBtn.id -> {}
         }
+
     }
+
+
 
     private fun addText(num: Int) {
-        if (emailCode.size < 4) {
-            emailCode.add(num.toString())
-            setUi()
-        }
+        registrationViewModel.typeNumber(num)
     }
-
 
     private fun eraseText() {
-        if (emailCode.isNotEmpty()) {
-            emailCode.removeLast()
-            setUi()
-        }
+        registrationViewModel.eraseNumber()
     }
 
-    private fun setUi() {
-        if (emailCode.size < 1) {
-            binding.emailCheckEdittext1.text = null
-        } else {
-            binding.emailCheckEdittext1.text = emailCode[0]
+    private fun bindState() {
+        registrationViewModel.emailCode.observe(viewLifecycleOwner) { code ->
+
+            val viewList = listOf(
+                binding.emailCheckEdittext1,
+                binding.emailCheckEdittext2,
+                binding.emailCheckEdittext3,
+                binding.emailCheckEdittext4
+            )
+            viewList.withIndex().forEach {
+                it.value.text = if (it.index <= code.length-1) code[it.index].toString() else null
+            }
         }
-        if (emailCode.size < 2) {
-            binding.emailCheckEdittext2.text = null
-        } else {
-            binding.emailCheckEdittext2.text = emailCode[1]
-        }
-        if (emailCode.size < 3) {
-            binding.emailCheckEdittext3.text = null
-        } else {
-            binding.emailCheckEdittext3.text = emailCode[2]
-        }
-        if (emailCode.size < 4) {
-            binding.emailCheckEdittext4.text = null
-        } else {
-            binding.emailCheckEdittext4.text = emailCode[3]
-        }
-        Log.d("emailCode", emailCode.toString())
     }
 }
