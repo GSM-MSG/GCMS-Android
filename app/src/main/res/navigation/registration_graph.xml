@@ -9,5 +9,13 @@
         android:id="@+id/signUpFragment"
         android:name="com.msg.gcms.ui.component.signUp.SignUpFragment"
         android:label="SignUpFragment"
-        tools:layout="@layout/fragment_sign_up" />
+        tools:layout="@layout/fragment_sign_up" >
+        <action
+            android:id="@+id/action_signUpFragment_to_emailCheckFragment"
+            app:destination="@id/emailCheckFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/emailCheckFragment"
+        android:name="com.msg.gcms.ui.component.emailcheck.EmailCheckFragment"
+        android:label="EmailCheckFragment" />
 </navigation>
