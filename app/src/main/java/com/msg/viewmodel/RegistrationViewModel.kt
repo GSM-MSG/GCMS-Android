@@ -9,7 +9,7 @@ import com.msg.gcms.ui.base.BaseViewModel
 import kotlinx.coroutines.launch
 
 class RegistrationViewModel : BaseViewModel() {
-     private val _emailCode = MutableLiveData<String>()
+    private val _emailCode = MutableLiveData<String>()
     val emailCode: LiveData<String> get() = _emailCode
 
     fun registrationLogic(email: String, password: String) {
@@ -23,7 +23,7 @@ class RegistrationViewModel : BaseViewModel() {
         }
     }
 
-    fun emailCheckLogic(emailCode: ArrayList<String>) {
+    fun emailCheckLogic(emailCode: String) {
 
     }
 
@@ -34,10 +34,11 @@ class RegistrationViewModel : BaseViewModel() {
             _emailCode.postValue(sb.toString())
         }
     }
+
     fun eraseNumber() {
         if (_emailCode.value?.isNotEmpty() == true) {
             val sb = StringBuilder(_emailCode.value ?: "")
-            sb.deleteCharAt(sb.length-1)
+            sb.deleteCharAt(sb.length - 1)
             _emailCode.postValue(sb.toString())
         }
     }

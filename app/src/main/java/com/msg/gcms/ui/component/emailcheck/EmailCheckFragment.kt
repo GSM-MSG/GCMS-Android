@@ -52,7 +52,6 @@ class EmailCheckFragment : BaseFragment<FragmentEmailCheckBinding>(R.layout.frag
     }
 
 
-
     private fun addText(num: Int) {
         registrationViewModel.typeNumber(num)
     }
@@ -71,7 +70,10 @@ class EmailCheckFragment : BaseFragment<FragmentEmailCheckBinding>(R.layout.frag
                 binding.emailCheckEdittext4
             )
             viewList.withIndex().forEach {
-                it.value.text = if (it.index <= code.length-1) code[it.index].toString() else null
+                it.value.text = if (it.index <= code.length - 1) code[it.index].toString() else null
+            }
+            if (code.length == 4) {
+                with(registrationViewModel) { emailCheckLogic(code) }
             }
         }
     }
