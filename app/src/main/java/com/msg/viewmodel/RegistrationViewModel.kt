@@ -18,7 +18,7 @@ class RegistrationViewModel constructor() : BaseViewModel() {
         }
     }
 
-    fun emailCheckLogic(emailCode: String) {
+    fun emailCheckLogic(emailCode: ArrayList<String>) {
 
     }
 }

@@ -2,12 +2,14 @@ package com.msg.gcms.ui.component.signUp
 
 import android.view.View
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
 import com.msg.gcms.R
 import com.msg.gcms.databinding.FragmentSignUpBinding
 import com.msg.gcms.ui.base.BaseFragment
 import com.msg.viewmodel.RegistrationViewModel
 
-class SignUpFragment : BaseFragment<FragmentSignUpBinding>(R.layout.fragment_sign_up), View.OnClickListener {
+class SignUpFragment : BaseFragment<FragmentSignUpBinding>(R.layout.fragment_sign_up),
+    View.OnClickListener {
 
     private val registrationViewModel by activityViewModels<RegistrationViewModel>()
 
@@ -21,7 +23,6 @@ class SignUpFragment : BaseFragment<FragmentSignUpBinding>(R.layout.fragment_sig
     override fun init() {
         viewSetting()
     }
-
 
 
     private fun editTextCheck() {
@@ -40,7 +41,7 @@ class SignUpFragment : BaseFragment<FragmentSignUpBinding>(R.layout.fragment_sig
         }
     }
 
-    private fun registrationLogic(email : String, password : String) {
+    private fun registrationLogic(email: String, password: String) {
         registrationViewModel.registrationLogic(email, password)
     }
 
