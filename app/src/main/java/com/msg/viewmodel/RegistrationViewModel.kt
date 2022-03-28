@@ -8,9 +8,9 @@ import androidx.lifecycle.viewModelScope
 import com.msg.gcms.ui.base.BaseViewModel
 import kotlinx.coroutines.launch
 
-class RegistrationViewModel : BaseViewModel(), LifecycleObserver {
-     private var _emailCode = MutableLiveData<String>().apply { value = "" }
-    var emailCode: LiveData<String> = _emailCode
+class RegistrationViewModel : BaseViewModel() {
+     private val _emailCode = MutableLiveData<String>()
+    val emailCode: LiveData<String> get() = _emailCode
 
     fun registrationLogic(email: String, password: String) {
         val queries: HashMap<String, String> = HashMap()
@@ -29,14 +29,14 @@ class RegistrationViewModel : BaseViewModel(), LifecycleObserver {
 
     fun typeNumber(num: Int) {
         if (_emailCode.value?.length ?: 0 < 4) {
-            val sb = StringBuilder(_emailCode.value)
+            val sb = StringBuilder(_emailCode.value ?: "")
             sb.append(num.toString())
             _emailCode.postValue(sb.toString())
         }
     }
     fun eraseNumber() {
         if (_emailCode.value?.isNotEmpty() == true) {
-            val sb = StringBuilder(_emailCode.value)
+            val sb = StringBuilder(_emailCode.value ?: "")
             sb.deleteCharAt(sb.length-1)
             _emailCode.postValue(sb.toString())
         }

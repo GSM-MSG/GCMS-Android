@@ -21,8 +21,6 @@ class EmailCheckFragment : BaseFragment<FragmentEmailCheckBinding>(R.layout.frag
 
     override fun init() {
         viewSetting()
-        binding.lifecycleOwner = this
-        lifecycle.addObserver(registrationViewModel)
         bindState()
     }
 
@@ -66,7 +64,7 @@ class EmailCheckFragment : BaseFragment<FragmentEmailCheckBinding>(R.layout.frag
     private fun bindState() {
         registrationViewModel.emailCode.observe(viewLifecycleOwner) { code ->
 
-            var viewList = listOf(
+            val viewList = listOf(
                 binding.emailCheckEdittext1,
                 binding.emailCheckEdittext2,
                 binding.emailCheckEdittext3,
@@ -75,7 +73,6 @@ class EmailCheckFragment : BaseFragment<FragmentEmailCheckBinding>(R.layout.frag
             viewList.withIndex().forEach {
                 it.value.text = if (it.index <= code.length-1) code[it.index].toString() else null
             }
-            Log.d("emailCode", registrationViewModel.emailCode.value.toString())
         }
     }
 }
