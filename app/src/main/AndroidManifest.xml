@@ -13,6 +13,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MSGGCMS">
         <activity
+            android:name=".ui.component.splash.SplashActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.component.intro.IntroActivity"
             android:exported="true">
             <intent-filter>
