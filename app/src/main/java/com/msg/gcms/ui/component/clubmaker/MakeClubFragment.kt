@@ -7,7 +7,8 @@ import com.msg.gcms.databinding.FragmentMakeClubBinding
 import com.msg.gcms.ui.base.BaseFragment
 import com.msg.viewmodel.MainViewModel
 
-class MakeClubFragment : BaseFragment<FragmentMakeClubBinding>(R.layout.fragment_make_club ), View.OnClickListener {
+class MakeClubFragment : BaseFragment<FragmentMakeClubBinding>(R.layout.fragment_make_club),
+    View.OnClickListener {
 
     private val mainViewModel by activityViewModels<MainViewModel>()
 

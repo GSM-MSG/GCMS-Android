@@ -6,14 +6,16 @@ import com.msg.gcms.R
 import com.msg.gcms.databinding.FragmentClubHomeBinding
 import com.msg.gcms.ui.base.BaseFragment
 
-class HomeFragment: BaseFragment<FragmentClubHomeBinding>(R.layout.fragment_club_home), View.OnClickListener {
+class HomeFragment : BaseFragment<FragmentClubHomeBinding>(R.layout.fragment_club_home),
+    View.OnClickListener {
     override fun init() {
         initClick()
     }
 
     override fun onClick(view: View) {
-        when(view.id){
-            R.id.btn -> this.findNavController().navigate(R.id.action_homeFragment_to_detailFragment)
+        when (view.id) {
+            R.id.btn -> this.findNavController()
+                .navigate(R.id.action_homeFragment_to_detailFragment)
         }
     }
 

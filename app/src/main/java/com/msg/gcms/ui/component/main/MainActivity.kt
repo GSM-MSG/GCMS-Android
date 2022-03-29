@@ -1,7 +1,6 @@
 package com.msg.gcms.ui.component.main
 
 import android.content.Intent
-import android.util.Log
 import androidx.activity.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
@@ -13,7 +12,7 @@ import com.msg.gcms.ui.component.profile.ProfileActivity
 import com.msg.viewmodel.MainViewModel
 
 class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
-    private val mainViewModel by viewModels<MainViewModel> ()
+    private val mainViewModel by viewModels<MainViewModel>()
     override fun viewSetting() {
         initBottomNav()
         clickProfile()
@@ -28,13 +27,13 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
     private fun initBottomNav() {
         val navController =
             supportFragmentManager.findFragmentById(R.id.fragment_club)?.findNavController()
-        val nav = binding.bottomNavigation as BottomNavigationView
+        val nav = binding.bottomNavigation
         navController?.let {
             nav.setupWithNavController(navController)
         }
     }
 
-    private fun clickProfile(){
+    private fun clickProfile() {
         binding.profileBtn.setOnClickListener {
             val intent = Intent(this, ProfileActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_NO_ANIMATION
