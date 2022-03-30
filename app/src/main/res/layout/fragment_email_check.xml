@@ -123,6 +123,9 @@
             android:background="@drawable/ic_email_check_textinput"
             android:gravity="center"
             android:inputType="number"
+            android:textStyle="bold"
+            android:textColor="@color/white"
+            android:maxLength="1"
             app:layout_constraintEnd_toStartOf="@+id/email_check_edittext_2"
             app:layout_constraintStart_toStartOf="@+id/guideline3"
             app:layout_constraintTop_toTopOf="@+id/guideline5" />
@@ -133,7 +136,10 @@
             android:layout_height="wrap_content"
             android:background="@drawable/ic_email_check_textinput"
             android:gravity="center"
+            android:textStyle="bold"
             android:inputType="number"
+            android:maxLength="1"
+            android:textColor="@color/white"
             app:layout_constraintEnd_toStartOf="@+id/email_check_edittext_3"
             app:layout_constraintStart_toEndOf="@id/email_check_edittext_1"
             app:layout_constraintTop_toTopOf="@+id/guideline5" />
@@ -145,6 +151,9 @@
             android:background="@drawable/ic_email_check_textinput"
             android:gravity="center"
             android:inputType="number"
+            android:textStyle="bold"
+            android:maxLength="1"
+            android:textColor="@color/white"
             app:layout_constraintEnd_toStartOf="@+id/email_check_edittext_4"
             app:layout_constraintStart_toEndOf="@id/email_check_edittext_2"
             app:layout_constraintTop_toTopOf="@+id/guideline5" />
@@ -156,6 +165,9 @@
             android:background="@drawable/ic_email_check_textinput"
             android:gravity="center"
             android:inputType="number"
+            android:textStyle="bold"
+            android:textColor="@color/white"
+            android:maxLength="1"
             app:layout_constraintEnd_toStartOf="@+id/guideline4"
             app:layout_constraintStart_toEndOf="@id/email_check_edittext_3"
             app:layout_constraintTop_toTopOf="@+id/guideline5" />
