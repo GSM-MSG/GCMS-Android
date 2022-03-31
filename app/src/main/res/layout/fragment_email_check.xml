@@ -93,26 +93,32 @@
             android:orientation="vertical"
             app:layout_constraintGuide_percent="0.9" />
 
-        <ImageView
+        <LinearLayout
             android:id="@+id/back_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_back_btn"
+            android:gravity="center"
+            android:padding="5dp"
             app:layout_constraintBottom_toTopOf="@id/guideline8"
             app:layout_constraintStart_toStartOf="@id/guideline7"
-            app:layout_constraintTop_toTopOf="@id/guideline8" />
+            app:layout_constraintTop_toTopOf="@id/guideline8">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:fontFamily="@font/notosans"
-            android:text="@string/back"
-            android:textColor="@color/white"
-            android:textSize="13sp"
-            app:layout_constraintBottom_toTopOf="@+id/guideline8"
-            app:layout_constraintStart_toEndOf="@+id/back_btn"
-            app:layout_constraintTop_toTopOf="@+id/guideline8" />
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:src="@drawable/ic_back_btn" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:fontFamily="@font/notosans"
+                android:text="@string/back"
+                android:textColor="@color/white"
+                android:textSize="13sp" />
+
+        </LinearLayout>
 
         <ImageView
             android:id="@+id/imageView9"

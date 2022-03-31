@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.LifecycleObserver
+import androidx.navigation.fragment.findNavController
 import com.msg.gcms.R
 import com.msg.gcms.databinding.FragmentEmailCheckBinding
 import com.msg.gcms.ui.base.BaseFragment
@@ -46,11 +47,12 @@ class EmailCheckFragment : BaseFragment<FragmentEmailCheckBinding>(R.layout.frag
             binding.number8.id -> addText(8)
             binding.number9.id -> addText(9)
             binding.eraseBtn.id -> eraseText()
-            binding.backBtn.id -> {}
+            binding.backBtn.id -> {
+                this.findNavController().navigate(R.id.action_emailCheckFragment_to_signUpFragment)
+            }
         }
 
     }
-
 
     private fun addText(num: Int) {
         registrationViewModel.typeNumber(num)
