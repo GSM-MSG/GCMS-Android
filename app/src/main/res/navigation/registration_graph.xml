@@ -20,6 +20,7 @@
         android:label="EmailCheckFragment"
         tools:layout="@layout/fragment_email_check">
         <action
+            app:popUpTo="@id/signUpFragment"
             android:id="@+id/action_emailCheckFragment_to_signUpFragment"
             app:destination="@id/signUpFragment" />
     </fragment>
