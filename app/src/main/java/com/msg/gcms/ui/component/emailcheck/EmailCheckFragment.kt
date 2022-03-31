@@ -48,7 +48,7 @@ class EmailCheckFragment : BaseFragment<FragmentEmailCheckBinding>(R.layout.frag
             binding.number9.id -> addText(9)
             binding.eraseBtn.id -> eraseText()
             binding.backBtn.id -> {
-                this.findNavController().navigate(R.id.action_emailCheckFragment_to_signUpFragment)
+                this.findNavController().popBackStack()
             }
         }
 
