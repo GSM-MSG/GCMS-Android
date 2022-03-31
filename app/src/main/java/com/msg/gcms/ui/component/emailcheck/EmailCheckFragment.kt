@@ -51,6 +51,9 @@ class EmailCheckFragment : BaseFragment<FragmentEmailCheckBinding>(R.layout.frag
 
     }
 
+    private fun clearText(){
+
+    }
 
     private fun addText(num: Int) {
         registrationViewModel.typeNumber(num)
