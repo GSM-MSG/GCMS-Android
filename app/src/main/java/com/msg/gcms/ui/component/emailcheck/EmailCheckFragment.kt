@@ -60,6 +60,20 @@ class EmailCheckFragment : BaseFragment<FragmentEmailCheckBinding>(R.layout.frag
         registrationViewModel.eraseNumber()
     }
 
+    private fun emailCheckFailure() {
+        val viewList = listOf(
+            binding.emailCheckEdittext1,
+            binding.emailCheckEdittext2,
+            binding.emailCheckEdittext3,
+            binding.emailCheckEdittext4
+        )
+        viewList.withIndex().forEach {
+            it.value.text = null
+            it.value.setBackgroundResource(R.drawable.ic_email_check_failure)
+            registrationViewModel.clearNumber()
+        }
+    }
+
     private fun bindState() {
         registrationViewModel.emailCode.observe(viewLifecycleOwner) { code ->
 

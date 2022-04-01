@@ -42,4 +42,10 @@ class RegistrationViewModel : BaseViewModel() {
             _emailCode.postValue(sb.toString())
         }
     }
+
+    fun clearNumber() {
+        val sb = StringBuilder(_emailCode.value ?: "")
+        sb.clear()
+        _emailCode.postValue(sb.toString())
+    }
 }
