@@ -53,6 +53,15 @@ class EmailCheckFragment : BaseFragment<FragmentEmailCheckBinding>(R.layout.frag
 
 
     private fun addText(num: Int) {
+        val viewList = listOf(
+            binding.emailCheckEdittext1,
+            binding.emailCheckEdittext2,
+            binding.emailCheckEdittext3,
+            binding.emailCheckEdittext4
+        )
+        viewList.withIndex().forEach {
+            it.value.isPressed = false
+        }
         registrationViewModel.typeNumber(num)
     }
 
@@ -68,10 +77,9 @@ class EmailCheckFragment : BaseFragment<FragmentEmailCheckBinding>(R.layout.frag
             binding.emailCheckEdittext4
         )
         viewList.withIndex().forEach {
-            it.value.text = null
-            it.value.setBackgroundResource(R.drawable.ic_email_check_failure)
-            registrationViewModel.clearNumber()
+            it.value.isPressed = true
         }
+        registrationViewModel.clearNumber()
     }
 
     private fun bindState() {
