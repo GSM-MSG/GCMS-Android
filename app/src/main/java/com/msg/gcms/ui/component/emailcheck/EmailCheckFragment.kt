@@ -1,17 +1,11 @@
 package com.msg.gcms.ui.component.emailcheck
 
-import android.os.Bundle
-import android.util.Log
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.LifecycleObserver
 import com.msg.gcms.R
 import com.msg.gcms.databinding.FragmentEmailCheckBinding
 import com.msg.gcms.ui.base.BaseFragment
 import com.msg.viewmodel.RegistrationViewModel
-import java.util.Observer
 
 
 class EmailCheckFragment : BaseFragment<FragmentEmailCheckBinding>(R.layout.fragment_email_check),
@@ -60,7 +54,9 @@ class EmailCheckFragment : BaseFragment<FragmentEmailCheckBinding>(R.layout.frag
             binding.emailCheckEdittext4
         )
         viewList.withIndex().forEach {
-            it.value.isPressed = false
+            if (!it.value.isEnabled) {
+                it.value.isEnabled = true
+            }
         }
         registrationViewModel.typeNumber(num)
     }
@@ -77,7 +73,7 @@ class EmailCheckFragment : BaseFragment<FragmentEmailCheckBinding>(R.layout.frag
             binding.emailCheckEdittext4
         )
         viewList.withIndex().forEach {
-            it.value.isPressed = true
+            it.value.isEnabled = false
         }
         registrationViewModel.clearNumber()
     }
@@ -96,6 +92,7 @@ class EmailCheckFragment : BaseFragment<FragmentEmailCheckBinding>(R.layout.frag
             }
             if (code.length == 4) {
                 with(registrationViewModel) { emailCheckLogic(code) }
+                emailCheckFailure()
             }
         }
     }
