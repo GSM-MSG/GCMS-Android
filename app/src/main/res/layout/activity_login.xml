@@ -169,6 +169,7 @@
             app:layout_constraintEnd_toStartOf="@+id/guideline7"
             app:layout_constraintStart_toStartOf="@+id/guideline6"
             app:endIconMode="custom"
+            app:hintAnimationEnabled="false"
             app:endIconDrawable="@drawable/ic_gsm_hs_kr"
             app:endIconTint="@color/white"
             app:layout_constraintTop_toTopOf="@+id/guideline4">

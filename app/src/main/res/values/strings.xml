@@ -5,10 +5,12 @@
     <string name="create_club">동아리 개설</string>
     <string name="banner">배너</string>
     <string name="add_picture">사진을 추가해 주세요.</string>
-    <string name="club_type">동아리 종류</string>
+    <string name="club_type">동아리 유형</string>
+    <string name="introduce_club">동아리 소개</string>
     <string name="major">전공</string>
     <string name="free">자율</string>
     <string name="personal">사설</string>
+    <string name="detail">세부사항</string>
     <string name="club_name">동아리 이름</string>
     <string name="enter_club_name">동아리 이름을 입력해주세요.</string>
     <string name="club_introduction">동아리 설명</string>
@@ -40,5 +42,14 @@
     <string name="find_password">비밀번호 찾기</string>
     <string name="email_access">이메일 인증하기</string>
     <string name="send_check_email_msg">당신의 이메일로\n인증번호를 발송했습니다.</string>
+    <string name="make_club">동아리 개설</string>
+    <string name="one">1</string>
+    <string name="three">3</string>
+    <string name="two">2</string>
+    <string name="link">관련 링크</string>
+    <string name="link_name">링크 이름</string>
+    <string name="link_url">링크 URL</string>
+    <string name="optional">[선택]</string>
+    <string name="next">다음</string>
 
 </resources>

@@ -16,7 +16,9 @@
     <color name="pink">#FF8181</color>
     <color name="light_black">#1C1C1E</color>
     <color name="dark_blue">#4C53FF</color>
+    <color name="dark_blue2">#5959FF</color>
     <color name="light_blue">#00A8FE</color>
+    <color name="light_blue_2">#C3C3FF</color>
 
     <color name="gray_1">#F4F4F4</color>
     <color name="gray_2">#8D8D8D</color>
@@ -24,6 +26,8 @@
     <color name="gray_4">#8C8A8A</color>
     <color name="gray_5">#949494</color>
     <color name="gray_6">#A5A5A5</color>
+    <color name="gray_7">#747474</color>
+    <color name="gray_8">#999595</color>
 
     <color name="mtrl_textinput_default_box_stroke_color" tools:override="true">#FCFFFF</color>
 </resources>
