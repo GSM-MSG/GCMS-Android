@@ -92,7 +92,6 @@ class EmailCheckFragment : BaseFragment<FragmentEmailCheckBinding>(R.layout.frag
             }
             if (code.length == 4) {
                 with(registrationViewModel) { emailCheckLogic(code) }
-                emailCheckFailure()
             }
         }
     }
