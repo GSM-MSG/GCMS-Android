@@ -1,18 +1,12 @@
 package com.msg.gcms.ui.component.emailcheck
 
-import android.os.Bundle
-import android.util.Log
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.LifecycleObserver
 import androidx.navigation.fragment.findNavController
 import com.msg.gcms.R
 import com.msg.gcms.databinding.FragmentEmailCheckBinding
 import com.msg.gcms.ui.base.BaseFragment
 import com.msg.viewmodel.RegistrationViewModel
-import java.util.Observer
 
 
 class EmailCheckFragment : BaseFragment<FragmentEmailCheckBinding>(R.layout.fragment_email_check),

@@ -1,5 +1,6 @@
 package com.msg.gcms.di.module
 
+import com.msg.gcms.data.remote.network.common.CommonAPI
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -50,6 +51,11 @@ object NetworkModule {
         return GsonConverterFactory.create()
     }
 
+    @Provides
+    @Singleton
+    fun provideCommonService(retrofit : Retrofit) : CommonAPI {
+        return retrofit.create(CommonAPI::class.java)
+    }
 
 
 }
