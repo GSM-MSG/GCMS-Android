@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<layout xmlns:tools="http://schemas.android.com/tools"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="fragment"
             type="com.msg.gcms.ui.component.clubmaker.clubType.ClubTypeFragment" />
@@ -13,8 +14,9 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.component.clubmaker.clubType.ClubTypeFragment"
-        android:background="@color/light_black">
+        android:background="@color/light_black"
+        tools:context=".ui.component.clubmaker.clubType.ClubTypeFragment">
+
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline30"
             android:layout_width="match_parent"
@@ -107,10 +109,10 @@
             android:layout_width="0dp"
             android:layout_height="1dp"
             android:background="@color/gray_7"
-            app:layout_constraintTop_toTopOf="@id/guideline31"
             app:layout_constraintBottom_toBottomOf="@id/guideline31"
+            app:layout_constraintEnd_toStartOf="@+id/textView2"
             app:layout_constraintStart_toEndOf="@id/textView3"
-            app:layout_constraintEnd_toStartOf="@+id/textView2" />
+            app:layout_constraintTop_toTopOf="@id/guideline31" />
 
         <TextView
             android:id="@+id/textView3"

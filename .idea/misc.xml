@@ -4,6 +4,9 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/user/AndroidStudioProjects/GCMS-Android/app/src/main/res/drawable/bg_banner_placeholder.xml" value="0.198" />
+        <entry key="..\:/Users/user/AndroidStudioProjects/GCMS-Android/app/src/main/res/drawable/bg_club_image__rv.xml" value="0.2175" />
+        <entry key="..\:/Users/user/AndroidStudioProjects/GCMS-Android/app/src/main/res/drawable/bg_club_img.xml" value="0.2175" />
+        <entry key="..\:/Users/user/AndroidStudioProjects/GCMS-Android/app/src/main/res/drawable/bg_club_submit.xml" value="0.2175" />
         <entry key="..\:/Users/user/AndroidStudioProjects/GCMS-Android/app/src/main/res/drawable/bg_club_txt.xml" value="0.2175" />
         <entry key="..\:/Users/user/AndroidStudioProjects/GCMS-Android/app/src/main/res/drawable/bg_club_type.xml" value="0.198" />
         <entry key="..\:/Users/user/AndroidStudioProjects/GCMS-Android/app/src/main/res/drawable/bg_club_type_btn.xml" value="0.2175" />
@@ -56,16 +59,18 @@
         <entry key="..\:/Users/user/AndroidStudioProjects/GCMS-Android/app/src/main/res/layout/fragment_application.xml" value="0.264" />
         <entry key="..\:/Users/user/AndroidStudioProjects/GCMS-Android/app/src/main/res/layout/fragment_candidate.xml" value="0.264" />
         <entry key="..\:/Users/user/AndroidStudioProjects/GCMS-Android/app/src/main/res/layout/fragment_club_detail.xml" value="0.17617753623188406" />
+        <entry key="..\:/Users/user/AndroidStudioProjects/GCMS-Android/app/src/main/res/layout/fragment_club_home.xml" value="0.17617753623188406" />
         <entry key="..\:/Users/user/AndroidStudioProjects/GCMS-Android/app/src/main/res/layout/fragment_club_introduce.xml" value="0.264" />
         <entry key="..\:/Users/user/AndroidStudioProjects/GCMS-Android/app/src/main/res/layout/fragment_club_type.xml" value="0.35745296671490595" />
         <entry key="..\:/Users/user/AndroidStudioProjects/GCMS-Android/app/src/main/res/layout/fragment_email_check.xml" value="0.2" />
         <entry key="..\:/Users/user/AndroidStudioProjects/GCMS-Android/app/src/main/res/layout/fragment_major.xml" value="0.25364583333333335" />
         <entry key="..\:/Users/user/AndroidStudioProjects/GCMS-Android/app/src/main/res/layout/fragment_make_club.xml" value="0.2" />
-        <entry key="..\:/Users/user/AndroidStudioProjects/GCMS-Android/app/src/main/res/layout/fragment_make_club_detail.xml" value="0.264" />
+        <entry key="..\:/Users/user/AndroidStudioProjects/GCMS-Android/app/src/main/res/layout/fragment_make_club_detail.xml" value="0.2" />
         <entry key="..\:/Users/user/AndroidStudioProjects/GCMS-Android/app/src/main/res/layout/fragment_registration.xml" value="0.176" />
         <entry key="..\:/Users/user/AndroidStudioProjects/GCMS-Android/app/src/main/res/layout/fragment_sign_up.xml" value="0.176" />
         <entry key="..\:/Users/user/AndroidStudioProjects/GCMS-Android/app/src/main/res/layout/item_my_club.xml" value="0.25364583333333335" />
         <entry key="..\:/Users/user/AndroidStudioProjects/GCMS-Android/app/src/main/res/layout/list_club_member.xml" value="0.536" />
+        <entry key="..\:/Users/user/AndroidStudioProjects/GCMS-Android/app/src/main/res/layout/list_club_picture.xml" value="0.25364583333333335" />
         <entry key="..\:/Users/user/AndroidStudioProjects/GCMS-Android/app/src/main/res/layout/list_search_member.xml" value="0.264" />
         <entry key="..\:/Users/user/AndroidStudioProjects/GCMS-Android/app/src/main/res/menu/bottom_navigation_menu.xml" value="0.25364583333333335" />
         <entry key="..\:/Users/user/Documents/GitHub/GCMS-Android/app/src/main/res/layout/activity_main.xml" value="0.12635869565217392" />
