@@ -21,16 +21,16 @@ class IntroActivity : BaseActivity<ActivityIntroBinding>(R.layout.activity_intro
     private fun clickLogin() {
         binding.loginBtn.setOnClickListener {
             val loginIntent = Intent(this, LoginActivity::class.java)
+            loginIntent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP)
             startActivity(loginIntent)
-            finish()
         }
     }
 
     private fun clickRegistration() {
         binding.signInBtn.setOnClickListener {
             val registrationIntent = Intent(this, RegistrationActivity::class.java)
+            registrationIntent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP)
             startActivity(registrationIntent)
-            finish()
         }
     }
 

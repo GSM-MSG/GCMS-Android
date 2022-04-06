@@ -326,7 +326,7 @@
                 android:fontFamily="@font/notosans"
                 android:gravity="center"
                 android:onClick="@{fragment::clickedNextBtn}"
-                android:text="@string/next"
+                android:text="@string/completion"
                 android:textColor="@color/white"
                 android:textSize="18sp"
                 android:textStyle="bold"
