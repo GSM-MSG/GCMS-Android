@@ -9,5 +9,24 @@
         android:id="@+id/clubTypeFragment"
         android:name="com.msg.gcms.ui.component.clubmaker.clubType.ClubTypeFragment"
         android:label="ClubTypeFragment"
-        tools:layout="@layout/fragment_club_type"/>
+        tools:layout="@layout/fragment_club_type">
+        <action
+            android:id="@+id/action_clubTypeFragment_to_clubIntroduceFragment"
+            app:destination="@id/clubIntroduceFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/clubIntroduceFragment"
+        android:name="com.msg.gcms.ui.component.clubmaker.clubIntroduce.ClubIntroduceFragment"
+        android:label="ClubIntroduceFragment"
+        tools:layout="@layout/fragment_club_introduce">
+        <action
+            android:id="@+id/action_clubIntroduceFragment_to_makeClubDetailFragment"
+            app:destination="@id/makeClubDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/makeClubDetailFragment"
+        android:name="com.msg.gcms.ui.component.clubmaker.clubDetail.MakeClubDetailFragment"
+        android:label="MakeClubDetailFragment"
+        tools:layout="@layout/fragment_make_club_detail"/>
+
 </navigation>
