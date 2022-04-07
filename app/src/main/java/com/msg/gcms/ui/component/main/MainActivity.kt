@@ -8,17 +8,19 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.msg.gcms.R
 import com.msg.gcms.databinding.ActivityMainBinding
 import com.msg.gcms.ui.base.BaseActivity
+import com.msg.gcms.ui.component.clubmaker.MakeClubActivity
 import com.msg.gcms.ui.component.profile.ProfileActivity
 import com.msg.viewmodel.MainViewModel
 
 class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
     private val mainViewModel by viewModels<MainViewModel>()
-    private var backButtonWait : Long = 0
+    private var backButtonWait: Long = 0
 
     override fun viewSetting() {
         initBottomNav()
         clickProfile()
+        clickMakeClubBtn()
     }
 
     override fun observeEvent() {
@@ -40,6 +42,14 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         binding.profileBtn.setOnClickListener {
             val intent = Intent(this, ProfileActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_NO_ANIMATION
+            startActivity(intent)
+        }
+    }
+
+    private fun clickMakeClubBtn() {
+        binding.addClubBtn.setOnClickListener {
+            val intent = Intent(this, MakeClubActivity::class.java)
+            intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP)
             startActivity(intent)
         }
     }

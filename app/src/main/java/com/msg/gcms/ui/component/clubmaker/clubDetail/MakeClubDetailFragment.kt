@@ -9,10 +9,10 @@ import com.msg.gcms.ui.base.BaseFragment
 class MakeClubDetailFragment :
     BaseFragment<FragmentMakeClubDetailBinding>(R.layout.fragment_make_club_detail) {
     override fun init() {
-
+        binding.fragment = this
     }
 
     fun clickedNextBtn(view : View) {
-        this.findNavController()
+        activity?.finish()
     }
 }
