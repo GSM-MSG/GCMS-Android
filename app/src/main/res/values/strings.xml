@@ -51,5 +51,8 @@
     <string name="link_url">링크 URL</string>
     <string name="optional">[선택]</string>
     <string name="next">다음</string>
+    <string name="major_explanation">전공 심화를 위한\n 활동을 하는 동아리</string>
+    <string name="free_explanation">같은 관심사를 가진\n 학생들이 모인 동아리</string>
+    <string name="personal_explanation">학생들이 교내에서\n 자율적으로 만든 동아리</string>
 
 </resources>
