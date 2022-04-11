@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/registration_navigation"
-    app:startDestination="@id/signUpFragment">
+    app:startDestination="@id/postEmailFragment">
 
     <fragment
         android:id="@+id/signUpFragment"
@@ -20,8 +20,19 @@
         android:label="EmailCheckFragment"
         tools:layout="@layout/fragment_email_check">
         <action
-            app:popUpTo="@id/signUpFragment"
             android:id="@+id/action_emailCheckFragment_to_signUpFragment"
             app:destination="@id/signUpFragment" />
+        <action
+            android:id="@+id/action_emailCheckFragment_to_postEmailFragment"
+            app:destination="@id/postEmailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/postEmailFragment"
+        android:name="com.msg.gcms.ui.component.postemail.PostEmailFragment"
+        android:label="PostEmailFragment"
+        tools:layout="@layout/fragment_post_email">
+        <action
+            android:id="@+id/action_postEmailFragment_to_emailCheckFragment"
+            app:destination="@id/emailCheckFragment" />
     </fragment>
 </navigation>

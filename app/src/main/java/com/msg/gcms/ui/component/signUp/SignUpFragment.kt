@@ -1,6 +1,5 @@
 package com.msg.gcms.ui.component.signUp
 
-import android.content.Intent
 import android.os.Handler
 import android.view.View
 import android.view.animation.AnimationUtils
@@ -9,7 +8,6 @@ import androidx.navigation.fragment.findNavController
 import com.msg.gcms.R
 import com.msg.gcms.databinding.FragmentSignUpBinding
 import com.msg.gcms.ui.base.BaseFragment
-import com.msg.gcms.ui.component.intro.IntroActivity
 import com.msg.viewmodel.RegistrationViewModel
 
 class SignUpFragment : BaseFragment<FragmentSignUpBinding>(R.layout.fragment_sign_up),
@@ -46,8 +44,7 @@ class SignUpFragment : BaseFragment<FragmentSignUpBinding>(R.layout.fragment_sig
     override fun onClick(v: View?) {
         when (v!!.id) {
             binding.backBtn.id -> {
-                startActivity(Intent(activity, IntroActivity::class.java))
-                activity?.finish()
+                this.findNavController().popBackStack()
             }
             binding.emailAccessBtn.id ->
                 editTextCheck()

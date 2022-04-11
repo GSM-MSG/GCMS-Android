@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="fragment"
+            type="com.msg.gcms.ui.component.postemail.PostEmailFragment" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/light_black">
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline35"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.045" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline37"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.15125" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline38"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.485" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline40"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.58" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline41"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.82375" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline36"
+            android:layout_width="0.5dp"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.05555" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline39"
+            android:layout_width="0.5dp"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.94555" />
+
+        <View
+            android:id="@+id/wave2"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="-110dp"
+            android:layout_marginTop="-250dp"
+            android:layout_marginEnd="-110dp"
+            android:background="@drawable/bg_wave2"
+            app:layout_constraintBottom_toTopOf="@+id/guideline38"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <View
+            android:id="@+id/wave1"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="-110dp"
+            android:layout_marginTop="-250dp"
+            android:layout_marginEnd="-110dp"
+            android:background="@drawable/bg_wave1"
+            app:layout_constraintBottom_toTopOf="@+id/guideline38"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+        <ImageView
+            android:id="@+id/backBtn"
+            android:layout_width="20dp"
+            android:layout_height="27dp"
+            android:padding="5dp"
+            android:onClick="@{fragment::clickedBtn}"
+            android:src="@drawable/ic_back_btn"
+            app:layout_constraintBottom_toTopOf="@+id/guideline35"
+            app:layout_constraintStart_toStartOf="@+id/guideline36"
+            app:layout_constraintTop_toTopOf="@+id/guideline35" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:fontFamily="@font/notosans"
+            android:text="@string/back"
+            android:textColor="@color/white"
+            android:textSize="13sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/guideline35"
+            app:layout_constraintStart_toEndOf="@+id/backBtn"
+            app:layout_constraintTop_toTopOf="@+id/guideline35" />
+
+        <ImageView
+            android:id="@+id/imageView8"
+            android:layout_width="109dp"
+            android:layout_height="109dp"
+            android:src="@drawable/ic_msg_logo"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/guideline37" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/notosans"
+            android:text="@string/sign_up"
+            android:textColor="@color/white"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView8" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textInputLayout"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="0dp"
+            android:layout_height="54dp"
+            android:textColorHint="@color/gray_2"
+            app:boxStrokeColor="@color/text_input_layout_stroke_color"
+            app:boxStrokeErrorColor="@color/pink"
+            app:endIconDrawable="@drawable/ic_gsm_hs_kr"
+            app:endIconMode="custom"
+            app:endIconTint="@color/white"
+            app:errorIconTint="@color/pink"
+            app:errorTextColor="@color/pink"
+            app:hintTextColor="@color/text_input_layout_stroke_color"
+            app:layout_constraintEnd_toStartOf="@+id/guideline39"
+            app:layout_constraintStart_toStartOf="@+id/guideline36"
+            app:layout_constraintTop_toTopOf="@+id/guideline40"
+            app:startIconDrawable="@drawable/ic_baseline_email_24"
+            app:startIconTint="@color/gray_2">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/emailEt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/school_email"
+                android:textColor="@color/white"
+                android:textSize="12sp" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <TextView
+            android:id="@+id/emailAccessBtn"
+            android:layout_width="0dp"
+            android:layout_height="54dp"
+            android:background="@drawable/bg_login_btn"
+            android:fontFamily="@font/notosans"
+            android:gravity="center"
+            android:text="@string/email_access"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:onClick="@{fragment::clickedBtn}"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@+id/guideline39"
+            app:layout_constraintStart_toStartOf="@+id/guideline36"
+            app:layout_constraintTop_toTopOf="@+id/guideline41" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
