@@ -40,7 +40,7 @@
     <string name="find_password">비밀번호 찾기</string>
     <string name="email_access">이메일 인증하기</string>
     <string name="send_check_email_msg">당신의 이메일로\n인증번호를 발송했습니다.</string>
-    <string name="emailcheck_number_end">인증번호가\n만료되었습니다.</string>
+    <string name="emailcheck_fail">인증번호가 틀렸거나\n만료되었습니다.</string>
     <string name="check">확인</string>
 
 </resources>
