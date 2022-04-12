@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:tools="http://schemas.android.com/tools"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -29,37 +29,37 @@
             app:layout_constraintGuide_percent="0.5" />
 
         <LinearLayout
-            android:orientation="vertical"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/ic_dialog_bg"
+            android:orientation="vertical"
             app:layout_constraintBottom_toTopOf="@+id/guideline1"
             app:layout_constraintEnd_toStartOf="@+id/guideline2"
             app:layout_constraintStart_toStartOf="@+id/guideline2"
-            app:layout_constraintTop_toTopOf="@+id/guideline1" >
+            app:layout_constraintTop_toTopOf="@+id/guideline1">
 
             <TextView
-                android:textStyle="bold"
-                android:fontFamily="@font/notosans"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="3"
-                android:text="@string/emailcheck_number_end"
+                android:fontFamily="@font/notosans"
                 android:gravity="center"
+                android:text="@string/emailcheck_number_end"
                 android:textColor="@color/black"
-                android:textSize="12sp"/>
+                android:textSize="12sp"
+                android:textStyle="bold" />
 
             <androidx.appcompat.widget.AppCompatButton
-                android:textSize="9sp"
-                android:textColor="@color/white"
-                android:fontFamily="@font/notosans"
                 android:id="@+id/ok_btn"
-                android:text="@string/check"
-                android:layout_gravity="bottom"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
+                android:layout_gravity="bottom"
                 android:layout_weight="1"
                 android:background="@drawable/ic_dialog_btn_bg"
+                android:fontFamily="@font/notosans"
+                android:text="@string/check"
+                android:textColor="@color/white"
+                android:textSize="9sp"
                 tools:ignore="SmallSp" />
 
         </LinearLayout>

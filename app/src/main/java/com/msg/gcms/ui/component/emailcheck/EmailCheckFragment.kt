@@ -78,7 +78,7 @@ class EmailCheckFragment : BaseFragment<FragmentEmailCheckBinding>(R.layout.frag
             it.value.isEnabled = false
         }
         registrationViewModel.clearNumber()
-        dialog.show(parentFragmentManager,"EmailCheckFailure")
+        dialog.show(parentFragmentManager, "EmailCheckFailure")
     }
 
     private fun bindState() {
@@ -95,7 +95,6 @@ class EmailCheckFragment : BaseFragment<FragmentEmailCheckBinding>(R.layout.frag
             }
             if (code.length == 4) {
                 with(registrationViewModel) { emailCheckLogic(code) }
-                emailCheckFailure()
             }
         }
     }
