@@ -42,6 +42,7 @@
     <string name="find_password">비밀번호 찾기</string>
     <string name="email_access">이메일 인증하기</string>
     <string name="send_check_email_msg">당신의 이메일로\n인증번호를 발송했습니다.</string>
+
     <string name="make_club">동아리 개설</string>
     <string name="one">1</string>
     <string name="three">3</string>
@@ -55,5 +56,7 @@
     <string name="free_explanation">같은 관심사를 가진\n 학생들이 모인 동아리</string>
     <string name="personal_explanation">학생들이 교내에서\n 자율적으로 만든 동아리</string>
     <string name="use_email_in_gcms">학교 이메일은 아이디로 사용됩니다.</string>
+    <string name="emailcheck_fail">인증번호가 틀렸거나\n만료되었습니다.</string>
+    <string name="check">확인</string>
 
 </resources>

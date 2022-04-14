@@ -51,11 +51,6 @@ dependencies {
 
     implementation(Dependency.AndroidX.ROOM_KTX)
     implementation(Dependency.AndroidX.LEGACY_SUPPORT)
-    implementation("androidx.appcompat:appcompat:1.4.1")
-    implementation("com.google.android.material:material:1.5.0")
-    implementation("androidx.constraintlayout:constraintlayout:2.1.3")
-    implementation("androidx.legacy:legacy-support-v4:1.0.0")
-
     kapt(Dependency.AndroidX.ROOM_COMPILER)
 
     implementation(Dependency.Kotlin.COROUTINES_CORE)

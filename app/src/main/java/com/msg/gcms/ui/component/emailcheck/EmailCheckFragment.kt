@@ -6,6 +6,7 @@ import androidx.navigation.fragment.findNavController
 import com.msg.gcms.R
 import com.msg.gcms.databinding.FragmentEmailCheckBinding
 import com.msg.gcms.ui.base.BaseFragment
+import com.msg.gcms.ui.dialog.EmailFailureDialogFragment
 import com.msg.viewmodel.RegistrationViewModel
 
 
@@ -49,11 +50,37 @@ class EmailCheckFragment : BaseFragment<FragmentEmailCheckBinding>(R.layout.frag
     }
 
     private fun addText(num: Int) {
+        val viewList = listOf(
+            binding.emailCheckEdittext1,
+            binding.emailCheckEdittext2,
+            binding.emailCheckEdittext3,
+            binding.emailCheckEdittext4
+        )
+        viewList.withIndex().forEach {
+            if (!it.value.isEnabled) {
+                it.value.isEnabled = true
+            }
+        }
         registrationViewModel.typeNumber(num)
     }
 
     private fun eraseText() {
         registrationViewModel.eraseNumber()
+    }
+
+    private fun emailCheckFailure() {
+        val dialog = EmailFailureDialogFragment()
+        val viewList = listOf(
+            binding.emailCheckEdittext1,
+            binding.emailCheckEdittext2,
+            binding.emailCheckEdittext3,
+            binding.emailCheckEdittext4
+        )
+        viewList.withIndex().forEach {
+            it.value.isEnabled = false
+        }
+        registrationViewModel.clearNumber()
+        dialog.show(parentFragmentManager, "EmailCheckFailure")
     }
 
     private fun bindState() {
