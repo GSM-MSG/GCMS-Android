@@ -5,7 +5,9 @@ import android.graphics.BitmapFactory
 import com.msg.gcms.R
 import com.msg.gcms.databinding.ActivityProfileBinding
 import com.msg.gcms.ui.base.BaseActivity
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class ProfileActivity : BaseActivity<ActivityProfileBinding>(R.layout.activity_profile) {
     override fun observeEvent() {
 

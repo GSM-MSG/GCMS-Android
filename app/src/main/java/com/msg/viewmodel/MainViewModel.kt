@@ -2,9 +2,16 @@ package com.msg.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import com.msg.gcms.domain.usecase.common.RegistrationUseCase
 import com.msg.gcms.ui.base.BaseViewModel
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-class MainViewModel : BaseViewModel() {
+@HiltViewModel
+class MainViewModel @Inject constructor(
+
+): ViewModel() {
     private val _clubName = MutableLiveData<String>()
     val clubName: LiveData<String>
         get() = _clubName

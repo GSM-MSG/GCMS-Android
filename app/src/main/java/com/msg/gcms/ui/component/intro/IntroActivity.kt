@@ -7,7 +7,9 @@ import com.msg.gcms.databinding.ActivityIntroBinding
 import com.msg.gcms.ui.base.BaseActivity
 import com.msg.gcms.ui.component.login.LoginActivity
 import com.msg.gcms.ui.component.registration.RegistrationActivity
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class IntroActivity : BaseActivity<ActivityIntroBinding>(R.layout.activity_intro) {
     override fun viewSetting() {
 

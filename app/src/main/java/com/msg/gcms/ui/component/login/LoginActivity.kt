@@ -10,7 +10,9 @@ import com.msg.gcms.R
 import com.msg.gcms.databinding.ActivityLoginBinding
 import com.msg.gcms.ui.base.BaseActivity
 import com.msg.gcms.ui.component.intro.IntroActivity
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login),
     View.OnClickListener {
 
