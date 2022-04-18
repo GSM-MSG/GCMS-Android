@@ -1,6 +1,6 @@
 package com.msg.gcms.di.module
 
-import com.msg.gcms.data.remote.network.common.CommonAPI
+import com.msg.gcms.data.remote.network.CommonAPI
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

@@ -5,7 +5,9 @@ import androidx.navigation.fragment.findNavController
 import com.msg.gcms.R
 import com.msg.gcms.databinding.FragmentClubHomeBinding
 import com.msg.gcms.ui.base.BaseFragment
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class HomeFragment : BaseFragment<FragmentClubHomeBinding>(R.layout.fragment_club_home),
     View.OnClickListener {
     override fun init() {

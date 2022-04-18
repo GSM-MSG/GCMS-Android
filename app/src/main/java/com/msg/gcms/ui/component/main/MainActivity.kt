@@ -11,7 +11,9 @@ import com.msg.gcms.ui.base.BaseActivity
 import com.msg.gcms.ui.component.clubmaker.MakeClubActivity
 import com.msg.gcms.ui.component.profile.ProfileActivity
 import com.msg.viewmodel.MainViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
     private val mainViewModel by viewModels<MainViewModel>()

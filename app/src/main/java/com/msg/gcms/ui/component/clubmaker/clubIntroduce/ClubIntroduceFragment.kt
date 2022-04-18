@@ -5,7 +5,9 @@ import androidx.navigation.fragment.findNavController
 import com.msg.gcms.R
 import com.msg.gcms.databinding.FragmentClubIntroduceBinding
 import com.msg.gcms.ui.base.BaseFragment
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class ClubIntroduceFragment : BaseFragment<FragmentClubIntroduceBinding>(R.layout.fragment_club_introduce) {
     override fun init() {
         binding.fragment = this

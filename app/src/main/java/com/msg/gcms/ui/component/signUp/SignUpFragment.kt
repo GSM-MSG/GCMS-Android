@@ -9,7 +9,9 @@ import com.msg.gcms.R
 import com.msg.gcms.databinding.FragmentSignUpBinding
 import com.msg.gcms.ui.base.BaseFragment
 import com.msg.viewmodel.RegistrationViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class SignUpFragment : BaseFragment<FragmentSignUpBinding>(R.layout.fragment_sign_up),
     View.OnClickListener {
 

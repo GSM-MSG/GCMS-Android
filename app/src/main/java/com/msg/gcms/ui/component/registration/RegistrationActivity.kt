@@ -4,7 +4,9 @@ import android.view.View
 import com.msg.gcms.R
 import com.msg.gcms.databinding.ActivityRegistrationBinding
 import com.msg.gcms.ui.base.BaseActivity
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class RegistrationActivity :
     BaseActivity<ActivityRegistrationBinding>(R.layout.activity_registration),
     View.OnClickListener {

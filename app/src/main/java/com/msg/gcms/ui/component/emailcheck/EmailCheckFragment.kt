@@ -8,8 +8,9 @@ import com.msg.gcms.databinding.FragmentEmailCheckBinding
 import com.msg.gcms.ui.base.BaseFragment
 import com.msg.gcms.ui.dialog.EmailFailureDialogFragment
 import com.msg.viewmodel.RegistrationViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class EmailCheckFragment : BaseFragment<FragmentEmailCheckBinding>(R.layout.fragment_email_check),
     View.OnClickListener {
 
