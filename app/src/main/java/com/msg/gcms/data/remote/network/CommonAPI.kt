@@ -6,6 +6,7 @@ import com.msg.gcms.data.remote.dto.datasource.auth.request.RegisterRequest
 import com.msg.gcms.data.remote.dto.datasource.base.BaseResponse
 import com.msg.gcms.di.module.NetworkModule
 import dagger.Component
+import retrofit2.Response
 import retrofit2.http.*
 
 interface CommonAPI {
@@ -19,7 +20,7 @@ interface CommonAPI {
     @POST("auth/verify")
     suspend fun postEmail(
          @Body body : CodeIssuanceRequest
-    ) : BaseResponse
+    ) : Response<Void>
 
     @HEAD("auth/verify")
     suspend fun headCheckCode(

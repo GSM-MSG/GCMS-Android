@@ -5,6 +5,7 @@ import com.msg.gcms.data.remote.dto.datasource.auth.request.QueryString
 import com.msg.gcms.data.remote.dto.datasource.auth.request.RegisterRequest
 import com.msg.gcms.data.remote.dto.datasource.base.BaseResponse
 import com.msg.gcms.data.remote.network.CommonAPI
+import retrofit2.Response
 import javax.inject.Inject
 
 class CommonDataSourceImpl @Inject constructor(
@@ -14,7 +15,7 @@ class CommonDataSourceImpl @Inject constructor(
         return service.postSignUp(body)
     }
 
-    override suspend fun postEmail(body: CodeIssuanceRequest): BaseResponse {
+    override suspend fun postEmail(body: CodeIssuanceRequest): Response<Void> {
         return service.postEmail(body)
     }
 
