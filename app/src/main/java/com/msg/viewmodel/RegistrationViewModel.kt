@@ -1,5 +1,6 @@
 package com.msg.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -7,6 +8,7 @@ import androidx.lifecycle.viewModelScope
 import com.msg.gcms.data.remote.dto.datasource.auth.request.CodeIssuanceRequest
 import com.msg.gcms.data.remote.dto.datasource.auth.request.QueryString
 import com.msg.gcms.data.remote.dto.datasource.auth.request.RegisterRequest
+import com.msg.gcms.data.remote.dto.datasource.base.BaseResponse
 import com.msg.gcms.domain.usecase.common.RegistrationUseCase
 import com.msg.gcms.ui.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -20,14 +22,25 @@ class RegistrationViewModel @Inject constructor(
     private val _emailCode = MutableLiveData<String>()
     val emailCode: LiveData<String> get() = _emailCode
 
-    private lateinit var email : String
+    private lateinit var email: String
 
-    fun postEmailLogic(email: String) {
+    fun postEmailLogic(email: String) =
         viewModelScope.launch {
             this@RegistrationViewModel.email = email
-            useCase.postEmail(CodeIssuanceRequest(email))
+            try {
+                val response = useCase.postEmail(CodeIssuanceRequest(email))
+                Log.d("TAG","${response.code()}, ${response.body()}")
+                when(response.code()){
+                    in 200..299 -> {}
+                    in 400..599 -> {}
+                }
+
+            }catch (e : Exception){
+                Log.d("TAG","error : $e")
+            }
+            //Log.d("TAG"," ${response.errorBody()}, ${response.isSuccessful}, ${response.headers()}, ${response.message()}")
+            //Log.d("postEmail", response.code + response.message)
         }
-    }
 
     fun registrationLogic(email: String, password: String) {
         viewModelScope.launch {
