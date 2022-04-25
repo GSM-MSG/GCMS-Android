@@ -13,5 +13,5 @@ class RegistrationUseCase @Inject constructor(
 
     suspend fun postEmail(body : CodeIssuanceRequest) = repository.postEmail(body)
 
-    suspend fun headCheckCode (queryString: QueryString) = repository.headCheckCode(queryString)
+    suspend fun headCheckCode (email : String, code : String) = repository.headCheckCode(email, code)
 }

@@ -6,7 +6,6 @@ import androidx.navigation.fragment.findNavController
 import com.msg.gcms.R
 import com.msg.gcms.databinding.FragmentEmailCheckBinding
 import com.msg.gcms.ui.base.BaseFragment
-import com.msg.gcms.ui.dialog.EmailFailureDialogFragment
 import com.msg.viewmodel.RegistrationViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -19,6 +18,7 @@ class EmailCheckFragment : BaseFragment<FragmentEmailCheckBinding>(R.layout.frag
     override fun init() {
         viewSetting()
         bindState()
+        observeEvent()
     }
 
     private fun viewSetting() {
@@ -69,20 +69,20 @@ class EmailCheckFragment : BaseFragment<FragmentEmailCheckBinding>(R.layout.frag
         registrationViewModel.eraseNumber()
     }
 
-    private fun emailCheckFailure() {
-        val dialog = EmailFailureDialogFragment()
-        val viewList = listOf(
-            binding.emailCheckEdittext1,
-            binding.emailCheckEdittext2,
-            binding.emailCheckEdittext3,
-            binding.emailCheckEdittext4
-        )
-        viewList.withIndex().forEach {
-            it.value.isEnabled = false
-        }
-        registrationViewModel.clearNumber()
-        dialog.show(parentFragmentManager, "EmailCheckFailure")
-    }
+//    private fun emailCheckFailure() {
+//        val dialog = EmailFailureDialogFragment()
+//        val viewList = listOf(
+//            binding.emailCheckEdittext1,
+//            binding.emailCheckEdittext2,
+//            binding.emailCheckEdittext3,
+//            binding.emailCheckEdittext4
+//        )
+//        viewList.withIndex().forEach {
+//            it.value.isEnabled = false
+//        }
+//        registrationViewModel.clearNumber()
+//        dialog.show(parentFragmentManager, "EmailCheckFailure")
+//    }
 
     private fun bindState() {
         registrationViewModel.emailCode.observe(viewLifecycleOwner) { code ->
@@ -97,8 +97,18 @@ class EmailCheckFragment : BaseFragment<FragmentEmailCheckBinding>(R.layout.frag
                 it.value.text = if (it.index <= code.length - 1) code[it.index].toString() else null
             }
             if (code.length == 4) {
-                with(registrationViewModel) { emailCheckLogic(code) }
+                with(registrationViewModel) {
+                    emailCheckLogic(code)
+                }
             }
+        }
+    }
+
+    private fun observeEvent() {
+        registrationViewModel.emailCheckStatus.observe(this) {
+            if (it) this.findNavController()
+                .navigate(R.id.action_emailCheckFragment_to_signUpFragment)
+            else shortToast("이메일 인증에 실패하였습니다.")
         }
     }
 }

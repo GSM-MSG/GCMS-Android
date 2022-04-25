@@ -30,14 +30,19 @@ class PostEmailFragment : BaseFragment<FragmentPostEmailBinding>(R.layout.fragme
                 activity?.finish()
             }
             binding.emailAccessBtn.id -> {
-                postEmailLogic()
+                if (binding.emailEt.text!!.isNotEmpty()) {
+                    postEmailLogic()
+                } else shortToast("이메일을 입력해주세요")
             }
         }
     }
 
     private fun postEmailLogic() {
-         registrationViewModel.postEmailLogic(binding.emailEt.text.toString())
-        this.findNavController().navigate(R.id.action_postEmailFragment_to_emailCheckFragment)
+        registrationViewModel.postEmailLogic(binding.emailEt.text.toString())
+        registrationViewModel.emailPostCheckStatus.observe(this) {
+            if(it) this.findNavController().navigate(R.id.action_postEmailFragment_to_emailCheckFragment)
+            else shortToast(registrationViewModel.toastString)
+        }
     }
 
     private fun setAnim() {

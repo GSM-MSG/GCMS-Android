@@ -27,6 +27,7 @@ class SignUpFragment : BaseFragment<FragmentSignUpBinding>(R.layout.fragment_sig
 
     override fun init() {
         viewSetting()
+        observeRegistration()
     }
 
 
@@ -34,13 +35,12 @@ class SignUpFragment : BaseFragment<FragmentSignUpBinding>(R.layout.fragment_sig
         binding.textInputLayout.error = if (binding.emailEt.text!!.isEmpty()) "이메일을 입력해주세요" else null
         binding.textInputLayout2.error = if (binding.passwordEt.text!!.isEmpty()) "비밀번호를 입력해주세요" else null
         if (binding.emailEt.text!!.isNotEmpty() && binding.passwordEt.text!!.isNotEmpty()) {
-            this.findNavController().navigate(R.id.action_signUpFragment_to_emailCheckFragment)
+            registrationLogic(binding.emailEt.toString(), binding.passwordEt.toString())
         }
     }
 
     private fun registrationLogic(email: String, password: String) {
         registrationViewModel.registrationLogic(email, password)
-        findNavController().navigate(R.id.action_signUpFragment_to_emailCheckFragment)
     }
 
     override fun onClick(v: View?) {
@@ -50,6 +50,13 @@ class SignUpFragment : BaseFragment<FragmentSignUpBinding>(R.layout.fragment_sig
             }
             binding.emailAccessBtn.id ->
                 editTextCheck()
+        }
+    }
+
+    private fun observeRegistration() {
+        registrationViewModel.registrationStatus.observe(this) {
+            if(it) activity?.finish()
+            else shortToast(registrationViewModel.toastString)
         }
     }
 
