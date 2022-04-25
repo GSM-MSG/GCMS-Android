@@ -12,7 +12,7 @@ import javax.inject.Inject
 class CommonRepositoryImpl @Inject constructor(
     private val datasource : CommonDataSourceImpl,
 ) : CommonRepository {
-    override suspend fun postRegistration(request: RegisterRequest): BaseResponse {
+    override suspend fun postRegistration(request: RegisterRequest): Response<Void> {
         return datasource.postRegistration(body = request)
     }
 
@@ -20,7 +20,7 @@ class CommonRepositoryImpl @Inject constructor(
         return datasource.postEmail(body)
     }
 
-    override suspend fun headCheckCode(queryString: QueryString): BaseResponse {
-        return headCheckCode(queryString)
+    override suspend fun headCheckCode(email : String, code : String): Response<Void> {
+        return datasource.headCheckCode(email, code)
     }
 }

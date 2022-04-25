@@ -22,6 +22,17 @@ class RegistrationViewModel @Inject constructor(
     private val _emailCode = MutableLiveData<String>()
     val emailCode: LiveData<String> get() = _emailCode
 
+    private val _emailPostCheckStatus = MutableLiveData<Boolean>()
+    val emailPostCheckStatus: LiveData<Boolean> get() = _emailPostCheckStatus
+
+    private val _emailCheckStatus = MutableLiveData<Boolean>()
+    val emailCheckStatus: LiveData<Boolean> get() = _emailCheckStatus
+
+    private val _registrationStatus = MutableLiveData<Boolean>()
+    val registrationStatus : LiveData<Boolean> get()= _registrationStatus
+
+    lateinit var toastString: String
+
     private lateinit var email: String
 
     fun postEmailLogic(email: String) =
@@ -29,14 +40,24 @@ class RegistrationViewModel @Inject constructor(
             this@RegistrationViewModel.email = email
             try {
                 val response = useCase.postEmail(CodeIssuanceRequest(email))
-                Log.d("TAG","${response.code()}, ${response.body()}")
-                when(response.code()){
-                    in 200..299 -> {}
-                    in 400..599 -> {}
+                Log.d("TAG", "${response.code()}, ${response.body()}")
+                when (response.code()) {
+                    201 -> {
+                        _emailPostCheckStatus.value = true
+                    }
+                    403 -> {
+                        toastString = "유효하지 않은 계정입니다."
+                        _emailPostCheckStatus.value = false
+                    }
+                    409 -> {
+                        toastString = "이미 인증된 계정입니다."
+                        _emailPostCheckStatus.value = false
+
+                    }
                 }
 
-            }catch (e : Exception){
-                Log.d("TAG","error : $e")
+            } catch (e: Exception) {
+                Log.d("TAG", "error : $e")
             }
             //Log.d("TAG"," ${response.errorBody()}, ${response.isSuccessful}, ${response.headers()}, ${response.message()}")
             //Log.d("postEmail", response.code + response.message)
@@ -44,13 +65,32 @@ class RegistrationViewModel @Inject constructor(
 
     fun registrationLogic(email: String, password: String) {
         viewModelScope.launch {
-            useCase.postRegistration(RegisterRequest(email, password))
+            try {
+                val response = useCase.postRegistration(RegisterRequest(email, password))
+                Log.d("TAG", "${response.code()}")
+                when(response.code()) {
+                    200 -> true
+                    else -> "실패"
+                }
+            }catch (e : Exception) {
+                Log.d("TAG", "error : $e")
+            }
         }
     }
 
     fun emailCheckLogic(emailCode: String) {
         viewModelScope.launch {
-            useCase.headCheckCode(QueryString(email, emailCode))
+            try {
+                val response = useCase.headCheckCode(email.toString(), emailCode.toString())
+                _emailCheckStatus.value = when (response.code()) {
+                    200 -> true
+                    else -> false
+                }
+                Log.d("TAG", _emailCheckStatus.value.toString())
+                Log.d("TAG", "${response.code()}, ${response.body()} ${response.toString()}")
+            } catch (e: Exception) {
+                Log.d("TAG", "error : $e")
+            }
         }
     }
 

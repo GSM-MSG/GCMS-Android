@@ -8,14 +8,15 @@ import retrofit2.Response
 
 interface CommonRepository {
     suspend fun postRegistration(
-        request : RegisterRequest
-    ) : BaseResponse
+        request: RegisterRequest
+    ): Response<Void>
 
     suspend fun postEmail(
-        body : CodeIssuanceRequest
-    ) : Response<Void>
+        body: CodeIssuanceRequest
+    ): Response<Void>
 
-    suspend fun headCheckCode (
-        queryString: QueryString
-    ) : BaseResponse
+    suspend fun headCheckCode(
+        email: String,
+        code: String
+    ): Response<Void>
 }
