@@ -163,7 +163,7 @@
             android:background="@drawable/bg_sign_btn"
             android:fontFamily="@font/notosans"
             android:gravity="center"
-            android:text="@string/sign_in"
+            android:text="@string/sign_up_kr"
             android:textColor="@color/black"
             android:textSize="16sp"
             android:textStyle="bold"

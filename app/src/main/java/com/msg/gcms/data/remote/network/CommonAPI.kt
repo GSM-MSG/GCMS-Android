@@ -13,10 +13,9 @@ import retrofit2.http.*
 interface CommonAPI {
 
     @POST("auth/register")
-    suspend fun postSignUp(
+    suspend fun postRegistration(
         @Body body : RegisterRequest
     ) : Response<Void>
-
 
     @POST("auth/verify")
     suspend fun postEmail(

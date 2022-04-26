@@ -12,15 +12,15 @@ import javax.inject.Inject
 class CommonRepositoryImpl @Inject constructor(
     private val datasource : CommonDataSourceImpl,
 ) : CommonRepository {
-    override suspend fun postRegistration(request: RegisterRequest): Response<Void> {
-        return datasource.postRegistration(body = request)
+    override suspend fun postRegistration(body: RegisterRequest): Response<Void> {
+        return datasource.postRegistration(body = body)
     }
 
     override suspend fun postEmail(body: CodeIssuanceRequest): Response<Void> {
-        return datasource.postEmail(body)
+        return datasource.postEmail(body = body)
     }
 
     override suspend fun headCheckCode(email : String, code : String): Response<Void> {
-        return datasource.headCheckCode(email, code)
+        return datasource.headCheckCode(email = email, code = code)
     }
 }

@@ -106,6 +106,9 @@
         <entry key="..\:/Users/z0103/AndroidStudioProjects/GCMS-Android/app/src/main/res/layout/fragment_email_failure_dialog.xml" value="0.152" />
         <entry key="..\:/Users/z0103/AndroidStudioProjects/GCMS-Android/app/src/main/res/layout/selector_nav_text_major.xml" value="0.1" />
         <entry key="..\:/Users/z0103/AndroidStudioProjects/GCMS-Android/app/src/main/res/menu/bottom_navigation_menu.xml" value="0.264" />
+        <entry key="app/src/main/res/layout/activity_intro.xml" value="0.1118659420289855" />
+        <entry key="app/src/main/res/layout/fragment_club_introduce.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_sign_up.xml" value="0.18115942028985507" />
       </map>
     </option>
   </component>

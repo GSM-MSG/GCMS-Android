@@ -9,7 +9,7 @@ import javax.inject.Inject
 class RegistrationUseCase @Inject constructor(
     private val repository: CommonRepository
 ) {
-    suspend fun postRegistration(request: RegisterRequest) = repository.postRegistration(request)
+    suspend fun postRegistration(body: RegisterRequest) = repository.postRegistration(body)
 
     suspend fun postEmail(body : CodeIssuanceRequest) = repository.postEmail(body)
 

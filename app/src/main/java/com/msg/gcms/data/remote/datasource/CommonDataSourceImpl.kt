@@ -10,7 +10,7 @@ class CommonDataSourceImpl @Inject constructor(
     private val service: CommonAPI
 ) : CommonDataSource {
     override suspend fun postRegistration(body: RegisterRequest): Response<Void> {
-        return service.postSignUp(body)
+        return service.postRegistration(body)
     }
 
     override suspend fun postEmail(body: CodeIssuanceRequest): Response<Void> {
