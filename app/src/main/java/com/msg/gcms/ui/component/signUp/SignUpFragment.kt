@@ -35,7 +35,7 @@ class SignUpFragment : BaseFragment<FragmentSignUpBinding>(R.layout.fragment_sig
         binding.textInputLayout.error = if (binding.emailEt.text!!.isEmpty()) "이메일을 입력해주세요" else null
         binding.textInputLayout2.error = if (binding.passwordEt.text!!.isEmpty()) "비밀번호를 입력해주세요" else null
         if (binding.emailEt.text!!.isNotEmpty() && binding.passwordEt.text!!.isNotEmpty()) {
-            registrationLogic(binding.emailEt.toString(), binding.passwordEt.toString())
+            registrationLogic(email = binding.emailEt.text.toString(), password = binding.passwordEt.text.toString())
         }
     }
 
@@ -55,7 +55,7 @@ class SignUpFragment : BaseFragment<FragmentSignUpBinding>(R.layout.fragment_sig
 
     private fun observeRegistration() {
         registrationViewModel.registrationStatus.observe(this) {
-            if(it) activity?.finish()
+            if(it) this.activity?.finish()
             else shortToast(registrationViewModel.toastString)
         }
     }

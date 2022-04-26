@@ -66,10 +66,10 @@ class RegistrationViewModel @Inject constructor(
     fun registrationLogic(email: String, password: String) {
         viewModelScope.launch {
             try {
-                val response = useCase.postRegistration(RegisterRequest(email, password))
+                val response = useCase.postRegistration(RegisterRequest(email = email,password = password))
                 Log.d("TAG", "${response.code()}")
                 when(response.code()) {
-                    200 -> true
+                    in 200..299 -> true
                     else -> "실패"
                 }
             }catch (e : Exception) {

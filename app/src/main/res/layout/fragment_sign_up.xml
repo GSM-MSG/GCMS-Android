@@ -200,7 +200,7 @@
             android:background="@drawable/bg_login_btn"
             android:fontFamily="@font/notosans"
             android:gravity="center"
-            android:text="@string/email_access"
+            android:text="@string/sign_up_kr"
             android:textColor="@color/white"
             android:textSize="16sp"
             android:textStyle="bold"
