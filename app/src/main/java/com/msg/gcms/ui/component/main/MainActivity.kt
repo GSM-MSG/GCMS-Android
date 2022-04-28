@@ -43,7 +43,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
     private fun clickProfile() {
         binding.profileBtn.setOnClickListener {
             val intent = Intent(this, ProfileActivity::class.java)
-            intent.flags = Intent.FLAG_ACTIVITY_NO_ANIMATION
+            intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP)
             startActivity(intent)
         }
     }
@@ -57,11 +57,11 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
     }
 
     override fun onBackPressed() {
-        super.onBackPressed()
         if (System.currentTimeMillis() - backButtonWait >= 2000) {
             backButtonWait = System.currentTimeMillis()
             shortToast("뒤로 가기 버튼을 한 번 더 누르면 종료됩니다.")
         } else {
+            super.onBackPressed()
             finish()
         }
     }

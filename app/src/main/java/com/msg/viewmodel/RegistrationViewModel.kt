@@ -35,6 +35,16 @@ class RegistrationViewModel @Inject constructor(
 
     private lateinit var email: String
 
+    fun resetEmailCode() {
+        _emailPostCheckStatus.value = false
+        _emailCheckStatus.value = false
+    }
+
+    fun resetString() {
+        toastString = null.toString()
+    }
+
+
     fun postEmailLogic(email: String) =
         viewModelScope.launch {
             this@RegistrationViewModel.email = email

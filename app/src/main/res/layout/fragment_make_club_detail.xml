@@ -86,7 +86,7 @@
 
 
             <ImageView
-                android:id="@+id/imageView2"
+                android:id="@+id/clubTypeBackBtn"
                 android:layout_width="20dp"
                 android:layout_height="27dp"
                 android:padding="5dp"
