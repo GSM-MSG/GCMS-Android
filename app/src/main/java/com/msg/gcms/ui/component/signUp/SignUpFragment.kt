@@ -19,7 +19,6 @@ class SignUpFragment : BaseFragment<FragmentSignUpBinding>(R.layout.fragment_sig
 
     private fun viewSetting() {
         binding.apply {
-            backBtn.setOnClickListener(this@SignUpFragment)
             emailAccessBtn.setOnClickListener(this@SignUpFragment)
         }
         setAnim()
@@ -45,9 +44,6 @@ class SignUpFragment : BaseFragment<FragmentSignUpBinding>(R.layout.fragment_sig
 
     override fun onClick(v: View?) {
         when (v!!.id) {
-            binding.backBtn.id -> {
-                this.findNavController().popBackStack()
-            }
             binding.emailAccessBtn.id ->
                 editTextCheck()
         }

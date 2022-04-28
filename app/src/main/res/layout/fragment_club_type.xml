@@ -64,7 +64,7 @@
             android:layout_width="match_parent"
             android:layout_height="0.5dp"
             android:orientation="horizontal"
-            app:layout_constraintGuide_begin="500dp" />
+            app:layout_constraintGuide_percent="0.6833" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline57"
@@ -104,9 +104,10 @@
 
 
         <ImageView
-            android:id="@+id/imageView2"
+            android:id="@+id/clubTypeBackBtn"
             android:layout_width="20dp"
             android:layout_height="27dp"
+            android:onClick="@{fragment::whenClickedBtn}"
             android:padding="5dp"
             android:src="@drawable/ic_back_btn"
             app:layout_constraintBottom_toTopOf="@+id/guideline30"
@@ -245,7 +246,7 @@
                 android:id="@+id/textView20"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="32dp"
+                android:layout_marginStart="32dp"
                 android:layout_marginTop="24dp"
                 android:fontFamily="@font/notosans"
                 android:text="@string/major"
@@ -277,6 +278,7 @@
             android:onClick="@{fragment::whenClickedBtn}"
             app:layout_constraintBottom_toTopOf="@+id/guideline55"
             app:layout_constraintEnd_toStartOf="@+id/guideline43"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/guideline29"
             app:layout_constraintTop_toTopOf="@+id/guideline54">
 
@@ -284,7 +286,7 @@
                 android:id="@+id/textView21"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="32sp"
+                android:layout_marginStart="32dp"
                 android:layout_marginTop="24dp"
                 android:fontFamily="@font/notosans"
                 android:text="@string/free"
@@ -314,7 +316,6 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:background="@drawable/bg_make_personal_btn"
-            android:onClick="@{fragment::whenClickedBtn}"
             app:layout_constraintBottom_toTopOf="@+id/guideline57"
             app:layout_constraintEnd_toStartOf="@+id/guideline43"
             app:layout_constraintStart_toStartOf="@+id/guideline29"
@@ -324,7 +325,7 @@
                 android:id="@+id/textView22"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="32dp"
+                android:layout_marginStart="32dp"
                 android:layout_marginTop="24dp"
                 android:fontFamily="@font/notosans"
                 android:text="@string/personal"
@@ -344,7 +345,6 @@
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="@+id/textView22"
                 app:layout_constraintTop_toBottomOf="@+id/textView22" />
-
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

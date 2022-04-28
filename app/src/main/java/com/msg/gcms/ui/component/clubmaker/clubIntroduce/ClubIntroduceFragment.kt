@@ -8,12 +8,17 @@ import com.msg.gcms.ui.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class ClubIntroduceFragment : BaseFragment<FragmentClubIntroduceBinding>(R.layout.fragment_club_introduce) {
+class ClubIntroduceFragment :
+    BaseFragment<FragmentClubIntroduceBinding>(R.layout.fragment_club_introduce) {
     override fun init() {
         binding.fragment = this
     }
 
-    fun clickedNextButton(view : View) {
-        this.findNavController().navigate(R.id.action_clubIntroduceFragment_to_makeClubDetailFragment)
+    fun clickedButton(view: View) {
+        when (view.id) {
+            binding.backBtn.id -> this.findNavController().popBackStack()
+            binding.nextBtn.id -> this.findNavController()
+                .navigate(R.id.action_clubIntroduceFragment_to_makeClubDetailFragment)
+        }
     }
 }

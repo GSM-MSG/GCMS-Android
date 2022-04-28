@@ -9,11 +9,7 @@
         android:id="@+id/signUpFragment"
         android:name="com.msg.gcms.ui.component.signUp.SignUpFragment"
         android:label="SignUpFragment"
-        tools:layout="@layout/fragment_sign_up">
-        <action
-            android:id="@+id/action_signUpFragment_to_emailCheckFragment"
-            app:destination="@id/emailCheckFragment" />
-    </fragment>
+        tools:layout="@layout/fragment_sign_up"/>
     <fragment
         android:id="@+id/emailCheckFragment"
         android:name="com.msg.gcms.ui.component.emailcheck.EmailCheckFragment"
@@ -23,6 +19,9 @@
             android:id="@+id/action_emailCheckFragment_to_signUpFragment"
             app:destination="@id/signUpFragment" />
         <action
+            app:launchSingleTop="true"
+            app:popUpTo="@id/registration_navigation"
+            app:popUpToInclusive="true"
             android:id="@+id/action_emailCheckFragment_to_postEmailFragment"
             app:destination="@id/postEmailFragment" />
     </fragment>

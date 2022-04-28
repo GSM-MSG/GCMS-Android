@@ -114,10 +114,11 @@
 
 
         <ImageView
-            android:id="@+id/imageView2"
+            android:id="@+id/backBtn"
             android:layout_width="20dp"
             android:layout_height="27dp"
             android:padding="5dp"
+            android:onClick="@{fragment::clickedButton}"
             android:src="@drawable/ic_back_btn"
             app:layout_constraintBottom_toTopOf="@+id/guideline30"
             app:layout_constraintStart_toStartOf="@+id/guideline29"
@@ -411,6 +412,7 @@
             app:layout_constraintTop_toBottomOf="@+id/textView15" />
 
         <TextView
+            android:id="@+id/nextBtn"
             android:layout_width="match_parent"
             android:layout_height="56dp"
             android:background="@color/dark_blue2"
@@ -419,7 +421,7 @@
             android:textColor="@color/white"
             android:textSize="16sp"
             android:textStyle="bold"
-            android:onClick="@{fragment::clickedNextButton}"
+            android:onClick="@{fragment::clickedButton}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />

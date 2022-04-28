@@ -106,9 +106,14 @@ class EmailCheckFragment : BaseFragment<FragmentEmailCheckBinding>(R.layout.frag
 
     private fun observeEvent() {
         registrationViewModel.emailCheckStatus.observe(this) {
-            if (it) this.findNavController()
-                .navigate(R.id.action_emailCheckFragment_to_signUpFragment)
-            else shortToast("이메일 인증에 실패하였습니다.")
+            if (it) {
+                this.findNavController()
+                    .navigate(R.id.action_emailCheckFragment_to_signUpFragment)
+                registrationViewModel.resetEmailCode()
+            } else {
+                shortToast("이메일 인증에 실패하였습니다.")
+                registrationViewModel.resetString()
+            }
         }
     }
 }

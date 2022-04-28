@@ -132,7 +132,7 @@
             android:textSize="13sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@+id/guideline1"
-            app:layout_constraintStart_toEndOf="@+id/backBtn"
+            app:layout_constraintStart_toEndOf="@+id/clubTypeBackBtn"
             app:layout_constraintTop_toTopOf="@+id/guideline1" />
 
 

@@ -88,28 +88,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"/>
 
-        <ImageView
-            android:id="@+id/backBtn"
-            android:layout_width="20dp"
-            android:layout_height="27dp"
-            android:padding="5dp"
-            android:src="@drawable/ic_back_btn"
-            app:layout_constraintBottom_toTopOf="@+id/guideline35"
-            app:layout_constraintStart_toStartOf="@+id/guideline36"
-            app:layout_constraintTop_toTopOf="@+id/guideline35" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            android:fontFamily="@font/notosans"
-            android:text="@string/back"
-            android:textColor="@color/white"
-            android:textSize="13sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/guideline35"
-            app:layout_constraintStart_toEndOf="@+id/backBtn"
-            app:layout_constraintTop_toTopOf="@+id/guideline35" />
 
         <ImageView
             android:id="@+id/imageView8"
