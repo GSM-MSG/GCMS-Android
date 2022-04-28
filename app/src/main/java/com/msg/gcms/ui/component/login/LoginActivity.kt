@@ -4,17 +4,24 @@ import android.content.Intent
 import android.os.Handler
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.View
 import android.view.animation.AnimationUtils
+import androidx.activity.viewModels
 import com.msg.gcms.R
 import com.msg.gcms.databinding.ActivityLoginBinding
 import com.msg.gcms.ui.base.BaseActivity
 import com.msg.gcms.ui.component.intro.IntroActivity
+import com.msg.viewmodel.LoginViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login),
     View.OnClickListener {
+
+    private val loginViewModel by viewModels<LoginViewModel>()
+    private var email = ""
+    private var pw = ""
 
     override fun viewSetting() {
         binding.apply {
@@ -42,26 +49,33 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login
                 shortToast("업데이트 예정입니다.")
             }
             binding.loginBtn.id -> {
-                binding.errorMessage.visibility = View.VISIBLE
-                binding.idEditText.background = getDrawable(R.drawable.bg_login_edit_text_error)
-                binding.textInputLayout.startAnimation(
-                    AnimationUtils.loadAnimation(
-                        this@LoginActivity,
-                        R.anim.edit_text_error_animation
+                email = binding.idEditText.text.toString()
+                pw = binding.pwEditText.text.toString()
+                Log.d("여기", "${email} ${pw}")
+                if(email.equals("") || pw.equals("")){
+                    binding.errorMessage.visibility = View.VISIBLE
+                    binding.idEditText.background = getDrawable(R.drawable.bg_login_edit_text_error)
+                    binding.textInputLayout.startAnimation(
+                        AnimationUtils.loadAnimation(
+                            this@LoginActivity,
+                            R.anim.edit_text_error_animation
+                        )
                     )
-                )
-                binding.pwEditText.background = getDrawable(R.drawable.bg_login_edit_text_error)
-                binding.textInputLayout2.startAnimation(
-                    AnimationUtils.loadAnimation(
-                        this@LoginActivity,
-                        R.anim.edit_text_error_animation
+                    binding.pwEditText.background = getDrawable(R.drawable.bg_login_edit_text_error)
+                    binding.textInputLayout2.startAnimation(
+                        AnimationUtils.loadAnimation(
+                            this@LoginActivity,
+                            R.anim.edit_text_error_animation
+                        )
                     )
-                )
-                Handler().postDelayed({
-                    binding.errorMessage.visibility = View.GONE
-                    binding.idEditText.background = getDrawable(R.drawable.bg_login_edit_text)
-                    binding.pwEditText.background = getDrawable(R.drawable.bg_login_edit_text)
-                }, 500)
+                    Handler().postDelayed({
+                        binding.errorMessage.visibility = View.GONE
+                        binding.idEditText.background = getDrawable(R.drawable.bg_login_edit_text)
+                        binding.pwEditText.background = getDrawable(R.drawable.bg_login_edit_text)
+                    }, 500)
+                } else {
+                    loginViewModel.loginLogic(email, pw)
+                }
             }
         }
     }
