@@ -1,7 +1,9 @@
 package com.msg.gcms.data.remote.datasource
 
 import com.msg.gcms.data.remote.dto.datasource.auth.request.CodeIssuanceRequest
+import com.msg.gcms.data.remote.dto.datasource.auth.request.LoginRequest
 import com.msg.gcms.data.remote.dto.datasource.auth.request.RegisterRequest
+import com.msg.gcms.data.remote.dto.datasource.auth.response.LoginResponse
 import com.msg.gcms.data.remote.network.CommonAPI
 import retrofit2.Response
 import javax.inject.Inject
@@ -20,6 +22,10 @@ class CommonDataSourceImpl @Inject constructor(
 
     override suspend fun headCheckCode(email : String, code : String): Response<Void> {
         return service.headCheckCode(email, code)
+    }
+
+    override suspend fun postLogin(body: LoginRequest): Response<LoginResponse> {
+        return service.postLogin(body)
     }
 
 }
