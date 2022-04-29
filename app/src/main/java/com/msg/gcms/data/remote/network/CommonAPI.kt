@@ -30,7 +30,7 @@ interface CommonAPI {
         @Query("code") code : String
     ) : Response<Void>
 
-    @GET("auth/login")
+    @POST("auth/login")
     suspend fun postLogin(
         @Body body: LoginRequest
     ) : Response<LoginResponse>
