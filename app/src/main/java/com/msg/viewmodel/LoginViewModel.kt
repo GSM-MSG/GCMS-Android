@@ -8,9 +8,11 @@ import androidx.lifecycle.viewModelScope
 import com.msg.gcms.data.remote.dto.datasource.auth.request.LoginRequest
 import com.msg.gcms.data.remote.dto.datasource.auth.response.LoginResponse
 import com.msg.gcms.domain.usecase.common.LoginUseCase
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+@HiltViewModel
 class LoginViewModel @Inject constructor(
     private val loginUseCase: LoginUseCase
 ): ViewModel() {
