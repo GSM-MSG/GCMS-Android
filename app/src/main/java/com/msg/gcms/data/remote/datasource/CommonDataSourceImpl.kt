@@ -28,4 +28,7 @@ class CommonDataSourceImpl @Inject constructor(
         return service.postLogin(body)
     }
 
+    override suspend fun checkLogin(authorization: String): Response<Void> {
+        return service.checkLogin(authorization)
+    }
 }
