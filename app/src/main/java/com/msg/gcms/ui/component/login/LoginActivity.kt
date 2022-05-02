@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Handler
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.View
 import android.view.animation.AnimationUtils
 import androidx.activity.viewModels
@@ -12,6 +13,7 @@ import com.msg.gcms.data.remote.dto.datasource.auth.request.LoginRequest
 import com.msg.gcms.databinding.ActivityLoginBinding
 import com.msg.gcms.ui.base.BaseActivity
 import com.msg.gcms.ui.component.intro.IntroActivity
+import com.msg.gcms.ui.component.main.MainActivity
 import com.msg.viewmodel.LoginViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -32,7 +34,13 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login
     }
 
     override fun observeEvent() {
-
+        loginViewModel.loginStatus.observe(this){
+            if (it) {
+                val intent = Intent(this, MainActivity::class.java)
+                startActivity(intent)
+                finish()
+            }
+        }
     }
 
 
@@ -72,6 +80,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login
                     }, 500)
                 } else {
                     loginViewModel.postLogin(LoginRequest(id, pw))
+                    Log.d("TAG", "onClick: ${loginViewModel.loginStatus.value}, ${loginViewModel.errorMsg}")
                 }
             }
         }
