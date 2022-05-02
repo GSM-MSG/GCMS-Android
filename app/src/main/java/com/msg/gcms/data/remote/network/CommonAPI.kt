@@ -6,6 +6,7 @@ import com.msg.gcms.data.remote.dto.datasource.auth.request.QueryString
 import com.msg.gcms.data.remote.dto.datasource.auth.request.RegisterRequest
 import com.msg.gcms.data.remote.dto.datasource.auth.response.LoginResponse
 import com.msg.gcms.data.remote.dto.datasource.base.BaseResponse
+import com.msg.gcms.di.GCMSApplication
 import com.msg.gcms.di.module.NetworkModule
 import dagger.Component
 import io.reactivex.rxjava3.core.Single
@@ -34,4 +35,9 @@ interface CommonAPI {
     suspend fun postLogin(
         @Body body: LoginRequest
     ) : Response<LoginResponse>
+
+    @GET("check")
+    suspend fun checkLogin(
+        @Header("Authorization") authorization: String
+    ) : Response<Void>
 }

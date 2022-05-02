@@ -38,11 +38,26 @@ class LoginViewModel @Inject constructor(
                     201 -> {
                         Log.d("TAG", "postLogin: ")
                         _loginStatus.value = true
-                        GCMSApplication.prefs.token = response.body()?.accessToken
+                        GCMSApplication.prefs.accessToken = response.body()?.accessToken
+                        GCMSApplication.prefs.refreshToken = response.body()?.refreshToken
                     }
                 }
             } catch (e: Exception){
                 Log.d("error", "postLogin: ${e.message}")
+            }
+        }
+    }
+
+    fun checkLogin(){
+        viewModelScope.launch {
+            try {
+                val response = loginUseCase.checkLogin("Bearer ${GCMSApplication.prefs.refreshToken}")
+                when(response.code()){
+                    200 -> _loginStatus.value = true
+                    else -> _loginStatus.value = false
+                }
+            } catch (e: Exception){
+                Log.d("error", "checkLogin: ${e.message}")
             }
         }
     }
