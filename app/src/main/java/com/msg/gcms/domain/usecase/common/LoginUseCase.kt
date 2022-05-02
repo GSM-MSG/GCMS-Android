@@ -8,4 +8,6 @@ class LoginUseCase @Inject constructor(
     private val repository: CommonRepository
 ) {
     suspend fun postLogin(body: LoginRequest) = repository.postLogin(body)
+
+    suspend fun checkLogin(authorization: String) = repository.checkLogin(authorization)
 }
