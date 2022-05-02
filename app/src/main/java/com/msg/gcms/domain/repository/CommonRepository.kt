@@ -23,4 +23,8 @@ interface CommonRepository {
     suspend fun postLogin(
         body: LoginRequest
     ) : Response<LoginResponse>
+
+    suspend fun checkLogin(
+        authorization: String
+    ) : Response<Void>
 }
