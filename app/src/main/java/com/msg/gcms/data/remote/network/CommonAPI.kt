@@ -40,4 +40,9 @@ interface CommonAPI {
     suspend fun checkLogin(
         @Header("Authorization") authorization: String
     ) : Response<Void>
+
+    @POST("auth/refresh")
+    suspend fun postRefresh(
+        @Header ("Authorization") authorization: String
+    ) : Response<LoginResponse>
 }
