@@ -4,6 +4,7 @@ import android.view.View
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.msg.gcms.R
+import com.msg.gcms.base.utils.EventObserver
 import com.msg.gcms.databinding.FragmentEmailCheckBinding
 import com.msg.gcms.ui.base.BaseFragment
 import com.msg.viewmodel.RegistrationViewModel
@@ -47,7 +48,6 @@ class EmailCheckFragment : BaseFragment<FragmentEmailCheckBinding>(R.layout.frag
                 this.findNavController().popBackStack()
             }
         }
-
     }
 
     private fun addText(num: Int) {
@@ -98,22 +98,21 @@ class EmailCheckFragment : BaseFragment<FragmentEmailCheckBinding>(R.layout.frag
             }
             if (code.length == 4) {
                 with(registrationViewModel) {
-                    emailCheckLogic(code)
+                    testEmailCheckLogic(code)
+                    // emailCheckLogic(code)
                 }
             }
         }
     }
 
     private fun observeEvent() {
-        registrationViewModel.emailCheckStatus.observe(this) {
+        registrationViewModel.emailCheckStatus.observe(this, EventObserver {
             if (it) {
                 this.findNavController()
                     .navigate(R.id.action_emailCheckFragment_to_signUpFragment)
-                registrationViewModel.resetEmailCode()
-            } else {
+            } else if (it) {
                 shortToast("이메일 인증에 실패하였습니다.")
-                registrationViewModel.resetString()
             }
-        }
+        })
     }
 }

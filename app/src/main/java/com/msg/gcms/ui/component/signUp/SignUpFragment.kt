@@ -4,7 +4,6 @@ import android.os.Handler
 import android.view.View
 import android.view.animation.AnimationUtils
 import androidx.fragment.app.activityViewModels
-import androidx.navigation.fragment.findNavController
 import com.msg.gcms.R
 import com.msg.gcms.databinding.FragmentSignUpBinding
 import com.msg.gcms.ui.base.BaseFragment
@@ -52,7 +51,7 @@ class SignUpFragment : BaseFragment<FragmentSignUpBinding>(R.layout.fragment_sig
     private fun observeRegistration() {
         registrationViewModel.registrationStatus.observe(this) {
             if(it) this.activity?.finish()
-            else shortToast(registrationViewModel.toastString)
+            else shortToast(registrationViewModel.toastString.value.toString())
         }
     }
 

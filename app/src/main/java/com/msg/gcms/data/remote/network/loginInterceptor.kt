@@ -1,7 +1,6 @@
 package com.msg.gcms.data.remote.network
 
-import android.util.Log
-import com.msg.gcms.di.GCMSApplication
+import com.msg.gcms.base.di.GCMSApplication
 import okhttp3.Interceptor
 import okhttp3.Response
 

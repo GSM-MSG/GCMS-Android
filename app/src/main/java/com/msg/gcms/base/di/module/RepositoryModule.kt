@@ -1,4 +1,4 @@
-package com.msg.gcms.di.module
+package com.msg.gcms.base.di.module
 
 import com.msg.gcms.data.remote.datasource.CommonDataSourceImpl
 import com.msg.gcms.data.repository.CommonRepositoryImpl

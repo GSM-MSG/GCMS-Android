@@ -7,6 +7,7 @@ import android.view.animation.AnimationUtils
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.msg.gcms.R
+import com.msg.gcms.base.utils.EventObserver
 import com.msg.gcms.databinding.FragmentPostEmailBinding
 import com.msg.gcms.ui.base.BaseFragment
 import com.msg.gcms.ui.component.intro.IntroActivity
@@ -38,11 +39,12 @@ class PostEmailFragment : BaseFragment<FragmentPostEmailBinding>(R.layout.fragme
     }
 
     private fun postEmailLogic() {
-        registrationViewModel.postEmailLogic(binding.emailEt.text.toString())
-        registrationViewModel.emailPostCheckStatus.observe(this) {
+        // registrationViewModel.postEmailLogic(binding.emailEt.text.toString())
+        registrationViewModel.testPostEmailLogic(email = binding.emailEt.text.toString())
+        registrationViewModel.emailPostCheckStatus.observe(this, EventObserver {
             if(it) this.findNavController().navigate(R.id.action_postEmailFragment_to_emailCheckFragment)
-            else shortToast(registrationViewModel.toastString)
-        }
+            else shortToast(registrationViewModel.toastString.value.toString())
+        })
     }
 
     private fun setAnim() {
