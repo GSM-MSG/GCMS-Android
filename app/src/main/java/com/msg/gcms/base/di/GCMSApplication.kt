@@ -6,7 +6,7 @@ import dagger.hilt.android.HiltAndroidApp
 
 @HiltAndroidApp
 class GCMSApplication : Application() {
-    companion object{
+    companion object {
         lateinit var prefs: LoginAccessToken
     }
 

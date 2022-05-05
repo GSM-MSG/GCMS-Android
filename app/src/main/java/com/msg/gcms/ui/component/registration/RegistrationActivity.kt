@@ -11,7 +11,6 @@ class RegistrationActivity :
     BaseActivity<ActivityRegistrationBinding>(R.layout.activity_registration),
     View.OnClickListener {
 
-
     override fun viewSetting() {
     }
 
@@ -19,7 +18,5 @@ class RegistrationActivity :
     }
 
     override fun onClick(v: View?) {
-
     }
-
 }

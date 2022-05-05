@@ -16,7 +16,6 @@ class MakeClubActivity : BaseActivity<ActivityMakeClubBinding>(R.layout.activity
         binding.activity = this
     }
 
-
     override fun observeEvent() {
     }
 }

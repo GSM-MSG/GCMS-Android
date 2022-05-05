@@ -11,7 +11,8 @@ import com.msg.viewmodel.RegistrationViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class EmailCheckFragment : BaseFragment<FragmentEmailCheckBinding>(R.layout.fragment_email_check),
+class EmailCheckFragment :
+    BaseFragment<FragmentEmailCheckBinding>(R.layout.fragment_email_check),
     View.OnClickListener {
 
     private val registrationViewModel by activityViewModels<RegistrationViewModel>()
@@ -106,13 +107,16 @@ class EmailCheckFragment : BaseFragment<FragmentEmailCheckBinding>(R.layout.frag
     }
 
     private fun observeEvent() {
-        registrationViewModel.emailCheckStatus.observe(this, EventObserver {
-            if (it) {
-                this.findNavController()
-                    .navigate(R.id.action_emailCheckFragment_to_signUpFragment)
-            } else if (it) {
-                shortToast("이메일 인증에 실패하였습니다.")
+        registrationViewModel.emailCheckStatus.observe(
+            this,
+            EventObserver {
+                if (it) {
+                    this.findNavController()
+                        .navigate(R.id.action_emailCheckFragment_to_signUpFragment)
+                } else if (!it) {
+                    shortToast("이메일 인증에 실패하였습니다.")
+                }
             }
-        })
+        )
     }
 }

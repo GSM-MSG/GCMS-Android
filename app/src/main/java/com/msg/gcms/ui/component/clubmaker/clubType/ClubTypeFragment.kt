@@ -18,7 +18,6 @@ class ClubTypeFragment : BaseFragment<FragmentClubTypeBinding>(R.layout.fragment
         binding.fragment = this
     }
 
-
     fun whenClickedBtn(view: View) {
         if (view.id != binding.clubTypeBackBtn.id) {
             when (view.id) {

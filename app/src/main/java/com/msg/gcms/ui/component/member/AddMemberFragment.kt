@@ -8,6 +8,5 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class AddMemberFragment : BaseFragment<FragmentAddMemberBinding>(R.layout.fragment_add_member) {
     override fun init() {
-
     }
 }

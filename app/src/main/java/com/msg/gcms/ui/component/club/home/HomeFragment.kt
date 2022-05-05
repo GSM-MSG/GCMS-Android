@@ -8,7 +8,8 @@ import com.msg.gcms.ui.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class HomeFragment : BaseFragment<FragmentClubHomeBinding>(R.layout.fragment_club_home),
+class HomeFragment :
+    BaseFragment<FragmentClubHomeBinding>(R.layout.fragment_club_home),
     View.OnClickListener {
     override fun init() {
         initClick()

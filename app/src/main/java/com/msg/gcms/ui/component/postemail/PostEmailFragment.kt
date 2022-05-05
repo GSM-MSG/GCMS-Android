@@ -41,10 +41,13 @@ class PostEmailFragment : BaseFragment<FragmentPostEmailBinding>(R.layout.fragme
     private fun postEmailLogic() {
         // registrationViewModel.postEmailLogic(binding.emailEt.text.toString())
         registrationViewModel.testPostEmailLogic(email = binding.emailEt.text.toString())
-        registrationViewModel.emailPostCheckStatus.observe(this, EventObserver {
-            if(it) this.findNavController().navigate(R.id.action_postEmailFragment_to_emailCheckFragment)
-            else shortToast(registrationViewModel.toastString.value.toString())
-        })
+        registrationViewModel.emailPostCheckStatus.observe(
+            this,
+            EventObserver {
+                if (it) this.findNavController().navigate(R.id.action_postEmailFragment_to_emailCheckFragment)
+                else shortToast(registrationViewModel.toastString.value.toString())
+            }
+        )
     }
 
     private fun setAnim() {
@@ -65,6 +68,4 @@ class PostEmailFragment : BaseFragment<FragmentPostEmailBinding>(R.layout.fragme
             }, 800)
         }
     }
-
-
 }

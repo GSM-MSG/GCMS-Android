@@ -18,7 +18,8 @@ import com.msg.viewmodel.LoginViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login),
+class LoginActivity :
+    BaseActivity<ActivityLoginBinding>(R.layout.activity_login),
     View.OnClickListener {
 
     private val loginViewModel by viewModels<LoginViewModel>()
@@ -34,7 +35,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login
     }
 
     override fun observeEvent() {
-        loginViewModel.loginStatus.observe(this){
+        loginViewModel.loginStatus.observe(this) {
             if (it) {
                 val intent = Intent(this, MainActivity::class.java)
                 startActivity(intent)
@@ -42,7 +43,6 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login
             }
         }
     }
-
 
     override fun onClick(v: View?) {
         when (v!!.id) {
@@ -57,7 +57,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login
             binding.loginBtn.id -> {
                 var id = binding.idEditText.text.toString()
                 var pw = binding.pwEditText.text.toString()
-                if (id.equals("") || pw.equals("")){
+                if (id.equals("") || pw.equals("")) {
                     binding.errorMessage.visibility = View.VISIBLE
                     binding.idEditText.background = getDrawable(R.drawable.bg_login_edit_text_error)
                     binding.textInputLayout.startAnimation(

@@ -15,9 +15,9 @@ object UserCaseModule {
 
     @Provides
     @Singleton
-    fun provideRegistrationUseCase(repository : CommonRepository) : RegistrationUseCase = RegistrationUseCase(repository)
+    fun provideRegistrationUseCase(repository: CommonRepository): RegistrationUseCase = RegistrationUseCase(repository)
 
     @Provides
     @Singleton
-    fun provideLoginUseCase(repository: CommonRepository) : LoginUseCase = LoginUseCase(repository)
+    fun provideLoginUseCase(repository: CommonRepository): LoginUseCase = LoginUseCase(repository)
 }

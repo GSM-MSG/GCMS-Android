@@ -2,7 +2,6 @@ package com.msg.gcms.base.utils
 
 import androidx.lifecycle.Observer
 
-
 open class Event<out T>(private val content: T) {
     var hasBeenHandled = false
         private set

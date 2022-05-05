@@ -19,7 +19,7 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun provideOkhttpClient() : OkHttpClient {
+    fun provideOkhttpClient(): OkHttpClient {
         return OkHttpClient.Builder()
             // 요청을 시작한 후 서버와의 TCP handshake 가 완료되기까지 지속되는 시간
             .connectTimeout(30, TimeUnit.SECONDS)
@@ -30,13 +30,12 @@ object NetworkModule {
             .build()
     }
 
-
     @Provides
     @Singleton
     fun provideRetrofitInstance(
         okHttpClient: OkHttpClient,
         gsonConverterFactory: GsonConverterFactory
-    ) : Retrofit {
+    ): Retrofit {
         return Retrofit.Builder()
             .baseUrl(BASE_URL)
             .client(okHttpClient)
@@ -47,15 +46,13 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun provideConverterFactory() : GsonConverterFactory {
+    fun provideConverterFactory(): GsonConverterFactory {
         return GsonConverterFactory.create()
     }
 
     @Provides
     @Singleton
-    fun provideCommonService(retrofit : Retrofit) : CommonAPI {
+    fun provideCommonService(retrofit: Retrofit): CommonAPI {
         return retrofit.create(CommonAPI::class.java)
     }
-
-
 }

@@ -7,20 +7,16 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class MainViewModel @Inject constructor(
-
-): ViewModel() {
+class MainViewModel @Inject constructor() : ViewModel() {
     private val _clubName = MutableLiveData<String>()
     val clubName: LiveData<String>
         get() = _clubName
 
-    fun setClubName(position: Int){
-        when(position){
+    fun setClubName(position: Int) {
+        when (position) {
             0 -> _clubName.value = "전공동아리"
             1 -> _clubName.value = "자율동아리"
             2 -> _clubName.value = "사설동아리"
         }
     }
-
-
 }

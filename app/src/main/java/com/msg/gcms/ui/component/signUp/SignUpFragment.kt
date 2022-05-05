@@ -11,7 +11,8 @@ import com.msg.viewmodel.RegistrationViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class SignUpFragment : BaseFragment<FragmentSignUpBinding>(R.layout.fragment_sign_up),
+class SignUpFragment :
+    BaseFragment<FragmentSignUpBinding>(R.layout.fragment_sign_up),
     View.OnClickListener {
 
     private val registrationViewModel by activityViewModels<RegistrationViewModel>()
@@ -27,7 +28,6 @@ class SignUpFragment : BaseFragment<FragmentSignUpBinding>(R.layout.fragment_sig
         viewSetting()
         observeRegistration()
     }
-
 
     private fun editTextCheck() {
         binding.textInputLayout.error = if (binding.emailEt.text!!.isEmpty()) "이메일을 입력해주세요" else null
@@ -50,7 +50,7 @@ class SignUpFragment : BaseFragment<FragmentSignUpBinding>(R.layout.fragment_sig
 
     private fun observeRegistration() {
         registrationViewModel.registrationStatus.observe(this) {
-            if(it) this.activity?.finish()
+            if (it) this.activity?.finish()
             else shortToast(registrationViewModel.toastString.value.toString())
         }
     }

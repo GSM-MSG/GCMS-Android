@@ -13,7 +13,7 @@ class MakeClubDetailFragment :
         binding.fragment = this
     }
 
-    fun clickedNextBtn(view : View) {
+    fun clickedNextBtn(view: View) {
         activity?.finish()
     }
 }
