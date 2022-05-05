@@ -9,8 +9,8 @@ class LoginAccessToken(private val context: Context) {
     private val prefs = context.getSharedPreferences(name, MODE_PRIVATE)
 
     var token: String?
-    get() = prefs.getString("token", null)
-    set(value){
-        prefs.edit().putString("token", value).apply()
-    }
+        get() = prefs.getString("token", null)
+        set(value) {
+            prefs.edit().putString("token", value).apply()
+        }
 }

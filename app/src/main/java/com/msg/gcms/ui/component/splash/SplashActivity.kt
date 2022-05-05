@@ -1,7 +1,7 @@
 package com.msg.gcms.ui.component.splash
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import com.msg.gcms.R
 import dagger.hilt.android.AndroidEntryPoint
 

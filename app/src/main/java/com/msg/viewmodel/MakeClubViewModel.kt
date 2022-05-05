@@ -7,15 +7,12 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class MakeClubViewModel @Inject constructor(
-
-): ViewModel() {
+class MakeClubViewModel @Inject constructor() : ViewModel() {
 
     private var _clubType = MutableLiveData<String>()
-    val clubType : LiveData<String> get() =_clubType
+    val clubType: LiveData<String> get() = _clubType
 
-    fun clubTypeChange(type : String) {
+    fun clubTypeChange(type: String) {
         _clubType.value = type
     }
-
 }

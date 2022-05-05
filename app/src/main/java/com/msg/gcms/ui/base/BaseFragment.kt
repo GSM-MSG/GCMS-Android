@@ -10,9 +10,9 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 
-abstract class BaseFragment<B : ViewDataBinding>(@LayoutRes private val LayoutResId : Int): Fragment() {
+abstract class BaseFragment<B : ViewDataBinding>(@LayoutRes private val LayoutResId: Int) : Fragment() {
     val binding get() = _binding!!
-    private var _binding : B? = null
+    private var _binding: B? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -24,13 +24,13 @@ abstract class BaseFragment<B : ViewDataBinding>(@LayoutRes private val LayoutRe
         return binding.root
     }
 
-    abstract fun init ()
+    abstract fun init()
 
-    protected fun shortToast (msg : String) {
+    protected fun shortToast(msg: String) {
         Toast.makeText(context, msg, Toast.LENGTH_SHORT).show()
     }
 
-    protected fun longToast (msg: String) {
+    protected fun longToast(msg: String) {
         Toast.makeText(context, msg, Toast.LENGTH_LONG).show()
     }
 }

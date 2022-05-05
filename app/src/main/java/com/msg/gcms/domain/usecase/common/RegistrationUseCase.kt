@@ -10,7 +10,7 @@ class RegistrationUseCase @Inject constructor(
 ) {
     suspend fun postRegistration(body: RegisterRequest) = repository.postRegistration(body)
 
-    suspend fun postEmail(body : CodeIssuanceRequest) = repository.postEmail(body)
+    suspend fun postEmail(body: CodeIssuanceRequest) = repository.postEmail(body)
 
-    suspend fun headCheckCode (email : String, code : String) = repository.headCheckCode(email, code)
+    suspend fun headCheckCode(email: String, code: String) = repository.headCheckCode(email, code)
 }

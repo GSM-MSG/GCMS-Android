@@ -34,7 +34,6 @@ class RegistrationViewModel @Inject constructor(
 
     private lateinit var email: String
 
-
     fun testPostEmailLogic(email: String) {
         when (email) {
             "s21014" -> _emailPostCheckStatus.value = Event(true)
@@ -67,8 +66,8 @@ class RegistrationViewModel @Inject constructor(
             } catch (e: Exception) {
                 Log.d("TAG", "error : $e")
             }
-            //Log.d("TAG"," ${response.errorBody()}, ${response.isSuccessful}, ${response.headers()}, ${response.message()}")
-            //Log.d("postEmail", response.code + response.message)
+            // Log.d("TAG"," ${response.errorBody()}, ${response.isSuccessful}, ${response.headers()}, ${response.message()}")
+            // Log.d("postEmail", response.code + response.message)
         }
 
     fun registrationLogic(email: String, password: String) {
@@ -105,7 +104,7 @@ class RegistrationViewModel @Inject constructor(
                     else -> Event(false)
                 }
                 Log.d("TAG", _emailCheckStatus.value.toString())
-                Log.d("TAG", "${response.code()}, ${response.body()} ${response.toString()}")
+                Log.d("TAG", "${response.code()}, ${response.body()} $response")
             } catch (e: Exception) {
                 Log.d("TAG", "error : $e")
             }

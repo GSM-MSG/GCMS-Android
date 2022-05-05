@@ -9,7 +9,5 @@ import dagger.hilt.android.AndroidEntryPoint
 class ApplicationFragment :
     BaseFragment<FragmentApplicationBinding>(R.layout.fragment_application) {
     override fun init() {
-
     }
-
 }

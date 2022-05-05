@@ -19,13 +19,11 @@ class CommonDataSourceImpl @Inject constructor(
         return service.postEmail(body)
     }
 
-
-    override suspend fun headCheckCode(email : String, code : String): Response<Void> {
+    override suspend fun headCheckCode(email: String, code: String): Response<Void> {
         return service.headCheckCode(email, code)
     }
 
     override suspend fun postLogin(body: LoginRequest): Response<LoginResponse> {
         return service.postLogin(body)
     }
-
 }

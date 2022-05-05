@@ -1,6 +1,5 @@
 package com.msg.gcms.ui.component.intro
 
-
 import android.content.Intent
 import com.msg.gcms.R
 import com.msg.gcms.databinding.ActivityIntroBinding
@@ -12,7 +11,6 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class IntroActivity : BaseActivity<ActivityIntroBinding>(R.layout.activity_intro) {
     override fun viewSetting() {
-
     }
 
     override fun observeEvent() {
@@ -35,5 +33,4 @@ class IntroActivity : BaseActivity<ActivityIntroBinding>(R.layout.activity_intro
             startActivity(registrationIntent)
         }
     }
-
 }

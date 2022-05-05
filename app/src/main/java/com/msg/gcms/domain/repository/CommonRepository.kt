@@ -8,7 +8,7 @@ import retrofit2.Response
 
 interface CommonRepository {
     suspend fun postRegistration(
-        body : RegisterRequest
+        body: RegisterRequest
     ): Response<Void>
 
     suspend fun postEmail(
@@ -22,5 +22,5 @@ interface CommonRepository {
 
     suspend fun postLogin(
         body: LoginRequest
-    ) : Response<LoginResponse>
+    ): Response<LoginResponse>
 }
