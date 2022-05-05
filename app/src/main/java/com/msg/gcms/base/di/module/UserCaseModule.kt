@@ -1,4 +1,4 @@
-package com.msg.gcms.di.module
+package com.msg.gcms.base.di.module
 
 import com.msg.gcms.domain.repository.CommonRepository
 import com.msg.gcms.domain.usecase.common.LoginUseCase

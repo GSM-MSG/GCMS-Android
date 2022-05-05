@@ -3,8 +3,6 @@ package com.msg.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.msg.gcms.domain.usecase.common.RegistrationUseCase
-import com.msg.gcms.ui.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 

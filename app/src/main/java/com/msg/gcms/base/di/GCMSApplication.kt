@@ -1,4 +1,4 @@
-package com.msg.gcms.di
+package com.msg.gcms.base.di
 
 import android.app.Application
 import com.msg.gcms.data.local.dao.LoginAccessToken

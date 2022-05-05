@@ -1,6 +1,7 @@
 package com.msg.gcms.data.remote.network
 
 import com.msg.gcms.data.remote.dto.datasource.auth.request.CodeIssuanceRequest
+import com.msg.gcms.data.remote.dto.datasource.auth.request.RegisterRequest
 import com.msg.gcms.data.remote.dto.datasource.auth.request.LoginRequest
 import com.msg.gcms.data.remote.dto.datasource.auth.request.QueryString
 import com.msg.gcms.data.remote.dto.datasource.auth.request.RegisterRequest
