@@ -13,6 +13,6 @@ data class ModifyClubInfoRequest(
     val teacher :String?,
     val newActivityUrls : List<String>?,
     val deleteActivityUrls: List<String>?,
-    val deleteMember : List<String>,
+    val deleteMember : List<String>?,
     val newMember : List<String>?
 )

@@ -1,7 +1,7 @@
 package com.msg.gcms.data.remote.network
 
 import com.msg.gcms.data.remote.dto.datasource.club.request.MemberManagementRequest
-import com.msg.gcms.data.remote.dto.datasource.club.request.ClubIdentificateRequest
+import com.msg.gcms.data.remote.dto.datasource.club.request.ClubIdentificationRequest
 import com.msg.gcms.data.remote.dto.datasource.club.response.ClubInfoResponse
 import com.msg.gcms.data.remote.dto.datasource.club.response.MemberInfo
 import com.msg.gcms.data.remote.dto.datasource.club.response.SummaryClubResponse
@@ -71,13 +71,13 @@ interface ClubAPI {
     @PUT("club/open")
     suspend fun putClubOpen(
         @Header("Authorization") authorization: String,
-        @Body body: ClubIdentificateRequest
+        @Body body: ClubIdentificationRequest
     ): Response<Void>
 
     @PUT("club/close")
     suspend fun putClubClose(
         @Header("Authorization") authorization: String,
-        @Body body: ClubIdentificateRequest
+        @Body body: ClubIdentificationRequest
     ): Response<Void>
 
     @DELETE("club/kick")
@@ -89,13 +89,13 @@ interface ClubAPI {
     @POST("club/apply")
     suspend fun postClubApply(
         @Header("Authorization") authorization: String,
-        @Body body : ClubIdentificateRequest
+        @Body body : ClubIdentificationRequest
     ): Response<Void>
 
     @POST("club/cancel")
     suspend fun postClubCancel(
         @Header("Authorization") authorization: String,
-        @Body body: ClubIdentificateRequest
+        @Body body: ClubIdentificationRequest
     ): Response<Void>
 
     @PUT("club/delegation")
