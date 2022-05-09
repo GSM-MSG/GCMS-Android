@@ -46,5 +46,6 @@ object Versions {
     const val RX_JAVA = "3.0.3"
     const val RX_ANDROID = "3.0.0"
 
+    const val KTLINT = "2.1.2"
 
 }
