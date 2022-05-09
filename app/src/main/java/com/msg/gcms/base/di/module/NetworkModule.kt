@@ -1,6 +1,8 @@
 package com.msg.gcms.base.di.module
 
+import com.msg.gcms.data.remote.network.ClubAPI
 import com.msg.gcms.data.remote.network.CommonAPI
+import com.msg.gcms.data.remote.network.LoginInterceptor
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -27,6 +29,7 @@ object NetworkModule {
             .readTimeout(30, TimeUnit.SECONDS)
             // 읽기 타임 아웃의 반대 방향. 얼마나 빨리 서버에 바이트를 보낼 수 있는지 확인
             .writeTimeout(30, TimeUnit.SECONDS)
+            .addInterceptor(LoginInterceptor())
             .build()
     }
 
@@ -54,5 +57,11 @@ object NetworkModule {
     @Singleton
     fun provideCommonService(retrofit: Retrofit): CommonAPI {
         return retrofit.create(CommonAPI::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun provideClubService(retrofit: Retrofit): ClubAPI {
+        return retrofit.create(ClubAPI::class.java)
     }
 }
