@@ -26,5 +26,3 @@ jobs:
       run: ./gradlew build
     - name: Run test
       run: ./gradlew test
-    - name: Check ktlint format
-      run: ./gradlew ktlintCheck
