@@ -51,7 +51,6 @@ dependencies {
 
     implementation(Dependency.AndroidX.ROOM_KTX)
     implementation(Dependency.AndroidX.LEGACY_SUPPORT)
-    implementation("com.google.android.gms:play-services-base:18.0.1")
     kapt(Dependency.AndroidX.ROOM_COMPILER)
 
     implementation(Dependency.Kotlin.COROUTINES_CORE)
