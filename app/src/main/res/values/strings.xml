@@ -26,7 +26,6 @@
 
     <string name="example_text">...</string>
 
-    <string name="default_web_client_id" translatable="false">406780900894-65a7e8dd282hr8pltn2bsiaf59b7rche.apps.googleusercontent.com</string>
     <string name="login">로그인</string>
     <string name="sign_up_kr">회원가입</string>
     <string name="gsm_title">GSM동아리\n관리의 모든것</string>
@@ -59,5 +58,6 @@
     <string name="emailcheck_fail">인증번호가 틀렸거나\n만료되었습니다.</string>
     <string name="check">확인</string>
     <string name="google_login">Google로 계속하기</string>
+    <string name="default_web_client_id">406780900894-p5a8mvienloakdef6r56pglm2vh8e4t7.apps.googleusercontent.com</string>
 
 </resources>

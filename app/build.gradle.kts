@@ -4,6 +4,7 @@ plugins {
     kotlin("android")
     kotlin("kapt")
     id("kotlin-android")
+    id("com.google.gms.google-services")
 }
 
 android {
@@ -51,6 +52,8 @@ dependencies {
 
     implementation(Dependency.AndroidX.ROOM_KTX)
     implementation(Dependency.AndroidX.LEGACY_SUPPORT)
+    implementation(Dependency.Google.FIREBASE)
+    implementation(Dependency.Google.GMS_PLAY_SERVICE_AUTH)
     kapt(Dependency.AndroidX.ROOM_COMPILER)
 
     implementation(Dependency.Kotlin.COROUTINES_CORE)
