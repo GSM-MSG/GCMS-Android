@@ -23,8 +23,7 @@ class RegistrationViewModel @Inject constructor(
                     useCase.postRegistration(RegisterRequest(idToken = idToken))
                 Log.d("TAG", "${response.code()}")
                 when (response.code()) {
-                    in 200..299 -> true
-                    else -> "실패"
+
                 }
             } catch (e: Exception) {
                 Log.d("TAG", "error : $e")

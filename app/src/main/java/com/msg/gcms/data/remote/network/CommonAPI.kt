@@ -10,7 +10,7 @@ import retrofit2.http.*
 
 interface CommonAPI {
 
-    @POST("auth/register")
+    @POST("auth/mobile")
     suspend fun postRegistration(
         @Body body: RegisterRequest
     ): Response<RegisterResponse>
