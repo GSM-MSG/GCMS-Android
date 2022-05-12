@@ -90,16 +90,29 @@
             app:layout_constraintTop_toTopOf="@+id/guideline22" />
 
         <TextView
+            android:id="@+id/introTxt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/notosans"
-            android:text="@string/gsm_title"
+            android:text="GSM동아리"
             android:textColor="@color/white"
             android:textSize="34sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/guideline25" />
+        <TextView
+            android:id="@+id/introTxt2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/notosans"
+            android:text="관리의 모든것"
+            android:textColor="@color/white"
+            android:textSize="34sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/introTxt" />
 
         <TextView
             android:layout_width="wrap_content"
