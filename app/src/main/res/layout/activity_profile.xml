@@ -9,134 +9,202 @@
             type="com.msg.gcms.ui.component.profile.ProfileActivity" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/light_black">
 
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline1"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="0.5dp"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.04" />
+            android:layout_height="match_parent">
 
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline2"
-            android:layout_width="match_parent"
-            android:layout_height="0.5dp"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_begin="73dp" />
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline5"
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.35" />
 
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline3"
-            android:layout_width="match_parent"
-            android:layout_height="0.5dp"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.22" />
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline6"
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.64" />
 
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline4"
-            android:layout_width="match_parent"
-            android:layout_height="0.5dp"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.26" />
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline8"
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.05" />
 
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline5"
-            android:layout_width="match_parent"
-            android:layout_height="0.5dp"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.34" />
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline9"
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.48" />
 
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline6"
-            android:layout_width="match_parent"
-            android:layout_height="0.5dp"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.89" />
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline10"
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.51" />
 
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline7"
-            android:layout_width="match_parent"
-            android:layout_height="0.5dp"
-            android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.05" />
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline11"
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.95" />
 
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline8"
-            android:layout_width="match_parent"
-            android:layout_height="0.5dp"
-            android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.27" />
+            <View
+                android:id="@+id/userProfileColor"
+                android:layout_width="match_parent"
+                android:layout_height="180dp"
+                android:background="@color/pink"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageView
-            android:id="@+id/back_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="3dp"
-            android:background="@drawable/ic_back_btn"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/guideline1" />
+            <ImageView
+                android:id="@+id/back_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="29dp"
+                android:background="@drawable/ic_back_btn"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="13.85dp"
-            android:text="내 프로필"
-            android:textColor="@color/white"
-            android:textSize="18sp"
-            app:layout_constraintStart_toEndOf="@id/back_btn"
-            app:layout_constraintTop_toBottomOf="@id/guideline1" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="13.85dp"
+                android:layout_marginTop="26dp"
+                android:text="내 프로필"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                app:layout_constraintStart_toEndOf="@id/back_btn"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageView
-            android:id="@+id/profile_image"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:background="@color/white"
-            app:layout_constraintBottom_toBottomOf="@id/guideline3"
-            app:layout_constraintEnd_toEndOf="@id/guideline8"
-            app:layout_constraintStart_toStartOf="@id/guideline7"
-            app:layout_constraintTop_toBottomOf="@id/guideline2" />
+            <ImageView
+                android:id="@+id/profileImg"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:layout_marginTop="-70dp"
+                android:background="@drawable/ic_default_profile"
+                app:layout_constraintEnd_toEndOf="@id/guideline6"
+                app:layout_constraintStart_toStartOf="@id/guideline5"
+                app:layout_constraintTop_toBottomOf="@id/userProfileColor" />
 
-        <TextView
-            android:id="@+id/user_name_txt"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="21dp"
-            android:text="이름"
-            android:textColor="@color/white"
-            android:textSize="16sp"
-            app:layout_constraintStart_toEndOf="@id/profile_image"
-            app:layout_constraintTop_toBottomOf="@id/guideline2" />
+            <TextView
+                android:id="@+id/userNameTxt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="7.97dp"
+                android:text="닉네임"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/profileImg" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="7dp"
-            android:text="x학년 x반 x번"
-            android:textColor="@color/gray_2"
-            android:textSize="14sp"
-            app:layout_constraintStart_toEndOf="@id/profile_image"
-            app:layout_constraintTop_toBottomOf="@id/user_name_txt" />
+            <TextView
+                android:id="@+id/userClassTxt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="x학년 x반 x번"
+                android:textColor="#9C9C9C"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/userNameTxt" />
 
-        <View
-            android:id="@+id/divide"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/black"
-            app:layout_constraintTop_toBottomOf="@id/guideline4" />
+            <LinearLayout
+                android:id="@+id/majorClubLayout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="43.85dp"
+                android:orientation="vertical"
+                app:layout_constraintEnd_toEndOf="@id/guideline9"
+                app:layout_constraintStart_toStartOf="@id/guideline8"
+                app:layout_constraintTop_toBottomOf="@id/userClassTxt">
 
-        <androidx.viewpager.widget.ViewPager
-            android:id="@+id/my_club_viewpager"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            app:layout_constraintBottom_toBottomOf="@id/guideline6"
-            app:layout_constraintTop_toBottomOf="@id/guideline5" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="전공 동아리"
+                    android:textColor="@color/white"
+                    android:textSize="16sp" />
 
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="150.6dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/bg_club_img" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="32dp"
+                    android:background="@drawable/bg_club_txt"
+                    android:gravity="center"
+                    android:text="동아리 이름"
+                    android:textColor="@color/white"
+                    android:textSize="12sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/freedomClub"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="43.85dp"
+                android:orientation="vertical"
+                app:layout_constraintEnd_toEndOf="@id/guideline11"
+                app:layout_constraintStart_toStartOf="@id/guideline10"
+                app:layout_constraintTop_toBottomOf="@id/userClassTxt">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="자율 동아리"
+                    android:textColor="@color/white"
+                    android:textSize="16sp" />
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="150.6dp"
+                    android:layout_marginTop="7.97dp"
+                    android:background="@drawable/bg_club_img" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="32dp"
+                    android:background="@drawable/bg_club_txt"
+                    android:gravity="center"
+                    android:text="동아리 이름"
+                    android:textColor="@color/white"
+                    android:textSize="12sp" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/privateClub"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="22.04dp"
+                android:text="사설 동아리"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="@id/guideline8"
+                app:layout_constraintTop_toBottomOf="@id/majorClubLayout" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="7.97dp"
+                app:layout_constraintEnd_toEndOf="@id/guideline11"
+                app:layout_constraintStart_toStartOf="@id/guideline8"
+                app:layout_constraintTop_toBottomOf="@id/privateClub" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
 </layout>
