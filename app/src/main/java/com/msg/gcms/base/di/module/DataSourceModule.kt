@@ -1,6 +1,8 @@
 package com.msg.gcms.base.di.module
 
+import com.msg.gcms.data.remote.datasource.ClubDataSourceImpl
 import com.msg.gcms.data.remote.datasource.CommonDataSourceImpl
+import com.msg.gcms.data.remote.network.ClubAPI
 import com.msg.gcms.data.remote.network.CommonAPI
 import dagger.Module
 import dagger.Provides
@@ -15,4 +17,9 @@ object DataSourceModule {
     @Singleton
     fun provideCommonDataSource(service: CommonAPI) =
         CommonDataSourceImpl(service)
+
+    @Provides
+    @Singleton
+    fun provideClubDataSource(service: ClubAPI) =
+        ClubDataSourceImpl(service)
 }
