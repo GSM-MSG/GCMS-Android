@@ -89,6 +89,14 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/ic_logout_btn"
+                app:layout_constraintEnd_toEndOf="@id/guideline11"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginTop="28.07dp"/>
+
+            <ImageView
                 android:id="@+id/profileImg"
                 android:layout_width="120dp"
                 android:layout_height="120dp"
