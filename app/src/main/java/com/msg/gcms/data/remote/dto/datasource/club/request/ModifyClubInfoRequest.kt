@@ -7,12 +7,12 @@ data class ModifyClubInfoRequest(
     val type : String,
     val title : String,
     val description : String,
-    val bannerUrl : String,
     val contact : String,
     val relatedLink: RelatedLink?,
     val teacher :String?,
-    val newActivityUrls : List<String>?,
     val deleteActivityUrls: List<String>?,
     val deleteMember : List<String>?,
-    val newMember : List<String>?
+    val newMember : List<String>?,
+    val bannerUrl: String,
+    val activityUrls: List<String>?
 )

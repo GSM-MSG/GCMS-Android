@@ -2,6 +2,8 @@ package com.msg.gcms.data.remote.network
 
 import com.msg.gcms.data.remote.dto.datasource.club.request.MemberManagementRequest
 import com.msg.gcms.data.remote.dto.datasource.club.request.ClubIdentificationRequest
+import com.msg.gcms.data.remote.dto.datasource.club.request.CreateClubRequest
+import com.msg.gcms.data.remote.dto.datasource.club.request.ModifyClubInfoRequest
 import com.msg.gcms.data.remote.dto.datasource.club.response.ClubInfoResponse
 import com.msg.gcms.data.remote.dto.datasource.club.response.MemberInfo
 import com.msg.gcms.data.remote.dto.datasource.club.response.SummaryClubResponse
@@ -27,16 +29,15 @@ interface ClubAPI {
         @Query("q") clubName: String
     ): Response<ClubInfoResponse>
 
-    // @POST("club/")
-    // suspend fun postCreateClub(
-    //     @Header("Authorization") authorization : String,
-    //     @Body body : ClubInfoRequest
-    // ): Response<Void>
-    //
-    // @PUT("club/")
-    // suspend fun putChangeClub(
-    //     @Header("Authorization") authorization: String,
-    // ): Response<Void>
+    @POST("club/")
+    suspend fun postCreateClub(
+        @Body body: CreateClubRequest
+    ): Response<Void>
+
+    @PUT("club/")
+    suspend fun putChangeClub(
+        @Body body: ModifyClubInfoRequest
+    ): Response<Void>
 
     @DELETE("club/")
     suspend fun deleteClub(

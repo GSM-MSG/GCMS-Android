@@ -17,8 +17,14 @@ class ClubIntroduceFragment :
     fun clickedButton(view: View) {
         when (view.id) {
             binding.backBtn.id -> this.findNavController().popBackStack()
-            binding.nextBtn.id -> this.findNavController()
-                .navigate(R.id.action_clubIntroduceFragment_to_makeClubDetailFragment)
+            binding.nextBtn.id -> editTextCheck()
         }
+    }
+
+    fun editTextCheck() {
+        if (binding.clubNameEt.text.isNotEmpty() && binding.clubIntroduceEt.text.isNotEmpty() && binding.contactEt.text.isNotEmpty()) {
+            this.findNavController()
+                .navigate(R.id.action_clubIntroduceFragment_to_makeClubDetailFragment)
+        } else shortToast("필수 사항들을 모두 입력해주세요!!")
     }
 }

@@ -399,6 +399,7 @@
             app:layout_constraintTop_toTopOf="@+id/guideline48" />
 
         <EditText
+            android:id="@+id/contactEt"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"

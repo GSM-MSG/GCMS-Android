@@ -21,15 +21,9 @@ class ClubTypeFragment : BaseFragment<FragmentClubTypeBinding>(R.layout.fragment
     fun whenClickedBtn(view: View) {
         if (view.id != binding.clubTypeBackBtn.id) {
             when (view.id) {
-                binding.majorBtn.id -> {
-                    makeClubViewModel.clubTypeChange("major")
-                }
-                binding.freeBtn.id -> {
-                    makeClubViewModel.clubTypeChange("free")
-                }
-                binding.personalBtn.id -> {
-                    makeClubViewModel.clubTypeChange("personal")
-                }
+                binding.majorBtn.id -> makeClubViewModel.clubTypeChange("major")
+                binding.freeBtn.id -> makeClubViewModel.clubTypeChange("free")
+                binding.personalBtn.id -> makeClubViewModel.clubTypeChange("personal")
             }
             this.findNavController().navigate(R.id.action_clubTypeFragment_to_clubIntroduceFragment)
         } else if (view.id == binding.clubTypeBackBtn.id) {
