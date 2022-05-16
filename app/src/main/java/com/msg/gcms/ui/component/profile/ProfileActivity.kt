@@ -14,7 +14,6 @@ class ProfileActivity : BaseActivity<ActivityProfileBinding>(R.layout.activity_p
 
     override fun viewSetting() {
         clickBackBtn()
-        initRecyclerview()
         clickProfileEdit()
     }
 
@@ -24,17 +23,8 @@ class ProfileActivity : BaseActivity<ActivityProfileBinding>(R.layout.activity_p
         }
     }
 
-    private fun initRecyclerview() {
-        binding.myClubViewpager.apply {
-            adapter = ProfileClubAdapter()
-            clipToPadding = false
-            setPadding(150, 0, 150, 0)
-            pageMargin = 50
-        }
-    }
-
     private fun clickProfileEdit() {
-        binding.profileImage.setOnClickListener {
+        binding.profileImg.setOnClickListener {
             val intent = Intent()
             intent.type = "image/*"
             intent.action = Intent.ACTION_GET_CONTENT
@@ -50,7 +40,7 @@ class ProfileActivity : BaseActivity<ActivityProfileBinding>(R.layout.activity_p
                     val imgIn = contentResolver.openInputStream(data!!.data!!)
                     val img = BitmapFactory.decodeStream(imgIn)
                     imgIn!!.close()
-                    binding.profileImage.setImageBitmap(img)
+                    binding.profileImg.setImageBitmap(img)
                 } catch (e: Exception) {
                     e.printStackTrace()
                 }

@@ -52,32 +52,18 @@
             app:layout_constraintGuide_percent="0.69625" />
 
         <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline19"
-            android:layout_width="match_parent"
-            android:layout_height="0.5dp"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.766" />
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline20"
-            android:layout_width="match_parent"
-            android:layout_height="0.5dp"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.833" />
-
-        <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline21"
             android:layout_width="match_parent"
             android:layout_height="0.5dp"
             android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.8575" />
+            app:layout_constraintGuide_percent="0.8075" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline24"
             android:layout_width="match_parent"
             android:layout_height="0.5dp"
             android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.925" />
+            app:layout_constraintGuide_percent="0.875" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline17"
@@ -104,16 +90,29 @@
             app:layout_constraintTop_toTopOf="@+id/guideline22" />
 
         <TextView
+            android:id="@+id/introTxt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/notosans"
-            android:text="@string/gsm_title"
+            android:text="GSM동아리"
             android:textColor="@color/white"
             android:textSize="34sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/guideline25" />
+        <TextView
+            android:id="@+id/introTxt2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/notosans"
+            android:text="관리의 모든것"
+            android:textColor="@color/white"
+            android:textSize="34sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/introTxt" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -141,36 +140,22 @@
 
 
         <TextView
-            android:id="@+id/loginBtn"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:background="@drawable/bg_login_btn"
-            android:fontFamily="@font/notosans"
-            android:gravity="center"
-            android:text="@string/login"
-            android:textColor="@color/white"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/guideline20"
-            app:layout_constraintEnd_toStartOf="@+id/guideline18"
-            app:layout_constraintStart_toStartOf="@+id/guideline17"
-            app:layout_constraintTop_toTopOf="@+id/guideline19" />
-
-        <TextView
+            android:paddingStart="35dp"
             android:id="@+id/signInBtn"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:background="@drawable/bg_sign_btn"
             android:fontFamily="@font/notosans"
             android:gravity="center"
-            android:text="@string/sign_up_kr"
+            android:text="@string/google_login"
             android:textColor="@color/black"
             android:textSize="16sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@+id/guideline24"
             app:layout_constraintEnd_toStartOf="@+id/guideline18"
             app:layout_constraintStart_toStartOf="@+id/guideline17"
-            app:layout_constraintTop_toTopOf="@+id/guideline21" />
+            app:layout_constraintTop_toTopOf="@+id/guideline21"
+            app:drawableLeftCompat="@drawable/google_icon" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
