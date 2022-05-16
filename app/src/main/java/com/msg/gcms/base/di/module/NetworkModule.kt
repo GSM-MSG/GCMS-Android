@@ -3,6 +3,7 @@ package com.msg.gcms.base.di.module
 import com.msg.gcms.data.remote.network.ClubAPI
 import com.msg.gcms.data.remote.network.CommonAPI
 import com.msg.gcms.data.remote.network.LoginInterceptor
+import com.msg.gcms.data.remote.network.UserAPI
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -63,5 +64,11 @@ object NetworkModule {
     @Singleton
     fun provideClubService(retrofit: Retrofit): ClubAPI {
         return retrofit.create(ClubAPI::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun provideUserService(retrofit: Retrofit) : UserAPI{
+        return retrofit.create(UserAPI::class.java)
     }
 }
