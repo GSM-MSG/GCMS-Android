@@ -7,14 +7,14 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:406780900894:android:ac4ee97b4355ed79cfe00f",
+        "mobilesdk_app_id": "1:406780900894:android:0e89374eb63af323cfe00f",
         "android_client_info": {
           "package_name": "com.msg.gcms"
         }
       },
       "oauth_client": [
         {
-          "client_id": "406780900894-p5a8mvienloakdef6r56pglm2vh8e4t7.apps.googleusercontent.com",
+          "client_id": "406780900894-blckfcunjkj216jr2rndii081kg1bv3c.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.msg.gcms",
