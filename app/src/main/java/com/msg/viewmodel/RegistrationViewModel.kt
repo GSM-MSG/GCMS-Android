@@ -19,19 +19,20 @@ class RegistrationViewModel @Inject constructor(
     private val _idTokenStatus = MutableLiveData<Int>()
     val idTokenStatus: LiveData<Int> get() = _idTokenStatus
 
+    private val TAG = "login loogic"
+
     fun sendIdTokenLogic(idToken: String) {
         viewModelScope.launch {
             try {
-                val response =
-                    useCase.postRegistration(RegisterRequest(idToken = idToken))
-                Log.d("TAG", "${response.code()}")
+                val response = useCase.postRegistration(RegisterRequest(idToken = idToken))
+                Log.d(TAG, "${response.code()}")
                 when (response.code()) {
                     in 200..299 -> {
-                        Log.d("Oauth-status", "status : ${response.code()}")
+                        Log.d(TAG, "status : ${response.code()}")
                         _idTokenStatus.value = response.code()
                     }
                     else -> {
-                        Log.d("Oauth-status", "error status: ${response.code()}")
+                        Log.d(TAG, "error status: ${response.code()}")
                         _idTokenStatus.value = response.code()
                     }
                 }
