@@ -32,34 +32,6 @@
                 android:orientation="vertical"
                 app:layout_constraintGuide_percent="0.64" />
 
-            <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/guideline8"
-                android:layout_width="match_parent"
-                android:layout_height="0.5dp"
-                android:orientation="vertical"
-                app:layout_constraintGuide_percent="0.05" />
-
-            <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/guideline9"
-                android:layout_width="match_parent"
-                android:layout_height="0.5dp"
-                android:orientation="vertical"
-                app:layout_constraintGuide_percent="0.48" />
-
-            <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/guideline10"
-                android:layout_width="match_parent"
-                android:layout_height="0.5dp"
-                android:orientation="vertical"
-                app:layout_constraintGuide_percent="0.51" />
-
-            <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/guideline11"
-                android:layout_width="match_parent"
-                android:layout_height="0.5dp"
-                android:orientation="vertical"
-                app:layout_constraintGuide_percent="0.95" />
-
             <View
                 android:id="@+id/userProfileColor"
                 android:layout_width="match_parent"
@@ -91,8 +63,9 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="20.14dp"
                 android:background="@drawable/ic_logout_btn"
-                app:layout_constraintEnd_toEndOf="@id/guideline11"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 android:layout_marginTop="28.07dp"/>
 
@@ -128,91 +101,12 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/userNameTxt" />
-
-            <LinearLayout
-                android:id="@+id/majorClubLayout"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="43.85dp"
-                android:orientation="vertical"
-                app:layout_constraintEnd_toEndOf="@id/guideline9"
-                app:layout_constraintStart_toStartOf="@id/guideline8"
-                app:layout_constraintTop_toBottomOf="@id/userClassTxt">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="전공 동아리"
-                    android:textColor="@color/white"
-                    android:textSize="16sp" />
-
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="150.6dp"
-                    android:layout_marginTop="8dp"
-                    android:background="@drawable/bg_club_img" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="32dp"
-                    android:background="@drawable/bg_club_txt"
-                    android:gravity="center"
-                    android:text="동아리 이름"
-                    android:textColor="@color/white"
-                    android:textSize="12sp" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/freedomClub"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="43.85dp"
-                android:orientation="vertical"
-                app:layout_constraintEnd_toEndOf="@id/guideline11"
-                app:layout_constraintStart_toStartOf="@id/guideline10"
-                app:layout_constraintTop_toBottomOf="@id/userClassTxt">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="자율 동아리"
-                    android:textColor="@color/white"
-                    android:textSize="16sp" />
-
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="150.6dp"
-                    android:layout_marginTop="7.97dp"
-                    android:background="@drawable/bg_club_img" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="32dp"
-                    android:background="@drawable/bg_club_txt"
-                    android:gravity="center"
-                    android:text="동아리 이름"
-                    android:textColor="@color/white"
-                    android:textSize="12sp" />
-            </LinearLayout>
-
-            <TextView
-                android:id="@+id/privateClub"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="22.04dp"
-                android:text="사설 동아리"
-                android:textColor="@color/white"
-                android:textSize="16sp"
-                app:layout_constraintStart_toStartOf="@id/guideline8"
-                app:layout_constraintTop_toBottomOf="@id/majorClubLayout" />
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="7.97dp"
-                app:layout_constraintEnd_toEndOf="@id/guideline11"
-                app:layout_constraintStart_toStartOf="@id/guideline8"
-                app:layout_constraintTop_toBottomOf="@id/privateClub" />
+            <androidx.fragment.app.FragmentContainerView
+                android:id="@+id/profileFragmentView"
+                app:layout_constraintTop_toBottomOf="@id/userClassTxt"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:name="com.msg.gcms.ui.component.profile.ProfileNoClubFragment"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 </layout>
