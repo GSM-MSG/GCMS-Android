@@ -31,7 +31,6 @@ class ClubRepositoryImpl @Inject constructor(
         return dataSource.putChangeClub(body = body)
     }
 
-
     override suspend fun deleteClub(): Response<Void> {
         return dataSource.deleteClub()
     }
