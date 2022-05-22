@@ -27,8 +27,9 @@ object Versions {
     const val MATERIAL = "1.3.0"
     const val GMS_PLAY_SERVICE_BASE = "18.0.1"
     const val GMS_PLAY_SERVICE_AUTH = "19.0.0"
-    const val FIREBASE = "21.0.1"
-    const val GMS_GOOGLE_SERVICE = "3.2.0"
+    const val FIREBASE = "21.0.2"
+    const val GMS_GOOGLE_SERVICE = "4.3.10"
+    const val FIREBASE_BOM = "30.0.1"
 
     const val MOSHI = "1.13.0"
 

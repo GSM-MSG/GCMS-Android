@@ -73,7 +73,7 @@ class IntroActivity : BaseActivity<ActivityIntroBinding>(R.layout.activity_intro
             Log.d(TAG, "idToken: $idToken")
             viewModel.sendIdTokenLogic(idToken)
         } catch (e: ApiException) {
-            Log.w(TAG, "failed code = ${e.statusCode}")
+            Log.e(TAG, e.toString())
         }
     }
 }
