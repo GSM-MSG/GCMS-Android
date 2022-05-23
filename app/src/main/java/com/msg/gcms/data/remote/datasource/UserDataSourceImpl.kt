@@ -10,25 +10,23 @@ import javax.inject.Inject
 class UserDataSourceImpl @Inject constructor(
     private val service: UserAPI
 ) : UserDataSource {
-    override suspend fun getUserInfo(Authorization: String): Response<Void> {
-        TODO("Not yet implemented")
+    override suspend fun getUserInfo(): Response<Void> {
+        return service.getUserInfo()
     }
 
     override suspend fun putProfile(
-        Authorization: String,
         body: UserProfileRequest
     ): Response<Void> {
-        TODO("Not yet implemented")
+        return service.putProfile(body)
     }
 
     override suspend fun getUserSearch(QueryString: UserSearchRequest): Response<Void> {
-        TODO("Not yet implemented")
+        return service.getUserSearch(QueryString)
     }
 
     override suspend fun deleteUser(
-        Authorization: String,
         body: UserDeleteRequest
     ): Response<Void> {
-        TODO("Not yet implemented")
+        return service.deleteUser(body)
     }
 }

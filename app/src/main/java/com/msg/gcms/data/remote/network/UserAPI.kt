@@ -10,13 +10,10 @@ import retrofit2.http.PUT
 
 interface UserAPI {
     @GET("user/my")
-    suspend fun getUserInfo(
-        Authorization: String
-    ): Response<Void>
+    suspend fun getUserInfo(): Response<Void>
 
     @PUT("user/profile")
     suspend fun putProfile(
-        Authorization: String,
         body: UserProfileRequest
     ) : Response<Void>
 
@@ -27,7 +24,6 @@ interface UserAPI {
 
     @DELETE("user/exit")
     suspend fun deleteUser(
-        Authorization: String,
         body: UserDeleteRequest
     ) : Response<Void>
 }
