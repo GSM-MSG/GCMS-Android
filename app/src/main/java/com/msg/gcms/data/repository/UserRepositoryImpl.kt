@@ -11,15 +11,14 @@ import javax.inject.Inject
 class UserRepositoryImpl @Inject constructor(
     private val dataSource: UserDataSourceImpl
 ) : UserRepository {
-    override suspend fun getUserInfo(Authorization: String): Response<Void> {
-        return dataSource.getUserInfo(Authorization)
+    override suspend fun getUserInfo(): Response<Void> {
+        return dataSource.getUserInfo()
     }
 
     override suspend fun putProfile(
-        Authorization: String,
         body: UserProfileRequest
     ): Response<Void> {
-        return dataSource.putProfile(Authorization, body)
+        return dataSource.putProfile(body)
     }
 
     override suspend fun getUserSearch(QueryString: UserSearchRequest): Response<Void> {
@@ -27,9 +26,8 @@ class UserRepositoryImpl @Inject constructor(
     }
 
     override suspend fun deleteUser(
-        Authorization: String,
         body: UserDeleteRequest
     ): Response<Void> {
-        return dataSource.deleteUser(Authorization, body)
+        return dataSource.deleteUser(body)
     }
 }
