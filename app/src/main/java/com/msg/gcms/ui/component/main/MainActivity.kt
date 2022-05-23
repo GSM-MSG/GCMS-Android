@@ -1,14 +1,11 @@
 package com.msg.gcms.ui.component.main
 
-import android.content.Intent
 import androidx.activity.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.msg.gcms.R
 import com.msg.gcms.databinding.ActivityMainBinding
 import com.msg.gcms.ui.base.BaseActivity
-import com.msg.gcms.ui.component.clubmaker.MakeClubActivity
-import com.msg.gcms.ui.component.profile.ProfileActivity
 import com.msg.viewmodel.MainViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -20,13 +17,23 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
     override fun viewSetting() {
         initBottomNav()
-        clickProfile()
-        clickMakeClubBtn()
     }
 
     override fun observeEvent() {
-        mainViewModel.clubName.observe(this) {
-            binding.clubNameTxt.text = it
+        ObserveBottomNav()
+    }
+
+    private fun ObserveBottomNav(): Int {
+        binding.bottomNavigation.setOnNavigationItemSelectedListener {
+            var fragNum = 0
+            when (it.itemId) {
+                R.id.majorFragment -> fragNum = 0
+                R.id.freeFragment -> fragNum = 1
+                R.id.personalFragment -> fragNum = 2
+                else -> return@setOnNavigationItemSelectedListener false
+            }
+            mainViewModel.setClubName(fragNum)
+            return@setOnNavigationItemSelectedListener true
         }
     }
 
@@ -36,22 +43,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         val nav = binding.bottomNavigation
         navController?.let {
             nav.setupWithNavController(navController)
-        }
-    }
-
-    private fun clickProfile() {
-        binding.profileBtn.setOnClickListener {
-            val intent = Intent(this, ProfileActivity::class.java)
-            intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP)
-            startActivity(intent)
-        }
-    }
-
-    private fun clickMakeClubBtn() {
-        binding.addClubBtn.setOnClickListener {
-            val intent = Intent(this, MakeClubActivity::class.java)
-            intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP)
-            startActivity(intent)
         }
     }
 
