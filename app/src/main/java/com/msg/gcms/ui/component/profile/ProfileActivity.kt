@@ -50,6 +50,6 @@ class ProfileActivity : BaseActivity<ActivityProfileBinding>(R.layout.activity_p
     }
 
     private fun isClub(){
-        supportFragmentManager.beginTransaction().replace(R.id.profileFragmentView, ProfileClubFragment()).commit()
+        // supportFragmentManager.beginTransaction().replace(R.id.profileFragmentView, ProfileClubFragment()).commit()
     }
 }
