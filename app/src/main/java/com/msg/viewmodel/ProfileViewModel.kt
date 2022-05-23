@@ -1,18 +1,22 @@
 package com.msg.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.msg.gcms.domain.usecase.user.ProfileUseCase
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+@HiltViewModel
 class ProfileViewModel @Inject constructor(
     private val profileUseCase: ProfileUseCase
 ): ViewModel() {
     private val _clubStatus = MutableLiveData<Boolean>()
     val clubStatus: LiveData<Boolean> get() = _clubStatus
+
     fun getUserInfo(){
         viewModelScope.launch {
             try{
@@ -26,7 +30,7 @@ class ProfileViewModel @Inject constructor(
                     }
                 }
             } catch (e: Exception){
-
+                Log.d("ERROR", "getUserInfo: ${e.message}")
             }
         }
     }
