@@ -7,8 +7,7 @@ import android.graphics.BitmapFactory
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.google.android.material.snackbar.Snackbar
-import android.util.Log
-import androidx.activity.viewModels 
+import androidx.activity.viewModels
 import com.msg.gcms.R
 import com.msg.gcms.databinding.ActivityProfileBinding
 import com.msg.gcms.ui.base.BaseActivity
@@ -32,7 +31,7 @@ class ProfileActivity : BaseActivity<ActivityProfileBinding>(R.layout.activity_p
         clickProfileEdit()
     }
 
-    private fun getUserInfo(){
+    private fun getUserInfo() {
         viewModel.getUserInfo()
     }
 
@@ -40,6 +39,11 @@ class ProfileActivity : BaseActivity<ActivityProfileBinding>(R.layout.activity_p
         binding.backBtn.setOnClickListener {
             finish()
         }
+    }
+
+    private fun isClub() {
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.profileFragmentView, ProfileClubFragment()).commit()
     }
 
     private fun clickProfileEdit() {
@@ -89,12 +93,10 @@ class ProfileActivity : BaseActivity<ActivityProfileBinding>(R.layout.activity_p
                 if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     Snackbar.make(binding.root, "갤러리 접근 권한에 동의되었습니다.", Snackbar.LENGTH_SHORT).show()
                 } else {
-                    Snackbar.make(binding.root, "권한에 동의하지 않을 경우 이용할 수 없습니다.", Snackbar.LENGTH_SHORT).show()
+                    Snackbar.make(binding.root, "권한에 동의하지 않을 경우 이용할 수 없습니다.", Snackbar.LENGTH_SHORT)
+                        .show()
                 }
             }
         }
-    private fun isClub(){
-        supportFragmentManager.beginTransaction()
-            .replace(R.id.profileFragmentView, ProfileClubFragment()).commit()
     }
 }
