@@ -7,19 +7,33 @@ import android.graphics.BitmapFactory
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.google.android.material.snackbar.Snackbar
+import android.util.Log
+import androidx.activity.viewModels 
 import com.msg.gcms.R
 import com.msg.gcms.databinding.ActivityProfileBinding
 import com.msg.gcms.ui.base.BaseActivity
+import com.msg.viewmodel.ProfileViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class ProfileActivity : BaseActivity<ActivityProfileBinding>(R.layout.activity_profile) {
+    private val viewModel by viewModels<ProfileViewModel>()
     override fun observeEvent() {
+        viewModel.clubStatus.observe(this) {
+            if (it) {
+                isClub()
+            }
+        }
     }
 
     override fun viewSetting() {
+        getUserInfo()
         clickBackBtn()
         clickProfileEdit()
+    }
+
+    private fun getUserInfo(){
+        viewModel.getUserInfo()
     }
 
     private fun clickBackBtn() {
@@ -79,5 +93,8 @@ class ProfileActivity : BaseActivity<ActivityProfileBinding>(R.layout.activity_p
                 }
             }
         }
+    private fun isClub(){
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.profileFragmentView, ProfileClubFragment()).commit()
     }
 }
