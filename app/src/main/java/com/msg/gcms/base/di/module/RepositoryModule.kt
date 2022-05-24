@@ -28,7 +28,7 @@ object RepositoryModule {
 
     @Provides
     @Singleton
-    fun provideClubRepository(dataSource : ClubDataSourceImpl): ClubRepository =
+    fun provideClubRepository(dataSource: ClubDataSourceImpl): ClubRepository =
         ClubRepositoryImpl(dataSource)
 
     @Provides

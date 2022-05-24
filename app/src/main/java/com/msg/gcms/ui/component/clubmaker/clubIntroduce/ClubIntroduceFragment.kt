@@ -22,7 +22,7 @@ class ClubIntroduceFragment :
     }
 
     fun editTextCheck() {
-        if (binding.clubNameEt.text.isNotEmpty() && binding.clubIntroduceEt.text.isNotEmpty() && binding.contactEt.text.isNotEmpty()) {
+        if (binding.clubNameEt.text.isNotEmpty() && binding.clubIntroduceEt.text.isNotEmpty() && binding.contactEt.text.isNotEmpty() && binding.linkUrlEt.text.isNotEmpty() && binding.linkName.text.isNotEmpty()) {
             this.findNavController()
                 .navigate(R.id.action_clubIntroduceFragment_to_makeClubDetailFragment)
         } else shortToast("필수 사항들을 모두 입력해주세요!!")

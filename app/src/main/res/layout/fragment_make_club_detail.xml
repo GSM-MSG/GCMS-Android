@@ -90,6 +90,7 @@
                 android:layout_width="20dp"
                 android:layout_height="27dp"
                 android:padding="5dp"
+                android:onClick="@{fragment.clickedPageBtn}"
                 android:src="@drawable/ic_back_btn"
                 app:layout_constraintBottom_toTopOf="@+id/guideline30"
                 app:layout_constraintStart_toStartOf="@+id/guideline29"
@@ -313,12 +314,13 @@
                 tools:listitem="@layout/list_club_member" />
 
             <TextView
+                android:id="@+id/nextBtn"
                 android:layout_width="match_parent"
                 android:layout_height="56dp"
                 android:background="@color/dark_blue2"
                 android:fontFamily="@font/notosans"
                 android:gravity="center"
-                android:onClick="@{fragment::clickedNextBtn}"
+                android:onClick="@{fragment::clickedPageBtn}"
                 android:text="@string/completion"
                 android:textColor="@color/white"
                 android:textSize="18sp"
