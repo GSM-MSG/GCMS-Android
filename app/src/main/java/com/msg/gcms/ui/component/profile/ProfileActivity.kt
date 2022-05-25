@@ -11,6 +11,7 @@ import androidx.activity.viewModels
 import com.msg.gcms.R
 import com.msg.gcms.databinding.ActivityProfileBinding
 import com.msg.gcms.ui.base.BaseActivity
+import com.msg.gcms.ui.component.intro.IntroActivity
 import com.msg.viewmodel.ProfileViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -18,17 +19,34 @@ import dagger.hilt.android.AndroidEntryPoint
 class ProfileActivity : BaseActivity<ActivityProfileBinding>(R.layout.activity_profile) {
     private val viewModel by viewModels<ProfileViewModel>()
     override fun observeEvent() {
-        viewModel.clubStatus.observe(this) {
-            if (it) {
-                isClub()
-            }
-        }
+        isClub()
+        isLogout()
     }
 
     override fun viewSetting() {
         getUserInfo()
         clickBackBtn()
         clickProfileEdit()
+        clickLogout()
+    }
+
+    private fun isLogout(){
+        viewModel.logoutStatus.observe(this){
+            if(it) {
+                val intent = Intent(this, IntroActivity::class.java)
+                startActivity(intent)
+                finish()
+            }
+        }
+    }
+
+    private fun isClub() {
+        viewModel.clubStatus.observe(this) {
+            if (it) {
+                supportFragmentManager.beginTransaction()
+                    .replace(R.id.profileFragmentView, ProfileClubFragment()).commit()
+            }
+        }
     }
 
     private fun getUserInfo() {
@@ -39,11 +57,6 @@ class ProfileActivity : BaseActivity<ActivityProfileBinding>(R.layout.activity_p
         binding.backBtn.setOnClickListener {
             finish()
         }
-    }
-
-    private fun isClub() {
-        supportFragmentManager.beginTransaction()
-            .replace(R.id.profileFragmentView, ProfileClubFragment()).commit()
     }
 
     private fun clickProfileEdit() {
@@ -63,6 +76,12 @@ class ProfileActivity : BaseActivity<ActivityProfileBinding>(R.layout.activity_p
                     arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE), 1
                 )
             }
+        }
+    }
+
+    private fun clickLogout(){
+        binding.logoutBtn.setOnClickListener {
+            viewModel.logout()
         }
     }
 

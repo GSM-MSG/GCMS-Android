@@ -20,4 +20,8 @@ class CommonRepositoryImpl @Inject constructor(
     override suspend fun postLogin(body: LoginRequest): Response<LoginResponse> {
         return datasource.postLogin(body = body)
     }
+
+    override suspend fun postLogout(): Response<Void> {
+        return datasource.postLogout()
+    }
 }

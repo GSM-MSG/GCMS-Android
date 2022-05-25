@@ -30,4 +30,7 @@ interface CommonAPI {
     suspend fun postLogin(
         @Body body: LoginRequest
     ): Response<LoginResponse>
+
+    @POST("auth/logout")
+    suspend fun postLogout(): Response<Void>
 }
