@@ -20,10 +20,10 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
     }
 
     override fun observeEvent() {
-        ObserveBottomNav()
+        observeBottomNav()
     }
 
-    private fun ObserveBottomNav(): Int {
+    private fun observeBottomNav(){
         binding.bottomNavigation.setOnNavigationItemSelectedListener {
             var fragNum = 0
             when (it.itemId) {

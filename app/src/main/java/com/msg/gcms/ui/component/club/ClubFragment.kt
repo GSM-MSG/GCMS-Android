@@ -22,6 +22,7 @@ class ClubFragment : BaseFragment<FragmentClubBinding>(R.layout.fragment_club) {
     private fun clubTxt(){
         viewModel.clubName.observe(this){
             binding.clubNameTxt.text = viewModel.clubName.value
+            viewModel.getClubList()
         }
     }
 
