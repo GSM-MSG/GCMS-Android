@@ -310,18 +310,6 @@
             app:layout_constraintStart_toStartOf="@+id/guideline29"
             app:layout_constraintTop_toTopOf="@+id/guideline34" />
 
-        <TextView
-            android:id="@+id/textView9"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:fontFamily="@font/notosans"
-            android:text="@string/optional"
-            android:textColor="@color/white"
-            android:textSize="10sp"
-            app:layout_constraintBottom_toBottomOf="@+id/textView8"
-            app:layout_constraintStart_toEndOf="@+id/textView8" />
-
         <EditText
             android:id="@+id/linkName"
             android:layout_width="0dp"
@@ -332,6 +320,7 @@
             android:textColor="@color/white"
             android:textColorHint="@color/gray_2"
             android:textSize="13sp"
+            android:text="@string/notion_link"
             app:layout_constraintEnd_toStartOf="@+id/guideline42"
             app:layout_constraintStart_toStartOf="@+id/guideline29"
             app:layout_constraintTop_toBottomOf="@+id/textView8" />
@@ -399,6 +388,7 @@
             app:layout_constraintTop_toTopOf="@+id/guideline48" />
 
         <EditText
+            android:id="@+id/contactEt"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"

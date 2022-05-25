@@ -90,6 +90,7 @@
                 android:layout_width="20dp"
                 android:layout_height="27dp"
                 android:padding="5dp"
+                android:onClick="@{fragment.clickedPageBtn}"
                 android:src="@drawable/ic_back_btn"
                 app:layout_constraintBottom_toTopOf="@+id/guideline30"
                 app:layout_constraintStart_toStartOf="@+id/guideline29"
@@ -224,45 +225,37 @@
                 app:layout_constraintStart_toStartOf="@+id/guideline29"
                 app:layout_constraintTop_toTopOf="@+id/guideline28" />
 
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <ImageView
                 android:id="@+id/addBannerPicture"
                 android:layout_width="0dp"
                 android:layout_height="212dp"
-                android:layout_marginTop="8dp"
-                android:background="@drawable/bg_banner_placeholder"
-                app:layout_constraintEnd_toStartOf="@+id/guideline43"
+                android:onClick="@{fragment.galleryOpen}"
+                app:layout_constraintTop_toBottomOf="@+id/textView16"                app:layout_constraintEnd_toStartOf="@+id/guideline43"
                 app:layout_constraintStart_toStartOf="@+id/guideline29"
-                app:layout_constraintTop_toBottomOf="@+id/textView16">
+                android:background="@drawable/bg_banner_placeholder"/>
 
-                <androidx.constraintlayout.widget.Guideline
-                    android:id="@+id/guideline49"
-                    android:layout_width="match_parent"
-                    android:layout_height="0.5dp"
-                    android:orientation="horizontal"
-                    app:layout_constraintGuide_percent="0.44811" />
+            <ImageView
+                android:id="@+id/imageView7"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_banner_placeholder"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/addBannerPicture"
+                app:layout_constraintBottom_toBottomOf="@id/addBannerPicture"/>
 
-                <ImageView
-                    android:id="@+id/imageView7"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_banner_placeholder"
-                    app:layout_constraintBottom_toTopOf="@+id/guideline49"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/guideline49" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="7dp"
-                    android:fontFamily="@font/notosans"
-                    android:text="@string/add_picture"
-                    android:textColor="@color/gray_2"
-                    android:textSize="10sp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/imageView7" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
+            <TextView
+                android:id="@+id/addImageTxt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="7dp"
+                android:fontFamily="@font/notosans"
+                android:text="@string/add_picture"
+                android:textColor="@color/gray_2"
+                android:textSize="10sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imageView7"/>
 
             <TextView
                 android:id="@+id/textView17"
@@ -289,10 +282,11 @@
                 app:layout_constraintStart_toEndOf="@+id/textView17" />
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recyclerView"
+                android:id="@+id/clubActivePicture"
                 android:layout_width="0dp"
                 android:layout_height="151dp"
                 android:layout_marginTop="8dp"
+                android:onClick="@{fragment.galleryOpen}"
                 app:layout_constraintEnd_toStartOf="@+id/guideline43"
                 app:layout_constraintStart_toStartOf="@+id/guideline29"
                 app:layout_constraintTop_toBottomOf="@+id/textView17"
@@ -320,12 +314,13 @@
                 tools:listitem="@layout/list_club_member" />
 
             <TextView
+                android:id="@+id/nextBtn"
                 android:layout_width="match_parent"
                 android:layout_height="56dp"
                 android:background="@color/dark_blue2"
                 android:fontFamily="@font/notosans"
                 android:gravity="center"
-                android:onClick="@{fragment::clickedNextBtn}"
+                android:onClick="@{fragment::clickedPageBtn}"
                 android:text="@string/completion"
                 android:textColor="@color/white"
                 android:textSize="18sp"

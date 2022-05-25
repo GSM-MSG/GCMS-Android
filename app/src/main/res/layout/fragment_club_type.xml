@@ -315,6 +315,7 @@
             android:id="@+id/personalBtn"
             android:layout_width="0dp"
             android:layout_height="0dp"
+            android:onClick="@{fragment::whenClickedBtn}"
             android:background="@drawable/bg_make_personal_btn"
             app:layout_constraintBottom_toTopOf="@+id/guideline57"
             app:layout_constraintEnd_toStartOf="@+id/guideline43"

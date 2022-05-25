@@ -58,4 +58,6 @@
     <string name="emailcheck_fail">인증번호가 틀렸거나\n만료되었습니다.</string>
     <string name="check">확인</string>
     <string name="google_login">Google로 계속하기</string>
+    <string name="notion_link">노션 링크</string>
+
 </resources>

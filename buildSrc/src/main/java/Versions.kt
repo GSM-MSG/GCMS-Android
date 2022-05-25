@@ -22,6 +22,7 @@ object Versions {
     const val LIFECYCLE_KTX = "2.3.1"
     const val ROOM = "2.3.0"
     const val LEGACY = "1.0.0"
+    const val RECYCLERVIEW = "1.1.0"
 
     const val HILT = "2.38.1"
     const val MATERIAL = "1.3.0"
@@ -48,5 +49,4 @@ object Versions {
     const val RX_ANDROID = "3.0.0"
 
     const val KTLINT = "2.1.2"
-
 }
