@@ -37,7 +37,6 @@ class MainViewModel @Inject constructor(
                         else -> ""
                     }
                 )
-                Log.d("TAG", "getClubList: ${response.body()!!.get(0).type}")
             } catch (e: Exception){
                 Log.d("ERROR", "getClubList: ${e.message}")
             }
