@@ -14,4 +14,6 @@ interface CommonDataSource {
     suspend fun headCheckCode(email: String, code: String): Response<Void>
 
     suspend fun postLogin(body: LoginRequest): Response<LoginResponse>
+
+    suspend fun postLogout(): Response<Void>
 }
