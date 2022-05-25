@@ -36,7 +36,8 @@ object Dependency {
     }
 
     object Google {
-        const val FIREBASE_BOM = "com.google.firebase:firebase-bom:30.0.0"
+        const val FIREBASE_ANALYTICS = "com.google.firebase:firebase-analytics-ktx"
+        const val FIREBASE_BOM = "com.google.firebase:firebase-bom:${Versions.FIREBASE_BOM}"
         const val GMS_PLAY_SERVICE_AUTH = "com.google.android.gms:play-services-auth:${Versions.GMS_PLAY_SERVICE_AUTH}"
         const val GMS_GOOGLE_SERVICE = "com.google.gms:google-services:${Versions.GMS_GOOGLE_SERVICE}"
         const val HILT_ANDROID = "com.google.dagger:hilt-android:${Versions.HILT}"

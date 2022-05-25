@@ -19,20 +19,23 @@ class RegistrationViewModel @Inject constructor(
     private val _idTokenStatus = MutableLiveData<Int>()
     val idTokenStatus: LiveData<Int> get() = _idTokenStatus
 
-    private val TAG = "login loogic"
+    private val TAG = "google login"
 
     fun sendIdTokenLogic(idToken: String) {
         viewModelScope.launch {
             try {
                 val response = useCase.postRegistration(RegisterRequest(idToken = idToken))
-                Log.d(TAG, "${response.code()}")
                 when (response.code()) {
                     in 200..299 -> {
-                        Log.d(TAG, "status : ${response.code()}")
+                        printStatus(response.code())
+                        _idTokenStatus.value = response.code()
+                    }
+                    400 -> {
+                        printStatus(response.code())
                         _idTokenStatus.value = response.code()
                     }
                     else -> {
-                        Log.d(TAG, "error status: ${response.code()}")
+                        printStatus(response.code())
                         _idTokenStatus.value = response.code()
                     }
                 }
@@ -40,5 +43,9 @@ class RegistrationViewModel @Inject constructor(
                 Log.d("send IdToken error", "error : $e")
             }
         }
+    }
+
+    private fun printStatus(code : Int) {
+        Log.d(TAG,"status : $code")
     }
 }

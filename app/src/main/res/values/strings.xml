@@ -58,5 +58,4 @@
     <string name="emailcheck_fail">인증번호가 틀렸거나\n만료되었습니다.</string>
     <string name="check">확인</string>
     <string name="google_login">Google로 계속하기</string>
-    <string name="default_web_client_id">406780900894-41ih6b9kqv2c0fcqj6n33cos5q0df88q.apps.googleusercontent.com</string>
 </resources>

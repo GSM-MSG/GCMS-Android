@@ -5,11 +5,9 @@ import android.util.Log
 import androidx.activity.viewModels
 import androidx.lifecycle.Observer
 import com.google.android.gms.auth.api.signin.GoogleSignIn
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
-import com.google.android.gms.tasks.Task
 import com.msg.gcms.R
 import com.msg.gcms.databinding.ActivityIntroBinding
 import com.msg.gcms.ui.base.BaseActivity
@@ -22,8 +20,6 @@ class IntroActivity : BaseActivity<ActivityIntroBinding>(R.layout.activity_intro
 
     private val viewModel by viewModels<RegistrationViewModel>()
     private lateinit var client: GoogleSignInClient
-    private val RC_SIGN_IN = 10
-    private val TAG = "googleLogin"
 
     override fun viewSetting() {
     }
@@ -36,8 +32,14 @@ class IntroActivity : BaseActivity<ActivityIntroBinding>(R.layout.activity_intro
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == RC_SIGN_IN) {
-            val task: Task<GoogleSignInAccount> = GoogleSignIn.getSignedInAccountFromIntent(data)
-            signInResult(task)
+            val task = GoogleSignIn.getSignedInAccountFromIntent(data)
+            try {
+                val account = task.getResult(ApiException::class.java)!!
+                Log.d(TAG, "Google id: ${account.idToken}")
+                viewModel.sendIdTokenLogic(account.idToken!!)
+            } catch (e: ApiException) {
+                Log.w(TAG, e)
+            }
         }
     }
 
@@ -45,15 +47,18 @@ class IntroActivity : BaseActivity<ActivityIntroBinding>(R.layout.activity_intro
         viewModel.idTokenStatus.observe(this, Observer {
             when (it) {
                 in 200..299 -> startActivity(Intent(this, MainActivity::class.java))
-                else -> shortToast("login failed")
+                404 -> shortToast("학교 계정으로 로그인 해주세요.")
+                else -> shortToast("로그인에 실패했습니다.")
             }
         })
     }
 
     private fun clickGoogleLogin() {
+        Log.d("ss", getString(R.string.default_web_client_id))
+
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            .requestEmail()
             .requestIdToken(getString(R.string.default_web_client_id))
+            .requestEmail()
             .build()
         client = GoogleSignIn.getClient(this, gso)
         binding.signInBtn.setOnClickListener {
@@ -66,14 +71,8 @@ class IntroActivity : BaseActivity<ActivityIntroBinding>(R.layout.activity_intro
         startActivityForResult(signInIntent, RC_SIGN_IN)
     }
 
-    private fun signInResult(task: Task<GoogleSignInAccount>) {
-        try {
-            val account = task.getResult(ApiException::class.java)
-            val idToken = account?.idToken.toString()
-            Log.d(TAG, "idToken: $idToken")
-            viewModel.sendIdTokenLogic(idToken)
-        } catch (e: ApiException) {
-            Log.w(TAG, "failed code = ${e.statusCode}")
-        }
+    companion object {
+        private const val TAG = "google Login"
+        private const val RC_SIGN_IN = 10
     }
 }
