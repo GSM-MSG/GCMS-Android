@@ -5,6 +5,7 @@ import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.provider.MediaStore
+import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import androidx.activity.result.contract.ActivityResultContracts
@@ -55,9 +56,9 @@ class MakeClubDetailFragment :
             binding.clubTypeBackBtn.id -> {
                 this.findNavController().popBackStack()
             }
-            binding.nextBtn.id -> {
-                activity?.finish()
-            }
+            // binding.nextBtn.id -> {
+            //     activity?.finish()
+            // }
         }
     }
 
@@ -72,10 +73,17 @@ class MakeClubDetailFragment :
                         photoPickerIntent.action = Intent.ACTION_GET_CONTENT
                         getContent.launch(photoPickerIntent)
                     }
-                    clubActivePicture.id -> {
-                        val activityPhotosIntent = Intent(Intent.ACTION_GET_CONTENT)
+                    // clubActivePicture.id -> {
+                    //     val activityPhotosIntent = Intent(Intent.ACTION_GET_CONTENT)
+                    //     activityPhotosIntent.data = MediaStore.Images.Media.EXTERNAL_CONTENT_URI
+                    //     activityPhotosIntent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
+                    //     startActivityForResult(activityPhotosIntent, Activity.RESULT_OK)
+                    // }
+                    nextBtn.id -> {
+                        val activityPhotosIntent = Intent(Intent.ACTION_PICK)
                         activityPhotosIntent.data = MediaStore.Images.Media.EXTERNAL_CONTENT_URI
                         activityPhotosIntent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
+                        activityPhotosIntent.action = Intent.ACTION_GET_CONTENT
                         startActivityForResult(activityPhotosIntent, Activity.RESULT_OK)
                     }
                 }
@@ -98,11 +106,11 @@ class MakeClubDetailFragment :
                     return
                 }
                 else {
-                    for (i in 0 .. data.clipData!!.itemCount) {
+                    for (i in 0 until data.clipData!!.itemCount) {
                         val imageUri = data.clipData!!.getItemAt(i).uri
                         list.add(ActivityPhotoType(activityPhoto = imageUri))
                     }
-                    // list.add(Uri.parse("android.resource"))
+                    Log.d("TAG",list.toString())
                 }
             }
         }
