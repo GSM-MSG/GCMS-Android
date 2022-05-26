@@ -54,8 +54,6 @@ class IntroActivity : BaseActivity<ActivityIntroBinding>(R.layout.activity_intro
     }
 
     private fun clickGoogleLogin() {
-        Log.d("ss", getString(R.string.default_web_client_id))
-
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestIdToken(getString(R.string.default_web_client_id))
             .requestEmail()
