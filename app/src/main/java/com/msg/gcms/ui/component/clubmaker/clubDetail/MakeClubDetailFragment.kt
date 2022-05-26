@@ -4,9 +4,8 @@ import android.Manifest
 import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.net.Uri
-import android.os.Build
 import android.provider.MediaStore
+import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import androidx.activity.result.contract.ActivityResultContracts
@@ -15,6 +14,7 @@ import androidx.core.content.ContextCompat
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.msg.gcms.R
+import com.msg.gcms.data.local.entity.ActivityPhotoType
 import com.msg.gcms.databinding.FragmentMakeClubDetailBinding
 import com.msg.gcms.ui.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
@@ -23,9 +23,20 @@ import dagger.hilt.android.AndroidEntryPoint
 class MakeClubDetailFragment :
     BaseFragment<FragmentMakeClubDetailBinding>(R.layout.fragment_make_club_detail) {
 
+    var list : ArrayList<ActivityPhotoType> = arrayListOf()
+    private val adapter = ActivityPhotosAdapter(list)
+
     override fun init() {
         binding.fragment = this
         settingRecyclerView()
+    }
+
+    private fun settingRecyclerView() {
+        with(binding.clubActivePicture) {
+            layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, true)
+            setHasFixedSize(true)
+        }
+        binding.clubActivePicture.adapter = adapter
     }
 
     private val getContent = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
@@ -45,9 +56,9 @@ class MakeClubDetailFragment :
             binding.clubTypeBackBtn.id -> {
                 this.findNavController().popBackStack()
             }
-            binding.nextBtn.id -> {
-                activity?.finish()
-            }
+            // binding.nextBtn.id -> {
+            //     activity?.finish()
+            // }
         }
     }
 
@@ -62,23 +73,18 @@ class MakeClubDetailFragment :
                         photoPickerIntent.action = Intent.ACTION_GET_CONTENT
                         getContent.launch(photoPickerIntent)
                     }
-                    clubActivePicture.id -> {
-                        if (Build.VERSION.SDK_INT < 19) {
-                            val intent = Intent()
-                            intent.type = "image/*"
-                            intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
-                            intent.action = Intent.ACTION_GET_CONTENT
-                            startActivityForResult(
-                                Intent.createChooser(intent, "사진을 선택해주세요"),
-                                200
-                            )
-                        } else {
-                            val intent = Intent(Intent.ACTION_OPEN_DOCUMENT)
-                            intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
-                            intent.addCategory(Intent.CATEGORY_OPENABLE)
-                            intent.type = "image/*"
-                            startActivityForResult(intent, 200)
-                        }
+                    // clubActivePicture.id -> {
+                    //     val activityPhotosIntent = Intent(Intent.ACTION_GET_CONTENT)
+                    //     activityPhotosIntent.data = MediaStore.Images.Media.EXTERNAL_CONTENT_URI
+                    //     activityPhotosIntent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
+                    //     startActivityForResult(activityPhotosIntent, Activity.RESULT_OK)
+                    // }
+                    nextBtn.id -> {
+                        val activityPhotosIntent = Intent(Intent.ACTION_PICK)
+                        activityPhotosIntent.data = MediaStore.Images.Media.EXTERNAL_CONTENT_URI
+                        activityPhotosIntent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
+                        activityPhotosIntent.action = Intent.ACTION_GET_CONTENT
+                        startActivityForResult(activityPhotosIntent, Activity.RESULT_OK)
                     }
                 }
             }
@@ -95,16 +101,19 @@ class MakeClubDetailFragment :
 
         if (resultCode == Activity.RESULT_OK && resultCode == requestCode) {
             if (data?.clipData != null) {
-                for (i in 0..3) {
-                    val imageUri: Uri = data.clipData?.getItemAt(i)!!.uri
+                if(data.clipData!!.itemCount > 4) {
+                    shortToast("활동사진은 최대 4개까지 가능합니다.")
+                    return
+                }
+                else {
+                    for (i in 0 until data.clipData!!.itemCount) {
+                        val imageUri = data.clipData!!.getItemAt(i).uri
+                        list.add(ActivityPhotoType(activityPhoto = imageUri))
+                    }
+                    Log.d("TAG",list.toString())
                 }
             }
         }
     }
 
-    private fun settingRecyclerView() {
-        with(binding.clubActivePicture) {
-            layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-        }
-    }
 }
