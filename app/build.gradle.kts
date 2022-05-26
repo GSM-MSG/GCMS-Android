@@ -1,6 +1,7 @@
 plugins {
     id("com.android.application")
     id("dagger.hilt.android.plugin")
+    id("com.google.gms.google-services")
     kotlin("android")
     kotlin("kapt")
     id("kotlin-android")
@@ -52,6 +53,12 @@ dependencies {
 
     implementation(Dependency.AndroidX.ROOM_KTX)
     implementation(Dependency.AndroidX.LEGACY_SUPPORT)
+    implementation(platform(Dependency.Google.FIREBASE_BOM))
+    implementation(Dependency.Google.FIREBASE_ANALYTICS)
+    implementation(Dependency.Google.FIREBASE)
+    implementation(Dependency.Google.GMS_PLAY_SERVICE_AUTH)
+    implementation(Dependency.Google.GMS_PLAY_SERVICE_BASE)
+    implementation(Dependency.Google.FIREBASE_BOM)
     kapt(Dependency.AndroidX.ROOM_COMPILER)
 
     implementation(Dependency.Kotlin.COROUTINES_CORE)

@@ -1,30 +1,76 @@
 package com.msg.gcms.ui.component.intro
 
-import android.view.animation.AnimationUtils
+import android.content.Intent
+import android.util.Log
+import androidx.activity.viewModels
+import androidx.lifecycle.Observer
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInClient
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.android.gms.common.api.ApiException
 import com.msg.gcms.R
 import com.msg.gcms.databinding.ActivityIntroBinding
 import com.msg.gcms.ui.base.BaseActivity
+import com.msg.gcms.ui.component.main.MainActivity
+import com.msg.viewmodel.RegistrationViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class IntroActivity : BaseActivity<ActivityIntroBinding>(R.layout.activity_intro) {
+
+    private val viewModel by viewModels<RegistrationViewModel>()
+    private lateinit var client: GoogleSignInClient
+
     override fun viewSetting() {
-        settingAnimation()
     }
 
     override fun observeEvent() {
         clickGoogleLogin()
+        observer()
     }
 
-    private fun clickGoogleLogin() {
-        binding.signInBtn.setOnClickListener {
-
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == RC_SIGN_IN) {
+            val task = GoogleSignIn.getSignedInAccountFromIntent(data)
+            try {
+                val account = task.getResult(ApiException::class.java)!!
+                Log.d(TAG, "Google id: ${account.idToken}")
+                viewModel.sendIdTokenLogic(account.idToken!!)
+            } catch (e: ApiException) {
+                Log.w(TAG, e)
+            }
         }
     }
 
-    private fun settingAnimation(){
-        binding.imageView.startAnimation(AnimationUtils.loadAnimation(this, R.anim.intro_animation))
-        binding.introTxt.startAnimation(AnimationUtils.loadAnimation(this, R.anim.intro_animation))
-        binding.introTxt2.startAnimation(AnimationUtils.loadAnimation(this, R.anim.intro_animation))
+    private fun observer() {
+        viewModel.idTokenStatus.observe(this, Observer {
+            when (it) {
+                in 200..299 -> startActivity(Intent(this, MainActivity::class.java))
+                404 -> shortToast("학교 계정으로 로그인 해주세요.")
+                else -> shortToast("로그인에 실패했습니다.")
+            }
+        })
+    }
+
+    private fun clickGoogleLogin() {
+        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+            .requestIdToken(getString(R.string.default_web_client_id))
+            .requestEmail()
+            .build()
+        client = GoogleSignIn.getClient(this, gso)
+        binding.signInBtn.setOnClickListener {
+            signIn()
+        }
+    }
+
+    private fun signIn() {
+        val signInIntent: Intent = client.signInIntent
+        startActivityForResult(signInIntent, RC_SIGN_IN)
+    }
+
+    companion object {
+        private const val TAG = "google Login"
+        private const val RC_SIGN_IN = 10
     }
 }
