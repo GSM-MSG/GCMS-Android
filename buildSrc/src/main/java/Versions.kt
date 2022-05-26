@@ -48,4 +48,6 @@ object Versions {
     const val RX_ANDROID = "3.0.0"
 
     const val KTLINT = "2.1.2"
+
+    const val COIL_VERSION = "2.1.0"
 }

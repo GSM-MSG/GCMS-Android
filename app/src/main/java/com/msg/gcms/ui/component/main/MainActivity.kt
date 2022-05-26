@@ -49,7 +49,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
     override fun onBackPressed() {
         if (System.currentTimeMillis() - backButtonWait >= 2000) {
             backButtonWait = System.currentTimeMillis()
-            shortToast("뒤로 가기 버튼을 한 번 더 누르면 종료됩니다.")
+            longToast("뒤로 가기 버튼을 한 번 더 누르면 종료됩니다.")
         } else {
             super.onBackPressed()
             finish()

@@ -78,4 +78,8 @@ object Dependency {
         const val RX_JAVA = "io.reactivex.rxjava3:rxjava:${Versions.RX_JAVA}"
         const val RX_ANDROID = "io.reactivex.rxjava3:rxandroid:${Versions.RX_ANDROID}"
     }
+
+    object ImageLoad {
+        const val COIL = "io.coil-kt:coil:${Versions.COIL_VERSION}"
+    }
 }

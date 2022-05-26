@@ -5,7 +5,7 @@
     <data>
         <variable
             name="itemList"
-            type="com.msg.gcms.data.local.entity.BannerImage" />
+            type="com.msg.gcms.data.local.entity.ActivityPhotoType" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -18,7 +18,8 @@
             android:id="@+id/activityPhoto"
             android:layout_width="136dp"
             android:layout_height="151dp"
-            android:background="@drawable/bg_club_image_rv"
+            android:src="@drawable/ic_activity_photo"
+            android:background="@drawable/bg_banner_placeholder"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
