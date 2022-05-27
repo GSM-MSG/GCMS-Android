@@ -23,8 +23,8 @@ import dagger.hilt.android.AndroidEntryPoint
 class MakeClubDetailFragment :
     BaseFragment<FragmentMakeClubDetailBinding>(R.layout.fragment_make_club_detail) {
 
-    var list : ArrayList<ActivityPhotoType> = arrayListOf()
-    private val adapter = ActivityPhotosAdapter(list)
+    var list = mutableListOf<ActivityPhotoType>()
+    private lateinit var adapter : ActivityPhotosAdapter
 
     override fun init() {
         binding.fragment = this
@@ -32,11 +32,17 @@ class MakeClubDetailFragment :
     }
 
     private fun settingRecyclerView() {
+        adapter = ActivityPhotosAdapter()
         with(binding.clubActivePicture) {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, true)
             setHasFixedSize(true)
         }
+        with(list) {
+            add(ActivityPhotoType(""))
+        }
+        adapter.items = list
         binding.clubActivePicture.adapter = adapter
+
     }
 
     private val getContent = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
@@ -106,9 +112,10 @@ class MakeClubDetailFragment :
                     return
                 }
                 else {
+                    list.clear()
                     for (i in 0 until data.clipData!!.itemCount) {
                         val imageUri = data.clipData!!.getItemAt(i).uri
-                        list.add(ActivityPhotoType(activityPhoto = imageUri))
+                        list.add(ActivityPhotoType(activityPhoto = imageUri.toString()))
                     }
                     Log.d("TAG",list.toString())
                 }

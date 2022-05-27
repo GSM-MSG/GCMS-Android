@@ -231,7 +231,8 @@
                 android:layout_height="212dp"
                 android:backgroundTint="@color/gray_1"
                 android:onClick="@{fragment.galleryOpen}"
-                app:layout_constraintTop_toBottomOf="@+id/textView16"                app:layout_constraintEnd_toStartOf="@+id/guideline43"
+                app:layout_constraintTop_toBottomOf="@+id/textView16"
+                app:layout_constraintEnd_toStartOf="@+id/guideline43"
                 app:layout_constraintStart_toStartOf="@+id/guideline29"
                 android:background="@drawable/bg_banner_placeholder"/>
 
@@ -285,7 +286,7 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/clubActivePicture"
                 android:layout_width="0dp"
-                android:layout_height="151dp"
+                android:layout_height="180dp"
                 android:layout_marginTop="8dp"
                 android:onClick="@{fragment.galleryOpen}"
                 android:orientation="horizontal"
@@ -304,7 +305,7 @@
                 android:textSize="13sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="@+id/guideline29"
-                app:layout_constraintTop_toTopOf="@+id/guideline51" />
+                app:layout_constraintTop_toBottomOf="@+id/clubActivePicture" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerView2"
