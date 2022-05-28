@@ -18,6 +18,7 @@ import com.msg.gcms.R
 import com.msg.gcms.data.local.entity.ActivityPhotoType
 import com.msg.gcms.databinding.FragmentMakeClubDetailBinding
 import com.msg.gcms.ui.base.BaseFragment
+import com.msg.gcms.utils.ItemDecorator
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -36,6 +37,7 @@ class MakeClubDetailFragment :
         with(binding.clubActivePicture) {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
             setHasFixedSize(true)
+            addItemDecoration(ItemDecorator(10))
         }
     }
 
