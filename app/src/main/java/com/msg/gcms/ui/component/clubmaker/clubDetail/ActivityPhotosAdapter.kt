@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
+import coil.transform.RoundedCornersTransformation
 import com.msg.gcms.data.local.entity.ActivityPhotoType
 import com.msg.gcms.databinding.ListClubPictureBinding
 
@@ -24,7 +25,10 @@ class ActivityPhotosAdapter(private val items: MutableList<ActivityPhotoType>) :
         val binding: ListClubPictureBinding
     ) : RecyclerView.ViewHolder(binding.root) {
         fun bind(data: ActivityPhotoType) {
-            binding.activityPhoto.load(data.activityPhoto)
+            binding.activityPhoto.load(data.activityPhoto) {
+                crossfade(true)
+                transformations(RoundedCornersTransformation(6f))
+            }
         }
     }
 }

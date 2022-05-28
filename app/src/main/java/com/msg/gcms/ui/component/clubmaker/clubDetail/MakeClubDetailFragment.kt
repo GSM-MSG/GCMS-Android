@@ -13,6 +13,7 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import coil.load
 import com.msg.gcms.R
 import com.msg.gcms.data.local.entity.ActivityPhotoType
 import com.msg.gcms.databinding.FragmentMakeClubDetailBinding
@@ -47,6 +48,7 @@ class MakeClubDetailFragment :
                 binding.imageView7.visibility = View.GONE
                 binding.addImageTxt.visibility = View.GONE
             }
+            binding.addBannerPicture.load(imageUrl)
         }
     }
 
