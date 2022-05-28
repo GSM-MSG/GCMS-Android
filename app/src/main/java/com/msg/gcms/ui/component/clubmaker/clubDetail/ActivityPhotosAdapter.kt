@@ -7,9 +7,7 @@ import coil.load
 import com.msg.gcms.data.local.entity.ActivityPhotoType
 import com.msg.gcms.databinding.ListClubPictureBinding
 
-class ActivityPhotosAdapter() : RecyclerView.Adapter<ActivityPhotosAdapter.BannerViewHolder>() {
-
-    var items = mutableListOf<ActivityPhotoType>()
+class ActivityPhotosAdapter(private val items: MutableList<ActivityPhotoType>) : RecyclerView.Adapter<ActivityPhotosAdapter.BannerViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BannerViewHolder {
         val binding = ListClubPictureBinding.inflate(LayoutInflater.from(parent.context), parent, false)

@@ -32,17 +32,10 @@ class MakeClubDetailFragment :
     }
 
     private fun settingRecyclerView() {
-        adapter = ActivityPhotosAdapter()
         with(binding.clubActivePicture) {
-            layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, true)
+            layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
             setHasFixedSize(true)
         }
-        with(list) {
-            add(ActivityPhotoType(""))
-        }
-        adapter.items = list
-        binding.clubActivePicture.adapter = adapter
-
     }
 
     private val getContent = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
@@ -115,7 +108,13 @@ class MakeClubDetailFragment :
                     list.clear()
                     for (i in 0 until data.clipData!!.itemCount) {
                         val imageUri = data.clipData!!.getItemAt(i).uri
-                        list.add(ActivityPhotoType(activityPhoto = imageUri.toString()))
+                        try{
+                            list.add(ActivityPhotoType(activityPhoto = imageUri.toString()))
+                        }catch(e: Exception){
+                          Log.e("TAG", e.toString())
+                        }
+                        adapter = ActivityPhotosAdapter(list)
+                        binding.clubActivePicture.adapter = adapter
                     }
                     Log.d("TAG",list.toString())
                 }
