@@ -4,10 +4,13 @@ import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.BitmapFactory
+import androidx.activity.viewModels
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInClient
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.material.snackbar.Snackbar
-import androidx.activity.viewModels
 import com.msg.gcms.R
 import com.msg.gcms.databinding.ActivityProfileBinding
 import com.msg.gcms.ui.base.BaseActivity
@@ -18,9 +21,9 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class ProfileActivity : BaseActivity<ActivityProfileBinding>(R.layout.activity_profile) {
     private val viewModel by viewModels<ProfileViewModel>()
+    private lateinit var client: GoogleSignInClient
     override fun observeEvent() {
         isClub()
-        isLogout()
     }
 
     override fun viewSetting() {
@@ -30,13 +33,22 @@ class ProfileActivity : BaseActivity<ActivityProfileBinding>(R.layout.activity_p
         clickLogout()
     }
 
-    private fun isLogout(){
-        viewModel.logoutStatus.observe(this){
-            if(it) {
-                val intent = Intent(this, IntroActivity::class.java)
-                startActivity(intent)
-                finish()
+    private fun isLogout() {
+        binding.logoutBtn.setOnClickListener {
+            val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.default_web_client_id))
+                .requestEmail()
+                .build()
+            client = GoogleSignIn.getClient(this, gso)
+            client.signOut()
+            viewModel.logoutStatus.observe(this) {
+                if (it) {
+                    val intent = Intent(this, IntroActivity::class.java)
+                    startActivity(intent)
+                    finish()
+                }
             }
+
         }
     }
 
@@ -82,6 +94,7 @@ class ProfileActivity : BaseActivity<ActivityProfileBinding>(R.layout.activity_p
     private fun clickLogout(){
         binding.logoutBtn.setOnClickListener {
             viewModel.logout()
+            isLogout()
         }
     }
 
