@@ -43,7 +43,6 @@ android {
 
 dependencies {
 
-    implementation(Dependency.AndroidX.CORE_KTX)
     implementation(Dependency.AndroidX.APP_COMPAT)
     implementation(Dependency.AndroidX.CORE_KTX)
     implementation(Dependency.AndroidX.FRAGMENT_KTX)
