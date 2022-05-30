@@ -34,21 +34,18 @@ class ProfileActivity : BaseActivity<ActivityProfileBinding>(R.layout.activity_p
     }
 
     private fun isLogout() {
-        binding.logoutBtn.setOnClickListener {
-            val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestIdToken(getString(R.string.default_web_client_id))
-                .requestEmail()
-                .build()
-            client = GoogleSignIn.getClient(this, gso)
-            client.signOut()
-            viewModel.logoutStatus.observe(this) {
-                if (it) {
-                    val intent = Intent(this, IntroActivity::class.java)
-                    startActivity(intent)
-                    finish()
-                }
+        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+            .requestIdToken(getString(R.string.default_web_client_id))
+            .requestEmail()
+            .build()
+        client = GoogleSignIn.getClient(this, gso)
+        client.signOut()
+        viewModel.logoutStatus.observe(this) {
+            if (it) {
+                val intent = Intent(this, IntroActivity::class.java)
+                startActivity(intent)
+                finish()
             }
-
         }
     }
 
