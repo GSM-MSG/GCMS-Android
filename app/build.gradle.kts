@@ -58,7 +58,6 @@ dependencies {
     implementation(Dependency.Google.FIREBASE)
     implementation(Dependency.Google.GMS_PLAY_SERVICE_AUTH)
     implementation(Dependency.Google.GMS_PLAY_SERVICE_BASE)
-    implementation(Dependency.Google.FIREBASE_BOM)
     kapt(Dependency.AndroidX.ROOM_COMPILER)
 
     implementation(Dependency.Kotlin.COROUTINES_CORE)
