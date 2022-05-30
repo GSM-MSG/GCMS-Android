@@ -4,31 +4,58 @@ import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.BitmapFactory
+import androidx.activity.viewModels
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInClient
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.material.snackbar.Snackbar
-import androidx.activity.viewModels
 import com.msg.gcms.R
 import com.msg.gcms.databinding.ActivityProfileBinding
 import com.msg.gcms.ui.base.BaseActivity
+import com.msg.gcms.ui.component.intro.IntroActivity
 import com.msg.viewmodel.ProfileViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class ProfileActivity : BaseActivity<ActivityProfileBinding>(R.layout.activity_profile) {
     private val viewModel by viewModels<ProfileViewModel>()
+    private lateinit var client: GoogleSignInClient
     override fun observeEvent() {
-        viewModel.clubStatus.observe(this) {
-            if (it) {
-                isClub()
-            }
-        }
+        isClub()
     }
 
     override fun viewSetting() {
         getUserInfo()
         clickBackBtn()
         clickProfileEdit()
+        clickLogout()
+    }
+
+    private fun isLogout() {
+        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+            .requestIdToken(getString(R.string.default_web_client_id))
+            .requestEmail()
+            .build()
+        client = GoogleSignIn.getClient(this, gso)
+        client.signOut()
+        viewModel.logoutStatus.observe(this) {
+            if (it) {
+                val intent = Intent(this, IntroActivity::class.java)
+                startActivity(intent)
+                finish()
+            }
+        }
+    }
+
+    private fun isClub() {
+        viewModel.clubStatus.observe(this) {
+            if (it) {
+                supportFragmentManager.beginTransaction()
+                    .replace(R.id.profileFragmentView, ProfileClubFragment()).commit()
+            }
+        }
     }
 
     private fun getUserInfo() {
@@ -39,11 +66,6 @@ class ProfileActivity : BaseActivity<ActivityProfileBinding>(R.layout.activity_p
         binding.backBtn.setOnClickListener {
             finish()
         }
-    }
-
-    private fun isClub() {
-        supportFragmentManager.beginTransaction()
-            .replace(R.id.profileFragmentView, ProfileClubFragment()).commit()
     }
 
     private fun clickProfileEdit() {
@@ -63,6 +85,13 @@ class ProfileActivity : BaseActivity<ActivityProfileBinding>(R.layout.activity_p
                     arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE), 1
                 )
             }
+        }
+    }
+
+    private fun clickLogout(){
+        binding.logoutBtn.setOnClickListener {
+            viewModel.logout()
+            isLogout()
         }
     }
 

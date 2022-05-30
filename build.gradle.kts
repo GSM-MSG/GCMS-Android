@@ -13,7 +13,6 @@ buildscript {
         classpath(Dependency.GradlePlugin.GRADLE_KOTLIN)
         classpath(Dependency.GradlePlugin.GRADLE_HILT)
         classpath(Dependency.GradlePlugin.GRADLE_KTLINT)
-        classpath(Dependency.Google.GMS_GOOGLE_SERVICE)
     }
 }
 
