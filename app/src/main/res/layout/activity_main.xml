@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
@@ -8,9 +10,7 @@
             type="com.msg.gcms.ui.component.main.MainActivity" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/light_black"
@@ -31,7 +31,9 @@
             app:defaultNavHost="true"
             app:layout_constraintBottom_toBottomOf="@id/guideline1"
             app:layout_constraintTop_toTopOf="parent"
-            app:navGraph="@navigation/bottom_nav_graph" />
+            app:navGraph="@navigation/bottom_nav_graph"
+            tools:layout_editor_absoluteX="0dp"
+            app:layout_constraintVertical_bias="0.0" />
 
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/bottom_navigation"

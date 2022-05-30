@@ -23,6 +23,20 @@
             android:orientation="horizontal"
             app:layout_constraintGuide_percent="0.28" />
 
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline5"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.35" />
+
+        <ImageView
+            android:id="@+id/club_banner"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/guideline5"/>
+
         <ImageView
             android:id="@+id/back_btn"
             android:layout_width="wrap_content"
@@ -34,10 +48,11 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
+            android:id="@+id/club_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="29dp"
-            android:text="동아리 이름"
+            android:text="@string/club_name"
             android:textColor="@color/white"
             android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -90,7 +105,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
-                    android:text="동아리 설명"
+                    android:text="@string/club_description"
                     android:textColor="@color/white"
                     android:textSize="18sp"
                     app:layout_constraintStart_toStartOf="@id/guideline2"
@@ -101,7 +116,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="15dp"
-                    android:text="동아리 설명 부분"
+                    android:text="@string/club_description_text"
                     android:textColor="@color/white"
                     android:textSize="16sp"
                     app:layout_constraintEnd_toEndOf="@id/guideline3"
@@ -109,11 +124,32 @@
                     app:layout_constraintTop_toBottomOf="@id/explain_club" />
 
                 <TextView
+                    android:id="@+id/notion_link"
+                    app:layout_constraintStart_toStartOf="@id/guideline2"
+                    app:layout_constraintTop_toBottomOf="@id/explain_club_txt"
+                    android:textColor="@color/white"
+                    android:textSize="18sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/notion_link" />
+
+                <TextView
+                    android:id="@+id/link"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/example_text"
+                    android:textColor="@color/white"
+                    android:textSize="16sp"
+                    app:layout_constraintEnd_toEndOf="@id/guideline3"
+                    app:layout_constraintStart_toStartOf="@id/guideline2"
+                    app:layout_constraintTop_toBottomOf="@id/notion_link" />
+
+                <TextView
                     android:id="@+id/promotion_club"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="40dp"
-                    android:text="동아리 홍보"
+                    android:text="@string/club_promotion"
                     android:textColor="@color/white"
                     android:textSize="18sp"
                     app:layout_constraintStart_toStartOf="@id/guideline2"
@@ -134,7 +170,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="40dp"
-                    android:text="구성원"
+                    android:text="@string/club_member"
                     android:textColor="@color/white"
                     android:textSize="18sp"
                     app:layout_constraintStart_toStartOf="@id/guideline2"
@@ -154,7 +190,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="40dp"
-                    android:text="담당선생님"
+                    android:text="@string/club_teacher"
                     android:textColor="@color/white"
                     android:textSize="18sp"
                     app:layout_constraintStart_toStartOf="@id/guideline2"
@@ -169,10 +205,11 @@
                     app:layout_constraintTop_toBottomOf="@id/teacher" />
 
                 <TextView
+                    android:id="@+id/teacher_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
-                    android:text="이름"
+                    android:text="@string/name"
                     android:textColor="@color/white"
                     android:textSize="14sp"
                     app:layout_constraintBottom_toBottomOf="@id/teacher_img"
@@ -184,7 +221,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="40dp"
-                    android:text="부장"
+                    android:text="@string/club_boss"
                     android:textColor="@color/white"
                     android:textSize="18sp"
                     app:layout_constraintStart_toStartOf="@id/guideline4"
@@ -199,10 +236,11 @@
                     app:layout_constraintTop_toBottomOf="@id/boss" />
 
                 <TextView
+                    android:id="@+id/boss_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
-                    android:text="이름"
+                    android:text="@string/club_boss_name"
                     android:textColor="@color/white"
                     android:textSize="14sp"
                     app:layout_constraintBottom_toBottomOf="@id/boss_img"
@@ -214,7 +252,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="39dp"
-                    android:text="연락처"
+                    android:text="@string/contact"
                     android:textColor="@color/white"
                     android:textSize="18sp"
                     app:layout_constraintStart_toStartOf="@id/guideline2"
@@ -225,7 +263,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="15dp"
-                    android:text="###########"
+                    android:text="@string/example_text"
                     android:textColor="@color/white"
                     android:textSize="14sp"
                     app:layout_constraintStart_toStartOf="@id/guideline2"
@@ -236,11 +274,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="56dp"
                     android:layout_marginTop="60dp"
-                    android:background="@drawable/bg_club_submit"
-                    android:text="동아리 신청하기"
+                    android:background="@drawable/ic_club_application_btn"
                     android:textColor="@color/white"
                     android:textSize="14sp"
-                    app:layout_constraintTop_toBottomOf="@id/directory_txt" />
+                    app:layout_constraintTop_toBottomOf="@id/directory_txt"/>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </ScrollView>
