@@ -1,11 +1,13 @@
 package com.msg.gcms.ui.component.main
 
+import android.content.Intent
 import androidx.activity.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.msg.gcms.R
 import com.msg.gcms.databinding.ActivityMainBinding
 import com.msg.gcms.ui.base.BaseActivity
+import com.msg.gcms.ui.component.afterschool.JoinAfterSchoolActivity
 import com.msg.viewmodel.MainViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -21,6 +23,14 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
     override fun observeEvent() {
         observeBottomNav()
+        observeClickBtn()
+    }
+
+    private fun observeClickBtn() {
+        binding.goAfterSchoolBtn.setOnClickListener {
+            val joinIntent = Intent(this, JoinAfterSchoolActivity::class.java)
+            startActivity(joinIntent)
+        }
     }
 
     private fun observeBottomNav(){
