@@ -23,6 +23,34 @@
             android:orientation="horizontal"
             app:layout_constraintGuide_percent="0.92" />
 
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline2"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.62" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline3"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.96" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline4"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.81" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline5"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.91" />
+
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/fragment_club"
             android:name="androidx.navigation.fragment.NavHostFragment"
@@ -48,13 +76,13 @@
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/go_afterSchool_btn"
-            android:layout_width="140dp"
-            android:layout_height="68dp"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
             android:background="@drawable/ic_after_school_btn"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="@id/guideline4"
+            app:layout_constraintStart_toStartOf="@id/guideline2"
+            app:layout_constraintEnd_toEndOf="@id/guideline3"
+            app:layout_constraintBottom_toBottomOf="@id/guideline5"
             app:layout_constraintHorizontal_bias="0.94"
             app:layout_constraintVertical_bias="0.897" />
 
