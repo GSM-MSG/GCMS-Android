@@ -288,7 +288,6 @@
                 android:layout_width="0dp"
                 android:layout_height="180dp"
                 android:layout_marginTop="8dp"
-                android:onClick="@{fragment.galleryOpen}"
                 android:orientation="horizontal"
                 app:layout_constraintEnd_toStartOf="@+id/guideline43"
                 app:layout_constraintStart_toStartOf="@+id/guideline29"

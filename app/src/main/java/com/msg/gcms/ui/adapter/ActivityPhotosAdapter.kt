@@ -1,7 +1,6 @@
 package com.msg.gcms.ui.adapter
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
@@ -15,18 +14,18 @@ class ActivityPhotosAdapter(private val items: List<ActivityPhotoType>) :
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BannerViewHolder {
         val binding =
             ListClubPictureBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        val viewHolder = BannerViewHolder(binding)
+        val viewHolder = BannerViewHolder(binding, itemClickListener)
         return viewHolder
     }
 
     override fun onBindViewHolder(holder: BannerViewHolder, position: Int) {
         holder.bind(items[position])
         holder.itemView.setOnClickListener {
-            itemClickListener.onClick(it, position)
+            itemClickListener.onClick(position)
         }
     }
 
-    class BannerViewHolder(val binding: ListClubPictureBinding) : RecyclerView.ViewHolder(binding.root) {
+    class BannerViewHolder(val binding: ListClubPictureBinding, listener: OnItemClickListener) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(data: ActivityPhotoType) {
             binding.activityPhoto.load(data.activityPhoto) {
@@ -35,14 +34,20 @@ class ActivityPhotosAdapter(private val items: List<ActivityPhotoType>) :
             }
             binding.executePendingBindings()
         }
+
+        init {
+            itemView.setOnClickListener {
+                listener.onClick(adapterPosition)
+            }
+        }
     }
     override fun getItemCount(): Int = items.size
 
     interface OnItemClickListener {
-        fun onClick(v: View, position: Int)
+        fun onClick(position: Int)
     }
 
-    fun setItemClickListener(onItemClickListener: OnItemClickListener) {
+    fun setItemOnClickListener(onItemClickListener: OnItemClickListener) {
         this.itemClickListener = onItemClickListener
     }
 

@@ -122,6 +122,11 @@ class MakeClubDetailFragment :
                         binding.clubActivePicture.adapter = adapter
                     }
                     Log.d("TAG",list.toString())
+                    adapter.setItemOnClickListener(object : ActivityPhotosAdapter.OnItemClickListener{
+                        override fun onClick(position: Int) {
+                            shortToast("click")
+                        }
+                    })
                 }
             }
         }
