@@ -9,4 +9,6 @@ class RegistrationUseCase @Inject constructor(
     private val repository: CommonRepository
 ) {
     suspend fun postRegistration(body: RegisterRequest) = repository.postRegistration(body)
+
+    suspend fun postRefresh() = repository.postRefresh()
 }
