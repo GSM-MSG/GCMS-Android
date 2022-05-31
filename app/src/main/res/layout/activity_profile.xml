@@ -9,35 +9,24 @@
             type="com.msg.gcms.ui.component.profile.ProfileActivity" />
     </data>
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/light_black">
-
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:background="@color/light_blue3">
 
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/guideline5"
                 android:layout_width="match_parent"
                 android:layout_height="0.5dp"
                 android:orientation="vertical"
-                app:layout_constraintGuide_percent="0.35" />
+                app:layout_constraintGuide_percent="0.04" />
 
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/guideline6"
                 android:layout_width="match_parent"
                 android:layout_height="0.5dp"
                 android:orientation="vertical"
-                app:layout_constraintGuide_percent="0.64" />
-
-            <View
-                android:id="@+id/userProfileColor"
-                android:layout_width="match_parent"
-                android:layout_height="180dp"
-                android:background="@color/pink"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintGuide_percent="0.29" />
 
             <ImageView
                 android:id="@+id/back_btn"
@@ -72,42 +61,51 @@
 
             <ImageView
                 android:id="@+id/profileImg"
-                android:layout_width="120dp"
-                android:layout_height="120dp"
-                android:layout_marginTop="-70dp"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_marginTop="33dp"
                 android:background="@drawable/ic_default_profile"
-                app:layout_constraintEnd_toEndOf="@id/guideline6"
                 app:layout_constraintStart_toStartOf="@id/guideline5"
-                app:layout_constraintTop_toBottomOf="@id/userProfileColor" />
+                app:layout_constraintEnd_toEndOf="@id/guideline6"
+                app:layout_constraintTop_toBottomOf="@id/back_btn" />
 
             <TextView
                 android:id="@+id/userNameTxt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="7.97dp"
+                android:layout_marginTop="23dp"
+                android:layout_marginStart="16dp"
                 android:text="닉네임"
                 android:textColor="@color/white"
                 android:textSize="20sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/profileImg" />
+                app:layout_constraintStart_toEndOf="@id/profileImg"
+                app:layout_constraintTop_toTopOf="@id/profileImg" />
 
             <TextView
                 android:id="@+id/userClassTxt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="2dp"
                 android:text="x학년 x반 x번"
-                android:textColor="#9C9C9C"
+                android:textColor="#80FFFFFF"
                 android:textSize="14sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/userNameTxt" />
-            <androidx.fragment.app.FragmentContainerView
-                android:id="@+id/profileFragmentView"
-                app:layout_constraintTop_toBottomOf="@id/userClassTxt"
+                app:layout_constraintTop_toBottomOf="@id/userNameTxt"
+                app:layout_constraintStart_toEndOf="@id/profileImg" />
+
+            <ScrollView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:name="com.msg.gcms.ui.component.profile.ProfileNoClubFragment"/>
+                android:fillViewport="true"
+                android:layout_marginTop="77dp">
+
+                <androidx.fragment.app.FragmentContainerView
+                    android:layout_marginTop="132dp"
+                    android:id="@+id/profileList"
+                    app:layout_constraintTop_toBottomOf="@id/afterSchoolTxt"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:name="com.msg.gcms.ui.component.profile.ProfileClubFragment" />
+            </ScrollView>
         </androidx.constraintlayout.widget.ConstraintLayout>
-    </ScrollView>
 </layout>

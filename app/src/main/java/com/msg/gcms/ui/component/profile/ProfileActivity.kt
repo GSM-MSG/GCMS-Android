@@ -7,6 +7,7 @@ import android.graphics.BitmapFactory
 import androidx.activity.viewModels
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
@@ -51,9 +52,8 @@ class ProfileActivity : BaseActivity<ActivityProfileBinding>(R.layout.activity_p
 
     private fun isClub() {
         viewModel.clubStatus.observe(this) {
-            if (it) {
-                supportFragmentManager.beginTransaction()
-                    .replace(R.id.profileFragmentView, ProfileClubFragment()).commit()
+            if(it){
+                supportFragmentManager.beginTransaction().replace(R.id.profileList, ProfileClubFragment()).commit()
             }
         }
     }
