@@ -5,17 +5,19 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
-
     <application
-        android:configChanges="orientation|screenSize"
         android:name="com.msg.gcms.base.di.GCMSApplication"
         android:allowBackup="true"
+        android:configChanges="orientation|screenSize"
         android:icon="@mipmap/ic_main"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_main_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MSGGCMS"
         android:usesCleartextTraffic="true">
+        <activity
+            android:name=".ui.component.afterschool.JoinAfterSchoolActivity"
+            android:exported="false" />
         <activity
             android:name=".ui.component.clubmaker.MakeClubActivity"
             android:exported="false" />
@@ -24,6 +26,9 @@
             android:exported="false" />
         <activity
             android:name=".ui.component.intro.IntroActivity"
+            android:exported="true" />
+        <activity
+            android:name=".ui.component.main.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -31,9 +36,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".ui.component.main.MainActivity"
-            android:exported="true"/>
         <activity android:name=".ui.component.profile.ProfileActivity" />
     </application>
 
