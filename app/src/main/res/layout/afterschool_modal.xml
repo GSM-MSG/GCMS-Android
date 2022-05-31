@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="800dp"
+    android:layout_height="900dp"
+    android:background="@drawable/ic_rectangle_946">
+
+    <ImageView
+        android:layout_width="471dp"
+        android:layout_height="336dp"
+        android:src="@drawable/ic_illust"
+        android:id="@+id/illust"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintVertical_bias="0.106"
+        app:layout_constraintHorizontal_bias="0.501" />
+
+    <ImageView
+        android:id="@+id/afterSchool_explain_text"
+        android:layout_width="599dp"
+        android:layout_height="271dp"
+        android:src="@drawable/ic_group_17655"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintVertical_bias="0.591"
+        app:layout_constraintHorizontal_bias="0.502" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/approveBtn"
+        android:layout_width="568dp"
+        android:layout_height="92dp"
+        android:fontFamily="@font/notosans"
+        android:textFontWeight="400"
+        android:text="네, 알겠습니다!"
+        android:textColor="@color/white"
+        android:textSize="31sp"
+        android:background="@drawable/ic_rectangle_941"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="128dp" />
+
+    <TextView
+        android:id="@+id/rejectBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/notosans"
+        android:text="아니요"
+        android:textColor="#C2C2C2"
+        android:textSize="31sp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintVertical_bias="0.93" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
