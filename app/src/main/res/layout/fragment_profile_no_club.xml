@@ -11,49 +11,16 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/light_black">
+        android:background="@drawable/bg_profile_list">
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/findClubBtn"
-            android:background="@drawable/bg_find_club_btn"
+        <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:includeFontPadding="false"
-            android:layout_marginTop="140dp"
-            android:paddingHorizontal="33dp"
-            android:paddingVertical="15dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:background="@drawable/bg_profile_nothing_list"
             app:layout_constraintTop_toTopOf="parent"
-            android:text="찾아보기"
-            android:fontFamily="@font/notosans"
-            android:textColor="@color/white"
-            android:textSize="16sp"/>
-
-        <TextView
-            android:id="@+id/noClubTxt"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/findClubBtn"
-            android:layout_marginTop="8dp"
-            android:textColor="@color/gray_9"
-            android:textSize="14sp"
-            android:fontFamily="@font/notosans"
-            android:text="아직 가입된 동아리가 없어요"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="3dp"
-            android:textColor="@color/gray_10"
-            android:textSize="12sp"
-            android:fontFamily="@font/notosans"
-            android:text="동아리를 가입하세요!"
-            app:layout_constraintTop_toBottomOf="@id/noClubTxt"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
-
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
