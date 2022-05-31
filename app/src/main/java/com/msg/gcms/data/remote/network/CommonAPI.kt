@@ -33,7 +33,4 @@ interface CommonAPI {
 
     @POST("auth/logout")
     suspend fun postLogout(): Response<Void>
-
-    @GET("check")
-    suspend fun checkLogin(): Response<Void>
 }
