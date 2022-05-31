@@ -283,6 +283,18 @@
                 app:layout_constraintBottom_toBottomOf="@+id/textView17"
                 app:layout_constraintStart_toEndOf="@+id/textView17" />
 
+            <ImageView
+                android:id="@+id/addActivityPhoto"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:padding="5dp"
+                android:src="@drawable/ic_add_club"
+                app:layout_constraintTop_toTopOf="@+id/guideline50"
+                app:layout_constraintBottom_toTopOf="@+id/guideline50"
+                app:layout_constraintEnd_toStartOf="@+id/guideline33"
+                android:onClick="@{fragment::galleryOpen}"
+                />
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/clubActivePicture"
                 android:layout_width="0dp"

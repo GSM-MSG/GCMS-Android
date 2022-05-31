@@ -43,11 +43,10 @@ class MakeClubDetailFragment :
             setHasFixedSize(true)
             addItemDecoration(ItemDecorator(10))
         }
-        val uri : Uri = Uri.parse(
-            ContentResolver.SCHEME_ANDROID_RESOURCE + "://" + resources.getResourcePackageName(
-                R.drawable.ic_activity_photo
-            )
+        val resource : Uri = Uri.parse(
+            ContentResolver.SCHEME_ANDROID_RESOURCE + "://" + resources.getResourcePackageName(R.drawable.ic_activity_photo)
         )
+        Log.d("TAG","$resource")
     }
 
     private val getContent =
@@ -90,13 +89,7 @@ class MakeClubDetailFragment :
                         photoPickerIntent.action = Intent.ACTION_GET_CONTENT
                         getContent.launch(photoPickerIntent)
                     }
-                    // clubActivePicture.id -> {
-                    //     val activityPhotosIntent = Intent(Intent.ACTION_GET_CONTENT)
-                    //     activityPhotosIntent.data = MediaStore.Images.Media.EXTERNAL_CONTENT_URI
-                    //     activityPhotosIntent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
-                    //     startActivityForResult(activityPhotosIntent, Activity.RESULT_OK)
-                    // }
-                    nextBtn.id -> {
+                    addActivityPhoto.id -> {
                         val activityPhotosIntent = Intent(Intent.ACTION_PICK)
                         activityPhotosIntent.data = MediaStore.Images.Media.EXTERNAL_CONTENT_URI
                         activityPhotosIntent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
