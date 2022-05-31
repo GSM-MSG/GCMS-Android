@@ -6,5 +6,12 @@ import com.msg.gcms.ui.base.BaseFragment
 
 class ProfileNoClubFragment: BaseFragment<FragmentProfileNoClubBinding>(R.layout.fragment_profile_no_club) {
     override fun init() {
+        clickFindBtn()
+    }
+
+    private fun clickFindBtn(){
+        binding.findClubBtn.setOnClickListener {
+            activity?.finish()
+        }
     }
 }

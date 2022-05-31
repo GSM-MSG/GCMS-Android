@@ -31,8 +31,4 @@ class CommonDataSourceImpl @Inject constructor(
     override suspend fun postLogout(): Response<Void> {
         return service.postLogout()
     }
-
-    override suspend fun checkLogin(): Response<Void> {
-        return service.checkLogin()
-    }
 }
