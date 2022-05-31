@@ -8,6 +8,10 @@ on:
 
 jobs:
   build:
+    env: 
+      ENCRYPTED_SERVICES_PATH: ${{ 'app/google-services.json.gpg' }}
+      DECRYPTED_SERVICES_PATH: ${{ 'app/google-services.json' }}
+      SERVICES_PW: ${{ secrets.GOOGLE_SERVICES_PW }}
   
     runs-on: ubuntu-latest
 
@@ -19,6 +23,8 @@ jobs:
         java-version: '11'
         distribution: 'temurin'
         cache: gradle
+    - name: decode google-services.json
+      run: gpg --pinentry-mode=loopback --passphrase  "$SERVICES_PW" -d -o "$DECRYPTED_SERVICES_PATH" "$ENCRYPTED_SERVICES_PATH"
 
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew

@@ -17,6 +17,8 @@ class ProfileViewModel @Inject constructor(
     private val _clubStatus = MutableLiveData<Boolean>()
     val clubStatus: LiveData<Boolean> get() = _clubStatus
 
+    private val _logoutStatus = MutableLiveData<Boolean>()
+    val logoutStatus: LiveData<Boolean> get() = _logoutStatus
     fun getUserInfo(){
         viewModelScope.launch {
             try{
@@ -31,6 +33,21 @@ class ProfileViewModel @Inject constructor(
                 }
             } catch (e: Exception){
                 Log.d("ERROR", "getUserInfo: ${e.message}")
+            }
+        }
+    }
+
+    fun logout(){
+        viewModelScope.launch {
+            try {
+                val response = profileUseCase.postLogout()
+                when(response.code()){
+                    200 -> {
+                        _logoutStatus.value = true
+                    }
+                }
+            } catch (e: Exception){
+                Log.d("TAG", "logout: ${e.message}")
             }
         }
     }
