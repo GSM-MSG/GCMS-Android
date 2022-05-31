@@ -1,7 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<shape xmlns:android="http://schemas.android.com/apk/res/android">
-    <solid android:color="@color/white" />
-    <corners
-        android:topLeftRadius="9dp"
-        android:topRightRadius="9dp" />
-</shape>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape xmlns:android="http://schemas.android.com/apk/res/android">
+            <solid android:color="@color/white" />
+            <size
+                android:height="176dp"
+                android:width="155dp" />
+            <corners android:radius="9dp" />
+        </shape>
+    </item>
+    <item
+        android:drawable="@drawable/ic_no_club"
+        android:bottom="35dp"
+        android:top="33dp"
+        android:start="30dp"
+        android:end="30dp" />
+</layer-list>

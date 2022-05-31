@@ -47,7 +47,10 @@ class IntroActivity : BaseActivity<ActivityIntroBinding>(R.layout.activity_intro
         viewModel.idTokenStatus.observe(this, Observer {
             when (it) {
                 in 200..299 -> startActivity(Intent(this, MainActivity::class.java))
-                404 -> shortToast("학교 계정으로 로그인 해주세요.")
+                in 403..404 -> {
+                    shortToast("학교 계정으로 로그인 해주세요.")
+                    client.signOut()
+                }
                 else -> shortToast("로그인에 실패했습니다.")
             }
         })

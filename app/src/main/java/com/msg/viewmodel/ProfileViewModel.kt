@@ -17,6 +17,9 @@ class ProfileViewModel @Inject constructor(
     private val _clubStatus = MutableLiveData<Boolean>()
     val clubStatus: LiveData<Boolean> get() = _clubStatus
 
+    private val _afterSchoolStatus = MutableLiveData<Boolean>()
+    val afterSchoolStatus: LiveData<Boolean> get() = _afterSchoolStatus
+
     private val _logoutStatus = MutableLiveData<Boolean>()
     val logoutStatus: LiveData<Boolean> get() = _logoutStatus
     fun getUserInfo(){
@@ -26,6 +29,7 @@ class ProfileViewModel @Inject constructor(
                 when(response.code()){
                     200 -> {
                         _clubStatus.value = response.body()?.clubs?.size != 0
+                        _afterSchoolStatus.value = response.body()?.afters?.size != 0
                     }
                     else -> {
                         _clubStatus.value = false
