@@ -33,4 +33,7 @@ interface CommonAPI {
 
     @POST("auth/logout")
     suspend fun postLogout(): Response<Void>
+
+    @POST("auth/refresh")
+    suspend fun postRefresh(): Response<RegisterResponse>
 }

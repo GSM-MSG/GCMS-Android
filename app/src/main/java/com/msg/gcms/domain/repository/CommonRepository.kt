@@ -17,4 +17,6 @@ interface CommonRepository {
     ): Response<LoginResponse>
 
     suspend fun postLogout(): Response<Void>
+
+    suspend fun postRefresh(): Response<RegisterResponse>
 }
