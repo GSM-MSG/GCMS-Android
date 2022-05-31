@@ -139,11 +139,23 @@
         <entry key="app/src/main/res/drawable/bg_login_edit_text_error.xml" value="0.252" />
         <entry key="app/src/main/res/drawable/bg_make_club_et.xml" value="0.252" />
         <entry key="app/src/main/res/drawable/bg_make_free_btn.xml" value="0.252" />
+        <entry key="app/src/main/res/drawable/bg_make_major_btn.xml" value="0.231" />
         <entry key="app/src/main/res/drawable/bg_make_personal_btn.xml" value="0.1695" />
         <entry key="app/src/main/res/drawable/bg_photo_banner.xml" value="0.252" />
+        <entry key="app/src/main/res/drawable/bg_sign_btn.xml" value="0.231" />
         <entry key="app/src/main/res/drawable/bg_user_profile.xml" value="0.252" />
+        <entry key="app/src/main/res/drawable/bg_wave1.xml" value="0.231" />
+        <entry key="app/src/main/res/drawable/bg_wave2.xml" value="0.231" />
+        <entry key="app/src/main/res/drawable/google_icon.xml" value="0.231" />
+        <entry key="app/src/main/res/drawable/ic__google_icon.xml" value="0.231" />
         <entry key="app/src/main/res/drawable/ic_activity_photo.xml" value="0.1035" />
+        <entry key="app/src/main/res/drawable/ic_baseline_email_24.xml" value="0.231" />
         <entry key="app/src/main/res/drawable/ic_club_member_btn.xml" value="0.1695" />
+        <entry key="app/src/main/res/drawable/ic_current_page.xml" value="0.231" />
+        <entry key="app/src/main/res/drawable/ic_eye.xml" value="0.231" />
+        <entry key="app/src/main/res/drawable/ic_free_bg.xml" value="0.231" />
+        <entry key="app/src/main/res/drawable/ic_gsm_hs_kr.xml" value="0.231" />
+        <entry key="app/src/main/res/drawable/ic_major_bg.xml" value="0.231" />
         <entry key="app/src/main/res/drawable/ic_plus.xml" value="0.231" />
         <entry key="app/src/main/res/layout/activity_intro.xml" value="0.1118659420289855" />
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.14166666666666666" />
