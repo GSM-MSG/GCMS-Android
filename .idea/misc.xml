@@ -142,6 +142,7 @@
         <entry key="app/src/main/res/drawable/bg_make_personal_btn.xml" value="0.1695" />
         <entry key="app/src/main/res/drawable/bg_photo_banner.xml" value="0.252" />
         <entry key="app/src/main/res/drawable/bg_user_profile.xml" value="0.252" />
+        <entry key="app/src/main/res/drawable/ic_activity_photo.xml" value="0.1035" />
         <entry key="app/src/main/res/drawable/ic_club_member_btn.xml" value="0.1695" />
         <entry key="app/src/main/res/layout/activity_intro.xml" value="0.1118659420289855" />
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.14166666666666666" />
