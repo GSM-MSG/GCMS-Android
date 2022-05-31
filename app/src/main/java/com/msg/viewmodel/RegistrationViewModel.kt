@@ -20,7 +20,24 @@ class RegistrationViewModel @Inject constructor(
     private val _idTokenStatus = MutableLiveData<Int>()
     val idTokenStatus: LiveData<Int> get() = _idTokenStatus
 
+    private val _isLogin = MutableLiveData<Boolean>()
+    val isLogin: LiveData<Boolean> get() = _isLogin
+
     private val TAG = "google login"
+
+    fun checkLogin(){
+        viewModelScope.launch {
+            try {
+                val response = useCase.postRefresh()
+                when(response.code()) {
+                    in 200..299 -> _isLogin.value = true
+                    else -> _isLogin.value = false
+                }
+            } catch (e: Exception) {
+                Log.d("ERROR", "checkLogin: ${e.message}")
+            }
+        }
+    }
 
     fun sendIdTokenLogic(idToken: String) {
         viewModelScope.launch {
