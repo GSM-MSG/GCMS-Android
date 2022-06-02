@@ -3,10 +3,8 @@ package com.msg.gcms.ui.component.clubmaker.clubDetail
 import android.Manifest
 import android.annotation.SuppressLint
 import android.app.Activity
-import android.content.ContentResolver
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.net.Uri
 import android.provider.MediaStore
 import android.util.Log
 import android.view.View
@@ -19,8 +17,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import coil.load
 import com.msg.gcms.R
 import com.msg.gcms.data.local.entity.ActivityPhotoType
+import com.msg.gcms.data.remote.dto.datasource.club.response.MemberSummaryResponse
 import com.msg.gcms.databinding.FragmentMakeClubDetailBinding
 import com.msg.gcms.ui.adapter.ActivityPhotosAdapter
+import com.msg.gcms.ui.adapter.ClubMemberAdapter
 import com.msg.gcms.ui.base.BaseFragment
 import com.msg.gcms.utils.ItemDecorator
 import dagger.hilt.android.AndroidEntryPoint
@@ -29,8 +29,10 @@ import dagger.hilt.android.AndroidEntryPoint
 class MakeClubDetailFragment :
     BaseFragment<FragmentMakeClubDetailBinding>(R.layout.fragment_make_club_detail) {
 
-    var list = mutableListOf<ActivityPhotoType>()
-    private lateinit var adapter: ActivityPhotosAdapter
+    var activityPhotoList = mutableListOf<ActivityPhotoType>()
+    var memberList = mutableListOf<MemberSummaryResponse>()
+    private lateinit var activityAdapter: ActivityPhotosAdapter
+    private lateinit var clubMemberAdapter: ClubMemberAdapter
 
     override fun init() {
         binding.fragment = this
@@ -43,10 +45,12 @@ class MakeClubDetailFragment :
             setHasFixedSize(true)
             addItemDecoration(ItemDecorator(10))
         }
-        val resource : Uri = Uri.parse(
-            ContentResolver.SCHEME_ANDROID_RESOURCE + "://" + resources.getResourcePackageName(R.drawable.ic_activity_photo)
-        )
-        Log.d("TAG","$resource")
+        with(binding.clubMemberRv) {
+            layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+            setHasFixedSize(true)
+            addItemDecoration(ItemDecorator(50))
+            clubMemberRv()
+        }
     }
 
     private val getContent =
@@ -68,10 +72,27 @@ class MakeClubDetailFragment :
             binding.clubTypeBackBtn.id -> {
                 this.findNavController().popBackStack()
             }
-            // binding.nextBtn.id -> {
-            //     activity?.finish()
-            // }
+            binding.nextBtn.id -> {
+                activity?.finish()
+            }
         }
+    }
+
+    fun clubMemberRv() {
+        memberList.add(MemberSummaryResponse("이현빈", R.drawable.ic_activity_photo.toString()))
+        memberList.add(MemberSummaryResponse("aaa", R.drawable.ic_activity_photo.toString()))
+        memberList.add(MemberSummaryResponse("asdf", R.drawable.ic_activity_photo.toString()))
+        memberList.add(MemberSummaryResponse("sdfd", R.drawable.ic_activity_photo.toString()))
+        memberList.add(MemberSummaryResponse("sfs", R.drawable.ic_activity_photo.toString()))
+        memberList.add(MemberSummaryResponse("asd", R.drawable.ic_activity_photo.toString()))
+        memberList.add(MemberSummaryResponse("fewq", R.drawable.ic_activity_photo.toString()))
+        clubMemberAdapter = ClubMemberAdapter(memberList)
+        clubMemberAdapter.setItemOnClickListener(object : ClubMemberAdapter.OnItemClickListener{
+            override fun onClick(position: Int) {
+                shortToast("click")
+            }
+        })
+        binding.clubMemberRv.adapter = clubMemberAdapter
     }
 
     fun galleryOpen(view: View) {
@@ -115,24 +136,24 @@ class MakeClubDetailFragment :
                     shortToast("활동사진은 최대 4개까지 가능합니다.")
                     return
                 } else {
-                    list.clear()
+                    activityPhotoList.clear()
                     for (i in 0 until data.clipData!!.itemCount) {
                         val imageUri = data.clipData!!.getItemAt(i).uri
                         try {
-                            list.add(ActivityPhotoType(activityPhoto = imageUri.toString()))
+                            activityPhotoList.add(ActivityPhotoType(activityPhoto = imageUri.toString()))
                         } catch (e: Exception) {
                             Log.e("TAG", e.toString())
                         }
-                        adapter = ActivityPhotosAdapter(list)
-                        binding.clubActivePicture.adapter = adapter
+                        activityAdapter = ActivityPhotosAdapter(activityPhotoList)
+                        binding.clubActivePicture.adapter = activityAdapter
                     }
-                    Log.d("TAG", list.toString())
-                    adapter.setItemOnClickListener(object :
+                    Log.d("TAG", activityPhotoList.toString())
+                    activityAdapter.setItemOnClickListener(object :
                         ActivityPhotosAdapter.OnItemClickListener {
                         @SuppressLint("NotifyDataSetChanged")
                         override fun onClick(position: Int) {
-                            list.removeAt(position)
-                            adapter.notifyDataSetChanged()
+                            activityPhotoList.removeAt(position)
+                            activityAdapter.notifyDataSetChanged()
                         }
                     })
                 }
