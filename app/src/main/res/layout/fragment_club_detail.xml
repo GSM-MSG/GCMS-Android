@@ -198,6 +198,13 @@
                     android:orientation="horizontal"
                     app:layout_constraintGuide_percent="0.88" />
 
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/guideline20"
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:orientation="horizontal"
+                    app:layout_constraintGuide_percent="0.975" />
+
                 <TextView
                     android:id="@+id/explain_club"
                     android:layout_width="wrap_content"
@@ -372,15 +379,17 @@
                     app:layout_constraintTop_toTopOf="@id/guideline19"
                     app:layout_constraintBottom_toBottomOf="@id/guideline19" />
 
-                <Button
+                <androidx.appcompat.widget.AppCompatButton
+                    android:textStyle="bold"
                     android:id="@+id/submit_btn"
+                    android:text="@string/club_application"
                     android:layout_width="match_parent"
                     android:layout_height="56dp"
-                    android:layout_marginTop="60dp"
-                    android:background="@drawable/ic_club_application_btn"
+                    android:background="@color/dark_blue"
                     android:textColor="@color/white"
-                    android:textSize="14sp"
-                    app:layout_constraintTop_toBottomOf="@id/directory_txt" />
+                    android:textSize="18sp"
+                    app:layout_constraintTop_toTopOf="@id/guideline20"
+                    app:layout_constraintBottom_toBottomOf="@id/guideline20" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </ScrollView>

@@ -68,4 +68,9 @@
     <string name="club_boss_name">이름</string>
     <string name="contact">연락처</string>
 
+    <string name="club_application">동아리 신청하기</string>
+    <string name="club_application_cancle">신청취소하기</string>
+    <string name="close_application">동아리 신청 마감하기</string>
+    <string name="aready_closed">마감됨</string>
+
 </resources>
