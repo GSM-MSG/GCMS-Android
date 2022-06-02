@@ -1,17 +1,17 @@
 package com.msg.gcms.base.di
 
 import android.app.Application
-import com.msg.gcms.data.local.dao.LoginAccessToken
+import com.msg.gcms.data.local.dao.LoginToken
 import dagger.hilt.android.HiltAndroidApp
 
 @HiltAndroidApp
 class GCMSApplication : Application() {
     companion object {
-        lateinit var prefs: LoginAccessToken
+        lateinit var prefs: LoginToken
     }
 
     override fun onCreate() {
         super.onCreate()
-        prefs = LoginAccessToken(applicationContext)
+        prefs = LoginToken(applicationContext)
     }
 }
