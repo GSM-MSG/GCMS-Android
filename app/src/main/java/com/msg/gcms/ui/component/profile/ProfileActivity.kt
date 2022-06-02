@@ -25,6 +25,7 @@ class ProfileActivity : BaseActivity<ActivityProfileBinding>(R.layout.activity_p
     private lateinit var client: GoogleSignInClient
     override fun observeEvent() {
         isClub()
+        myProfile()
     }
 
     override fun viewSetting() {
@@ -32,6 +33,15 @@ class ProfileActivity : BaseActivity<ActivityProfileBinding>(R.layout.activity_p
         clickBackBtn()
         clickProfileEdit()
         clickLogout()
+    }
+
+    private fun myProfile(){
+        viewModel.profileData.observe(this) {
+            binding.apply {
+                userNameTxt.text = it.userData.name
+                userClassTxt.text = "${it.userData.grade}학년 ${it.userData.`class`}반 ${it.userData.num}번"
+            }
+        }
     }
 
     private fun isLogout() {
