@@ -34,7 +34,7 @@ class MainViewModel @Inject constructor(
                         "전공동아리" -> "MAJOR"
                         "자율동아리" -> "EDITORIAL"
                         "사설동아리" -> "FREEDOM"
-                        else -> ""
+                        else -> "MAJOR"
                     }
                 )
             } catch (e: Exception){
