@@ -37,7 +37,7 @@ class LoginViewModel @Inject constructor(
                     201 -> {
                         Log.d("TAG", "postLogin: ")
                         _loginStatus.value = true
-                        GCMSApplication.prefs.token = response.body()?.accessToken
+                        GCMSApplication.prefs.accessToken = response.body()?.accessToken
                     }
                 }
             } catch (e: Exception) {

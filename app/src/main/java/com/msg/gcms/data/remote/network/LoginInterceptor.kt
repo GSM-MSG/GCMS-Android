@@ -10,7 +10,7 @@ class LoginInterceptor : Interceptor {
     @Throws(IOException::class)
     override fun intercept(chain: Interceptor.Chain): Response = with(chain) {
         val req =
-            request().newBuilder().addHeader("Authorization", GCMSApplication.prefs.token ?: "")
+            request().newBuilder().addHeader("Authorization", "Bearer ${GCMSApplication.prefs.accessToken}")
                 .build()
         return proceed(req)
     }
