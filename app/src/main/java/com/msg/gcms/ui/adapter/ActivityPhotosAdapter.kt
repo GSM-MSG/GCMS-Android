@@ -10,7 +10,6 @@ import com.msg.gcms.databinding.ListClubPictureBinding
 
 class ActivityPhotosAdapter(private val items: List<ActivityPhotoType>) :
     RecyclerView.Adapter<ActivityPhotosAdapter.BannerViewHolder>() {
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BannerViewHolder {
         val binding =
             ListClubPictureBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -25,8 +24,8 @@ class ActivityPhotosAdapter(private val items: List<ActivityPhotoType>) :
         }
     }
 
-    class BannerViewHolder(val binding: ListClubPictureBinding, listener: OnItemClickListener) : RecyclerView.ViewHolder(binding.root) {
-
+    class BannerViewHolder(val binding: ListClubPictureBinding, listener: OnItemClickListener) :
+        RecyclerView.ViewHolder(binding.root) {
         fun bind(data: ActivityPhotoType) {
             binding.activityPhoto.load(data.activityPhoto) {
                 crossfade(true)
@@ -36,11 +35,13 @@ class ActivityPhotosAdapter(private val items: List<ActivityPhotoType>) :
         }
 
         init {
-            itemView.setOnClickListener {
+            binding.activityPhoto.setOnClickListener {
                 listener.onClick(adapterPosition)
             }
         }
     }
+
+
     override fun getItemCount(): Int = items.size
 
     interface OnItemClickListener {
@@ -51,5 +52,5 @@ class ActivityPhotosAdapter(private val items: List<ActivityPhotoType>) :
         this.itemClickListener = onItemClickListener
     }
 
-    private lateinit var itemClickListener : OnItemClickListener
+    private lateinit var itemClickListener: OnItemClickListener
 }

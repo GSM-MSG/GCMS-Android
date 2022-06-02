@@ -315,14 +315,16 @@
                 android:textColor="@color/white"
                 android:textSize="13sp"
                 android:textStyle="bold"
+                android:layout_marginTop="30dp"
                 app:layout_constraintStart_toStartOf="@+id/guideline29"
                 app:layout_constraintTop_toBottomOf="@+id/clubActivePicture" />
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recyclerView2"
+                android:id="@+id/clubMemberRv"
                 android:layout_width="0dp"
                 android:layout_height="100dp"
                 android:orientation="horizontal"
+                android:layout_marginTop="20dp"
                 app:layout_constraintEnd_toStartOf="@+id/guideline43"
                 app:layout_constraintStart_toStartOf="@+id/guideline29"
                 app:layout_constraintTop_toBottomOf="@+id/textView19"
@@ -340,7 +342,7 @@
                 android:textColor="@color/white"
                 android:textSize="18sp"
                 android:textStyle="bold"
-                app:layout_constraintTop_toBottomOf="@id/recyclerView2"
+                app:layout_constraintTop_toBottomOf="@id/clubMemberRv"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />

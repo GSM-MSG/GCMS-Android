@@ -209,6 +209,7 @@
         <entry key="app/src/main/res/drawable/google_icon.xml" value="0.231" />
         <entry key="app/src/main/res/drawable/ic__google_icon.xml" value="0.231" />
         <entry key="app/src/main/res/drawable/ic_activity_photo.xml" value="0.1035" />
+        <entry key="app/src/main/res/drawable/ic_back_btn.xml" value="0.174" />
         <entry key="app/src/main/res/drawable/ic_baseline_email_24.xml" value="0.231" />
         <entry key="app/src/main/res/drawable/ic_club_member_btn.xml" value="0.1695" />
         <entry key="app/src/main/res/drawable/ic_current_page.xml" value="0.231" />
@@ -227,7 +228,7 @@
         <entry key="app/src/main/res/layout/fragment_club_introduce.xml" value="0.375" />
         <entry key="app/src/main/res/layout/fragment_club_type.xml" value="0.165" />
         <entry key="app/src/main/res/layout/fragment_email_check.xml" value="0.28854166666666664" />
-        <entry key="app/src/main/res/layout/fragment_make_club_detail.xml" value="2.0" />
+        <entry key="app/src/main/res/layout/fragment_make_club_detail.xml" value="0.335" />
         <entry key="app/src/main/res/layout/fragment_post_email.xml" value="0.14166666666666666" />
         <entry key="app/src/main/res/layout/fragment_sign_up.xml" value="0.18115942028985507" />
         <entry key="app/src/main/res/layout/item_my_club.xml" value="0.37604166666666666" />
