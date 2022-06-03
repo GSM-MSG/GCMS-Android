@@ -7,9 +7,11 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.msg.gcms.base.di.GCMSApplication
 import com.msg.gcms.data.remote.dto.datasource.auth.request.RegisterRequest
+import com.msg.gcms.data.remote.dto.datasource.auth.response.RegisterResponse
 import com.msg.gcms.domain.usecase.common.RegistrationUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import retrofit2.Response
 import javax.inject.Inject
 
 @HiltViewModel
@@ -25,12 +27,22 @@ class RegistrationViewModel @Inject constructor(
 
     private val TAG = "google login"
 
+    private fun saveToken(response: RegisterResponse){
+        GCMSApplication.prefs.apply {
+            accessToken = response.accessToken
+            refreshToken = response.refreshToken
+        }
+    }
+
     fun checkLogin(){
         viewModelScope.launch {
             try {
                 val response = useCase.postRefresh()
                 when(response.code()) {
-                    in 200..299 -> _isLogin.value = true
+                    in 200..299 -> {
+                        _isLogin.value = true
+                        saveToken(response.body()!!)
+                    }
                     else -> _isLogin.value = false
                 }
             } catch (e: Exception) {
@@ -47,10 +59,7 @@ class RegistrationViewModel @Inject constructor(
                     in 200..299 -> {
                         printStatus(response.code())
                         _idTokenStatus.value = response.code()
-                        GCMSApplication.prefs.apply {
-                            accessToken = response.body()?.accessToken
-                            refreshToken = response.body()?.refreshToken
-                        }
+                        saveToken(response.body()!!)
                     }
                     400 -> {
                         printStatus(response.code())
