@@ -8,7 +8,6 @@ import androidx.lifecycle.viewModelScope
 import com.msg.gcms.data.remote.dto.datasource.club.response.ClubInfoResponse
 import com.msg.gcms.data.usecase.GetDetailUseCase
 import kotlinx.coroutines.launch
-import retrofit2.Response
 import javax.inject.Inject
 
 class ClubDetailViewModel @Inject constructor(
@@ -17,7 +16,7 @@ class ClubDetailViewModel @Inject constructor(
 
     private val TAG = "getdetail"
 
-    lateinit var result: Response<ClubInfoResponse>
+    lateinit var result: ClubInfoResponse
 
     private val _getDetailStatus = MutableLiveData<Int>()
     val getDetailStatus: LiveData<Int> get() = _getDetailStatus
@@ -26,7 +25,7 @@ class ClubDetailViewModel @Inject constructor(
         viewModelScope.launch {
             try {
                 val response = getDetailUseCase.getDetail(type, clubname)
-                result = response
+                result = response.body()!!
                 when (response.code()) {
                     200 -> {
                         _getDetailStatus.value = response.code()
