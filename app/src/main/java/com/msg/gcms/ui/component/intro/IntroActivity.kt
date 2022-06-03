@@ -22,11 +22,12 @@ class IntroActivity : BaseActivity<ActivityIntroBinding>(R.layout.activity_intro
     private lateinit var client: GoogleSignInClient
 
     override fun viewSetting() {
+        clickGoogleLogin()
     }
 
     override fun observeEvent() {
-        clickGoogleLogin()
-        observer()
+        login()
+        isLogin()
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -41,11 +42,6 @@ class IntroActivity : BaseActivity<ActivityIntroBinding>(R.layout.activity_intro
                 Log.w(TAG, e)
             }
         }
-    }
-
-    private fun observer() {
-        login()
-        isLogin()
     }
 
     private fun login() {
