@@ -1,5 +1,6 @@
 package com.msg.gcms.data.remote.network
 
+import com.msg.gcms.base.di.GCMSApplication
 import com.msg.gcms.data.remote.dto.datasource.auth.request.CodeIssuanceRequest
 import com.msg.gcms.data.remote.dto.datasource.auth.request.RegisterRequest
 import com.msg.gcms.data.remote.dto.datasource.auth.response.RegisterResponse
@@ -28,5 +29,7 @@ interface CommonAPI {
     suspend fun postLogout(): Response<Void>
 
     @POST("auth/refresh")
-    suspend fun postRefresh(): Response<RegisterResponse>
+    suspend fun postRefresh(
+        @Header("Authorization") refreshToken: String? = "Bearer ${GCMSApplication.prefs.refreshToken}"
+    ): Response<RegisterResponse>
 }
