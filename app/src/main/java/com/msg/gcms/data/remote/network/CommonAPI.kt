@@ -1,9 +1,8 @@
 package com.msg.gcms.data.remote.network
 
+import com.msg.gcms.base.di.GCMSApplication
 import com.msg.gcms.data.remote.dto.datasource.auth.request.CodeIssuanceRequest
-import com.msg.gcms.data.remote.dto.datasource.auth.request.LoginRequest
 import com.msg.gcms.data.remote.dto.datasource.auth.request.RegisterRequest
-import com.msg.gcms.data.remote.dto.datasource.auth.response.LoginResponse
 import com.msg.gcms.data.remote.dto.datasource.auth.response.RegisterResponse
 import retrofit2.Response
 import retrofit2.http.*
@@ -26,14 +25,11 @@ interface CommonAPI {
         @Query("code") code: String
     ): Response<Void>
 
-    @POST("auth/login")
-    suspend fun postLogin(
-        @Body body: LoginRequest
-    ): Response<LoginResponse>
-
     @POST("auth/logout")
     suspend fun postLogout(): Response<Void>
 
-    @GET("check")
-    suspend fun checkLogin(): Response<Void>
+    @POST("auth/refresh")
+    suspend fun postRefresh(
+        @Header("Authorization") refreshToken: String? = "Bearer ${GCMSApplication.prefs.refreshToken}"
+    ): Response<RegisterResponse>
 }
