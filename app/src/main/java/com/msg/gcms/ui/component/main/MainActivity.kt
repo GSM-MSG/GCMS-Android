@@ -36,10 +36,10 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
     private fun observeBottomNav(){
         binding.bottomNavigation.setOnNavigationItemSelectedListener {
             var fragNum = 0
-            when (it.itemId) {
-                R.id.majorFragment -> fragNum = 0
-                R.id.freeFragment -> fragNum = 1
-                R.id.personalFragment -> fragNum = 2
+            fragNum = when (it.itemId) {
+                R.id.majorFragment -> 0
+                R.id.freeFragment -> 1
+                R.id.personalFragment -> 2
                 else -> return@setOnNavigationItemSelectedListener false
             }
             mainViewModel.setClubName(fragNum)
