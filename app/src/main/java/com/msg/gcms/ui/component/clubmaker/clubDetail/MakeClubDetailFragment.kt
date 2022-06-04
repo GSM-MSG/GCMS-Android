@@ -22,7 +22,6 @@ import com.msg.gcms.databinding.FragmentMakeClubDetailBinding
 import com.msg.gcms.ui.adapter.ActivityPhotosAdapter
 import com.msg.gcms.ui.adapter.ClubMemberAdapter
 import com.msg.gcms.ui.base.BaseFragment
-import com.msg.gcms.ui.component.clubmaker.searchstudent.UserSearchActivity
 import com.msg.gcms.utils.ItemDecorator
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -90,7 +89,7 @@ class MakeClubDetailFragment :
         clubMemberAdapter = ClubMemberAdapter(memberList)
         clubMemberAdapter.setItemOnClickListener(object : ClubMemberAdapter.OnItemClickListener{
             override fun onClick(position: Int) {
-                startActivity(Intent(context, UserSearchActivity::class.java))
+                shortToast("click")
             }
         })
         binding.clubMemberRv.adapter = clubMemberAdapter
