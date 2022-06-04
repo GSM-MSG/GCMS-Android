@@ -142,6 +142,7 @@
         <entry key="app/src/main/res/drawable/bg_make_major_btn.xml" value="0.231" />
         <entry key="app/src/main/res/drawable/bg_make_personal_btn.xml" value="0.1695" />
         <entry key="app/src/main/res/drawable/bg_photo_banner.xml" value="0.252" />
+        <entry key="app/src/main/res/drawable/bg_serach_edit_text.xml" value="0.174" />
         <entry key="app/src/main/res/drawable/bg_sign_btn.xml" value="0.231" />
         <entry key="app/src/main/res/drawable/bg_user_profile.xml" value="0.252" />
         <entry key="app/src/main/res/drawable/bg_wave1.xml" value="0.231" />
@@ -151,6 +152,7 @@
         <entry key="app/src/main/res/drawable/ic_activity_photo.xml" value="0.1035" />
         <entry key="app/src/main/res/drawable/ic_back_btn.xml" value="0.174" />
         <entry key="app/src/main/res/drawable/ic_baseline_email_24.xml" value="0.231" />
+        <entry key="app/src/main/res/drawable/ic_check_icon.xml" value="0.256" />
         <entry key="app/src/main/res/drawable/ic_club_member_btn.xml" value="0.1695" />
         <entry key="app/src/main/res/drawable/ic_current_page.xml" value="0.231" />
         <entry key="app/src/main/res/drawable/ic_eye.xml" value="0.231" />
@@ -158,10 +160,13 @@
         <entry key="app/src/main/res/drawable/ic_gsm_hs_kr.xml" value="0.231" />
         <entry key="app/src/main/res/drawable/ic_major_bg.xml" value="0.231" />
         <entry key="app/src/main/res/drawable/ic_plus.xml" value="0.231" />
+        <entry key="app/src/main/res/drawable/ic_search_icon.xml" value="0.174" />
+        <entry key="app/src/main/res/drawable/selector_check_box.xml" value="0.256" />
+        <entry key="app/src/main/res/drawable/selector_user_check_list.xml" value="0.256" />
         <entry key="app/src/main/res/layout/activity_intro.xml" value="0.1118659420289855" />
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.14166666666666666" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.2890625" />
-        <entry key="app/src/main/res/layout/activity_user_search.xml" value="0.28802083333333334" />
+        <entry key="app/src/main/res/layout/activity_user_search.xml" value="0.335" />
         <entry key="app/src/main/res/layout/fragment_add_member.xml" value="0.3182291666666667" />
         <entry key="app/src/main/res/layout/fragment_club.xml" value="0.37604166666666666" />
         <entry key="app/src/main/res/layout/fragment_club_detail.xml" value="0.37604166666666666" />
@@ -175,7 +180,8 @@
         <entry key="app/src/main/res/layout/item_my_club.xml" value="0.37604166666666666" />
         <entry key="app/src/main/res/layout/list_club_member.xml" value="0.37604166666666666" />
         <entry key="app/src/main/res/layout/list_club_picture.xml" value="0.6380597014925373" />
-        <entry key="app/src/main/res/layout/list_search_member.xml" value="0.37604166666666666" />
+        <entry key="app/src/main/res/layout/list_search_member.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/list_search_student.xml" value="0.37604166666666666" />
       </map>
     </option>
   </component>

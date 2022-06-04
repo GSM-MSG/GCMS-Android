@@ -10,6 +10,10 @@ class UserSearchActivity : BaseActivity<ActivityUserSearchBinding>(R.layout.acti
     }
 
     override fun observeEvent() {
+        deleteIconClick()
+    }
+
+    private fun deleteIconClick() {
 
     }
 }

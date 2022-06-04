@@ -29,7 +29,7 @@
             android:exported="false" />
         <activity
             android:name=".ui.component.intro.IntroActivity"
-            android:exported="true"></activity>
+            android:exported="true"/>
         <activity
             android:name=".ui.component.main.MainActivity"
             android:exported="true">

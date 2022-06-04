@@ -38,10 +38,12 @@
 
     <CheckBox
         android:id="@+id/choseMemberCb"
-        android:layout_width="23dp"
-        android:layout_height="23dp"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
         android:button="@null"
+        android:checked="false"
         android:padding="5dp"
+        android:background="@drawable/selector_user_check_list"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
