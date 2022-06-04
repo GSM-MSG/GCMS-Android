@@ -1,7 +1,6 @@
 package com.msg.gcms.data.repository
 
 import com.msg.gcms.data.remote.datasource.CommonDataSourceImpl
-import com.msg.gcms.data.remote.dto.datasource.auth.request.CodeIssuanceRequest
 import com.msg.gcms.data.remote.dto.datasource.auth.request.LoginRequest
 import com.msg.gcms.data.remote.dto.datasource.auth.request.RegisterRequest
 import com.msg.gcms.data.remote.dto.datasource.auth.response.LoginResponse

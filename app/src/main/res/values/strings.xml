@@ -74,5 +74,6 @@
     <string name="aready_closed">마감됨</string>
     <string name="search_user_str">너, 내 동료가 돼라</string>
     <string name="student_search_str">학생 검색</string>
+    <string name="select_str">선택</string>
 
 </resources>
