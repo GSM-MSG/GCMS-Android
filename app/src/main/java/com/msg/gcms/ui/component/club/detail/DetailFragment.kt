@@ -6,9 +6,9 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import coil.load
 import com.msg.gcms.R
+import com.msg.gcms.data.local.entity.DetailPageUserInfo
 import com.msg.gcms.data.local.entity.PromotionPicType
 import com.msg.gcms.data.remote.dto.datasource.club.response.UserInfo
-import com.msg.gcms.data.remote.dto.datasource.user.response.UserData
 import com.msg.gcms.databinding.FragmentClubDetailBinding
 import com.msg.gcms.ui.adapter.ClubActivitysAdapter
 import com.msg.gcms.ui.adapter.ClubMemberAdapter
@@ -21,7 +21,7 @@ class DetailFragment : BaseFragment<FragmentClubDetailBinding>(R.layout.fragment
 
     private val TAG = "Detail"
     var urlsList = mutableListOf<PromotionPicType>()
-    var membersList = mutableListOf<UserData>()
+    var membersList = mutableListOf<DetailPageUserInfo>()
     private val viewmodel by activityViewModels<ClubDetailViewModel>()
     private val activitysAdapter: ClubActivitysAdapter = ClubActivitysAdapter()
     private val memberAdapter: ClubMemberAdapter = ClubMemberAdapter()
@@ -63,19 +63,11 @@ class DetailFragment : BaseFragment<FragmentClubDetailBinding>(R.layout.fragment
         for (i in member.indices) {
             val memberName = member[i].name
             val memberImg = member[i].userImg.toString()
-            val memberEmail = member[i].email
-            val memberGrade = member[i].grade
-            val membersClass = member[i].`class`
-            val memberNum = member[i].num
             try {
                 membersList.add(
-                    UserData(
-                        email = memberEmail,
+                    DetailPageUserInfo(
                         name = memberName,
-                        grade = memberGrade,
-                        `class` = membersClass,
-                        num = memberNum,
-                        userImg = memberImg
+                        imgUrl = memberImg
                     )
                 )
             } catch (e: Exception) {
