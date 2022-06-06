@@ -1,9 +1,12 @@
 package com.msg.gcms.ui.component.club
 
 import android.content.Intent
+import android.util.Log
 import androidx.fragment.app.activityViewModels
+import androidx.recyclerview.widget.GridLayoutManager
 import com.msg.gcms.R
 import com.msg.gcms.databinding.FragmentClubBinding
+import com.msg.gcms.ui.adapter.ClubListAdapter
 import com.msg.gcms.ui.base.BaseFragment
 import com.msg.gcms.ui.component.clubmaker.MakeClubActivity
 import com.msg.gcms.ui.component.profile.ProfileActivity
@@ -13,14 +16,24 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class ClubFragment : BaseFragment<FragmentClubBinding>(R.layout.fragment_club) {
     private val viewModel by activityViewModels<MainViewModel>()
+    private lateinit var adapter: ClubListAdapter
     override fun init() {
+        viewModel.getClubList()
+        recyclerview()
         clickProfile()
         clickMakeClubBtn()
         clubTxt()
     }
 
+    private fun recyclerview(){
+        binding.clubRecyclerView.layoutManager = GridLayoutManager(context, 2)
+        viewModel.clubData.observe(this) {
+            adapter = ClubListAdapter(viewModel.clubData.value)
+            binding.clubRecyclerView.adapter = adapter
+        }
+    }
+
     private fun clubTxt(){
-        viewModel.getClubList()
         viewModel.clubName.observe(this){
             binding.clubNameTxt.text = viewModel.clubName.value
             viewModel.getClubList()
