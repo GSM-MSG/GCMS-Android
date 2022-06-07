@@ -7,10 +7,12 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.msg.gcms.data.remote.dto.datasource.club.response.ClubInfoResponse
 import com.msg.gcms.data.usecase.GetDetailUseCase
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import retrofit2.Response
 import javax.inject.Inject
 
+@HiltViewModel
 class ClubDetailViewModel @Inject constructor(
     private val getDetailUseCase: GetDetailUseCase
 ) : ViewModel() {
@@ -22,15 +24,18 @@ class ClubDetailViewModel @Inject constructor(
     private val _getDetailStatus = MutableLiveData<Int>()
     val getDetailStatus: LiveData<Int> get() = _getDetailStatus
 
-    fun getDetail(type: String, clubname: String){
+    private val _type = MutableLiveData<String>()
+    private val _q = MutableLiveData<String>()
+
+    fun getDetail(){
         viewModelScope.launch {
             try {
-                val response = getDetailUseCase.getDetail(type, clubname)
+                val response = getDetailUseCase.getDetail(_type.value!!, _q.value!!)
                 result = response
                 when (response.code()) {
                     200 -> {
                         _getDetailStatus.value = response.code()
-                        Log.d(TAG, "status : ${response.code()}")
+                        Log.d(TAG, "status : ${response.body()}")
                     }
                     else -> {
                         _getDetailStatus.value = response.code()
@@ -41,5 +46,10 @@ class ClubDetailViewModel @Inject constructor(
                 Log.d(TAG, "error : $e")
             }
         }
+    }
+
+    fun setDetailInfo(type: String, q: String) {
+        _type.value = type
+        _q.value = q
     }
 }
