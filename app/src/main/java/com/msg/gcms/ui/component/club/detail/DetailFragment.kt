@@ -1,7 +1,11 @@
 package com.msg.gcms.ui.component.club.detail
 
+import android.app.Dialog
+import android.content.Context
 import android.util.Log
 import android.view.View
+import android.view.Window
+import android.widget.TextView
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import coil.load
@@ -26,10 +30,61 @@ class DetailFragment : BaseFragment<FragmentClubDetailBinding>(R.layout.fragment
     private val activitysAdapter: ClubActivitysAdapter = ClubActivitysAdapter()
     private val memberAdapter: ClubMemberAdapter = ClubMemberAdapter()
 
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        binding.submitBtn.setOnClickListener {
+            val dialog = Dialog(context)
+            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+            dialog.setContentView(R.layout.detail_dialog)
+            dialog.setCancelable(false)
+
+            val dialogTitle = dialog.findViewById<TextView>(R.id.dialog_title)
+            val dialogText = dialog.findViewById<TextView>(R.id.dialog_msg)
+            val dialogOkBtn = dialog.findViewById<TextView>(R.id.ok)
+            val dialogCancleBtn = dialog.findViewById<TextView>(R.id.cancel)
+
+            var club = "MSG"
+            when (viewmodel.result.scope) {
+                "HEAD" -> {
+                    dialogTitle.text = "마감"
+                    dialogText.text = "동아리 신청을 마감하시겠습니까?"
+                    dialogOkBtn.setOnClickListener {
+                        deadline()
+                    }
+                    dialogCancleBtn.setOnClickListener {
+                        dialog.dismiss()
+                    }
+                }
+                "MEMBER" -> {
+                }
+                "USER" -> {
+                    if (viewmodel.result.isApplied) {
+                        dialogTitle.text = "신청취소"
+                        dialogText.text = "동아리 신청을 취소하시겠습니까?"
+                        dialogOkBtn.setOnClickListener {
+                            cancelApplication()
+                        }
+                        dialogCancleBtn.setOnClickListener {
+                            dialog.dismiss()
+                        }
+                    } else {
+                        dialogTitle.text = "신청"
+                        dialogText.text = "${club}동아리에 신청하시겠습니까?"
+                        dialogOkBtn.setOnClickListener {
+                            application()
+                        }
+                        dialogCancleBtn.setOnClickListener {
+                            dialog.dismiss()
+                        }
+                    }
+                }
+            }
+        }
+    }
+
     override fun init() {
         clickBackBtn()
         checkRole()
-        sunmitLogic()
         showInfo()
     }
 
@@ -113,9 +168,12 @@ class DetailFragment : BaseFragment<FragmentClubDetailBinding>(R.layout.fragment
         }
     }
 
-    private fun sunmitLogic() {
-        binding.submitBtn.setOnClickListener {
+    private fun application() {
+    }
 
-        }
+    private fun cancelApplication() {
+    }
+
+    private fun deadline() {
     }
 }
