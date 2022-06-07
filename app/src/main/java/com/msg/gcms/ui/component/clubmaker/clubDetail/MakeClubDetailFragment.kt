@@ -50,7 +50,7 @@ class MakeClubDetailFragment :
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
             setHasFixedSize(true)
             addItemDecoration(ItemDecorator(50))
-            clubMemberRv()
+            clubMemberRecyclerView()
         }
     }
 
@@ -79,7 +79,7 @@ class MakeClubDetailFragment :
         }
     }
 
-    fun clubMemberRv() {
+    fun clubMemberRecyclerView() {
         memberList.add(MemberSummaryResponse("이현빈", R.drawable.ic_activity_photo.toString()))
         memberList.add(MemberSummaryResponse("aaa", R.drawable.ic_activity_photo.toString()))
         memberList.add(MemberSummaryResponse("asdf", R.drawable.ic_activity_photo.toString()))

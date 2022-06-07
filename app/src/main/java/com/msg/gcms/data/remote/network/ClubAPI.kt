@@ -7,7 +7,7 @@ import com.msg.gcms.data.remote.dto.datasource.club.request.ModifyClubInfoReques
 import com.msg.gcms.data.remote.dto.datasource.club.response.ClubInfoResponse
 import com.msg.gcms.data.remote.dto.datasource.club.response.MemberInfo
 import com.msg.gcms.data.remote.dto.datasource.club.response.SummaryClubResponse
-import com.msg.gcms.data.remote.dto.datasource.club.response.UserInfo
+import com.msg.gcms.data.remote.dto.datasource.user.response.UserData
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.DELETE
@@ -53,7 +53,7 @@ interface ClubAPI {
     suspend fun getApplicantList(
         @Query("q") clubName: String,
         @Query("type") type: String
-    ): Response<List<UserInfo>>
+    ): Response<List<UserData>>
 
     @POST("club/accept")
     suspend fun postApplicantAccept(
