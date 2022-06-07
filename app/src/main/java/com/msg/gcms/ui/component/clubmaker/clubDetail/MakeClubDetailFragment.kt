@@ -15,6 +15,7 @@ import androidx.core.content.ContextCompat
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import coil.load
+import coil.transform.RoundedCornersTransformation
 import com.msg.gcms.R
 import com.msg.gcms.data.local.entity.ActivityPhotoType
 import com.msg.gcms.data.remote.dto.datasource.club.response.MemberSummaryResponse
@@ -64,7 +65,10 @@ class MakeClubDetailFragment :
                     binding.imageView7.visibility = View.GONE
                     binding.addImageTxt.visibility = View.GONE
                 }
-                binding.addBannerPicture.load(imageUrl)
+                binding.addBannerPicture.load(imageUrl) {
+                    crossfade(true)
+                    transformations(RoundedCornersTransformation(8f))
+                }
             }
         }
 
