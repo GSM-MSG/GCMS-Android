@@ -23,14 +23,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
     override fun observeEvent() {
         observeBottomNav()
-        observeClickBtn()
-    }
-
-    private fun observeClickBtn() {
-        binding.goAfterSchoolBtn.setOnClickListener {
-            val joinIntent = Intent(this, JoinAfterSchoolActivity::class.java)
-            startActivity(joinIntent)
-        }
     }
 
     private fun observeBottomNav(){
