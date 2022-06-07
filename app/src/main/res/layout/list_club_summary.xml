@@ -8,6 +8,7 @@
     </data>
 
     <LinearLayout
+        android:id="@+id/clubSummaryLayout"
         android:layout_width="match_parent"
         android:layout_height="268dp"
         android:orientation="vertical"
