@@ -6,7 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.msg.gcms.data.remote.dto.datasource.club.response.ClubInfoResponse
-import com.msg.gcms.data.usecase.GetDetailUseCase
+import com.msg.gcms.domain.usecase.club.GetDetailUseCase
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 

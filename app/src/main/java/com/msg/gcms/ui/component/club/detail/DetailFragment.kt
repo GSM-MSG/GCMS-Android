@@ -45,7 +45,7 @@ class DetailFragment : BaseFragment<FragmentClubDetailBinding>(R.layout.fragment
                 binding.clubName.text = it.title
                 binding.clubBanner.load(it.bannerUrl)
                 binding.explainClubTxt.text = it.description
-                binding.link.text = it.relatedLink[0].url
+                binding.link.text = it.notionLink
                 binding.teacher.text = it.teacher
                 binding.directoryTxt.text = it.contact
             }

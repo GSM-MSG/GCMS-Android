@@ -8,5 +8,5 @@ data class ClubResponse(
     val contact: String,
     val teacher: String,
     val isOpened: Boolean,
-    val relatedLink: List<RelatedLink>
+    val notionLink: String
 )
