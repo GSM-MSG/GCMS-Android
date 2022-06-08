@@ -24,9 +24,9 @@ import dagger.hilt.android.AndroidEntryPoint
 class DetailFragment : BaseFragment<FragmentClubDetailBinding>(R.layout.fragment_club_detail) {
 
     private val TAG = "Detail"
+    private val viewmodel by activityViewModels<ClubDetailViewModel>()
     var urlsList = mutableListOf<PromotionPicType>()
     var membersList = mutableListOf<DetailPageUserInfo>()
-    private val viewmodel by activityViewModels<ClubDetailViewModel>()
     private val activitysAdapter: ClubActivitysAdapter = ClubActivitysAdapter()
     private val memberAdapter: ClubMemberAdapter = ClubMemberAdapter()
 
@@ -43,11 +43,10 @@ class DetailFragment : BaseFragment<FragmentClubDetailBinding>(R.layout.fragment
             val dialogOkBtn = dialog.findViewById<TextView>(R.id.ok)
             val dialogCancleBtn = dialog.findViewById<TextView>(R.id.cancel)
 
-            var club = "MSG"
             when (viewmodel.result.scope) {
                 "HEAD" -> {
-                    dialogTitle.text = "마감"
-                    dialogText.text = "동아리 신청을 마감하시겠습니까?"
+                    dialogTitle.text = getString(R.string.deadline)
+                    dialogText.text = getString(R.string.ask_dead_club_application)
                     dialogOkBtn.setOnClickListener {
                         deadline()
                     }
@@ -59,8 +58,8 @@ class DetailFragment : BaseFragment<FragmentClubDetailBinding>(R.layout.fragment
                 }
                 "USER" -> {
                     if (viewmodel.result.isApplied) {
-                        dialogTitle.text = "신청취소"
-                        dialogText.text = "동아리 신청을 취소하시겠습니까?"
+                        dialogTitle.text = getString(R.string.application_cancel)
+                        dialogText.text = getString(R.string.ask_cancel_application)
                         dialogOkBtn.setOnClickListener {
                             cancelApplication()
                         }
@@ -68,8 +67,8 @@ class DetailFragment : BaseFragment<FragmentClubDetailBinding>(R.layout.fragment
                             dialog.dismiss()
                         }
                     } else {
-                        dialogTitle.text = "신청"
-                        dialogText.text = "${club}동아리에 신청하시겠습니까?"
+                        dialogTitle.text = getString(R.string.application)
+                        dialogText.text =  getString(R.string.can_you_application_club, viewmodel.result.club.title)
                         dialogOkBtn.setOnClickListener {
                             application()
                         }

@@ -77,7 +77,7 @@
                 android:textColor="@color/black"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/application"
+                android:text="@string/example_text"
                 android:gravity="center"
                 app:layout_constraintTop_toTopOf="@id/guideline5"
                 app:layout_constraintBottom_toBottomOf="@id/guideline5" />
@@ -90,7 +90,7 @@
                 android:textColor="@color/gray_11"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/can_you_application_club"
+                android:text="@string/example_text"
                 android:gravity="center"
                 app:layout_constraintTop_toTopOf="@id/guideline6"
                 app:layout_constraintBottom_toBottomOf="@id/guideline6" />
