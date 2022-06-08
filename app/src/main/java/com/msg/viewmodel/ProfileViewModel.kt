@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.msg.gcms.domain.usecase.common.LogoutUseCase
 import com.msg.gcms.domain.usecase.user.ProfileUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -12,7 +13,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ProfileViewModel @Inject constructor(
-    private val profileUseCase: ProfileUseCase
+    private val profileUseCase: ProfileUseCase,
+    private val logoutUseCase: LogoutUseCase
 ): ViewModel() {
     private val _clubStatus = MutableLiveData<Boolean>()
     val clubStatus: LiveData<Boolean> get() = _clubStatus
@@ -44,7 +46,7 @@ class ProfileViewModel @Inject constructor(
     fun logout(){
         viewModelScope.launch {
             try {
-                val response = profileUseCase.postLogout()
+                val response = logoutUseCase.postLogout()
                 when(response.code()){
                     200 -> {
                         _logoutStatus.value = true
