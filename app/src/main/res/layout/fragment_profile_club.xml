@@ -83,12 +83,13 @@
             app:layout_constraintTop_toBottomOf="@id/majorTxt">
 
             <ImageView
+                android:id="@+id/majorClubImg"
                 android:layout_width="match_parent"
                 android:layout_height="150dp"
-                android:layout_marginTop="8dp"
-                android:background="@color/white" />
+                android:layout_marginTop="8dp" />
 
             <TextView
+                android:id="@+id/majorClubName"
                 android:layout_width="match_parent"
                 android:layout_height="32dp"
                 android:background="@drawable/bg_club_txt"
@@ -99,12 +100,14 @@
         </LinearLayout>
 
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:id="@+id/noMajorClubImg"
+            android:layout_width="0dp"
+            android:layout_height="182dp"
             android:layout_marginTop="7.97dp"
             android:background="@drawable/bg_club_img"
             app:layout_constraintTop_toBottomOf="@id/majorTxt"
-            app:layout_constraintStart_toStartOf="@id/guideline8" />
+            app:layout_constraintStart_toStartOf="@id/guideline8"
+            app:layout_constraintEnd_toEndOf="@id/guideline9"/>
 
         <TextView
             android:id="@+id/freedomTxt"
@@ -118,7 +121,7 @@
 
         <LinearLayout
             android:visibility="gone"
-            android:id="@+id/freedomClub"
+            android:id="@+id/freedomClubLayout"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:orientation="vertical"
@@ -127,12 +130,13 @@
             app:layout_constraintTop_toBottomOf="@id/freedomTxt">
 
             <ImageView
+                android:id="@+id/freedomClubImg"
                 android:layout_width="match_parent"
                 android:layout_height="150dp"
-                android:layout_marginTop="7.97dp"
-                android:background="@color/white" />
+                android:layout_marginTop="7.97dp"/>
 
             <TextView
+                android:id="@+id/freedomClubName"
                 android:layout_width="match_parent"
                 android:layout_height="32dp"
                 android:background="@drawable/bg_club_txt"
@@ -143,32 +147,36 @@
         </LinearLayout>
 
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:id="@+id/noFreedomClubImg"
+            android:layout_width="0dp"
+            android:layout_height="182dp"
             android:layout_marginTop="7.97dp"
             android:background="@drawable/bg_club_img"
             app:layout_constraintTop_toBottomOf="@id/freedomTxt"
-            app:layout_constraintStart_toStartOf="@id/guideline10" />
+            app:layout_constraintStart_toStartOf="@id/guideline10"
+            app:layout_constraintEnd_toEndOf="@id/guideline11"/>
 
         <TextView
+            android:visibility="gone"
             android:id="@+id/privateClub"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="208dp"
+            android:layout_marginTop="20dp"
             android:text="사설 동아리"
             android:textColor="@color/white"
             android:textSize="16sp"
             app:layout_constraintStart_toStartOf="@id/guideline8"
-            app:layout_constraintTop_toBottomOf="@id/majorTxt" />
+            app:layout_constraintTop_toBottomOf="@id/majorClubLayout" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/freeClubRecyclerview"
+            android:visibility="gone"
+            android:id="@+id/privateClubRecyclerview"
             android:layout_width="0dp"
-            android:layout_height="500dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="7.97dp"
             app:layout_constraintEnd_toEndOf="@id/guideline11"
             app:layout_constraintStart_toStartOf="@id/guideline8"
-            app:layout_constraintTop_toBottomOf="@id/privateClub" />
+            app:layout_constraintTop_toBottomOf="@id/privateClub"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
