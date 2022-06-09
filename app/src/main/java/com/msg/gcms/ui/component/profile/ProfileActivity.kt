@@ -24,18 +24,18 @@ class ProfileActivity : BaseActivity<ActivityProfileBinding>(R.layout.activity_p
     private val viewModel by viewModels<ProfileViewModel>()
     private lateinit var client: GoogleSignInClient
     override fun observeEvent() {
-        isClub()
         myProfile()
+        isClub()
     }
 
     override fun viewSetting() {
-        getUserInfo()
         clickBackBtn()
         clickProfileEdit()
         clickLogout()
     }
 
     private fun myProfile(){
+        viewModel.getUserInfo()
         viewModel.profileData.observe(this) {
             binding.apply {
                 userNameTxt.text = it.userData.name
@@ -66,10 +66,6 @@ class ProfileActivity : BaseActivity<ActivityProfileBinding>(R.layout.activity_p
                 supportFragmentManager.beginTransaction().replace(R.id.profileList, ProfileClubFragment()).commit()
             }
         }
-    }
-
-    private fun getUserInfo() {
-        viewModel.getUserInfo()
     }
 
     private fun clickBackBtn() {
