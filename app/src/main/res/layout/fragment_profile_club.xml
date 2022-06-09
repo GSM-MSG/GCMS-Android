@@ -73,7 +73,7 @@
             app:layout_constraintStart_toStartOf="@id/guideline8" />
 
         <LinearLayout
-            android:visibility="invisible"
+            android:visibility="gone"
             android:id="@+id/majorClubLayout"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -120,7 +120,7 @@
             app:layout_constraintTop_toBottomOf="@id/afterSchoolFragmentView" />
 
         <LinearLayout
-            android:visibility="invisible"
+            android:visibility="gone"
             android:id="@+id/freedomClubLayout"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -157,7 +157,7 @@
             app:layout_constraintEnd_toEndOf="@id/guideline11"/>
 
         <TextView
-            android:visibility="invisible"
+            android:visibility="gone"
             android:id="@+id/privateClub"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -174,7 +174,6 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="7.97dp"
-            android:overScrollMode="never"
             app:layout_constraintEnd_toEndOf="@id/guideline11"
             app:layout_constraintStart_toStartOf="@id/guideline8"
             app:layout_constraintTop_toBottomOf="@id/privateClub"/>
