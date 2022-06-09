@@ -12,6 +12,7 @@ import android.widget.ImageView
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import coil.load
@@ -25,11 +26,14 @@ import com.msg.gcms.ui.adapter.ClubMemberAdapter
 import com.msg.gcms.ui.base.BaseFragment
 import com.msg.gcms.ui.component.clubmaker.searchstudent.UserSearchActivity
 import com.msg.gcms.utils.ItemDecorator
+import com.msg.viewmodel.MakeClubViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MakeClubDetailFragment :
     BaseFragment<FragmentMakeClubDetailBinding>(R.layout.fragment_make_club_detail) {
+
+    private val makeClubViewModel by activityViewModels<MakeClubViewModel>()
 
     var activityPhotoList = mutableListOf<ActivityPhotoType>()
     var memberList = mutableListOf<MemberSummaryResponse>()
@@ -83,7 +87,7 @@ class MakeClubDetailFragment :
         }
     }
 
-    fun clubMemberRecyclerView() {
+    private fun clubMemberRecyclerView() {
         memberList.add(MemberSummaryResponse("이현빈", R.drawable.ic_activity_photo.toString()))
         memberList.add(MemberSummaryResponse("aaa", R.drawable.ic_activity_photo.toString()))
         memberList.add(MemberSummaryResponse("asdf", R.drawable.ic_activity_photo.toString()))
@@ -94,7 +98,8 @@ class MakeClubDetailFragment :
         clubMemberAdapter = ClubMemberAdapter(memberList)
         clubMemberAdapter.setItemOnClickListener(object : ClubMemberAdapter.OnItemClickListener{
             override fun onClick(position: Int) {
-                startActivity(Intent(context, UserSearchActivity::class.java))
+                val intent = Intent(context, UserSearchActivity::class.java)
+                startActivity(intent)
             }
         })
         binding.clubMemberRv.adapter = clubMemberAdapter

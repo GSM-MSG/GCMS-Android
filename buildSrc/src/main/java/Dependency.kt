@@ -47,6 +47,7 @@ object Dependency {
         const val MATERIAL = "com.google.android.material:material:${Versions.MATERIAL}"
         const val GMS_PLAY_SERVICE_BASE = "com.google.android.gms:play-services-base:${Versions.GMS_PLAY_SERVICE_BASE}"
         const val FIREBASE = "com.google.firebase:firebase-auth-ktx:${Versions.FIREBASE}"
+        const val LIVEDATA = "androidx.lifecycle:lifecycle-livedata-ktx:${Versions.LIVEDATA}"
     }
 
     object Libraries {

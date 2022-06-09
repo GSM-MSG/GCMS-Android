@@ -2,16 +2,17 @@ package com.msg.gcms.ui.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import coil.transform.CircleCropTransformation
 import com.msg.gcms.data.remote.dto.datasource.user.response.UserData
 import com.msg.gcms.databinding.ListSearchMemberBinding
-import com.msg.gcms.utils.DiffUtilCallback
 
 class UserSearchAdapter:
-    ListAdapter<UserData, UserSearchAdapter.SearchUserViewHolder>(DiffUtilCallback()) {
+    RecyclerView.Adapter<UserSearchAdapter.SearchUserViewHolder>() {
+
+    private var list = mutableListOf<UserData>()
+
     class SearchUserViewHolder(
         private val binding: ListSearchMemberBinding,
         listener: OnItemClickListener
@@ -33,19 +34,26 @@ class UserSearchAdapter:
         }
     }
 
+    fun submitList(list : List<UserData>) {
+        this.list = list.toMutableList()
+        notifyDataSetChanged()
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SearchUserViewHolder {
         val binding =
             ListSearchMemberBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        val viewHolder = UserSearchAdapter.SearchUserViewHolder(binding, itemClickListener)
+        val viewHolder = SearchUserViewHolder(binding, itemClickListener)
         return viewHolder
     }
 
     override fun onBindViewHolder(holder: SearchUserViewHolder, position: Int) {
-        holder.bind(currentList[position])
+        holder.bind(list[position])
         holder.itemView.setOnClickListener {
             itemClickListener.onClick(position)
         }
     }
+
+    override fun getItemCount(): Int = list.size
 
     interface OnItemClickListener {
         fun onClick(position: Int)
