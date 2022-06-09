@@ -18,16 +18,18 @@ class ClubDetailViewModel @Inject constructor(
 
     private val TAG = "getdetail"
 
-    lateinit var result: ClubInfoResponse
-
     private val _getDetailStatus = MutableLiveData<Int>()
     val getDetailStatus: LiveData<Int> get() = _getDetailStatus
 
-    fun getDetail(type: String, clubname: String){
+    private lateinit var _result: ClubInfoResponse
+    val result: ClubInfoResponse get() = _result
+
+    fun getDetail(type: String, clubname: String) {
         viewModelScope.launch {
+            Log.d(TAG, getDetailStatus.toString())
             try {
                 val response = getDetailUseCase.getDetail(type, clubname)
-                result = response.body()!!
+                _result = response.body()!!
                 when (response.code()) {
                     200 -> {
                         _getDetailStatus.value = response.code()
@@ -35,7 +37,7 @@ class ClubDetailViewModel @Inject constructor(
                     }
                     else -> {
                         _getDetailStatus.value = response.code()
-                        Log.d(TAG,"status : ${response.code()}")
+                        Log.d(TAG, "status : ${response.code()}")
                     }
                 }
             } catch (e: Exception) {

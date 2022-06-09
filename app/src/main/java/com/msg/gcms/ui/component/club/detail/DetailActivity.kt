@@ -1,78 +1,90 @@
 package com.msg.gcms.ui.component.club.detail
 
 import android.app.Dialog
-import android.content.Context
+import android.content.Intent
 import android.util.Log
 import android.view.View
-import android.view.Window
-import android.widget.TextView
-import androidx.fragment.app.activityViewModels
-import androidx.navigation.fragment.findNavController
+import androidx.activity.viewModels
+import androidx.databinding.DataBindingUtil
 import coil.load
 import com.msg.gcms.R
 import com.msg.gcms.data.local.entity.DetailPageUserInfo
 import com.msg.gcms.data.local.entity.PromotionPicType
 import com.msg.gcms.data.remote.dto.datasource.club.response.UserInfo
-import com.msg.gcms.databinding.FragmentClubDetailBinding
+import com.msg.gcms.databinding.ActivityDetailBinding
+import com.msg.gcms.databinding.DetailDialogBinding
 import com.msg.gcms.ui.adapter.ClubActivitysAdapter
 import com.msg.gcms.ui.adapter.ClubMemberAdapter
-import com.msg.gcms.ui.base.BaseFragment
+import com.msg.gcms.ui.base.BaseActivity
+import com.msg.gcms.ui.base.BaseDialog
+import com.msg.gcms.ui.component.main.MainActivity
 import com.msg.viewmodel.ClubDetailViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class DetailFragment : BaseFragment<FragmentClubDetailBinding>(R.layout.fragment_club_detail) {
+class DetailActivity : BaseActivity<ActivityDetailBinding>(R.layout.activity_detail) {
 
     private val TAG = "Detail"
-    private val viewmodel by activityViewModels<ClubDetailViewModel>()
+    private val viewmodel by viewModels<ClubDetailViewModel>()
     var urlsList = mutableListOf<PromotionPicType>()
     var membersList = mutableListOf<DetailPageUserInfo>()
     private val activitysAdapter: ClubActivitysAdapter = ClubActivitysAdapter()
     private val memberAdapter: ClubMemberAdapter = ClubMemberAdapter()
+    private lateinit var dialogBinding: DetailDialogBinding
 
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
+    override fun viewSetting() {
+        dialogBinding = DataBindingUtil.setContentView(this, R.layout.detail_dialog)
+        clickBackBtn()
+        checkRole()
+        showInfo()
+        viewmodel.getDetail("MAJOR", "Did")
+    }
+
+    override fun observeEvent() {
         binding.submitBtn.setOnClickListener {
-            val dialog = Dialog(context)
-            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
-            dialog.setContentView(R.layout.detail_dialog)
-            dialog.setCancelable(false)
+            val dialog = BaseDialog(this, R.layout.detail_dialog)
+            changeDialog(dialog)
+        }
+    }
 
-            val dialogTitle = dialog.findViewById<TextView>(R.id.dialog_title)
-            val dialogText = dialog.findViewById<TextView>(R.id.dialog_msg)
-            val dialogOkBtn = dialog.findViewById<TextView>(R.id.ok)
-            val dialogCancleBtn = dialog.findViewById<TextView>(R.id.cancel)
-
-            when (viewmodel.result.scope) {
-                "HEAD" -> {
+    private fun changeDialog(dialog: Dialog) {
+        when (viewmodel.result.scope) {
+            "HEAD" -> {
+                with(dialogBinding) {
                     dialogTitle.text = getString(R.string.deadline)
-                    dialogText.text = getString(R.string.ask_dead_club_application)
-                    dialogOkBtn.setOnClickListener {
+                    dialogMsg.text = getString(R.string.ask_dead_club_application)
+                    ok.setOnClickListener {
                         deadline()
                     }
-                    dialogCancleBtn.setOnClickListener {
+                    cancel.setOnClickListener {
                         dialog.dismiss()
                     }
                 }
-                "MEMBER" -> {
-                }
-                "USER" -> {
+            }
+            "MEMBER" -> {
+            }
+            "USER" -> {
+                with(dialogBinding) {
                     if (viewmodel.result.isApplied) {
                         dialogTitle.text = getString(R.string.application_cancel)
-                        dialogText.text = getString(R.string.ask_cancel_application)
-                        dialogOkBtn.setOnClickListener {
+                        dialogMsg.text = getString(R.string.ask_cancel_application)
+                        ok.setOnClickListener {
                             cancelApplication()
                         }
-                        dialogCancleBtn.setOnClickListener {
+                        cancel.setOnClickListener {
                             dialog.dismiss()
                         }
                     } else {
                         dialogTitle.text = getString(R.string.application)
-                        dialogText.text =  getString(R.string.can_you_application_club, viewmodel.result.club.title)
-                        dialogOkBtn.setOnClickListener {
+                        dialogMsg.text =
+                            getString(
+                                R.string.can_you_application_club,
+                                viewmodel.result.club.title
+                            )
+                        ok.setOnClickListener {
                             application()
                         }
-                        dialogCancleBtn.setOnClickListener {
+                        cancel.setOnClickListener {
                             dialog.dismiss()
                         }
                     }
@@ -81,34 +93,30 @@ class DetailFragment : BaseFragment<FragmentClubDetailBinding>(R.layout.fragment
         }
     }
 
-    override fun init() {
-        clickBackBtn()
-        checkRole()
-        showInfo()
-    }
-
     private fun clickBackBtn() {
         binding.backBtn.setOnClickListener {
-            findNavController().popBackStack()
+            startActivity(Intent(this, MainActivity::class.java))
         }
     }
 
     private fun showInfo() {
-        viewmodel.result.let { it ->
-            it.club.let {
-                binding.clubName.text = it.title
-                binding.clubBanner.load(it.bannerUrl)
-                binding.explainClubTxt.text = it.description
-                binding.link.text = it.notionLink
-                binding.teacher.text = it.teacher
-                binding.directoryTxt.text = it.contact
+        with(binding) {
+            viewmodel.result.let { it ->
+                it.club.let {
+                    clubName.text = it.title
+                    clubBanner.load(it.bannerUrl)
+                    explainClubTxt.text = it.description
+                    link.text = it.notionLink
+                    teacher.text = it.teacher
+                    directoryTxt.text = it.contact
+                }
+                it.head.let {
+                    bossImg.load(it.userImg)
+                    boss.text = it.name
+                }
+                clubActivityRecycler(it.activityUrls)
+                clubMemberRecycler(it.member)
             }
-            it.head.let {
-                binding.bossImg.load(it.userImg)
-                binding.boss.text = it.name
-            }
-            clubActivityRecycler(it.activityUrls)
-            clubMemberRecycler(it.member)
         }
     }
 

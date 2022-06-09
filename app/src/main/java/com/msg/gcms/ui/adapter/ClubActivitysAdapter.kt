@@ -6,17 +6,23 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
+import coil.transform.RoundedCornersTransformation
 import com.msg.gcms.data.local.entity.PromotionPicType
 import com.msg.gcms.databinding.ListDetailClubPromotionBinding
+import com.msg.gcms.ui.base.BaseDiffUtil
 
 class ClubActivitysAdapter :
     ListAdapter<PromotionPicType, ClubActivitysAdapter.ClubPromotionViewHolder>(
-        diffUtil
+        BaseDiffUtil<PromotionPicType>()
     ) {
     inner class ClubPromotionViewHolder(private val binding: ListDetailClubPromotionBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(data: PromotionPicType) {
-            binding.promotionImg.load(data.promotionUrl)
+            binding.promotionImg.load(data.promotionUrl){
+                crossfade(true)
+                transformations(RoundedCornersTransformation(6f))
+            }
+
         }
     }
 
@@ -32,23 +38,5 @@ class ClubActivitysAdapter :
 
     override fun onBindViewHolder(holder: ClubPromotionViewHolder, position: Int) {
         holder.bind(currentList[position])
-    }
-
-    companion object {
-        val diffUtil = object : DiffUtil.ItemCallback<PromotionPicType>() {
-            override fun areItemsTheSame(
-                oldItem: PromotionPicType,
-                newItem: PromotionPicType
-            ): Boolean {
-                return oldItem.promotionUrl == newItem.promotionUrl
-            }
-
-            override fun areContentsTheSame(
-                oldItem: PromotionPicType,
-                newItem: PromotionPicType
-            ): Boolean {
-                return oldItem == newItem
-            }
-        }
     }
 }

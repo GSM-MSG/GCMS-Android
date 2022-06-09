@@ -7,14 +7,14 @@
 
         <variable
             name="detail"
-            type="com.msg.gcms.ui.component.club.detail.DetailFragment" />
+            type="com.msg.gcms.ui.component.club.detail.DetailActivity" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/dark_blue"
-        tools:context=".ui.component.club.detail.DetailFragment">
+        tools:context=".ui.component.club.detail.DetailActivity">
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline1"
