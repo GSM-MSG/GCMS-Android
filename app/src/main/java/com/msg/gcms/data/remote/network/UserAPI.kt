@@ -3,6 +3,7 @@ package com.msg.gcms.data.remote.network
 import com.msg.gcms.data.remote.dto.datasource.user.request.UserDeleteRequest
 import com.msg.gcms.data.remote.dto.datasource.user.request.UserProfileRequest
 import com.msg.gcms.data.remote.dto.datasource.user.request.UserSearchRequest
+import com.msg.gcms.data.remote.dto.datasource.user.response.UserData
 import com.msg.gcms.data.remote.dto.datasource.user.response.UserInfoResponse
 import retrofit2.Response
 import retrofit2.http.DELETE
@@ -21,7 +22,7 @@ interface UserAPI {
     @GET("user/search")
     suspend fun getUserSearch(
         QueryString:UserSearchRequest
-    ) : Response<Void>
+    ) : Response<UserData>
 
     @DELETE("user/exit")
     suspend fun deleteUser(

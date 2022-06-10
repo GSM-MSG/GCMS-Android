@@ -82,6 +82,10 @@ object Dependency {
         const val RX_ANDROID = "io.reactivex.rxjava3:rxandroid:${Versions.RX_ANDROID}"
     }
 
+    object Coroutine {
+        const val COROUTINE = "org.jetbrains.kotlinx:kotlinx-coroutines-android:${Versions.COROUTINE}"
+    }
+
     object ImageLoad {
         const val COIL = "io.coil-kt:coil:${Versions.COIL_VERSION}"
     }
