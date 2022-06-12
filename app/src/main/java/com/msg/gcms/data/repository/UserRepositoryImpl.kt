@@ -23,7 +23,7 @@ class UserRepositoryImpl @Inject constructor(
         return dataSource.putProfile(body)
     }
 
-    override suspend fun getUserSearch(QueryString: UserSearchRequest): Response<UserData> {
+    override suspend fun getUserSearch(QueryString: UserSearchRequest): Response<List<UserData>> {
         return dataSource.getUserSearch(QueryString)
     }
 

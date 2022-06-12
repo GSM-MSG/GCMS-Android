@@ -10,6 +10,6 @@ import retrofit2.Response
 interface UserDataSource {
     suspend fun getUserInfo(): Response<UserInfoResponse>
     suspend fun putProfile(body: UserProfileRequest): Response<Void>
-    suspend fun getUserSearch(QueryString: UserSearchRequest): Response<UserData>
+    suspend fun getUserSearch(QueryString: UserSearchRequest): Response<List<UserData>>
     suspend fun deleteUser(body: UserDeleteRequest): Response<Void>
 }

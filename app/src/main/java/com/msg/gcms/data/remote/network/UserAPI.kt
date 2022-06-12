@@ -22,7 +22,7 @@ interface UserAPI {
     @GET("user/search")
     suspend fun getUserSearch(
         QueryString:UserSearchRequest
-    ) : Response<UserData>
+    ) : Response<List<UserData>>
 
     @DELETE("user/exit")
     suspend fun deleteUser(

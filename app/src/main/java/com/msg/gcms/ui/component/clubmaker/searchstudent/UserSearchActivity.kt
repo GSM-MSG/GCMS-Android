@@ -85,6 +85,7 @@ class UserSearchActivity : BaseActivity<ActivityUserSearchBinding>(R.layout.acti
                 }
                 .onEach {
                     Log.d("TAG", "observeEditText: $it")
+                    searchViewModel.setSearchQuery(it.toString())
                 }
                 .launchIn(this)
         }
