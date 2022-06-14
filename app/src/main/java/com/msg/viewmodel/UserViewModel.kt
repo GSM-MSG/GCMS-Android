@@ -1,21 +1,25 @@
 package com.msg.viewmodel
 
 import android.util.Log
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.msg.gcms.data.remote.dto.datasource.user.request.UserSearchRequest
-import com.msg.gcms.domain.repository.UserRepository
-import kotlinx.coroutines.flow.MutableStateFlow
+import com.msg.gcms.data.remote.dto.datasource.user.response.UserData
+import com.msg.gcms.domain.usecase.user.UserUserCase
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class UserViewModel @Inject constructor(
-    private val repository: UserRepository
+    private val userCase: UserUserCase
 ) : ViewModel() {
-    private val _clubType = MutableStateFlow("")
+    private val _clubType = MutableLiveData<String>()
 
-    private val _searchQuery = MutableStateFlow("")
+    private val _searchQuery = MutableLiveData<String>()
+
+    private val _userDataList = MutableLiveData<List<UserData>>()
+    val userDataList : LiveData<List<UserData>> get() = _userDataList
 
     fun setSearchQuery(query: String) {
         _searchQuery.value = query
@@ -27,9 +31,17 @@ class UserViewModel @Inject constructor(
     }
     private fun searchUser() {
         viewModelScope.launch {
-            val response = repository.getUserSearch(UserSearchRequest(_searchQuery.value, _clubType.value.toString()))
-            if(response.isSuccessful) {
-                Log.d("TAG", "searchUser: ${response.body()}")
+            try{
+                val response = userCase.getSearchUser(UserSearchRequest(_searchQuery.value.toString(), _clubType.value.toString()))
+                when(response.code()){
+                    200 -> {
+                        _userDataList.value = response.body()
+                        Log.d("TAG", "searchUser: ${userDataList.value}")
+                    }
+                }
+
+            }catch(e: Exception){
+
             }
         }
     }
