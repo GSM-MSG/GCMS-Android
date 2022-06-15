@@ -4,10 +4,17 @@ import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.BitmapFactory
+import android.graphics.Point
+import android.util.Log
+import android.view.MotionEvent
+import android.view.View
+import android.view.ViewGroup
+import android.widget.LinearLayout
+import android.widget.ScrollView
 import androidx.activity.viewModels
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import androidx.fragment.app.Fragment
+import androidx.core.view.marginTop
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
@@ -32,6 +39,12 @@ class ProfileActivity : BaseActivity<ActivityProfileBinding>(R.layout.activity_p
         clickBackBtn()
         clickProfileEdit()
         clickLogout()
+        scroll()
+    }
+
+    override fun onWindowFocusChanged(hasFocus: Boolean) {
+        super.onWindowFocusChanged(hasFocus)
+        // setMargin()
     }
 
     private fun myProfile(){
@@ -99,6 +112,33 @@ class ProfileActivity : BaseActivity<ActivityProfileBinding>(R.layout.activity_p
             viewModel.logout()
             isLogout()
         }
+    }
+
+    private fun setMargin() {
+        val display = windowManager.defaultDisplay
+        val size = Point()
+        display.getSize(size)
+        binding.marginView.layoutParams.height = size.y - binding.profileList.height
+        Log.d("안ㄴ", "setMargin: ${binding.marginView.height}")
+    }
+
+    private fun scroll(){
+        val params = LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+        binding.profileScrollView.setOnScrollChangeListener(object : View.OnScrollChangeListener{
+            override fun onScrollChange(p0: View?, p1: Int, p2: Int, p3: Int, p4: Int) {
+                if(!p0!!.canScrollVertically(-1)) {
+                    params.setMargins(0, changeDP(209), 0, 0)
+                    binding.profileScrollLayout.layoutParams = params
+                    Log.d("안ㄴ", "onScrollChange: ${binding.profileScrollLayout.marginTop}")
+                }
+            }
+        })
+    }
+
+    private fun changeDP(value : Int) : Int{
+        var displayMetrics = resources.displayMetrics
+        var dp = Math.round(value * displayMetrics.density)
+        return dp
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
