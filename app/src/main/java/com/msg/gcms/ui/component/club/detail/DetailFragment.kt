@@ -1,70 +1,72 @@
 package com.msg.gcms.ui.component.club.detail
 
-import android.content.Intent
+import android.content.Context
 import android.util.Log
-import android.view.LayoutInflater
 import android.view.View
-import androidx.activity.viewModels
-import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.activityViewModels
+import coil.load
 import com.msg.gcms.R
-import com.msg.gcms.databinding.ActivityDetailBinding
 import com.msg.gcms.databinding.DetailDialogBinding
-import com.msg.gcms.ui.base.BaseActivity
+import com.msg.gcms.databinding.FragmentDetailBinding
 import com.msg.gcms.ui.base.BaseDialog
-import com.msg.gcms.ui.component.main.MainActivity
+import com.msg.gcms.ui.base.BaseFragment
 import com.msg.viewmodel.ClubDetailViewModel
-import dagger.hilt.android.AndroidEntryPoint
 
-@AndroidEntryPoint
-class DetailActivity : BaseActivity<ActivityDetailBinding>(R.layout.activity_detail) {
+class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_detail) {
 
-    private val TAG = "Detail"
-    private val viewmodel by viewModels<ClubDetailViewModel>()
+    private val TAG = "DetailActivity"
+    private val vm by activityViewModels<ClubDetailViewModel>()
     private lateinit var dialogBinding: DetailDialogBinding
 
-    override fun viewSetting() {
-        dialogBinding =
-            DataBindingUtil.inflate(LayoutInflater.from(this), R.layout.detail_dialog, null, false)
-        testShowInfo()
-        testCheckRole()
-    }
 
-    override fun observeEvent() {
+    override fun init() {
+        showInfo()
+        checkRole()
         clickBackBtn()
-        binding.submitBtn.setOnClickListener {
-            Log.d(TAG, "click")
-            val dialog = BaseDialog(this, R.layout.detail_dialog)
-            testChangeDialog(dialog)
-            dialog.showDialog()
-        }
     }
 
-    private fun testShowInfo() {
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        clickSubmitBtn(context)
+    }
+
+    private fun showInfo() {
         with(binding) {
-            clubName.text = "잡탕"
-            //clubBanner.load(it.bannerUrl)
-            explainClubTxt.text = "혜윰은 ‘생각’이라는 뜻의 우리말로, 같이 생각해서 더 좋은 결과를 이루자는 뜻으로 동아리를 개설하였습니다.\n" +
-                "\n" +
-                "활동 설명 : 같이혜움은 전공을 연계한 봉사활동(멘토링)부터 공모전까지 아울러 학내 학우들과 서로 소통하고 호흡해\n" +
-                "공동으로 선의의 결과물을 만들고 있으며, 도시재생지원센터 도시재생대학 프로그램을 통해 주민들과 함께 호흡하는\n" +
-                "활동 또한 참여하고 있습니다."
-            link.text = "노션.링크링크링크"
-            teacherName.text = "홍길동"
-            directoryTxt.text = "이현빈#1111"
-            //bossImg.load(it.userImg)
-            bossName.text = "이현빈"
+            vm.result.value!!.let { it ->
+                it.club.let {
+                    clubName.text = it.title
+                    clubBanner.load(it.bannerUrl)
+                    explainClubTxt.text = it.description
+                    link.text = it.notionLink
+                    teacher.text = it.teacher
+                    directoryTxt.text = it.contact
+                }
+                it.head.let {
+                    bossImg.load(it.userImg)
+                    boss.text = it.name
+                }
+            }
         }
     }
 
     private fun clickBackBtn() {
         binding.backBtn.setOnClickListener {
-            startActivity(Intent(this, MainActivity::class.java))
+
         }
     }
 
-    private fun testCheckRole() {
+    private fun clickSubmitBtn(context: Context) {
+        binding.submitBtn.setOnClickListener {
+            Log.d(TAG, "click")
+            val dialog = BaseDialog(context, R.layout.detail_dialog)
+            changeDialog(dialog)
+            dialog.showDialog()
+        }
+    }
+
+    private fun checkRole() {
         binding.submitBtn.let {
-            when ("USER") {
+            when (vm.result.value!!.scope) {
                 "HEAD" -> {
                     it.text = getString(R.string.close_application)
                     it.setBackgroundColor(resources.getColor(R.color.dark_blue))
@@ -73,7 +75,7 @@ class DetailActivity : BaseActivity<ActivityDetailBinding>(R.layout.activity_det
                     it.visibility = View.INVISIBLE
                 }
                 "USER" -> {
-                    if (false) {
+                    if (vm.result.value!!.isApplied) {
                         it.text = getString(R.string.club_application_cancle)
                         it.setBackgroundColor(resources.getColor(R.color.pink))
                     } else {
@@ -85,8 +87,8 @@ class DetailActivity : BaseActivity<ActivityDetailBinding>(R.layout.activity_det
         }
     }
 
-    private fun testChangeDialog(dialog: BaseDialog) {
-        when ("HEAD") {
+    private fun changeDialog(dialog: BaseDialog) {
+        when (vm.result.value!!.scope) {
             "HEAD" -> {
                 with(dialogBinding) {
                     dialogTitle.text = getString(R.string.deadline)
@@ -103,7 +105,7 @@ class DetailActivity : BaseActivity<ActivityDetailBinding>(R.layout.activity_det
             }
             "USER" -> {
                 with(dialogBinding) {
-                    if (true) {
+                    if (vm.result.value!!.isApplied) {
                         dialogTitle.text = getString(R.string.application_cancel)
                         dialogMsg.text = getString(R.string.ask_cancel_application)
                         ok.setOnClickListener {
@@ -117,7 +119,7 @@ class DetailActivity : BaseActivity<ActivityDetailBinding>(R.layout.activity_det
                         dialogMsg.text =
                             getString(
                                 R.string.can_you_application_club,
-                                "MSG"
+                                vm.result.value!!.club.title
                             )
                         ok.setOnClickListener {
                             application()

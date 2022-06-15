@@ -1,5 +1,7 @@
 package com.msg.gcms.data.remote.dto.datasource.club.response
 
+import java.io.Serializable
+
 data class ClubResponse(
     val type: String,
     val bannerUrl: String,
@@ -9,4 +11,4 @@ data class ClubResponse(
     val teacher: String,
     val isOpened: Boolean,
     val notionLink: String
-)
+) : Serializable

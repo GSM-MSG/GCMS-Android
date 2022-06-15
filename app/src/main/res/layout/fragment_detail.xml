@@ -7,14 +7,14 @@
 
         <variable
             name="detail"
-            type="com.msg.gcms.ui.component.club.detail.DetailActivity" />
+            type="com.msg.gcms.ui.component.club.detail.DetailFragment" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/dark_blue"
-        tools:context=".ui.component.club.detail.DetailActivity">
+        tools:context=".ui.component.club.detail.DetailFragment">
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline1"
@@ -61,6 +61,12 @@
             android:background="@drawable/ic_alarm"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/club_banner"
+            app:layout_constraintBottom_toTopOf="@id/guideline5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
 
         <ImageView
             android:layout_width="match_parent"
