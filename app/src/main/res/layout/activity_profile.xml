@@ -28,12 +28,6 @@
                 android:orientation="vertical"
                 app:layout_constraintGuide_percent="0.29" />
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/light_black"
-                android:layout_marginTop="220dp" />
-
             <ImageView
                 android:id="@+id/back_btn"
                 android:layout_width="wrap_content"
@@ -65,6 +59,16 @@
                 app:layout_constraintTop_toTopOf="parent"
                 android:layout_marginTop="28.07dp"/>
 
+            <ImageView
+                android:id="@+id/profileImg"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_marginTop="33dp"
+                android:background="@drawable/ic_default_profile"
+                app:layout_constraintStart_toStartOf="@id/guideline5"
+                app:layout_constraintEnd_toEndOf="@id/guideline6"
+                app:layout_constraintTop_toBottomOf="@id/back_btn" />
+
             <TextView
                 android:id="@+id/userNameTxt"
                 android:layout_width="wrap_content"
@@ -89,43 +93,36 @@
                 app:layout_constraintTop_toBottomOf="@id/userNameTxt"
                 app:layout_constraintStart_toEndOf="@id/profileImg" />
 
-            <ScrollView
-                android:id="@+id/profileScrollView"
+            <LinearLayout
+                android:id="@+id/profileScrollLayout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:fillViewport="true"
-                android:overScrollMode="never"
-                android:paddingTop="70dp">
-
-                <LinearLayout
+                android:layout_marginTop="209dp">
+                <ScrollView
+                    android:id="@+id/profileScrollView"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="145dp"
-                    android:orientation="vertical">
+                    android:layout_height="match_parent"
+                    android:fillViewport="true">
 
-                    <androidx.fragment.app.FragmentContainerView
-                        android:id="@+id/profileList"
-                        app:layout_constraintTop_toBottomOf="@id/afterSchoolTxt"
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:name="com.msg.gcms.ui.component.profile.ProfileNoClubFragment" />
+                        android:orientation="vertical">
 
-                    <View
-                        android:id="@+id/marginView"
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp" />
-                </LinearLayout>
-            </ScrollView>
+                        <androidx.fragment.app.FragmentContainerView
+                            android:id="@+id/profileList"
+                            app:layout_constraintTop_toBottomOf="@id/afterSchoolTxt"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:name="com.msg.gcms.ui.component.profile.ProfileNoClubFragment" />
 
-            <ImageView
-                android:id="@+id/profileImg"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:layout_marginTop="33dp"
-                android:background="@drawable/ic_default_profile"
-                app:layout_constraintStart_toStartOf="@id/guideline5"
-                app:layout_constraintEnd_toEndOf="@id/guideline6"
-                app:layout_constraintTop_toBottomOf="@id/back_btn" />
-
+                        <View
+                            android:id="@+id/marginView"
+                            android:layout_width="match_parent"
+                            android:layout_height="1000dp"
+                            android:background="@color/light_black" />
+                    </LinearLayout>
+                </ScrollView>
+            </LinearLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
