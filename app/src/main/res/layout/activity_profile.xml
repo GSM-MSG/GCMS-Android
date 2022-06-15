@@ -93,19 +93,36 @@
                 app:layout_constraintTop_toBottomOf="@id/userNameTxt"
                 app:layout_constraintStart_toEndOf="@id/profileImg" />
 
-            <ScrollView
+            <LinearLayout
+                android:id="@+id/profileScrollLayout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:fillViewport="true"
-                android:layout_marginTop="77dp">
-
-                <androidx.fragment.app.FragmentContainerView
-                    android:layout_marginTop="132dp"
-                    android:id="@+id/profileList"
-                    app:layout_constraintTop_toBottomOf="@id/afterSchoolTxt"
+                android:layout_marginTop="209dp">
+                <ScrollView
+                    android:id="@+id/profileScrollView"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:name="com.msg.gcms.ui.component.profile.ProfileNoClubFragment" />
-            </ScrollView>
+                    android:fillViewport="true">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <androidx.fragment.app.FragmentContainerView
+                            android:id="@+id/profileList"
+                            app:layout_constraintTop_toBottomOf="@id/afterSchoolTxt"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:name="com.msg.gcms.ui.component.profile.ProfileNoClubFragment" />
+
+                        <View
+                            android:id="@+id/marginView"
+                            android:layout_width="match_parent"
+                            android:layout_height="1000dp"
+                            android:background="@color/light_black" />
+                    </LinearLayout>
+                </ScrollView>
+            </LinearLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
