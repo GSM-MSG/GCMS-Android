@@ -11,4 +11,4 @@ data class ClubResponse(
     val teacher: String,
     val isOpened: Boolean,
     val notionLink: String
-) : Serializable
+)

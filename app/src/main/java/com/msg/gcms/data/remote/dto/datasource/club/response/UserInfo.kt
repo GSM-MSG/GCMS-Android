@@ -9,4 +9,4 @@ data class UserInfo(
     val num: Int,
     val userImg: String?,
     val name: String
-) : Serializable
+)

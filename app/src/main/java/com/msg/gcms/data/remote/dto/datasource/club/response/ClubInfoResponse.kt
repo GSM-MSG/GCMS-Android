@@ -9,4 +9,4 @@ data class ClubInfoResponse(
     val member: List<UserInfo>,
     val scope: String,
     val isApplied: Boolean
-) : Serializable
+)
