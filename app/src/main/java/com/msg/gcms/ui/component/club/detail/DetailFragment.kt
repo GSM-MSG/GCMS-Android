@@ -1,27 +1,37 @@
 package com.msg.gcms.ui.component.club.detail
 
 import android.content.Context
+import android.util.Log
 import android.view.View
 import androidx.fragment.app.activityViewModels
+import androidx.recyclerview.widget.LinearLayoutManager
 import coil.load
 import com.msg.gcms.R
+import com.msg.gcms.data.remote.dto.datasource.club.response.MemberSummaryResponse
+import com.msg.gcms.data.remote.dto.datasource.club.response.UserInfo
 import com.msg.gcms.databinding.DetailDialogBinding
 import com.msg.gcms.databinding.FragmentDetailBinding
+import com.msg.gcms.ui.adapter.DetailMemberAdapter
 import com.msg.gcms.ui.base.BaseDialog
 import com.msg.gcms.ui.base.BaseFragment
 import com.msg.gcms.ui.component.club.ClubFragment
+import com.msg.gcms.utils.ItemDecorator
 import com.msg.viewmodel.ClubDetailViewModel
 
 class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_detail) {
 
+    private val TAG = "DetailFragment"
     private val detailViewModel by activityViewModels<ClubDetailViewModel>()
     private lateinit var dialogBinding: DetailDialogBinding
+    var membersList = mutableListOf<MemberSummaryResponse>()
+    private val detailMemberAdapter = DetailMemberAdapter()
 
     override fun init() {
         detailViewModel.setNav(false)
         detailViewModel.result.observe(this) {
             showInfo()
         }
+        settingRecyclerView()
         checkRole()
         clickBackBtn()
     }
@@ -34,13 +44,14 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
                     clubBanner.load(it.bannerUrl)
                     explainClubTxt.text = it.description
                     link.text = it.notionLink
-                    teacher.text = it.teacher
+                    teacherName.text = it.teacher
                     directoryTxt.text = it.contact
                 }
                 it.head.let {
                     bossImg.load(it.userImg)
-                    boss.text = it.name
+                    bossName.text = it.name
                 }
+                clubMemberRecycler(it.member)
             }
         }
     }
@@ -55,6 +66,38 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
         requireActivity().supportFragmentManager.beginTransaction()
             .replace(R.id.fragment_club, ClubFragment()).commit()
         detailViewModel.setNav(true)
+    }
+
+    private fun clubMemberRecycler(member: List<UserInfo>) {
+        membersList.clear()
+        for (i in member.indices) {
+            val memberName = member[i].name
+            val memberImg = member[i].userImg.toString()
+            try {
+                membersList.add(
+                    MemberSummaryResponse(
+                        name = memberName,
+                        userImg = memberImg
+                    )
+                )
+            } catch (e: Exception) {
+                Log.e(TAG, e.toString())
+            }
+        }
+        binding.memberClubImg.adapter = detailMemberAdapter
+        detailMemberAdapter.submitList(membersList)
+    }
+
+    private fun settingRecyclerView() {
+        with(binding.memberClubImg) {
+            layoutManager = LinearLayoutManager(
+                context,
+                LinearLayoutManager.HORIZONTAL,
+                false
+            )
+            setHasFixedSize(true)
+            addItemDecoration(ItemDecorator(50))
+        }
     }
 
     private fun clickSubmitBtn(context: Context) {
