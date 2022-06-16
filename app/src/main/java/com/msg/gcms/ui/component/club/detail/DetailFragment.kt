@@ -1,7 +1,6 @@
 package com.msg.gcms.ui.component.club.detail
 
 import android.content.Context
-import android.util.Log
 import android.view.View
 import androidx.fragment.app.activityViewModels
 import coil.load
@@ -10,29 +9,26 @@ import com.msg.gcms.databinding.DetailDialogBinding
 import com.msg.gcms.databinding.FragmentDetailBinding
 import com.msg.gcms.ui.base.BaseDialog
 import com.msg.gcms.ui.base.BaseFragment
+import com.msg.gcms.ui.component.club.ClubFragment
 import com.msg.viewmodel.ClubDetailViewModel
 
 class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_detail) {
 
-    private val TAG = "DetailActivity"
-    private val vm by activityViewModels<ClubDetailViewModel>()
+    private val detailViewModel by activityViewModels<ClubDetailViewModel>()
     private lateinit var dialogBinding: DetailDialogBinding
 
-
     override fun init() {
-        showInfo()
+        detailViewModel.setNav(false)
+        detailViewModel.result.observe(this) {
+            showInfo()
+        }
         checkRole()
         clickBackBtn()
     }
 
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        clickSubmitBtn(context)
-    }
-
     private fun showInfo() {
         with(binding) {
-            vm.result.value!!.let { it ->
+            detailViewModel.result.value!!.let { it ->
                 it.club.let {
                     clubName.text = it.title
                     clubBanner.load(it.bannerUrl)
@@ -51,13 +47,18 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
 
     private fun clickBackBtn() {
         binding.backBtn.setOnClickListener {
-
+            goBack()
         }
+    }
+
+    private fun goBack() {
+        requireActivity().supportFragmentManager.beginTransaction()
+            .replace(R.id.fragment_club, ClubFragment()).commit()
+        detailViewModel.setNav(true)
     }
 
     private fun clickSubmitBtn(context: Context) {
         binding.submitBtn.setOnClickListener {
-            Log.d(TAG, "click")
             val dialog = BaseDialog(context, R.layout.detail_dialog)
             changeDialog(dialog)
             dialog.showDialog()
@@ -66,7 +67,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
 
     private fun checkRole() {
         binding.submitBtn.let {
-            when (vm.result.value!!.scope) {
+            when (detailViewModel.result.value!!.scope) {
                 "HEAD" -> {
                     it.text = getString(R.string.close_application)
                     it.setBackgroundColor(resources.getColor(R.color.dark_blue))
@@ -75,7 +76,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
                     it.visibility = View.INVISIBLE
                 }
                 "USER" -> {
-                    if (vm.result.value!!.isApplied) {
+                    if (detailViewModel.result.value!!.isApplied) {
                         it.text = getString(R.string.club_application_cancle)
                         it.setBackgroundColor(resources.getColor(R.color.pink))
                     } else {
@@ -88,7 +89,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
     }
 
     private fun changeDialog(dialog: BaseDialog) {
-        when (vm.result.value!!.scope) {
+        when (detailViewModel.result.value!!.scope) {
             "HEAD" -> {
                 with(dialogBinding) {
                     dialogTitle.text = getString(R.string.deadline)
@@ -105,7 +106,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
             }
             "USER" -> {
                 with(dialogBinding) {
-                    if (vm.result.value!!.isApplied) {
+                    if (detailViewModel.result.value!!.isApplied) {
                         dialogTitle.text = getString(R.string.application_cancel)
                         dialogMsg.text = getString(R.string.ask_cancel_application)
                         ok.setOnClickListener {
@@ -119,7 +120,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
                         dialogMsg.text =
                             getString(
                                 R.string.can_you_application_club,
-                                vm.result.value!!.club.title
+                                detailViewModel.result.value!!.club.title
                             )
                         ok.setOnClickListener {
                             application()

@@ -1,13 +1,13 @@
 package com.msg.gcms.ui.component.main
 
-import android.content.Intent
+import android.view.View
 import androidx.activity.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.msg.gcms.R
 import com.msg.gcms.databinding.ActivityMainBinding
 import com.msg.gcms.ui.base.BaseActivity
-import com.msg.gcms.ui.component.afterschool.JoinAfterSchoolActivity
+import com.msg.viewmodel.ClubDetailViewModel
 import com.msg.viewmodel.MainViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -15,6 +15,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
     private val mainViewModel by viewModels<MainViewModel>()
+    private val detailViewModel by viewModels<ClubDetailViewModel>()
     private var backButtonWait: Long = 0
 
     override fun viewSetting() {
@@ -23,9 +24,19 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
     override fun observeEvent() {
         observeBottomNav()
+        observeSetNav()
     }
 
-    private fun observeBottomNav(){
+    private fun observeSetNav() {
+        detailViewModel.showNav.observe(this) {
+            when (it) {
+                false -> binding.bottomNavigation.visibility = View.INVISIBLE
+                true -> binding.bottomNavigation.visibility = View.VISIBLE
+            }
+        }
+    }
+
+    private fun observeBottomNav() {
         binding.bottomNavigation.setOnNavigationItemSelectedListener {
             var fragNum = 0
             when (it.itemId) {

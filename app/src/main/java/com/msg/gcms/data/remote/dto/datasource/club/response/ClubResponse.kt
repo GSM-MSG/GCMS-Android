@@ -1,6 +1,5 @@
 package com.msg.gcms.data.remote.dto.datasource.club.response
 
-import java.io.Serializable
 
 data class ClubResponse(
     val type: String,

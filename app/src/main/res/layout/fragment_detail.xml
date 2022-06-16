@@ -28,7 +28,14 @@
             android:layout_width="match_parent"
             android:layout_height="0.5dp"
             android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.31" />
+            app:layout_constraintGuide_percent="0.3" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline7"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.34" />
 
         <ImageView
             android:id="@+id/back_btn"
@@ -63,8 +70,9 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
+            android:translationZ="-0.01dp"
             android:id="@+id/club_banner"
-            app:layout_constraintBottom_toTopOf="@id/guideline5"
+            app:layout_constraintBottom_toTopOf="@id/guideline7"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
@@ -160,6 +168,8 @@
                     app:layout_constraintTop_toBottomOf="@id/link" />
 
                 <TextView
+                    android:linksClickable="true"
+                    android:autoLink="web"
                     android:layout_marginTop="20dp"
                     android:gravity="center"
                     android:id="@+id/link"

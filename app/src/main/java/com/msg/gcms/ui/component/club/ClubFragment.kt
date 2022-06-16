@@ -8,6 +8,7 @@ import com.msg.gcms.R
 import com.msg.gcms.databinding.FragmentClubBinding
 import com.msg.gcms.ui.adapter.ClubListAdapter
 import com.msg.gcms.ui.base.BaseFragment
+import com.msg.gcms.ui.component.club.detail.DetailFragment
 import com.msg.gcms.ui.component.clubmaker.MakeClubActivity
 import com.msg.gcms.ui.component.profile.ProfileActivity
 import com.msg.viewmodel.ClubDetailViewModel
@@ -73,7 +74,8 @@ class ClubFragment : BaseFragment<FragmentClubBinding>(R.layout.fragment_club) {
             when (detailViewModel.getDetailStatus.value) {
                 in 200..299 -> {
                     Log.d(TAG, "GetDetail : Status - $it")
-                    Log.d(TAG, "body : ${detailViewModel.result.value}")
+                    requireActivity().supportFragmentManager.beginTransaction()
+                        .replace(R.id.fragment_club, DetailFragment()).commit()
                 }
                 else -> {
                     Log.d(TAG, "GetDetail : Error Status - $it")
