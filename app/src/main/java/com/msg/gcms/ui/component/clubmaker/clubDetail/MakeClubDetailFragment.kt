@@ -88,13 +88,7 @@ class MakeClubDetailFragment :
     }
 
     private fun clubMemberRecyclerView() {
-        memberList.add(MemberSummaryResponse("이현빈", R.drawable.ic_activity_photo.toString()))
-        memberList.add(MemberSummaryResponse("aaa", R.drawable.ic_activity_photo.toString()))
-        memberList.add(MemberSummaryResponse("asdf", R.drawable.ic_activity_photo.toString()))
-        memberList.add(MemberSummaryResponse("sdfd", R.drawable.ic_activity_photo.toString()))
-        memberList.add(MemberSummaryResponse("sfs", R.drawable.ic_activity_photo.toString()))
-        memberList.add(MemberSummaryResponse("asd", R.drawable.ic_activity_photo.toString()))
-        memberList.add(MemberSummaryResponse("fewq", R.drawable.ic_activity_photo.toString()))
+        memberList.add(MemberSummaryResponse("", R.drawable.bg_banner_placeholder.toString()))
         clubMemberAdapter = ClubMemberAdapter(memberList)
         clubMemberAdapter.setItemOnClickListener(object : ClubMemberAdapter.OnItemClickListener{
             override fun onClick(position: Int) {

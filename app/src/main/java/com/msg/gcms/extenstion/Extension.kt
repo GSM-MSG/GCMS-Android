@@ -1,4 +1,4 @@
-package com.msg.gcms.extenstion
+ package com.msg.gcms.extenstion
 
 import android.text.Editable
 import android.text.TextWatcher

@@ -3,41 +3,34 @@ package com.msg.gcms.ui.component.clubmaker.searchstudent
 import android.util.Log
 import android.view.View
 import androidx.activity.viewModels
+import androidx.core.widget.doAfterTextChanged
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.msg.gcms.R
 import com.msg.gcms.data.remote.dto.datasource.user.response.UserData
 import com.msg.gcms.databinding.ActivityUserSearchBinding
-import com.msg.gcms.extenstion.textChangesToFlow
 import com.msg.gcms.ui.adapter.UserSearchAdapter
 import com.msg.gcms.ui.base.BaseActivity
 import com.msg.gcms.utils.ItemDecorator
 import com.msg.viewmodel.UserViewModel
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.cancel
-import kotlinx.coroutines.flow.debounce
-import kotlinx.coroutines.flow.filter
-import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.onEach
-import kotlinx.coroutines.launch
 import kotlin.coroutines.CoroutineContext
 
+@AndroidEntryPoint
 class UserSearchActivity : BaseActivity<ActivityUserSearchBinding>(R.layout.activity_user_search) {
 
-    private val searchViewModel by viewModels<UserViewModel>()
+    private val userViewModel by viewModels<UserViewModel>()
 
     private lateinit var searchAdapter: UserSearchAdapter
 
     private val userList = mutableListOf<UserData>()
     private val memberList = mutableListOf<UserData>()
 
-    private val SEARCH_TIMEOUT = 300L
-
     private val coroutineJob: Job = Job()
     private val coroutineContext: CoroutineContext
         get() = Dispatchers.IO + coroutineJob
-
 
     override fun viewSetting() {
         binding.activity = this
@@ -76,47 +69,11 @@ class UserSearchActivity : BaseActivity<ActivityUserSearchBinding>(R.layout.acti
     }
 
     private fun observeEditText() {
-        GlobalScope.launch(context = coroutineContext) {
-            val editTExtFlow = binding.searchEt.textChangesToFlow()
-            editTExtFlow
-                .debounce(SEARCH_TIMEOUT)
-                .filter {
-                    it!!.isNotEmpty()
-                }
-                .onEach {
-                    Log.d("TAG", "observeEditText: $it")
-                    searchViewModel.setSearchQuery(it.toString())
-                }
-                .launchIn(this)
+        binding.searchEt.doAfterTextChanged {
+            Log.d("TAG", "observeEditText: $it")
+            userViewModel.searchQuery.value = it.toString()
         }
-
-        // binding.searchEt.addTextChangedListener(object : TextWatcher {
-        //     override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-        //     }
-        //
-        //     override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-        //         Log.d("TAG", "onTextChanged: $p0")
-        //         p0.let { searchViewModel.searchResult }
-        //     }
-        //
-        //     override fun afterTextChanged(p0: Editable?) {
-        //     }
-        // })
-
-
-        // val editTextChangeObservable = binding.searchEt.textChanges()
-        //
-        // val searchEditTextSubscription: Disposable =
-        //     editTextChangeObservable
-        //         .debounce(300L, TimeUnit.MILLISECONDS)
-        //         .subscribeOn(Schedulers.io())
     }
-
-    // private fun observeResult() {
-    //     searchViewModel.searchResult.observe(this) {
-    //         searchAdapter.submitList(it)
-    //     }
-    // }
 
     override fun onDestroy() {
         coroutineContext.cancel()
