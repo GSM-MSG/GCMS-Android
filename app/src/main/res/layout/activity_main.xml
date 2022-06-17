@@ -74,16 +74,5 @@
             app:layout_constraintTop_toBottomOf="@id/guideline1"
             app:menu="@menu/bottom_navigation_menu" />
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/go_afterSchool_btn"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:background="@drawable/ic_after_school_btn"
-            app:layout_constraintTop_toTopOf="@id/guideline4"
-            app:layout_constraintStart_toStartOf="@id/guideline2"
-            app:layout_constraintEnd_toEndOf="@id/guideline3"
-            app:layout_constraintBottom_toBottomOf="@id/guideline5"
-            />
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
