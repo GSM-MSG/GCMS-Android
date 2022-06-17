@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+        <variable
+            name="clubSummary"
+            type="com.msg.gcms.data.remote.dto.datasource.club.response.SummaryClubResponse" />
+    </data>
+
+    <LinearLayout
+        android:id="@+id/clubSummaryLayout"
+        android:layout_width="match_parent"
+        android:layout_height="268dp"
+        android:orientation="vertical"
+        android:layout_margin="5dp">
+
+        <ImageView
+            android:id="@+id/itemClubImg"
+            android:layout_width="match_parent"
+            android:layout_height="223dp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:background="@drawable/bg_summary_club_txt"
+            android:textColor="@color/white_3"
+            android:fontFamily="@font/notosans"
+            android:textFontWeight="500"
+            android:textSize="13sp"
+            android:text="@{clubSummary.title}"
+            android:gravity="center"/>
+
+    </LinearLayout>
+</layout>

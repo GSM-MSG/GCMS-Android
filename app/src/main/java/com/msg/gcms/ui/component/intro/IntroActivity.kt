@@ -22,11 +22,12 @@ class IntroActivity : BaseActivity<ActivityIntroBinding>(R.layout.activity_intro
     private lateinit var client: GoogleSignInClient
 
     override fun viewSetting() {
+        clickGoogleLogin()
     }
 
     override fun observeEvent() {
-        clickGoogleLogin()
-        observer()
+        login()
+        isLogin()
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -43,7 +44,7 @@ class IntroActivity : BaseActivity<ActivityIntroBinding>(R.layout.activity_intro
         }
     }
 
-    private fun observer() {
+    private fun login() {
         viewModel.idTokenStatus.observe(this, Observer {
             when (it) {
                 in 200..299 -> startActivity(Intent(this, MainActivity::class.java))
@@ -54,6 +55,19 @@ class IntroActivity : BaseActivity<ActivityIntroBinding>(R.layout.activity_intro
                 else -> shortToast("로그인에 실패했습니다.")
             }
         })
+    }
+
+    private fun isLogin() {
+        viewModel.apply {
+            checkLogin()
+            isLogin.observe(this@IntroActivity) {
+                if (it) {
+                    startActivity(Intent(this@IntroActivity, MainActivity::class.java))
+                } else {
+                    client.signOut()
+                }
+            }
+        }
     }
 
     private fun clickGoogleLogin() {

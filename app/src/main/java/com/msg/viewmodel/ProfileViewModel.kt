@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.msg.gcms.data.remote.dto.datasource.user.response.UserInfoResponse
 import com.msg.gcms.domain.usecase.user.ProfileUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -20,6 +21,9 @@ class ProfileViewModel @Inject constructor(
     private val _afterSchoolStatus = MutableLiveData<Boolean>()
     val afterSchoolStatus: LiveData<Boolean> get() = _afterSchoolStatus
 
+    private val _profileData = MutableLiveData<UserInfoResponse>()
+    val profileData: LiveData<UserInfoResponse> get() = _profileData
+
     private val _logoutStatus = MutableLiveData<Boolean>()
     val logoutStatus: LiveData<Boolean> get() = _logoutStatus
     fun getUserInfo(){
@@ -28,6 +32,7 @@ class ProfileViewModel @Inject constructor(
                 val response = profileUseCase.getUserInfo()
                 when(response.code()){
                     200 -> {
+                        _profileData.value = response.body()
                         _clubStatus.value = response.body()?.clubs?.size != 0
                         _afterSchoolStatus.value = response.body()?.afters?.size != 0
                     }
