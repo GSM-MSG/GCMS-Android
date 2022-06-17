@@ -34,6 +34,9 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".ui.component.clubmaker.searchstudent.UserSearchActivity"
+            android:exported="false"/>
+        <activity
             android:name=".ui.component.main.MainActivity"
             android:exported="true"/>
         <activity android:name=".ui.component.profile.ProfileActivity" />
