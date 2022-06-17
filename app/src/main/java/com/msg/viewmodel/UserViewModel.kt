@@ -20,15 +20,17 @@ class UserViewModel @Inject constructor(
     private val _result = MutableLiveData<List<UserData>>()
     val result : LiveData<List<UserData>> get() = _result
 
-    fun getSearchUser(queryString: String) {
+    fun getSearchUser(name: String) {
         val queryString : HashMap<String,String> = HashMap()
-        queryString["name"] = queryString.toString()
+        Log.d("TAG", "getSearchUser: ${queryString.toString()}")
+        queryString["name"] = name
         queryString["type"] = clubType
         viewModelScope.launch {
             val response = userCase.getSearchUser(queryString)
             Log.d("TAG", "getSearchUser: $response")
             when(response.code()){
                200 -> {
+                   Log.d("TAG", "getSearchUser: ${response.body()} ")
                    _result.value = response.body()
                    Log.d("TAG", "getSearchUser: ${result.value}")
                }
