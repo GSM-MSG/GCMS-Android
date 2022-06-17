@@ -4,6 +4,7 @@ import android.util.Log
 import android.view.View
 import androidx.activity.viewModels
 import androidx.core.widget.doAfterTextChanged
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.msg.gcms.R
 import com.msg.gcms.data.remote.dto.datasource.user.response.UserData
@@ -16,6 +17,11 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.cancel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.debounce
+import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.filter
+import kotlinx.coroutines.launch
 import kotlin.coroutines.CoroutineContext
 
 @AndroidEntryPoint
@@ -31,6 +37,8 @@ class UserSearchActivity : BaseActivity<ActivityUserSearchBinding>(R.layout.acti
     private val coroutineJob: Job = Job()
     private val coroutineContext: CoroutineContext
         get() = Dispatchers.IO + coroutineJob
+
+    private val searchQuery = MutableStateFlow("")
 
     override fun viewSetting() {
         binding.activity = this
@@ -70,8 +78,19 @@ class UserSearchActivity : BaseActivity<ActivityUserSearchBinding>(R.layout.acti
 
     private fun observeEditText() {
         binding.searchEt.doAfterTextChanged {
+            searchQuery.value = it.toString()
             Log.d("TAG", "observeEditText: $it")
-            userViewModel.searchQuery.value = it.toString()
+        }
+
+        lifecycleScope.launch {
+            searchQuery
+                .filter { it.isNotEmpty() }
+                .debounce(300L)
+                .distinctUntilChanged()
+                .collect {
+                    Log.d("TAG", "observeEditText: $it")
+                    userViewModel.getSearchUser(it)
+                }
         }
     }
 

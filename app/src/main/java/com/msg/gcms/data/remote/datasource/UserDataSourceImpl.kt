@@ -22,7 +22,7 @@ class UserDataSourceImpl @Inject constructor(
         return service.putProfile(body)
     }
 
-    override suspend fun getUserSearch(QueryString: UserSearchRequest): Response<List<UserData>> {
+    override suspend fun getUserSearch(QueryString: Map<String,String>): Response<List<UserData>> {
         return service.getUserSearch(QueryString)
     }
 

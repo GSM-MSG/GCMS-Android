@@ -1,42 +1,32 @@
 package com.msg.viewmodel
 
 import android.util.Log
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.msg.gcms.data.remote.dto.datasource.user.request.UserSearchRequest
+import androidx.lifecycle.viewModelScope
+import com.msg.gcms.data.remote.dto.datasource.user.response.UserData
 import com.msg.gcms.domain.usecase.user.UserUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.debounce
-import kotlinx.coroutines.flow.distinctUntilChanged
-import kotlinx.coroutines.flow.filter
-import kotlinx.coroutines.flow.flatMapLatest
-import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class UserViewModel @Inject constructor(
     private val userCase: UserUseCase
 ) : ViewModel() {
-    val searchQuery = MutableStateFlow("")
+    var clubType = "MAJOR"
 
-    var clubType = "major"
+    private val _result = MutableLiveData<UserData>()
+    val result : LiveData<UserData> get() = _result
 
-    val result = searchQuery
-        .filter {
-            it.isNotEmpty()
+    fun getSearchUser(queryString: String) {
+        viewModelScope.launch {
+            val queryString : HashMap<String,String> = HashMap()
+            queryString["name"] = queryString.toString()
+            queryString["type"] = clubType
+            val response = userCase.getSearchUser(queryString)
+            Log.d("TAG", "getSearchUser: $response")
         }
-        .debounce(300)
-        .distinctUntilChanged()
-        .flatMapLatest {
-            flow {
-                Log.d("TAG", "query : $it")
-                userCase.getSearchUser(UserSearchRequest(name = it, type = clubType))
-                emit(it)
-            }
-        }
-        .flowOn(Dispatchers.Default)
-        .catch { e: Throwable -> e.stackTraceToString() }
+    }
 }
