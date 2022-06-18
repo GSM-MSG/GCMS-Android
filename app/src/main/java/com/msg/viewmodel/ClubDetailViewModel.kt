@@ -37,6 +37,7 @@ class ClubDetailViewModel @Inject constructor(
                 when (response.code()) {
                     200 -> {
                         Log.d(TAG, "status : ${response.code()}")
+                        Log.d(TAG, "body : ${response.body()}")
                     }
                     else -> {
                         Log.d(TAG, "status : ${response.code()}")
