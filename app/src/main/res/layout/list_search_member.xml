@@ -52,6 +52,7 @@
             android:button="@null"
             android:checked="false"
             android:padding="5dp"
+            android:clickable="false"
             android:background="@drawable/selector_user_check_list"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

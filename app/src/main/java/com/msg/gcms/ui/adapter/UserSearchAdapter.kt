@@ -29,6 +29,7 @@ class UserSearchAdapter:
 
         init {
             binding.root.setOnClickListener {
+                binding.choseMemberCb.isChecked = !binding.choseMemberCb.isChecked
                 listener.onClick(adapterPosition)
             }
         }

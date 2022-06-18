@@ -31,7 +31,7 @@ class UserSearchActivity : BaseActivity<ActivityUserSearchBinding>(R.layout.acti
 
     private lateinit var searchAdapter: UserSearchAdapter
 
-    private val userList = mutableListOf<UserData>()
+    private var userList = mutableListOf<UserData>()
     private val memberList = mutableListOf<UserData>()
 
     private val coroutineJob: Job = Job()
@@ -47,6 +47,7 @@ class UserSearchActivity : BaseActivity<ActivityUserSearchBinding>(R.layout.acti
 
     override fun observeEvent() {
         observeEditText()
+        observeResult()
     }
 
     fun onClickListener(view: View) {
@@ -66,12 +67,17 @@ class UserSearchActivity : BaseActivity<ActivityUserSearchBinding>(R.layout.acti
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
             setHasFixedSize(true)
             addItemDecoration(ItemDecorator(16))
-            searchAdapter.submitList(userList)
             adapter = searchAdapter
         }
         searchAdapter.setItemOnClickListener(object : UserSearchAdapter.OnItemClickListener {
             override fun onClick(position: Int) {
-                memberList.add(userList[position])
+                if(memberList.contains(userList[position])) {
+                    memberList.remove(userList[position])
+                    Log.d("TAG", "removeMemberList : $memberList")
+                } else {
+                    memberList.add(userList[position])
+                    Log.d("TAG", "addMemberList : $memberList")
+                }
             }
         })
     }
@@ -91,6 +97,13 @@ class UserSearchActivity : BaseActivity<ActivityUserSearchBinding>(R.layout.acti
                     Log.d("TAG", "observeEditText: $it")
                     userViewModel.getSearchUser(it)
                 }
+        }
+    }
+
+    private fun observeResult() {
+        userViewModel.result.observe(this) {
+            userList = it as MutableList<UserData>
+            searchAdapter.submitList(it)
         }
     }
 
