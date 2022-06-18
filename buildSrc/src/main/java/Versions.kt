@@ -31,6 +31,7 @@ object Versions {
     const val FIREBASE = "21.0.3"
     const val GMS_GOOGLE_SERVICE = "4.3.10"
     const val FIREBASE_BOM = "30.0.1"
+    const val LIVEDATA = "2.4.1"
 
     const val MOSHI = "1.13.0"
 
@@ -47,6 +48,7 @@ object Versions {
     const val RX_BINDING = "4.0.0"
     const val RX_JAVA = "3.0.3"
     const val RX_ANDROID = "3.0.0"
+    const val COROUTINE = "1.3.9"
 
     const val KTLINT = "2.1.2"
 

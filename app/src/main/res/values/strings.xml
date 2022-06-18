@@ -72,5 +72,8 @@
     <string name="club_application_cancle">신청취소하기</string>
     <string name="close_application">동아리 신청 마감하기</string>
     <string name="aready_closed">마감됨</string>
+    <string name="search_user_str">너, 내 동료가 돼라</string>
+    <string name="student_search_str">학생 검색</string>
+    <string name="select_str">선택</string>
 
 </resources>

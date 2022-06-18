@@ -12,9 +12,11 @@ import android.widget.ImageView
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import coil.load
+import coil.transform.RoundedCornersTransformation
 import com.msg.gcms.R
 import com.msg.gcms.data.local.entity.ActivityPhotoType
 import com.msg.gcms.data.remote.dto.datasource.club.response.MemberSummaryResponse
@@ -22,12 +24,16 @@ import com.msg.gcms.databinding.FragmentMakeClubDetailBinding
 import com.msg.gcms.ui.adapter.ActivityPhotosAdapter
 import com.msg.gcms.ui.adapter.ClubMemberAdapter
 import com.msg.gcms.ui.base.BaseFragment
+import com.msg.gcms.ui.component.clubmaker.searchstudent.UserSearchActivity
 import com.msg.gcms.utils.ItemDecorator
+import com.msg.viewmodel.MakeClubViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MakeClubDetailFragment :
     BaseFragment<FragmentMakeClubDetailBinding>(R.layout.fragment_make_club_detail) {
+
+    private val makeClubViewModel by activityViewModels<MakeClubViewModel>()
 
     var activityPhotoList = mutableListOf<ActivityPhotoType>()
     var memberList = mutableListOf<MemberSummaryResponse>()
@@ -49,7 +55,7 @@ class MakeClubDetailFragment :
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
             setHasFixedSize(true)
             addItemDecoration(ItemDecorator(50))
-            clubMemberRv()
+            clubMemberRecyclerView()
         }
     }
 
@@ -63,7 +69,10 @@ class MakeClubDetailFragment :
                     binding.imageView7.visibility = View.GONE
                     binding.addImageTxt.visibility = View.GONE
                 }
-                binding.addBannerPicture.load(imageUrl)
+                binding.addBannerPicture.load(imageUrl) {
+                    crossfade(true)
+                    transformations(RoundedCornersTransformation(8f))
+                }
             }
         }
 
@@ -78,18 +87,13 @@ class MakeClubDetailFragment :
         }
     }
 
-    fun clubMemberRv() {
-        memberList.add(MemberSummaryResponse("이현빈", R.drawable.ic_activity_photo.toString()))
-        memberList.add(MemberSummaryResponse("aaa", R.drawable.ic_activity_photo.toString()))
-        memberList.add(MemberSummaryResponse("asdf", R.drawable.ic_activity_photo.toString()))
-        memberList.add(MemberSummaryResponse("sdfd", R.drawable.ic_activity_photo.toString()))
-        memberList.add(MemberSummaryResponse("sfs", R.drawable.ic_activity_photo.toString()))
-        memberList.add(MemberSummaryResponse("asd", R.drawable.ic_activity_photo.toString()))
-        memberList.add(MemberSummaryResponse("fewq", R.drawable.ic_activity_photo.toString()))
+    private fun clubMemberRecyclerView() {
+        memberList.add(MemberSummaryResponse("", R.drawable.bg_banner_placeholder.toString()))
         clubMemberAdapter = ClubMemberAdapter(memberList)
         clubMemberAdapter.setItemOnClickListener(object : ClubMemberAdapter.OnItemClickListener{
             override fun onClick(position: Int) {
-                shortToast("click")
+                val intent = Intent(context, UserSearchActivity::class.java)
+                startActivity(intent)
             }
         })
         binding.clubMemberRv.adapter = clubMemberAdapter

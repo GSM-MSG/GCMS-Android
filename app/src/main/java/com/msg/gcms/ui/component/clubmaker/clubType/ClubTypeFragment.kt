@@ -18,13 +18,17 @@ class ClubTypeFragment : BaseFragment<FragmentClubTypeBinding>(R.layout.fragment
         binding.fragment = this
     }
 
+    private lateinit var clubType : String
+
     fun whenClickedBtn(view: View) {
         if (view.id != binding.clubTypeBackBtn.id) {
             when (view.id) {
-                binding.majorBtn.id -> makeClubViewModel.clubTypeChange("major")
-                binding.freeBtn.id -> makeClubViewModel.clubTypeChange("free")
-                binding.personalBtn.id -> makeClubViewModel.clubTypeChange("personal")
+                binding.majorBtn.id -> clubType = "major"
+                binding.freeBtn.id -> clubType = "free"
+                binding.personalBtn.id -> clubType = "personal"
             }
+            makeClubViewModel.clubTypeChange(clubType)
+
             this.findNavController().navigate(R.id.action_clubTypeFragment_to_clubIntroduceFragment)
         } else if (view.id == binding.clubTypeBackBtn.id) {
             activity?.finish()

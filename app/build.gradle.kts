@@ -85,6 +85,9 @@ dependencies {
     implementation(Dependency.Rx.RX_BINNDING)
     implementation(Dependency.Rx.RX_JAVA)
     implementation(Dependency.Rx.RX_ANDROID)
+    implementation(Dependency.Coroutine.COROUTINE)
 
     implementation(Dependency.ImageLoad.COIL)
+
+    implementation(Dependency.Google.LIVEDATA)
 }
