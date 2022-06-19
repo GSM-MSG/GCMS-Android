@@ -93,6 +93,7 @@ class MakeClubDetailFragment :
         clubMemberAdapter.setItemOnClickListener(object : ClubMemberAdapter.OnItemClickListener{
             override fun onClick(position: Int) {
                 val intent = Intent(context, UserSearchActivity::class.java)
+                intent.putExtra("clubType", makeClubViewModel.clubType.value)
                 startActivity(intent)
             }
         })

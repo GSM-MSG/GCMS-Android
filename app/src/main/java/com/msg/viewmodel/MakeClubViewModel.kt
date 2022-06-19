@@ -3,13 +3,13 @@ package com.msg.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.msg.gcms.domain.repository.ClubRepository
+import com.msg.gcms.domain.usecase.club.ClubUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
 class MakeClubViewModel @Inject constructor(
-    repository: ClubRepository
+    useCase: ClubUseCase
 ) : ViewModel() {
 
     private var _clubType = MutableLiveData<String>()

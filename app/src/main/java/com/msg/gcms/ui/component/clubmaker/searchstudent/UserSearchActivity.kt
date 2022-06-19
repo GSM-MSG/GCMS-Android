@@ -48,6 +48,12 @@ class UserSearchActivity : BaseActivity<ActivityUserSearchBinding>(R.layout.acti
     override fun observeEvent() {
         observeEditText()
         observeResult()
+        getClubType()
+    }
+
+    private fun getClubType() {
+        Log.d("TAG", "getClubType: ${intent.getStringExtra("clubType")}")
+        userViewModel.clubType = intent.getStringExtra("clubType").toString()
     }
 
     fun onClickListener(view: View) {
