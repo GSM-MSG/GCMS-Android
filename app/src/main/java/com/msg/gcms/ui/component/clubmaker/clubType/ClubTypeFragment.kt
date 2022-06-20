@@ -23,9 +23,9 @@ class ClubTypeFragment : BaseFragment<FragmentClubTypeBinding>(R.layout.fragment
     fun whenClickedBtn(view: View) {
         if (view.id != binding.clubTypeBackBtn.id) {
             when (view.id) {
-                binding.majorBtn.id -> clubType = "major"
-                binding.freeBtn.id -> clubType = "free"
-                binding.personalBtn.id -> clubType = "personal"
+                binding.majorBtn.id -> clubType = "MAJOR"
+                binding.freeBtn.id -> clubType = "FREEDOM"
+                binding.personalBtn.id -> clubType = "EDITORIAL"
             }
             makeClubViewModel.clubTypeChange(clubType)
 

@@ -37,6 +37,7 @@ class MakeClubDetailFragment :
 
     var activityPhotoList = mutableListOf<ActivityPhotoType>()
     var memberList = mutableListOf<MemberSummaryResponse>()
+
     private lateinit var activityAdapter: ActivityPhotosAdapter
     private lateinit var clubMemberAdapter: ClubMemberAdapter
 
@@ -49,12 +50,12 @@ class MakeClubDetailFragment :
         with(binding.clubActivePicture) {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
             setHasFixedSize(true)
-            addItemDecoration(ItemDecorator(10))
+            addItemDecoration(ItemDecorator(10, "HORIZONTAL"))
         }
         with(binding.clubMemberRv) {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
             setHasFixedSize(true)
-            addItemDecoration(ItemDecorator(50))
+            addItemDecoration(ItemDecorator(50, "HORIZONTAL"))
             clubMemberRecyclerView()
         }
     }

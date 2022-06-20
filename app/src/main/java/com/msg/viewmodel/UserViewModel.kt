@@ -30,10 +30,10 @@ class UserViewModel @Inject constructor(
             when(response.code()){
                200 -> {
                    _result.value = response.body()
-                   Log.d("TAG", "searchResult : ${_result.value}")
+                   Log.d("TAG", "searchResult: ${_result.value}")
                }
               else -> {
-
+                  Log.d("TAG", "searchResult: ${response.body()} ")
               }
             }
         }

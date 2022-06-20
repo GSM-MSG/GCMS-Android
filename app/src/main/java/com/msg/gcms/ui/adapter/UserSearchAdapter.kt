@@ -26,19 +26,16 @@ class UserSearchAdapter:
                 transformations(CircleCropTransformation())
             }
         }
-
-        init {
-            binding.root.setOnClickListener {
-                binding.choseMemberCb.isChecked = !binding.choseMemberCb.isChecked
-                listener.onClick(adapterPosition)
-            }
-        }
     }
 
     fun submitList(list : List<UserData>) {
         this.list = list.toMutableList()
         notifyDataSetChanged()
     }
+
+    // fun addMemberList(userData: UserData) {
+    //     this.memberList.add(userData)
+    // }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SearchUserViewHolder {
         val binding =

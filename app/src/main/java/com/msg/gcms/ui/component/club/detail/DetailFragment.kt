@@ -1,6 +1,6 @@
 package com.msg.gcms.ui.component.club.detail
 
-import android.util.Log
+import android.view.View
 import androidx.fragment.app.activityViewModels
 import com.msg.gcms.R
 import com.msg.gcms.databinding.FragmentClubDetailBinding
@@ -14,12 +14,15 @@ class DetailFragment : BaseFragment<FragmentClubDetailBinding>(R.layout.fragment
     private val viewModel by activityViewModels<ClubDetailViewModel>()
     override fun init() {
         viewModel.getDetail()
-        clickBackBtn()
     }
 
-    private fun clickBackBtn() {
-        binding.backBtn.setOnClickListener {
-            parentFragmentManager.beginTransaction().replace(R.id.fragment_club, ClubFragment()).commit()
+    fun clickBtn(view: View) {
+        when(view.id) {
+            binding.backBtn.id -> parentFragmentManager.beginTransaction().replace(R.id.fragment_club, ClubFragment()).commit()
+
+            binding.sideBarBtn.id -> {
+
+            }
         }
     }
 }
