@@ -108,6 +108,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
     }
 
     private fun clubPromotionImgRecycler(photo: List<String>) {
+        Log.d(TAG,photo.toString())
         activityUrlsList.clear()
         for (i in photo.indices) {
             try {

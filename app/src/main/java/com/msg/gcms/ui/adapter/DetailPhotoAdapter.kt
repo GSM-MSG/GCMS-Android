@@ -6,21 +6,26 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
+import coil.transform.RoundedCornersTransformation
 import com.msg.gcms.data.local.entity.ActivityPhotoType
 import com.msg.gcms.databinding.ListClubPictureBinding
 
 class DetailPhotoAdapter :
     ListAdapter<ActivityPhotoType, DetailPhotoAdapter.ActivityPhotoViewHolder>(diffCallBack) {
+
     class ActivityPhotoViewHolder(private val binding: ListClubPictureBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(data: ActivityPhotoType) {
-            binding.activityPhoto.load(data)
+            binding.activityPhoto.load(data.activityPhoto)
+            {
+                transformations(RoundedCornersTransformation(9f,9f,9f,9f))
+            }
             binding.executePendingBindings()
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ActivityPhotoViewHolder {
-        return DetailPhotoAdapter.ActivityPhotoViewHolder(
+        return ActivityPhotoViewHolder(
             ListClubPictureBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,
