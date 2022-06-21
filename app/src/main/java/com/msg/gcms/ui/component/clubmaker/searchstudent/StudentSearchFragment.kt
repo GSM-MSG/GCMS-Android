@@ -1,23 +1,21 @@
 package com.msg.gcms.ui.component.clubmaker.searchstudent
 
-import android.content.Intent
 import android.util.Log
 import android.view.View
-import androidx.activity.viewModels
 import androidx.core.widget.doAfterTextChanged
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.msg.gcms.R
 import com.msg.gcms.data.local.entity.AddMemberType
 import com.msg.gcms.data.remote.dto.datasource.user.response.UserData
-import com.msg.gcms.databinding.ActivityUserSearchBinding
+import com.msg.gcms.databinding.FragmentStudentSearchBinding
 import com.msg.gcms.ui.adapter.AddMemberAdapter
 import com.msg.gcms.ui.adapter.UserSearchAdapter
-import com.msg.gcms.ui.base.BaseActivity
-import com.msg.gcms.ui.component.clubmaker.MakeClubActivity
+import com.msg.gcms.ui.base.BaseFragment
 import com.msg.gcms.utils.ItemDecorator
-import com.msg.viewmodel.UserViewModel
-import dagger.hilt.android.AndroidEntryPoint
+import com.msg.viewmodel.MakeClubViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.cancel
@@ -28,10 +26,10 @@ import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.launch
 import kotlin.coroutines.CoroutineContext
 
-@AndroidEntryPoint
-class UserSearchActivity : BaseActivity<ActivityUserSearchBinding>(R.layout.activity_user_search) {
+class StudentSearchFragment :
+    BaseFragment<FragmentStudentSearchBinding>(R.layout.fragment_student_search) {
 
-    private val userViewModel by viewModels<UserViewModel>()
+    private val makeClubViewModel by activityViewModels<MakeClubViewModel>()
 
     private lateinit var searchAdapter: UserSearchAdapter
     private lateinit var addMemberAdapter: AddMemberAdapter
@@ -45,37 +43,15 @@ class UserSearchActivity : BaseActivity<ActivityUserSearchBinding>(R.layout.acti
 
     private val searchQuery = MutableStateFlow("")
 
-    override fun viewSetting() {
-        binding.activity = this
+    override fun init() {
+        binding.fragment = this
+        observeEvent()
         settingRecyclerView()
     }
 
-    override fun observeEvent() {
+    private fun observeEvent() {
         observeEditText()
         observeResult()
-        getClubType()
-    }
-
-    private fun getClubType() {
-        Log.d("TAG", "getClubType: ${intent.getStringExtra("clubType")}")
-        userViewModel.clubType = intent.getStringExtra("clubType").toString()
-    }
-
-    fun onClickListener(view: View) {
-        when (view.id) {
-            binding.goBackBtn.id -> {
-                finish()
-            }
-            binding.selectBtn.id -> {
-                Log.d("TAG", "$memberList")
-                val intent = Intent(this, MakeClubActivity::class.java)
-                intent.flags = Intent.FLAG_ACTIVITY_REORDER_TO_FRONT
-                Log.d("TAG", "memberList : ${memberList.toList()}")
-                intent.putExtra("list", memberList.toString())
-                startActivity(intent)
-                finish()
-            }
-        }
     }
 
     private fun settingRecyclerView() {
@@ -128,15 +104,26 @@ class UserSearchActivity : BaseActivity<ActivityUserSearchBinding>(R.layout.acti
                 .distinctUntilChanged()
                 .collect {
                     Log.d("TAG", "observeEditText: $it")
-                    userViewModel.getSearchUser(it)
+                    makeClubViewModel.getSearchUser(it)
                 }
         }
     }
 
     private fun observeResult() {
-        userViewModel.result.observe(this) {
+        makeClubViewModel.result.observe(this) {
             userList = it as MutableList<UserData>
             searchAdapter.submitList(it)
+        }
+    }
+
+    fun onClickListener(view: View) {
+        when (view.id) {
+            binding.goBackBtn.id -> {
+                this.findNavController().popBackStack()
+            }
+            binding.selectBtn.id -> {
+
+            }
         }
     }
 

@@ -1,6 +1,7 @@
 package com.msg.gcms.ui.component.clubmaker
 
 import android.content.pm.PackageManager
+import android.util.Log
 import androidx.activity.viewModels
 import com.google.android.material.snackbar.Snackbar
 import com.msg.gcms.R

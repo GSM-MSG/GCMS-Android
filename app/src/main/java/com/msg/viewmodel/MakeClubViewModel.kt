@@ -1,21 +1,48 @@
 package com.msg.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.msg.gcms.data.remote.dto.datasource.user.response.UserData
 import com.msg.gcms.domain.usecase.club.ClubUseCase
+import com.msg.gcms.domain.usecase.user.UserUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class MakeClubViewModel @Inject constructor(
-    useCase: ClubUseCase
+    private val useCase: ClubUseCase,
+    private val userUserCase: UserUseCase
 ) : ViewModel() {
 
-    private var _clubType = MutableLiveData<String>()
+    private var _clubType = MutableLiveData<String>("MAJOR")
     val clubType: LiveData<String> get() = _clubType
 
     fun clubTypeChange(type: String) {
         _clubType.value = type
+    }
+    private val _result = MutableLiveData<List<UserData>>()
+    val result : LiveData<List<UserData>> get() = _result
+
+
+    fun getSearchUser(name: String) {
+        val queryString : HashMap<String,String> = HashMap()
+        queryString["name"] = name
+        queryString["type"] = clubType.value.toString()
+        viewModelScope.launch {
+            val response = userUserCase.getSearchUser(queryString)
+            when(response.code()){
+                200 -> {
+                    _result.value = response.body()
+                    Log.d("TAG", "searchResult: ${_result.value}")
+                }
+                else -> {
+                    Log.d("TAG", "searchResult: ${response.body()} ")
+                }
+            }
+        }
     }
 }
