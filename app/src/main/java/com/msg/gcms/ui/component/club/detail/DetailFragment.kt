@@ -1,8 +1,11 @@
 package com.msg.gcms.ui.component.club.detail
 
 import android.content.Context
+import android.os.Bundle
 import android.util.Log
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -19,6 +22,7 @@ import com.msg.gcms.ui.adapter.DetailPhotoAdapter
 import com.msg.gcms.ui.base.BaseDialog
 import com.msg.gcms.ui.base.BaseFragment
 import com.msg.gcms.ui.component.club.ClubFragment
+import com.msg.gcms.utils.ItemDecorator
 import com.msg.viewmodel.ClubDetailViewModel
 
 class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_detail) {
@@ -39,6 +43,19 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
         settingRecyclerView()
         checkRole()
         clickBackBtn()
+    }
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        return super.onCreateView(inflater, container, savedInstanceState)
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        // clickSubmitBtn(context)
     }
 
     private fun showInfo() {
@@ -108,7 +125,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
     }
 
     private fun clubPromotionImgRecycler(photo: List<String>) {
-        Log.d(TAG,photo.toString())
+        Log.d(TAG, photo.toString())
         activityUrlsList.clear()
         for (i in photo.indices) {
             try {
@@ -132,6 +149,8 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
                 LinearLayoutManager.HORIZONTAL,
                 false
             )
+            setHasFixedSize(true)
+            addItemDecoration(ItemDecorator(50, "HORIZONTAL"))
         }
 
         with(binding.promotionClubImg) {
@@ -139,6 +158,8 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
                 context,
                 2,
             )
+            setHasFixedSize(true)
+            addItemDecoration(ItemDecorator(20, "VERTICAL"))
         }
     }
 

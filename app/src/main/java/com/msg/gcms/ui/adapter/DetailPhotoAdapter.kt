@@ -8,15 +8,15 @@ import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import coil.transform.RoundedCornersTransformation
 import com.msg.gcms.data.local.entity.ActivityPhotoType
-import com.msg.gcms.databinding.ListClubPictureBinding
+import com.msg.gcms.databinding.ListDetailClubPromotionBinding
 
 class DetailPhotoAdapter :
     ListAdapter<ActivityPhotoType, DetailPhotoAdapter.ActivityPhotoViewHolder>(diffCallBack) {
 
-    class ActivityPhotoViewHolder(private val binding: ListClubPictureBinding) :
+    class ActivityPhotoViewHolder(private val binding: ListDetailClubPromotionBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(data: ActivityPhotoType) {
-            binding.activityPhoto.load(data.activityPhoto)
+            binding.image.load(data.activityPhoto)
             {
                 transformations(RoundedCornersTransformation(9f,9f,9f,9f))
             }
@@ -26,7 +26,7 @@ class DetailPhotoAdapter :
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ActivityPhotoViewHolder {
         return ActivityPhotoViewHolder(
-            ListClubPictureBinding.inflate(
+            ListDetailClubPromotionBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,
                 false
