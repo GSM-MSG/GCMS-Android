@@ -29,10 +29,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
     private fun observeSetNav() {
         detailViewModel.showNav.observe(this) {
-            when (it) {
-                false -> binding.bottomNavigation.visibility = View.GONE
-                true -> binding.bottomNavigation.visibility = View.VISIBLE
-            }
+            binding.bottomNavigation.visibility = if (it) View.VISIBLE else View.GONE
         }
     }
 

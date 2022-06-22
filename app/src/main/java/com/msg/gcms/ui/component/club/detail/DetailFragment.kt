@@ -63,14 +63,9 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
 
     private fun setTeacherInfo(name: String) {
         with(binding) {
-            if (name == "") {
-                teacherImg.visibility = View.INVISIBLE
-                teacherName.visibility = View.INVISIBLE
-            } else {
-                teacherName.visibility = View.VISIBLE
-                teacherImg.visibility = View.VISIBLE
-                teacherName.text = name
-            }
+            teacherImg.visibility = if (name == "") View.INVISIBLE else View.VISIBLE
+            teacherName.visibility = if (name == "") View.INVISIBLE else View.VISIBLE
+            if (name != "") teacherName.text = name
         }
     }
 
@@ -153,26 +148,30 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
         binding.submitBtn.let {
             when (detailViewModel.result.value!!.scope) {
                 "HEAD" -> {
-                    if (detailViewModel.result.value!!.club.isOpened) {
-                        it.text = getString(R.string.close_application)
-                        it.setBackgroundColor(resources.getColor(R.color.dark_blue))
-                    } else {
-                        it.text = getString(R.string.open_application)
-                        it.setBackgroundColor(resources.getColor(R.color.dark_blue))
-                    }
+                    it.setBackgroundColor(resources.getColor(R.color.dark_blue))
+                    it.text = getString(
+                        if (detailViewModel.result.value!!.club.isOpened) {
+                            R.string.open_application
+                        } else R.string.close_application
+                    )
                 }
-                "MEMBER", "ORTHER" -> {
+                "MEMBER", "OTHER" -> {
                     it.visibility = View.INVISIBLE
                 }
                 "USER" -> {
                     if (detailViewModel.result.value!!.club.isOpened) {
-                        if (detailViewModel.result.value!!.isApplied) {
-                            it.text = getString(R.string.club_application_cancle)
-                            it.setBackgroundColor(resources.getColor(R.color.pink))
-                        } else {
-                            it.text = getString(R.string.club_application)
-                            it.setBackgroundColor(resources.getColor(R.color.dark_blue))
-                        }
+                        it.text = getString(
+                            if (detailViewModel.result.value!!.isApplied) {
+                                R.string.club_application_cancle
+                            } else R.string.club_application
+                        )
+                        it.setBackgroundColor(
+                            resources.getColor(
+                                if (detailViewModel.result.value!!.isApplied) {
+                                    R.color.pink
+                                } else R.color.dark_blue
+                            )
+                        )
                     } else {
                         it.visibility = View.INVISIBLE
                     }
