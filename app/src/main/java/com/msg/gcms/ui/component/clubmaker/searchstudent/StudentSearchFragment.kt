@@ -2,6 +2,7 @@ package com.msg.gcms.ui.component.clubmaker.searchstudent
 
 import android.util.Log
 import android.view.View
+import android.view.WindowManager
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
@@ -35,7 +36,7 @@ class StudentSearchFragment :
     private lateinit var addMemberAdapter: AddMemberAdapter
 
     private var userList = mutableListOf<UserData>()
-    private val memberList = mutableListOf<UserData>()
+    private var memberList = mutableListOf<UserData>()
 
     private val coroutineJob: Job = Job()
     private val coroutineContext: CoroutineContext
@@ -47,6 +48,7 @@ class StudentSearchFragment :
         binding.fragment = this
         observeEvent()
         settingRecyclerView()
+        activity?.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING)
     }
 
     private fun observeEvent() {
@@ -122,7 +124,8 @@ class StudentSearchFragment :
                 this.findNavController().popBackStack()
             }
             binding.selectBtn.id -> {
-
+                makeClubViewModel._memberList = memberList
+                this.findNavController().navigate(R.id.action_studentSearchFragment_to_makeClubDetailFragment)
             }
         }
     }
