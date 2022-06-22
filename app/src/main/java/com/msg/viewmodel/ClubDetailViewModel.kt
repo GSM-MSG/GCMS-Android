@@ -6,7 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.msg.gcms.data.remote.dto.datasource.club.response.ClubInfoResponse
-import com.msg.gcms.data.usecase.GetDetailUseCase
+import com.msg.gcms.domain.usecase.club.GetDetailUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -26,7 +26,7 @@ class ClubDetailViewModel @Inject constructor(
     private val _type = MutableLiveData<String>()
     private val _q = MutableLiveData<String>()
 
-    fun getDetail(){
+    fun getDetail(type: String, clubname: String){
         viewModelScope.launch {
             try {
                 val response = getDetailUseCase.getDetail(type, clubname)
