@@ -165,9 +165,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
 
     private fun clickSubmitBtn(context: Context) {
         binding.submitBtn.setOnClickListener {
-            val dialog = BaseDialog(context, R.layout.detail_dialog)
-            changeDialog(dialog)
-            dialog.showDialog()
+
         }
     }
 
@@ -175,19 +173,28 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
         binding.submitBtn.let {
             when (detailViewModel.result.value!!.scope) {
                 "HEAD" -> {
-                    it.text = getString(R.string.close_application)
-                    it.setBackgroundColor(resources.getColor(R.color.dark_blue))
+                    if (detailViewModel.result.value!!.club.isOpened) {
+                        it.text = getString(R.string.close_application)
+                        it.setBackgroundColor(resources.getColor(R.color.dark_blue))
+                    } else {
+                        it.text = getString(R.string.open_application)
+                        it.setBackgroundColor(resources.getColor(R.color.dark_blue))
+                    }
                 }
-                "MEMBER" -> {
+                "MEMBER", "ORTHER" -> {
                     it.visibility = View.INVISIBLE
                 }
                 "USER" -> {
-                    if (detailViewModel.result.value!!.isApplied) {
-                        it.text = getString(R.string.club_application_cancle)
-                        it.setBackgroundColor(resources.getColor(R.color.pink))
+                    if (detailViewModel.result.value!!.club.isOpened) {
+                        if (detailViewModel.result.value!!.isApplied) {
+                            it.text = getString(R.string.club_application_cancle)
+                            it.setBackgroundColor(resources.getColor(R.color.pink))
+                        } else {
+                            it.text = getString(R.string.club_application)
+                            it.setBackgroundColor(resources.getColor(R.color.dark_blue))
+                        }
                     } else {
-                        it.text = getString(R.string.club_application)
-                        it.setBackgroundColor(resources.getColor(R.color.dark_blue))
+                        it.visibility = View.INVISIBLE
                     }
                 }
             }
@@ -198,17 +205,28 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
         when (detailViewModel.result.value!!.scope) {
             "HEAD" -> {
                 with(dialogBinding) {
-                    dialogTitle.text = getString(R.string.deadline)
-                    dialogMsg.text = getString(R.string.ask_dead_club_application)
-                    ok.setOnClickListener {
-                        deadline()
-                    }
-                    cancel.setOnClickListener {
-                        dialog.dismiss()
+                    if (detailViewModel.result.value!!.club.isOpened) {
+                        dialogTitle.text = getString(R.string.deadline)
+                        dialogMsg.text = getString(R.string.ask_dead_club_application)
+                        ok.setOnClickListener {
+                            deadline()
+                        }
+                        cancel.setOnClickListener {
+                            dialog.dismiss()
+                        }
+                    } else {
+                        dialogTitle.text = getString(R.string.open)
+                        dialogMsg.text = getString(R.string.ask_open_club_application)
+                        ok.setOnClickListener {
+                            openApplication()
+                        }
+                        cancel.setOnClickListener {
+                            dialog.dismiss()
+                        }
                     }
                 }
             }
-            "MEMBER" -> {
+            "MEMBER", "ORTHER" -> {
             }
             "USER" -> {
                 with(dialogBinding) {
@@ -247,5 +265,8 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
     }
 
     private fun deadline() {
+    }
+
+    private fun openApplication() {
     }
 }

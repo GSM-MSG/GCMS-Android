@@ -71,6 +71,7 @@
     <string name="club_application">동아리 신청하기</string>
     <string name="club_application_cancle">신청취소하기</string>
     <string name="close_application">동아리 신청 마감하기</string>
+    <string name="open_application">동아리 신청 오픈하기</string>
     <string name="aready_closed">마감됨</string>
     <string name="application">신청</string>
     <string name="can_you_application_club">%1$s동아리에 신청하시겠습니까?</string>
@@ -80,7 +81,9 @@
     <string name="application_cancel">신청취소</string>
     <string name="ask_cancel_application">동아리 신청을 취소하시겠습니까?</string>
     <string name="deadline">마감</string>
+    <string name="open">오픈</string>
     <string name="ask_dead_club_application">동아리 신청을 마감하시겠습니까?</string>
+    <string name="ask_open_club_application">동아리 신청을 오픈하시겠습니까?</string>
     <string name="explain_club">동아리 설명</string>
     <string name="promotion_club">동아리 홍보</string>
     <string name="members">구성원</string>
