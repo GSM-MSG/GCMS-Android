@@ -1,8 +1,10 @@
 package com.msg.gcms.base.di.module
 
 import com.msg.gcms.domain.repository.CommonRepository
+import com.msg.gcms.domain.repository.ImageRepository
 import com.msg.gcms.domain.repository.UserRepository
 import com.msg.gcms.domain.usecase.common.RegistrationUseCase
+import com.msg.gcms.domain.usecase.image.ImageUseCase
 import com.msg.gcms.domain.usecase.user.UserUseCase
 import dagger.Module
 import dagger.Provides
@@ -21,4 +23,8 @@ object UserCaseModule {
     @Provides
     @Singleton
     fun provideUserUseCase(repository: UserRepository): UserUseCase = UserUseCase(repository)
+
+    @Provides
+    @Singleton
+    fun provideImageUseCase(repository: ImageRepository): ImageUseCase = ImageUseCase(repository)
 }

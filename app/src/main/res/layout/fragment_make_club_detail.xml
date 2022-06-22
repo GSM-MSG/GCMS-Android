@@ -337,7 +337,7 @@
                 android:background="@color/dark_blue2"
                 android:fontFamily="@font/notosans"
                 android:gravity="center"
-                android:onClick="@{fragment::galleryOpen}"
+                android:onClick="@{fragment::clickedPageBtn}"
                 android:text="@string/completion"
                 android:textColor="@color/white"
                 android:textSize="18sp"

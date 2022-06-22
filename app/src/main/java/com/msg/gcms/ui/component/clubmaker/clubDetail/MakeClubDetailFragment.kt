@@ -8,6 +8,7 @@ import android.content.pm.PackageManager
 import android.provider.MediaStore
 import android.util.Log
 import android.view.View
+import android.view.WindowManager
 import android.widget.ImageView
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
@@ -19,7 +20,7 @@ import coil.load
 import coil.transform.RoundedCornersTransformation
 import com.msg.gcms.R
 import com.msg.gcms.data.local.entity.ActivityPhotoType
-import com.msg.gcms.data.remote.dto.datasource.club.response.MemberSummaryResponse
+import com.msg.gcms.data.remote.dto.datasource.user.response.UserData
 import com.msg.gcms.databinding.FragmentMakeClubDetailBinding
 import com.msg.gcms.ui.adapter.ActivityPhotosAdapter
 import com.msg.gcms.ui.adapter.ClubMemberAdapter
@@ -35,7 +36,6 @@ class MakeClubDetailFragment :
     private val makeClubViewModel by activityViewModels<MakeClubViewModel>()
 
     var activityPhotoList = mutableListOf<ActivityPhotoType>()
-    var memberList = mutableListOf<MemberSummaryResponse>()
 
     private lateinit var activityAdapter: ActivityPhotosAdapter
     private lateinit var clubMemberAdapter: ClubMemberAdapter
@@ -43,6 +43,7 @@ class MakeClubDetailFragment :
     override fun init() {
         binding.fragment = this
         settingRecyclerView()
+        activity?.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
     }
 
     private fun settingRecyclerView() {
@@ -88,9 +89,21 @@ class MakeClubDetailFragment :
     }
 
     private fun clubMemberRecyclerView() {
-        memberList.add(MemberSummaryResponse("", R.drawable.bg_banner_placeholder.toString()))
-        clubMemberAdapter = ClubMemberAdapter(memberList)
-        clubMemberAdapter.setItemOnClickListener(object : ClubMemberAdapter.OnItemClickListener{
+        if (makeClubViewModel._memberList.isEmpty()) {
+            makeClubViewModel._memberList.add(
+                UserData(
+                    email = "",
+                    name = "추가하기",
+                    grade = 0,
+                    `class` = 0,
+                    num = 0,
+                    userImg = R.drawable.bg_banner_placeholder.toString()
+                )
+            )
+        }
+
+        clubMemberAdapter = ClubMemberAdapter(makeClubViewModel._memberList)
+        clubMemberAdapter.setItemOnClickListener(object : ClubMemberAdapter.OnItemClickListener {
             override fun onClick(position: Int) {
                 findNavController().navigate(R.id.action_makeClubDetailFragment_to_studentSearchFragment)
             }
