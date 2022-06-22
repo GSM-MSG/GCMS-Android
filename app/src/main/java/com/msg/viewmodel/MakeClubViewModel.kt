@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.msg.gcms.data.remote.dto.datasource.user.response.UserData
 import com.msg.gcms.domain.usecase.club.ClubUseCase
+import com.msg.gcms.domain.usecase.image.ImageUseCase
 import com.msg.gcms.domain.usecase.user.UserUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -15,7 +16,8 @@ import javax.inject.Inject
 @HiltViewModel
 class MakeClubViewModel @Inject constructor(
     private val useCase: ClubUseCase,
-    private val userUserCase: UserUseCase
+    private val userUserCase: UserUseCase,
+    private val imageUseCase: ImageUseCase
 ) : ViewModel() {
 
     private var _clubType = MutableLiveData<String>("MAJOR")
@@ -26,6 +28,8 @@ class MakeClubViewModel @Inject constructor(
     }
     private val _result = MutableLiveData<List<UserData>>()
     val result : LiveData<List<UserData>> get() = _result
+
+    var _memberList = mutableListOf<UserData>()
 
 
     fun getSearchUser(name: String) {
@@ -43,6 +47,12 @@ class MakeClubViewModel @Inject constructor(
                     Log.d("TAG", "searchResult: ${response.body()} ")
                 }
             }
+        }
+    }
+
+    fun postCreateClub() {
+        viewModelScope.launch {
+
         }
     }
 }
