@@ -47,6 +47,7 @@ object Dependency {
         const val MATERIAL = "com.google.android.material:material:${Versions.MATERIAL}"
         const val GMS_PLAY_SERVICE_BASE = "com.google.android.gms:play-services-base:${Versions.GMS_PLAY_SERVICE_BASE}"
         const val FIREBASE = "com.google.firebase:firebase-auth-ktx:${Versions.FIREBASE}"
+        const val LIVEDATA = "androidx.lifecycle:lifecycle-livedata-ktx:${Versions.LIVEDATA}"
     }
 
     object Libraries {
@@ -79,6 +80,10 @@ object Dependency {
         const val RX_BINNDING = "com.jakewharton.rxbinding4:rxbinding:${Versions.RX_BINDING}"
         const val RX_JAVA = "io.reactivex.rxjava3:rxjava:${Versions.RX_JAVA}"
         const val RX_ANDROID = "io.reactivex.rxjava3:rxandroid:${Versions.RX_ANDROID}"
+    }
+
+    object Coroutine {
+        const val COROUTINE = "org.jetbrains.kotlinx:kotlinx-coroutines-android:${Versions.COROUTINE}"
     }
 
     object ImageLoad {

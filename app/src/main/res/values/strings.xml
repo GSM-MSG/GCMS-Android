@@ -76,10 +76,12 @@
     <string name="can_you_application_club">%1$s동아리에 신청하시겠습니까?</string>
     <string name="cancel">취소</string>
     <string name="ok">확인</string>
-
     <string name="application_cancel">신청취소</string>
     <string name="ask_cancel_application">동아리 신청을 취소하시겠습니까?</string>
     <string name="deadline">마감</string>
     <string name="ask_dead_club_application">동아리 신청을 마감하시겠습니까?</string>
+    <string name="search_user_str">너, 내 동료가 돼라</string>
+    <string name="student_search_str">학생 검색</string>
+    <string name="select_str">선택</string>
 
 </resources>

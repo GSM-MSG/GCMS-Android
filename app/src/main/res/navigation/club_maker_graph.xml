@@ -12,7 +12,12 @@
         tools:layout="@layout/fragment_club_type">
         <action
             android:id="@+id/action_clubTypeFragment_to_clubIntroduceFragment"
-            app:destination="@id/clubIntroduceFragment" />
+            app:destination="@id/clubIntroduceFragment">
+            <argument
+                android:name="clubType"
+                app:argType="string"
+                android:defaultValue="major"/>
+        </action>
     </fragment>
     <fragment
         android:id="@+id/clubIntroduceFragment"

@@ -7,7 +7,7 @@ import com.msg.gcms.data.remote.dto.datasource.club.request.ModifyClubInfoReques
 import com.msg.gcms.data.remote.dto.datasource.club.response.ClubInfoResponse
 import com.msg.gcms.data.remote.dto.datasource.club.response.MemberInfo
 import com.msg.gcms.data.remote.dto.datasource.club.response.SummaryClubResponse
-import com.msg.gcms.data.remote.dto.datasource.club.response.UserInfo
+import com.msg.gcms.data.remote.dto.datasource.user.response.UserData
 import com.msg.gcms.data.remote.network.ClubAPI
 import retrofit2.Response
 import javax.inject.Inject
@@ -42,7 +42,7 @@ class ClubDataSourceImpl @Inject constructor(
     override suspend fun getApplicantList(
         clubName: String,
         type: String
-    ): Response<List<UserInfo>> {
+    ): Response<List<UserData>> {
         return service.getApplicantList(clubName = clubName, type = type)
     }
 
