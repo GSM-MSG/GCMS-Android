@@ -24,6 +24,13 @@
             app:layout_constraintGuide_percent="0.28" />
 
         <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline21"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.31" />
+
+        <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline5"
             android:layout_width="match_parent"
             android:layout_height="0.5dp"
@@ -35,9 +42,11 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toTopOf="@id/guideline5" />
+            app:layout_constraintBottom_toTopOf="@id/guideline5"
+            android:contentDescription="@null" />
 
         <ImageView
+            android:contentDescription="@null"
             android:id="@+id/back_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -60,6 +69,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
+            android:contentDescription="@null"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="29.73dp"
@@ -68,16 +78,24 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <ImageView
+            android:contentDescription="@null"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:background="@drawable/bg_detail_club"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="@id/guideline1" />
+
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:background="@drawable/bg_detail_club"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toTopOf="@id/guideline1">
+            app:layout_constraintTop_toTopOf="@id/guideline21">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="wrap_content">
 
                 <androidx.constraintlayout.widget.Guideline
                     android:id="@+id/guideline2"
@@ -306,6 +324,7 @@
                     app:layout_constraintStart_toStartOf="@id/guideline2" />
 
                 <ImageView
+                    android:contentDescription="@null"
                     android:id="@+id/teacher_img"
                     android:layout_width="60dp"
                     android:layout_height="60dp"
@@ -329,7 +348,6 @@
                     android:id="@+id/boss"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="40dp"
                     android:text="@string/club_boss"
                     android:textColor="@color/white"
                     android:textSize="18sp"
@@ -338,6 +356,7 @@
                     app:layout_constraintBottom_toBottomOf="@id/guideline14" />
 
                 <ImageView
+                    android:contentDescription="@null"
                     android:id="@+id/boss_img"
                     android:layout_width="60dp"
                     android:layout_height="60dp"

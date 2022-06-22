@@ -57,4 +57,4 @@ class ClubMemberAdapter(private val items: List<MemberSummaryResponse>) :
     }
 
     private lateinit var itemClickListener: OnItemClickListener
-}
+
