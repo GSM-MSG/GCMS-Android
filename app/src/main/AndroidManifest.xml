@@ -23,9 +23,6 @@
             android:exported="false" />
         <activity
             android:name=".ui.component.splash.SplashActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ui.component.intro.IntroActivity"
             android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -33,6 +30,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity12
+            android:name=".ui.component.intro.IntroActivity"
+            android:exported="true" >
+        </activity12>
         <activity
             android:name=".ui.component.main.MainActivity"
             android:exported="true"/>
