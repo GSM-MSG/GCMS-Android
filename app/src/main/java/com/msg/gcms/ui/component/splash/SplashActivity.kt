@@ -2,7 +2,6 @@ package com.msg.gcms.ui.component.splash
 
 import android.content.Intent
 import android.os.Bundle
-import android.os.Handler
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.msg.gcms.R
@@ -26,15 +25,12 @@ class SplashActivity : AppCompatActivity() {
         viewModel.apply {
             checkLogin()
             isLogin.observe(this@SplashActivity) {
-                if (it) {
-                    Handler().postDelayed({
-                        startActivity(Intent(this@SplashActivity, MainActivity::class.java))
-                    }, 2000)
-                } else {
-                    Handler().postDelayed({
-                        startActivity(Intent(this@SplashActivity, IntroActivity::class.java))
-                    }, 2000)
-                }
+                startActivity(
+                    Intent(
+                        this@SplashActivity,
+                        if (it) MainActivity::class.java else IntroActivity::class.java
+                    )
+                )
             }
         }
     }
