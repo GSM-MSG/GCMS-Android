@@ -56,7 +56,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
                     bossName.text = it.name
                 }
                 clubMemberRecycler(it.member)
-                clubPromotionImgRecycler(it.activityurls)
+                clubPromotionImgRecycler(it.activityUrls)
             }
         }
     }

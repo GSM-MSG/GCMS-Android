@@ -71,7 +71,7 @@ class ClubFragment : BaseFragment<FragmentClubBinding>(R.layout.fragment_club) {
 
     private fun observeStatus() {
         detailViewModel.getDetailStatus.observe(this) {
-            when (detailViewModel.getDetailStatus.value) {
+            when (it) {
                 in 200..299 -> {
                     Log.d(TAG, "GetDetail : Status - $it")
                     requireActivity().supportFragmentManager.beginTransaction()
