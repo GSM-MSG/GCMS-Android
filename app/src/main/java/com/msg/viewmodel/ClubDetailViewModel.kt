@@ -16,34 +16,41 @@ class ClubDetailViewModel @Inject constructor(
     private val getDetailUseCase: GetDetailUseCase
 ) : ViewModel() {
 
-    private val TAG = "getdetail"
+    private val TAG = "GetDetailViewModel"
 
-    lateinit var result: ClubInfoResponse
+    private val _result = MutableLiveData<ClubInfoResponse>()
+    val result: LiveData<ClubInfoResponse> get() = _result
 
     private val _getDetailStatus = MutableLiveData<Int>()
     val getDetailStatus: LiveData<Int> get() = _getDetailStatus
 
-    private val _type = MutableLiveData<String>()
-    private val _q = MutableLiveData<String>()
+    private val _showNav = MutableLiveData<Boolean>()
+    val showNav: LiveData<Boolean> get() = _showNav
 
-    fun getDetail(type: String, clubname: String){
+
+    fun getDetail(type: String, q: String) {
         viewModelScope.launch {
+            Log.d(TAG, "타입 : ${type}, 이름 : ${q}")
             try {
-                val response = getDetailUseCase.getDetail(type, clubname)
-                result = response.body()!!
+                val response = getDetailUseCase.getDetail(type, q)
+                _result.value = response.body()
+                _getDetailStatus.value = response.code()
                 when (response.code()) {
                     200 -> {
-                        _getDetailStatus.value = response.code()
-                        Log.d(TAG, "status : ${response.body()}")
+                        Log.d(TAG, "status : ${response.code()}")
+                        Log.d(TAG, "body : ${response.body()}")
                     }
                     else -> {
-                        _getDetailStatus.value = response.code()
-                        Log.d(TAG,"status : ${response.code()}")
+                        Log.d(TAG, "status : ${response.code()}")
                     }
                 }
             } catch (e: Exception) {
                 Log.d(TAG, "error : $e")
             }
         }
+    }
+
+    fun setNav(boolean: Boolean) {
+        _showNav.value = boolean
     }
 }

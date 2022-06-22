@@ -1,7 +1,6 @@
 package com.msg.gcms.ui.component.club
 
 import android.content.Intent
-import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.GridLayoutManager

@@ -1,5 +1,6 @@
 package com.msg.gcms.data.remote.dto.datasource.club.response
 
+
 data class ClubResponse(
     val type: String,
     val bannerUrl: String,
