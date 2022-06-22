@@ -21,12 +21,12 @@ class ClubMemberAdapter(private val items: List<MemberSummaryResponse>) :
 
     class MemberViewHolder(
         val binding: ListClubMemberBinding,
-        listener : OnItemClickListener
+        listener: OnItemClickListener
     ) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(data: MemberSummaryResponse) {
-            binding.nameTv.text = data.name
+            binding.userName.text = data.name
             binding.userProfileIv.load(data.userImg) {
                 crossfade(true)
                 transformations(CircleCropTransformation())
@@ -57,4 +57,5 @@ class ClubMemberAdapter(private val items: List<MemberSummaryResponse>) :
     }
 
     private lateinit var itemClickListener: OnItemClickListener
+}
 
