@@ -1,11 +1,7 @@
 package com.msg.gcms.ui.component.club.detail
 
-import android.content.Context
-import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -15,11 +11,9 @@ import com.msg.gcms.R
 import com.msg.gcms.data.local.entity.ActivityPhotoType
 import com.msg.gcms.data.remote.dto.datasource.club.response.MemberSummaryResponse
 import com.msg.gcms.data.remote.dto.datasource.club.response.UserInfo
-import com.msg.gcms.databinding.DetailDialogBinding
 import com.msg.gcms.databinding.FragmentDetailBinding
 import com.msg.gcms.ui.adapter.DetailMemberAdapter
 import com.msg.gcms.ui.adapter.DetailPhotoAdapter
-import com.msg.gcms.ui.base.BaseDialog
 import com.msg.gcms.ui.base.BaseFragment
 import com.msg.gcms.ui.component.club.ClubFragment
 import com.msg.gcms.utils.ItemDecorator
@@ -29,7 +23,6 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
 
     private val TAG = "DetailFragment"
     private val detailViewModel by activityViewModels<ClubDetailViewModel>()
-    private lateinit var dialogBinding: DetailDialogBinding
     var membersList = mutableListOf<MemberSummaryResponse>()
     var activityUrlsList = mutableListOf<ActivityPhotoType>()
     private val detailMemberAdapter = DetailMemberAdapter()
@@ -43,19 +36,6 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
         settingRecyclerView()
         checkRole()
         clickBackBtn()
-    }
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return super.onCreateView(inflater, container, savedInstanceState)
-    }
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        // clickSubmitBtn(context)
     }
 
     private fun showInfo() {
@@ -163,7 +143,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
         }
     }
 
-    private fun clickSubmitBtn(context: Context) {
+    private fun clickSubmitBtn() {
         binding.submitBtn.setOnClickListener {
 
         }
@@ -199,74 +179,5 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
                 }
             }
         }
-    }
-
-    private fun changeDialog(dialog: BaseDialog) {
-        when (detailViewModel.result.value!!.scope) {
-            "HEAD" -> {
-                with(dialogBinding) {
-                    if (detailViewModel.result.value!!.club.isOpened) {
-                        dialogTitle.text = getString(R.string.deadline)
-                        dialogMsg.text = getString(R.string.ask_dead_club_application)
-                        ok.setOnClickListener {
-                            deadline()
-                        }
-                        cancel.setOnClickListener {
-                            dialog.dismiss()
-                        }
-                    } else {
-                        dialogTitle.text = getString(R.string.open)
-                        dialogMsg.text = getString(R.string.ask_open_club_application)
-                        ok.setOnClickListener {
-                            openApplication()
-                        }
-                        cancel.setOnClickListener {
-                            dialog.dismiss()
-                        }
-                    }
-                }
-            }
-            "MEMBER", "ORTHER" -> {
-            }
-            "USER" -> {
-                with(dialogBinding) {
-                    if (detailViewModel.result.value!!.isApplied) {
-                        dialogTitle.text = getString(R.string.application_cancel)
-                        dialogMsg.text = getString(R.string.ask_cancel_application)
-                        ok.setOnClickListener {
-                            cancelApplication()
-                        }
-                        cancel.setOnClickListener {
-                            dialog.dismiss()
-                        }
-                    } else {
-                        dialogTitle.text = getString(R.string.application)
-                        dialogMsg.text =
-                            getString(
-                                R.string.can_you_application_club,
-                                detailViewModel.result.value!!.club.title
-                            )
-                        ok.setOnClickListener {
-                            application()
-                        }
-                        cancel.setOnClickListener {
-                            dialog.dismiss()
-                        }
-                    }
-                }
-            }
-        }
-    }
-
-    private fun application() {
-    }
-
-    private fun cancelApplication() {
-    }
-
-    private fun deadline() {
-    }
-
-    private fun openApplication() {
     }
 }
