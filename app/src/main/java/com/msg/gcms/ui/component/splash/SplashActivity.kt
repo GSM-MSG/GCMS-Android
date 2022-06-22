@@ -28,7 +28,7 @@ class SplashActivity : AppCompatActivity() {
                 startActivity(
                     Intent(
                         this@SplashActivity,
-                        if (it) MainActivity::class.java else IntroActivity::class.java
+                        (if (it) MainActivity::class else IntroActivity::class).java
                     )
                 )
             }
