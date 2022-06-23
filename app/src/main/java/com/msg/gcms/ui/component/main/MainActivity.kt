@@ -57,6 +57,13 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
     }
 
     override fun onBackPressed() {
+        val fragmentList = supportFragmentManager.fragments
+        for (fragment in fragmentList) {
+            if (fragment is OnBackPressedListener) {
+                (fragment as OnBackPressedListener).onBackPressed()
+                return
+            }
+        }
         if (System.currentTimeMillis() - backButtonWait >= 2000) {
             backButtonWait = System.currentTimeMillis()
             longToast("뒤로 가기 버튼을 한 번 더 누르면 종료됩니다.")
@@ -64,5 +71,9 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
             super.onBackPressed()
             finish()
         }
+    }
+
+    interface OnBackPressedListener {
+        fun onBackPressed()
     }
 }

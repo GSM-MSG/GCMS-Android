@@ -1,8 +1,8 @@
 package com.msg.gcms.ui.component.club.detail
 
-
 import android.util.Log
 import android.view.View
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -18,11 +18,13 @@ import com.msg.gcms.ui.adapter.DetailPhotoAdapter
 import com.msg.gcms.ui.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
 import com.msg.gcms.ui.component.club.ClubFragment
+import com.msg.gcms.ui.component.main.MainActivity
 import com.msg.gcms.utils.ItemDecorator
 import com.msg.viewmodel.ClubDetailViewModel
 
 @AndroidEntryPoint
-class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_detail) {
+class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_detail),
+    MainActivity.OnBackPressedListener {
 
     private val TAG = "DetailFragment"
     private val detailViewModel by activityViewModels<ClubDetailViewModel>()
@@ -30,6 +32,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
     var activityUrlsList = mutableListOf<ActivityPhotoType>()
     private val detailMemberAdapter = DetailMemberAdapter()
     private val detailPhotoAdaper = DetailPhotoAdapter()
+    private lateinit var callback: OnBackPressedCallback
 
     override fun init() {
         detailViewModel.setNav(false)
@@ -181,5 +184,10 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
                 }
             }
         }
+    }
+
+    override fun onBackPressed() {
+        requireActivity().supportFragmentManager.beginTransaction()
+            .replace(R.id.fragment_club, ClubFragment()).commit()
     }
 }
