@@ -55,7 +55,6 @@ class MakeClubDetailFragment :
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
             setHasFixedSize(true)
             addItemDecoration(ItemDecorator(50, "HORIZONTAL"))
-            clubMemberRv()
         }
     }
 

@@ -66,7 +66,7 @@ class UserSearchActivity : BaseActivity<ActivityUserSearchBinding>(R.layout.acti
         with(binding.studentListRv) {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
             setHasFixedSize(true)
-            addItemDecoration(ItemDecorator(16))
+            addItemDecoration(ItemDecorator(16,"VERTICAL"))
             adapter = searchAdapter
         }
         searchAdapter.setItemOnClickListener(object : UserSearchAdapter.OnItemClickListener {
