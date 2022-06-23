@@ -57,7 +57,6 @@ dependencies {
     implementation(Dependency.Google.FIREBASE)
     implementation(Dependency.Google.GMS_PLAY_SERVICE_AUTH)
     implementation(Dependency.Google.GMS_PLAY_SERVICE_BASE)
-    implementation("androidx.legacy:legacy-support-v4:1.0.0")
     kapt(Dependency.AndroidX.ROOM_COMPILER)
 
     implementation(Dependency.Kotlin.COROUTINES_CORE)
