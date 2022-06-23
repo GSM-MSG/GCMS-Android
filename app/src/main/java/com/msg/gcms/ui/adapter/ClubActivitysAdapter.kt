@@ -16,7 +16,7 @@ class ClubActivitysAdapter :
     inner class ClubPromotionViewHolder(private val binding: ListDetailClubPromotionBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(data: PromotionPicType) {
-            binding.promotionImg.load(data.promotionUrl)
+            binding.image.load(data.promotionUrl)
         }
     }
 

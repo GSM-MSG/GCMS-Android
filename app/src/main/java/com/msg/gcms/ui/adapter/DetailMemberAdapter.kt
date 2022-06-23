@@ -16,7 +16,7 @@ class DetailMemberAdapter :
     class ClubMemberViewHolder(private val binding: ListClubMemberBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(data: MemberSummaryResponse) {
-            binding.nameTv.text = data.name
+            binding.userName.text = data.name
             binding.userProfileIv.load(data.userImg){
                 transformations(CircleCropTransformation())
             }
