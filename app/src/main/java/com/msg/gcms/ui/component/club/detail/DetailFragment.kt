@@ -32,7 +32,6 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
     var activityUrlsList = mutableListOf<ActivityPhotoType>()
     private val detailMemberAdapter = DetailMemberAdapter()
     private val detailPhotoAdaper = DetailPhotoAdapter()
-    private lateinit var callback: OnBackPressedCallback
 
     override fun init() {
         detailViewModel.setNav(false)
@@ -189,5 +188,6 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
     override fun onBackPressed() {
         requireActivity().supportFragmentManager.beginTransaction()
             .replace(R.id.fragment_club, ClubFragment()).commit()
+        detailViewModel.setNav(true)
     }
 }

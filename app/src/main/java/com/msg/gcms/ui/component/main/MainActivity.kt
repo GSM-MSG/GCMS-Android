@@ -57,8 +57,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
     }
 
     override fun onBackPressed() {
-        val fragmentList = supportFragmentManager.fragments
-        for (fragment in fragmentList) {
+        for (fragment in supportFragmentManager.fragments) {
             if (fragment is OnBackPressedListener) {
                 (fragment as OnBackPressedListener).onBackPressed()
                 return
