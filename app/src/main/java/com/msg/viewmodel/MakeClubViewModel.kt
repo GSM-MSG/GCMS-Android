@@ -11,6 +11,7 @@ import com.msg.gcms.domain.usecase.image.ImageUseCase
 import com.msg.gcms.domain.usecase.user.UserUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import okhttp3.MultipartBody
 import javax.inject.Inject
 
 @HiltViewModel
@@ -53,6 +54,17 @@ class MakeClubViewModel @Inject constructor(
     fun postCreateClub() {
         viewModelScope.launch {
 
+        }
+    }
+
+    fun changeImage(list : List<MultipartBody.Part>) {
+        viewModelScope.launch {
+            val response = imageUseCase.postImage(list)
+            when(response.code()){
+              else -> {
+
+              }
+            }
         }
     }
 }

@@ -5,10 +5,11 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.ImageDecoder
+import android.os.Build
 import android.provider.MediaStore
 import android.util.Log
 import android.view.View
-import android.view.WindowManager
 import android.widget.ImageView
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
@@ -43,7 +44,6 @@ class MakeClubDetailFragment :
     override fun init() {
         binding.fragment = this
         settingRecyclerView()
-        activity?.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
     }
 
     private fun settingRecyclerView() {
@@ -83,6 +83,7 @@ class MakeClubDetailFragment :
                 this.findNavController().popBackStack()
             }
             binding.nextBtn.id -> {
+
                 activity?.finish()
             }
         }
@@ -156,7 +157,15 @@ class MakeClubDetailFragment :
                     for (i in 0 until data.clipData!!.itemCount) {
                         val imageUri = data.clipData!!.getItemAt(i).uri
                         try {
-                            activityPhotoList.add(ActivityPhotoType(activityPhoto = imageUri.toString()))
+                            if(Build.VERSION.SDK_INT < 28) {
+                                val imageBitmap = MediaStore.Images.Media.getBitmap(context?.contentResolver, imageUri)
+                                Log.d("TAG", "onActivityResult: $imageBitmap")
+                                activityPhotoList.add(ActivityPhotoType(activityPhoto = imageBitmap))
+                            } else {
+                                val source = ImageDecoder.createSource(context?.contentResolver!!, imageUri)
+                                val item = ImageDecoder.decodeBitmap(source)
+                                activityPhotoList.add(ActivityPhotoType(activityPhoto = item))
+                            }
                         } catch (e: Exception) {
                             Log.e("TAG", e.toString())
                         }
