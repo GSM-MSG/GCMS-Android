@@ -95,12 +95,11 @@
                 android:layout_height="match_parent"
                 android:fillViewport="true"
                 android:overScrollMode="never"
-                android:paddingTop="70dp">
+                android:layout_marginTop="215dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="145dp"
                     android:orientation="vertical">
 
                     <androidx.fragment.app.FragmentContainerView
@@ -109,11 +108,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:name="com.msg.gcms.ui.component.profile.ProfileNoClubFragment" />
-
-                    <View
-                        android:id="@+id/marginView"
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp" />
                 </LinearLayout>
             </ScrollView>
 
