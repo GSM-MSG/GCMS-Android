@@ -3,10 +3,15 @@ package com.msg.gcms.ui.component.profile
 import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.graphics.BitmapFactory
+import android.database.Cursor
+import android.net.Uri
+import android.provider.MediaStore
+import android.util.Log
 import androidx.activity.viewModels
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import coil.load
+import coil.transform.CircleCropTransformation
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
@@ -17,6 +22,10 @@ import com.msg.gcms.ui.base.BaseActivity
 import com.msg.gcms.ui.component.intro.IntroActivity
 import com.msg.viewmodel.ProfileViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
+import java.io.File
 
 @AndroidEntryPoint
 class ProfileActivity : BaseActivity<ActivityProfileBinding>(R.layout.activity_profile) {
@@ -25,6 +34,7 @@ class ProfileActivity : BaseActivity<ActivityProfileBinding>(R.layout.activity_p
     override fun observeEvent() {
         myProfile()
         isClub()
+        isChangeProfile()
     }
 
     override fun viewSetting() {
@@ -38,7 +48,11 @@ class ProfileActivity : BaseActivity<ActivityProfileBinding>(R.layout.activity_p
         viewModel.profileData.observe(this) {
             binding.apply {
                 userNameTxt.text = it.userData.name
-                userClassTxt.text = "${it.userData.grade}학년 ${it.userData.`class`}반 ${it.userData.num}번"
+                userClassTxt.text =
+                    "${it.userData.grade}학년 ${it.userData.`class`}반 ${it.userData.num}번"
+                profileImg.load(it.userData.userImg) {
+                    transformations(CircleCropTransformation())
+                }
             }
         }
     }
@@ -61,9 +75,17 @@ class ProfileActivity : BaseActivity<ActivityProfileBinding>(R.layout.activity_p
 
     private fun isClub() {
         viewModel.clubStatus.observe(this) {
-            if(it){
-                supportFragmentManager.beginTransaction().replace(R.id.profileList, ProfileClubFragment()).commit()
+            if (it) {
+                supportFragmentManager.beginTransaction()
+                    .replace(R.id.profileList, ProfileClubFragment()).commit()
             }
+        }
+    }
+
+    private fun isChangeProfile() {
+        viewModel.profileImg.observe(this) {
+            Log.d("안ㄴ", "isChangeProfile: ")
+            viewModel.saveImg()
         }
     }
 
@@ -80,9 +102,9 @@ class ProfileActivity : BaseActivity<ActivityProfileBinding>(R.layout.activity_p
                     android.Manifest.permission.READ_EXTERNAL_STORAGE
                 ) == PackageManager.PERMISSION_GRANTED
             ) {
-                val intent = Intent()
+                val intent = Intent(Intent.ACTION_PICK)
                 intent.type = "image/*"
-                intent.action = Intent.ACTION_GET_CONTENT
+                intent.data = MediaStore.Images.Media.EXTERNAL_CONTENT_URI
                 startActivityForResult(intent, 0)
             } else {
                 ActivityCompat.requestPermissions(
@@ -105,10 +127,14 @@ class ProfileActivity : BaseActivity<ActivityProfileBinding>(R.layout.activity_p
         if (requestCode == 0) {
             if (resultCode == RESULT_OK) {
                 try {
-                    val imgIn = contentResolver.openInputStream(data!!.data!!)
-                    val img = BitmapFactory.decodeStream(imgIn)
-                    imgIn!!.close()
-                    binding.profileImg.setImageBitmap(img)
+                    binding.profileImg.load(data?.data) {
+                        transformations(CircleCropTransformation())
+                    }
+                    val currentUri = data?.data
+                    val file = File(getPathFromUri(currentUri))
+                    val requestFile = RequestBody.create("image/*".toMediaTypeOrNull(), file)
+                    val img = MultipartBody.Part.createFormData("files", file.name, requestFile)
+                    viewModel.uploadImg(img)
                 } catch (e: Exception) {
                     e.printStackTrace()
                 }
@@ -132,5 +158,13 @@ class ProfileActivity : BaseActivity<ActivityProfileBinding>(R.layout.activity_p
                 }
             }
         }
+    }
+
+    private fun getPathFromUri(uri: Uri?): String? {
+        val cursor: Cursor? = contentResolver.query(uri!!, null, null, null, null)
+        cursor?.moveToNext()
+        val path: String = cursor!!.getString(cursor!!.getColumnIndex("_data"))
+        cursor.close()
+        return path
     }
 }
