@@ -2,7 +2,6 @@ package com.msg.gcms.ui.component.club.detail
 
 import android.util.Log
 import android.view.View
-import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -15,12 +14,14 @@ import com.msg.gcms.data.remote.dto.datasource.club.response.UserInfo
 import com.msg.gcms.databinding.FragmentDetailBinding
 import com.msg.gcms.ui.adapter.DetailMemberAdapter
 import com.msg.gcms.ui.adapter.DetailPhotoAdapter
+import com.msg.gcms.ui.base.BaseDialog
 import com.msg.gcms.ui.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
 import com.msg.gcms.ui.component.club.ClubFragment
 import com.msg.gcms.ui.component.main.MainActivity
 import com.msg.gcms.utils.ItemDecorator
 import com.msg.viewmodel.ClubDetailViewModel
+import com.msg.viewmodel.ClubViewModel
 
 @AndroidEntryPoint
 class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_detail),
@@ -28,6 +29,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
 
     private val TAG = "DetailFragment"
     private val detailViewModel by activityViewModels<ClubDetailViewModel>()
+    private val clubViewModel by activityViewModels<ClubViewModel>()
     var membersList = mutableListOf<MemberSummaryResponse>()
     var activityUrlsList = mutableListOf<ActivityPhotoType>()
     private val detailMemberAdapter = DetailMemberAdapter()
@@ -41,6 +43,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
         settingRecyclerView()
         checkRole()
         clickBackBtn()
+        clickSubmitBtn()
     }
 
     private fun showInfo() {
@@ -144,8 +147,11 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
     }
 
     private fun clickSubmitBtn() {
-        binding.submitBtn.setOnClickListener {
-
+        detailViewModel.result.value!!.club.let { result ->
+            binding.submitBtn.setOnClickListener {
+                Log.d(TAG, "body: ${result.type}, ${result.title}")
+                changeDialog()
+            }
         }
     }
 
@@ -179,6 +185,45 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
                         )
                     } else {
                         it.visibility = View.INVISIBLE
+                    }
+                }
+            }
+        }
+    }
+
+    private fun changeDialog() {
+        when (detailViewModel.result.value!!.scope) {
+            "HEAD" -> {
+                BaseDialog(
+                    getString(R.string.deadline),
+                    getString(R.string.ask_dead_club_application)
+                ).let {
+                    it.show(requireActivity().supportFragmentManager, "DetailDialog")
+                    it.dialogBinding.ok.setOnClickListener {
+
+                    }
+                }
+            }
+            "MEMBER" -> {
+            }
+            "USER" -> {
+                detailViewModel.result.value!!.let { result ->
+                    BaseDialog(
+                        if (result.isApplied) getString(R.string.application_cancel) else getString(
+                            R.string.application
+                        ),
+                        if (result.isApplied) getString(R.string.ask_cancel_application) else getString(
+                            R.string.ask_application_club,
+                            result.club.title
+                        )
+                    ).let { dialog ->
+                        dialog.show(requireActivity().supportFragmentManager, "DetailDialog")
+                        dialog.dialogBinding.ok.setOnClickListener {
+                            if (result.isApplied) clubViewModel.postClubCancel() else clubViewModel.postClubApply(
+                                result.club.type,
+                                result.club.title
+                            )
+                        }
                     }
                 }
             }
