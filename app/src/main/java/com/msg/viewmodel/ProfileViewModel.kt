@@ -45,12 +45,13 @@ class ProfileViewModel @Inject constructor(
                     200 -> {
                         _profileData.value = response.body()
                         _clubStatus.value = response.body()?.clubs?.size != 0
-                        _afterSchoolStatus.value = response.body()?.afters?.size != 0
+                        _afterSchoolStatus.value = response.body()?.afterSchools?.size != 0
                     }
                     else -> {
                         _clubStatus.value = false
                     }
                 }
+                Log.d("안ㄴ", "getUserInfo: ${response.code()}")
             } catch (e: Exception){
                 Log.d("ERROR", "getUserInfo: ${e.message}")
             }
@@ -89,11 +90,9 @@ class ProfileViewModel @Inject constructor(
     }
 
     fun saveImg() {
-        Log.d("안ㄴ", "saveImg: ${_profileImg.value}")
         viewModelScope.launch {
             try {
                 val response = editProfileUseCase.putProfile(UserProfileRequest(_profileImg.value!!))
-                Log.d("안ㄴ", "saveImg: ${response.code()}")
             } catch (e: Exception) {
                 e.printStackTrace()
             }
