@@ -29,7 +29,5 @@ class EditorialClubList(private val clubList: ArrayList<ClubData>): RecyclerView
         holder.bind(clubList?.get(position))
     }
 
-    override fun getItemCount(): Int {
-        return clubList.size
-    }
+    override fun getItemCount(): Int = clubList.size
 }
