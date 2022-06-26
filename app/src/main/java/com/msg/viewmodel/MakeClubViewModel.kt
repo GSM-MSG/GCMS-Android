@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.msg.gcms.data.remote.dto.datasource.Image.ImageResponse
 import com.msg.gcms.data.remote.dto.datasource.user.response.UserData
 import com.msg.gcms.domain.usecase.club.ClubUseCase
 import com.msg.gcms.domain.usecase.image.ImageUseCase
@@ -29,6 +30,12 @@ class MakeClubViewModel @Inject constructor(
     }
     private val _result = MutableLiveData<List<UserData>>()
     val result : LiveData<List<UserData>> get() = _result
+
+    private val _bannerResult = MutableLiveData<ImageResponse>()
+    val bannerResult : LiveData<ImageResponse> get() = _bannerResult
+
+    private val _activityPhotoResult = MutableLiveData<ImageResponse>()
+    val activityPhoto: LiveData<ImageResponse> get() = _activityPhotoResult
 
     var _memberList = mutableListOf<UserData>()
 
@@ -57,6 +64,7 @@ class MakeClubViewModel @Inject constructor(
             when(response.code()){
                 201 -> {
                     Log.d("TAG", "changeImage: ${response.body()}, $response")
+                    _bannerResult.value = response.body()
                 }
                 else -> {
                     Log.d("TAG", "changeImage: else ${response.code()}, ${response.message()}")
@@ -71,6 +79,7 @@ class MakeClubViewModel @Inject constructor(
             when(response.code()){
                 201 -> {
                     Log.d("TAG", "changeImage: ${response.body()}, $response")
+                    _activityPhotoResult.value = response.body()
                 }
                 else -> {
                     Log.d("TAG", "changeImage: else ${response.code()}, ${response.message()}")
