@@ -8,6 +8,7 @@ import com.msg.gcms.databinding.ListAfterSchoolBinding
 
 class AfterSchoolListAdapter(private val itemList: List<AftersData>): RecyclerView.Adapter<AfterSchoolListAdapter.ViewHolder>() {
     class ViewHolder(val binding: ListAfterSchoolBinding): RecyclerView.ViewHolder(binding.root) {
+        fun bind(after: AftersData) {
             binding.afterSchoolItem = after
         }
     }
