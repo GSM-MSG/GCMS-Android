@@ -290,7 +290,7 @@
             android:background="@drawable/bg_make_club_et"
             android:gravity="top"
             android:hint="@string/enter_club_introduction"
-            android:lines="3"
+            android:minLines="3"
             android:textColor="@color/white"
             android:textColorHint="@color/gray_2"
             android:textSize="13sp"

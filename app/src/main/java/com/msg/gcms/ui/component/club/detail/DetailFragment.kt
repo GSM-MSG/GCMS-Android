@@ -2,7 +2,7 @@ package com.msg.gcms.ui.component.club.detail
 
 import android.util.Log
 import android.view.View
-import androidx.activity.OnBackPressedCallback
+import androidx.core.net.toUri
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -16,11 +16,11 @@ import com.msg.gcms.databinding.FragmentDetailBinding
 import com.msg.gcms.ui.adapter.DetailMemberAdapter
 import com.msg.gcms.ui.adapter.DetailPhotoAdapter
 import com.msg.gcms.ui.base.BaseFragment
-import dagger.hilt.android.AndroidEntryPoint
 import com.msg.gcms.ui.component.club.ClubFragment
 import com.msg.gcms.ui.component.main.MainActivity
 import com.msg.gcms.utils.ItemDecorator
 import com.msg.viewmodel.ClubDetailViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_detail),
@@ -111,7 +111,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
             try {
                 activityUrlsList.add(
                     ActivityPhotoType(
-                        activityPhoto = photo[i]
+                        activityPhoto = photo[i].toUri()
                     )
                 )
             } catch (e: Exception) {

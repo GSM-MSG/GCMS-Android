@@ -10,6 +10,6 @@ class ImageDataSourceImpl @Inject constructor(
     val service: ImageAPI
 ): ImageDataSource  {
     override suspend fun postImage(image: List<MultipartBody.Part>): Response<ImageResponse> {
-        return service.postImage(image = image)
+        return service.postImage(files = image)
     }
 }

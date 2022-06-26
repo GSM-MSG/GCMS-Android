@@ -32,6 +32,20 @@
         android:id="@+id/makeClubDetailFragment"
         android:name="com.msg.gcms.ui.component.clubmaker.clubDetail.MakeClubDetailFragment"
         android:label="MakeClubDetailFragment"
-        tools:layout="@layout/fragment_make_club_detail"/>
+        tools:layout="@layout/fragment_make_club_detail">
+        <action
+            android:id="@+id/action_makeClubDetailFragment_to_studentSearchFragment"
+            app:destination="@id/studentSearchFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/studentSearchFragment"
+        android:name="com.msg.gcms.ui.component.clubmaker.searchstudent.StudentSearchFragment"
+        android:label="StudentSearchFragment"
+        tools:layout="@layout/fragment_student_search">
+        <action
+            android:id="@+id/action_studentSearchFragment_to_makeClubDetailFragment"
+            app:destination="@id/makeClubDetailFragment" />
+    </fragment>
 
 </navigation>

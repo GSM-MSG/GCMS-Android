@@ -1,11 +1,6 @@
 package com.msg.gcms.base.utils
 
-import android.text.Editable
-import android.text.TextWatcher
-import android.widget.EditText
 import androidx.lifecycle.Observer
-import kotlinx.coroutines.flow.callbackFlow
-import java.util.concurrent.Flow
 
 open class Event<out T>(private val content: T) {
     var hasBeenHandled = false

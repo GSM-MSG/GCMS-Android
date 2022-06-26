@@ -1,6 +1,7 @@
 package com.msg.gcms.ui.component.clubmaker.clubIntroduce
 
 import android.view.View
+import android.view.WindowManager
 import androidx.navigation.fragment.findNavController
 import com.msg.gcms.R
 import com.msg.gcms.databinding.FragmentClubIntroduceBinding
@@ -12,6 +13,7 @@ class ClubIntroduceFragment :
     BaseFragment<FragmentClubIntroduceBinding>(R.layout.fragment_club_introduce) {
     override fun init() {
         binding.fragment = this
+        activity?.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
     }
 
     fun clickedButton(view: View) {
