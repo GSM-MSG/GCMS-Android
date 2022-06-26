@@ -7,7 +7,7 @@ import java.io.File
 object UriUtil {
     //URI -> File
 
-    fun toFile(context: Context, uri: Uri): File {
+    fun uriToFile(context: Context, uri: Uri): File {
         val fileName = getFileName(context, uri)
 
         val file = FileUtil.createTempFile(context, fileName)

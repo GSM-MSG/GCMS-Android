@@ -51,19 +51,16 @@ class MakeClubViewModel @Inject constructor(
         }
     }
 
-    fun postCreateClub() {
+    fun changeImage(image: MultipartBody.Part) {
         viewModelScope.launch {
-
-        }
-    }
-
-    fun changeImage(list : List<MultipartBody.Part>) {
-        viewModelScope.launch {
-            val response = imageUseCase.postImage(list)
+            val response = imageUseCase.postImage(image)
             when(response.code()){
-              else -> {
-
-              }
+                201 -> {
+                    Log.d("TAG", "changeImage: ${response.body()}, $response")
+                }
+                else -> {
+                    Log.d("TAG", "changeImage: else ${response.code()}")
+                }
             }
         }
     }

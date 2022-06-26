@@ -5,5 +5,5 @@ import okhttp3.MultipartBody
 import retrofit2.Response
 
 interface ImageDataSource {
-    suspend fun postImage(image : List<MultipartBody.Part>) : Response<ImageResponse>
+    suspend fun postImage(image : MultipartBody.Part) : Response<ImageResponse>
 }

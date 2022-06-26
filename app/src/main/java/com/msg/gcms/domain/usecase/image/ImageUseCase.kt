@@ -7,5 +7,5 @@ import javax.inject.Inject
 class ImageUseCase @Inject constructor(
     private val imageRepository: ImageRepository
 ) {
-    suspend fun postImage(image: List<MultipartBody.Part>) = imageRepository.postImage(image = image)
+    suspend fun postImage(image: MultipartBody.Part) = imageRepository.postImage(image = image)
 }
