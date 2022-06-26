@@ -11,6 +11,6 @@ interface ImageAPI {
     @Multipart
     @POST("image")
     suspend fun postImage(
-        @Part files: MultipartBody.Part
+        @Part files: List<MultipartBody.Part>
     ): Response<ImageResponse>
 }

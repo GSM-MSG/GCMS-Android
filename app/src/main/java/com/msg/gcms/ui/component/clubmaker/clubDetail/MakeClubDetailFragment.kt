@@ -43,7 +43,7 @@ class MakeClubDetailFragment :
     private val activityPhotoMultipart = mutableListOf<MultipartBody.Part>()
 
     private var activityPhotoList = mutableListOf<ActivityPhotoType>()
-    private var bannerImage : MultipartBody.Part? = null
+    private var bannerImage = mutableListOf<MultipartBody.Part>()
 
     private lateinit var activityAdapter: ActivityPhotosAdapter
     private lateinit var clubMemberAdapter: ClubMemberAdapter
@@ -75,7 +75,7 @@ class MakeClubDetailFragment :
                 val requestFile = RequestBody.create("image/*".toMediaTypeOrNull(), file)
                 val img = MultipartBody.Part.createFormData("files", file.name, requestFile)
                 Log.d("TAG", "onActivityResult: $img")
-                bannerImage = img
+                bannerImage.add(img)
 
                 with(binding.addBannerPicture) {
                     setImageURI(imageUrl)
@@ -105,9 +105,7 @@ class MakeClubDetailFragment :
             shortToast("배너 이미지를 삽입하여 주세요!!")
         } else {
             makeClubViewModel.changeImage(bannerImage!!)
-            activityPhotoMultipart.forEach {
-                makeClubViewModel.changeImage(it)
-            }
+            makeClubViewModel.changeImage(activityPhotoMultipart)
         }
     }
 

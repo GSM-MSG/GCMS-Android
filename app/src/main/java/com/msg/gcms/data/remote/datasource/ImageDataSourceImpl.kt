@@ -9,7 +9,7 @@ import javax.inject.Inject
 class ImageDataSourceImpl @Inject constructor(
     val service: ImageAPI
 ): ImageDataSource  {
-    override suspend fun postImage(image: MultipartBody.Part): Response<ImageResponse> {
+    override suspend fun postImage(image: List<MultipartBody.Part>): Response<ImageResponse> {
         return service.postImage(files = image)
     }
 }

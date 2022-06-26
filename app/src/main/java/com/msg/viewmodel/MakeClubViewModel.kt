@@ -51,7 +51,7 @@ class MakeClubViewModel @Inject constructor(
         }
     }
 
-    fun changeImage(image: MultipartBody.Part) {
+    fun changeImage(image: List<MultipartBody.Part>) {
         viewModelScope.launch {
             val response = imageUseCase.postImage(image)
             when(response.code()){

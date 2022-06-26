@@ -6,6 +6,6 @@ import retrofit2.Response
 
 interface ImageRepository {
     suspend fun postImage(
-        image: MultipartBody.Part
+        image: List<MultipartBody.Part>
     ): Response<ImageResponse>
 }
