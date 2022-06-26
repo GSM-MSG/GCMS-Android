@@ -6,10 +6,9 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.msg.gcms.data.remote.dto.datasource.club.response.ClubInfoResponse
-import com.msg.gcms.data.usecase.GetDetailUseCase
+import com.msg.gcms.domain.usecase.club.GetDetailUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
-import retrofit2.Response
 import javax.inject.Inject
 
 @HiltViewModel
@@ -17,29 +16,32 @@ class ClubDetailViewModel @Inject constructor(
     private val getDetailUseCase: GetDetailUseCase
 ) : ViewModel() {
 
-    private val TAG = "getdetail"
+    private val TAG = "GetDetailViewModel"
 
-    lateinit var result: Response<ClubInfoResponse>
+    private val _result = MutableLiveData<ClubInfoResponse>()
+    val result: LiveData<ClubInfoResponse> get() = _result
 
     private val _getDetailStatus = MutableLiveData<Int>()
     val getDetailStatus: LiveData<Int> get() = _getDetailStatus
 
-    private val _type = MutableLiveData<String>()
-    private val _q = MutableLiveData<String>()
+    private val _showNav = MutableLiveData<Boolean>()
+    val showNav: LiveData<Boolean> get() = _showNav
 
-    fun getDetail(){
+
+    fun getDetail(type: String, q: String) {
         viewModelScope.launch {
+            Log.d(TAG, "타입 : ${type}, 이름 : ${q}")
             try {
-                val response = getDetailUseCase.getDetail(_type.value!!, _q.value!!)
-                result = response
+                val response = getDetailUseCase.getDetail(type, q)
+                _result.value = response.body()
+                _getDetailStatus.value = response.code()
                 when (response.code()) {
                     200 -> {
-                        _getDetailStatus.value = response.code()
-                        Log.d(TAG, "status : ${response.body()}")
+                        Log.d(TAG, "status : ${response.code()}")
+                        Log.d(TAG, "body : ${response.body()}")
                     }
                     else -> {
-                        _getDetailStatus.value = response.code()
-                        Log.d(TAG,"status : ${response.code()}")
+                        Log.d(TAG, "status : ${response.code()}")
                     }
                 }
             } catch (e: Exception) {
@@ -48,8 +50,7 @@ class ClubDetailViewModel @Inject constructor(
         }
     }
 
-    fun setDetailInfo(type: String, q: String) {
-        _type.value = type
-        _q.value = q
+    fun setNav(boolean: Boolean) {
+        _showNav.value = boolean
     }
 }

@@ -26,7 +26,7 @@ class ClubMemberAdapter(private val items: List<UserData>) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(data: UserData) {
-            binding.nameTv.text = data.name
+            binding.userName.text = data.name
             binding.userProfileIv.load(data.userImg) {
                 crossfade(true)
                 transformations(CircleCropTransformation())

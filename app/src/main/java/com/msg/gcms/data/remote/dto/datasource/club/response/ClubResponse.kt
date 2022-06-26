@@ -1,5 +1,6 @@
 package com.msg.gcms.data.remote.dto.datasource.club.response
 
+
 data class ClubResponse(
     val type: String,
     val bannerUrl: String,
@@ -8,5 +9,5 @@ data class ClubResponse(
     val contact: String,
     val teacher: String,
     val isOpened: Boolean,
-    val relatedLink: List<RelatedLink>
+    val notionLink: String
 )
