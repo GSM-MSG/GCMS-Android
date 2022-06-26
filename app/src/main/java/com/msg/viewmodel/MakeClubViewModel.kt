@@ -51,7 +51,7 @@ class MakeClubViewModel @Inject constructor(
         }
     }
 
-    fun changeImage(image: List<MultipartBody.Part>) {
+    fun bannerImageUpload(image: List<MultipartBody.Part>) {
         viewModelScope.launch {
             val response = imageUseCase.postImage(image)
             when(response.code()){
@@ -59,7 +59,21 @@ class MakeClubViewModel @Inject constructor(
                     Log.d("TAG", "changeImage: ${response.body()}, $response")
                 }
                 else -> {
-                    Log.d("TAG", "changeImage: else ${response.code()}")
+                    Log.d("TAG", "changeImage: else ${response.code()}, ${response.message()}")
+                }
+            }
+        }
+    }
+
+    fun activityPhotoUpload(image: List<MultipartBody.Part>) {
+        viewModelScope.launch {
+            val response = imageUseCase.postImage(image)
+            when(response.code()){
+                201 -> {
+                    Log.d("TAG", "changeImage: ${response.body()}, $response")
+                }
+                else -> {
+                    Log.d("TAG", "changeImage: else ${response.code()}, ${response.message()}")
                 }
             }
         }

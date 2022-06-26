@@ -41,9 +41,9 @@ class MakeClubDetailFragment :
     private val makeClubViewModel by activityViewModels<MakeClubViewModel>()
 
     private val activityPhotoMultipart = mutableListOf<MultipartBody.Part>()
+    private val bannerImage = mutableListOf<MultipartBody.Part>()
 
     private var activityPhotoList = mutableListOf<ActivityPhotoType>()
-    private var bannerImage = mutableListOf<MultipartBody.Part>()
 
     private lateinit var activityAdapter: ActivityPhotosAdapter
     private lateinit var clubMemberAdapter: ClubMemberAdapter
@@ -104,8 +104,8 @@ class MakeClubDetailFragment :
         if (bannerImage == null) {
             shortToast("배너 이미지를 삽입하여 주세요!!")
         } else {
-            makeClubViewModel.changeImage(bannerImage!!)
-            makeClubViewModel.changeImage(activityPhotoMultipart)
+            makeClubViewModel.bannerImageUpload(bannerImage)
+            makeClubViewModel.activityPhotoUpload(activityPhotoMultipart)
         }
     }
 
