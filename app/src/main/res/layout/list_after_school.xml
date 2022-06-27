@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="afterSchoolItem"
+            type="com.msg.gcms.data.remote.dto.datasource.user.response.AftersData" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="46dp"
+        android:background="@drawable/bg_after_school"
+        android:layout_marginBottom="8dp">
+
+        <TextView
+            android:id="@+id/nameTxt"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="@{afterSchoolItem.title}"
+            android:textSize="14sp"
+            android:fontFamily="@font/notosans"
+            android:textFontWeight="500"
+            android:textColor="@color/black"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/dateTxt"
+            android:gravity="center" />
+
+        <TextView
+            android:id="@+id/dateTxt"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="@{afterSchoolItem.week}"
+            android:textSize="14sp"
+            android:fontFamily="@font/notosans"
+            android:textFontWeight="400"
+            android:textColor="@color/black"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:gravity="center"  />
+
+        <TextView
+            android:id="@+id/gradeTxt"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:textSize="14sp"
+            android:fontFamily="@font/roboto"
+            android:textFontWeight="500"
+            android:textColor="@color/black"
+            app:layout_constraintStart_toEndOf="@id/dateTxt"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:gravity="center"  />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

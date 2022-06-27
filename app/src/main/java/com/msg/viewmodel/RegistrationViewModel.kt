@@ -8,15 +8,16 @@ import androidx.lifecycle.viewModelScope
 import com.msg.gcms.base.di.GCMSApplication
 import com.msg.gcms.data.remote.dto.datasource.auth.request.RegisterRequest
 import com.msg.gcms.data.remote.dto.datasource.auth.response.RegisterResponse
+import com.msg.gcms.domain.usecase.common.RefreshUseCase
 import com.msg.gcms.domain.usecase.common.RegistrationUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
-import retrofit2.Response
 import javax.inject.Inject
 
 @HiltViewModel
 class RegistrationViewModel @Inject constructor(
-    private val useCase: RegistrationUseCase
+    private val registrationUseCase: RegistrationUseCase,
+    private val refreshUseCase: RefreshUseCase
 ) : ViewModel() {
 
     private val _idTokenStatus = MutableLiveData<Int>()
@@ -37,7 +38,7 @@ class RegistrationViewModel @Inject constructor(
     fun checkLogin(){
         viewModelScope.launch {
             try {
-                val response = useCase.postRefresh()
+                val response = refreshUseCase.postRefresh()
                 when(response.code()) {
                     in 200..299 -> {
                         _isLogin.value = true
@@ -54,7 +55,7 @@ class RegistrationViewModel @Inject constructor(
     fun sendIdTokenLogic(idToken: String) {
         viewModelScope.launch {
             try {
-                val response = useCase.postRegistration(RegisterRequest(idToken = idToken))
+                val response = registrationUseCase.postRegistration(RegisterRequest(idToken = idToken))
                 when (response.code()) {
                     in 200..299 -> {
                         printStatus(response.code())
