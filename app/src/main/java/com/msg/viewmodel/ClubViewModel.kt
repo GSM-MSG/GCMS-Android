@@ -47,6 +47,31 @@ class ClubViewModel @Inject constructor(
         }
     }
 
+    fun putClubOpen(type: String, q: String) {
+        viewModelScope.launch {
+            try {
+                val response =
+                    clubUseCase.putClubOpen(ClubIdentificationRequest(type = type, q = q))
+                _getClubStatus.value = response.code()
+                checkStatus(response.code())
+            } catch (e: Exception) {
+                Log.d(TAG, "error : $e")
+            }
+        }
+    }
+
+    fun putClubClose(type: String, q: String) {
+        viewModelScope.launch {
+            try {
+                val response =
+                    clubUseCase.putClubClose(ClubIdentificationRequest(type = type, q = q))
+                _getClubStatus.value = response.code()
+            } catch (e: Exception) {
+                Log.d(TAG, "error : $e")
+            }
+        }
+    }
+
     private fun checkStatus(code: Int) {
         when (code) {
             201 -> {

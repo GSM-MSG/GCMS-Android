@@ -37,6 +37,13 @@
             android:orientation="horizontal"
             app:layout_constraintGuide_percent="0.34" />
 
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline8"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="1" />
+
         <ImageView
             android:id="@+id/back_btn"
             android:layout_width="wrap_content"
@@ -90,7 +97,8 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toTopOf="@id/guideline5">
+            app:layout_constraintTop_toTopOf="@id/guideline5"
+            app:layout_constraintTop_toBottomOf="@id/guideline8">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
