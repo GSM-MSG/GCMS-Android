@@ -10,6 +10,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.msg.gcms.R
 import com.msg.gcms.data.local.entity.AddMemberType
+import com.msg.gcms.data.remote.dto.datasource.club.request.EmailType
 import com.msg.gcms.data.remote.dto.datasource.user.response.UserData
 import com.msg.gcms.databinding.FragmentStudentSearchBinding
 import com.msg.gcms.ui.adapter.AddMemberAdapter
@@ -124,7 +125,8 @@ class StudentSearchFragment :
                 this.findNavController().popBackStack()
             }
             binding.selectBtn.id -> {
-                makeClubViewModel._memberList = memberList
+                makeClubViewModel.memberList = memberList
+                makeClubViewModel.setMemberEmail()
                 this.findNavController().navigate(R.id.action_studentSearchFragment_to_makeClubDetailFragment)
             }
         }

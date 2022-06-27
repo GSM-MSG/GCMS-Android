@@ -42,7 +42,7 @@ class MainViewModel @Inject constructor(
                     }
                 )
                 _clubData.value = response.body()
-            } catch (e: Exception){
+            } catch (e: Exception) {
                 Log.d("ERROR", "getClubList: ${e.message}")
             }
         }

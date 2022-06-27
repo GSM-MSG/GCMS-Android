@@ -1,6 +1,5 @@
 package com.msg.gcms.data.remote.network
 
-import com.msg.gcms.data.remote.dto.datasource.Image.ImageResponse
 import okhttp3.MultipartBody
 import retrofit2.Response
 import retrofit2.http.Multipart
@@ -12,5 +11,5 @@ interface ImageAPI {
     @POST("image")
     suspend fun postImage(
         @Part files: List<MultipartBody.Part>
-    ): Response<ImageResponse>
+    ): Response<List<String>>
 }
