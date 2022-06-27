@@ -6,7 +6,6 @@ import android.content.pm.PackageManager
 import android.database.Cursor
 import android.net.Uri
 import android.provider.MediaStore
-import android.util.Log
 import androidx.activity.viewModels
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -34,7 +33,6 @@ class ProfileActivity : BaseActivity<ActivityProfileBinding>(R.layout.activity_p
     override fun observeEvent() {
         myProfile()
         isClub()
-        isChangeProfile()
     }
 
     override fun viewSetting() {
@@ -79,13 +77,6 @@ class ProfileActivity : BaseActivity<ActivityProfileBinding>(R.layout.activity_p
                 supportFragmentManager.beginTransaction()
                     .replace(R.id.profileList, ProfileClubFragment()).commit()
             }
-        }
-    }
-
-    private fun isChangeProfile() {
-        viewModel.profileImg.observe(this) {
-            Log.d("안ㄴ", "isChangeProfile: ")
-            viewModel.saveImg()
         }
     }
 
