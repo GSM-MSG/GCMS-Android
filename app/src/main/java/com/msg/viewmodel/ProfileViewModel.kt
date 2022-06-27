@@ -51,7 +51,6 @@ class ProfileViewModel @Inject constructor(
                         _clubStatus.value = false
                     }
                 }
-                Log.d("안ㄴ", "getUserInfo: ${response.code()}")
             } catch (e: Exception){
                 Log.d("ERROR", "getUserInfo: ${e.message}")
             }
@@ -81,7 +80,6 @@ class ProfileViewModel @Inject constructor(
                     in 200..299 -> {
                         _profileImg.value = response.body()!!.get(0)
                     }
-                    else -> Log.d("안ㄴ", "saveImg: ")
                 }
             } catch (e: Exception) {
                 e.printStackTrace()
