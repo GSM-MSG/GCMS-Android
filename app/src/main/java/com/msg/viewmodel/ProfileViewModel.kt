@@ -7,9 +7,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.msg.gcms.data.remote.dto.datasource.user.request.UserProfileRequest
 import com.msg.gcms.data.remote.dto.datasource.user.response.UserInfoResponse
-import com.msg.gcms.domain.usecase.img.ImageUseCase
 import com.msg.gcms.domain.usecase.user.EditProfileUseCase
 import com.msg.gcms.domain.usecase.common.LogoutUseCase
+import com.msg.gcms.domain.usecase.image.ImageUseCase
 import com.msg.gcms.domain.usecase.user.ProfileUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -73,7 +73,7 @@ class ProfileViewModel @Inject constructor(
     fun uploadImg(img: MultipartBody.Part) {
         viewModelScope.launch {
             try {
-                val response = imgUseCase.postImg(listOf(img))
+                val response = imgUseCase.postImage(listOf(img))
                 when (response.code()) {
                     in 200..299 -> {
                         saveImg(response.body()!!.get(0))
