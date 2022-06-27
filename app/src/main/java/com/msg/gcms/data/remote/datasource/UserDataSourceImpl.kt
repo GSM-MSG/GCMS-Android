@@ -2,7 +2,6 @@ package com.msg.gcms.data.remote.datasource
 
 import com.msg.gcms.data.remote.dto.datasource.user.request.UserDeleteRequest
 import com.msg.gcms.data.remote.dto.datasource.user.request.UserProfileRequest
-import com.msg.gcms.data.remote.dto.datasource.user.request.UserSearchRequest
 import com.msg.gcms.data.remote.dto.datasource.user.response.UserData
 import com.msg.gcms.data.remote.dto.datasource.user.response.UserInfoResponse
 import com.msg.gcms.data.remote.network.UserAPI
@@ -26,9 +25,11 @@ class UserDataSourceImpl @Inject constructor(
         return service.getUserSearch(QueryString)
     }
 
-    override suspend fun deleteUser(
-        body: UserDeleteRequest
-    ): Response<Void> {
-        return service.deleteUser(body)
+    override suspend fun postExit(body: UserDeleteRequest): Response<Void> {
+        return service.postExit(body)
+    }
+
+    override suspend fun deleteUser(): Response<Void> {
+        return service.deleteUser()
     }
 }

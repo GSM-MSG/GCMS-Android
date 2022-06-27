@@ -8,6 +8,7 @@ import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.DELETE
 import retrofit2.http.GET
+import retrofit2.http.POST
 import retrofit2.http.PUT
 import retrofit2.http.QueryMap
 
@@ -25,8 +26,11 @@ interface UserAPI {
         @QueryMap QueryString: Map<String, String>
     ): Response<List<UserData>>
 
-    @DELETE("user/exit")
-    suspend fun deleteUser(
+    @POST("user/exit")
+    suspend fun postExit(
         body: UserDeleteRequest
     ): Response<Void>
+
+    @DELETE("user/withdrawal")
+    suspend fun deleteUser(): Response<Void>
 }
