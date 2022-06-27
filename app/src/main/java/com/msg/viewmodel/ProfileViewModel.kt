@@ -35,8 +35,6 @@ class ProfileViewModel @Inject constructor(
     private val _logoutStatus = MutableLiveData<Boolean>()
     val logoutStatus: LiveData<Boolean> get() = _logoutStatus
 
-    private val _profileImg = MutableLiveData<String>()
-    val profileImg: LiveData<String> get() = _profileImg
     fun getUserInfo() {
         viewModelScope.launch {
             try {
@@ -78,7 +76,7 @@ class ProfileViewModel @Inject constructor(
                 val response = imgUseCase.postImg(listOf(img))
                 when (response.code()) {
                     in 200..299 -> {
-                        _profileImg.value = response.body()!!.get(0)
+                        saveImg(response.body()!!.get(0))
                     }
                 }
             } catch (e: Exception) {
@@ -87,10 +85,10 @@ class ProfileViewModel @Inject constructor(
         }
     }
 
-    fun saveImg() {
+    fun saveImg(img: String) {
         viewModelScope.launch {
             try {
-                val response = editProfileUseCase.putProfile(UserProfileRequest(_profileImg.value!!))
+                val response = editProfileUseCase.putProfile(UserProfileRequest(img))
             } catch (e: Exception) {
                 e.printStackTrace()
             }
