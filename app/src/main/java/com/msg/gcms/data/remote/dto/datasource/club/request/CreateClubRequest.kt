@@ -9,5 +9,5 @@ data class CreateClubRequest(
     val teacher: String?,
     val member: List<String>?,
     val activityUrls: List<String>?,
-    val bannerUrl: List<String>
+    val bannerUrl:String
 )

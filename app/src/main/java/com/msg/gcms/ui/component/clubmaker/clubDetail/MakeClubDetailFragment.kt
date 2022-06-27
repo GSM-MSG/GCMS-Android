@@ -56,17 +56,32 @@ class MakeClubDetailFragment :
     }
 
     private fun observeEvent() {
-        observeImageResponse()
+        observeImageChange()
+        observeResult()
     }
 
-    private fun observeImageResponse() {
-        makeClubViewModel.bannerResult.observe(this) {
+    private fun observeImageChange() {
+        makeClubViewModel.imageUploadCheck.observe(this) {
             postCreateClub()
         }
     }
 
     private fun postCreateClub() {
         makeClubViewModel.createClub()
+    }
+
+    private fun observeResult() {
+        makeClubViewModel.createResult.observe(this) {
+            when(it){
+                true -> {
+                    shortToast("생성 성공!!")
+                    requireActivity().finish()
+                }
+                false -> {
+                    shortToast("생성 실패")
+                }
+            }
+        }
     }
 
     private fun settingRecyclerView() {
@@ -122,6 +137,9 @@ class MakeClubDetailFragment :
         } else {
             if(activityPhotoMultipart.isNotEmpty()) {
                 makeClubViewModel.activityPhotoUpload(activityPhotoMultipart)
+            } else {
+                makeClubViewModel.setActivityPhotoUpload()
+                makeClubViewModel.imageUploadCheck()
             }
             makeClubViewModel.bannerImageUpload(bannerImage)
         }

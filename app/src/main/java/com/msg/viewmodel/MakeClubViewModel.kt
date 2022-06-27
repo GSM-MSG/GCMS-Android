@@ -32,8 +32,8 @@ class MakeClubViewModel @Inject constructor(
     private val _result = MutableLiveData<List<UserData>>()
     val result: LiveData<List<UserData>> get() = _result
 
-    private val _bannerResult = MutableLiveData<List<String>>()
-    val bannerResult: LiveData<List<String>> get() = _bannerResult
+    private val _bannerResult = MutableLiveData<String>()
+    val bannerResult: LiveData<String> get() = _bannerResult
 
     private val _activityPhotoResult = MutableLiveData<List<String>>()
     val activityPhoto: LiveData<List<String>> get() = _activityPhotoResult
@@ -41,6 +41,17 @@ class MakeClubViewModel @Inject constructor(
     var memberList: MutableList<UserData> = mutableListOf()
 
     private var clubMemberEmail = mutableListOf<String>()
+
+    private val _imageUploadCheck = MutableLiveData<Boolean>()
+    val imageUploadCheck : LiveData<Boolean> get() = _imageUploadCheck
+
+    private var _bannerUpload = false
+
+    private var _activityUpload = false
+
+    private val _createResult = MutableLiveData<Boolean>()
+    val createResult: LiveData<Boolean> get() = _createResult
+
 
     var title: String = ""
     var description: String = ""
@@ -66,6 +77,16 @@ class MakeClubViewModel @Inject constructor(
         }
     }
 
+    fun imageUploadCheck() {
+        if(_bannerUpload && _activityUpload) {
+            _imageUploadCheck.value = true
+        }
+    }
+
+    fun setActivityPhotoUpload() {
+        _activityUpload = true
+    }
+
     fun setMemberEmail() {
         memberList.forEach {
             Log.d("TAG", "setMemberEmail: ${it.email}")
@@ -79,7 +100,9 @@ class MakeClubViewModel @Inject constructor(
             when (response.code()) {
                 201 -> {
                     Log.d("TAG", "banner: ${response.body()}")
-                    _bannerResult.value = response.body()
+                    _bannerResult.value = response.body()?.get(0)
+                    _bannerUpload = true
+                    imageUploadCheck()
                 }
                 else -> {
                     Log.d("TAG", "changeImage: else ${response.code()}")
@@ -95,6 +118,8 @@ class MakeClubViewModel @Inject constructor(
                 201 -> {
                     Log.d("TAG", "activityPhoto: ${response.body()}")
                     _activityPhotoResult.value = response.body()
+                    _activityUpload = true
+                    imageUploadCheck()
                 }
                 else -> {
                     Log.d("TAG", "changeImage: else ${response.code()}")
@@ -119,16 +144,19 @@ class MakeClubViewModel @Inject constructor(
                     notionLink = notionLink,
                     teacher = teacher,
                     member = clubMemberEmail,
-                    activityUrls = _activityPhotoResult.value ?: bannerResult.value,
-                    bannerUrl = bannerResult.value!!
+                    activityUrls = _activityPhotoResult.value,
+                    bannerUrl = _bannerResult.value!!
                 )
             )
             when (response.code()) {
                 201 -> {
                     Log.d("TAG", "createClub: 성공")
+                    _createResult.value = true
+
                 }
                 else -> {
                     Log.d("TAG", "createClub: $response, ${response.body()}")
+                    _createResult.value = false
                 }
             }
         }
