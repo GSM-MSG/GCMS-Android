@@ -152,7 +152,6 @@ class MakeClubViewModel @Inject constructor(
                 201 -> {
                     Log.d("TAG", "createClub: 성공")
                     _createResult.value = true
-
                 }
                 else -> {
                     Log.d("TAG", "createClub: $response, ${response.body()}")
