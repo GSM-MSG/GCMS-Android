@@ -1,40 +1,30 @@
 package com.msg.gcms.ui.base
 
+import android.app.Dialog
+import android.content.Context
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import androidx.fragment.app.DialogFragment
 import com.msg.gcms.databinding.DetailDialogBinding
-import com.msg.viewmodel.ClubViewModel
 
-class BaseDialog(val title: String, val msg: String  ) : DialogFragment() {
+class BaseDialog(val title: String, val msg: String, context: Context) : Dialog(context) {
 
     lateinit var dialogBinding: DetailDialogBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        isCancelable = true
+        dialogBinding = DetailDialogBinding.inflate(layoutInflater)
+        setContentView(dialogBinding.root)
+        viewSet()
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        dialogBinding = DetailDialogBinding.inflate(inflater, container, false)
-        return dialogBinding.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        with(dialogBinding){
-            dialogTitle.text = title
-            dialogMsg.text = msg
-            cancel.setOnClickListener {
-                dismiss()
-            }
+    private fun viewSet() = with(dialogBinding) {
+        setCancelable(true)
+        window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        cancel.setOnClickListener {
+            dismiss()
         }
+        dialogTitle.text = title
+        dialogMsg.text = msg
     }
 }

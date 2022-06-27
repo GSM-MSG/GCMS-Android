@@ -11,4 +11,10 @@ class ClubUseCase @Inject constructor(
     suspend fun getClubList(type: String) = repository.getClubList(type)
 
     suspend fun postClubApply(body: ClubIdentificationRequest) = repository.postClubApply(body)
+
+    suspend fun postClubCancel(body: ClubIdentificationRequest) = repository.postClubCancel(body)
+
+    suspend fun putClubOpen(body: ClubIdentificationRequest) = repository.putClubOpen(body)
+
+    suspend fun putClubClose(body: ClubIdentificationRequest) = repository.putClubClose(body)
 }

@@ -41,8 +41,8 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:background="@drawable/bg_dialog"
             android:id="@+id/dialog"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
+            android:layout_width="300dp"
+            android:layout_height="180dp"
             app:layout_constraintEnd_toStartOf="@+id/guideline1"
             app:layout_constraintStart_toStartOf="@+id/guideline2"
             app:layout_constraintBottom_toTopOf="@+id/guideline3"

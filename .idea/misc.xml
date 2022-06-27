@@ -94,6 +94,7 @@
         <entry key="..\:/Users/user/Documents/GitHub/GCMS-Android/app/src/main/res/layout/fragment_make_club.xml" value="0.1766304347826087" />
         <entry key="..\:/Users/user/Documents/GitHub/GCMS-Android/app/src/main/res/layout/item_my_club.xml" value="0.1296875" />
         <entry key="..\:/Users/user/Documents/GitHub/GCMS-Android/app/src/main/res/menu/bottom_navigation_menu.xml" value="0.14947916666666666" />
+        <entry key="..\:/Users/z0103/AndroidStudioProjects/GCMS-Android/app/src/main/res/drawable/bg_dialog.xml" value="0.242" />
         <entry key="..\:/Users/z0103/AndroidStudioProjects/GCMS-Android/app/src/main/res/drawable/bg_sign_btn.xml" value="0.169" />
         <entry key="..\:/Users/z0103/AndroidStudioProjects/GCMS-Android/app/src/main/res/drawable/google_icon.xml" value="0.1" />
         <entry key="..\:/Users/z0103/AndroidStudioProjects/GCMS-Android/app/src/main/res/drawable/ic_email_check_letter.xml" value="0.124" />
@@ -108,10 +109,6 @@
         <entry key="..\:/Users/z0103/AndroidStudioProjects/GCMS-Android/app/src/main/res/layout/activity_profile.xml" value="0.24947916666666667" />
         <entry key="..\:/Users/z0103/AndroidStudioProjects/GCMS-Android/app/src/main/res/layout/activity_registration.xml" value="0.2" />
         <entry key="..\:/Users/z0103/AndroidStudioProjects/GCMS-Android/app/src/main/res/layout/activity_splash.xml" value="0.2" />
-        <entry key="..\:/Users/z0103/AndroidStudioProjects/GCMS-Android/app/src/main/res/layout/email_failure_dialog.xml" value="0.264" />
-        <entry key="..\:/Users/z0103/AndroidStudioProjects/GCMS-Android/app/src/main/res/layout/fragment_add_member.xml" value="0.24947916666666667" />
-        <entry key="..\:/Users/z0103/AndroidStudioProjects/GCMS-Android/app/src/main/res/layout/fragment_application.xml" value="0.10277777777777777" />
-        <entry key="..\:/Users/z0103/AndroidStudioProjects/GCMS-Android/app/src/main/res/layout/fragment_club_detail.xml" value="0.24947916666666667" />
         <entry key="..\:/Users/z0103/AndroidStudioProjects/GCMS-Android/app/src/main/res/layout/detail_dialog.xml" value="0.2" />
         <entry key="..\:/Users/z0103/AndroidStudioProjects/GCMS-Android/app/src/main/res/layout/email_failure_dialog.xml" value="0.264" />
         <entry key="..\:/Users/z0103/AndroidStudioProjects/GCMS-Android/app/src/main/res/layout/fragment_add_member.xml" value="0.24947916666666667" />
@@ -166,7 +163,6 @@
         <entry key="app/src/main/res/drawable/ic_baseline_email_24.xml" value="0.231" />
         <entry key="app/src/main/res/drawable/ic_check_icon.xml" value="0.256" />
         <entry key="app/src/main/res/drawable/ic_club_member_btn.xml" value="0.1695" />
-        <entry key="app/src/main/res/drawable/bg_make_personal_btn.xml" value="0.1695" />
         <entry key="app/src/main/res/drawable/ic_current_page.xml" value="0.231" />
         <entry key="app/src/main/res/drawable/ic_eye.xml" value="0.231" />
         <entry key="app/src/main/res/drawable/ic_free_bg.xml" value="0.231" />

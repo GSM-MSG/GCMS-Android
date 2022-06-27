@@ -39,6 +39,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
         detailViewModel.setNav(false)
         detailViewModel.result.observe(this) {
             showInfo()
+            checkRole()
         }
         settingRecyclerView()
         checkRole()
@@ -166,22 +167,24 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
                         } else R.string.close_application
                     )
                 }
-                "MEMBER", "OTHER" -> {
+                "MEMBER" -> {
                     it.visibility = View.INVISIBLE
+                }
+                "OTHER" -> {
+                    if (detailViewModel.result.value!!.club.isOpened) {
+                        if (detailViewModel.result.value!!.isApplied) {
+                            it.text = getString(R.string.club_application_cancle)
+                            it.setBackgroundColor(resources.getColor(R.color.pink))
+                        } else it.visibility = View.INVISIBLE
+                    } else {
+                        it.visibility = View.INVISIBLE
+                    }
                 }
                 "USER" -> {
                     if (detailViewModel.result.value!!.club.isOpened) {
-                        it.text = getString(
-                            if (detailViewModel.result.value!!.isApplied) {
-                                R.string.club_application_cancle
-                            } else R.string.club_application
-                        )
+                        it.text = getString(R.string.club_application)
                         it.setBackgroundColor(
-                            resources.getColor(
-                                if (detailViewModel.result.value!!.isApplied) {
-                                    R.color.pink
-                                } else R.color.dark_blue
-                            )
+                            resources.getColor(R.color.dark_blue)
                         )
                     } else {
                         it.visibility = View.INVISIBLE
@@ -196,9 +199,10 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
             "HEAD" -> {
                 BaseDialog(
                     getString(R.string.deadline),
-                    getString(R.string.ask_dead_club_application)
+                    getString(R.string.ask_dead_club_application),
+                    requireContext()
                 ).let {
-                    it.show(requireActivity().supportFragmentManager, "DetailDialog")
+                    it.show()
                     it.dialogBinding.ok.setOnClickListener {
 
                     }
@@ -206,23 +210,44 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
             }
             "MEMBER" -> {
             }
-            "USER" -> {
+            "OTHER" -> {
                 detailViewModel.result.value!!.let { result ->
                     BaseDialog(
-                        if (result.isApplied) getString(R.string.application_cancel) else getString(
-                            R.string.application
-                        ),
-                        if (result.isApplied) getString(R.string.ask_cancel_application) else getString(
-                            R.string.ask_application_club,
-                            result.club.title
-                        )
+                        getString(R.string.club_application_cancle),
+                        getString(R.string.ask_cancel_application),
+                        requireContext()
                     ).let { dialog ->
-                        dialog.show(requireActivity().supportFragmentManager, "DetailDialog")
+                        dialog.show()
                         dialog.dialogBinding.ok.setOnClickListener {
-                            if (result.isApplied) clubViewModel.postClubCancel() else clubViewModel.postClubApply(
+                            clubViewModel.postClubCancel(
                                 result.club.type,
                                 result.club.title
                             )
+                            clubViewModel.getClubStatus.observe(this) {
+                                dialog.dismiss()
+                            }
+                        }
+                    }
+                }
+            }
+            "USER" -> {
+                detailViewModel.result.value!!.let { result ->
+                    BaseDialog(
+                        getString(R.string.application),
+                        getString(
+                            R.string.ask_application_club, result.club.title
+                        ),
+                        requireContext()
+                    ).let { dialog ->
+                        dialog.show()
+                        dialog.dialogBinding.ok.setOnClickListener {
+                            clubViewModel.postClubApply(
+                                result.club.type,
+                                result.club.title
+                            )
+                            clubViewModel.getClubStatus.observe(this) {
+                                dialog.dismiss()
+                            }
                         }
                     }
                 }

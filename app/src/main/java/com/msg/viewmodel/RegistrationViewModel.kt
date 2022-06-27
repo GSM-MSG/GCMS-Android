@@ -11,7 +11,6 @@ import com.msg.gcms.data.remote.dto.datasource.auth.response.RegisterResponse
 import com.msg.gcms.domain.usecase.common.RegistrationUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
-import retrofit2.Response
 import javax.inject.Inject
 
 @HiltViewModel
@@ -31,6 +30,8 @@ class RegistrationViewModel @Inject constructor(
         GCMSApplication.prefs.apply {
             accessToken = response.accessToken
             refreshToken = response.refreshToken
+            Log.d(TAG,"access : $accessToken")
+            Log.d(TAG,"refresh : $refreshToken")
         }
     }
 
