@@ -1,6 +1,7 @@
 package com.msg.gcms.ui.component.profile
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.database.Cursor
@@ -151,6 +152,7 @@ class ProfileActivity : BaseActivity<ActivityProfileBinding>(R.layout.activity_p
         }
     }
 
+    @SuppressLint("Range")
     private fun getPathFromUri(uri: Uri?): String? {
         val cursor: Cursor? = contentResolver.query(uri!!, null, null, null, null)
         cursor?.moveToNext()
