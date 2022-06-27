@@ -48,9 +48,25 @@ class MakeClubDetailFragment :
     private lateinit var activityAdapter: ActivityPhotosAdapter
     private lateinit var clubMemberAdapter: ClubMemberAdapter
 
+
     override fun init() {
         binding.fragment = this
         settingRecyclerView()
+        observeEvent()
+    }
+
+    private fun observeEvent() {
+        observeImageResponse()
+    }
+
+    private fun observeImageResponse() {
+        makeClubViewModel.bannerResult.observe(this) {
+            postCreateClub()
+        }
+    }
+
+    private fun postCreateClub() {
+        makeClubViewModel.createClub()
     }
 
     private fun settingRecyclerView() {
@@ -104,15 +120,17 @@ class MakeClubDetailFragment :
         if (bannerImage == null) {
             shortToast("배너 이미지를 삽입하여 주세요!!")
         } else {
+            if(activityPhotoMultipart.isNotEmpty()) {
+                makeClubViewModel.activityPhotoUpload(activityPhotoMultipart)
+            }
             makeClubViewModel.bannerImageUpload(bannerImage)
-            makeClubViewModel.activityPhotoUpload(activityPhotoMultipart)
         }
     }
 
 
     private fun clubMemberRecyclerView() {
-        if (makeClubViewModel._memberList.isEmpty()) {
-            makeClubViewModel._memberList.add(
+        if (makeClubViewModel.memberList.isEmpty()) {
+            makeClubViewModel.memberList.add(
                 UserData(
                     email = "",
                     name = "추가하기",
@@ -124,7 +142,7 @@ class MakeClubDetailFragment :
             )
         }
 
-        clubMemberAdapter = ClubMemberAdapter(makeClubViewModel._memberList)
+        clubMemberAdapter = ClubMemberAdapter(makeClubViewModel.memberList)
         clubMemberAdapter.setItemOnClickListener(object : ClubMemberAdapter.OnItemClickListener {
             override fun onClick(position: Int) {
                 findNavController().navigate(R.id.action_makeClubDetailFragment_to_studentSearchFragment)

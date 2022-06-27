@@ -10,7 +10,7 @@ import javax.inject.Inject
 class ImageRepositoryImpl @Inject constructor(
     private val datasource: ImageDataSourceImpl
 ) : ImageRepository {
-    override suspend fun postImage(image: List<MultipartBody.Part>): Response<ImageResponse> {
+    override suspend fun postImage(image: List<MultipartBody.Part>): Response<List<String>> {
         return datasource.postImage(image = image)
     }
 }
