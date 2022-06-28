@@ -36,6 +36,8 @@
     <color name="gray_10">#606061</color>
     <color name="gray_11">#4C4C4C</color>
     <color name="gray_12">#D0D1D8</color>
+    <color name="gray_13">#2D2D2D</color>
+    <color name="gray_14">#B7B7B7</color>
 
     <color name="mtrl_textinput_default_box_stroke_color" tools:override="true">#FCFFFF</color>
 </resources>
