@@ -18,6 +18,9 @@ class WithdrawalViewModel @Inject constructor(
     private val _isApproved = MutableLiveData<Boolean>()
     val isApproved: LiveData<Boolean> get() = _isApproved
 
+    private val _isWithdrawal = MutableLiveData<Boolean>()
+    val isWithdrawal: LiveData<Boolean> get() = _isWithdrawal
+
     fun changeIsApproved(isCheck: Boolean) {
         _isApproved.value = isCheck
     }
@@ -27,9 +30,8 @@ class WithdrawalViewModel @Inject constructor(
             try {
                 val response = useCase.deleteUser()
                 when(response.code()) {
-                    204 -> Log.d("안ㄴ", "withdrawal: 탈퇴성공")
-                    401 -> Log.d("안ㄴ", "withdrawal: 토큰 만료")
-                    403 -> Log.d("안ㄴ", "withdrawal: 유저 없음")
+                    in 200..299 -> _isWithdrawal.value = true
+                    else -> _isWithdrawal.value = false
                 }
             } catch (e : Exception) {
                 e.printStackTrace()
