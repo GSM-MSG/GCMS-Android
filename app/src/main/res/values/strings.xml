@@ -95,5 +95,8 @@
     <string name="club_member_management">동아리 멤버 관리</string>
     <string name="club_edit">동아리 수정하기</string>
     <string name="club_delete">동아리 삭제하기</string>
+    
+    <string name="club_member_showing">동아리 멤버 확인</string>
+    <string name="club_leave">동아리 탈퇴</string>
 
 </resources>
