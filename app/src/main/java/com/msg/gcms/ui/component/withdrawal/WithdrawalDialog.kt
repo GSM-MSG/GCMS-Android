@@ -5,13 +5,14 @@ import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.util.Log
 import android.view.Gravity
 import android.view.View
 import android.view.WindowManager
 import com.msg.gcms.R
 import com.msg.gcms.databinding.LogoutDialogBinding
 
-class WithdrawalDialog(context: Context) : Dialog(context, R.style.CustomFullDialog), View.OnClickListener {
+class WithdrawalDialog(context: Context) : Dialog(context, R.style.CustomFullDialog) {
     lateinit var withdrawalDialogListener: WithdrawalDialogListener
     lateinit var binding: LogoutDialogBinding
 
@@ -38,12 +39,11 @@ class WithdrawalDialog(context: Context) : Dialog(context, R.style.CustomFullDia
             setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT)
             setGravity(Gravity.BOTTOM)
         }
-    }
-
-    override fun onClick(p0: View?) {
-        when (p0!!.id) {
-            R.id.logoutBtn -> withdrawalDialogListener.logout()
-            R.id.withdrawalBtn -> withdrawalDialogListener.goWithdrawal()
+        logoutBtn.setOnClickListener {
+            withdrawalDialogListener.logout()
+        }
+        withdrawalBtn.setOnClickListener {
+            withdrawalDialogListener.goWithdrawal()
         }
     }
 }
