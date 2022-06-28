@@ -17,7 +17,7 @@
             android:id="@+id/isLogoutTxt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="가시려구요?"
+            android:text="@string/logoutAsk"
             android:textColor="@color/white"
             android:fontFamily="@font/notosans"
             android:textFontWeight="600"
@@ -40,7 +40,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="로그아웃"
+            android:text="@string/logoutBtn"
             android:textSize="16sp"
             android:textColor="@color/white"
             android:fontFamily="@font/notosans"
@@ -63,7 +63,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="회원탈퇴"
+            android:text="@string/withdrawalBtn"
             android:textSize="16sp"
             android:textColor="@color/white"
             android:fontFamily="@font/notosans"

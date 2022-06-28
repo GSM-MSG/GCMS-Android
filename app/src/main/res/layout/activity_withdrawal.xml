@@ -29,7 +29,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="13.85dp"
             android:layout_marginTop="26dp"
-            android:text="탈퇴하기"
+            android:text="@string/withdrawal"
             android:textColor="@color/white"
             android:textSize="18sp"
             app:layout_constraintStart_toEndOf="@id/back_btn"
@@ -60,7 +60,7 @@
             android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:text="탈퇴하시기 전에 확인해 주세요!"
+            android:text="@string/withdrawalAsk"
             android:textColor="@color/white"
             android:textSize="16sp"
             android:fontFamily="@font/notosans"
@@ -106,7 +106,7 @@
                     android:textFontWeight="500"
                     android:textSize="13sp"
                     android:fontFamily="@font/notosans"
-                    android:text="유저의 프로필, 아이디 등이 사라지게 됩니다."
+                    android:text="@string/withdrawalRule1"
                     android:textColor="@color/gray_14" />
             </LinearLayout>
 
@@ -129,7 +129,7 @@
                     android:textFontWeight="500"
                     android:textSize="13sp"
                     android:fontFamily="@font/notosans"
-                    android:text="본인이 생성한 동아리는 삭제되지 않습니다."
+                    android:text="@string/withdrawalRule2"
                     android:textColor="@color/gray_14" />
             </LinearLayout>
         </LinearLayout>
@@ -152,7 +152,7 @@
                 android:layout_marginStart="9dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="위 사항을 확인 했으며 동의합니다"
+                android:text="@string/withdrawalCheck"
                 android:textFontWeight="500"
                 android:textSize="13sp"
                 android:fontFamily="@font/notosans"
@@ -164,7 +164,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="20dp"
-            android:text="탈퇴하기"
+            android:text="@string/withdrawal"
             android:textSize="16sp"
             android:fontFamily="@font/notosans"
             android:textFontWeight="500"
