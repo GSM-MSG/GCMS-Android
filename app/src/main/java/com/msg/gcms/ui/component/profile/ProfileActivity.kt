@@ -20,6 +20,8 @@ import com.msg.gcms.R
 import com.msg.gcms.databinding.ActivityProfileBinding
 import com.msg.gcms.ui.base.BaseActivity
 import com.msg.gcms.ui.component.intro.IntroActivity
+import com.msg.gcms.ui.component.withdrawal.WithdrawalActivity
+import com.msg.gcms.ui.component.withdrawal.WithdrawalDialog
 import com.msg.viewmodel.ProfileViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
@@ -57,18 +59,16 @@ class ProfileActivity : BaseActivity<ActivityProfileBinding>(R.layout.activity_p
     }
 
     private fun isLogout() {
+        viewModel.logout()
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestIdToken(getString(R.string.default_web_client_id))
             .requestEmail()
             .build()
-        client = GoogleSignIn.getClient(this, gso)
-        client.signOut()
+        GoogleSignIn.getClient(this, gso).signOut()
         viewModel.logoutStatus.observe(this) {
-            if (it) {
-                val intent = Intent(this, IntroActivity::class.java)
-                startActivity(intent)
-                finish()
-            }
+            val intent = Intent(this, IntroActivity::class.java)
+            startActivity(intent)
+            finish()
         }
     }
 
@@ -107,10 +107,21 @@ class ProfileActivity : BaseActivity<ActivityProfileBinding>(R.layout.activity_p
         }
     }
 
-    private fun clickLogout(){
-        binding.logoutBtn.setOnClickListener {
-            viewModel.logout()
-            isLogout()
+    private fun clickLogout() {
+        binding.logoutOption.setOnClickListener {
+            WithdrawalDialog(this).apply {
+                setDialogListener(object : WithdrawalDialog.WithdrawalDialogListener {
+                    override fun logout() {
+                        isLogout()
+                    }
+
+                    override fun goWithdrawal() {
+                        val intent = Intent(this@ProfileActivity, WithdrawalActivity::class.java)
+                        startActivity(intent)
+                    }
+                })
+                show()
+            }
         }
     }
 

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="logoutDialog"
+            type="com.msg.gcms.ui.component.withdrawal.WithdrawalDialog" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_profile_list">
+
+        <TextView
+            android:id="@+id/isLogoutTxt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="가시려구요?"
+            android:textColor="@color/white"
+            android:fontFamily="@font/notosans"
+            android:textFontWeight="600"
+            android:textSize="20sp"
+            android:layout_marginTop="24dp"
+            android:layout_marginStart="32dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/logoutBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ic_logout_btn"
+            android:layout_marginStart="35dp"
+            android:layout_marginTop="28dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/isLogoutTxt" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="로그아웃"
+            android:textSize="16sp"
+            android:textColor="@color/white"
+            android:fontFamily="@font/notosans"
+            android:textFontWeight="500"
+            android:layout_marginStart="19dp"
+            android:layout_marginTop="25dp"
+            app:layout_constraintStart_toEndOf="@id/logoutBtn"
+            app:layout_constraintTop_toBottomOf="@id/isLogoutTxt" />
+
+        <ImageView
+            android:id="@+id/withdrawalBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ic_withdrawal_btn"
+            android:layout_marginStart="36dp"
+            android:layout_marginTop="40dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/logoutBtn" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="회원탈퇴"
+            android:textSize="16sp"
+            android:textColor="@color/white"
+            android:fontFamily="@font/notosans"
+            android:textFontWeight="500"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="34dp"
+            android:layout_marginBottom="33dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@id/withdrawalBtn"
+            app:layout_constraintTop_toBottomOf="@id/logoutBtn" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -1,7 +1,6 @@
 package com.msg.gcms.ui.component.withdrawal
 
 import android.content.Intent
-import android.util.Log
 import androidx.activity.viewModels
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
