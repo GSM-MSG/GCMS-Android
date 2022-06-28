@@ -36,13 +36,24 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
     private val detailPhotoAdaper = DetailPhotoAdapter()
 
     override fun init() {
-        detailViewModel.setNav(false)
+        observeEvent()
+        clickEvent()
+        viewSet()
+    }
+
+    private fun observeEvent() {
         observeResult()
-        settingRecyclerView()
-        checkRole()
+        observeStatus()
+    }
+
+    private fun clickEvent() {
         clickBackBtn()
         clickSubmitBtn()
-        observeStatus()
+    }
+
+    private fun viewSet(){
+        detailViewModel.setNav(false)
+        settingRecyclerView()
     }
 
     private fun showInfo() {
