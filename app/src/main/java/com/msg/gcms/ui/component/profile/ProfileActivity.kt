@@ -36,6 +36,7 @@ class ProfileActivity : BaseActivity<ActivityProfileBinding>(R.layout.activity_p
     override fun observeEvent() {
         myProfile()
         isClub()
+        isLogout()
     }
 
     override fun viewSetting() {
@@ -59,13 +60,12 @@ class ProfileActivity : BaseActivity<ActivityProfileBinding>(R.layout.activity_p
     }
 
     private fun isLogout() {
-        viewModel.logout()
-        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            .requestIdToken(getString(R.string.default_web_client_id))
-            .requestEmail()
-            .build()
-        GoogleSignIn.getClient(this, gso).signOut()
         viewModel.logoutStatus.observe(this) {
+            val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.default_web_client_id))
+                .requestEmail()
+                .build()
+            GoogleSignIn.getClient(this, gso).signOut()
             val intent = Intent(this, IntroActivity::class.java)
             startActivity(intent)
             finish()
@@ -112,7 +112,7 @@ class ProfileActivity : BaseActivity<ActivityProfileBinding>(R.layout.activity_p
             WithdrawalDialog(this).apply {
                 setDialogListener(object : WithdrawalDialog.WithdrawalDialogListener {
                     override fun logout() {
-                        isLogout()
+                        viewModel.logout()
                     }
 
                     override fun goWithdrawal() {
