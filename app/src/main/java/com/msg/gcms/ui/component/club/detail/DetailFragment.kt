@@ -37,14 +37,12 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
 
     override fun init() {
         detailViewModel.setNav(false)
-        detailViewModel.result.observe(this) {
-            showInfo()
-            checkRole()
-        }
+        observeResult()
         settingRecyclerView()
         checkRole()
         clickBackBtn()
         clickSubmitBtn()
+        observeStatus()
     }
 
     private fun showInfo() {
@@ -269,6 +267,28 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
                     }
                 }
             }
+        }
+    }
+
+    private fun observeStatus() {
+        clubViewModel.getClubStatus.observe(this) { status ->
+            detailViewModel.result.value!!.club.let {
+                detailViewModel.getDetail(it.type, it.title)
+            }
+            when (status) {
+                401 -> shortToast("토큰이 만료되었습니다, 다시 로그인 해주세요")
+                403 -> shortToast("권한이 없습니다.")
+                404 -> shortToast("존재하지 않는 동아리 입니다.")
+                409 -> shortToast("이미 다른 동아리에 신청 혹은 소속되어있습니다.")
+                else -> shortToast("알수 없는 오류.")
+            }
+        }
+    }
+
+    private fun observeResult() {
+        detailViewModel.result.observe(this) {
+            showInfo()
+            checkRole()
         }
     }
 

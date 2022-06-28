@@ -78,6 +78,7 @@ class ClubFragment : BaseFragment<FragmentClubBinding>(R.layout.fragment_club) {
                         .replace(R.id.fragment_club, DetailFragment()).commit()
                 }
                 else -> {
+                    shortToast("동아리 정보를 불러오지 못했습니다.")
                     Log.d(TAG, "GetDetail : Error Status - $it")
                 }
             }
