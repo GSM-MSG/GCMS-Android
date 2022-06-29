@@ -136,7 +136,46 @@
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/guideline27" />
+            app:layout_constraintTop_toTopOf="@+id/guideline27"
+            android:id="@+id/textView12" />
+
+        <TextView
+            android:id="@+id/termsOfServiceBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/terms_of_service"
+            android:textColor="@color/gray_9"
+            android:textSize="13sp"
+            android:fontFamily="@font/notosans"
+            android:layout_marginRight="10dp"
+            android:onClick="@{login::onClickPageBtn}"
+            app:layout_constraintTop_toTopOf="@+id/guideline24"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/view10" />
+
+        <View
+            android:layout_width="0.5dp"
+            android:layout_height="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:background="@color/gray_13"
+            android:id="@+id/view10"
+            app:layout_constraintTop_toTopOf="@+id/guideline24"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+        <TextView
+            android:id="@+id/privacyPolicyBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/privacy_policy"
+            android:textColor="@color/gray_9"
+            android:textSize="13sp"
+            android:layout_marginLeft="10dp"
+            android:fontFamily="@font/notosans"
+            android:onClick="@{login::onClickPageBtn}"
+            app:layout_constraintTop_toTopOf="@+id/guideline24"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/view10" />
 
 
         <TextView
