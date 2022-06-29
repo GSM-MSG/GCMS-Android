@@ -53,6 +53,4 @@ object Versions {
     const val KTLINT = "2.1.2"
 
     const val COIL_VERSION = "2.1.0"
-
-    const val SHIMMER_VERSION = "0.5.0"
 }

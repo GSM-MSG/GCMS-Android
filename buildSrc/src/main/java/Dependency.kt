@@ -1,5 +1,3 @@
-import org.gradle.kotlin.dsl.closureOf
-
 object Dependency {
     object GradlePlugin {
         const val GRADLE_ANDROID = "com.android.tools.build:gradle:${Versions.GRADLE_ANDROID}"
@@ -90,9 +88,5 @@ object Dependency {
 
     object ImageLoad {
         const val COIL = "io.coil-kt:coil:${Versions.COIL_VERSION}"
-    }
-
-    object FaceBook {
-        const val SHIMMER = "com.facebook.shimmer:shimmer:${Versions.SHIMMER_VERSION}"
     }
 }

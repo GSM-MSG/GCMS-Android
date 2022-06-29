@@ -32,7 +32,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
     var membersList = mutableListOf<MemberSummaryResponse>()
     var activityUrlsList = mutableListOf<ActivityPhotoType>()
     private val detailMemberAdapter = DetailMemberAdapter()
-    private val detailPhotoAdaper = DetailPhotoAdapter()
+    private val detailPhotoAdapter = DetailPhotoAdapter()
 
     override fun init() {
         detailViewModel.setNav(false)
@@ -127,8 +127,8 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
                 Log.e(TAG, e.toString())
             }
         }
-        binding.promotionClubImg.adapter = detailPhotoAdaper
-        detailPhotoAdaper.submitList(activityUrlsList)
+        binding.promotionClubImg.adapter = detailPhotoAdapter
+        detailPhotoAdapter.submitList(activityUrlsList)
     }
 
     private fun settingRecyclerView() {
@@ -161,10 +161,10 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
     fun sideBarBtn(view: View) {
         when(detailViewModel.result.value?.scope) {
             "HEAD" -> {
-                binding.headSideBar.isDrawerOpen(Gravity.RIGHT)
+                binding.headSideBar.openDrawer(Gravity.RIGHT)
             }
             "MEMBER" -> {
-                binding.memberSideBar.isDrawerOpen(Gravity.RIGHT)
+                binding.memberSideBar.openDrawer(Gravity.RIGHT)
             }
             else -> {
                 shortToast("권한이 없습니다.")
