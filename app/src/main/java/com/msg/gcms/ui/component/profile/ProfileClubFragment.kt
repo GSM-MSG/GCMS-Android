@@ -10,14 +10,14 @@ import coil.transform.RoundedCornersTransformation
 import com.msg.gcms.R
 import com.msg.gcms.data.remote.dto.datasource.user.response.ClubData
 import com.msg.gcms.databinding.FragmentProfileClubBinding
-import com.msg.gcms.ui.adapter.EditorialClubList
+import com.msg.gcms.ui.adapter.EditorialClubAdapter
 import com.msg.gcms.ui.base.BaseFragment
 import com.msg.viewmodel.ProfileViewModel
 
 class ProfileClubFragment: BaseFragment<FragmentProfileClubBinding>(R.layout.fragment_profile_club) {
     private val viewModel by activityViewModels<ProfileViewModel>()
     private val privateClubList: ArrayList<ClubData> = ArrayList()
-    private lateinit var adapter: EditorialClubList
+    private lateinit var adapter: EditorialClubAdapter
     override fun init() {
         isAfterSchool()
         viewClub()
@@ -71,7 +71,7 @@ class ProfileClubFragment: BaseFragment<FragmentProfileClubBinding>(R.layout.fra
 
     private fun setRecyclerView() {
         binding.privateClubRecyclerview.apply {
-            adapter = EditorialClubList(privateClubList)
+            adapter = EditorialClubAdapter(privateClubList)
             layoutManager = GridLayoutManager(context, 2)
             addItemDecoration(HorizontalItemDecorator(20))
         }

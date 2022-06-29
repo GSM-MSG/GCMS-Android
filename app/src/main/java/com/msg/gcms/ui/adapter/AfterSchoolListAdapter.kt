@@ -1,6 +1,5 @@
 package com.msg.gcms.ui.adapter
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -16,9 +15,13 @@ class AfterSchoolListAdapter(private val itemList: List<AftersData>): RecyclerVi
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val binding = ListAfterSchoolBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        val viewHolder = AfterSchoolListAdapter.ViewHolder(binding)
-        return viewHolder
+        return ViewHolder(
+            ListAfterSchoolBinding.inflate(
+                LayoutInflater.from(parent.context),
+                parent,
+                false
+            )
+        )
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
