@@ -51,7 +51,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
         clickSubmitBtn()
     }
 
-    private fun viewSet(){
+    private fun viewSet() {
         detailViewModel.setNav(false)
         settingRecyclerView()
     }
@@ -118,7 +118,6 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
     }
 
     private fun clubPromotionImgRecycler(photo: List<String>) {
-        Log.d(TAG, photo.toString())
         activityUrlsList.clear()
         for (i in photo.indices) {
             try {

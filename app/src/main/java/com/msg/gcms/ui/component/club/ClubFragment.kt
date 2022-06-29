@@ -12,6 +12,7 @@ import com.msg.gcms.ui.component.club.detail.DetailFragment
 import com.msg.gcms.ui.component.clubmaker.MakeClubActivity
 import com.msg.gcms.ui.component.profile.ProfileActivity
 import com.msg.viewmodel.ClubDetailViewModel
+import com.msg.viewmodel.ClubViewModel
 import com.msg.viewmodel.MainViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -19,7 +20,8 @@ import dagger.hilt.android.AndroidEntryPoint
 class ClubFragment : BaseFragment<FragmentClubBinding>(R.layout.fragment_club) {
     private val TAG = "ClubFragment"
     private val viewModel by activityViewModels<MainViewModel>()
-    val detailViewModel by activityViewModels<ClubDetailViewModel>()
+    private val detailViewModel by activityViewModels<ClubDetailViewModel>()
+    private val clubViewModel by activityViewModels<ClubViewModel>()
     private lateinit var adapter: ClubListAdapter
     override fun init() {
         viewModel.getClubList()

@@ -1,7 +1,8 @@
 object Dependency {
     object GradlePlugin {
         const val GRADLE_ANDROID = "com.android.tools.build:gradle:${Versions.GRADLE_ANDROID}"
-        const val GRADLE_KOTLIN = "org.jetbrains.kotlin:kotlin-gradle-plugin:${Versions.GRADLE_KOTLIN}"
+        const val GRADLE_KOTLIN =
+            "org.jetbrains.kotlin:kotlin-gradle-plugin:${Versions.GRADLE_KOTLIN}"
         const val GRADLE_HILT = "com.google.dagger:hilt-android-gradle-plugin:${Versions.HILT}"
         const val GRADLE_KTLINT = "org.jmailen.gradle:kotlinter-gradle:${Versions.KTLINT}"
     }
@@ -15,7 +16,8 @@ object Dependency {
     }
 
     object AndroidX {
-        const val CONSTRAINT_LAYOUT = "androidx.constraintlayout:constraintlayout:${Versions.CONSTRAINT_LAYOUT}"
+        const val CONSTRAINT_LAYOUT =
+            "androidx.constraintlayout:constraintlayout:${Versions.CONSTRAINT_LAYOUT}"
 
         const val CORE_KTX = "androidx.core:core-ktx:${Versions.CORE_KTX}"
         const val APP_COMPAT = "androidx.appcompat:appcompat:${Versions.APP_COMPAT}"
@@ -40,12 +42,15 @@ object Dependency {
     object Google {
         const val FIREBASE_ANALYTICS = "com.google.firebase:firebase-analytics-ktx"
         const val FIREBASE_BOM = "com.google.firebase:firebase-bom:${Versions.FIREBASE_BOM}"
-        const val GMS_PLAY_SERVICE_AUTH = "com.google.android.gms:play-services-auth:${Versions.GMS_PLAY_SERVICE_AUTH}"
-        const val GMS_GOOGLE_SERVICE = "com.google.gms:google-services:${Versions.GMS_GOOGLE_SERVICE}"
+        const val GMS_PLAY_SERVICE_AUTH =
+            "com.google.android.gms:play-services-auth:${Versions.GMS_PLAY_SERVICE_AUTH}"
+        const val GMS_GOOGLE_SERVICE =
+            "com.google.gms:google-services:${Versions.GMS_GOOGLE_SERVICE}"
         const val HILT_ANDROID = "com.google.dagger:hilt-android:${Versions.HILT}"
         const val HILT_ANDROID_COMPILER = "com.google.dagger:hilt-android-compiler:${Versions.HILT}"
         const val MATERIAL = "com.google.android.material:material:${Versions.MATERIAL}"
-        const val GMS_PLAY_SERVICE_BASE = "com.google.android.gms:play-services-base:${Versions.GMS_PLAY_SERVICE_BASE}"
+        const val GMS_PLAY_SERVICE_BASE =
+            "com.google.android.gms:play-services-base:${Versions.GMS_PLAY_SERVICE_BASE}"
         const val FIREBASE = "com.google.firebase:firebase-auth-ktx:${Versions.FIREBASE}"
         const val LIVEDATA = "androidx.lifecycle:lifecycle-livedata-ktx:${Versions.LIVEDATA}"
     }
@@ -59,6 +64,7 @@ object Dependency {
             "com.squareup.okhttp3:logging-interceptor:${Versions.OKHTTP}"
         const val MOSHI = "com.squareup.moshi:moshi-kotlin:${Versions.MOSHI}"
         const val MOSHI_COMPILER = "com.squareup.moshi:moshi-kotlin-codegen:${Versions.MOSHI}"
+        const val SHIMMER = "com.facebook.shimmer:shimmer:${Versions.SHIMMER}"
     }
 
     object UnitTest {
@@ -83,7 +89,8 @@ object Dependency {
     }
 
     object Coroutine {
-        const val COROUTINE = "org.jetbrains.kotlinx:kotlinx-coroutines-android:${Versions.COROUTINE}"
+        const val COROUTINE =
+            "org.jetbrains.kotlinx:kotlinx-coroutines-android:${Versions.COROUTINE}"
     }
 
     object ImageLoad {
