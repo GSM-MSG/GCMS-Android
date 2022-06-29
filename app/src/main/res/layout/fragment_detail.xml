@@ -93,6 +93,7 @@
             app:layout_constraintTop_toTopOf="@id/guideline1" />
 
         <ScrollView
+            android:overScrollMode="never"
             android:id="@+id/scroll"
             android:layout_width="match_parent"
             android:layout_height="0dp"
@@ -193,6 +194,7 @@
                     app:layout_constraintTop_toBottomOf="@id/notion_link" />
 
                 <androidx.recyclerview.widget.RecyclerView
+                    android:overScrollMode="never"
                     android:id="@+id/promotion_club_img"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -214,7 +216,7 @@
                     app:layout_constraintTop_toBottomOf="@id/promotion_club_img" />
 
                 <androidx.recyclerview.widget.RecyclerView
-                    android:visibility="invisible"
+                    android:overScrollMode="never"
                     android:id="@+id/member_club_img"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
