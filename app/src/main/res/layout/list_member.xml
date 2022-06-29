@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="member"
+            type="com.msg.gcms.data.remote.dto.datasource.club.response.MemberSummaryResponse" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="4dp"
+        android:paddingHorizontal="20dp">
+
+        <ImageView
+            android:id="@+id/userProfileImg"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{member.name}"
+            android:textSize="14sp"
+            android:textFontWeight="500"
+            android:textColor="@color/white"
+            android:layout_marginStart="12dp"
+            app:layout_constraintStart_toEndOf="@id/userProfileImg"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <TextView
+            android:id="@+id/userClassTxt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/profileDefaultClass"
+            android:textColor="@color/gray_5"
+            android:textSize="14sp"
+            android:textFontWeight="400"
+            android:layout_marginStart="12dp"
+            app:layout_constraintStart_toEndOf="@id/userProfileImg"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/mandateBtn"
+            android:layout_width="55dp"
+            android:layout_height="match_parent"
+            android:text="@string/mandate"
+            android:textSize="13sp"
+            android:textColor="@color/white"
+            android:textFontWeight="500"
+            android:background="@drawable/bg_member_black_btn"
+            app:layout_constraintEnd_toStartOf="@id/withdrawalBtn"
+            android:layout_marginVertical="2dp"
+            android:layout_marginEnd="8dp"/>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/withdrawalBtn"
+            android:layout_width="55dp"
+            android:text="@string/withdrawal2"
+            android:textColor="@color/white"
+            android:textFontWeight="500"
+            android:textSize="13sp"
+            android:layout_height="match_parent"
+            android:layout_marginVertical="2dp"
+            android:background="@drawable/bg_withdrawal_btn"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
