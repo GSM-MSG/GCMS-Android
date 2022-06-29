@@ -8,7 +8,7 @@ import coil.transform.RoundedCornersTransformation
 import com.msg.gcms.data.remote.dto.datasource.user.response.ClubData
 import com.msg.gcms.databinding.ListClubEditorialBinding
 
-class EditorialClubList(private val clubList: ArrayList<ClubData>): RecyclerView.Adapter<EditorialClubList.ViewHolder>() {
+class EditorialClubAdapter(private val clubList: ArrayList<ClubData>): RecyclerView.Adapter<EditorialClubAdapter.ViewHolder>() {
     class ViewHolder(val binding: ListClubEditorialBinding): RecyclerView.ViewHolder(binding.root) {
         fun bind(club: ClubData) {
             binding.editorialItem = club
@@ -19,10 +19,13 @@ class EditorialClubList(private val clubList: ArrayList<ClubData>): RecyclerView
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val binding =
-            ListClubEditorialBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        val viewHolder = EditorialClubList.ViewHolder(binding)
-        return viewHolder
+        return ViewHolder(
+            ListClubEditorialBinding.inflate(
+                LayoutInflater.from(parent.context),
+                parent,
+                false
+            )
+        )
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
