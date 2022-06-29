@@ -35,14 +35,14 @@ class ClubDataSourceImpl @Inject constructor(
         return service.deleteClub()
     }
 
-    override suspend fun getMemberList(clubName: String, type: String): Response<List<MemberInfo>> {
+    override suspend fun getMemberList(clubName: String, type: String): Response<MemberInfo> {
         return service.getMemberList(clubName = clubName, type= type)
     }
 
     override suspend fun getApplicantList(
         clubName: String,
         type: String
-    ): Response<List<UserData>> {
+    ): Response<MemberInfo> {
         return service.getApplicantList(clubName = clubName, type = type)
     }
 

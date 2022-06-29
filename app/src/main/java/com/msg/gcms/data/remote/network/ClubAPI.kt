@@ -47,13 +47,13 @@ interface ClubAPI {
     suspend fun getMemberList(
         @Query("q") clubName: String,
         @Query("type") type: String
-    ): Response<List<MemberInfo>>
+    ): Response<MemberInfo>
 
     @GET("club/applicant")
     suspend fun getApplicantList(
         @Query("q") clubName: String,
         @Query("type") type: String
-    ): Response<List<UserData>>
+    ): Response<MemberInfo>
 
     @POST("club/accept")
     suspend fun postApplicantAccept(
@@ -75,7 +75,7 @@ interface ClubAPI {
         @Body body: ClubIdentificationRequest
     ): Response<Void>
 
-    @DELETE("club/kick")
+    @POST("club/kick")
     suspend fun deleteMemberExpel(
         @Body body: MemberManagementRequest
     ): Response<Void>
