@@ -1,4 +1,5 @@
 /build
 google-services.json
 /src/main/java/com/msg/gcms/base/di/module/NetworkModule.kt
+/src/main/java/com/msg/gcms/base/di/module/BASE_URL.kt
 

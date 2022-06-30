@@ -13,8 +13,7 @@ class ActivityPhotosAdapter(private val items: List<ActivityPhotoType>) :
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BannerViewHolder {
         val binding =
             ListClubPictureBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        val viewHolder = BannerViewHolder(binding, itemClickListener)
-        return viewHolder
+        return BannerViewHolder(binding, itemClickListener)
     }
 
     override fun onBindViewHolder(holder: BannerViewHolder, position: Int) {

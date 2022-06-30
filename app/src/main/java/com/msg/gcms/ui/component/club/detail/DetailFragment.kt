@@ -1,6 +1,7 @@
 package com.msg.gcms.ui.component.club.detail
 
 import android.util.Log
+import android.view.Gravity
 import android.view.View
 import androidx.core.net.toUri
 import androidx.fragment.app.activityViewModels
@@ -31,16 +32,23 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
     var membersList = mutableListOf<MemberSummaryResponse>()
     var activityUrlsList = mutableListOf<ActivityPhotoType>()
     private val detailMemberAdapter = DetailMemberAdapter()
-    private val detailPhotoAdaper = DetailPhotoAdapter()
+    private val detailPhotoAdapter = DetailPhotoAdapter()
 
     override fun init() {
         detailViewModel.setNav(false)
+        observeEvent()
+        settingRecyclerView()
+        clickBackBtn()
+    }
+
+    private fun observeEvent() {
+        observeResult()
+    }
+
+    private fun observeResult() {
         detailViewModel.result.observe(this) {
             showInfo()
         }
-        settingRecyclerView()
-        checkRole()
-        clickBackBtn()
     }
 
     private fun showInfo() {
@@ -64,6 +72,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
                 clubPromotionImgRecycler(it.activityUrls)
             }
         }
+        checkRole()
     }
 
     private fun setTeacherInfo(name: String) {
@@ -118,8 +127,8 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
                 Log.e(TAG, e.toString())
             }
         }
-        binding.promotionClubImg.adapter = detailPhotoAdaper
-        detailPhotoAdaper.submitList(activityUrlsList)
+        binding.promotionClubImg.adapter = detailPhotoAdapter
+        detailPhotoAdapter.submitList(activityUrlsList)
     }
 
     private fun settingRecyclerView() {
@@ -149,6 +158,20 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
         }
     }
 
+    fun sideBarBtn(view: View) {
+        when(detailViewModel.result.value?.scope) {
+            "HEAD" -> {
+                binding.headSideBar.openDrawer(Gravity.RIGHT)
+            }
+            "MEMBER" -> {
+                binding.memberSideBar.openDrawer(Gravity.RIGHT)
+            }
+            else -> {
+                shortToast("권한이 없습니다.")
+            }
+        }
+    }
+
     private fun checkRole() {
         binding.submitBtn.let {
             when (detailViewModel.result.value!!.scope) {
@@ -159,9 +182,17 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
                             R.string.open_application
                         } else R.string.close_application
                     )
+                    binding.headSideBar.visibility = View.VISIBLE
+                    binding.memberSideBar.visibility = View.GONE
                 }
-                "MEMBER", "OTHER" -> {
+                "MEMBER" -> {
                     it.visibility = View.INVISIBLE
+                    binding.memberSideBar.visibility = View.VISIBLE
+                    binding.headSideBar.visibility = View.GONE
+                }
+                "OTHER" -> {
+                    it.visibility = View.INVISIBLE
+                    notClubMember()
                 }
                 "USER" -> {
                     if (detailViewModel.result.value!!.club.isOpened) {
@@ -180,8 +211,17 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
                     } else {
                         it.visibility = View.INVISIBLE
                     }
+                    notClubMember()
                 }
             }
+        }
+    }
+
+    private fun notClubMember() {
+        with(binding) {
+            headSideBar.visibility = View.GONE
+            memberSideBar.visibility = View.GONE
+            sideBarBtn.visibility = View.GONE
         }
     }
 

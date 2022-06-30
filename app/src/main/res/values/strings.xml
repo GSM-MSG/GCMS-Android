@@ -94,6 +94,16 @@
     <string name="promotion_club">동아리 홍보</string>
     <string name="members">구성원</string>
     <string name="directory">연락처</string>
+    <string name="menu">Menu</string>
+
+    <string name="club_member_management">동아리 멤버 관리</string>
+    <string name="club_edit">동아리 수정하기</string>
+    <string name="club_delete">동아리 삭제하기</string>
+    
+    <string name="club_member_showing">동아리 멤버 확인</string>
+    <string name="club_leave">동아리 탈퇴</string>
+    <string name="terms_of_service">서비스 이용 약관</string>
+    <string name="privacy_policy">개인정보 처리 방침</string>
 
     <string name="logoutAsk">가시려구요?</string>
     <string name="logoutBtn">로그아웃</string>
