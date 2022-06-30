@@ -47,7 +47,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="18sp"
-            android:text="방과후"
+            android:text="@string/afterSchool"
             android:fontFamily="@font/notosans"
             android:textFontWeight="700"
             android:layout_marginTop="61dp"
@@ -66,7 +66,7 @@
             android:id="@+id/majorTxt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="전공 동아리"
+            android:text="@string/majorClub"
             android:textColor="@color/white"
             android:textSize="16sp"
             app:layout_constraintTop_toBottomOf="@id/afterSchoolFragmentView"
@@ -94,7 +94,7 @@
                 android:layout_height="32dp"
                 android:background="@drawable/bg_club_txt"
                 android:gravity="center"
-                android:text="동아리 이름"
+                android:text="@string/club_name"
                 android:textColor="@color/white"
                 android:textSize="12sp" />
         </LinearLayout>
@@ -113,7 +113,7 @@
             android:id="@+id/freedomTxt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="자율 동아리"
+            android:text="@string/freeClub"
             android:textColor="@color/white"
             android:textSize="16sp"
             app:layout_constraintStart_toStartOf="@id/guideline10"
@@ -141,7 +141,7 @@
                 android:layout_height="32dp"
                 android:background="@drawable/bg_club_txt"
                 android:gravity="center"
-                android:text="동아리 이름"
+                android:text="@string/club_name"
                 android:textColor="@color/white"
                 android:textSize="12sp" />
         </LinearLayout>
@@ -162,7 +162,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:text="사설 동아리"
+            android:text="@string/personalClub"
             android:textColor="@color/white"
             android:textSize="16sp"
             app:layout_constraintStart_toStartOf="@id/guideline8"

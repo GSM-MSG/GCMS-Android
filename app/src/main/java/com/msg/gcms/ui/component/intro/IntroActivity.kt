@@ -55,7 +55,10 @@ class IntroActivity : BaseActivity<ActivityIntroBinding>(R.layout.activity_intro
                     shortToast("학교 계정으로 로그인 해주세요.")
                     client.signOut()
                 }
-                else -> shortToast("로그인에 실패했습니다.")
+                else -> {
+                    shortToast("로그인에 실패했습니다.")
+                    client.signOut()
+                }
             }
         })
     }

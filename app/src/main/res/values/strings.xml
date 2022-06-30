@@ -8,8 +8,12 @@
     <string name="club_type">동아리 유형</string>
     <string name="introduce_club">동아리 소개</string>
     <string name="major">전공</string>
+    <string name="majorClub">전공 동아리</string>
     <string name="free">자율</string>
+    <string name="freeClub">자율 동아리</string>
     <string name="personal">사설</string>
+    <string name="personalClub">사설 동아리</string>
+    <string name="afterSchool">방과후</string>
     <string name="detail">세부사항</string>
     <string name="club_name">동아리 이름</string>
     <string name="enter_club_name">동아리 이름을 입력해주세요.</string>
@@ -101,4 +105,21 @@
     <string name="terms_of_service">서비스 이용 약관</string>
     <string name="privacy_policy">개인정보 처리 방침</string>
 
+    <string name="logoutAsk">가시려구요?</string>
+    <string name="logoutBtn">로그아웃</string>
+    <string name="withdrawalBtn">회원탈퇴</string>
+    
+    <string name="withdrawal">탈퇴하기</string>
+    <string name="withdrawalAsk">탈퇴하시기 전에 확인해 주세요!</string>
+    <string name="withdrawalRule1">유저의 프로필, 아이디 등이 사라지게 됩니다.</string>
+    <string name="withdrawalRule2">본인이 생성한 동아리도 함께 삭제됩니다.</string>
+    <string name="withdrawalCheck">위 사항을 확인 했으며 동의합니다</string>
+
+    <string name="myProfile">내 프로필</string>
+    <string name="profileDefaultName">닉네임</string>
+    <string name="profileDefaultClass">x학년 x반 x번</string>
+
+    <string name="findClub">찾아보기</string>
+    <string name="noAfterSchool">아직 가입된 방과후가 없어요</string>
+    <string name="joinAfterSchoolAsk">방과후에 가입하세요!</string>
 </resources>

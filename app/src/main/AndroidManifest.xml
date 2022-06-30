@@ -38,6 +38,8 @@
             android:name=".ui.component.main.MainActivity"
             android:exported="false"/>
         <activity android:name=".ui.component.profile.ProfileActivity" />
+        <activity android:name=".ui.component.withdrawal.WithdrawalActivity"
+            android:exported="false"/>
     </application>
 
 </manifest>

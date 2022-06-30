@@ -10,5 +10,6 @@ interface UserRepository {
     suspend fun getUserInfo(): Response<UserInfoResponse>
     suspend fun putProfile(body: UserProfileRequest): Response<Void>
     suspend fun getUserSearch(QueryString: Map<String,String>): Response<List<UserData>>
-    suspend fun deleteUser(body: UserDeleteRequest): Response<Void>
+    suspend fun postExit(body: UserDeleteRequest): Response<Void>
+    suspend fun deleteUser(): Response<Void>
 }

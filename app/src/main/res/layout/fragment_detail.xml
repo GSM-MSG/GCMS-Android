@@ -171,7 +171,7 @@
                 <View
                     android:layout_width="0dp"
                     android:layout_height="1dp"
-                    android:background="@color/gray_13"
+                    android:background="@color/gray_15"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/clubMemberShowingBtn"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -211,7 +211,7 @@
                 <View
                     android:layout_width="0dp"
                     android:layout_height="1dp"
-                    android:background="@color/gray_13"
+                    android:background="@color/gray_15"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/clubLeaveBtn"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -260,7 +260,7 @@
                 <View
                     android:layout_width="0dp"
                     android:layout_height="1dp"
-                    android:background="@color/gray_13"
+                    android:background="@color/gray_15"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/textView2"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -300,7 +300,7 @@
                 <View
                     android:layout_width="0dp"
                     android:layout_height="1dp"
-                    android:background="@color/gray_13"
+                    android:background="@color/gray_15"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/clubMemberManagementBtn"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -340,7 +340,7 @@
                 <View
                     android:layout_width="0dp"
                     android:layout_height="1dp"
-                    android:background="@color/gray_13"
+                    android:background="@color/gray_15"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/clubEditBtn"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -380,7 +380,7 @@
                 <View
                     android:layout_width="0dp"
                     android:layout_height="1dp"
-                    android:background="@color/gray_13"
+                    android:background="@color/gray_15"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/clubDeleteBtn"
                     app:layout_constraintEnd_toEndOf="parent"
