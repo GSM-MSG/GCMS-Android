@@ -21,7 +21,6 @@ class ClubFragment : BaseFragment<FragmentClubBinding>(R.layout.fragment_club) {
     private val TAG = "ClubFragment"
     private val viewModel by activityViewModels<MainViewModel>()
     private val detailViewModel by activityViewModels<ClubDetailViewModel>()
-    private val clubViewModel by activityViewModels<ClubViewModel>()
     private lateinit var adapter: ClubListAdapter
     override fun init() {
         viewModel.getClubList()

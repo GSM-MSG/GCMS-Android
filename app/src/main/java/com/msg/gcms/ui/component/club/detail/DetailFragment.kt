@@ -180,21 +180,20 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
                     it.visibility = View.INVISIBLE
                 }
                 "OTHER" -> {
-                    if (detailViewModel.result.value!!.club.isOpened) {
-                        if (detailViewModel.result.value!!.isApplied) {
-                            it.text = getString(R.string.club_application_cancle)
-                            it.setBackgroundColor(resources.getColor(R.color.pink))
-                            it.visibility = View.VISIBLE
-                        } else it.visibility = View.INVISIBLE
-                    } else {
-                        it.visibility = View.INVISIBLE
-                    }
+                    it.visibility = View.INVISIBLE
                 }
                 "USER" -> {
                     if (detailViewModel.result.value!!.club.isOpened) {
-                        it.text = getString(R.string.club_application)
-                        it.setBackgroundColor(resources.getColor(R.color.dark_blue))
-                        it.visibility = View.VISIBLE
+                        detailViewModel.result.value!!.isApplied.let { applied ->
+                            it.text = if (applied) {
+                                getString(R.string.club_application_cancle)
+                            } else getString(R.string.club_application)
+                            it.setBackgroundColor(
+                                if (applied) {
+                                    resources.getColor(R.color.pink)
+                                } else resources.getColor(R.color.dark_blue)
+                            )
+                        }
                     } else {
                         it.visibility = View.INVISIBLE
                     }
@@ -239,39 +238,38 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
             "MEMBER" -> {
             }
             "OTHER" -> {
-                detailViewModel.result.value!!.club.let { result ->
-                    BaseDialog(
-                        getString(R.string.club_application_cancle),
-                        getString(R.string.ask_cancel_application),
-                        requireContext()
-                    ).let { dialog ->
-                        dialog.show()
-                        dialog.dialogBinding.ok.setOnClickListener {
-                            clubViewModel.postClubCancel(result.type, result.title)
-                            clubViewModel.getClubStatus.observe(this) {
-                                dialog.dismiss()
-                            }
-                        }
-                    }
-                }
             }
             "USER" -> {
                 detailViewModel.result.value!!.club.let { result ->
-                    BaseDialog(
-                        getString(R.string.application),
-                        getString(
-                            R.string.ask_application_club, result.title
-                        ),
-                        requireContext()
-                    ).let { dialog ->
-                        dialog.show()
-                        dialog.dialogBinding.ok.setOnClickListener {
-                            clubViewModel.postClubApply(
-                                result.type,
-                                result.title
-                            )
-                            clubViewModel.getClubStatus.observe(this) {
-                                dialog.dismiss()
+                    detailViewModel.result.value!!.isApplied.let { applied ->
+                        BaseDialog(
+                            if (applied) {
+                                getString(R.string.cancel)
+                            } else getString(R.string.application),
+                            if (applied) {
+                                getString(
+                                    R.string.ask_cancel_application
+                                )
+                            } else getString(
+                                R.string.ask_application_club, result.title
+                            ),
+                            requireContext()
+                        ).let { dialog ->
+                            dialog.show()
+                            dialog.dialogBinding.ok.setOnClickListener {
+                                if (applied) {
+                                    clubViewModel.postClubCancel(
+                                        result.type,
+                                        result.title
+                                    )
+                                } else
+                                    clubViewModel.postClubApply(
+                                        result.type,
+                                        result.title
+                                    )
+                                clubViewModel.getClubStatus.observe(this) {
+                                    dialog.dismiss()
+                                }
                             }
                         }
                     }
@@ -286,6 +284,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
                 detailViewModel.getDetail(it.type, it.title)
             }
             when (status) {
+                in 200..299 -> {}
                 401 -> shortToast("토큰이 만료되었습니다, 다시 로그인 해주세요")
                 403 -> shortToast("권한이 없습니다.")
                 404 -> shortToast("존재하지 않는 동아리 입니다.")
