@@ -176,23 +176,15 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
                     )
                     it.visibility = View.VISIBLE
                 }
-                "MEMBER" -> {
-                    it.visibility = View.INVISIBLE
-                }
-                "OTHER" -> {
+                "MEMBER", "OTHER" -> {
                     it.visibility = View.INVISIBLE
                 }
                 "USER" -> {
                     if (detailViewModel.result.value!!.club.isOpened) {
                         detailViewModel.result.value!!.isApplied.let { applied ->
-                            it.text = if (applied) {
-                                getString(R.string.club_application_cancle)
-                            } else getString(R.string.club_application)
-                            it.setBackgroundColor(
-                                if (applied) {
-                                    resources.getColor(R.color.pink)
-                                } else resources.getColor(R.color.dark_blue)
-                            )
+                            it.text =
+                                getString(if (applied) R.string.club_application_cancle else R.string.club_application)
+                            it.setBackgroundColor(resources.getColor(if (applied) R.color.pink else R.color.dark_blue))
                         }
                     } else {
                         it.visibility = View.INVISIBLE
@@ -207,16 +199,8 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
             "HEAD" -> {
                 detailViewModel.result.value!!.club.isOpened.let { open ->
                     BaseDialog(
-                        if (open) {
-                            getString(R.string.deadline)
-                        } else {
-                            getString(R.string.open)
-                        },
-                        if (open) {
-                            getString(R.string.ask_dead_club_application)
-                        } else {
-                            getString(R.string.ask_open_club_application)
-                        },
+                        getString(if (open) R.string.deadline else R.string.open),
+                        getString(if (open) R.string.ask_dead_club_application else R.string.ask_open_club_application),
                         requireContext()
                     ).let { dialog ->
                         dialog.show()
@@ -235,23 +219,16 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
                     }
                 }
             }
-            "MEMBER" -> {
-            }
-            "OTHER" -> {
+            "MEMBER", "OTHER" -> {
             }
             "USER" -> {
                 detailViewModel.result.value!!.club.let { result ->
                     detailViewModel.result.value!!.isApplied.let { applied ->
                         BaseDialog(
-                            if (applied) {
-                                getString(R.string.cancel)
-                            } else getString(R.string.application),
-                            if (applied) {
-                                getString(
-                                    R.string.ask_cancel_application
-                                )
-                            } else getString(
-                                R.string.ask_application_club, result.title
+                            getString(if (applied) R.string.cancel else R.string.application),
+                            getString(
+                                if (applied) R.string.ask_cancel_application else R.string.ask_application_club,
+                                result.title
                             ),
                             requireContext()
                         ).let { dialog ->
