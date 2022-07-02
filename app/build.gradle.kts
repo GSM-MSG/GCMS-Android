@@ -90,4 +90,6 @@ dependencies {
     implementation(Dependency.ImageLoad.COIL)
 
     implementation(Dependency.Google.LIVEDATA)
+
+    implementation(Dependency.Lottie.LOTTIE)
 }
