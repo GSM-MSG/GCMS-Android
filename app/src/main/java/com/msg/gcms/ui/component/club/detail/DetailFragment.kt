@@ -43,7 +43,6 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
 
     private fun observeEvent() {
         observeResult()
-        observeStatus()
     }
 
     private fun clickEvent() {
@@ -159,6 +158,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
         detailViewModel.result.value!!.club.let { result ->
             binding.submitBtn.setOnClickListener {
                 Log.d(TAG, "body: ${result.type}, ${result.title}")
+                observeStatus()
                 changeDialog()
             }
         }
@@ -186,6 +186,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
                                 getString(if (applied) R.string.club_application_cancle else R.string.club_application)
                             it.setBackgroundColor(resources.getColor(if (applied) R.color.pink else R.color.dark_blue))
                         }
+                        it.visibility = View.VISIBLE
                     } else {
                         it.visibility = View.INVISIBLE
                     }
@@ -258,6 +259,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
     private fun observeStatus() {
         clubViewModel.getClubStatus.observe(this) { status ->
             detailViewModel.result.value!!.club.let {
+                Log.d(TAG,"ㅎㅇ")
                 detailViewModel.getDetail(it.type, it.title)
             }
             when (status) {

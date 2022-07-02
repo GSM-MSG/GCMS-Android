@@ -35,11 +35,12 @@ class ClubFragment : BaseFragment<FragmentClubBinding>(R.layout.fragment_club) {
             adapter = ClubListAdapter(viewModel.clubData.value)
             adapter.setItemOnClickListener(object : ClubListAdapter.OnItemClickListener {
                 override fun onClick(position: Int) {
-                    observeStatus()
                     detailViewModel.getDetail(
                         viewModel.clubData.value?.get(position)!!.type,
                         viewModel.clubData.value?.get(position)!!.title
                     )
+                    observeStatus()
+                    Log.d(TAG,"${viewModel.clubData.value?.get(position)!!.type}, ${viewModel.clubData.value?.get(position)!!.title}")
                 }
             })
             binding.clubRecyclerView.adapter = adapter
