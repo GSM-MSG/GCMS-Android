@@ -9,9 +9,11 @@ import android.database.Cursor
 import android.net.Uri
 import android.provider.MediaStore
 import android.util.Log
+import android.view.LayoutInflater
 import android.view.View
 import android.widget.ImageView
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
@@ -20,6 +22,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import coil.load
 import coil.transform.RoundedCornersTransformation
 import com.msg.gcms.R
+import com.msg.gcms.base.utils.Event
 import com.msg.gcms.data.local.entity.ActivityPhotoType
 import com.msg.gcms.data.remote.dto.datasource.user.response.UserData
 import com.msg.gcms.databinding.FragmentMakeClubDetailBinding
@@ -74,11 +77,11 @@ class MakeClubDetailFragment :
         makeClubViewModel.createResult.observe(this) {
             when(it){
                 true -> {
-                    shortToast("생성 성공!!")
+                    shortToast(Event("생성 성공!!").getContentIfNotHandled().toString())
                     requireActivity().finish()
                 }
                 false -> {
-                    shortToast("생성 실패")
+                    shortToast(Event("생성 실패").getContentIfNotHandled().toString())
                 }
             }
         }
@@ -142,7 +145,14 @@ class MakeClubDetailFragment :
                 makeClubViewModel.imageUploadCheck()
             }
             makeClubViewModel.bannerImageUpload(bannerImage)
+            progressSetting()
         }
+    }
+
+    private fun progressSetting() {
+        val layoutBuilder = LayoutInflater.from(context).inflate(R.layout.progress_bar, null)
+        val builder = AlertDialog.Builder(requireContext()).setView(layoutBuilder)
+        builder.show()
     }
 
 

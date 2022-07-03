@@ -204,8 +204,12 @@
         <entry key="app/src/main/res/layout/list_search_member.xml" value="0.25" />
         <entry key="app/src/main/res/layout/list_search_student.xml" value="0.37604166666666666" />
         <entry key="app/src/main/res/layout/logout_dialog.xml" value="0.23717948717948717" />
+        <entry key="app/src/main/res/layout/progress_bar.xml" value="0.23717948717948717" />
       </map>
     </option>
+  </component>
+  <component name="ProjectPlainTextFileTypeManager">
+    <file url="file://$PROJECT_DIR$/app/src/main/res/raw/96744-whale-loader.json" />
   </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="11" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
