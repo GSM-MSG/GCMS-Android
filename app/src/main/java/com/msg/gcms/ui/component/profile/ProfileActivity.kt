@@ -13,7 +13,6 @@ import androidx.core.content.ContextCompat
 import coil.load
 import coil.transform.CircleCropTransformation
 import com.google.android.gms.auth.api.signin.GoogleSignIn
-import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.material.snackbar.Snackbar
 import com.msg.gcms.R
@@ -32,7 +31,6 @@ import java.io.File
 @AndroidEntryPoint
 class ProfileActivity : BaseActivity<ActivityProfileBinding>(R.layout.activity_profile) {
     private val viewModel by viewModels<ProfileViewModel>()
-    private lateinit var client: GoogleSignInClient
     override fun observeEvent() {
         myProfile()
         isClub()

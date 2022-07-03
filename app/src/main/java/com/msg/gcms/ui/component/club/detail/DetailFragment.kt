@@ -182,12 +182,12 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
                             R.string.open_application
                         } else R.string.close_application
                     )
-                    binding.headSideBar.visibility = View.VISIBLE
+                    // binding.headSideBar.visibility = View.VISIBLE
                     binding.memberSideBar.visibility = View.GONE
                 }
                 "MEMBER" -> {
                     it.visibility = View.INVISIBLE
-                    binding.memberSideBar.visibility = View.VISIBLE
+                    // binding.memberSideBar.visibility = View.VISIBLE
                     binding.headSideBar.visibility = View.GONE
                 }
                 "OTHER" -> {

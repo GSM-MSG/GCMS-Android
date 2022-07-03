@@ -89,4 +89,8 @@ object Dependency {
     object ImageLoad {
         const val COIL = "io.coil-kt:coil:${Versions.COIL_VERSION}"
     }
+
+    object Lottie {
+        const val LOTTIE = "com.airbnb.android:lottie:${Versions.LOTTIE_VERSION}"
+    }
 }
