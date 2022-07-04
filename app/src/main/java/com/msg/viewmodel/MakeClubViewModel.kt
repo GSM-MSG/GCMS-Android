@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.msg.gcms.data.local.entity.ActivityPhotoType
 import com.msg.gcms.data.remote.dto.datasource.club.request.CreateClubRequest
 import com.msg.gcms.data.remote.dto.datasource.user.response.UserData
 import com.msg.gcms.domain.usecase.club.ClubUseCase
@@ -49,9 +50,10 @@ class MakeClubViewModel @Inject constructor(
 
     private var _activityUpload = false
 
+    var activityPhotoList = mutableListOf<ActivityPhotoType>()
+
     private val _createResult = MutableLiveData<Boolean>()
     val createResult: LiveData<Boolean> get() = _createResult
-
 
     var title: String = ""
     var description: String = ""
