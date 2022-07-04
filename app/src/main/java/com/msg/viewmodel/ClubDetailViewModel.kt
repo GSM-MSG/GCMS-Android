@@ -18,15 +18,14 @@ class ClubDetailViewModel @Inject constructor(
 
     private val TAG = "GetDetailViewModel"
 
-    private val _result = MutableLiveData<ClubInfoResponse>()
-    val result: LiveData<ClubInfoResponse> get() = _result
+    private val _result = MutableLiveData<ClubInfoResponse?>()
+    val result: LiveData<ClubInfoResponse?> get() = _result
 
     private val _getDetailStatus = MutableLiveData<Int>()
     val getDetailStatus: LiveData<Int> get() = _getDetailStatus
 
     private val _showNav = MutableLiveData<Boolean>()
     val showNav: LiveData<Boolean> get() = _showNav
-
 
     fun getDetail(type: String, q: String) {
         viewModelScope.launch {
@@ -52,5 +51,9 @@ class ClubDetailViewModel @Inject constructor(
 
     fun setNav(boolean: Boolean) {
         _showNav.value = boolean
+    }
+
+    fun clearResult() {
+        _result.value = null
     }
 }

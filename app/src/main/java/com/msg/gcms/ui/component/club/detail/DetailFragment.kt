@@ -3,7 +3,6 @@ package com.msg.gcms.ui.component.club.detail
 import android.util.Log
 import android.view.View
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import coil.load
@@ -23,8 +22,6 @@ import com.msg.gcms.ui.component.main.MainActivity
 import com.msg.gcms.utils.ItemDecorator
 import com.msg.viewmodel.ClubDetailViewModel
 import com.msg.viewmodel.ClubViewModel
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_detail),
@@ -42,6 +39,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
         observeEvent()
         clickEvent()
         viewSet()
+        Log.d(TAG,detailViewModel.result.value!!.toString())
     }
 
     private fun observeEvent() {
@@ -56,12 +54,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
     private fun viewSet() {
         detailViewModel.setNav(false)
         settingRecyclerView()
-        ctrollShimmer(true)
-        lifecycleScope.launch {
-            ctrollShimmer(true)
-            delay(2000)
-            ctrollShimmer(false)
-        }
+        controllShimmer(true)
     }
 
     private fun showInfo() {
@@ -83,6 +76,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
                 }
                 clubMemberRecycler(it.member)
                 clubPromotionImgRecycler(it.activityUrls)
+                controllShimmer(false)
             }
         }
     }
@@ -282,7 +276,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
         }
     }
 
-    private fun ctrollShimmer(loading: Boolean) {
+    private fun controllShimmer(loading: Boolean) {
         with(binding) {
             if (loading) {
                 bannerShimmer.startShimmer()
@@ -304,8 +298,8 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
     }
 
     override fun onBackPressed() {
+        detailViewModel.setNav(true)
         requireActivity().supportFragmentManager.beginTransaction()
             .replace(R.id.fragment_club, ClubFragment()).commit()
-        detailViewModel.setNav(true)
     }
 }

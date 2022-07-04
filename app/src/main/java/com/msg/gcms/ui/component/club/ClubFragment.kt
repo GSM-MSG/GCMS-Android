@@ -40,7 +40,12 @@ class ClubFragment : BaseFragment<FragmentClubBinding>(R.layout.fragment_club) {
                         viewModel.clubData.value?.get(position)!!.title
                     )
                     observeStatus()
-                    Log.d(TAG,"${viewModel.clubData.value?.get(position)!!.type}, ${viewModel.clubData.value?.get(position)!!.title}")
+                    Log.d(
+                        TAG,
+                        "${viewModel.clubData.value?.get(position)!!.type}, ${
+                            viewModel.clubData.value?.get(position)!!.title
+                        }"
+                    )
                 }
             })
             binding.clubRecyclerView.adapter = adapter
@@ -71,16 +76,22 @@ class ClubFragment : BaseFragment<FragmentClubBinding>(R.layout.fragment_club) {
     }
 
     private fun observeStatus() {
-        detailViewModel.getDetailStatus.observe(this) {
-            when (it) {
-                in 200..299 -> {
-                    Log.d(TAG, "GetDetail : Status - $it")
-                    requireActivity().supportFragmentManager.beginTransaction()
-                        .replace(R.id.fragment_club, DetailFragment()).commit()
-                }
-                else -> {
-                    shortToast("동아리 정보를 불러오지 못했습니다.")
-                    Log.d(TAG, "GetDetail : Error Status - $it")
+        detailViewModel.clearResult()
+        detailViewModel.result.observe(this) {
+            if (it != null) {
+                when (detailViewModel.getDetailStatus.value) {
+                    in 200..299 -> {
+                        Log.d(TAG, "GetDetail : Status - ${detailViewModel.getDetailStatus.value}")
+                        requireActivity().supportFragmentManager.beginTransaction()
+                            .replace(R.id.fragment_club, DetailFragment()).commit()
+                    }
+                    else -> {
+                        shortToast("동아리 정보를 불러오지 못했습니다.")
+                        Log.d(
+                            TAG,
+                            "GetDetail : Error Status - ${detailViewModel.getDetailStatus.value}"
+                        )
+                    }
                 }
             }
         }
