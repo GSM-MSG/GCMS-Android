@@ -1,75 +1,82 @@
 package com.msg.gcms.ui.component.profile
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.graphics.BitmapFactory
+import android.database.Cursor
+import android.net.Uri
+import android.provider.MediaStore
 import androidx.activity.viewModels
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import androidx.fragment.app.Fragment
+import coil.load
+import coil.transform.CircleCropTransformation
 import com.google.android.gms.auth.api.signin.GoogleSignIn
-import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.material.snackbar.Snackbar
 import com.msg.gcms.R
 import com.msg.gcms.databinding.ActivityProfileBinding
 import com.msg.gcms.ui.base.BaseActivity
 import com.msg.gcms.ui.component.intro.IntroActivity
+import com.msg.gcms.ui.component.withdrawal.WithdrawalActivity
+import com.msg.gcms.ui.component.withdrawal.WithdrawalDialog
 import com.msg.viewmodel.ProfileViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
+import java.io.File
 
 @AndroidEntryPoint
 class ProfileActivity : BaseActivity<ActivityProfileBinding>(R.layout.activity_profile) {
     private val viewModel by viewModels<ProfileViewModel>()
-    private lateinit var client: GoogleSignInClient
     override fun observeEvent() {
-        isClub()
         myProfile()
+        isClub()
+        isLogout()
     }
 
     override fun viewSetting() {
-        getUserInfo()
         clickBackBtn()
         clickProfileEdit()
         clickLogout()
     }
 
     private fun myProfile(){
+        viewModel.getUserInfo()
         viewModel.profileData.observe(this) {
             binding.apply {
                 userNameTxt.text = it.userData.name
-                userClassTxt.text = "${it.userData.grade}학년 ${it.userData.`class`}반 ${it.userData.num}번"
+                userClassTxt.text =
+                    "${it.userData.grade}학년 ${it.userData.`class`}반 ${it.userData.num}번"
+                profileImg.load(it.userData.userImg) {
+                    transformations(CircleCropTransformation())
+                }
             }
         }
     }
 
     private fun isLogout() {
-        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            .requestIdToken(getString(R.string.default_web_client_id))
-            .requestEmail()
-            .build()
-        client = GoogleSignIn.getClient(this, gso)
-        client.signOut()
         viewModel.logoutStatus.observe(this) {
-            if (it) {
-                val intent = Intent(this, IntroActivity::class.java)
-                startActivity(intent)
-                finish()
-            }
+            val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.default_web_client_id))
+                .requestEmail()
+                .build()
+            GoogleSignIn.getClient(this, gso).signOut()
+            val intent = Intent(this, IntroActivity::class.java)
+            startActivity(intent)
+            finish()
         }
     }
 
     private fun isClub() {
         viewModel.clubStatus.observe(this) {
-            if(it){
-                supportFragmentManager.beginTransaction().replace(R.id.profileList, ProfileClubFragment()).commit()
+            if (it) {
+                supportFragmentManager.beginTransaction()
+                    .replace(R.id.profileList, ProfileClubFragment()).commit()
             }
         }
-    }
-
-    private fun getUserInfo() {
-        viewModel.getUserInfo()
     }
 
     private fun clickBackBtn() {
@@ -85,9 +92,9 @@ class ProfileActivity : BaseActivity<ActivityProfileBinding>(R.layout.activity_p
                     android.Manifest.permission.READ_EXTERNAL_STORAGE
                 ) == PackageManager.PERMISSION_GRANTED
             ) {
-                val intent = Intent()
+                val intent = Intent(Intent.ACTION_PICK)
                 intent.type = "image/*"
-                intent.action = Intent.ACTION_GET_CONTENT
+                intent.data = MediaStore.Images.Media.EXTERNAL_CONTENT_URI
                 startActivityForResult(intent, 0)
             } else {
                 ActivityCompat.requestPermissions(
@@ -98,10 +105,21 @@ class ProfileActivity : BaseActivity<ActivityProfileBinding>(R.layout.activity_p
         }
     }
 
-    private fun clickLogout(){
-        binding.logoutBtn.setOnClickListener {
-            viewModel.logout()
-            isLogout()
+    private fun clickLogout() {
+        binding.logoutOption.setOnClickListener {
+            WithdrawalDialog(this).apply {
+                setDialogListener(object : WithdrawalDialog.WithdrawalDialogListener {
+                    override fun logout() {
+                        viewModel.logout()
+                    }
+
+                    override fun goWithdrawal() {
+                        val intent = Intent(this@ProfileActivity, WithdrawalActivity::class.java)
+                        startActivity(intent)
+                    }
+                })
+                show()
+            }
         }
     }
 
@@ -110,10 +128,14 @@ class ProfileActivity : BaseActivity<ActivityProfileBinding>(R.layout.activity_p
         if (requestCode == 0) {
             if (resultCode == RESULT_OK) {
                 try {
-                    val imgIn = contentResolver.openInputStream(data!!.data!!)
-                    val img = BitmapFactory.decodeStream(imgIn)
-                    imgIn!!.close()
-                    binding.profileImg.setImageBitmap(img)
+                    binding.profileImg.load(data?.data) {
+                        transformations(CircleCropTransformation())
+                    }
+                    val currentUri = data?.data
+                    val file = File(getPathFromUri(currentUri))
+                    val requestFile = RequestBody.create("image/*".toMediaTypeOrNull(), file)
+                    val img = MultipartBody.Part.createFormData("files", file.name, requestFile)
+                    viewModel.uploadImg(img)
                 } catch (e: Exception) {
                     e.printStackTrace()
                 }
@@ -137,5 +159,14 @@ class ProfileActivity : BaseActivity<ActivityProfileBinding>(R.layout.activity_p
                 }
             }
         }
+    }
+
+    @SuppressLint("Range")
+    private fun getPathFromUri(uri: Uri?): String? {
+        val cursor: Cursor? = contentResolver.query(uri!!, null, null, null, null)
+        cursor?.moveToNext()
+        val path: String = cursor!!.getString(cursor!!.getColumnIndex("_data"))
+        cursor.close()
+        return path
     }
 }

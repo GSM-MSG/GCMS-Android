@@ -5,8 +5,10 @@ import com.msg.gcms.data.remote.dto.datasource.user.request.UserProfileRequest
 import com.msg.gcms.data.remote.dto.datasource.user.response.UserData
 import com.msg.gcms.data.remote.dto.datasource.user.response.UserInfoResponse
 import retrofit2.Response
+import retrofit2.http.Body
 import retrofit2.http.DELETE
 import retrofit2.http.GET
+import retrofit2.http.POST
 import retrofit2.http.PUT
 import retrofit2.http.QueryMap
 
@@ -16,7 +18,7 @@ interface UserAPI {
 
     @PUT("user/profile")
     suspend fun putProfile(
-        body: UserProfileRequest
+        @Body body: UserProfileRequest
     ): Response<Void>
 
     @GET("user/search")
@@ -24,8 +26,11 @@ interface UserAPI {
         @QueryMap QueryString: Map<String, String>
     ): Response<List<UserData>>
 
-    @DELETE("user/exit")
-    suspend fun deleteUser(
+    @POST("user/exit")
+    suspend fun postExit(
         body: UserDeleteRequest
     ): Response<Void>
+
+    @DELETE("user/withdrawal")
+    suspend fun deleteUser(): Response<Void>
 }

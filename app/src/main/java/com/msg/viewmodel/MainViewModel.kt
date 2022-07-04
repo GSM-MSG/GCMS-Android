@@ -36,13 +36,13 @@ class MainViewModel @Inject constructor(
                 val response = clubUseCase.getClubList(
                     when (clubName.value) {
                         "전공동아리" -> "MAJOR"
-                        "자율동아리" -> "EDITORIAL"
-                        "사설동아리" -> "FREEDOM"
+                        "자율동아리" -> "FREEDOM"
+                        "사설동아리" -> "EDITORIAL"
                         else -> "MAJOR"
                     }
                 )
                 _clubData.value = response.body()
-            } catch (e: Exception){
+            } catch (e: Exception) {
                 Log.d("ERROR", "getClubList: ${e.message}")
             }
         }

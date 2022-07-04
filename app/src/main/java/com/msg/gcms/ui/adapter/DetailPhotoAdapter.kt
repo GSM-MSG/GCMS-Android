@@ -7,18 +7,18 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import coil.transform.RoundedCornersTransformation
-import com.msg.gcms.data.local.entity.ActivityPhotoType
+import com.msg.gcms.data.local.entity.PromotionPicType
 import com.msg.gcms.databinding.ListDetailClubPromotionBinding
 
 class DetailPhotoAdapter :
-    ListAdapter<ActivityPhotoType, DetailPhotoAdapter.ActivityPhotoViewHolder>(diffCallBack) {
+    ListAdapter<PromotionPicType, DetailPhotoAdapter.ActivityPhotoViewHolder>(diffCallBack) {
 
     class ActivityPhotoViewHolder(private val binding: ListDetailClubPromotionBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(data: ActivityPhotoType) {
-            binding.image.load(data.activityPhoto)
+        fun bind(data: PromotionPicType) {
+            binding.image.load(data.promotionUrl)
             {
-                transformations(RoundedCornersTransformation(9f,9f,9f,9f))
+                transformations(RoundedCornersTransformation(9f, 9f, 9f, 9f))
             }
             binding.executePendingBindings()
         }
@@ -39,19 +39,19 @@ class DetailPhotoAdapter :
     }
 
     companion object {
-        val diffCallBack = object : DiffUtil.ItemCallback<ActivityPhotoType>() {
+        val diffCallBack = object : DiffUtil.ItemCallback<PromotionPicType>() {
             override fun areItemsTheSame(
-                oldItem: ActivityPhotoType,
-                newItem: ActivityPhotoType
+                oldItem: PromotionPicType,
+                newItem: PromotionPicType
             ): Boolean {
                 return oldItem == newItem
             }
 
             override fun areContentsTheSame(
-                oldItem: ActivityPhotoType,
-                newItem: ActivityPhotoType
+                oldItem: PromotionPicType,
+                newItem: PromotionPicType
             ): Boolean {
-                return oldItem.activityPhoto == newItem.activityPhoto
+                return oldItem.promotionUrl == newItem.promotionUrl
             }
         }
     }

@@ -26,9 +26,11 @@ class UserRepositoryImpl @Inject constructor(
         return dataSource.getUserSearch(QueryString)
     }
 
-    override suspend fun deleteUser(
-        body: UserDeleteRequest
-    ): Response<Void> {
-        return dataSource.deleteUser(body)
+    override suspend fun postExit(body: UserDeleteRequest): Response<Void> {
+        return dataSource.postExit(body)
+    }
+
+    override suspend fun deleteUser(): Response<Void> {
+        return dataSource.deleteUser()
     }
 }

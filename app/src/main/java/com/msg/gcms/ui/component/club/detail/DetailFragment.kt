@@ -9,6 +9,7 @@ import coil.load
 import coil.transform.CircleCropTransformation
 import com.msg.gcms.R
 import com.msg.gcms.data.local.entity.ActivityPhotoType
+import com.msg.gcms.data.local.entity.PromotionPicType
 import com.msg.gcms.data.remote.dto.datasource.club.response.MemberSummaryResponse
 import com.msg.gcms.data.remote.dto.datasource.club.response.UserInfo
 import com.msg.gcms.databinding.FragmentDetailBinding
@@ -31,7 +32,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
     private val detailViewModel by activityViewModels<ClubDetailViewModel>()
     private val clubViewModel by activityViewModels<ClubViewModel>()
     var membersList = mutableListOf<MemberSummaryResponse>()
-    var activityUrlsList = mutableListOf<ActivityPhotoType>()
+    var activityUrlsList = mutableListOf<PromotionPicType>()
     private val detailMemberAdapter = DetailMemberAdapter()
     private val detailPhotoAdaper = DetailPhotoAdapter()
 
@@ -124,8 +125,8 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
         for (i in photo.indices) {
             try {
                 activityUrlsList.add(
-                    ActivityPhotoType(
-                        activityPhoto = photo[i]
+                    PromotionPicType(
+                        promotionUrl = photo[i]
                     )
                 )
             } catch (e: Exception) {

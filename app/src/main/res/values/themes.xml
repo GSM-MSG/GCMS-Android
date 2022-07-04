@@ -18,4 +18,8 @@
         <item name="boxStrokeColor">@color/dark_blue</item>
         <item name="boxStrokeWidth">1dp</item>
     </style>
+
+    <style name="CustomFullDialog">
+        <item name="android:windowIsFloating">true</item>
+    </style>
 </resources>

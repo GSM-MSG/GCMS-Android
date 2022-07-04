@@ -92,4 +92,6 @@ dependencies {
     implementation(Dependency.Google.LIVEDATA)
 
     implementation(Dependency.Libraries.SHIMMER)
+
+    implementation(Dependency.Lottie.LOTTIE)
 }

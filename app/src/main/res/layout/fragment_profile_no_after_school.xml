@@ -26,7 +26,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:text="찾아보기"
+            android:text="@string/findClub"
             android:fontFamily="@font/notosans"
             android:textColor="@color/white"
             android:textSize="16sp"/>
@@ -40,7 +40,7 @@
             android:textColor="@color/gray_9"
             android:textSize="14sp"
             android:fontFamily="@font/notosans"
-            android:text="아직 가입된 방과후가 없어요"
+            android:text="@string/noAfterSchool"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"/>
         <TextView
@@ -50,7 +50,7 @@
             android:textColor="@color/gray_10"
             android:textSize="12sp"
             android:fontFamily="@font/notosans"
-            android:text="방과후에 가입하세요!"
+            android:text="@string/joinAfterSchoolAsk"
             app:layout_constraintTop_toBottomOf="@id/noClubTxt"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"/>

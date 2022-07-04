@@ -47,7 +47,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="18sp"
-            android:text="방과후"
+            android:text="@string/afterSchool"
             android:fontFamily="@font/notosans"
             android:textFontWeight="700"
             android:layout_marginTop="61dp"
@@ -66,14 +66,14 @@
             android:id="@+id/majorTxt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="전공 동아리"
+            android:text="@string/majorClub"
             android:textColor="@color/white"
             android:textSize="16sp"
             app:layout_constraintTop_toBottomOf="@id/afterSchoolFragmentView"
             app:layout_constraintStart_toStartOf="@id/guideline8" />
 
         <LinearLayout
-            android:visibility="gone"
+            android:visibility="invisible"
             android:id="@+id/majorClubLayout"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -83,42 +83,45 @@
             app:layout_constraintTop_toBottomOf="@id/majorTxt">
 
             <ImageView
+                android:id="@+id/majorClubImg"
                 android:layout_width="match_parent"
                 android:layout_height="150dp"
-                android:layout_marginTop="8dp"
-                android:background="@color/white" />
+                android:layout_marginTop="8dp" />
 
             <TextView
+                android:id="@+id/majorClubName"
                 android:layout_width="match_parent"
                 android:layout_height="32dp"
                 android:background="@drawable/bg_club_txt"
                 android:gravity="center"
-                android:text="동아리 이름"
+                android:text="@string/club_name"
                 android:textColor="@color/white"
                 android:textSize="12sp" />
         </LinearLayout>
 
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:id="@+id/noMajorClubImg"
+            android:layout_width="0dp"
+            android:layout_height="182dp"
             android:layout_marginTop="7.97dp"
             android:background="@drawable/bg_club_img"
             app:layout_constraintTop_toBottomOf="@id/majorTxt"
-            app:layout_constraintStart_toStartOf="@id/guideline8" />
+            app:layout_constraintStart_toStartOf="@id/guideline8"
+            app:layout_constraintEnd_toEndOf="@id/guideline9"/>
 
         <TextView
             android:id="@+id/freedomTxt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="자율 동아리"
+            android:text="@string/freeClub"
             android:textColor="@color/white"
             android:textSize="16sp"
             app:layout_constraintStart_toStartOf="@id/guideline10"
             app:layout_constraintTop_toBottomOf="@id/afterSchoolFragmentView" />
 
         <LinearLayout
-            android:visibility="gone"
-            android:id="@+id/freedomClub"
+            android:visibility="invisible"
+            android:id="@+id/freedomClubLayout"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:orientation="vertical"
@@ -127,48 +130,54 @@
             app:layout_constraintTop_toBottomOf="@id/freedomTxt">
 
             <ImageView
+                android:id="@+id/freedomClubImg"
                 android:layout_width="match_parent"
                 android:layout_height="150dp"
-                android:layout_marginTop="7.97dp"
-                android:background="@color/white" />
+                android:layout_marginTop="7.97dp"/>
 
             <TextView
+                android:id="@+id/freedomClubName"
                 android:layout_width="match_parent"
                 android:layout_height="32dp"
                 android:background="@drawable/bg_club_txt"
                 android:gravity="center"
-                android:text="동아리 이름"
+                android:text="@string/club_name"
                 android:textColor="@color/white"
                 android:textSize="12sp" />
         </LinearLayout>
 
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:id="@+id/noFreedomClubImg"
+            android:layout_width="0dp"
+            android:layout_height="182dp"
             android:layout_marginTop="7.97dp"
             android:background="@drawable/bg_club_img"
             app:layout_constraintTop_toBottomOf="@id/freedomTxt"
-            app:layout_constraintStart_toStartOf="@id/guideline10" />
+            app:layout_constraintStart_toStartOf="@id/guideline10"
+            app:layout_constraintEnd_toEndOf="@id/guideline11"/>
 
         <TextView
+            android:visibility="invisible"
             android:id="@+id/privateClub"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="208dp"
-            android:text="사설 동아리"
+            android:layout_marginTop="20dp"
+            android:text="@string/personalClub"
             android:textColor="@color/white"
             android:textSize="16sp"
             app:layout_constraintStart_toStartOf="@id/guideline8"
-            app:layout_constraintTop_toBottomOf="@id/majorTxt" />
+            app:layout_constraintTop_toBottomOf="@id/majorClubLayout" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/freeClubRecyclerview"
+            android:visibility="gone"
+            android:id="@+id/privateClubRecyclerview"
             android:layout_width="0dp"
-            android:layout_height="500dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="7.97dp"
+            android:overScrollMode="never"
             app:layout_constraintEnd_toEndOf="@id/guideline11"
             app:layout_constraintStart_toStartOf="@id/guideline8"
-            app:layout_constraintTop_toBottomOf="@id/privateClub" />
+            app:layout_constraintTop_toBottomOf="@id/privateClub"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
