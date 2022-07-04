@@ -3,6 +3,7 @@ package com.msg.gcms.ui.component.club.detail
 import android.util.Log
 import android.view.View
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import coil.load
@@ -22,6 +23,8 @@ import com.msg.gcms.ui.component.main.MainActivity
 import com.msg.gcms.utils.ItemDecorator
 import com.msg.viewmodel.ClubDetailViewModel
 import com.msg.viewmodel.ClubViewModel
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_detail),
@@ -53,6 +56,12 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
     private fun viewSet() {
         detailViewModel.setNav(false)
         settingRecyclerView()
+        ctrollShimmer(true)
+        lifecycleScope.launch {
+            ctrollShimmer(true)
+            delay(2000)
+            ctrollShimmer(false)
+        }
     }
 
     private fun showInfo() {
@@ -259,7 +268,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
     private fun observeStatus() {
         clubViewModel.getClubStatus.observe(this) { status ->
             detailViewModel.result.value!!.club.let {
-                Log.d(TAG,"ㅎㅇ")
+                Log.d(TAG, "ㅎㅇ")
                 detailViewModel.getDetail(it.type, it.title)
             }
             when (status) {
@@ -269,6 +278,20 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
                 404 -> shortToast("존재하지 않는 동아리 입니다.")
                 409 -> shortToast("이미 다른 동아리에 신청 혹은 소속되어있습니다.")
                 else -> shortToast("알수 없는 오류.")
+            }
+        }
+    }
+
+    private fun ctrollShimmer(loading: Boolean) {
+        with(binding) {
+            if (loading) {
+                bannerShimmer.startShimmer()
+                clubBanner.visibility = View.GONE
+                bannerShimmer.visibility = View.VISIBLE
+            } else {
+                bannerShimmer.stopShimmer()
+                clubBanner.visibility = View.VISIBLE
+                bannerShimmer.visibility = View.GONE
             }
         }
     }
