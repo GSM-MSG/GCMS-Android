@@ -40,7 +40,6 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
         observeEvent()
         clickEvent()
         viewSet()
-        Log.d(TAG,detailViewModel.result.value!!.toString())
     }
 
     private fun observeEvent() {
@@ -161,7 +160,6 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
     private fun clickSubmitBtn() {
         detailViewModel.result.value!!.club.let { result ->
             binding.submitBtn.setOnClickListener {
-                Log.d(TAG, "body: ${result.type}, ${result.title}")
                 observeStatus()
                 changeDialog()
             }
@@ -263,7 +261,6 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
     private fun observeStatus() {
         clubViewModel.getClubStatus.observe(this) { status ->
             detailViewModel.result.value!!.club.let {
-                Log.d(TAG, "ㅎㅇ")
                 detailViewModel.getDetail(it.type, it.title)
             }
             when (status) {
