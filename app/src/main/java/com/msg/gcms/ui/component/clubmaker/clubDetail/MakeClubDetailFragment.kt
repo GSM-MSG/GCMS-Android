@@ -154,7 +154,7 @@ class MakeClubDetailFragment :
     }
 
     private fun photoCheck() {
-        if (bannerImage == null) {
+        if (bannerImageUri == null) {
             shortToast("배너 이미지를 삽입하여 주세요!!")
         } else {
             if (activityPhotoMultipart.isNotEmpty()) {
@@ -246,13 +246,14 @@ class MakeClubDetailFragment :
                         val imageUri: Uri = data.clipData!!.getItemAt(i).uri
                         makeClubViewModel.activityPhotoList.add(ActivityPhotoType(activityPhoto = imageUri))
                         activityAdapter = ActivityPhotosAdapter(makeClubViewModel.activityPhotoList)
-                        binding.clubActivePicture.adapter = activityAdapter
                         val file = File(getPathFromUri(imageUri))
                         val requestFile = RequestBody.create("image/*".toMediaTypeOrNull(), file)
                         val img = MultipartBody.Part.createFormData("files", file.name, requestFile)
                         Log.d("TAG", "onActivityResult: $img")
                         activityPhotoMultipart.add(img)
                     }
+                    binding.clubActivePicture.adapter = activityAdapter
+
                     activityAdapter.setItemOnClickListener(object :
                         ActivityPhotosAdapter.OnItemClickListener {
                         override fun onClick(position: Int) {
