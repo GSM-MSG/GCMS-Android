@@ -102,7 +102,6 @@
             android:translationZ="0.02dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:foregroundGravity="right"
             android:background="@color/light_black"
             app:layout_constraintStart_toStartOf="@+id/guideline19">
 
@@ -233,7 +232,6 @@
             app:layout_constraintTop_toTopOf="parent"
             android:background="@color/light_black"
             android:translationZ="0.02dp"
-            android:foregroundGravity="right"
             app:layout_constraintStart_toStartOf="@+id/guideline19">
 
             <androidx.constraintlayout.widget.ConstraintLayout
