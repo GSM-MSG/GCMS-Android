@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <GridLayout
+            android:orientation="vertical"
+            android:rowCount="2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:layout_margin="5dp"
+                android:background="@color/gray_3"
+                android:id="@+id/image1"
+                android:scaleType="fitXY"
+                android:layout_width="180dp"
+                android:layout_height="190dp" />
+
+            <ImageView
+                android:layout_margin="5dp"
+                android:background="@color/gray_3"
+                android:id="@+id/image2"
+                android:scaleType="fitXY"
+                android:layout_width="180dp"
+                android:layout_height="190dp" />
+
+            <ImageView
+                android:layout_margin="5dp"
+                android:background="@color/gray_3"
+                android:id="@+id/image3"
+                android:scaleType="fitXY"
+                android:layout_width="180dp"
+                android:layout_height="190dp" />
+
+            <ImageView
+                android:layout_margin="5dp"
+                android:background="@color/gray_3"
+                android:id="@+id/image4"
+                android:scaleType="fitXY"
+                android:layout_width="180dp"
+                android:layout_height="190dp" />
+
+        </GridLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -32,6 +32,8 @@ class RegistrationViewModel @Inject constructor(
         GCMSApplication.prefs.apply {
             accessToken = response.accessToken
             refreshToken = response.refreshToken
+            Log.d(TAG,"access : $accessToken")
+            Log.d(TAG,"refresh : $refreshToken")
         }
     }
 

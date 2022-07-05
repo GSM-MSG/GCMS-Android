@@ -2,6 +2,8 @@ package com.msg.gcms.ui.component.club
 
 import android.content.Intent
 import android.util.Log
+import android.view.LayoutInflater
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import com.msg.gcms.R
@@ -19,7 +21,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class ClubFragment : BaseFragment<FragmentClubBinding>(R.layout.fragment_club) {
     private val TAG = "ClubFragment"
     private val viewModel by activityViewModels<MainViewModel>()
-    val detailViewModel by activityViewModels<ClubDetailViewModel>()
+    private val detailViewModel by activityViewModels<ClubDetailViewModel>()
     private lateinit var adapter: ClubListAdapter
     override fun init() {
         viewModel.getClubList()
@@ -35,10 +37,17 @@ class ClubFragment : BaseFragment<FragmentClubBinding>(R.layout.fragment_club) {
             adapter = ClubListAdapter(viewModel.clubData.value)
             adapter.setItemOnClickListener(object : ClubListAdapter.OnItemClickListener {
                 override fun onClick(position: Int) {
-                    observeStatus()
+                    progressSetting()
                     detailViewModel.getDetail(
                         viewModel.clubData.value?.get(position)!!.type,
                         viewModel.clubData.value?.get(position)!!.title
+                    )
+                    observeStatus()
+                    Log.d(
+                        TAG,
+                        "${viewModel.clubData.value?.get(position)!!.type}, ${
+                            viewModel.clubData.value?.get(position)!!.title
+                        }"
                     )
                 }
             })
@@ -69,16 +78,29 @@ class ClubFragment : BaseFragment<FragmentClubBinding>(R.layout.fragment_club) {
         }
     }
 
+    private fun progressSetting() {
+        val layoutBuilder = LayoutInflater.from(context).inflate(R.layout.progress_bar, null)
+        val builder = AlertDialog.Builder(requireContext()).setView(layoutBuilder)
+        builder.show()
+    }
+
     private fun observeStatus() {
-        detailViewModel.getDetailStatus.observe(this) {
-            when (it) {
-                in 200..299 -> {
-                    Log.d(TAG, "GetDetail : Status - $it")
-                    requireActivity().supportFragmentManager.beginTransaction()
-                        .replace(R.id.fragment_club, DetailFragment()).commit()
-                }
-                else -> {
-                    Log.d(TAG, "GetDetail : Error Status - $it")
+        detailViewModel.clearResult()
+        detailViewModel.result.observe(this) {
+            if (it != null) {
+                when (detailViewModel.getDetailStatus.value) {
+                    in 200..299 -> {
+                        Log.d(TAG, "GetDetail : Status - ${detailViewModel.getDetailStatus.value}")
+                        requireActivity().supportFragmentManager.beginTransaction()
+                            .replace(R.id.fragment_club, DetailFragment()).commit()
+                    }
+                    else -> {
+                        shortToast("동아리 정보를 불러오지 못했습니다.")
+                        Log.d(
+                            TAG,
+                            "GetDetail : Error Status - ${detailViewModel.getDetailStatus.value}"
+                        )
+                    }
                 }
             }
         }
