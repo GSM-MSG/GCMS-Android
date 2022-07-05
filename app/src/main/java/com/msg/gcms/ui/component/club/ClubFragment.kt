@@ -2,6 +2,8 @@ package com.msg.gcms.ui.component.club
 
 import android.content.Intent
 import android.util.Log
+import android.view.LayoutInflater
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import com.msg.gcms.R
@@ -35,6 +37,7 @@ class ClubFragment : BaseFragment<FragmentClubBinding>(R.layout.fragment_club) {
             adapter = ClubListAdapter(viewModel.clubData.value)
             adapter.setItemOnClickListener(object : ClubListAdapter.OnItemClickListener {
                 override fun onClick(position: Int) {
+                    progressSetting()
                     detailViewModel.getDetail(
                         viewModel.clubData.value?.get(position)!!.type,
                         viewModel.clubData.value?.get(position)!!.title
@@ -73,6 +76,12 @@ class ClubFragment : BaseFragment<FragmentClubBinding>(R.layout.fragment_club) {
             intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP)
             startActivity(intent)
         }
+    }
+
+    private fun progressSetting() {
+        val layoutBuilder = LayoutInflater.from(context).inflate(R.layout.progress_bar, null)
+        val builder = AlertDialog.Builder(requireContext()).setView(layoutBuilder)
+        builder.show()
     }
 
     private fun observeStatus() {
