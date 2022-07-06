@@ -1,7 +1,6 @@
 package com.msg.gcms.ui.component.club.detail
 
 import android.util.Log
-import android.view.Gravity
 import android.view.View
 import androidx.core.net.toUri
 import androidx.fragment.app.activityViewModels
@@ -11,11 +10,13 @@ import coil.load
 import coil.transform.CircleCropTransformation
 import com.msg.gcms.R
 import com.msg.gcms.data.local.entity.ActivityPhotoType
+import com.msg.gcms.data.local.entity.NavigationModel
 import com.msg.gcms.data.remote.dto.datasource.club.response.MemberSummaryResponse
 import com.msg.gcms.data.remote.dto.datasource.club.response.UserInfo
 import com.msg.gcms.databinding.FragmentDetailBinding
 import com.msg.gcms.ui.adapter.DetailMemberAdapter
 import com.msg.gcms.ui.adapter.DetailPhotoAdapter
+import com.msg.gcms.ui.adapter.NavigationAdapter
 import com.msg.gcms.ui.base.BaseFragment
 import com.msg.gcms.ui.component.club.ClubFragment
 import com.msg.gcms.ui.component.main.MainActivity
@@ -33,6 +34,18 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
     var activityUrlsList = mutableListOf<ActivityPhotoType>()
     private val detailMemberAdapter = DetailMemberAdapter()
     private val detailPhotoAdapter = DetailPhotoAdapter()
+    private lateinit var navigationAdapter: NavigationAdapter
+
+    private val userSideBarItems = arrayListOf(
+        NavigationModel(R.drawable.ic_person_two, "동아리 멤버 확인"),
+        NavigationModel(R.drawable.ic_club_delete, "동아리...떠나기...⭐️")
+    )
+
+    private val headSideBarItems = arrayListOf(
+        NavigationModel(R.drawable.ic_person_two, "동아리 관리하기"),
+        NavigationModel(R.drawable.ic_edit, "동아리 수정하기"),
+        NavigationModel(R.drawable.ic_club_delete, "동아리 삭제.")
+    )
 
     override fun init() {
         detailViewModel.setNav(false)
@@ -150,21 +163,17 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
             setHasFixedSize(true)
             addItemDecoration(ItemDecorator(20, "VERTICAL"))
         }
-    }
-
-    private fun clickSubmitBtn() {
-        binding.submitBtn.setOnClickListener {
-
+        with(binding.sideBarRv) {
+            layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL,false)
+            setHasFixedSize(true)
         }
     }
 
     fun sideBarBtn(view: View) {
         when(detailViewModel.result.value?.scope) {
             "HEAD" -> {
-                binding.headSideBar.openDrawer(Gravity.RIGHT)
             }
             "MEMBER" -> {
-                binding.memberSideBar.openDrawer(Gravity.RIGHT)
             }
             else -> {
                 shortToast("권한이 없습니다.")
@@ -182,17 +191,22 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
                             R.string.open_application
                         } else R.string.close_application
                     )
-                    binding.headSideBar.visibility = View.VISIBLE
-                    binding.memberSideBar.visibility = View.GONE
+                    navigationAdapter = NavigationAdapter(items = headSideBarItems)
+                    navigationAdapter.setItemOnClickListener(object: NavigationAdapter.OnItemClickListener {
+                        override fun onClick(position: Int) {
+                            shortToast(position.toString())
+                        }
+                    })
+                    binding.sideBarRv.adapter = navigationAdapter
                 }
                 "MEMBER" -> {
                     it.visibility = View.INVISIBLE
-                    binding.memberSideBar.visibility = View.VISIBLE
-                    binding.headSideBar.visibility = View.GONE
+                    navigationAdapter = NavigationAdapter(items = userSideBarItems)
+                    binding.sideBarRv.adapter = navigationAdapter
                 }
                 "OTHER" -> {
                     it.visibility = View.INVISIBLE
-                    notClubMember()
+                    binding.sideBarBtn.visibility = View.GONE
                 }
                 "USER" -> {
                     if (detailViewModel.result.value!!.club.isOpened) {
@@ -211,17 +225,9 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
                     } else {
                         it.visibility = View.INVISIBLE
                     }
-                    notClubMember()
+                    binding.sideBarBtn.visibility = View.GONE
                 }
             }
-        }
-    }
-
-    private fun notClubMember() {
-        with(binding) {
-            headSideBar.visibility = View.GONE
-            memberSideBar.visibility = View.GONE
-            sideBarBtn.visibility = View.GONE
         }
     }
 

@@ -11,6 +11,7 @@
     </data>
 
     <androidx.drawerlayout.widget.DrawerLayout
+        android:id="@+id/drawerLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:openDrawer="end">
@@ -19,6 +20,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/dark_blue"
+            android:fitsSystemWindows="true"
             tools:context=".ui.component.club.detail.DetailFragment">
 
             <androidx.constraintlayout.widget.Guideline
@@ -348,7 +350,7 @@
                 android:layout_marginTop="52dp"
                 android:layout_marginEnd="24dp"
                 android:layout_marginBottom="16dp"
-                android:layout_gravity="right"/>
+                android:layout_gravity="right" />
 
             <View
                 android:layout_width="220dp"
@@ -357,11 +359,12 @@
                 android:layout_gravity="right" />
 
             <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/sideBarRv"
                 android:layout_width="@dimen/navigation_drawer_width"
                 android:layout_height="0dp"
                 android:layout_weight="1"
                 android:layout_gravity="right"
-                tools:listitem="@layout/list_row_nav_of_side"/>
+                tools:listitem="@layout/list_row_nav_of_side" />
         </LinearLayout>
     </androidx.drawerlayout.widget.DrawerLayout>
 </layout>

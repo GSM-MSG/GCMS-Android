@@ -190,7 +190,7 @@
         <entry key="app/src/main/res/layout/fragment_club_home.xml" value="0.37604166666666666" />
         <entry key="app/src/main/res/layout/fragment_club_introduce.xml" value="0.375" />
         <entry key="app/src/main/res/layout/fragment_club_type.xml" value="0.165" />
-        <entry key="app/src/main/res/layout/fragment_detail.xml" value="0.18211881627587134" />
+        <entry key="app/src/main/res/layout/fragment_detail.xml" value="0.200775146484375" />
         <entry key="app/src/main/res/layout/fragment_email_check.xml" value="0.28854166666666664" />
         <entry key="app/src/main/res/layout/fragment_make_club_detail.xml" value="0.335" />
         <entry key="app/src/main/res/layout/fragment_post_email.xml" value="0.14166666666666666" />
@@ -202,6 +202,7 @@
         <entry key="app/src/main/res/layout/list_add_member.xml" value="0.745805497602983" />
         <entry key="app/src/main/res/layout/list_club_member.xml" value="0.37604166666666666" />
         <entry key="app/src/main/res/layout/list_club_picture.xml" value="0.6380597014925373" />
+        <entry key="app/src/main/res/layout/list_club_summary.xml" value="0.23717948717948717" />
         <entry key="app/src/main/res/layout/list_row_nav_of_side.xml" value="0.2402191162109375" />
         <entry key="app/src/main/res/layout/list_search_member.xml" value="0.25" />
         <entry key="app/src/main/res/layout/list_search_student.xml" value="0.37604166666666666" />
