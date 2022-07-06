@@ -1,12 +1,14 @@
 package com.msg.viewmodel
 
 import android.util.Log
+import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.msg.gcms.data.remote.dto.datasource.club.request.ClubIdentificationRequest
 import com.msg.gcms.domain.usecase.club.ClubUseCase
+import com.msg.gcms.ui.base.LottieFragment
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -15,6 +17,8 @@ import javax.inject.Inject
 class ClubViewModel @Inject constructor(
     private val clubUseCase: ClubUseCase
 ) : ViewModel() {
+
+    private val lottie by lazy { LottieFragment() }
 
     private val _getClubStatus = MutableLiveData<Int>()
     val getClubStatus: LiveData<Int> get() = _getClubStatus
@@ -80,6 +84,18 @@ class ClubViewModel @Inject constructor(
             else -> {
                 Log.d(TAG, "status: $code")
             }
+        }
+    }
+
+    fun startLottie(fragmentManager: FragmentManager) {
+        if(!lottie.isAdded){
+            lottie.show(fragmentManager,"Lottie")
+        }
+    }
+
+    fun stopLottie() {
+        if (lottie.isAdded) {
+            lottie.dismissAllowingStateLoss()
         }
     }
 }

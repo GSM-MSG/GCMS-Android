@@ -2,8 +2,6 @@ package com.msg.gcms.ui.component.club
 
 import android.content.Intent
 import android.util.Log
-import android.view.LayoutInflater
-import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import com.msg.gcms.R
@@ -14,17 +12,19 @@ import com.msg.gcms.ui.component.club.detail.DetailFragment
 import com.msg.gcms.ui.component.clubmaker.MakeClubActivity
 import com.msg.gcms.ui.component.profile.ProfileActivity
 import com.msg.viewmodel.ClubDetailViewModel
+import com.msg.viewmodel.ClubViewModel
 import com.msg.viewmodel.MainViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class ClubFragment : BaseFragment<FragmentClubBinding>(R.layout.fragment_club) {
     private val TAG = "ClubFragment"
-    private val viewModel by activityViewModels<MainViewModel>()
+    private val mainViewModel by activityViewModels<MainViewModel>()
     private val detailViewModel by activityViewModels<ClubDetailViewModel>()
+    private val clubViewModel by activityViewModels<ClubViewModel>()
     private lateinit var adapter: ClubListAdapter
     override fun init() {
-        viewModel.getClubList()
+        mainViewModel.getClubList()
         recyclerview()
         clickProfile()
         clickMakeClubBtn()
@@ -33,22 +33,16 @@ class ClubFragment : BaseFragment<FragmentClubBinding>(R.layout.fragment_club) {
 
     private fun recyclerview() {
         binding.clubRecyclerView.layoutManager = GridLayoutManager(context, 2)
-        viewModel.clubData.observe(this) {
-            adapter = ClubListAdapter(viewModel.clubData.value)
+        mainViewModel.clubData.observe(this) {
+            adapter = ClubListAdapter(mainViewModel.clubData.value)
             adapter.setItemOnClickListener(object : ClubListAdapter.OnItemClickListener {
                 override fun onClick(position: Int) {
-                    progressSetting()
+                    clubViewModel.startLottie(requireActivity().supportFragmentManager)
                     detailViewModel.getDetail(
-                        viewModel.clubData.value?.get(position)!!.type,
-                        viewModel.clubData.value?.get(position)!!.title
+                        mainViewModel.clubData.value?.get(position)!!.type,
+                        mainViewModel.clubData.value?.get(position)!!.title
                     )
                     observeStatus()
-                    Log.d(
-                        TAG,
-                        "${viewModel.clubData.value?.get(position)!!.type}, ${
-                            viewModel.clubData.value?.get(position)!!.title
-                        }"
-                    )
                 }
             })
             binding.clubRecyclerView.adapter = adapter
@@ -56,9 +50,9 @@ class ClubFragment : BaseFragment<FragmentClubBinding>(R.layout.fragment_club) {
     }
 
     private fun clubTxt() {
-        viewModel.clubName.observe(this) {
-            binding.clubNameTxt.text = viewModel.clubName.value
-            viewModel.getClubList()
+        mainViewModel.clubName.observe(this) {
+            binding.clubNameTxt.text = mainViewModel.clubName.value
+            mainViewModel.getClubList()
         }
     }
 
@@ -76,12 +70,6 @@ class ClubFragment : BaseFragment<FragmentClubBinding>(R.layout.fragment_club) {
             intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP)
             startActivity(intent)
         }
-    }
-
-    private fun progressSetting() {
-        val layoutBuilder = LayoutInflater.from(context).inflate(R.layout.progress_bar, null)
-        val builder = AlertDialog.Builder(requireContext()).setView(layoutBuilder)
-        builder.show()
     }
 
     private fun observeStatus() {

@@ -8,7 +8,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import coil.load
 import coil.transform.CircleCropTransformation
 import com.msg.gcms.R
-import com.msg.gcms.data.local.entity.ActivityPhotoType
 import com.msg.gcms.data.local.entity.PromotionPicType
 import com.msg.gcms.data.remote.dto.datasource.club.response.MemberSummaryResponse
 import com.msg.gcms.data.remote.dto.datasource.club.response.UserInfo
@@ -77,6 +76,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
                 clubMemberRecycler(it.member)
                 clubPromotionImgRecycler(it.activityUrls)
                 controllShimmer(false)
+                clubViewModel.stopLottie()
             }
         }
     }
