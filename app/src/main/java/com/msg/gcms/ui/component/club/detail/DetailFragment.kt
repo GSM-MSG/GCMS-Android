@@ -10,13 +10,11 @@ import coil.load
 import coil.transform.CircleCropTransformation
 import com.msg.gcms.R
 import com.msg.gcms.data.local.entity.ActivityPhotoType
-import com.msg.gcms.data.local.entity.NavigationModel
 import com.msg.gcms.data.remote.dto.datasource.club.response.MemberSummaryResponse
 import com.msg.gcms.data.remote.dto.datasource.club.response.UserInfo
 import com.msg.gcms.databinding.FragmentDetailBinding
 import com.msg.gcms.ui.adapter.DetailMemberAdapter
 import com.msg.gcms.ui.adapter.DetailPhotoAdapter
-import com.msg.gcms.ui.adapter.NavigationAdapter
 import com.msg.gcms.ui.base.BaseFragment
 import com.msg.gcms.ui.component.club.ClubFragment
 import com.msg.gcms.ui.component.main.MainActivity
@@ -34,18 +32,6 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
     var activityUrlsList = mutableListOf<ActivityPhotoType>()
     private val detailMemberAdapter = DetailMemberAdapter()
     private val detailPhotoAdapter = DetailPhotoAdapter()
-    private lateinit var navigationAdapter: NavigationAdapter
-
-    private val userSideBarItems = arrayListOf(
-        NavigationModel(R.drawable.ic_person_two, "동아리 멤버 확인"),
-        NavigationModel(R.drawable.ic_club_delete, "동아리...떠나기...⭐️")
-    )
-
-    private val headSideBarItems = arrayListOf(
-        NavigationModel(R.drawable.ic_person_two, "동아리 관리하기"),
-        NavigationModel(R.drawable.ic_edit, "동아리 수정하기"),
-        NavigationModel(R.drawable.ic_club_delete, "동아리 삭제.")
-    )
 
     override fun init() {
         detailViewModel.setNav(false)
@@ -163,14 +149,10 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
             setHasFixedSize(true)
             addItemDecoration(ItemDecorator(20, "VERTICAL"))
         }
-        with(binding.sideBarRv) {
-            layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL,false)
-            setHasFixedSize(true)
-        }
     }
 
     fun sideBarBtn(view: View) {
-        when(detailViewModel.result.value?.scope) {
+        when (detailViewModel.result.value?.scope) {
             "HEAD" -> {
             }
             "MEMBER" -> {
@@ -191,18 +173,9 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
                             R.string.open_application
                         } else R.string.close_application
                     )
-                    navigationAdapter = NavigationAdapter(items = headSideBarItems)
-                    navigationAdapter.setItemOnClickListener(object: NavigationAdapter.OnItemClickListener {
-                        override fun onClick(position: Int) {
-                            shortToast(position.toString())
-                        }
-                    })
-                    binding.sideBarRv.adapter = navigationAdapter
                 }
                 "MEMBER" -> {
                     it.visibility = View.INVISIBLE
-                    navigationAdapter = NavigationAdapter(items = userSideBarItems)
-                    binding.sideBarRv.adapter = navigationAdapter
                 }
                 "OTHER" -> {
                     it.visibility = View.INVISIBLE

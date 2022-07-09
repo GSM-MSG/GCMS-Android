@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/club_member_management"
+        android:title="@string/club_member_management"
+        android:icon="@drawable/ic_person_two"
+        />
+    <item
+        android:id="@+id/club_edit"
+        android:title="@string/club_edit"
+        android:icon="@drawable/ic_edit"/>
+
+    <item
+        android:id="@+id/club_delete"
+        android:title="@string/club_delete"
+        android:icon="@drawable/ic_club_delete"/>
+</menu>
