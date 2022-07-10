@@ -33,6 +33,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
     private val detailMemberAdapter = DetailMemberAdapter()
     private val detailPhotoAdapter = DetailPhotoAdapter()
 
+
     override fun init() {
         detailViewModel.setNav(false)
         observeEvent()
@@ -86,6 +87,10 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
         binding.backBtn.setOnClickListener {
             goBack()
         }
+    }
+
+    fun clickSideBar(view: View) {
+        binding.drawerLayout.openDrawer(binding.sideBar)
     }
 
     private fun goBack() {
@@ -151,18 +156,6 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
         }
     }
 
-    fun sideBarBtn(view: View) {
-        when (detailViewModel.result.value?.scope) {
-            "HEAD" -> {
-            }
-            "MEMBER" -> {
-            }
-            else -> {
-                shortToast("권한이 없습니다.")
-            }
-        }
-    }
-
     private fun checkRole() {
         binding.submitBtn.let {
             when (detailViewModel.result.value!!.scope) {
@@ -173,9 +166,11 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
                             R.string.open_application
                         } else R.string.close_application
                     )
+                    binding.sideBarBtn.visibility = View.VISIBLE
                 }
                 "MEMBER" -> {
                     it.visibility = View.INVISIBLE
+                    binding.sideBarBtn.visibility = View.VISIBLE
                 }
                 "OTHER" -> {
                     it.visibility = View.INVISIBLE

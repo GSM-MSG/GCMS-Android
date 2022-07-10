@@ -14,6 +14,7 @@
         android:id="@+id/drawerLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        tools:openDrawer="end"
         android:fitsSystemWindows="true">
 
         <!--    메인 페이지    -->
@@ -54,16 +55,18 @@
 
             <ImageView
                 android:id="@+id/back_btn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="20dp"
+                android:layout_height="27dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="29dp"
-                android:background="@drawable/ic_back_btn"
+                android:padding="5dp"
+                android:src="@drawable/ic_back_btn"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                />
 
             <TextView
-                android:id="@+id/club_name"
+                android:id="@+id/clubName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="29dp"
@@ -74,7 +77,6 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-
             <ImageView
                 android:id="@+id/sideBarBtn"
                 android:layout_width="wrap_content"
@@ -82,17 +84,18 @@
                 android:layout_marginTop="29.73dp"
                 android:layout_marginEnd="16.6dp"
                 android:background="@drawable/ic_side_btn"
+                android:onClick="@{detail::clickSideBar}"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:onClick="@{detail::sideBarBtn}" />
+                app:layout_constraintTop_toTopOf="parent"/>
+
 
             <ImageView
                 android:scaleType="fitXY"
-                android:translationZ="-0.01dp"
                 android:id="@+id/club_banner"
                 app:layout_constraintBottom_toTopOf="@id/guideline7"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
+                android:translationZ="-1dp"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
@@ -338,7 +341,13 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             app:headerLayout="@layout/header_layout"
-            app:menu="@menu/bottom_navigation_menu">
+            android:layout_gravity="end"
+            android:backgroundTint="@color/light_black"
+            app:itemIconTint="@color/white"
+            app:itemTextColor="@color/white"
+            app:itemIconPadding="45dp"
+            app:itemHorizontalPadding="54dp"
+            app:menu="@menu/head_detail_menu">
         </com.google.android.material.navigation.NavigationView>
     </androidx.drawerlayout.widget.DrawerLayout>
 </layout>
