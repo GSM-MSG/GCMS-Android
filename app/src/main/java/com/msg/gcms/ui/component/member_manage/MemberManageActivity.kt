@@ -1,6 +1,8 @@
 package com.msg.gcms.ui.component.member_manage
 
 import android.animation.ObjectAnimator
+import android.content.Context
+import android.util.Log
 import android.view.View
 import androidx.activity.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -14,80 +16,81 @@ import com.msg.viewmodel.MemberManageViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class MemberMangeActivity :
+class MemberManageActivity :
     BaseActivity<ActivityMemberManagementBinding>(R.layout.activity_member_management) {
     private val viewModel by viewModels<MemberManageViewModel>()
     lateinit var memberAdapter: MemberAdapter
     lateinit var applicantAdapter: ApplicantAdapter
     override fun observeEvent() {
         viewModel.memberList.observe(this) {
-            settingRecyclerView()
+            settingMemberAdapter()
         }
         viewModel.applicantList.observe(this) {
-            settingRecyclerView2()
+            settingApplicantAdapter()
         }
     }
 
     override fun viewSetting() {
         clickExpandable()
+        clickBackBtn()
     }
 
-    private fun settingRecyclerView() {
+    private fun showDialog(title: String, msg: String, context: Context, action: Unit) {
+        BaseDialog(title, msg, context).let { dialog ->
+            dialog.show()
+            dialog.dialogBinding.ok.setOnClickListener {
+                action
+                viewModel.getMember()
+                viewModel.getApplicant()
+                dialog.dismiss()
+            }
+        }
+    }
+
+    private fun settingMemberAdapter() {
         memberAdapter = MemberAdapter(viewModel.memberList.value!!)
         memberAdapter.setItemOnClickListener(object : MemberAdapter.OnItemClickListener {
             override fun mandate(position: Int) {
-                BaseDialog("위임", "부장 권한이 이동됩니다", this@MemberMangeActivity).let {
-                    it.show()
-                    it.dialogBinding.ok.setOnClickListener {
-                        viewModel.delegate(viewModel.memberList.value!!.get(position).email)
-                    }
-                }
+                showDialog(
+                    "위임",
+                    "권한 넘어감",
+                    this@MemberManageActivity,
+                    viewModel.delegate(viewModel.memberList.value!!.get(position).email)
+                )
             }
 
             override fun kick(position: Int) {
-                BaseDialog(
+                showDialog(
                     "강퇴",
                     "${viewModel.memberList.value!!.get(position).name}님을 강퇴하시겠습니까?",
-                    this@MemberMangeActivity
-                ).let {
-                    it.show()
-                    it.dialogBinding.ok.setOnClickListener {
-                        viewModel.kickUser(viewModel.memberList.value!!.get(position).email)
-                    }
-                }
+                    this@MemberManageActivity,
+                    viewModel.kickUser(viewModel.memberList.value!!.get(position).email)
+                )
             }
         })
         binding.memberList.layoutManager = LinearLayoutManager(this)
         binding.memberList.adapter = memberAdapter
     }
 
-    private fun settingRecyclerView2() {
+    private fun settingApplicantAdapter() {
         applicantAdapter = ApplicantAdapter(viewModel.applicantList.value!!)
         applicantAdapter.setOnClickListener(object : ApplicantAdapter.onClickListener {
             override fun accept(position: Int) {
-                BaseDialog(
+                showDialog(
                     "승인",
                     "동료가 되었다!!",
-                    this@MemberMangeActivity
-                ).let {
-                    it.show()
-                    it.dialogBinding.ok.setOnClickListener {
-                        viewModel.accept(viewModel.memberList.value!!.get(position).email)
-                    }
-                }
+                    this@MemberManageActivity,
+                    viewModel.accept(viewModel.applicantList.value!!.get(position).email)
+                )
             }
 
             override fun reject(position: Int) {
-                BaseDialog(
+                showDialog(
                     "거절",
                     "바2",
-                    this@MemberMangeActivity
-                ).let {
-                    it.show()
-                    it.dialogBinding.ok.setOnClickListener {
-                        viewModel.reject(viewModel.memberList.value!!.get(position).email)
-                    }
-                }
+                    this@MemberManageActivity,
+                    viewModel.reject(viewModel.applicantList.value!!.get(position).email)
+                )
             }
         })
         binding.applicantList.layoutManager = LinearLayoutManager(this)
@@ -114,5 +117,11 @@ class MemberMangeActivity :
             view.rotation,
             view.rotation + if (visibility == View.GONE) -90 else 90
         ).setDuration(300).start()
+    }
+
+    private fun clickBackBtn() {
+        binding.backBtn.setOnClickListener {
+            finish()
+        }
     }
 }
