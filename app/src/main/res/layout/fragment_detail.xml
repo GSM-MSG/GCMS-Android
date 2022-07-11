@@ -10,337 +10,365 @@
             type="com.msg.gcms.ui.component.club.detail.DetailFragment" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.drawerlayout.widget.DrawerLayout
+        android:id="@+id/drawerLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/gray_12"
-        tools:context=".ui.component.club.detail.DetailFragment">
+        tools:openDrawer="end"
+        android:fitsSystemWindows="true">
 
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline1"
+        <!--    메인 페이지    -->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/detailPage"
             android:layout_width="match_parent"
-            android:layout_height="0.5dp"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.28" />
+            android:layout_height="match_parent"
+            android:background="@color/dark_blue"
+            tools:context=".ui.component.club.detail.DetailFragment">
 
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline5"
-            android:layout_width="match_parent"
-            android:layout_height="0.5dp"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.3" />
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline7"
-            android:layout_width="match_parent"
-            android:layout_height="0.5dp"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.34" />
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline8"
-            android:layout_width="match_parent"
-            android:layout_height="0.5dp"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_percent="1" />
-
-        <ImageView
-            android:id="@+id/back_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="29dp"
-            android:background="@drawable/ic_back_btn"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/club_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="29dp"
-            android:text="@string/club_name"
-            android:textColor="@color/white"
-            android:textSize="18sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="29.73dp"
-            android:layout_marginEnd="16.6dp"
-            android:background="@drawable/ic_side_btn"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <ImageView
-            android:scaleType="fitXY"
-            android:translationZ="-0.01dp"
-            android:id="@+id/club_banner"
-            app:layout_constraintBottom_toTopOf="@id/guideline7"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <com.facebook.shimmer.ShimmerFrameLayout
-            android:id="@+id/banner_shimmer"
-            app:layout_constraintBottom_toTopOf="@id/guideline7"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <LinearLayout
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline1"
                 android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent="0.28" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline5"
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent="0.3" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline7"
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent="0.34" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:layout_width="0.5dp"
                 android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.27777"
+                android:id="@+id/guideline19" />
 
-                <include layout="@layout/shimmer_banner" />
+            <ImageView
+                android:id="@+id/back_btn"
+                android:layout_width="20dp"
+                android:layout_height="27dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="29dp"
+                android:padding="5dp"
+                android:src="@drawable/ic_back_btn"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                />
 
-            </LinearLayout>
-        </com.facebook.shimmer.ShimmerFrameLayout>
+            <TextView
+                android:id="@+id/clubName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="29dp"
+                android:text="@string/club_name"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:background="@drawable/bg_detail_club"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toTopOf="@id/guideline1" />
+            <ImageView
+                android:id="@+id/sideBarBtn"
+                android:layout_width="28dp"
+                android:layout_height="25dp"
+                android:layout_marginTop="29.73dp"
+                android:layout_marginEnd="16.6dp"
+                android:src="@drawable/ic_side_btn"
+                android:padding="5dp"
+                android:onClick="@{detail::clickSideBar}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
 
-        <ScrollView
-            android:overScrollMode="never"
-            android:id="@+id/scroll"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toTopOf="@id/guideline5"
-            app:layout_constraintTop_toBottomOf="@id/guideline8">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <ImageView
+                android:scaleType="fitXY"
+                android:id="@+id/club_banner"
+                app:layout_constraintBottom_toTopOf="@id/guideline7"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="0dp"
+                android:translationZ="-1dp"
+                app:layout_constraintTop_toTopOf="parent" />
 
-                <androidx.constraintlayout.widget.Guideline
-                    android:id="@+id/guideline2"
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:background="@drawable/bg_detail_club"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toTopOf="@id/guideline1" />
+
+            <ScrollView
+                android:id="@+id/scroll"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toTopOf="@id/guideline5">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="0.5dp"
-                    android:orientation="vertical"
-                    app:layout_constraintGuide_percent="0.03" />
+                    android:layout_height="wrap_content">
 
-                <androidx.constraintlayout.widget.Guideline
-                    android:id="@+id/guideline3"
-                    android:layout_width="match_parent"
-                    android:layout_height="0.5dp"
-                    android:orientation="vertical"
-                    app:layout_constraintGuide_percent="0.97" />
+                    <androidx.constraintlayout.widget.Guideline
+                        android:id="@+id/guideline2"
+                        android:layout_width="match_parent"
+                        android:layout_height="0.5dp"
+                        android:orientation="vertical"
+                        app:layout_constraintGuide_percent="0.03" />
 
-                <androidx.constraintlayout.widget.Guideline
-                    android:id="@+id/guideline4"
-                    android:layout_width="match_parent"
-                    android:layout_height="0.5dp"
-                    android:orientation="vertical"
-                    app:layout_constraintGuide_percent="0.57" />
+                    <androidx.constraintlayout.widget.Guideline
+                        android:id="@+id/guideline3"
+                        android:layout_width="match_parent"
+                        android:layout_height="0.5dp"
+                        android:orientation="vertical"
+                        app:layout_constraintGuide_percent="0.97" />
 
-                <androidx.constraintlayout.widget.Guideline
-                    android:id="@+id/guideline6"
-                    android:layout_width="match_parent"
-                    android:layout_height="0.5dp"
-                    android:orientation="horizontal"
-                    app:layout_constraintGuide_percent="0.975" />
+                    <androidx.constraintlayout.widget.Guideline
+                        android:id="@+id/guideline4"
+                        android:layout_width="match_parent"
+                        android:layout_height="0.5dp"
+                        android:orientation="vertical"
+                        app:layout_constraintGuide_percent="0.57" />
 
-                <TextView
-                    android:id="@+id/explain_club"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:text="@string/explain_club"
-                    android:textColor="@color/white"
-                    android:textSize="18sp"
-                    app:layout_constraintStart_toStartOf="@id/guideline2"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    <androidx.constraintlayout.widget.Guideline
+                        android:id="@+id/guideline6"
+                        android:layout_width="match_parent"
+                        android:layout_height="0.5dp"
+                        android:orientation="horizontal"
+                        app:layout_constraintGuide_percent="0.975" />
 
-                <TextView
-                    android:layout_marginTop="30dp"
-                    android:id="@+id/notion_link"
-                    app:layout_constraintStart_toStartOf="@id/guideline2"
-                    app:layout_constraintTop_toBottomOf="@id/explain_club_txt"
-                    android:textColor="@color/white"
-                    android:textSize="18sp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/notion_link" />
+                    <TextView
+                        android:id="@+id/explain_club"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:text="@string/explain_club"
+                        android:textColor="@color/white"
+                        android:textSize="18sp"
+                        app:layout_constraintStart_toStartOf="@id/guideline2"
+                        app:layout_constraintTop_toTopOf="parent" />
 
-                <TextView
-                    android:id="@+id/explain_club_txt"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:text="@string/example_text"
-                    android:textColor="@color/white"
-                    android:textSize="16sp"
-                    app:layout_constraintEnd_toEndOf="@id/guideline3"
-                    app:layout_constraintStart_toStartOf="@id/guideline2"
-                    app:layout_constraintTop_toBottomOf="@id/explain_club" />
+                    <TextView
+                        android:layout_marginTop="30dp"
+                        android:id="@+id/notion_link"
+                        app:layout_constraintStart_toStartOf="@id/guideline2"
+                        app:layout_constraintTop_toBottomOf="@id/explain_club_txt"
+                        android:textColor="@color/white"
+                        android:textSize="18sp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/notion_link" />
 
-                <TextView
-                    android:id="@+id/promotion_club"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="45dp"
-                    android:text="@string/promotion_club"
-                    android:textColor="@color/white"
-                    android:textSize="18sp"
-                    app:layout_constraintStart_toStartOf="@id/guideline2"
-                    app:layout_constraintTop_toBottomOf="@id/link" />
+                    <TextView
+                        android:id="@+id/explain_club_txt"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:text="@string/example_text"
+                        android:textColor="@color/white"
+                        android:textSize="16sp"
+                        app:layout_constraintEnd_toEndOf="@id/guideline3"
+                        app:layout_constraintStart_toStartOf="@id/guideline2"
+                        app:layout_constraintTop_toBottomOf="@id/explain_club" />
 
-                <TextView
-                    android:linksClickable="true"
-                    android:autoLink="web"
-                    android:layout_marginTop="20dp"
-                    android:gravity="center"
-                    android:id="@+id/link"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:text="@string/example_text"
-                    android:textColor="@color/white"
-                    android:textSize="16sp"
-                    app:layout_constraintEnd_toEndOf="@id/guideline3"
-                    app:layout_constraintStart_toStartOf="@id/guideline2"
-                    app:layout_constraintTop_toBottomOf="@id/notion_link" />
+                    <TextView
+                        android:id="@+id/promotion_club"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="45dp"
+                        android:text="@string/promotion_club"
+                        android:textColor="@color/white"
+                        android:textSize="18sp"
+                        app:layout_constraintStart_toStartOf="@id/guideline2"
+                        app:layout_constraintTop_toBottomOf="@id/link" />
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:overScrollMode="never"
-                    android:id="@+id/promotion_club_img"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    tools:listitem="@layout/list_detail_club_promotion"
-                    app:layout_constraintEnd_toEndOf="@id/guideline3"
-                    app:layout_constraintStart_toStartOf="@id/guideline2"
-                    app:layout_constraintTop_toBottomOf="@id/promotion_club" />
+                    <TextView
+                        android:linksClickable="true"
+                        android:autoLink="web"
+                        android:layout_marginTop="20dp"
+                        android:gravity="center"
+                        android:id="@+id/link"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="@string/example_text"
+                        android:textColor="@color/white"
+                        android:textSize="16sp"
+                        app:layout_constraintEnd_toEndOf="@id/guideline3"
+                        app:layout_constraintStart_toStartOf="@id/guideline2"
+                        app:layout_constraintTop_toBottomOf="@id/notion_link" />
 
-                <TextView
-                    android:id="@+id/member_club"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="40dp"
-                    android:text="@string/members"
-                    android:textColor="@color/white"
-                    android:textSize="18sp"
-                    app:layout_constraintStart_toStartOf="@id/guideline2"
-                    app:layout_constraintTop_toBottomOf="@id/promotion_club_img" />
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/promotion_club_img"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        tools:listitem="@layout/list_detail_club_promotion"
+                        app:layout_constraintEnd_toEndOf="@id/guideline3"
+                        app:layout_constraintStart_toStartOf="@id/guideline2"
+                        app:layout_constraintTop_toBottomOf="@id/promotion_club" />
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:overScrollMode="never"
-                    android:id="@+id/member_club_img"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    app:layout_constraintEnd_toEndOf="@id/guideline3"
-                    app:layout_constraintStart_toStartOf="@id/guideline2"
-                    app:layout_constraintTop_toBottomOf="@id/member_club" />
+                    <TextView
+                        android:id="@+id/member_club"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="40dp"
+                        android:text="@string/members"
+                        android:textColor="@color/white"
+                        android:textSize="18sp"
+                        app:layout_constraintStart_toStartOf="@id/guideline2"
+                        app:layout_constraintTop_toBottomOf="@id/promotion_club_img" />
 
-                <TextView
-                    android:id="@+id/teacher"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="45dp"
-                    android:text="@string/club_teacher"
-                    android:textColor="@color/white"
-                    android:textSize="18sp"
-                    app:layout_constraintStart_toStartOf="@id/guideline2"
-                    app:layout_constraintTop_toBottomOf="@id/member_club_img" />
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/member_club_img"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        app:layout_constraintEnd_toEndOf="@id/guideline3"
+                        app:layout_constraintStart_toStartOf="@id/guideline2"
+                        app:layout_constraintTop_toBottomOf="@id/member_club" />
 
-                <ImageView
-                    android:src="@drawable/ic_teacher_img"
-                    android:id="@+id/teacher_img"
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
-                    android:layout_marginTop="15dp"
-                    app:layout_constraintStart_toStartOf="@id/guideline2"
-                    app:layout_constraintTop_toBottomOf="@id/teacher" />
+                    <TextView
+                        android:id="@+id/teacher"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="45dp"
+                        android:text="@string/club_teacher"
+                        android:textColor="@color/white"
+                        android:textSize="18sp"
+                        app:layout_constraintStart_toStartOf="@id/guideline2"
+                        app:layout_constraintTop_toBottomOf="@id/member_club_img" />
 
-                <TextView
-                    android:id="@+id/teacher_name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:text="@string/name"
-                    android:textColor="@color/white"
-                    android:textSize="14sp"
-                    app:layout_constraintBottom_toBottomOf="@id/teacher_img"
-                    app:layout_constraintStart_toEndOf="@id/teacher_img"
-                    app:layout_constraintTop_toTopOf="@id/teacher_img" />
+                    <ImageView
+                        android:src="@drawable/ic_teacher_img"
+                        android:id="@+id/teacher_img"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:layout_marginTop="15dp"
+                        app:layout_constraintStart_toStartOf="@id/guideline2"
+                        app:layout_constraintTop_toBottomOf="@id/teacher" />
 
-                <TextView
-                    android:id="@+id/boss"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="45dp"
-                    android:text="@string/club_boss"
-                    android:textColor="@color/white"
-                    android:textSize="18sp"
-                    app:layout_constraintStart_toStartOf="@id/guideline4"
-                    app:layout_constraintTop_toBottomOf="@id/member_club_img" />
+                    <TextView
+                        android:id="@+id/teacher_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:text="@string/name"
+                        android:textColor="@color/white"
+                        android:textSize="14sp"
+                        app:layout_constraintBottom_toBottomOf="@id/teacher_img"
+                        app:layout_constraintStart_toEndOf="@id/teacher_img"
+                        app:layout_constraintTop_toTopOf="@id/teacher_img" />
 
-                <ImageView
-                    android:id="@+id/boss_img"
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
-                    android:layout_marginTop="15dp"
-                    app:layout_constraintStart_toStartOf="@id/guideline4"
-                    app:layout_constraintTop_toBottomOf="@id/boss" />
+                    <TextView
+                        android:id="@+id/boss"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="45dp"
+                        android:text="@string/club_boss"
+                        android:textColor="@color/white"
+                        android:textSize="18sp"
+                        app:layout_constraintStart_toStartOf="@id/guideline4"
+                        app:layout_constraintTop_toBottomOf="@id/member_club_img" />
 
-                <TextView
-                    android:id="@+id/boss_name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:text="@string/name"
-                    android:textColor="@color/white"
-                    android:textSize="14sp"
-                    app:layout_constraintBottom_toBottomOf="@id/boss_img"
-                    app:layout_constraintStart_toEndOf="@id/boss_img"
-                    app:layout_constraintTop_toTopOf="@id/boss_img" />
+                    <ImageView
+                        android:id="@+id/boss_img"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:layout_marginTop="15dp"
+                        app:layout_constraintStart_toStartOf="@id/guideline4"
+                        app:layout_constraintTop_toBottomOf="@id/boss" />
 
-                <TextView
-                    android:id="@+id/directory"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="39dp"
-                    android:text="@string/directory"
-                    android:textColor="@color/white"
-                    android:textSize="18sp"
-                    app:layout_constraintStart_toStartOf="@id/guideline2"
-                    app:layout_constraintTop_toBottomOf="@id/teacher_img" />
+                    <TextView
+                        android:id="@+id/boss_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:text="@string/name"
+                        android:textColor="@color/white"
+                        android:textSize="14sp"
+                        app:layout_constraintBottom_toBottomOf="@id/boss_img"
+                        app:layout_constraintStart_toEndOf="@id/boss_img"
+                        app:layout_constraintTop_toTopOf="@id/boss_img" />
 
-                <TextView
-                    android:id="@+id/directory_txt"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
-                    android:text="@string/example_text"
-                    android:textColor="@color/white"
-                    android:textSize="14sp"
-                    app:layout_constraintStart_toStartOf="@id/guideline2"
-                    app:layout_constraintTop_toBottomOf="@id/directory" />
+                    <TextView
+                        android:id="@+id/directory"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="39dp"
+                        android:text="@string/directory"
+                        android:textColor="@color/white"
+                        android:textSize="18sp"
+                        app:layout_constraintStart_toStartOf="@id/guideline2"
+                        app:layout_constraintTop_toBottomOf="@id/teacher_img" />
 
-                <androidx.appcompat.widget.AppCompatButton
-                    android:layout_marginTop="45dp"
-                    android:textStyle="bold"
-                    android:id="@+id/submit_btn"
-                    android:text="@string/club_application"
-                    android:layout_width="match_parent"
-                    android:layout_height="56dp"
-                    android:background="@color/dark_blue"
-                    android:textColor="@color/white"
-                    android:textSize="18sp"
-                    app:layout_constraintTop_toBottomOf="@id/directory_txt" />
+                    <TextView
+                        android:id="@+id/directory_txt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
+                        android:text="@string/example_text"
+                        android:textColor="@color/white"
+                        android:textSize="14sp"
+                        app:layout_constraintStart_toStartOf="@id/guideline2"
+                        app:layout_constraintTop_toBottomOf="@id/directory" />
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
-        </ScrollView>
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:layout_marginTop="45dp"
+                        android:textStyle="bold"
+                        android:id="@+id/submit_btn"
+                        android:text="@string/club_application"
+                        android:layout_width="match_parent"
+                        android:layout_height="56dp"
+                        android:background="@color/dark_blue"
+                        android:textColor="@color/white"
+                        android:textSize="18sp"
+                        app:layout_constraintTop_toBottomOf="@id/directory_txt" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </ScrollView>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <!--    사이드 바    -->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/sideBar"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            app:headerLayout="@layout/header_layout"
+            android:background="@color/light_black"
+            android:layout_gravity="end">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/menu"
+                android:textColor="@color/white"
+                android:textSize="24sp"
+                android:fontFamily="@font/notosans"
+                android:layout_marginTop="52dp"
+                android:layout_marginEnd="24dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:id="@+id/textView13" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/sideBarRv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView13"
+                tools:listitem="@layout/list_detail_sidebar"
+                android:layout_marginTop="16dp"
+                android:padding="10dp"
+                />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.drawerlayout.widget.DrawerLayout>
 </layout>

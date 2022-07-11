@@ -136,6 +136,7 @@ class MakeClubViewModel @Inject constructor(
                 "TAG",
                 "createClub: type: ${clubType.value.toString()}, title: $title, description: $description, contact: $contact, notionLink: $notionLink, teacher: $teacher, member: $clubMemberEmail, activityUrls: ${activityPhoto.value}, bannerUrl: ${bannerResult.value}"
             )
+            clubMemberEmail.remove("")
             val response = clubUseCase.postCreateClub(
                 CreateClubRequest
                     (

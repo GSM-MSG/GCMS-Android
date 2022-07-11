@@ -3,7 +3,7 @@ package com.msg.gcms.data.local.dao
 import android.content.Context
 import android.content.Context.MODE_PRIVATE
 
-class LoginToken(private val context: Context) {
+class LoginToken(context: Context) {
     private val name = "loginToken"
 
     private val prefs = context.getSharedPreferences(name, MODE_PRIVATE)

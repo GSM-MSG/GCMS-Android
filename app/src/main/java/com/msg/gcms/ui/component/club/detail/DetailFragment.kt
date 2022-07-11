@@ -8,20 +8,22 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import coil.load
 import coil.transform.CircleCropTransformation
 import com.msg.gcms.R
+import com.msg.gcms.data.local.entity.DetailPageSideBar
 import com.msg.gcms.data.local.entity.PromotionPicType
 import com.msg.gcms.data.remote.dto.datasource.club.response.MemberSummaryResponse
 import com.msg.gcms.data.remote.dto.datasource.club.response.UserInfo
 import com.msg.gcms.databinding.FragmentDetailBinding
 import com.msg.gcms.ui.adapter.DetailMemberAdapter
 import com.msg.gcms.ui.adapter.DetailPhotoAdapter
+import com.msg.gcms.ui.adapter.DetailSideBarAdapter
 import com.msg.gcms.ui.base.BaseDialog
 import com.msg.gcms.ui.base.BaseFragment
-import dagger.hilt.android.AndroidEntryPoint
 import com.msg.gcms.ui.component.club.ClubFragment
 import com.msg.gcms.ui.component.main.MainActivity
 import com.msg.gcms.utils.ItemDecorator
 import com.msg.viewmodel.ClubDetailViewModel
 import com.msg.viewmodel.ClubViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_detail),
@@ -33,12 +35,25 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
     var membersList = mutableListOf<MemberSummaryResponse>()
     var activityUrlsList = mutableListOf<PromotionPicType>()
     private val detailMemberAdapter = DetailMemberAdapter()
-    private val detailPhotoAdaper = DetailPhotoAdapter()
+    private val detailPhotoAdapter = DetailPhotoAdapter()
+    private lateinit var sideBarAdapter: DetailSideBarAdapter
+
+    private val headSideBarItem = arrayListOf(
+        DetailPageSideBar("동아리 멤버 관리하기", R.drawable.ic_person_two),
+        DetailPageSideBar("동아리 정보 수정하기", R.drawable.ic_edit),
+        DetailPageSideBar("동아리 삭제하기", R.drawable.ic_club_delete)
+    )
+
+    private val memberSideBarItem = arrayListOf(
+        DetailPageSideBar("동아리 멤버 확인하기", R.drawable.ic_person_two),
+        DetailPageSideBar("동아리 탈퇴하기", R.drawable.ic_club_delete)
+    )
 
     override fun init() {
         observeEvent()
         clickEvent()
         viewSet()
+        binding.detail = this
     }
 
     private fun observeEvent() {
@@ -132,8 +147,8 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
                 Log.e(TAG, e.toString())
             }
         }
-        binding.promotionClubImg.adapter = detailPhotoAdaper
-        detailPhotoAdaper.submitList(activityUrlsList)
+        binding.promotionClubImg.adapter = detailPhotoAdapter
+        detailPhotoAdapter.submitList(activityUrlsList)
     }
 
     private fun settingRecyclerView() {
@@ -166,6 +181,48 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
         }
     }
 
+    fun clickSideBar(view: View) {
+        binding.drawerLayout.openDrawer(binding.sideBar)
+    }
+
+    private fun sideBarRvSetting() {
+        with(binding.sideBarRv) {
+            layoutManager = LinearLayoutManager(
+                context,
+                LinearLayoutManager.VERTICAL,
+                false
+            )
+            setHasFixedSize(true)
+        }
+        sideBarAdapter.setItemOnClickListener(object: DetailSideBarAdapter.OnItemClickListener {
+            override fun onClick(position: Int) {
+                if(sideBarAdapter.itemCount == 2) {
+                    when (position) {
+                        0 -> {
+                            shortToast("유저 보기")
+                        }
+                        1 -> {
+                            shortToast("동아리 탈퇴")
+                        }
+                    }
+                } else {
+                    when(position) {
+                        0 -> {
+                            shortToast("유저 관리")
+                        }
+                        1 -> {
+                            shortToast("동아리 수정")
+                        }
+                        2 -> {
+                            shortToast("동아리 삭제")
+                        }
+                    }
+                }
+            }
+        })
+        binding.sideBarRv.adapter = sideBarAdapter
+    }
+
     private fun checkRole() {
         binding.submitBtn.let {
             when (detailViewModel.result.value!!.scope) {
@@ -177,9 +234,17 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
                         } else R.string.open_application
                     )
                     it.visibility = View.VISIBLE
+                    sideBarAdapter = DetailSideBarAdapter(headSideBarItem)
+                    sideBarRvSetting()
                 }
-                "MEMBER", "OTHER" -> {
+                "MEMBER" -> {
                     it.visibility = View.INVISIBLE
+                    sideBarAdapter = DetailSideBarAdapter(memberSideBarItem)
+                    sideBarRvSetting()
+                }
+                    "OTHER" -> {
+                    it.visibility = View.INVISIBLE
+                    binding.sideBarBtn.visibility = View.GONE
                 }
                 "USER" -> {
                     if (detailViewModel.result.value!!.club.isOpened) {
@@ -192,6 +257,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
                     } else {
                         it.visibility = View.INVISIBLE
                     }
+                    binding.sideBarBtn.visibility = View.GONE
                 }
             }
         }
@@ -221,8 +287,6 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
                         }
                     }
                 }
-            }
-            "MEMBER", "OTHER" -> {
             }
             "USER" -> {
                 detailViewModel.result.value!!.club.let { result ->
@@ -277,13 +341,9 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
     private fun controllShimmer(loading: Boolean) {
         with(binding) {
             if (loading) {
-                bannerShimmer.startShimmer()
                 clubBanner.visibility = View.GONE
-                bannerShimmer.visibility = View.VISIBLE
             } else {
-                bannerShimmer.stopShimmer()
                 clubBanner.visibility = View.VISIBLE
-                bannerShimmer.visibility = View.GONE
             }
         }
     }
