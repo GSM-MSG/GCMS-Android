@@ -19,18 +19,18 @@ class ProfileClubFragment: BaseFragment<FragmentProfileClubBinding>(R.layout.fra
     private val privateClubList: ArrayList<ClubData> = ArrayList()
     private lateinit var adapter: EditorialClubList
     override fun init() {
-        isAfterSchool()
+        // isAfterSchool()
         viewClub()
     }
 
-    private fun isAfterSchool() {
-        viewModel.afterSchoolStatus.observe(this) {
-            if (it) {
-                childFragmentManager.beginTransaction()
-                    .replace(R.id.afterSchoolFragmentView, ProfileAfterSchoolFragment()).commit()
-            }
-        }
-    }
+    // private fun isAfterSchool() {
+    //     viewModel.afterSchoolStatus.observe(this) {
+    //         if (it) {
+    //             childFragmentManager.beginTransaction()
+    //                 .replace(R.id.afterSchoolFragmentView, ProfileAfterSchoolFragment()).commit()
+    //         }
+    //     }
+    // }
 
     private fun viewClub() {
         viewModel.profileData.observe(this) {
