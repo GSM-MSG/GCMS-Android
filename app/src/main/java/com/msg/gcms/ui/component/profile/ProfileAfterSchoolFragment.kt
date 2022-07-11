@@ -1,12 +1,9 @@
 package com.msg.gcms.ui.component.profile
 
-import android.util.Log
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.msg.gcms.R
 import com.msg.gcms.databinding.FragmentProfileAfterSchoolBinding
-import com.msg.gcms.databinding.FragmentProfileClubBinding
-import com.msg.gcms.databinding.FragmentProfileNoAfterSchoolBinding
 import com.msg.gcms.ui.adapter.AfterSchoolListAdapter
 import com.msg.gcms.ui.base.BaseFragment
 import com.msg.viewmodel.ProfileViewModel

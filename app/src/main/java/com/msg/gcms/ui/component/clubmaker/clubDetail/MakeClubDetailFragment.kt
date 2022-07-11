@@ -20,6 +20,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import coil.load
 import coil.transform.RoundedCornersTransformation
 import com.msg.gcms.R
+import com.msg.gcms.base.utils.Event
 import com.msg.gcms.data.local.entity.ActivityPhotoType
 import com.msg.gcms.data.remote.dto.datasource.user.response.UserData
 import com.msg.gcms.databinding.FragmentMakeClubDetailBinding
@@ -27,6 +28,7 @@ import com.msg.gcms.ui.adapter.ActivityPhotosAdapter
 import com.msg.gcms.ui.adapter.ClubMemberAdapter
 import com.msg.gcms.ui.base.BaseFragment
 import com.msg.gcms.utils.ItemDecorator
+import com.msg.viewmodel.ClubViewModel
 import com.msg.viewmodel.MakeClubViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
@@ -39,20 +41,25 @@ class MakeClubDetailFragment :
     BaseFragment<FragmentMakeClubDetailBinding>(R.layout.fragment_make_club_detail) {
 
     private val makeClubViewModel by activityViewModels<MakeClubViewModel>()
+    private val clubViewModel by activityViewModels<ClubViewModel>()
 
     private val activityPhotoMultipart = mutableListOf<MultipartBody.Part>()
     private val bannerImage = mutableListOf<MultipartBody.Part>()
 
-    private var activityPhotoList = mutableListOf<ActivityPhotoType>()
-
     private lateinit var activityAdapter: ActivityPhotosAdapter
     private lateinit var clubMemberAdapter: ClubMemberAdapter
 
+    private var bannerImageUri: Uri? = null
 
     override fun init() {
         binding.fragment = this
         settingRecyclerView()
         observeEvent()
+    }
+
+    override fun onResume() {
+        imageSetting()
+        super.onResume()
     }
 
     private fun observeEvent() {
@@ -72,14 +79,27 @@ class MakeClubDetailFragment :
 
     private fun observeResult() {
         makeClubViewModel.createResult.observe(this) {
-            when(it){
+            when (it) {
                 true -> {
-                    shortToast("생성 성공!!")
+                    shortToast(Event("생성 성공!!").getContentIfNotHandled().toString())
                     requireActivity().finish()
                 }
                 false -> {
-                    shortToast("생성 실패")
+                    shortToast(Event("생성 실패").getContentIfNotHandled().toString())
                 }
+            }
+        }
+    }
+
+    private fun imageSetting() {
+        if (bannerImage.isNotEmpty() || makeClubViewModel.activityPhotoList.isNotEmpty()) {
+            binding.addBannerPicture.load(bannerImageUri) {
+                crossfade(true)
+                transformations(RoundedCornersTransformation(8f))
+            }
+            with(binding) {
+                imageView7.visibility = View.GONE
+                addImageTxt.visibility = View.GONE
             }
         }
     }
@@ -107,6 +127,7 @@ class MakeClubDetailFragment :
                 val img = MultipartBody.Part.createFormData("files", file.name, requestFile)
                 Log.d("TAG", "onActivityResult: $img")
                 bannerImage.add(img)
+                bannerImageUri = imageUrl!!
 
                 with(binding.addBannerPicture) {
                     setImageURI(imageUrl)
@@ -131,20 +152,25 @@ class MakeClubDetailFragment :
             }
         }
     }
+
     private fun photoCheck() {
-        if (bannerImage == null) {
+        if (bannerImageUri == null) {
             shortToast("배너 이미지를 삽입하여 주세요!!")
         } else {
-            if(activityPhotoMultipart.isNotEmpty()) {
+            if (activityPhotoMultipart.isNotEmpty()) {
                 makeClubViewModel.activityPhotoUpload(activityPhotoMultipart)
             } else {
                 makeClubViewModel.setActivityPhotoUpload()
                 makeClubViewModel.imageUploadCheck()
             }
             makeClubViewModel.bannerImageUpload(bannerImage)
+            progressSetting()
         }
     }
 
+    private fun progressSetting() {
+        clubViewModel.startLottie(requireActivity().supportFragmentManager)
+    }
 
     private fun clubMemberRecyclerView() {
         if (makeClubViewModel.memberList.isEmpty()) {
@@ -212,23 +238,24 @@ class MakeClubDetailFragment :
                     shortToast("활동사진은 최대 4개까지 가능합니다.")
                     return
                 } else {
-                    activityPhotoList.clear()
+                    makeClubViewModel.activityPhotoList.clear()
                     activityPhotoMultipart.clear()
                     for (i in 0 until data.clipData!!.itemCount) {
-                        val imageUri : Uri = data.clipData!!.getItemAt(i).uri
-                        activityPhotoList.add(ActivityPhotoType(activityPhoto = imageUri))
-                        activityAdapter = ActivityPhotosAdapter(activityPhotoList)
-                        binding.clubActivePicture.adapter = activityAdapter
+                        val imageUri: Uri = data.clipData!!.getItemAt(i).uri
+                        makeClubViewModel.activityPhotoList.add(ActivityPhotoType(activityPhoto = imageUri))
+                        activityAdapter = ActivityPhotosAdapter(makeClubViewModel.activityPhotoList)
                         val file = File(getPathFromUri(imageUri))
                         val requestFile = RequestBody.create("image/*".toMediaTypeOrNull(), file)
                         val img = MultipartBody.Part.createFormData("files", file.name, requestFile)
                         Log.d("TAG", "onActivityResult: $img")
                         activityPhotoMultipart.add(img)
                     }
+                    binding.clubActivePicture.adapter = activityAdapter
+
                     activityAdapter.setItemOnClickListener(object :
                         ActivityPhotosAdapter.OnItemClickListener {
                         override fun onClick(position: Int) {
-                            activityPhotoList.removeAt(position)
+                            makeClubViewModel.activityPhotoList.removeAt(position)
                             activityAdapter.notifyDataSetChanged()
                         }
                     })

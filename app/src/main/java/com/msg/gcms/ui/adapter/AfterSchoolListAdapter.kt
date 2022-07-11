@@ -1,6 +1,5 @@
 package com.msg.gcms.ui.adapter
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -22,7 +21,7 @@ class AfterSchoolListAdapter(private val itemList: List<AftersData>): RecyclerVi
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(itemList.get(position))
+        holder.bind(itemList[position])
     }
 
     override fun getItemCount(): Int = itemList.size

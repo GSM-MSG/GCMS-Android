@@ -12,17 +12,19 @@ import com.msg.gcms.ui.component.club.detail.DetailFragment
 import com.msg.gcms.ui.component.clubmaker.MakeClubActivity
 import com.msg.gcms.ui.component.profile.ProfileActivity
 import com.msg.viewmodel.ClubDetailViewModel
+import com.msg.viewmodel.ClubViewModel
 import com.msg.viewmodel.MainViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class ClubFragment : BaseFragment<FragmentClubBinding>(R.layout.fragment_club) {
     private val TAG = "ClubFragment"
-    private val viewModel by activityViewModels<MainViewModel>()
-    val detailViewModel by activityViewModels<ClubDetailViewModel>()
+    private val mainViewModel by activityViewModels<MainViewModel>()
+    private val detailViewModel by activityViewModels<ClubDetailViewModel>()
+    private val clubViewModel by activityViewModels<ClubViewModel>()
     private lateinit var adapter: ClubListAdapter
     override fun init() {
-        viewModel.getClubList()
+        mainViewModel.getClubList()
         recyclerview()
         clickProfile()
         clickMakeClubBtn()
@@ -31,15 +33,16 @@ class ClubFragment : BaseFragment<FragmentClubBinding>(R.layout.fragment_club) {
 
     private fun recyclerview() {
         binding.clubRecyclerView.layoutManager = GridLayoutManager(context, 2)
-        viewModel.clubData.observe(this) {
-            adapter = ClubListAdapter(viewModel.clubData.value)
+        mainViewModel.clubData.observe(this) {
+            adapter = ClubListAdapter(mainViewModel.clubData.value)
             adapter.setItemOnClickListener(object : ClubListAdapter.OnItemClickListener {
                 override fun onClick(position: Int) {
-                    observeStatus()
+                    clubViewModel.startLottie(requireActivity().supportFragmentManager)
                     detailViewModel.getDetail(
-                        viewModel.clubData.value?.get(position)!!.type,
-                        viewModel.clubData.value?.get(position)!!.title
+                        mainViewModel.clubData.value?.get(position)!!.type,
+                        mainViewModel.clubData.value?.get(position)!!.title
                     )
+                    observeStatus()
                 }
             })
             binding.clubRecyclerView.adapter = adapter
@@ -47,9 +50,9 @@ class ClubFragment : BaseFragment<FragmentClubBinding>(R.layout.fragment_club) {
     }
 
     private fun clubTxt() {
-        viewModel.clubName.observe(this) {
-            binding.clubNameTxt.text = viewModel.clubName.value
-            viewModel.getClubList()
+        mainViewModel.clubName.observe(this) {
+            binding.clubNameTxt.text = mainViewModel.clubName.value
+            mainViewModel.getClubList()
         }
     }
 
@@ -70,15 +73,22 @@ class ClubFragment : BaseFragment<FragmentClubBinding>(R.layout.fragment_club) {
     }
 
     private fun observeStatus() {
-        detailViewModel.getDetailStatus.observe(this) {
-            when (it) {
-                in 200..299 -> {
-                    Log.d(TAG, "GetDetail : Status - $it")
-                    requireActivity().supportFragmentManager.beginTransaction()
-                        .replace(R.id.fragment_club, DetailFragment()).commit()
-                }
-                else -> {
-                    Log.d(TAG, "GetDetail : Error Status - $it")
+        detailViewModel.clearResult()
+        detailViewModel.result.observe(this) {
+            if (it != null) {
+                when (detailViewModel.getDetailStatus.value) {
+                    in 200..299 -> {
+                        Log.d(TAG, "GetDetail : Status - ${detailViewModel.getDetailStatus.value}")
+                        requireActivity().supportFragmentManager.beginTransaction()
+                            .replace(R.id.fragment_club, DetailFragment()).commit()
+                    }
+                    else -> {
+                        shortToast("동아리 정보를 불러오지 못했습니다.")
+                        Log.d(
+                            TAG,
+                            "GetDetail : Error Status - ${detailViewModel.getDetailStatus.value}"
+                        )
+                    }
                 }
             }
         }

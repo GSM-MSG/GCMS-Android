@@ -90,4 +90,8 @@ dependencies {
     implementation(Dependency.ImageLoad.COIL)
 
     implementation(Dependency.Google.LIVEDATA)
+
+    implementation(Dependency.Libraries.SHIMMER)
+
+    implementation(Dependency.Lottie.LOTTIE)
 }
