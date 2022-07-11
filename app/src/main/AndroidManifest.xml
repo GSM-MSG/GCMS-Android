@@ -16,9 +16,6 @@
         android:theme="@style/Theme.MSGGCMS"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".ui.component.afterschool.JoinAfterSchoolActivity"
-            android:exported="false" />
-        <activity
             android:name=".ui.component.clubmaker.MakeClubActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustNothing" />

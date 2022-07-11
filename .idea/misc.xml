@@ -82,76 +82,138 @@
         <entry key="..\:/Users/user/AndroidStudioProjects/GCMS-Android/app/src/main/res/layout/list_club_picture.xml" value="0.25364583333333335" />
         <entry key="..\:/Users/user/AndroidStudioProjects/GCMS-Android/app/src/main/res/layout/list_search_member.xml" value="0.264" />
         <entry key="..\:/Users/user/AndroidStudioProjects/GCMS-Android/app/src/main/res/menu/bottom_navigation_menu.xml" value="0.25364583333333335" />
+        <entry key="..\:/Users/user/Documents/GitHub/GCMS-Android/app/src/main/res/drawable/a.xml" value="0.1465" />
+        <entry key="..\:/Users/user/Documents/GitHub/GCMS-Android/app/src/main/res/drawable/bg_add_member.xml" value="0.1465" />
+        <entry key="..\:/Users/user/Documents/GitHub/GCMS-Android/app/src/main/res/drawable/bg_after_school.xml" value="0.1465" />
+        <entry key="..\:/Users/user/Documents/GitHub/GCMS-Android/app/src/main/res/drawable/bg_approve_btn.xml" value="0.1465" />
+        <entry key="..\:/Users/user/Documents/GitHub/GCMS-Android/app/src/main/res/drawable/bg_banner_placeholder.xml" value="0.1465" />
         <entry key="..\:/Users/user/Documents/GitHub/GCMS-Android/app/src/main/res/drawable/bg_club_img.xml" value="0.1345" />
         <entry key="..\:/Users/user/Documents/GitHub/GCMS-Android/app/src/main/res/drawable/bg_club_txt.xml" value="0.1345" />
+        <entry key="..\:/Users/user/Documents/GitHub/GCMS-Android/app/src/main/res/drawable/bg_dialog.xml" value="0.1465" />
+        <entry key="..\:/Users/user/Documents/GitHub/GCMS-Android/app/src/main/res/drawable/bg_dialog_cancel.xml" value="0.1465" />
+        <entry key="..\:/Users/user/Documents/GitHub/GCMS-Android/app/src/main/res/drawable/bg_dialog_ok.xml" value="0.1465" />
+        <entry key="..\:/Users/user/Documents/GitHub/GCMS-Android/app/src/main/res/drawable/bg_member_black_btn.xml" value="0.1465" />
+        <entry key="..\:/Users/user/Documents/GitHub/GCMS-Android/app/src/main/res/drawable/bg_profile_img.xml" value="0.12" />
+        <entry key="..\:/Users/user/Documents/GitHub/GCMS-Android/app/src/main/res/drawable/bg_profile_nothing_list.xml" value="0.1465" />
+        <entry key="..\:/Users/user/Documents/GitHub/GCMS-Android/app/src/main/res/drawable/bg_summary_club_img.xml" value="0.142" />
+        <entry key="..\:/Users/user/Documents/GitHub/GCMS-Android/app/src/main/res/drawable/bg_summary_club_txt.xml" value="0.142" />
+        <entry key="..\:/Users/user/Documents/GitHub/GCMS-Android/app/src/main/res/drawable/bg_user_profile.xml" value="0.1465" />
+        <entry key="..\:/Users/user/Documents/GitHub/GCMS-Android/app/src/main/res/drawable/bg_withdrawal_btn.xml" value="0.1465" />
+        <entry key="..\:/Users/user/Documents/GitHub/GCMS-Android/app/src/main/res/drawable/bg_withdrawal_gradient.xml" value="0.1465" />
+        <entry key="..\:/Users/user/Documents/GitHub/GCMS-Android/app/src/main/res/drawable/bg_withdrawal_logo.xml" value="0.1465" />
+        <entry key="..\:/Users/user/Documents/GitHub/GCMS-Android/app/src/main/res/drawable/bg_withdrawal_warning.xml" value="0.1465" />
+        <entry key="..\:/Users/user/Documents/GitHub/GCMS-Android/app/src/main/res/drawable/ic__announcement_btn.xml" value="0.1465" />
+        <entry key="..\:/Users/user/Documents/GitHub/GCMS-Android/app/src/main/res/drawable/ic__google_icon.xml" value="0.1465" />
+        <entry key="..\:/Users/user/Documents/GitHub/GCMS-Android/app/src/main/res/drawable/ic_activity_photo.xml" value="0.1465" />
+        <entry key="..\:/Users/user/Documents/GitHub/GCMS-Android/app/src/main/res/drawable/ic_add_club.xml" value="0.1465" />
+        <entry key="..\:/Users/user/Documents/GitHub/GCMS-Android/app/src/main/res/drawable/ic_after_school_btn.xml" value="0.1465" />
+        <entry key="..\:/Users/user/Documents/GitHub/GCMS-Android/app/src/main/res/drawable/ic_back_btn.xml" value="0.1465" />
+        <entry key="..\:/Users/user/Documents/GitHub/GCMS-Android/app/src/main/res/drawable/ic_banner_placeholder.xml" value="0.1465" />
+        <entry key="..\:/Users/user/Documents/GitHub/GCMS-Android/app/src/main/res/drawable/ic_baseline_email_24.xml" value="0.1465" />
+        <entry key="..\:/Users/user/Documents/GitHub/GCMS-Android/app/src/main/res/drawable/ic_baseline_lock_24.xml" value="0.1465" />
+        <entry key="..\:/Users/user/Documents/GitHub/GCMS-Android/app/src/main/res/drawable/ic_check_box.xml" value="0.1465" />
+        <entry key="..\:/Users/user/Documents/GitHub/GCMS-Android/app/src/main/res/drawable/ic_check_icon.xml" value="0.1465" />
+        <entry key="..\:/Users/user/Documents/GitHub/GCMS-Android/app/src/main/res/drawable/ic_club_member_btn.xml" value="0.1465" />
+        <entry key="..\:/Users/user/Documents/GitHub/GCMS-Android/app/src/main/res/drawable/ic_current_page.xml" value="0.1465" />
+        <entry key="..\:/Users/user/Documents/GitHub/GCMS-Android/app/src/main/res/drawable/ic_default_profile.xml" value="0.1465" />
+        <entry key="..\:/Users/user/Documents/GitHub/GCMS-Android/app/src/main/res/drawable/ic_delete_btn.xml" value="0.1465" />
+        <entry key="..\:/Users/user/Documents/GitHub/GCMS-Android/app/src/main/res/drawable/ic_dialog_bg.xml" value="0.1465" />
+        <entry key="..\:/Users/user/Documents/GitHub/GCMS-Android/app/src/main/res/drawable/ic_dialog_btn_bg.xml" value="0.1465" />
+        <entry key="..\:/Users/user/Documents/GitHub/GCMS-Android/app/src/main/res/drawable/ic_email_check_failure.xml" value="0.1465" />
+        <entry key="..\:/Users/user/Documents/GitHub/GCMS-Android/app/src/main/res/drawable/ic_email_check_failure_edittext.xml" value="0.1465" />
+        <entry key="..\:/Users/user/Documents/GitHub/GCMS-Android/app/src/main/res/drawable/ic_email_check_letter.xml" value="0.1465" />
+        <entry key="..\:/Users/user/Documents/GitHub/GCMS-Android/app/src/main/res/drawable/ic_email_check_textinput.xml" value="0.1465" />
+        <entry key="..\:/Users/user/Documents/GitHub/GCMS-Android/app/src/main/res/drawable/ic_main_foreground.xml" value="0.1465" />
+        <entry key="..\:/Users/user/Documents/GitHub/GCMS-Android/app/src/main/res/drawable/ic_major_bg.xml" value="0.1465" />
+        <entry key="..\:/Users/user/Documents/GitHub/GCMS-Android/app/src/main/res/drawable/ic_major_person.xml" value="0.1465" />
+        <entry key="..\:/Users/user/Documents/GitHub/GCMS-Android/app/src/main/res/drawable/ic_major_text_activate.xml" value="0.1465" />
+        <entry key="..\:/Users/user/Documents/GitHub/GCMS-Android/app/src/main/res/drawable/ic_major_text_close.xml" value="0.1465" />
+        <entry key="..\:/Users/user/Documents/GitHub/GCMS-Android/app/src/main/res/drawable/ic_msg_logo.xml" value="0.1465" />
+        <entry key="..\:/Users/user/Documents/GitHub/GCMS-Android/app/src/main/res/drawable/ic_no_club.xml" value="0.1465" />
+        <entry key="..\:/Users/user/Documents/GitHub/GCMS-Android/app/src/main/res/drawable/ic_personal_bg.xml" value="0.1465" />
+        <entry key="..\:/Users/user/Documents/GitHub/GCMS-Android/app/src/main/res/drawable/ic_personal_person.xml" value="0.1465" />
+        <entry key="..\:/Users/user/Documents/GitHub/GCMS-Android/app/src/main/res/drawable/ic_personal_text_activate.xml" value="0.1465" />
+        <entry key="..\:/Users/user/Documents/GitHub/GCMS-Android/app/src/main/res/drawable/ic_personal_text_close.xml" value="0.1465" />
+        <entry key="..\:/Users/user/Documents/GitHub/GCMS-Android/app/src/main/res/drawable/ic_profile.xml" value="0.1465" />
+        <entry key="..\:/Users/user/Documents/GitHub/GCMS-Android/app/src/main/res/drawable/ic_rectangle_661.xml" value="0.1465" />
+        <entry key="..\:/Users/user/Documents/GitHub/GCMS-Android/app/src/main/res/drawable/ic_rectangle_662.xml" value="0.1465" />
+        <entry key="..\:/Users/user/Documents/GitHub/GCMS-Android/app/src/main/res/drawable/ic_rectangle_941.xml" value="0.1465" />
+        <entry key="..\:/Users/user/Documents/GitHub/GCMS-Android/app/src/main/res/drawable/ic_rectangle_946.xml" value="0.1465" />
+        <entry key="..\:/Users/user/Documents/GitHub/GCMS-Android/app/src/main/res/drawable/ic_search_icon.xml" value="0.1465" />
+        <entry key="..\:/Users/user/Documents/GitHub/GCMS-Android/app/src/main/res/drawable/ic_selected_check_btn.xml" value="0.1465" />
+        <entry key="..\:/Users/user/Documents/GitHub/GCMS-Android/app/src/main/res/drawable/ic_send_again_btn.xml" value="0.1465" />
+        <entry key="..\:/Users/user/Documents/GitHub/GCMS-Android/app/src/main/res/drawable/ic_side_btn.xml" value="0.1465" />
+        <entry key="..\:/Users/user/Documents/GitHub/GCMS-Android/app/src/main/res/drawable/ic_splash_line.xml" value="0.1465" />
+        <entry key="..\:/Users/user/Documents/GitHub/GCMS-Android/app/src/main/res/drawable/ic_splash_logo.xml" value="0.1465" />
+        <entry key="..\:/Users/user/Documents/GitHub/GCMS-Android/app/src/main/res/drawable/ic_splash_text.xml" value="0.1465" />
+        <entry key="..\:/Users/user/Documents/GitHub/GCMS-Android/app/src/main/res/drawable/ic_teacher_img.xml" value="0.1465" />
+        <entry key="..\:/Users/user/Documents/GitHub/GCMS-Android/app/src/main/res/drawable/ic_withdrawal_gcms.xml" value="0.1465" />
+        <entry key="..\:/Users/user/Documents/GitHub/GCMS-Android/app/src/main/res/drawable/selector_withdrawal_btn.xml" value="0.1465" />
+        <entry key="..\:/Users/user/Documents/GitHub/GCMS-Android/app/src/main/res/drawable/selector_withdrawal_check_btn.xml" value="0.1465" />
+        <entry key="..\:/Users/user/Documents/GitHub/GCMS-Android/app/src/main/res/layout/activity_intro.xml" value="0.1118659420289855" />
+        <entry key="..\:/Users/user/Documents/GitHub/GCMS-Android/app/src/main/res/layout/activity_join_after_school.xml" value="0.13697916666666668" />
         <entry key="..\:/Users/user/Documents/GitHub/GCMS-Android/app/src/main/res/layout/activity_main.xml" value="0.12635869565217392" />
-        <entry key="..\:/Users/user/Documents/GitHub/GCMS-Android/app/src/main/res/layout/activity_profile.xml" value="0.2" />
+        <entry key="..\:/Users/user/Documents/GitHub/GCMS-Android/app/src/main/res/layout/activity_member_management.xml" value="0.14427083333333332" />
+        <entry key="..\:/Users/user/Documents/GitHub/GCMS-Android/app/src/main/res/layout/activity_profile.xml" value="0.136" />
+        <entry key="..\:/Users/user/Documents/GitHub/GCMS-Android/app/src/main/res/layout/activity_withdrawal.xml" value="0.272108843537415" />
         <entry key="..\:/Users/user/Documents/GitHub/GCMS-Android/app/src/main/res/layout/club.xml" value="0.1296875" />
+        <entry key="..\:/Users/user/Documents/GitHub/GCMS-Android/app/src/main/res/layout/detail_dialog.xml" value="0.4" />
         <entry key="..\:/Users/user/Documents/GitHub/GCMS-Android/app/src/main/res/layout/fragment_application.xml" value="0.11458333333333333" />
         <entry key="..\:/Users/user/Documents/GitHub/GCMS-Android/app/src/main/res/layout/fragment_club.xml" value="0.10833333333333334" />
         <entry key="..\:/Users/user/Documents/GitHub/GCMS-Android/app/src/main/res/layout/fragment_club_detail.xml" value="0.1" />
         <entry key="..\:/Users/user/Documents/GitHub/GCMS-Android/app/src/main/res/layout/fragment_club_home.xml" value="0.12635869565217392" />
+        <entry key="..\:/Users/user/Documents/GitHub/GCMS-Android/app/src/main/res/layout/fragment_club_introduce.xml" value="0.1328125" />
         <entry key="..\:/Users/user/Documents/GitHub/GCMS-Android/app/src/main/res/layout/fragment_make_club.xml" value="0.1766304347826087" />
+        <entry key="..\:/Users/user/Documents/GitHub/GCMS-Android/app/src/main/res/layout/fragment_profile_after_school.xml" value="0.1118659420289855" />
+        <entry key="..\:/Users/user/Documents/GitHub/GCMS-Android/app/src/main/res/layout/fragment_profile_club.xml" value="0.12" />
+        <entry key="..\:/Users/user/Documents/GitHub/GCMS-Android/app/src/main/res/layout/fragment_profile_no_after_school.xml" value="0.1118659420289855" />
+        <entry key="..\:/Users/user/Documents/GitHub/GCMS-Android/app/src/main/res/layout/fragment_profile_no_club.xml" value="0.1118659420289855" />
         <entry key="..\:/Users/user/Documents/GitHub/GCMS-Android/app/src/main/res/layout/item_my_club.xml" value="0.1296875" />
+        <entry key="..\:/Users/user/Documents/GitHub/GCMS-Android/app/src/main/res/layout/list_after_school.xml" value="0.14583333333333334" />
+        <entry key="..\:/Users/user/Documents/GitHub/GCMS-Android/app/src/main/res/layout/list_applicant.xml" value="0.13697916666666668" />
+        <entry key="..\:/Users/user/Documents/GitHub/GCMS-Android/app/src/main/res/layout/list_club_editorial.xml" value="0.109375" />
+        <entry key="..\:/Users/user/Documents/GitHub/GCMS-Android/app/src/main/res/layout/list_club_member.xml" value="0.2109375" />
+        <entry key="..\:/Users/user/Documents/GitHub/GCMS-Android/app/src/main/res/layout/list_club_picture.xml" value="0.2109375" />
+        <entry key="..\:/Users/user/Documents/GitHub/GCMS-Android/app/src/main/res/layout/list_club_summary.xml" value="0.2109375" />
+        <entry key="..\:/Users/user/Documents/GitHub/GCMS-Android/app/src/main/res/layout/list_detail_club_promotion.xml" value="0.2109375" />
+        <entry key="..\:/Users/user/Documents/GitHub/GCMS-Android/app/src/main/res/layout/list_member.xml" value="0.14427083333333332" />
+        <entry key="..\:/Users/user/Documents/GitHub/GCMS-Android/app/src/main/res/layout/logout_dialog.xml" value="0.2" />
         <entry key="..\:/Users/user/Documents/GitHub/GCMS-Android/app/src/main/res/menu/bottom_navigation_menu.xml" value="0.14947916666666666" />
-        <entry key="..\:/Users/z0103/AndroidStudioProjects/GCMS-Android/app/src/main/res/drawable/bg_dialog.xml" value="0.242" />
-        <entry key="..\:/Users/z0103/AndroidStudioProjects/GCMS-Android/app/src/main/res/drawable/bg_dialog_test.xml" value="0.1" />
-        <entry key="..\:/Users/z0103/AndroidStudioProjects/GCMS-Android/app/src/main/res/drawable/bg_shimmer_user_profile.xml" value="0.1" />
         <entry key="..\:/Users/z0103/AndroidStudioProjects/GCMS-Android/app/src/main/res/drawable/bg_sign_btn.xml" value="0.169" />
-        <entry key="..\:/Users/z0103/AndroidStudioProjects/GCMS-Android/app/src/main/res/drawable/bg_user_profile.xml" value="0.1" />
-        <entry key="..\:/Users/z0103/AndroidStudioProjects/GCMS-Android/app/src/main/res/drawable/bg_withdrawal_active_btn.xml" value="0.1" />
-        <entry key="..\:/Users/z0103/AndroidStudioProjects/GCMS-Android/app/src/main/res/drawable/bg_withdrawal_sleep_btn.xml" value="0.1" />
         <entry key="..\:/Users/z0103/AndroidStudioProjects/GCMS-Android/app/src/main/res/drawable/google_icon.xml" value="0.1" />
         <entry key="..\:/Users/z0103/AndroidStudioProjects/GCMS-Android/app/src/main/res/drawable/ic_email_check_letter.xml" value="0.124" />
         <entry key="..\:/Users/z0103/AndroidStudioProjects/GCMS-Android/app/src/main/res/drawable/ic_email_check_textinput.xml" value="0.124" />
         <entry key="..\:/Users/z0103/AndroidStudioProjects/GCMS-Android/app/src/main/res/drawable/ic_send_again_btn.xml" value="0.124" />
-        <entry key="..\:/Users/z0103/AndroidStudioProjects/GCMS-Android/app/src/main/res/drawable/ic_side_btn.xml" value="0.1" />
         <entry key="..\:/Users/z0103/AndroidStudioProjects/GCMS-Android/app/src/main/res/drawable/selector_email_check.xml" value="0.1" />
-        <entry key="..\:/Users/z0103/AndroidStudioProjects/GCMS-Android/app/src/main/res/drawable/selector_withdrawal_btn.xml" value="0.1" />
         <entry key="..\:/Users/z0103/AndroidStudioProjects/GCMS-Android/app/src/main/res/layout/activity_email_check.xml" value="0.24947916666666667" />
         <entry key="..\:/Users/z0103/AndroidStudioProjects/GCMS-Android/app/src/main/res/layout/activity_intro.xml" value="0.264" />
         <entry key="..\:/Users/z0103/AndroidStudioProjects/GCMS-Android/app/src/main/res/layout/activity_login.xml" value="0.24947916666666667" />
         <entry key="..\:/Users/z0103/AndroidStudioProjects/GCMS-Android/app/src/main/res/layout/activity_main.xml" value="0.24947916666666667" />
-        <entry key="..\:/Users/z0103/AndroidStudioProjects/GCMS-Android/app/src/main/res/layout/activity_make_club.xml" value="0.1" />
-        <entry key="..\:/Users/z0103/AndroidStudioProjects/GCMS-Android/app/src/main/res/layout/activity_profile.xml" value="0.264" />
+        <entry key="..\:/Users/z0103/AndroidStudioProjects/GCMS-Android/app/src/main/res/layout/activity_make_club.xml" value="0.24947916666666667" />
+        <entry key="..\:/Users/z0103/AndroidStudioProjects/GCMS-Android/app/src/main/res/layout/activity_profile.xml" value="0.24947916666666667" />
         <entry key="..\:/Users/z0103/AndroidStudioProjects/GCMS-Android/app/src/main/res/layout/activity_registration.xml" value="0.2" />
-        <entry key="..\:/Users/z0103/AndroidStudioProjects/GCMS-Android/app/src/main/res/layout/activity_splash.xml" value="0.2" />
-        <entry key="..\:/Users/z0103/AndroidStudioProjects/GCMS-Android/app/src/main/res/layout/detail_dialog.xml" value="0.264" />
+        <entry key="..\:/Users/z0103/AndroidStudioProjects/GCMS-Android/app/src/main/res/layout/activity_splash.xml" value="0.10277777777777777" />
         <entry key="..\:/Users/z0103/AndroidStudioProjects/GCMS-Android/app/src/main/res/layout/email_failure_dialog.xml" value="0.264" />
         <entry key="..\:/Users/z0103/AndroidStudioProjects/GCMS-Android/app/src/main/res/layout/fragment_add_member.xml" value="0.24947916666666667" />
-        <entry key="..\:/Users/z0103/AndroidStudioProjects/GCMS-Android/app/src/main/res/layout/fragment_application.xml" value="0.264" />
-        <entry key="..\:/Users/z0103/AndroidStudioProjects/GCMS-Android/app/src/main/res/layout/fragment_club.xml" value="0.24947916666666667" />
-        <entry key="..\:/Users/z0103/AndroidStudioProjects/GCMS-Android/app/src/main/res/layout/fragment_club_detail.xml" value="0.4" />
+        <entry key="..\:/Users/z0103/AndroidStudioProjects/GCMS-Android/app/src/main/res/layout/fragment_application.xml" value="0.10277777777777777" />
+        <entry key="..\:/Users/z0103/AndroidStudioProjects/GCMS-Android/app/src/main/res/layout/fragment_club_detail.xml" value="0.24947916666666667" />
         <entry key="..\:/Users/z0103/AndroidStudioProjects/GCMS-Android/app/src/main/res/layout/fragment_club_introduce.xml" value="0.24947916666666667" />
         <entry key="..\:/Users/z0103/AndroidStudioProjects/GCMS-Android/app/src/main/res/layout/fragment_club_type.xml" value="0.24947916666666667" />
-        <entry key="..\:/Users/z0103/AndroidStudioProjects/GCMS-Android/app/src/main/res/layout/fragment_detail.xml" value="0.264" />
         <entry key="..\:/Users/z0103/AndroidStudioProjects/GCMS-Android/app/src/main/res/layout/fragment_email_check.xml" value="0.2" />
         <entry key="..\:/Users/z0103/AndroidStudioProjects/GCMS-Android/app/src/main/res/layout/fragment_email_failure_dialog.xml" value="0.152" />
         <entry key="..\:/Users/z0103/AndroidStudioProjects/GCMS-Android/app/src/main/res/layout/fragment_make_club_detail.xml" value="0.24947916666666667" />
         <entry key="..\:/Users/z0103/AndroidStudioProjects/GCMS-Android/app/src/main/res/layout/fragment_post_email.xml" value="0.2" />
-        <entry key="..\:/Users/z0103/AndroidStudioProjects/GCMS-Android/app/src/main/res/layout/fragment_profile_club.xml" value="0.24947916666666667" />
-        <entry key="..\:/Users/z0103/AndroidStudioProjects/GCMS-Android/app/src/main/res/layout/fragment_profile_no_club.xml" value="0.24947916666666667" />
         <entry key="..\:/Users/z0103/AndroidStudioProjects/GCMS-Android/app/src/main/res/layout/fragment_sign_up.xml" value="0.10277777777777777" />
         <entry key="..\:/Users/z0103/AndroidStudioProjects/GCMS-Android/app/src/main/res/layout/google_icon.xml" value="0.1" />
         <entry key="..\:/Users/z0103/AndroidStudioProjects/GCMS-Android/app/src/main/res/layout/item_my_club.xml" value="0.24947916666666667" />
-        <entry key="..\:/Users/z0103/AndroidStudioProjects/GCMS-Android/app/src/main/res/layout/list_club_member.xml" value="0.536" />
+        <entry key="..\:/Users/z0103/AndroidStudioProjects/GCMS-Android/app/src/main/res/layout/list_club_member.xml" value="0.24947916666666667" />
         <entry key="..\:/Users/z0103/AndroidStudioProjects/GCMS-Android/app/src/main/res/layout/list_club_picture.xml" value="0.24947916666666667" />
-        <entry key="..\:/Users/z0103/AndroidStudioProjects/GCMS-Android/app/src/main/res/layout/list_club_summary.xml" value="0.24947916666666667" />
-        <entry key="..\:/Users/z0103/AndroidStudioProjects/GCMS-Android/app/src/main/res/layout/list_detail_club_promotion.xml" value="0.1" />
         <entry key="..\:/Users/z0103/AndroidStudioProjects/GCMS-Android/app/src/main/res/layout/list_search_member.xml" value="0.24947916666666667" />
-        <entry key="..\:/Users/z0103/AndroidStudioProjects/GCMS-Android/app/src/main/res/layout/progress_bar.xml" value="0.24947916666666667" />
         <entry key="..\:/Users/z0103/AndroidStudioProjects/GCMS-Android/app/src/main/res/layout/selector_nav_text_major.xml" value="0.1" />
-        <entry key="..\:/Users/z0103/AndroidStudioProjects/GCMS-Android/app/src/main/res/layout/shimmer.xml" value="0.24947916666666667" />
-        <entry key="..\:/Users/z0103/AndroidStudioProjects/GCMS-Android/app/src/main/res/layout/shimmer_banner.xml" value="0.24947916666666667" />
-        <entry key="..\:/Users/z0103/AndroidStudioProjects/GCMS-Android/app/src/main/res/layout/shimmer_member.xml" value="0.24947916666666667" />
-        <entry key="..\:/Users/z0103/AndroidStudioProjects/GCMS-Android/app/src/main/res/layout/shimmer_promotion.xml" value="0.4" />
-        <entry key="..\:/Users/z0103/AndroidStudioProjects/GCMS-Android/app/src/main/res/layout/shimmer_textview.xml" value="0.24947916666666667" />
         <entry key="..\:/Users/z0103/AndroidStudioProjects/GCMS-Android/app/src/main/res/menu/bottom_navigation_menu.xml" value="0.264" />
-        <entry key="app/src/main/res/drawable/bg_add_user_btn.xml" value="0.1695" />
         <entry key="app/src/main/res/drawable/bg_banner_placeholder.xml" value="0.1695" />
         <entry key="app/src/main/res/drawable/bg_club_image_rv.xml" value="0.252" />
         <entry key="app/src/main/res/drawable/bg_club_img.xml" value="0.252" />
-        <entry key="app/src/main/res/drawable/bg_club_promotion.xml" value="0.1695" />
         <entry key="app/src/main/res/drawable/bg_club_submit.xml" value="0.252" />
         <entry key="app/src/main/res/drawable/bg_club_txt.xml" value="0.252" />
         <entry key="app/src/main/res/drawable/bg_detail_club.xml" value="0.252" />
@@ -165,9 +227,6 @@
         <entry key="app/src/main/res/drawable/bg_make_major_btn.xml" value="0.231" />
         <entry key="app/src/main/res/drawable/bg_make_personal_btn.xml" value="0.1695" />
         <entry key="app/src/main/res/drawable/bg_photo_banner.xml" value="0.252" />
-        <entry key="app/src/main/res/drawable/bg_profile_list.xml" value="0.1695" />
-        <entry key="app/src/main/res/drawable/bg_profile_nothing_list.xml" value="0.1695" />
-        <entry key="app/src/main/res/drawable/bg_serach_edit_text.xml" value="0.174" />
         <entry key="app/src/main/res/drawable/bg_sign_btn.xml" value="0.231" />
         <entry key="app/src/main/res/drawable/bg_user_profile.xml" value="0.252" />
         <entry key="app/src/main/res/drawable/bg_wave1.xml" value="0.231" />
@@ -175,9 +234,7 @@
         <entry key="app/src/main/res/drawable/google_icon.xml" value="0.231" />
         <entry key="app/src/main/res/drawable/ic__google_icon.xml" value="0.231" />
         <entry key="app/src/main/res/drawable/ic_activity_photo.xml" value="0.1035" />
-        <entry key="app/src/main/res/drawable/ic_back_btn.xml" value="0.174" />
         <entry key="app/src/main/res/drawable/ic_baseline_email_24.xml" value="0.231" />
-        <entry key="app/src/main/res/drawable/ic_check_icon.xml" value="0.256" />
         <entry key="app/src/main/res/drawable/ic_club_member_btn.xml" value="0.1695" />
         <entry key="app/src/main/res/drawable/ic_current_page.xml" value="0.231" />
         <entry key="app/src/main/res/drawable/ic_eye.xml" value="0.231" />
@@ -185,15 +242,9 @@
         <entry key="app/src/main/res/drawable/ic_gsm_hs_kr.xml" value="0.231" />
         <entry key="app/src/main/res/drawable/ic_major_bg.xml" value="0.231" />
         <entry key="app/src/main/res/drawable/ic_plus.xml" value="0.231" />
-        <entry key="app/src/main/res/drawable/ic_profile.xml" value="0.1695" />
-        <entry key="app/src/main/res/drawable/ic_search_icon.xml" value="0.174" />
-        <entry key="app/src/main/res/drawable/selector_check_box.xml" value="0.256" />
-        <entry key="app/src/main/res/drawable/selector_user_check_list.xml" value="0.256" />
         <entry key="app/src/main/res/layout/activity_intro.xml" value="0.1118659420289855" />
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.14166666666666666" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.2890625" />
-        <entry key="app/src/main/res/layout/activity_user_search.xml" value="0.25" />
-        <entry key="app/src/main/res/layout/detail_dialog.xml" value="0.23717948717948717" />
         <entry key="app/src/main/res/layout/fragment_add_member.xml" value="0.3182291666666667" />
         <entry key="app/src/main/res/layout/fragment_club.xml" value="0.37604166666666666" />
         <entry key="app/src/main/res/layout/fragment_club_detail.xml" value="0.37604166666666666" />
@@ -201,12 +252,12 @@
         <entry key="app/src/main/res/layout/fragment_club_introduce.xml" value="0.375" />
         <entry key="app/src/main/res/layout/fragment_club_type.xml" value="0.165" />
         <entry key="app/src/main/res/layout/fragment_email_check.xml" value="0.28854166666666664" />
-        <entry key="app/src/main/res/layout/fragment_make_club_detail.xml" value="0.335" />
+        <entry key="app/src/main/res/layout/fragment_make_club_detail.xml" value="2.0" />
         <entry key="app/src/main/res/layout/fragment_post_email.xml" value="0.14166666666666666" />
         <entry key="app/src/main/res/layout/fragment_sign_up.xml" value="0.18115942028985507" />
         <entry key="app/src/main/res/layout/item_my_club.xml" value="0.37604166666666666" />
         <entry key="app/src/main/res/layout/list_club_member.xml" value="0.37604166666666666" />
-        <entry key="app/src/main/res/layout/list_club_picture.xml" value="0.28802083333333334" />
+        <entry key="app/src/main/res/layout/list_club_picture.xml" value="0.6380597014925373" />
         <entry key="app/src/main/res/layout/list_search_member.xml" value="0.37604166666666666" />
       </map>
     </option>
