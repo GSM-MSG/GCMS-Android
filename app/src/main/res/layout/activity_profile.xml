@@ -110,7 +110,6 @@
 
                     <androidx.fragment.app.FragmentContainerView
                         android:id="@+id/profileList"
-                        app:layout_constraintTop_toBottomOf="@id/afterSchoolTxt"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:name="com.msg.gcms.ui.component.profile.ProfileNoClubFragment" />
