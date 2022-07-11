@@ -10,6 +10,7 @@ import coil.load
 import coil.transform.CircleCropTransformation
 import com.msg.gcms.R
 import com.msg.gcms.data.local.entity.ActivityPhotoType
+import com.msg.gcms.data.local.entity.DetailPageSideBar
 import com.msg.gcms.data.remote.dto.datasource.club.response.MemberSummaryResponse
 import com.msg.gcms.data.remote.dto.datasource.club.response.UserInfo
 import com.msg.gcms.databinding.FragmentDetailBinding
@@ -33,12 +34,23 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
     private val detailMemberAdapter = DetailMemberAdapter()
     private val detailPhotoAdapter = DetailPhotoAdapter()
 
+    private val memberSidebarItem = arrayListOf(
+        DetailPageSideBar("동아리 멤버 확인하기", R.drawable.ic_person_two),
+        DetailPageSideBar("동아리 나가기", R.drawable.ic_club_delete)
+    )
+
+    private val headSideBarItem = arrayListOf(
+        DetailPageSideBar("동아리 멤버 관리하기", R.drawable.ic_person_two),
+        DetailPageSideBar("동아리 수정하기", R.drawable.ic_edit),
+        DetailPageSideBar("동아리 삭제하기", R.drawable.ic_club_delete)
+    )
 
     override fun init() {
         detailViewModel.setNav(false)
         observeEvent()
         settingRecyclerView()
         clickBackBtn()
+        binding.detail = this
     }
 
     private fun observeEvent() {
@@ -153,6 +165,15 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
             )
             setHasFixedSize(true)
             addItemDecoration(ItemDecorator(20, "VERTICAL"))
+        }
+
+        with(binding.sideBarRv) {
+            layoutManager = LinearLayoutManager(
+                context,
+                LinearLayoutManager.VERTICAL,
+                false
+            )
+            setHasFixedSize(true)
         }
     }
 
