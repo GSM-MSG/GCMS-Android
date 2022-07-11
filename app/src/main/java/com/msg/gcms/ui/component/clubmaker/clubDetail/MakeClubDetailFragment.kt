@@ -9,11 +9,9 @@ import android.database.Cursor
 import android.net.Uri
 import android.provider.MediaStore
 import android.util.Log
-import android.view.LayoutInflater
 import android.view.View
 import android.widget.ImageView
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
@@ -30,6 +28,7 @@ import com.msg.gcms.ui.adapter.ActivityPhotosAdapter
 import com.msg.gcms.ui.adapter.ClubMemberAdapter
 import com.msg.gcms.ui.base.BaseFragment
 import com.msg.gcms.utils.ItemDecorator
+import com.msg.viewmodel.ClubViewModel
 import com.msg.viewmodel.MakeClubViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
@@ -42,6 +41,7 @@ class MakeClubDetailFragment :
     BaseFragment<FragmentMakeClubDetailBinding>(R.layout.fragment_make_club_detail) {
 
     private val makeClubViewModel by activityViewModels<MakeClubViewModel>()
+    private val clubViewModel by activityViewModels<ClubViewModel>()
 
     private val activityPhotoMultipart = mutableListOf<MultipartBody.Part>()
     private val bannerImage = mutableListOf<MultipartBody.Part>()
@@ -169,9 +169,7 @@ class MakeClubDetailFragment :
     }
 
     private fun progressSetting() {
-        val layoutBuilder = LayoutInflater.from(context).inflate(R.layout.progress_bar, null)
-        val builder = AlertDialog.Builder(requireContext()).setView(layoutBuilder)
-        builder.show()
+        clubViewModel.startLottie(requireActivity().supportFragmentManager)
     }
 
     private fun clubMemberRecyclerView() {
