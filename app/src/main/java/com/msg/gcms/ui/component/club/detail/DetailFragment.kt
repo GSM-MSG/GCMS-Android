@@ -185,6 +185,44 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
         binding.drawerLayout.openDrawer(binding.sideBar)
     }
 
+    private fun sideBarRvSetting() {
+        with(binding.sideBarRv) {
+            layoutManager = LinearLayoutManager(
+                context,
+                LinearLayoutManager.VERTICAL,
+                false
+            )
+            setHasFixedSize(true)
+        }
+        sideBarAdapter.setItemOnClickListener(object: DetailSideBarAdapter.OnItemClickListener {
+            override fun onClick(position: Int) {
+                if(sideBarAdapter.itemCount == 2) {
+                    when (position) {
+                        0 -> {
+                            shortToast("유저 보기")
+                        }
+                        1 -> {
+                            shortToast("동아리 탈퇴")
+                        }
+                    }
+                } else {
+                    when(position) {
+                        0 -> {
+                            shortToast("유저 관리")
+                        }
+                        1 -> {
+                            shortToast("동아리 수정")
+                        }
+                        2 -> {
+                            shortToast("동아리 삭제")
+                        }
+                    }
+                }
+            }
+        })
+        binding.sideBarRv.adapter = sideBarAdapter
+    }
+
     private fun checkRole() {
         binding.submitBtn.let {
             when (detailViewModel.result.value!!.scope) {
@@ -197,28 +235,12 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
                     )
                     it.visibility = View.VISIBLE
                     sideBarAdapter = DetailSideBarAdapter(headSideBarItem)
-                    with(binding.sideBarRv) {
-                        layoutManager = LinearLayoutManager(
-                            context,
-                            LinearLayoutManager.VERTICAL,
-                            false
-                        )
-                        setHasFixedSize(true)
-                    }
-                    binding.sideBarRv.adapter = sideBarAdapter
+                    sideBarRvSetting()
                 }
                 "MEMBER" -> {
                     it.visibility = View.INVISIBLE
                     sideBarAdapter = DetailSideBarAdapter(memberSideBarItem)
-                    with(binding.sideBarRv) {
-                        layoutManager = LinearLayoutManager(
-                            context,
-                            LinearLayoutManager.VERTICAL,
-                            false
-                        )
-                        setHasFixedSize(true)
-                    }
-                    binding.sideBarRv.adapter = sideBarAdapter
+                    sideBarRvSetting()
                 }
                     "OTHER" -> {
                     it.visibility = View.INVISIBLE
