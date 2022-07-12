@@ -44,7 +44,7 @@ class MakeClubViewModel @Inject constructor(
     private var clubMemberEmail = mutableListOf<String>()
 
     private val _imageUploadCheck = MutableLiveData<Boolean>()
-    val imageUploadCheck : LiveData<Boolean> get() = _imageUploadCheck
+    val imageUploadCheck: LiveData<Boolean> get() = _imageUploadCheck
 
     private var _bannerUpload = false
 
@@ -80,7 +80,7 @@ class MakeClubViewModel @Inject constructor(
     }
 
     fun imageUploadCheck() {
-        if(_bannerUpload && _activityUpload) {
+        if (_bannerUpload && _activityUpload) {
             _imageUploadCheck.value = true
         }
     }
@@ -132,6 +132,9 @@ class MakeClubViewModel @Inject constructor(
 
     fun createClub() {
         viewModelScope.launch {
+            if (_activityPhotoResult.value == null)
+                _activityPhotoResult.value = emptyList()
+
             Log.d(
                 "TAG",
                 "createClub: type: ${clubType.value.toString()}, title: $title, description: $description, contact: $contact, notionLink: $notionLink, teacher: $teacher, member: $clubMemberEmail, activityUrls: ${activityPhoto.value}, bannerUrl: ${bannerResult.value}"
