@@ -132,9 +132,9 @@ class MakeClubViewModel @Inject constructor(
 
     fun createClub() {
         viewModelScope.launch {
-            if (_activityPhotoResult.value == null) {
+            if (_activityPhotoResult.value == null)
                 _activityPhotoResult.value = emptyList()
-            }
+
             Log.d(
                 "TAG",
                 "createClub: type: ${clubType.value.toString()}, title: $title, description: $description, contact: $contact, notionLink: $notionLink, teacher: $teacher, member: $clubMemberEmail, activityUrls: ${activityPhoto.value}, bannerUrl: ${bannerResult.value}"
