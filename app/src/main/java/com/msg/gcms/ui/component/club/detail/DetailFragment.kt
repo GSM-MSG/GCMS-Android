@@ -20,6 +20,7 @@ import com.msg.gcms.ui.adapter.DetailSideBarAdapter
 import com.msg.gcms.ui.base.BaseDialog
 import com.msg.gcms.ui.base.BaseFragment
 import com.msg.gcms.ui.component.club.ClubFragment
+import com.msg.gcms.ui.component.editclub.EditClubActivity
 import com.msg.gcms.ui.component.main.MainActivity
 import com.msg.gcms.ui.component.member_manage.MemberManageActivity
 import com.msg.gcms.utils.ItemDecorator
@@ -229,7 +230,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
                             goManageActivity()
                         }
                         1 -> {
-                            shortToast("동아리 수정")
+                            startActivity(Intent(context, EditClubActivity::class.java))
                         }
                         2 -> {
                             BaseDialog("동아리 삭제", "정말 삭제할꺼에요??", context!!).let { dialog ->

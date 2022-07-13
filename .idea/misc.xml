@@ -179,6 +179,8 @@
         <entry key="app/src/main/res/drawable/ic_side_btn.xml" value="0.1695" />
         <entry key="app/src/main/res/drawable/selector_check_box.xml" value="0.256" />
         <entry key="app/src/main/res/drawable/selector_user_check_list.xml" value="0.256" />
+        <entry key="app/src/main/res/layout/activity_club_edit.xml" value="0.23717948717948717" />
+        <entry key="app/src/main/res/layout/activity_edit_club.xml" value="0.23849339171917766" />
         <entry key="app/src/main/res/layout/activity_intro.xml" value="0.1118659420289855" />
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.14166666666666666" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.2890625" />
