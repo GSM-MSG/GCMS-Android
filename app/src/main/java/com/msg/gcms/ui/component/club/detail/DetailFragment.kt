@@ -1,5 +1,6 @@
 package com.msg.gcms.ui.component.club.detail
 
+import android.content.Intent
 import android.util.Log
 import android.view.View
 import androidx.fragment.app.activityViewModels
@@ -19,6 +20,7 @@ import com.msg.gcms.ui.adapter.DetailSideBarAdapter
 import com.msg.gcms.ui.base.BaseDialog
 import com.msg.gcms.ui.base.BaseFragment
 import com.msg.gcms.ui.component.club.ClubFragment
+import com.msg.gcms.ui.component.editclub.EditClubActivity
 import com.msg.gcms.ui.component.main.MainActivity
 import com.msg.gcms.utils.ItemDecorator
 import com.msg.viewmodel.ClubDetailViewModel
@@ -211,7 +213,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
                             shortToast("유저 관리")
                         }
                         1 -> {
-                            shortToast("동아리 수정")
+                            startActivity(Intent(context, EditClubActivity::class.java))
                         }
                         2 -> {
                             shortToast("동아리 삭제")
