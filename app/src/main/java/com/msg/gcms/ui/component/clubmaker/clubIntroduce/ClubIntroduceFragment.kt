@@ -30,15 +30,19 @@ class ClubIntroduceFragment :
 
     fun editTextCheck() {
         if (binding.clubNameEt.text.isNotEmpty() && binding.clubIntroduceEt.text.isNotEmpty() && binding.contactEt.text.isNotEmpty() && binding.linkUrlEt.text.isNotEmpty() && binding.linkName.text.isNotEmpty()) {
-            with(makeClubViewModel) {
-                title = binding.clubNameEt.text.toString().trim()
-                description = binding.clubIntroduceEt.text.toString().trim()
-                contact = binding.contactEt.text.toString().trim()
-                notionLink = binding.linkUrlEt.text.toString().trim()
-                teacher = binding.teacherNameEt.text.toString().trim()
+            if(binding.linkUrlEt.text.toString().contains("https://")){
+                with(makeClubViewModel) {
+                    title = binding.clubNameEt.text.toString().trim()
+                    description = binding.clubIntroduceEt.text.toString().trim()
+                    contact = binding.contactEt.text.toString().trim()
+                    notionLink = binding.linkUrlEt.text.toString().trim()
+                    teacher = binding.teacherNameEt.text.toString().trim()
+                }
+                this.findNavController()
+                    .navigate(R.id.action_clubIntroduceFragment_to_makeClubDetailFragment)
+            } else {
+                shortToast("노션 링크앞에 https://를 붙여주세요!!")
             }
-            this.findNavController()
-                .navigate(R.id.action_clubIntroduceFragment_to_makeClubDetailFragment)
         } else shortToast("필수 사항들을 모두 입력해주세요!!")
     }
 }
