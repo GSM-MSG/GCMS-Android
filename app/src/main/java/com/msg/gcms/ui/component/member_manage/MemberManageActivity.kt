@@ -2,6 +2,7 @@ package com.msg.gcms.ui.component.member_manage
 
 import android.animation.ObjectAnimator
 import android.content.Context
+import android.content.Intent
 import android.util.Log
 import android.view.View
 import androidx.activity.viewModels
@@ -31,15 +32,17 @@ class MemberManageActivity :
     }
 
     override fun viewSetting() {
-        clickExpandable()
+        viewModel.setClub(intent.getStringExtra("name")!!, intent.getStringExtra("type")!!).let {
+            clickExpandable()
+        }
         clickBackBtn()
     }
 
-    private fun showDialog(title: String, msg: String, context: Context, action: Unit) {
+    private fun showDialog(title: String, msg: String, context: Context, action: () -> Unit) {
         BaseDialog(title, msg, context).let { dialog ->
             dialog.show()
             dialog.dialogBinding.ok.setOnClickListener {
-                action
+                action()
                 viewModel.getMember()
                 viewModel.getApplicant()
                 dialog.dismiss()
@@ -55,7 +58,7 @@ class MemberManageActivity :
                     "위임",
                     "권한 넘어감",
                     this@MemberManageActivity,
-                    viewModel.delegate(viewModel.memberList.value!!.get(position).email)
+                    { viewModel.delegate(viewModel.memberList.value!!.get(position).email) }
                 )
             }
 
@@ -64,7 +67,7 @@ class MemberManageActivity :
                     "강퇴",
                     "${viewModel.memberList.value!!.get(position).name}님을 강퇴하시겠습니까?",
                     this@MemberManageActivity,
-                    viewModel.kickUser(viewModel.memberList.value!!.get(position).email)
+                    { viewModel.kickUser(viewModel.memberList.value!!.get(position).email) }
                 )
             }
         })
@@ -80,7 +83,7 @@ class MemberManageActivity :
                     "승인",
                     "동료가 되었다!!",
                     this@MemberManageActivity,
-                    viewModel.accept(viewModel.applicantList.value!!.get(position).email)
+                    { viewModel.accept(viewModel.applicantList.value!!.get(position).email) }
                 )
             }
 
@@ -89,7 +92,7 @@ class MemberManageActivity :
                     "거절",
                     "바2",
                     this@MemberManageActivity,
-                    viewModel.reject(viewModel.applicantList.value!!.get(position).email)
+                    { viewModel.reject(viewModel.applicantList.value!!.get(position).email) }
                 )
             }
         })
