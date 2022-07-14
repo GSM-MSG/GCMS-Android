@@ -11,7 +11,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/bg_profile_list"
-        xmlns:app="http://schemas.android.com/apk/res-auto">
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:paddingTop="32dp">
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline8"
@@ -42,25 +43,25 @@
             app:layout_constraintGuide_percent="0.95" />
 
 
-        <TextView
-            android:id="@+id/afterSchoolTxt"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="18sp"
-            android:text="@string/afterSchool"
-            android:fontFamily="@font/notosans"
-            android:textFontWeight="700"
-            android:layout_marginTop="61dp"
-            android:textColor="@color/white"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="@id/guideline8" />
+<!--        <TextView-->
+<!--            android:id="@+id/afterSchoolTxt"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:textSize="18sp"-->
+<!--            android:text="@string/afterSchool"-->
+<!--            android:fontFamily="@font/notosans"-->
+<!--            android:textFontWeight="700"-->
+<!--            android:layout_marginTop="61dp"-->
+<!--            android:textColor="@color/white"-->
+<!--            app:layout_constraintTop_toTopOf="parent"-->
+<!--            app:layout_constraintStart_toStartOf="@id/guideline8" />-->
 
-        <androidx.fragment.app.FragmentContainerView
-            android:id="@+id/afterSchoolFragmentView"
-            app:layout_constraintTop_toBottomOf="@id/afterSchoolTxt"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:name="com.msg.gcms.ui.component.profile.ProfileNoAfterSchoolFragment" />
+<!--        <androidx.fragment.app.FragmentContainerView-->
+<!--            android:id="@+id/afterSchoolFragmentView"-->
+<!--            app:layout_constraintTop_toBottomOf="@id/afterSchoolTxt"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:name="com.msg.gcms.ui.component.profile.ProfileNoAfterSchoolFragment" />-->
 
         <TextView
             android:id="@+id/majorTxt"
@@ -69,7 +70,7 @@
             android:text="@string/majorClub"
             android:textColor="@color/white"
             android:textSize="16sp"
-            app:layout_constraintTop_toBottomOf="@id/afterSchoolFragmentView"
+            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="@id/guideline8" />
 
         <LinearLayout
@@ -117,7 +118,7 @@
             android:textColor="@color/white"
             android:textSize="16sp"
             app:layout_constraintStart_toStartOf="@id/guideline10"
-            app:layout_constraintTop_toBottomOf="@id/afterSchoolFragmentView" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <LinearLayout
             android:visibility="invisible"
