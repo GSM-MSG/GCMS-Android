@@ -32,10 +32,19 @@ class MemberManageViewModel @Inject constructor(
 
     private val _applicantList = MutableLiveData<List<MemberSummaryResponse>>()
     val applicantList: LiveData<List<MemberSummaryResponse>> get() = _applicantList
+
+    private val _clubName = MutableLiveData<String>()
+    private val _clubType = MutableLiveData<String>()
+
+    fun setClub(name: String, type: String) {
+        _clubName.value = name
+        _clubType.value = type
+    }
+
     fun getMember() {
         viewModelScope.launch {
             try {
-                val response = getMemberUseCase.getMember("kke", "MAJOR")
+                val response = getMemberUseCase.getMember(_clubName.value!!, _clubType.value!!)
                 _memberList.value = response.body()!!.requestUser
             } catch (e: Exception) {
                 e.printStackTrace()
@@ -46,7 +55,7 @@ class MemberManageViewModel @Inject constructor(
     fun getApplicant() {
         viewModelScope.launch {
             try{
-                val response = getApplicantUseCase.getApplicant("kke", "MAJOR")
+                val response = getApplicantUseCase.getApplicant(_clubName.value!!, _clubType.value!!)
                 _applicantList.value = response.body()!!.requestUser
             } catch (e: Exception) {
                 e.printStackTrace()
@@ -57,10 +66,8 @@ class MemberManageViewModel @Inject constructor(
     fun kickUser(id: String) {
         viewModelScope.launch {
             try {
-                val response = userKickUseCase.kick(MemberManagementRequest("kke", "MAJOR", id))
-                Log.d("안ㄴ", "ickUser: ${response.code()}")
+                val response = userKickUseCase.kick(MemberManagementRequest(_clubName.value!!, _clubType.value!!, id))
             } catch (e: Exception) {
-                Log.d("안ㄴ", "kickUser:E ${e.message}")
                 e.printStackTrace()
             }
         }
@@ -69,8 +76,7 @@ class MemberManageViewModel @Inject constructor(
     fun delegate(id: String) {
         viewModelScope.launch {
             try {
-                val response = userDelegateUseCase.mandate(MemberManagementRequest("kke", "MAJOR", id))
-                Log.d("안ㄴ", "delegate: ${response.code()}")
+                val response = userDelegateUseCase.mandate(MemberManagementRequest(_clubName.value!!, _clubType.value!!, id))
             } catch (e: Exception) {
                 e.printStackTrace()
             }
@@ -81,7 +87,7 @@ class MemberManageViewModel @Inject constructor(
         viewModelScope.launch {
             try {
                 val response =
-                    applicantRejectUseCase.reject(MemberManagementRequest("kke", "MAJOR", id))
+                    applicantRejectUseCase.reject(MemberManagementRequest(_clubName.value!!, _clubType.value!!, id))
             } catch (e: Exception) {
                 e.printStackTrace()
             }
@@ -91,7 +97,7 @@ class MemberManageViewModel @Inject constructor(
     fun accept(id: String) {
         viewModelScope.launch {
             try {
-                val response = applicantAcceptUseCase.accept(MemberManagementRequest("kke", "MAJOR", id))
+                val response = applicantAcceptUseCase.accept(MemberManagementRequest(_clubName.value!!, _clubType.value!!, id))
             } catch (e: Exception) {
                 e.printStackTrace()
             }
