@@ -2,8 +2,6 @@ package com.msg.gcms.ui.component.member_manage
 
 import android.animation.ObjectAnimator
 import android.content.Context
-import android.content.Intent
-import android.util.Log
 import android.view.View
 import androidx.activity.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -36,6 +34,11 @@ class MemberManageActivity :
             clickExpandable()
         }
         clickBackBtn()
+        viewTitle()
+    }
+
+    private fun viewTitle() {
+        if(intent.getStringExtra("role").equals("MEMBER")) binding.title.text = "동아리 멤버 확인하기"
     }
 
     private fun showDialog(title: String, msg: String, context: Context, action: () -> Unit) {
@@ -51,7 +54,7 @@ class MemberManageActivity :
     }
 
     private fun settingMemberAdapter() {
-        memberAdapter = MemberAdapter(viewModel.memberList.value!!)
+        memberAdapter = MemberAdapter(viewModel.memberList.value!!, intent.getStringExtra("role")!!)
         memberAdapter.setItemOnClickListener(object : MemberAdapter.OnItemClickListener {
             override fun mandate(position: Int) {
                 showDialog(
@@ -76,7 +79,7 @@ class MemberManageActivity :
     }
 
     private fun settingApplicantAdapter() {
-        applicantAdapter = ApplicantAdapter(viewModel.applicantList.value!!)
+        applicantAdapter = ApplicantAdapter(viewModel.applicantList.value!!, intent.getStringExtra("role")!!)
         applicantAdapter.setOnClickListener(object : ApplicantAdapter.onClickListener {
             override fun accept(position: Int) {
                 showDialog(

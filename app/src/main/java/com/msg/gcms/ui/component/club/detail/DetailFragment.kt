@@ -209,6 +209,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
                             val intent = Intent(activity, MemberManageActivity::class.java)
                             intent.putExtra("name", detailViewModel.result.value!!.club.title)
                             intent.putExtra("type", detailViewModel.result.value!!.club.type)
+                            intent.putExtra("role", detailViewModel.result.value!!.scope)
                             activity!!.startActivity(intent)
                         }
                         1 -> {
@@ -221,6 +222,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
                             val intent = Intent(context, MemberManageActivity::class.java)
                             intent.putExtra("name", detailViewModel.result.value!!.club.title)
                             intent.putExtra("type", detailViewModel.result.value!!.club.type)
+                            intent.putExtra("role", detailViewModel.result.value!!.scope)
                             startActivity(intent)
                         }
                         1 -> {

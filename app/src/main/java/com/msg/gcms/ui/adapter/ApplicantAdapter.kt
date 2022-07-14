@@ -1,6 +1,7 @@
 package com.msg.gcms.ui.adapter
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
@@ -8,15 +9,20 @@ import coil.transform.CircleCropTransformation
 import com.msg.gcms.data.remote.dto.datasource.club.response.MemberSummaryResponse
 import com.msg.gcms.databinding.ListApplicantBinding
 
-class ApplicantAdapter(val itemList: List<MemberSummaryResponse>) :
+class ApplicantAdapter(val itemList: List<MemberSummaryResponse>, val role: String) :
     RecyclerView.Adapter<ApplicantAdapter.ViewHolder>() {
     class ViewHolder(val binding: ListApplicantBinding, itemClickListener: onClickListener) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(item: MemberSummaryResponse) {
+        fun bind(item: MemberSummaryResponse, role: String) {
             binding.applicant = item
             binding.userProfileImg.load(item.userImg){
                 transformations(CircleCropTransformation())
             }
             binding.userClassTxt.text = "${item.grade}학년 ${item.`class`}반 ${item.num}번"
+
+            if(role.equals("MEMBER")) {
+                binding.refuseBtn.visibility = View.GONE
+                binding.approveBtn.visibility = View.GONE
+            }
         }
 
         init {
@@ -40,7 +46,7 @@ class ApplicantAdapter(val itemList: List<MemberSummaryResponse>) :
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(itemList.get(position))
+        holder.bind(itemList.get(position), role)
     }
 
     override fun getItemCount() = itemList.size
