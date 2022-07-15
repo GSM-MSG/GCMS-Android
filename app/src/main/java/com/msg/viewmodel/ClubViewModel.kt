@@ -104,7 +104,7 @@ class ClubViewModel @Inject constructor(
         }
     }
 
-    fun exit(type: String, q: String) {
+    fun exit(q: String, type: String) {
         viewModelScope.launch {
             try {
                 exitUseCase.postExit(UserDeleteRequest(q = q, type = type))
@@ -114,10 +114,10 @@ class ClubViewModel @Inject constructor(
         }
     }
 
-    fun deleteClub(type: String, q: String) {
+    fun deleteClub(q: String, type: String) {
         viewModelScope.launch {
             try {
-                clubDeleteUseCase.postDelete(ClubIdentificationRequest(q = q, type = type))
+                val response = clubDeleteUseCase.postDelete(ClubIdentificationRequest(q = q, type = type))
             } catch (e: Exception) {
                 e.printStackTrace()
             }

@@ -237,6 +237,9 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
                                 detailViewModel.result.value!!.club.title,
                                 detailViewModel.result.value!!.club.type
                             )
+                            requireActivity().supportFragmentManager.beginTransaction()
+                                .replace(R.id.fragment_club, ClubFragment()).commit()
+                            detailViewModel.setNav(true)
                         }
                     }
                 }
