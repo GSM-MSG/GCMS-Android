@@ -22,7 +22,7 @@ interface ClubRepository {
         body: ModifyClubInfoRequest
     ): Response<Void>
 
-    suspend fun deleteClub(): Response<Void>
+    suspend fun deleteClub(body: ClubIdentificationRequest): Response<Void>
 
     suspend fun getMemberList(clubName: String, type: String): Response<MemberInfo>
 

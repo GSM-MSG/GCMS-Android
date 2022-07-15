@@ -41,6 +41,7 @@ interface ClubAPI {
 
     @DELETE("club/")
     suspend fun deleteClub(
+        body: ClubIdentificationRequest
     ): Response<Void>
 
     @GET("club/members")

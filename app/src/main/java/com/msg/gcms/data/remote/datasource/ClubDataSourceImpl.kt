@@ -7,7 +7,6 @@ import com.msg.gcms.data.remote.dto.datasource.club.request.ModifyClubInfoReques
 import com.msg.gcms.data.remote.dto.datasource.club.response.ClubInfoResponse
 import com.msg.gcms.data.remote.dto.datasource.club.response.MemberInfo
 import com.msg.gcms.data.remote.dto.datasource.club.response.SummaryClubResponse
-import com.msg.gcms.data.remote.dto.datasource.user.response.UserData
 import com.msg.gcms.data.remote.network.ClubAPI
 import retrofit2.Response
 import javax.inject.Inject
@@ -31,8 +30,8 @@ class ClubDataSourceImpl @Inject constructor(
         return service.putChangeClub(body = body)
     }
 
-    override suspend fun deleteClub(): Response<Void> {
-        return service.deleteClub()
+    override suspend fun deleteClub(body: ClubIdentificationRequest): Response<Void> {
+        return service.deleteClub(body = body)
     }
 
     override suspend fun getMemberList(clubName: String, type: String): Response<MemberInfo> {

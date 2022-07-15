@@ -7,7 +7,6 @@ import com.msg.gcms.data.remote.dto.datasource.club.request.ModifyClubInfoReques
 import com.msg.gcms.data.remote.dto.datasource.club.response.ClubInfoResponse
 import com.msg.gcms.data.remote.dto.datasource.club.response.MemberInfo
 import com.msg.gcms.data.remote.dto.datasource.club.response.SummaryClubResponse
-import com.msg.gcms.data.remote.dto.datasource.user.response.UserData
 import retrofit2.Response
 
 interface ClubDataSource {
@@ -23,7 +22,9 @@ interface ClubDataSource {
         body: ModifyClubInfoRequest
     ): Response<Void>
 
-    suspend fun deleteClub(): Response<Void>
+    suspend fun deleteClub(
+        body: ClubIdentificationRequest
+    ): Response<Void>
 
     suspend fun getMemberList(clubName: String, type: String): Response<MemberInfo>
 

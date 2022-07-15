@@ -13,6 +13,7 @@ import com.msg.gcms.data.local.entity.DetailPageSideBar
 import com.msg.gcms.data.local.entity.PromotionPicType
 import com.msg.gcms.data.remote.dto.datasource.club.response.MemberSummaryResponse
 import com.msg.gcms.data.remote.dto.datasource.club.response.UserInfo
+import com.msg.gcms.data.remote.dto.datasource.user.request.UserDeleteRequest
 import com.msg.gcms.databinding.FragmentDetailBinding
 import com.msg.gcms.ui.adapter.DetailMemberAdapter
 import com.msg.gcms.ui.adapter.DetailPhotoAdapter
@@ -213,7 +214,10 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
                             activity!!.startActivity(intent)
                         }
                         1 -> {
-                            shortToast("동아리 탈퇴")
+                            clubViewModel.exit(
+                                detailViewModel.result.value!!.club.title,
+                                detailViewModel.result.value!!.club.type
+                            )
                         }
                     }
                 } else {
@@ -229,7 +233,10 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
                             shortToast("동아리 수정")
                         }
                         2 -> {
-                            shortToast("동아리 삭제")
+                            clubViewModel.deleteClub(
+                                detailViewModel.result.value!!.club.title,
+                                detailViewModel.result.value!!.club.type
+                            )
                         }
                     }
                 }
