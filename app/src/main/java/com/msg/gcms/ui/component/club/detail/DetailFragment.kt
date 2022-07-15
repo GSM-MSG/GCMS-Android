@@ -1,5 +1,6 @@
 package com.msg.gcms.ui.component.club.detail
 
+import android.content.Intent
 import android.util.Log
 import android.view.View
 import androidx.fragment.app.activityViewModels
@@ -20,6 +21,7 @@ import com.msg.gcms.ui.base.BaseDialog
 import com.msg.gcms.ui.base.BaseFragment
 import com.msg.gcms.ui.component.club.ClubFragment
 import com.msg.gcms.ui.component.main.MainActivity
+import com.msg.gcms.ui.component.member_manage.MemberManageActivity
 import com.msg.gcms.utils.ItemDecorator
 import com.msg.viewmodel.ClubDetailViewModel
 import com.msg.viewmodel.ClubViewModel
@@ -123,7 +125,12 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
                 membersList.add(
                     MemberSummaryResponse(
                         name = member[i].name,
-                        userImg = member[i].userImg.toString()
+                        userImg = member[i].userImg.toString(),
+                        email = member[i].email,
+                        `class` = member[i].`class`,
+                        num = member[i].num,
+                        grade = member[i].grade,
+                        scope = "MEMBER"
                     )
                 )
             } catch (e: Exception) {
@@ -199,7 +206,11 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
                 if(sideBarAdapter.itemCount == 2) {
                     when (position) {
                         0 -> {
-                            shortToast("유저 보기")
+                            val intent = Intent(activity, MemberManageActivity::class.java)
+                            intent.putExtra("name", detailViewModel.result.value!!.club.title)
+                            intent.putExtra("type", detailViewModel.result.value!!.club.type)
+                            intent.putExtra("role", detailViewModel.result.value!!.scope)
+                            activity!!.startActivity(intent)
                         }
                         1 -> {
                             shortToast("동아리 탈퇴")
@@ -208,7 +219,11 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
                 } else {
                     when(position) {
                         0 -> {
-                            shortToast("유저 관리")
+                            val intent = Intent(context, MemberManageActivity::class.java)
+                            intent.putExtra("name", detailViewModel.result.value!!.club.title)
+                            intent.putExtra("type", detailViewModel.result.value!!.club.type)
+                            intent.putExtra("role", detailViewModel.result.value!!.scope)
+                            startActivity(intent)
                         }
                         1 -> {
                             shortToast("동아리 수정")

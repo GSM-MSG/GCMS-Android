@@ -25,9 +25,9 @@ interface ClubDataSource {
 
     suspend fun deleteClub(): Response<Void>
 
-    suspend fun getMemberList(clubName: String, type: String): Response<List<MemberInfo>>
+    suspend fun getMemberList(clubName: String, type: String): Response<MemberInfo>
 
-    suspend fun getApplicantList(clubName: String, type: String): Response<List<UserData>>
+    suspend fun getApplicantList(clubName: String, type: String): Response<MemberInfo>
 
     suspend fun postApplicationAccept(body: MemberManagementRequest): Response<Void>
 
