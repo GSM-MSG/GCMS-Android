@@ -1,16 +1,26 @@
 package com.msg.gcms.ui.component.editclub
 
 import android.view.View
+import androidx.activity.viewModels
 import com.msg.gcms.R
 import com.msg.gcms.databinding.ActivityEditClubBinding
 import com.msg.gcms.ui.base.BaseActivity
+import com.msg.viewmodel.EditClubViewModel
 
 class EditClubActivity : BaseActivity<ActivityEditClubBinding>(R.layout.activity_edit_club) {
+
+    private val editClubViewModel by viewModels<EditClubViewModel>()
+
     override fun viewSetting() {
         binding.activity = this
+        getClubInfo()
     }
 
     override fun observeEvent() {
+    }
+
+    private fun getClubInfo() {
+
     }
 
     fun buttonClickListener(view: View) {
