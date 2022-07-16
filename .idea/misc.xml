@@ -184,6 +184,7 @@
         <entry key="app/src/main/res/layout/activity_intro.xml" value="0.1118659420289855" />
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.14166666666666666" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.2890625" />
+        <entry key="app/src/main/res/layout/activity_profile.xml" value="0.21396789550781253" />
         <entry key="app/src/main/res/layout/activity_splash.xml" value="0.2856191012096485" />
         <entry key="app/src/main/res/layout/activity_user_search.xml" value="0.25" />
         <entry key="app/src/main/res/layout/detail_dialog.xml" value="0.23717948717948717" />
@@ -198,6 +199,7 @@
         <entry key="app/src/main/res/layout/fragment_email_check.xml" value="0.28854166666666664" />
         <entry key="app/src/main/res/layout/fragment_make_club_detail.xml" value="0.335" />
         <entry key="app/src/main/res/layout/fragment_post_email.xml" value="0.14166666666666666" />
+        <entry key="app/src/main/res/layout/fragment_profile_club.xml" value="0.23632478632478632" />
         <entry key="app/src/main/res/layout/fragment_profile_no_after_school.xml" value="0.28802083333333334" />
         <entry key="app/src/main/res/layout/fragment_profile_no_club.xml" value="0.28802083333333334" />
         <entry key="app/src/main/res/layout/fragment_sign_up.xml" value="0.18115942028985507" />
