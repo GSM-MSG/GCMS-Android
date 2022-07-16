@@ -8,8 +8,10 @@ import coil.transform.RoundedCornersTransformation
 import com.msg.gcms.data.remote.dto.datasource.user.response.ClubData
 import com.msg.gcms.databinding.ListClubEditorialBinding
 
-class EditorialClubAdapter(private val clubList: ArrayList<ClubData>): RecyclerView.Adapter<EditorialClubAdapter.ViewHolder>() {
-    class ViewHolder(val binding: ListClubEditorialBinding): RecyclerView.ViewHolder(binding.root) {
+class EditorialClubAdapter(private val clubList: ArrayList<ClubData>) :
+    RecyclerView.Adapter<EditorialClubAdapter.ViewHolder>() {
+    class ViewHolder(val binding: ListClubEditorialBinding) :
+        RecyclerView.ViewHolder(binding.root) {
         fun bind(club: ClubData) {
             binding.editorialItem = club
             binding.itemClubImg.load(club.bannerUrl) {

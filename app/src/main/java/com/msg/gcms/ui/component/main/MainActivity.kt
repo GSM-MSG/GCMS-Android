@@ -23,6 +23,11 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
     }
 
     override fun observeEvent() {
+        if(mainViewModel.isProfile.value == true){
+            shortToast("프로필에서 왔다")
+        } else {
+            shortToast("그냥 왔다")
+        }
         observeBottomNav()
         observeSetNav()
     }
