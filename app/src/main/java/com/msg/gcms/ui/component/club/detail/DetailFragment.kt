@@ -230,7 +230,9 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
                             goManageActivity()
                         }
                         1 -> {
-                            startActivity(Intent(context, EditClubActivity::class.java))
+                            val intent = Intent(context, EditClubActivity::class.java)
+                            intent.putExtra("query", "${detailViewModel.result.value!!.club.title} + ${detailViewModel.result.value!!.club.type}")
+                            startActivity(intent)
                         }
                         2 -> {
                             BaseDialog("동아리 삭제", "정말 삭제할꺼에요??", context!!).let { dialog ->
