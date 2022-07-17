@@ -213,7 +213,9 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
                             shortToast("유저 관리")
                         }
                         1 -> {
-                            startActivity(Intent(context, EditClubActivity::class.java))
+                            val intent = Intent(context, EditClubActivity::class.java)
+                            intent.putExtra("query", "${detailViewModel.result.value!!.club.title} + ${detailViewModel.result.value!!.club.type}")
+                            startActivity(intent)
                         }
                         2 -> {
                             shortToast("동아리 삭제")
