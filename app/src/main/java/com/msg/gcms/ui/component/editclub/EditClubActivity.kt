@@ -4,12 +4,16 @@ import android.util.Log
 import android.view.View
 import androidx.activity.viewModels
 import androidx.fragment.app.FragmentManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import coil.load
 import coil.transform.RoundedCornersTransformation
 import com.msg.gcms.R
 import com.msg.gcms.databinding.ActivityEditClubBinding
+import com.msg.gcms.ui.adapter.ActivityPhotosAdapter
+import com.msg.gcms.ui.adapter.ClubMemberAdapter
 import com.msg.gcms.ui.base.BaseActivity
 import com.msg.gcms.ui.base.LottieFragment
+import com.msg.gcms.utils.ItemDecorator
 import com.msg.viewmodel.EditClubViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -19,13 +23,19 @@ class EditClubActivity : BaseActivity<ActivityEditClubBinding>(R.layout.activity
     private val editClubViewModel by viewModels<EditClubViewModel>()
     private val lottie by lazy { LottieFragment() }
 
+    private lateinit var activityPhotosAdapter: ActivityPhotosAdapter
+    private lateinit var clubMemberAdapter: ClubMemberAdapter
+
     override fun viewSetting() {
         binding.activity = this
         getClubInfo()
+        recyclerViewSetting()
     }
 
     override fun observeEvent() {
         observeClubInfo()
+        observeMember()
+        observeActivityPhoto()
     }
 
     private fun observeClubInfo() {
@@ -34,6 +44,31 @@ class EditClubActivity : BaseActivity<ActivityEditClubBinding>(R.layout.activity
             if(it != null)
             setClubInfo()
             stopLottie()
+        }
+    }
+
+    private fun observeMember() {
+        editClubViewModel.clubMember.observe(this) {
+
+        }
+    }
+
+    private fun observeActivityPhoto() {
+        editClubViewModel.activityPhoto.observe(this) {
+
+        }
+    }
+
+    private fun recyclerViewSetting() {
+        with(binding.clubActivePictureRv) {
+            layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+            setHasFixedSize(true)
+            addItemDecoration(ItemDecorator(10, "HORIZONTAL"))
+        }
+        with(binding.clubMemberRv) {
+            layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+            setHasFixedSize(true)
+            addItemDecoration(ItemDecorator(50, "HORIZONTAL"))
         }
     }
 

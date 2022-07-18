@@ -51,6 +51,8 @@ class MakeClubDetailFragment :
 
     private var bannerImageUri: Uri? = null
 
+    private var imageState = false
+
     override fun init() {
         binding.fragment = this
         settingRecyclerView()
@@ -68,8 +70,14 @@ class MakeClubDetailFragment :
     }
 
     private fun observeImageChange() {
-        makeClubViewModel.imageUploadCheck.observe(this) {
-            postCreateClub()
+        makeClubViewModel.imageUploadCheck.observe(requireActivity()) {
+            if(it != null) {
+                if(!imageState) {
+                    Event(postCreateClub()).getContentIfNotHandled()
+                    Log.d("TAG", "observeImageChange: 카운트")
+                    imageState = true
+                }
+            }
         }
     }
 
@@ -86,6 +94,7 @@ class MakeClubDetailFragment :
                 }
                 false -> {
                     shortToast(Event("생성 실패").getContentIfNotHandled().toString())
+                    clubViewModel.stopLottie()
                 }
             }
         }

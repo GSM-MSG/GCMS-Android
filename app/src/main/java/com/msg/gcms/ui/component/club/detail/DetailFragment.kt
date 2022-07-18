@@ -78,7 +78,10 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
             detailViewModel.result.value!!.let { it ->
                 it.club.let {
                     clubName.text = it.title
-                    clubBanner.load(it.bannerUrl)
+                    clubBanner.load(it.bannerUrl) {
+                        crossfade(true)
+                        transformations()
+                    }
                     explainClubTxt.text = it.description
                     link.text = it.notionLink
                     setTeacherInfo(it.teacher)

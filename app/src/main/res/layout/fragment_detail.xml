@@ -75,7 +75,8 @@
                 android:textSize="18sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="@+id/back_btn" />
 
             <ImageView
                 android:id="@+id/sideBarBtn"
@@ -97,6 +98,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:translationZ="-1dp"
+                android:background="@color/transparent_black"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView

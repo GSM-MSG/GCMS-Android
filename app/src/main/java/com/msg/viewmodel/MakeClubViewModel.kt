@@ -43,12 +43,12 @@ class MakeClubViewModel @Inject constructor(
 
     private var clubMemberEmail = mutableListOf<String>()
 
-    private val _imageUploadCheck = MutableLiveData<Boolean>()
-    val imageUploadCheck: LiveData<Boolean> get() = _imageUploadCheck
+    private val _imageUploadCheck = MutableLiveData<Boolean?>()
+    val imageUploadCheck: LiveData<Boolean?> get() = _imageUploadCheck
 
-    private var _bannerUpload = false
+    private var _bannerUpload : Boolean? = null
 
-    private var _activityUpload = false
+    private var _activityUpload : Boolean? = null
 
     var activityPhotoList = mutableListOf<ActivityPhotoType>()
 
@@ -78,9 +78,8 @@ class MakeClubViewModel @Inject constructor(
             }
         }
     }
-
     fun imageUploadCheck() {
-        if (_bannerUpload && _activityUpload) {
+        if (_bannerUpload == true && _activityUpload == true) {
             _imageUploadCheck.value = true
         }
     }
