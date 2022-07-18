@@ -206,36 +206,59 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
                 if(sideBarAdapter.itemCount == 2) {
                     when (position) {
                         0 -> {
-                            val intent = Intent(activity, MemberManageActivity::class.java)
-                            intent.putExtra("name", detailViewModel.result.value!!.club.title)
-                            intent.putExtra("type", detailViewModel.result.value!!.club.type)
-                            intent.putExtra("role", detailViewModel.result.value!!.scope)
-                            activity!!.startActivity(intent)
+                            goManageActivity()
                         }
                         1 -> {
-                            shortToast("동아리 탈퇴")
+                            BaseDialog("동아리 탈퇴", "정말 나갈꺼에요??", context!!).let { dialog ->
+                                dialog.show()
+                                dialog.dialogBinding.ok.setOnClickListener {
+                                    clubViewModel.exit(
+                                        detailViewModel.result.value!!.club.title,
+                                        detailViewModel.result.value!!.club.type
+                                    )
+                                    dialog.dismiss()
+                                    requireActivity().supportFragmentManager.beginTransaction()
+                                        .replace(R.id.fragment_club, DetailFragment()).commit()
+                                }
+                            }
                         }
                     }
                 } else {
                     when(position) {
                         0 -> {
-                            val intent = Intent(context, MemberManageActivity::class.java)
-                            intent.putExtra("name", detailViewModel.result.value!!.club.title)
-                            intent.putExtra("type", detailViewModel.result.value!!.club.type)
-                            intent.putExtra("role", detailViewModel.result.value!!.scope)
-                            startActivity(intent)
+                            goManageActivity()
                         }
                         1 -> {
                             shortToast("동아리 수정")
                         }
                         2 -> {
-                            shortToast("동아리 삭제")
+                            BaseDialog("동아리 삭제", "정말 삭제할꺼에요??", context!!).let { dialog ->
+                                dialog.show()
+                                dialog.dialogBinding.ok.setOnClickListener {
+                                    clubViewModel.deleteClub(
+                                        detailViewModel.result.value!!.club.title,
+                                        detailViewModel.result.value!!.club.type
+                                    )
+                                    dialog.dismiss()
+                                    requireActivity().supportFragmentManager.beginTransaction()
+                                        .replace(R.id.fragment_club, ClubFragment()).commit()
+                                    detailViewModel.setNav(true)
+                                }
+                            }
                         }
                     }
                 }
             }
         })
         binding.sideBarRv.adapter = sideBarAdapter
+    }
+
+    private fun goManageActivity() {
+        val intent = Intent(context, MemberManageActivity::class.java)
+        intent.putExtra("name", detailViewModel.result.value!!.club.title)
+        intent.putExtra("type", detailViewModel.result.value!!.club.type)
+        intent.putExtra("role", detailViewModel.result.value!!.scope)
+        startActivity(intent)
     }
 
     private fun checkRole() {

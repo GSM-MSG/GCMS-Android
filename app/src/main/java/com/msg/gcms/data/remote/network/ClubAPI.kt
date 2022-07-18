@@ -39,8 +39,9 @@ interface ClubAPI {
         @Body body: ModifyClubInfoRequest
     ): Response<Void>
 
-    @DELETE("club/")
+    @POST("club/delete")
     suspend fun deleteClub(
+        @Body body: ClubIdentificationRequest
     ): Response<Void>
 
     @GET("club/members")

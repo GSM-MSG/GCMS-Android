@@ -7,7 +7,10 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.msg.gcms.data.remote.dto.datasource.club.request.ClubIdentificationRequest
+import com.msg.gcms.data.remote.dto.datasource.user.request.UserDeleteRequest
+import com.msg.gcms.domain.usecase.club.ClubDeleteUseCase
 import com.msg.gcms.domain.usecase.club.ClubUseCase
+import com.msg.gcms.domain.usecase.user.ExitUseCase
 import com.msg.gcms.ui.base.LottieFragment
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -15,7 +18,9 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ClubViewModel @Inject constructor(
-    private val clubUseCase: ClubUseCase
+    private val clubUseCase: ClubUseCase,
+    private val exitUseCase: ExitUseCase,
+    private val clubDeleteUseCase: ClubDeleteUseCase
 ) : ViewModel() {
 
     private val lottie by lazy { LottieFragment() }
@@ -96,6 +101,26 @@ class ClubViewModel @Inject constructor(
     fun stopLottie() {
         if (lottie.isAdded) {
             lottie.dismissAllowingStateLoss()
+        }
+    }
+
+    fun exit(q: String, type: String) {
+        viewModelScope.launch {
+            try {
+                exitUseCase.postExit(UserDeleteRequest(q = q, type = type))
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }
+    }
+
+    fun deleteClub(q: String, type: String) {
+        viewModelScope.launch {
+            try {
+                val response = clubDeleteUseCase.postDelete(ClubIdentificationRequest(q = q, type = type))
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
         }
     }
 }

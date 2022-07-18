@@ -28,7 +28,7 @@ interface UserAPI {
 
     @POST("user/exit")
     suspend fun postExit(
-        body: UserDeleteRequest
+        @Body body: UserDeleteRequest
     ): Response<Void>
 
     @DELETE("user/withdrawal")
