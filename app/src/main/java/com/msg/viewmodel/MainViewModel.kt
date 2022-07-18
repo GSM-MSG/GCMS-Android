@@ -22,9 +22,6 @@ class MainViewModel @Inject constructor(
     private val _clubData = MutableLiveData<List<SummaryClubResponse>>()
     val clubData: LiveData<List<SummaryClubResponse>> get() = _clubData
 
-    private val _isProfile = MutableLiveData<Boolean>()
-    val isProfile: MutableLiveData<Boolean> get() = _isProfile
-
     fun setClubName(position: Int) {
         when (position) {
             0 -> _clubName.value = "전공동아리"

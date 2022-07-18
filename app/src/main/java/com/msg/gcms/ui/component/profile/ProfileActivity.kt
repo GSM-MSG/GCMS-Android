@@ -41,11 +41,9 @@ class ProfileActivity : BaseActivity<ActivityProfileBinding>(R.layout.activity_p
     }
 
     override fun viewSetting() {
-        mainViewModel.isProfile.value = true
         clickBackBtn()
         clickProfileEdit()
         clickLogout()
-        Log.d("isProfile",mainViewModel.isProfile.value.toString())
     }
 
     private fun myProfile(){
@@ -85,7 +83,6 @@ class ProfileActivity : BaseActivity<ActivityProfileBinding>(R.layout.activity_p
     }
 
     private fun clickBackBtn() {
-        mainViewModel.isProfile.value = false
         binding.backBtn.setOnClickListener {
             finish()
         }

@@ -20,17 +20,10 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
     private var backButtonWait: Long = 0
 
     override fun viewSetting() {
-        mainViewModel.isProfile.value = false
         initBottomNav()
-        Log.d("isProfile",mainViewModel.isProfile.value.toString())
     }
 
     override fun observeEvent() {
-        if(mainViewModel.isProfile.value == true){
-            shortToast("프로필에서 왔다")
-        } else {
-            shortToast("그냥 왔다")
-        }
         observeBottomNav()
         observeSetNav()
     }
