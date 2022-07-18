@@ -21,7 +21,6 @@ import com.msg.gcms.ui.base.BaseActivity
 import com.msg.gcms.ui.component.intro.IntroActivity
 import com.msg.gcms.ui.component.withdrawal.WithdrawalActivity
 import com.msg.gcms.ui.component.withdrawal.WithdrawalDialog
-import com.msg.viewmodel.MainViewModel
 import com.msg.viewmodel.ProfileViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
@@ -32,7 +31,6 @@ import java.io.File
 @AndroidEntryPoint
 class ProfileActivity : BaseActivity<ActivityProfileBinding>(R.layout.activity_profile) {
     private val viewModel by viewModels<ProfileViewModel>()
-    private val mainViewModel by viewModels<MainViewModel>()
     override fun observeEvent() {
         myProfile()
         isClub()

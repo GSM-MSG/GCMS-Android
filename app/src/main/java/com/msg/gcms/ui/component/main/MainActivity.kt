@@ -8,6 +8,7 @@ import androidx.navigation.ui.setupWithNavController
 import com.msg.gcms.R
 import com.msg.gcms.databinding.ActivityMainBinding
 import com.msg.gcms.ui.base.BaseActivity
+import com.msg.gcms.ui.component.club.detail.DetailFragment
 import com.msg.viewmodel.ClubDetailViewModel
 import com.msg.viewmodel.MainViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -26,6 +27,17 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
     override fun observeEvent() {
         observeBottomNav()
         observeSetNav()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if(intent.getBooleanExtra("isProfile",false)){
+            Log.d("isProfile","성공")
+            intent.putExtra("isProfile",false)
+            supportFragmentManager.beginTransaction().replace(R.id.fragment_club,DetailFragment()).commit()
+        } else {
+            Log.d("isProfile","실패")
+        }
     }
 
     private fun observeSetNav() {

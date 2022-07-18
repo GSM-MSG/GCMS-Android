@@ -25,6 +25,7 @@ class ProfileClubFragment :
     private val viewModel by activityViewModels<ProfileViewModel>()
     private val detailViewModel by activityViewModels<ClubDetailViewModel>()
     private val privateClubList: ArrayList<ClubData> = ArrayList()
+    private val intent = Intent(requireActivity(),MainActivity::class.java)
     private lateinit var adapter: EditorialClubAdapter
     override fun init() {
         // isAfterSchool()
@@ -84,6 +85,7 @@ class ProfileClubFragment :
     }
 
     private fun getDetail(type: String, q: String) {
+        intent.putExtra("isProfile",true)
         detailViewModel.getDetail(type, q)
         observeStatus()
     }
@@ -120,7 +122,7 @@ class ProfileClubFragment :
                 when (detailViewModel.getDetailStatus.value) {
                     in 200..299 -> {
                         Log.d(TAG, "GetDetail : Status - ${detailViewModel.getDetailStatus.value}")
-                        startActivity(Intent(activity,MainActivity::class.java))
+                        startActivity(intent)
                     }
                     else -> {
                         shortToast("동아리 정보를 불러오지 못했습니다.")
