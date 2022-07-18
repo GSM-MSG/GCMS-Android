@@ -22,6 +22,7 @@ import com.msg.gcms.ui.base.BaseFragment
 import com.msg.gcms.ui.component.club.ClubFragment
 import com.msg.gcms.ui.component.editclub.EditClubActivity
 import com.msg.gcms.ui.component.main.MainActivity
+import com.msg.gcms.ui.component.member_manage.MemberManageActivity
 import com.msg.gcms.utils.ItemDecorator
 import com.msg.viewmodel.ClubDetailViewModel
 import com.msg.viewmodel.ClubViewModel
@@ -128,7 +129,12 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
                 membersList.add(
                     MemberSummaryResponse(
                         name = member[i].name,
-                        userImg = member[i].userImg.toString()
+                        userImg = member[i].userImg.toString(),
+                        email = member[i].email,
+                        `class` = member[i].`class`,
+                        num = member[i].num,
+                        grade = member[i].grade,
+                        scope = "MEMBER"
                     )
                 )
             } catch (e: Exception) {
@@ -204,16 +210,27 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
                 if(sideBarAdapter.itemCount == 2) {
                     when (position) {
                         0 -> {
-                            shortToast("유저 보기")
+                            goManageActivity()
                         }
                         1 -> {
-                            shortToast("동아리 탈퇴")
+                            BaseDialog("동아리 탈퇴", "정말 나갈꺼에요??", context!!).let { dialog ->
+                                dialog.show()
+                                dialog.dialogBinding.ok.setOnClickListener {
+                                    clubViewModel.exit(
+                                        detailViewModel.result.value!!.club.title,
+                                        detailViewModel.result.value!!.club.type
+                                    )
+                                    dialog.dismiss()
+                                    requireActivity().supportFragmentManager.beginTransaction()
+                                        .replace(R.id.fragment_club, DetailFragment()).commit()
+                                }
+                            }
                         }
                     }
                 } else {
                     when(position) {
                         0 -> {
-                            shortToast("유저 관리")
+                            goManageActivity()
                         }
                         1 -> {
                             val intent = Intent(context, EditClubActivity::class.java)
@@ -221,13 +238,33 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
                             startActivity(intent)
                         }
                         2 -> {
-                            shortToast("동아리 삭제")
+                            BaseDialog("동아리 삭제", "정말 삭제할꺼에요??", context!!).let { dialog ->
+                                dialog.show()
+                                dialog.dialogBinding.ok.setOnClickListener {
+                                    clubViewModel.deleteClub(
+                                        detailViewModel.result.value!!.club.title,
+                                        detailViewModel.result.value!!.club.type
+                                    )
+                                    dialog.dismiss()
+                                    requireActivity().supportFragmentManager.beginTransaction()
+                                        .replace(R.id.fragment_club, ClubFragment()).commit()
+                                    detailViewModel.setNav(true)
+                                }
+                            }
                         }
                     }
                 }
             }
         })
         binding.sideBarRv.adapter = sideBarAdapter
+    }
+
+    private fun goManageActivity() {
+        val intent = Intent(context, MemberManageActivity::class.java)
+        intent.putExtra("name", detailViewModel.result.value!!.club.title)
+        intent.putExtra("type", detailViewModel.result.value!!.club.type)
+        intent.putExtra("role", detailViewModel.result.value!!.scope)
+        startActivity(intent)
     }
 
     private fun checkRole() {

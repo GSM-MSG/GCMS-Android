@@ -85,14 +85,17 @@
         <entry key="..\:/Users/user/Documents/GitHub/GCMS-Android/app/src/main/res/drawable/bg_club_img.xml" value="0.1345" />
         <entry key="..\:/Users/user/Documents/GitHub/GCMS-Android/app/src/main/res/drawable/bg_club_txt.xml" value="0.1345" />
         <entry key="..\:/Users/user/Documents/GitHub/GCMS-Android/app/src/main/res/layout/activity_main.xml" value="0.12635869565217392" />
+        <entry key="..\:/Users/user/Documents/GitHub/GCMS-Android/app/src/main/res/layout/activity_member_management.xml" value="0.134375" />
         <entry key="..\:/Users/user/Documents/GitHub/GCMS-Android/app/src/main/res/layout/activity_profile.xml" value="0.2" />
         <entry key="..\:/Users/user/Documents/GitHub/GCMS-Android/app/src/main/res/layout/club.xml" value="0.1296875" />
         <entry key="..\:/Users/user/Documents/GitHub/GCMS-Android/app/src/main/res/layout/fragment_application.xml" value="0.11458333333333333" />
         <entry key="..\:/Users/user/Documents/GitHub/GCMS-Android/app/src/main/res/layout/fragment_club.xml" value="0.10833333333333334" />
         <entry key="..\:/Users/user/Documents/GitHub/GCMS-Android/app/src/main/res/layout/fragment_club_detail.xml" value="0.1" />
         <entry key="..\:/Users/user/Documents/GitHub/GCMS-Android/app/src/main/res/layout/fragment_club_home.xml" value="0.12635869565217392" />
+        <entry key="..\:/Users/user/Documents/GitHub/GCMS-Android/app/src/main/res/layout/fragment_detail.xml" value="0.10507246376811594" />
         <entry key="..\:/Users/user/Documents/GitHub/GCMS-Android/app/src/main/res/layout/fragment_make_club.xml" value="0.1766304347826087" />
         <entry key="..\:/Users/user/Documents/GitHub/GCMS-Android/app/src/main/res/layout/item_my_club.xml" value="0.1296875" />
+        <entry key="..\:/Users/user/Documents/GitHub/GCMS-Android/app/src/main/res/layout/logout_dialog.xml" value="0.152" />
         <entry key="..\:/Users/user/Documents/GitHub/GCMS-Android/app/src/main/res/menu/bottom_navigation_menu.xml" value="0.14947916666666666" />
         <entry key="..\:/Users/z0103/AndroidStudioProjects/GCMS-Android/app/src/main/res/drawable/bg_sign_btn.xml" value="0.169" />
         <entry key="..\:/Users/z0103/AndroidStudioProjects/GCMS-Android/app/src/main/res/drawable/google_icon.xml" value="0.1" />

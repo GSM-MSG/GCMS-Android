@@ -31,19 +31,19 @@ class ClubRepositoryImpl @Inject constructor(
         return dataSource.putChangeClub(body = body)
     }
 
-    override suspend fun deleteClub(): Response<Void> {
-        return dataSource.deleteClub()
+    override suspend fun deleteClub(body: ClubIdentificationRequest): Response<Void> {
+        return dataSource.deleteClub(body = body)
     }
 
-    override suspend fun getMemberList(clubName: String, type: String): Response<List<MemberInfo>> {
+    override suspend fun getMemberList(clubName: String, type: String): Response<MemberInfo> {
         return dataSource.getMemberList(clubName = clubName, type = type)
     }
 
     override suspend fun getApplicationList(
         clubName: String,
         type: String
-    ): Response<List<MemberInfo>> {
-        return dataSource.getMemberList(clubName = clubName, type = type)
+    ): Response<MemberInfo> {
+        return dataSource.getApplicantList(clubName = clubName, type = type)
     }
 
     override suspend fun postApplicationAccept(body: MemberManagementRequest): Response<Void> {
