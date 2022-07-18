@@ -209,12 +209,18 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
                             goManageActivity()
                         }
                         1 -> {
-                            clubViewModel.exit(
-                                detailViewModel.result.value!!.club.title,
-                                detailViewModel.result.value!!.club.type
-                            )
-                            requireActivity().supportFragmentManager.beginTransaction()
-                                .replace(R.id.fragment_club, DetailFragment()).commit()
+                            BaseDialog("동아리 탈퇴", "정말 나갈꺼에요??", context!!).let { dialog ->
+                                dialog.show()
+                                dialog.dialogBinding.ok.setOnClickListener {
+                                    clubViewModel.exit(
+                                        detailViewModel.result.value!!.club.title,
+                                        detailViewModel.result.value!!.club.type
+                                    )
+                                    dialog.dismiss()
+                                    requireActivity().supportFragmentManager.beginTransaction()
+                                        .replace(R.id.fragment_club, DetailFragment()).commit()
+                                }
+                            }
                         }
                     }
                 } else {
@@ -226,13 +232,19 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
                             shortToast("동아리 수정")
                         }
                         2 -> {
-                            clubViewModel.deleteClub(
-                                detailViewModel.result.value!!.club.title,
-                                detailViewModel.result.value!!.club.type
-                            )
-                            requireActivity().supportFragmentManager.beginTransaction()
-                                .replace(R.id.fragment_club, ClubFragment()).commit()
-                            detailViewModel.setNav(true)
+                            BaseDialog("동아리 삭제", "정말 삭제할꺼에요??", context!!).let { dialog ->
+                                dialog.show()
+                                dialog.dialogBinding.ok.setOnClickListener {
+                                    clubViewModel.deleteClub(
+                                        detailViewModel.result.value!!.club.title,
+                                        detailViewModel.result.value!!.club.type
+                                    )
+                                    dialog.dismiss()
+                                    requireActivity().supportFragmentManager.beginTransaction()
+                                        .replace(R.id.fragment_club, ClubFragment()).commit()
+                                    detailViewModel.setNav(true)
+                                }
+                            }
                         }
                     }
                 }
