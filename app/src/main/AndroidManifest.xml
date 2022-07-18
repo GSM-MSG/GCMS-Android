@@ -6,7 +6,8 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
-        android:name=".base.di.GCMSApplication"
+        android:requestLegacyExternalStorage="true"
+        android:name="com.msg.gcms.base.di.GCMSApplication"
         android:allowBackup="true"
         android:configChanges="orientation|screenSize"
         android:icon="@mipmap/ic_main"
@@ -21,7 +22,7 @@
             android:windowSoftInputMode="adjustNothing" />
         <activity
             android:name=".ui.component.splash.SplashActivity"
-            android:exported="true" >
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -30,8 +31,7 @@
         </activity>
         <activity
             android:name=".ui.component.intro.IntroActivity"
-            android:exported="true">
-        </activity>
+            android:exported="true"/>
         <activity
             android:name=".ui.component.main.MainActivity"
             android:exported="false" />
@@ -39,7 +39,8 @@
         <activity
             android:name=".ui.component.withdrawal.WithdrawalActivity"
             android:exported="false" />
-        <activity android:name=".ui.component.member_manage.MemberManageActivity" />
+        <activity android:name=".ui.component.editclub.EditClubActivity"
+            android:exported="false"/>
     </application>
 
 </manifest>

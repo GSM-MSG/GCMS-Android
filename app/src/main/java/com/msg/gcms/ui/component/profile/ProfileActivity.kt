@@ -165,10 +165,10 @@ class ProfileActivity : BaseActivity<ActivityProfileBinding>(R.layout.activity_p
     }
 
     @SuppressLint("Range")
-    private fun getPathFromUri(uri: Uri?): String? {
+    private fun getPathFromUri(uri: Uri?): String {
         val cursor: Cursor? = contentResolver.query(uri!!, null, null, null, null)
         cursor?.moveToNext()
-        val path: String = cursor!!.getString(cursor!!.getColumnIndex("_data"))
+        val path: String = cursor!!.getString(cursor.getColumnIndex("_data"))
         cursor.close()
         return path
     }

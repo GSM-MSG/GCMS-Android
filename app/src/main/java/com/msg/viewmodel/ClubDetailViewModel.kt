@@ -14,7 +14,7 @@ import javax.inject.Inject
 @HiltViewModel
 class ClubDetailViewModel @Inject constructor(
     private val getDetailUseCase: GetDetailUseCase
-) : ViewModel() {
+): ViewModel() {
 
     private val TAG = "GetDetailViewModel"
 
