@@ -13,7 +13,6 @@ import com.msg.gcms.data.local.entity.DetailPageSideBar
 import com.msg.gcms.data.local.entity.PromotionPicType
 import com.msg.gcms.data.remote.dto.datasource.club.response.MemberSummaryResponse
 import com.msg.gcms.data.remote.dto.datasource.club.response.UserInfo
-import com.msg.gcms.data.remote.dto.datasource.user.request.UserDeleteRequest
 import com.msg.gcms.databinding.FragmentDetailBinding
 import com.msg.gcms.ui.adapter.DetailMemberAdapter
 import com.msg.gcms.ui.adapter.DetailPhotoAdapter
@@ -207,27 +206,21 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
                 if(sideBarAdapter.itemCount == 2) {
                     when (position) {
                         0 -> {
-                            val intent = Intent(activity, MemberManageActivity::class.java)
-                            intent.putExtra("name", detailViewModel.result.value!!.club.title)
-                            intent.putExtra("type", detailViewModel.result.value!!.club.type)
-                            intent.putExtra("role", detailViewModel.result.value!!.scope)
-                            activity!!.startActivity(intent)
+                            goManageActivity()
                         }
                         1 -> {
                             clubViewModel.exit(
                                 detailViewModel.result.value!!.club.title,
                                 detailViewModel.result.value!!.club.type
                             )
+                            requireActivity().supportFragmentManager.beginTransaction()
+                                .replace(R.id.fragment_club, DetailFragment()).commit()
                         }
                     }
                 } else {
                     when(position) {
                         0 -> {
-                            val intent = Intent(context, MemberManageActivity::class.java)
-                            intent.putExtra("name", detailViewModel.result.value!!.club.title)
-                            intent.putExtra("type", detailViewModel.result.value!!.club.type)
-                            intent.putExtra("role", detailViewModel.result.value!!.scope)
-                            startActivity(intent)
+                            goManageActivity()
                         }
                         1 -> {
                             shortToast("동아리 수정")
@@ -246,6 +239,14 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
             }
         })
         binding.sideBarRv.adapter = sideBarAdapter
+    }
+
+    private fun goManageActivity() {
+        val intent = Intent(context, MemberManageActivity::class.java)
+        intent.putExtra("name", detailViewModel.result.value!!.club.title)
+        intent.putExtra("type", detailViewModel.result.value!!.club.type)
+        intent.putExtra("role", detailViewModel.result.value!!.scope)
+        startActivity(intent)
     }
 
     private fun checkRole() {
