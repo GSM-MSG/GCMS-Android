@@ -1,5 +1,6 @@
 package com.msg.gcms.ui.component.main
 
+import android.util.Log
 import android.view.View
 import androidx.activity.viewModels
 import androidx.navigation.fragment.findNavController
@@ -19,7 +20,9 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
     private var backButtonWait: Long = 0
 
     override fun viewSetting() {
+        mainViewModel.isProfile.value = false
         initBottomNav()
+        Log.d("isProfile",mainViewModel.isProfile.value.toString())
     }
 
     override fun observeEvent() {
