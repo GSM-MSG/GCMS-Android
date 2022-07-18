@@ -49,7 +49,7 @@ class EditClubActivity : BaseActivity<ActivityEditClubBinding>(R.layout.activity
 
     private fun observeMember() {
         editClubViewModel.clubMember.observe(this) {
-
+            clubMemberAdapter = ClubMemberAdapter(it)
         }
     }
 
@@ -101,13 +101,19 @@ class EditClubActivity : BaseActivity<ActivityEditClubBinding>(R.layout.activity
         with(binding) {
             when (view.id) {
                 backBtn.id -> finish()
-                addActivityPhotoBtn.id -> intentGallery()
+                addActivityPhotoBtn.id -> bannerImageIntent()
                 completeBtn.id -> editClubInfo()
+                bannerImageView.id -> intentGallery()
             }
         }
     }
 
     private fun intentGallery() {
+
+    }
+
+    private fun bannerImageIntent() {
+
     }
 
     private fun editTextInspector() {

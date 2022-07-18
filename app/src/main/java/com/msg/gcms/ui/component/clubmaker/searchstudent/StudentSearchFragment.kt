@@ -70,12 +70,13 @@ class StudentSearchFragment :
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
             setHasFixedSize(true)
             addItemDecoration(ItemDecorator(16, "HORIZONTAL"))
+            addMemberAdapter.setMemberList(makeClubViewModel.memberList)
             adapter = addMemberAdapter
         }
         addMemberAdapter.setItemOnClickListener(object : AddMemberAdapter.OnItemClickListener {
             override fun onClick(position: Int) {
                 val item = memberList[position]
-                memberList.remove(memberList[position])
+                memberList.remove(item)
                 addMemberAdapter.removeMember(AddMemberType(item.name, item.email, item.userImg))
             }
         })
@@ -124,7 +125,9 @@ class StudentSearchFragment :
                 this.findNavController().popBackStack()
             }
             binding.selectBtn.id -> {
-                makeClubViewModel.memberList = memberList
+                if(memberList.isNotEmpty()) {
+                    makeClubViewModel.memberList = memberList
+                }
                 makeClubViewModel.setMemberEmail()
                 this.findNavController().popBackStack()
             }

@@ -61,6 +61,7 @@ class MakeClubDetailFragment :
 
     override fun onResume() {
         imageSetting()
+        settingRecyclerView()
         super.onResume()
     }
 
@@ -101,7 +102,7 @@ class MakeClubDetailFragment :
     }
 
     private fun imageSetting() {
-        if (bannerImage.isNotEmpty() || makeClubViewModel.activityPhotoList.isNotEmpty()) {
+        if (bannerImage.isNotEmpty() || makeClubViewModel.activityPhotoList.isNotEmpty() || makeClubViewModel.memberList.isNotEmpty()) {
             binding.addBannerPicture.load(bannerImageUri) {
                 crossfade(true)
                 transformations(RoundedCornersTransformation(8f))
@@ -243,7 +244,7 @@ class MakeClubDetailFragment :
 
         if (resultCode == Activity.RESULT_OK && resultCode == requestCode) {
             if (data?.clipData != null) {
-                if (data.clipData!!.itemCount > 4) {
+                if (data.clipData!!.itemCount + makeClubViewModel.activityPhotoList.size > 4) {
                     shortToast("활동사진은 최대 4개까지 가능합니다.")
                     return
                 } else {

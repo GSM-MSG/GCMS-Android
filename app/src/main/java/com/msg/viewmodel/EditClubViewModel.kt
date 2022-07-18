@@ -7,7 +7,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.msg.gcms.data.remote.dto.datasource.club.response.ClubInfoResponse
-import com.msg.gcms.data.remote.dto.datasource.club.response.UserInfo
+import com.msg.gcms.data.remote.dto.datasource.user.response.UserData
 import com.msg.gcms.domain.usecase.club.GetDetailUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -21,8 +21,8 @@ class EditClubViewModel @Inject constructor(
     private val _clubInfo = MutableLiveData<ClubInfoResponse?>()
     val clubInfo: LiveData<ClubInfoResponse?> get() = _clubInfo
 
-    private val _clubMember = MutableLiveData<List<UserInfo>>()
-    val clubMember : LiveData<List<UserInfo>> get() = _clubMember
+    private val _clubMember = MutableLiveData<List<UserData>>()
+    val clubMember : LiveData<List<UserData>> get() = _clubMember
 
     private val _activityPhoto = MutableLiveData<List<Uri>>()
     val activityPhoto: LiveData<List<Uri>> get() = _activityPhoto
@@ -41,7 +41,7 @@ class EditClubViewModel @Inject constructor(
         }
     }
 
-    fun setClubMember(list: List<UserInfo>) {
+    fun setClubMember(list: List<UserData>) {
         _clubMember.value = list
     }
 

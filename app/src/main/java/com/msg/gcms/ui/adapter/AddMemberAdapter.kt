@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.msg.gcms.data.local.entity.AddMemberType
+import com.msg.gcms.data.remote.dto.datasource.user.response.UserData
 import com.msg.gcms.databinding.ListAddMemberBinding
 
 class AddMemberAdapter : RecyclerView.Adapter<AddMemberAdapter.AddMemberViewHolder>() {
@@ -17,6 +18,13 @@ class AddMemberAdapter : RecyclerView.Adapter<AddMemberAdapter.AddMemberViewHold
             binding.addUserNameTv.text = data.userName
         }
     }
+    fun setMemberList(list: List<UserData>) {
+        list.filter { it.email != "" }.forEach {
+            this.list.add(AddMemberType(userEmail = it.email, userName = it.name, userImg = it.userImg))
+        }
+        notifyDataSetChanged()
+    }
+
     fun submitList(addUserData: AddMemberType) {
         list.add(addUserData)
         notifyDataSetChanged()
