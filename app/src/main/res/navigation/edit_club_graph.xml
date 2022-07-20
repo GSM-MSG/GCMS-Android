@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/edit_club_graph"
+    app:startDestination="@id/editClubFragment">
+
+    <fragment
+        android:id="@+id/editClubFragment"
+        android:name="com.msg.gcms.ui.component.editclub.EditClubFragment"
+        android:label="EditClubFragment"
+        tools:layout="@layout/fragment_edit_club">
+        <action
+            android:id="@+id/action_editClubFragment_to_editSearchFragment"
+            app:destination="@id/editSearchFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/editSearchFragment"
+        android:name="com.msg.gcms.ui.component.editclub.EditSearchFragment"
+        android:label="EditSearchFragment"
+        tools:layout="@layout/fragment_edit_search"/>
+</navigation>
