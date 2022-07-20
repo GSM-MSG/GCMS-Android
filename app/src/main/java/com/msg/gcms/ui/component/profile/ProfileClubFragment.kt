@@ -3,6 +3,7 @@ package com.msg.gcms.ui.component.profile
 
 import android.content.Intent
 import android.graphics.Rect
+import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.fragment.app.activityViewModels
@@ -25,7 +26,6 @@ class ProfileClubFragment :
     private val viewModel by activityViewModels<ProfileViewModel>()
     private val detailViewModel by activityViewModels<ClubDetailViewModel>()
     private val privateClubList: ArrayList<ClubData> = ArrayList()
-    private val intent = Intent(requireActivity(),MainActivity::class.java)
     private lateinit var adapter: EditorialClubAdapter
     override fun init() {
         // isAfterSchool()
@@ -85,7 +85,6 @@ class ProfileClubFragment :
     }
 
     private fun getDetail(type: String, q: String) {
-        intent.putExtra("isProfile",true)
         detailViewModel.getDetail(type, q)
         observeStatus()
     }
@@ -122,6 +121,10 @@ class ProfileClubFragment :
                 when (detailViewModel.getDetailStatus.value) {
                     in 200..299 -> {
                         Log.d(TAG, "GetDetail : Status - ${detailViewModel.getDetailStatus.value}")
+                        val intent = Intent(requireActivity(),MainActivity::class.java)
+                        val bundle = Bundle()
+                        bundle.putSerializable("result",detailViewModel.result.value)
+                        Log.d(TAG,detailViewModel.result.value.toString())
                         startActivity(intent)
                     }
                     else -> {

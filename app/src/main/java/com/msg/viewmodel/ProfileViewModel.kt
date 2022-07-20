@@ -39,6 +39,7 @@ class ProfileViewModel @Inject constructor(
         viewModelScope.launch {
             try {
                 val response = profileUseCase.getUserInfo()
+                Log.d("userInfo", "getUserInfo: ${response.body()}")
                 when (response.code()) {
                     200 -> {
                         _profileData.value = response.body()

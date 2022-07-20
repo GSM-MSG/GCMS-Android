@@ -1,5 +1,6 @@
 package com.msg.gcms.ui.component.main
 
+import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.activity.viewModels
@@ -8,7 +9,6 @@ import androidx.navigation.ui.setupWithNavController
 import com.msg.gcms.R
 import com.msg.gcms.databinding.ActivityMainBinding
 import com.msg.gcms.ui.base.BaseActivity
-import com.msg.gcms.ui.component.club.detail.DetailFragment
 import com.msg.viewmodel.ClubDetailViewModel
 import com.msg.viewmodel.MainViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -22,6 +22,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
     override fun viewSetting() {
         initBottomNav()
+        val bundle = Bundle()
+        Log.d("TAAAG",bundle.getSerializable("result").toString())
     }
 
     override fun observeEvent() {
@@ -31,12 +33,13 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
     override fun onResume() {
         super.onResume()
-        if(intent.getBooleanExtra("isProfile",false)){
-            Log.d("isProfile","성공")
-            intent.putExtra("isProfile",false)
-            supportFragmentManager.beginTransaction().replace(R.id.fragment_club,DetailFragment()).commit()
+        if (intent.getBooleanExtra("isProfile", false)) {
+            Log.d("isProfile", "성공 ${detailViewModel.result.value}")
+            //
+            // supportFragmentManager.beginTransaction().replace(R.id.fragment_club, DetailFragment())
+            //     .commit()
         } else {
-            Log.d("isProfile","실패")
+            Log.d("isProfile", "실패")
         }
     }
 
