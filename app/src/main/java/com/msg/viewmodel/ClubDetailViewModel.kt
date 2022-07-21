@@ -49,6 +49,12 @@ class ClubDetailViewModel @Inject constructor(
         }
     }
 
+    fun setResult(myClubResult: ClubInfoResponse) {
+        if(_result.value == null){
+            _result.value = myClubResult
+        }
+    }
+
     fun setNav(boolean: Boolean) {
         _showNav.value = boolean
     }

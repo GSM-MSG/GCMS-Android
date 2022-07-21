@@ -3,7 +3,6 @@ package com.msg.gcms.ui.component.profile
 
 import android.content.Intent
 import android.graphics.Rect
-import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.fragment.app.activityViewModels
@@ -122,9 +121,9 @@ class ProfileClubFragment :
                     in 200..299 -> {
                         Log.d(TAG, "GetDetail : Status - ${detailViewModel.getDetailStatus.value}")
                         val intent = Intent(requireActivity(),MainActivity::class.java)
-                        val bundle = Bundle()
-                        bundle.putSerializable("result",detailViewModel.result.value)
                         Log.d(TAG,detailViewModel.result.value.toString())
+                        intent.putExtra("isProfile",true)
+                        intent.putExtra("result",detailViewModel.result.value)
                         startActivity(intent)
                     }
                     else -> {
