@@ -23,6 +23,7 @@ import com.msg.gcms.ui.component.club.ClubFragment
 import com.msg.gcms.ui.component.editclub.EditClubActivity
 import com.msg.gcms.ui.component.main.MainActivity
 import com.msg.gcms.ui.component.member_manage.MemberManageActivity
+import com.msg.gcms.ui.component.profile.ProfileActivity
 import com.msg.gcms.utils.ItemDecorator
 import com.msg.viewmodel.ClubDetailViewModel
 import com.msg.viewmodel.ClubViewModel
@@ -114,8 +115,14 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
     }
 
     private fun goBack() {
-        requireActivity().supportFragmentManager.beginTransaction()
-            .replace(R.id.fragment_club, ClubFragment()).commit()
+        if (detailViewModel.isProfile.value == true) {
+            val intent = Intent(requireActivity(), ProfileActivity::class.java)
+            startActivity(intent)
+        } else {
+            requireActivity().supportFragmentManager.beginTransaction()
+                .replace(R.id.fragment_club, ClubFragment()).commit()
+        }
+        detailViewModel.setIsProfile(false)
         detailViewModel.setNav(true)
     }
 
@@ -202,9 +209,9 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
             )
             setHasFixedSize(true)
         }
-        sideBarAdapter.setItemOnClickListener(object: DetailSideBarAdapter.OnItemClickListener {
+        sideBarAdapter.setItemOnClickListener(object : DetailSideBarAdapter.OnItemClickListener {
             override fun onClick(position: Int) {
-                if(sideBarAdapter.itemCount == 2) {
+                if (sideBarAdapter.itemCount == 2) {
                     when (position) {
                         0 -> {
                             goManageActivity()
@@ -225,13 +232,16 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
                         }
                     }
                 } else {
-                    when(position) {
+                    when (position) {
                         0 -> {
                             goManageActivity()
                         }
                         1 -> {
                             val intent = Intent(context, EditClubActivity::class.java)
-                            intent.putExtra("query", "${detailViewModel.result.value!!.club.title} + ${detailViewModel.result.value!!.club.type}")
+                            intent.putExtra(
+                                "query",
+                                "${detailViewModel.result.value!!.club.title} + ${detailViewModel.result.value!!.club.type}"
+                            )
                             startActivity(intent)
                         }
                         2 -> {
@@ -283,7 +293,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
                     sideBarAdapter = DetailSideBarAdapter(memberSideBarItem)
                     sideBarRvSetting()
                 }
-                    "OTHER" -> {
+                "OTHER" -> {
                     it.visibility = View.INVISIBLE
                     binding.sideBarBtn.visibility = View.GONE
                 }
@@ -397,8 +407,14 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
     }
 
     override fun onBackPressed() {
+        if (detailViewModel.isProfile.value == true) {
+            val intent = Intent(requireActivity(), ProfileActivity::class.java)
+            startActivity(intent)
+        } else {
+            requireActivity().supportFragmentManager.beginTransaction()
+                .replace(R.id.fragment_club, ClubFragment()).commit()
+        }
         detailViewModel.setNav(true)
-        requireActivity().supportFragmentManager.beginTransaction()
-            .replace(R.id.fragment_club, ClubFragment()).commit()
+        detailViewModel.setIsProfile(false)
     }
 }

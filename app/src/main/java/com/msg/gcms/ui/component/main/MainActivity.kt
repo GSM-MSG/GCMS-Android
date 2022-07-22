@@ -1,6 +1,5 @@
 package com.msg.gcms.ui.component.main
 
-import android.util.Log
 import android.view.View
 import androidx.activity.viewModels
 import androidx.navigation.fragment.findNavController
@@ -34,10 +33,9 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         super.onResume()
         if (intent.getBooleanExtra("isProfile", false)) {
             detailViewModel.setResult(intent.getSerializableExtra("result") as ClubInfoResponse)
+            detailViewModel.setIsProfile(true)
             supportFragmentManager.beginTransaction().replace(R.id.fragment_club, DetailFragment())
                 .commit()
-        } else {
-            Log.d("isProfile", "실패")
         }
     }
 

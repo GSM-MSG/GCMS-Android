@@ -27,6 +27,9 @@ class ClubDetailViewModel @Inject constructor(
     private val _showNav = MutableLiveData<Boolean>()
     val showNav: LiveData<Boolean> get() = _showNav
 
+    private val _isProfile = MutableLiveData<Boolean>()
+    val isProfile: LiveData<Boolean> get() = _isProfile
+
     fun getDetail(type: String, q: String) {
         viewModelScope.launch {
             Log.d(TAG, "타입 : ${type}, 이름 : ${q}")
@@ -50,7 +53,7 @@ class ClubDetailViewModel @Inject constructor(
     }
 
     fun setResult(myClubResult: ClubInfoResponse) {
-        if(_result.value == null){
+        if (_result.value == null) {
             _result.value = myClubResult
         }
     }
@@ -58,6 +61,11 @@ class ClubDetailViewModel @Inject constructor(
     fun setNav(boolean: Boolean) {
         _showNav.value = boolean
     }
+
+    fun setIsProfile(boolean: Boolean){
+        _isProfile.value = boolean
+    }
+
 
     fun clearResult() {
         _result.value = null

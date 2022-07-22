@@ -19,6 +19,7 @@ import com.msg.gcms.R
 import com.msg.gcms.databinding.ActivityProfileBinding
 import com.msg.gcms.ui.base.BaseActivity
 import com.msg.gcms.ui.component.intro.IntroActivity
+import com.msg.gcms.ui.component.main.MainActivity
 import com.msg.gcms.ui.component.withdrawal.WithdrawalActivity
 import com.msg.gcms.ui.component.withdrawal.WithdrawalDialog
 import com.msg.viewmodel.ProfileViewModel
@@ -43,7 +44,7 @@ class ProfileActivity : BaseActivity<ActivityProfileBinding>(R.layout.activity_p
         clickLogout()
     }
 
-    private fun myProfile(){
+    private fun myProfile() {
         viewModel.getUserInfo()
         viewModel.profileData.observe(this) {
             binding.apply {
@@ -82,8 +83,13 @@ class ProfileActivity : BaseActivity<ActivityProfileBinding>(R.layout.activity_p
 
     private fun clickBackBtn() {
         binding.backBtn.setOnClickListener {
-            finish()
+            startActivity(Intent(this, MainActivity::class.java))
         }
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        startActivity(Intent(this, MainActivity::class.java))
     }
 
     private fun clickProfileEdit() {
