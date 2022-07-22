@@ -8,6 +8,7 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class EditSearchFragment: BaseFragment<FragmentEditSearchBinding>(R.layout.fragment_edit_search) {
+
     override fun init() {
         binding.fragment = this
     }
