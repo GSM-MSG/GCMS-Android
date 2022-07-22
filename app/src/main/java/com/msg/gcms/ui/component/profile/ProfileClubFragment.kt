@@ -1,6 +1,5 @@
 package com.msg.gcms.ui.component.profile
 
-
 import android.content.Intent
 import android.graphics.Rect
 import android.util.Log
@@ -92,11 +91,22 @@ class ProfileClubFragment :
     }
 
     private fun setRecyclerView() {
+        adapter = EditorialClubAdapter(privateClubList)
+        binding.privateClubRecyclerview.adapter = adapter
         binding.privateClubRecyclerview.apply {
-            adapter = EditorialClubAdapter(privateClubList)
             layoutManager = GridLayoutManager(context, 2)
             addItemDecoration(HorizontalItemDecorator(20))
         }
+        adapter.setItemOnClickListener(object : EditorialClubAdapter.OnItemClickListener {
+            override fun onClick(position: Int) {
+                Log.d("WWWW","클릭")
+                getDetail(
+                    privateClubList[position].type,
+                    privateClubList[position].title
+                )
+                Log.d("clubsss",viewModel.profileData.value?.clubs.toString())
+            }
+        })
     }
 
     inner class HorizontalItemDecorator(private val divHeight: Int) :
@@ -123,10 +133,10 @@ class ProfileClubFragment :
                 when (detailViewModel.getDetailStatus.value) {
                     in 200..299 -> {
                         Log.d(TAG, "GetDetail : Status - ${detailViewModel.getDetailStatus.value}")
-                        val intent = Intent(requireActivity(),MainActivity::class.java)
-                        Log.d(TAG,detailViewModel.result.value.toString())
-                        intent.putExtra("isProfile",true)
-                        intent.putExtra("result",detailViewModel.result.value)
+                        val intent = Intent(requireActivity(), MainActivity::class.java)
+                        Log.d(TAG, detailViewModel.result.value.toString())
+                        intent.putExtra("isProfile", true)
+                        intent.putExtra("result", detailViewModel.result.value)
                         startActivity(intent)
                     }
                     else -> {
