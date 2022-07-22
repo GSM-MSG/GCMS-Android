@@ -119,11 +119,11 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
             val intent = Intent(requireActivity(), ProfileActivity::class.java)
             startActivity(intent)
         } else {
+            detailViewModel.setNav(true)
             requireActivity().supportFragmentManager.beginTransaction()
                 .replace(R.id.fragment_club, ClubFragment()).commit()
         }
         detailViewModel.setIsProfile(false)
-        detailViewModel.setNav(true)
     }
 
     private fun clubMemberRecycler(member: List<UserInfo>) {
@@ -411,10 +411,11 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
             val intent = Intent(requireActivity(), ProfileActivity::class.java)
             startActivity(intent)
         } else {
+            detailViewModel.setNav(true)
             requireActivity().supportFragmentManager.beginTransaction()
                 .replace(R.id.fragment_club, ClubFragment()).commit()
         }
-        detailViewModel.setNav(true)
+
         detailViewModel.setIsProfile(false)
     }
 }

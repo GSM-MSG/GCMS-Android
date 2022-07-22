@@ -17,6 +17,7 @@ import com.msg.gcms.ui.adapter.EditorialClubAdapter
 import com.msg.gcms.ui.base.BaseFragment
 import com.msg.gcms.ui.component.main.MainActivity
 import com.msg.viewmodel.ClubDetailViewModel
+import com.msg.viewmodel.ClubViewModel
 import com.msg.viewmodel.ProfileViewModel
 
 class ProfileClubFragment :
@@ -24,6 +25,7 @@ class ProfileClubFragment :
     private val TAG = "ProfileClubFragment"
     private val viewModel by activityViewModels<ProfileViewModel>()
     private val detailViewModel by activityViewModels<ClubDetailViewModel>()
+    private val clubViewModel by activityViewModels<ClubViewModel>()
     private val privateClubList: ArrayList<ClubData> = ArrayList()
     private lateinit var adapter: EditorialClubAdapter
     override fun init() {
@@ -85,6 +87,7 @@ class ProfileClubFragment :
 
     private fun getDetail(type: String, q: String) {
         detailViewModel.getDetail(type, q)
+        clubViewModel.startLottie(requireActivity().supportFragmentManager)
         observeStatus()
     }
 
