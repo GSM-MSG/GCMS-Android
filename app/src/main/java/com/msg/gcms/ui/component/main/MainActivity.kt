@@ -5,8 +5,10 @@ import androidx.activity.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.msg.gcms.R
+import com.msg.gcms.data.remote.dto.datasource.club.response.ClubInfoResponse
 import com.msg.gcms.databinding.ActivityMainBinding
 import com.msg.gcms.ui.base.BaseActivity
+import com.msg.gcms.ui.component.club.detail.DetailFragment
 import com.msg.viewmodel.ClubDetailViewModel
 import com.msg.viewmodel.MainViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -25,6 +27,16 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
     override fun observeEvent() {
         observeBottomNav()
         observeSetNav()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if (intent.getBooleanExtra("isProfile", false)) {
+            detailViewModel.setResult(intent.getSerializableExtra("result") as ClubInfoResponse)
+            detailViewModel.setIsProfile(true)
+            supportFragmentManager.beginTransaction().replace(R.id.fragment_club, DetailFragment())
+                .commit()
+        }
     }
 
     private fun observeSetNav() {
