@@ -44,6 +44,12 @@ class EditClubFragment: BaseFragment<FragmentEditClubBinding>(R.layout.fragment_
                 Log.d("TAG", "onActivityResult: $img")
                 bannerImage = img
                 bannerImageUri = imageUrl!!
+                with(binding) {
+                    bannerImageView.load(imageUrl) {
+                        crossfade(true)
+                        transformations(RoundedCornersTransformation(8f, 8f, 8f, 8f))
+                    }
+                }
             }
         }
 
