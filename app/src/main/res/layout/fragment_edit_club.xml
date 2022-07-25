@@ -76,6 +76,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/textView14"
                 app:layout_constraintStart_toStartOf="@+id/guideline20"
                 app:layout_constraintEnd_toStartOf="@+id/guideline41"
+                android:onClick="@{fragment::galleryOpen}"
                 android:background="@drawable/bg_banner_placeholder"
                 android:backgroundTint="@color/gray_1" />
 
@@ -269,7 +270,7 @@
                 android:layout_height="29dp"
                 android:src="@drawable/ic_add_club"
                 android:padding="5dp"
-                android:onClick="@{fragment::buttonClickListener}"
+                android:onClick="@{fragment::galleryOpen}"
                 app:layout_constraintBottom_toBottomOf="@id/activityPhotoTv"
                 app:layout_constraintTop_toTopOf="@id/activityPhotoTv"
                 app:layout_constraintEnd_toStartOf="@+id/guideline41" />
