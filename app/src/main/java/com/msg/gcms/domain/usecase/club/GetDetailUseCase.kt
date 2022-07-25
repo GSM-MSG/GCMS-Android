@@ -6,5 +6,5 @@ import javax.inject.Inject
 class GetDetailUseCase @Inject constructor(
     private val repository : ClubRepository
 ) {
-    suspend fun getDetail(type: String, clubname: String) = repository.getDetail(type, clubname)
+    suspend fun getDetail(type: String, clubName: String) = repository.getDetail(type, clubName)
 }

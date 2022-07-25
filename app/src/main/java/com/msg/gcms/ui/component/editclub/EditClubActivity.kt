@@ -1,23 +1,27 @@
 package com.msg.gcms.ui.component.editclub
 
-import android.util.Log
+import androidx.activity.viewModels
 import com.msg.gcms.R
 import com.msg.gcms.databinding.ActivityEditClubBinding
 import com.msg.gcms.ui.base.BaseActivity
+import com.msg.viewmodel.EditViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class EditClubActivity: BaseActivity<ActivityEditClubBinding>(R.layout.activity_edit_club) {
 
+    private val editViewModel by viewModels<EditViewModel>()
+
     override fun viewSetting() {
         binding.activity = this
-    }
-
-    override fun observeEvent() {
         getClubType()
     }
 
+    override fun observeEvent() {
+    }
+
     private fun getClubType() {
-        Log.d("TAG", "getClubType: ${intent.getStringExtra("type")}")
+        val clubType = intent.getStringExtra("type")
+        editViewModel.clubTypeDivider(clubType = clubType!!)
     }
 }
