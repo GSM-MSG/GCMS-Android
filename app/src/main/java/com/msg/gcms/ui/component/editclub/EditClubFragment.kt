@@ -14,11 +14,13 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
+import androidx.recyclerview.widget.LinearLayoutManager
 import coil.load
 import coil.transform.RoundedCornersTransformation
 import com.msg.gcms.R
 import com.msg.gcms.databinding.FragmentEditClubBinding
 import com.msg.gcms.ui.base.BaseFragment
+import com.msg.gcms.utils.ItemDecorator
 import com.msg.viewmodel.EditViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
@@ -56,6 +58,7 @@ class EditClubFragment: BaseFragment<FragmentEditClubBinding>(R.layout.fragment_
     override fun init() {
         binding.fragment = this
         observeEvent()
+        recyclerViewSetting()
     }
 
     fun buttonClickListener(view: View) {
@@ -78,6 +81,19 @@ class EditClubFragment: BaseFragment<FragmentEditClubBinding>(R.layout.fragment_
                 requireActivity(),
                 arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE), 1
             )
+        }
+    }
+
+    private fun recyclerViewSetting() {
+        with(binding.clubActivePictureRv) {
+            layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+            setHasFixedSize(true)
+            addItemDecoration(ItemDecorator(10, "HORIZONTAL"))
+        }
+        with(binding.clubMemberRv) {
+            layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+            setHasFixedSize(true)
+            addItemDecoration(ItemDecorator(50, "HORIZONTAL"))
         }
     }
 
