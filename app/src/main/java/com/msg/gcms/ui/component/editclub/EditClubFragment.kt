@@ -14,11 +14,15 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import coil.load
 import coil.transform.RoundedCornersTransformation
 import com.msg.gcms.R
+import com.msg.gcms.data.local.entity.ActivityPhotoType
 import com.msg.gcms.databinding.FragmentEditClubBinding
+import com.msg.gcms.ui.adapter.ActivityPhotosAdapter
+import com.msg.gcms.ui.adapter.ClubMemberAdapter
 import com.msg.gcms.ui.base.BaseFragment
 import com.msg.gcms.utils.ItemDecorator
 import com.msg.viewmodel.EditViewModel
@@ -35,6 +39,17 @@ class EditClubFragment: BaseFragment<FragmentEditClubBinding>(R.layout.fragment_
 
     private var bannerImage : MultipartBody.Part? = null
     private var bannerImageUri: Uri? = null
+
+    private val activityPhotoMultipart = mutableListOf<MultipartBody.Part>()
+
+    private lateinit var activityAdapter: ActivityPhotosAdapter
+    private lateinit var clubMemberAdapter: ClubMemberAdapter
+
+    override fun init() {
+        binding.fragment = this
+        observeEvent()
+        recyclerViewSetting()
+    }
 
     private val getContent =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
@@ -55,10 +70,39 @@ class EditClubFragment: BaseFragment<FragmentEditClubBinding>(R.layout.fragment_
             }
         }
 
-    override fun init() {
-        binding.fragment = this
-        observeEvent()
-        recyclerViewSetting()
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (resultCode == Activity.RESULT_OK && resultCode == requestCode) {
+            if (data?.clipData != null) {
+                if (data.clipData!!.itemCount + editViewModel.beforeActivityPhotoList.size > 4) {
+                    shortToast("활동사진은 최대 4개까지 가능합니다.")
+                    return
+                } else {
+                    editViewModel.beforeActivityPhotoList.clear()
+                    activityPhotoMultipart.clear()
+                    for (i in 0 until data.clipData!!.itemCount) {
+                        val imageUri: Uri = data.clipData!!.getItemAt(i).uri
+                        editViewModel.afterActivityPhotoList.add(ActivityPhotoType(activityPhoto = imageUri))
+                        // activityAdapter = ActivityPhotosAdapter(editViewModel.beforeActivityPhotoList)
+                        val file = File(getPathFromUri(imageUri))
+                        val requestFile = RequestBody.create("image/*".toMediaTypeOrNull(), file)
+                        val img = MultipartBody.Part.createFormData("files", file.name, requestFile)
+                        Log.d("TAG", "onActivityResult: $img")
+                        activityPhotoMultipart.add(img)
+                    }
+                    binding.clubActivePictureRv.adapter = activityAdapter
+
+                    activityAdapter.setItemOnClickListener(object :
+                        ActivityPhotosAdapter.OnItemClickListener {
+                        override fun onClick(position: Int) {
+                            editViewModel.beforeActivityPhotoList.removeAt(position)
+                            activityAdapter.notifyDataSetChanged()
+                        }
+                    })
+                }
+            }
+        }
     }
 
     fun buttonClickListener(view: View) {
@@ -75,6 +119,7 @@ class EditClubFragment: BaseFragment<FragmentEditClubBinding>(R.layout.fragment_
         ) == PackageManager.PERMISSION_GRANTED) {
             when(view.id) {
                 binding.bannerImageView.id -> addBanner()
+                binding.addActivityPhotoBtn.id -> addActivityPhoto()
             }
         } else {
             ActivityCompat.requestPermissions(
@@ -82,6 +127,19 @@ class EditClubFragment: BaseFragment<FragmentEditClubBinding>(R.layout.fragment_
                 arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE), 1
             )
         }
+    }
+
+    private fun addBanner() {
+        val photoPickIntent = Intent(Intent.ACTION_PICK)
+        photoPickIntent.type = "image/*"
+        photoPickIntent.data = MediaStore.Images.Media.EXTERNAL_CONTENT_URI
+        getContent.launch(photoPickIntent)
+    }
+
+    private fun addActivityPhoto() {
+        val activityPhotosIntent = Intent(Intent.ACTION_PICK)
+        activityPhotosIntent.data = MediaStore.Images.Media.EXTERNAL_CONTENT_URI
+        activityPhotosIntent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
     }
 
     private fun recyclerViewSetting() {
@@ -94,6 +152,7 @@ class EditClubFragment: BaseFragment<FragmentEditClubBinding>(R.layout.fragment_
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
             setHasFixedSize(true)
             addItemDecoration(ItemDecorator(50, "HORIZONTAL"))
+            clubMemberRecyclerView()
         }
     }
 
@@ -123,6 +182,7 @@ class EditClubFragment: BaseFragment<FragmentEditClubBinding>(R.layout.fragment_
                     }
                     bannerIcon.visibility = View.GONE
                     bannerTxt.visibility = View.GONE
+                    clubMemberAdapter.notifyDataSetChanged()
                 }
             }
         }
@@ -137,11 +197,14 @@ class EditClubFragment: BaseFragment<FragmentEditClubBinding>(R.layout.fragment_
         requireActivity().finish()
     }
 
-    private fun addBanner() {
-        val photoPickIntent = Intent(Intent.ACTION_PICK)
-        photoPickIntent.type = "image/*"
-        photoPickIntent.data = MediaStore.Images.Media.EXTERNAL_CONTENT_URI
-        getContent.launch(photoPickIntent)
+    private fun clubMemberRecyclerView() {
+        clubMemberAdapter = ClubMemberAdapter(editViewModel.memberList)
+        clubMemberAdapter.setItemOnClickListener(object : ClubMemberAdapter.OnItemClickListener {
+            override fun onClick(position: Int) {
+                findNavController().navigate(R.id.action_makeClubDetailFragment_to_studentSearchFragment)
+            }
+        })
+        binding.clubMemberRv.adapter = clubMemberAdapter
     }
 
     private fun editClub() {
