@@ -1,7 +1,7 @@
 package com.msg.gcms.data.local.entity
 
-import android.net.Uri
+import android.graphics.Bitmap
 
 data class ActivityPhotoType(
-    var activityPhoto: Uri
+    var activityPhoto: Bitmap
 )

@@ -6,7 +6,10 @@ import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.database.Cursor
+import android.graphics.Bitmap
+import android.graphics.ImageDecoder
 import android.net.Uri
+import android.os.Build
 import android.provider.MediaStore
 import android.util.Log
 import android.view.View
@@ -252,7 +255,9 @@ class MakeClubDetailFragment :
                     activityPhotoMultipart.clear()
                     for (i in 0 until data.clipData!!.itemCount) {
                         val imageUri: Uri = data.clipData!!.getItemAt(i).uri
-                        makeClubViewModel.activityPhotoList.add(ActivityPhotoType(activityPhoto = imageUri))
+                        val imageBitmap = uriToBitMap(imageUri)
+                        makeClubViewModel.activityPhotoList.add(ActivityPhotoType(activityPhoto = imageBitmap))
+                        Log.d("TAG", "getBitmap: $imageBitmap")
                         activityAdapter = ActivityPhotosAdapter(makeClubViewModel.activityPhotoList)
                         val file = File(getPathFromUri(imageUri))
                         val requestFile = RequestBody.create("image/*".toMediaTypeOrNull(), file)
@@ -260,7 +265,9 @@ class MakeClubDetailFragment :
                         Log.d("TAG", "onActivityResult: $img")
                         activityPhotoMultipart.add(img)
                     }
+                    Log.d("TAG", "finallyImage: ${makeClubViewModel.activityPhotoList.size}")
                     binding.clubActivePicture.adapter = activityAdapter
+
 
                     activityAdapter.setItemOnClickListener(object :
                         ActivityPhotosAdapter.OnItemClickListener {
@@ -272,6 +279,15 @@ class MakeClubDetailFragment :
                 }
             }
         }
+    }
+
+    private fun uriToBitMap(imageUri: Uri): Bitmap {
+        val bitmap = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+            ImageDecoder.decodeBitmap(ImageDecoder.createSource(requireContext().contentResolver, imageUri))
+        } else {
+            MediaStore.Images.Media.getBitmap(requireContext().contentResolver, imageUri)
+        }
+        return bitmap
     }
 
     @SuppressLint("Range")
