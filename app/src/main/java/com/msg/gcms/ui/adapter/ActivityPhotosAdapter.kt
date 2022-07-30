@@ -2,6 +2,7 @@ package com.msg.gcms.ui.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.msg.gcms.data.local.entity.ActivityPhotoType
 import com.msg.gcms.databinding.ListClubPictureBinding
@@ -25,6 +26,7 @@ class ActivityPhotosAdapter(private val items: List<ActivityPhotoType>) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(data: ActivityPhotoType) {
             binding.activityPhoto.setImageBitmap(data.activityPhoto)
+            binding.activityPhoto.scaleType = ImageView.ScaleType.CENTER_CROP
             binding.executePendingBindings()
         }
 
