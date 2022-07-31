@@ -57,7 +57,6 @@ class EditClubFragment: BaseFragment<FragmentEditClubBinding>(R.layout.fragment_
 
     private val activityPhotoList = mutableListOf<ActivityPhotoType>()
 
-
     override fun init() {
         binding.fragment = this
         observeEvent()
@@ -88,12 +87,10 @@ class EditClubFragment: BaseFragment<FragmentEditClubBinding>(R.layout.fragment_
 
         if (resultCode == Activity.RESULT_OK && resultCode == requestCode) {
             if (data?.clipData != null) {
-                if (data.clipData!!.itemCount + editViewModel.beforeActivityPhotoList.size > 4) {
+                if (data.clipData!!.itemCount + activityPhotoList.size > 4) {
                     shortToast("활동사진은 최대 4개까지 가능합니다.")
                     return
                 } else {
-                    editViewModel.beforeActivityPhotoList.clear()
-                    activityPhotoMultipart.clear()
                     for (i in 0 until data.clipData!!.itemCount) {
                         val imageUri: Uri = data.clipData!!.getItemAt(i).uri
                         val imageBitmap = getBitmapFromUri(imageUri)
@@ -153,6 +150,7 @@ class EditClubFragment: BaseFragment<FragmentEditClubBinding>(R.layout.fragment_
         val activityPhotosIntent = Intent(Intent.ACTION_PICK)
         activityPhotosIntent.data = MediaStore.Images.Media.EXTERNAL_CONTENT_URI
         activityPhotosIntent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
+        startActivityForResult(activityPhotosIntent, Activity.RESULT_OK)
     }
 
     private fun recyclerViewSetting() {
