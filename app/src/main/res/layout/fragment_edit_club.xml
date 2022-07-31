@@ -180,8 +180,8 @@
                 android:hint="@string/link_url"
                 android:textColorHint="@color/gray_2"
                 android:layout_marginTop="8dp"
-                android:textSize="14sp"
-                android:maxLines="1"
+                android:textSize="12sp"
+                android:lines="1"
                 android:fontFamily="@font/notosans"
                 android:textColor="@color/white"
                 android:background="@drawable/bg_make_club_et"
@@ -281,10 +281,10 @@
                 android:layout_height="151dp"
                 android:layout_marginTop="8dp"
                 app:layout_constraintStart_toStartOf="@+id/guideline20"
-                app:layout_constraintEnd_toEndOf="parent"
                 tools:listitem="@layout/list_club_picture"
                 android:orientation="horizontal"
-                app:layout_constraintTop_toBottomOf="@id/activityPhotoTv" />
+                app:layout_constraintTop_toBottomOf="@id/activityPhotoTv"
+                app:layout_constraintEnd_toStartOf="@+id/guideline41" />
 
             <TextView
                 android:id="@+id/textView30"

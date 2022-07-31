@@ -20,7 +20,6 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import coil.ImageLoader
 import coil.load
@@ -56,6 +55,9 @@ class EditClubFragment: BaseFragment<FragmentEditClubBinding>(R.layout.fragment_
     private lateinit var clubMemberAdapter: ClubMemberAdapter
 
     private val activityPhotoList = mutableListOf<ActivityPhotoType>()
+    private var activityPhotoUrlList = mutableListOf<String>()
+    private var legacyList = listOf<ActivityPhotoType>()
+
 
     override fun init() {
         binding.fragment = this
@@ -94,7 +96,7 @@ class EditClubFragment: BaseFragment<FragmentEditClubBinding>(R.layout.fragment_
                     for (i in 0 until data.clipData!!.itemCount) {
                         val imageUri: Uri = data.clipData!!.getItemAt(i).uri
                         val imageBitmap = getBitmapFromUri(imageUri)
-                        editViewModel.afterActivityPhotoList.add(ActivityPhotoType(activityPhoto = imageBitmap))
+                        activityPhotoList.add(ActivityPhotoType(activityPhoto = imageBitmap))
                         Log.d("TAG", "getBitmap: $imageBitmap")
                         val file = File(getPathFromUri(imageUri))
                         val requestFile = RequestBody.create("image/*".toMediaTypeOrNull(), file)
@@ -102,6 +104,8 @@ class EditClubFragment: BaseFragment<FragmentEditClubBinding>(R.layout.fragment_
                         Log.d("TAG", "onActivityResult: $img")
                         activityPhotoMultipart.add(img)
                     }
+                    Log.d("TAG", "activityPhotoList: $activityPhotoList")
+                    activityAdapter.notifyDataSetChanged()
                 }
             }
         }
@@ -196,7 +200,9 @@ class EditClubFragment: BaseFragment<FragmentEditClubBinding>(R.layout.fragment_
                     bannerIcon.visibility = View.GONE
                     bannerTxt.visibility = View.GONE
                     clubMemberAdapter.notifyDataSetChanged()
+                    activityPhotoUrlList = it.activityUrls.toMutableList()
                     addBitmapToList()
+
                 }
             }
         }
@@ -208,7 +214,8 @@ class EditClubFragment: BaseFragment<FragmentEditClubBinding>(R.layout.fragment_
                 activityPhotoList.add(ActivityPhotoType(activityPhoto = getBitmapFromUrl(it)))
                 Log.d("TAG", "bitmapping: $it")
             }
-            Log.d("TAG", "addBitmapToList: $activityPhotoList")
+            Log.d("TAG", "add/BitmapToList: $activityPhotoList")
+            legacyList = activityPhotoList.toList()
             activityAdapter.notifyDataSetChanged()
         }
 
@@ -229,6 +236,8 @@ class EditClubFragment: BaseFragment<FragmentEditClubBinding>(R.layout.fragment_
             ActivityPhotosAdapter.OnItemClickListener {
             override fun onClick(position: Int) {
                 activityPhotoList.removeAt(position)
+                if(activityPhotoUrlList.size >= position + 1) activityPhotoUrlList.removeAt(position)
+                Log.d("TAG", "activityPhotoUrlList: $activityPhotoUrlList, newList: ${activityPhotoList.filter { !legacyList.contains(it) }}, removed: ${editViewModel.clubInfo.value!!.activityUrls.filter { !activityPhotoUrlList.contains(it) }}")
                 activityAdapter.notifyDataSetChanged()
             }
         })
@@ -239,7 +248,7 @@ class EditClubFragment: BaseFragment<FragmentEditClubBinding>(R.layout.fragment_
         clubMemberAdapter = ClubMemberAdapter(editViewModel.memberList)
         clubMemberAdapter.setItemOnClickListener(object: ClubMemberAdapter.OnItemClickListener {
             override fun onClick(position: Int) {
-                findNavController().navigate(R.id.action_makeClubDetailFragment_to_studentSearchFragment)
+
             }
         })
         binding.clubMemberRv.adapter = clubMemberAdapter
