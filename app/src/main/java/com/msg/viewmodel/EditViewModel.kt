@@ -10,14 +10,16 @@ import com.msg.gcms.data.local.entity.ActivityPhotoType
 import com.msg.gcms.data.remote.dto.datasource.club.response.ClubInfoResponse
 import com.msg.gcms.data.remote.dto.datasource.user.response.UserData
 import com.msg.gcms.domain.usecase.club.GetDetailUseCase
+import com.msg.gcms.domain.usecase.user.UserUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class EditViewModel @Inject constructor(
-    private val getDetailUseCase: GetDetailUseCase
-) : ViewModel() {
+    private val getDetailUseCase: GetDetailUseCase,
+    private val userUserCase: UserUseCase
+    ) : ViewModel() {
 
     private val _clubInfo = MutableLiveData<ClubInfoResponse>()
     val clubInfo: LiveData<ClubInfoResponse> get() = _clubInfo
@@ -28,8 +30,13 @@ class EditViewModel @Inject constructor(
     private val _clubName = MutableLiveData<String>()
     val clubName: LiveData<String> get() = _clubName
 
+    private val _result = MutableLiveData<List<UserData>>()
+    val result: LiveData<List<UserData>> get() = _result
+
     var beforeActivityPhotoList = mutableListOf<String>()
     var afterActivityPhotoList = mutableListOf<ActivityPhotoType>()
+
+    private var clubMemberEmail = mutableListOf<String>()
 
     var memberList: MutableList<UserData> = mutableListOf()
 
@@ -82,7 +89,34 @@ class EditViewModel @Inject constructor(
             )
         }
         else {
-            memberList.addAll(clubInfo.value!!.member.toList())
+            memberList.addAll(clubInfo.value!!.member)
+            Log.d("TAG", "memberCheck: $memberList")
         }
+    }
+
+    fun getSearchUser(name: String) {
+        val queryString: HashMap<String, String> = HashMap()
+        queryString["name"] = name
+        queryString["type"] = clubType.value.toString()
+        viewModelScope.launch {
+            val response = userUserCase.getSearchUser(queryString)
+            when (response.code()) {
+                200 -> {
+                    _result.value = response.body()
+                    Log.d("TAG", "searchResult: ${_result.value}")
+                }
+                else -> {
+                    Log.d("TAG", "searchResult: ${response.body()} ")
+                }
+            }
+        }
+    }
+
+    fun setMemberEmail() {
+        memberList.forEach {
+            Log.d("TAG", "setMemberEmail: ${it.email}")
+            clubMemberEmail.add(it.email)
+        }
+        memberList.distinct()
     }
 }

@@ -20,6 +20,7 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import coil.ImageLoader
 import coil.load
@@ -28,6 +29,7 @@ import coil.request.SuccessResult
 import coil.transform.RoundedCornersTransformation
 import com.msg.gcms.R
 import com.msg.gcms.data.local.entity.ActivityPhotoType
+import com.msg.gcms.data.remote.dto.datasource.user.response.UserData
 import com.msg.gcms.databinding.FragmentEditClubBinding
 import com.msg.gcms.ui.adapter.ActivityPhotosAdapter
 import com.msg.gcms.ui.adapter.ClubMemberAdapter
@@ -42,11 +44,11 @@ import okhttp3.RequestBody
 import java.io.File
 
 @AndroidEntryPoint
-class EditClubFragment: BaseFragment<FragmentEditClubBinding>(R.layout.fragment_edit_club) {
+class EditClubFragment : BaseFragment<FragmentEditClubBinding>(R.layout.fragment_edit_club) {
 
     private val editViewModel by activityViewModels<EditViewModel>()
 
-    private var bannerImage : MultipartBody.Part? = null
+    private var bannerImage: MultipartBody.Part? = null
     private var bannerImageUri: Uri? = null
 
     private val activityPhotoMultipart = mutableListOf<MultipartBody.Part>()
@@ -58,6 +60,7 @@ class EditClubFragment: BaseFragment<FragmentEditClubBinding>(R.layout.fragment_
     private var activityPhotoUrlList = mutableListOf<String>()
     private var legacyList = listOf<ActivityPhotoType>()
 
+    private var memberList = mutableListOf<UserData>()
 
     override fun init() {
         binding.fragment = this
@@ -67,7 +70,7 @@ class EditClubFragment: BaseFragment<FragmentEditClubBinding>(R.layout.fragment_
 
     private val getContent =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
-            if(it.resultCode == Activity.RESULT_OK) {
+            if (it.resultCode == Activity.RESULT_OK) {
                 val imageUrl = it.data?.data
                 val file = File(getPathFromUri(imageUrl))
                 val requestFile = RequestBody.create("image/*".toMediaTypeOrNull(), file)
@@ -110,9 +113,15 @@ class EditClubFragment: BaseFragment<FragmentEditClubBinding>(R.layout.fragment_
             }
         }
     }
+
     private fun getBitmapFromUri(imageUri: Uri): Bitmap {
         val bitmap = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-            ImageDecoder.decodeBitmap(ImageDecoder.createSource(requireContext().contentResolver, imageUri))
+            ImageDecoder.decodeBitmap(
+                ImageDecoder.createSource(
+                    requireContext().contentResolver,
+                    imageUri
+                )
+            )
         } else {
             MediaStore.Images.Media.getBitmap(requireContext().contentResolver, imageUri)
         }
@@ -120,18 +129,19 @@ class EditClubFragment: BaseFragment<FragmentEditClubBinding>(R.layout.fragment_
     }
 
     fun buttonClickListener(view: View) {
-        when(view.id) {
+        when (view.id) {
             binding.backBtn.id -> clickBackBtn()
             binding.completeBtn.id -> editClub()
         }
     }
 
     fun galleryOpen(view: View) {
-        if(ContextCompat.checkSelfPermission(
+        if (ContextCompat.checkSelfPermission(
                 requireContext(),
                 Manifest.permission.READ_EXTERNAL_STORAGE
-        ) == PackageManager.PERMISSION_GRANTED) {
-            when(view.id) {
+            ) == PackageManager.PERMISSION_GRANTED
+        ) {
+            when (view.id) {
                 binding.bannerImageView.id -> addBanner()
                 binding.addActivityPhotoBtn.id -> addActivityPhoto()
             }
@@ -178,7 +188,7 @@ class EditClubFragment: BaseFragment<FragmentEditClubBinding>(R.layout.fragment_
         observeClubTypeDivider()
     }
 
-    private fun observeClubTypeDivider(){
+    private fun observeClubTypeDivider() {
         editViewModel.clubName.observe(this) {
             getClubInfo()
         }
@@ -186,8 +196,8 @@ class EditClubFragment: BaseFragment<FragmentEditClubBinding>(R.layout.fragment_
 
     private fun observeClubInfo() {
         editViewModel.clubInfo.observe(this) {
-            if(it != null) {
-                with(binding){
+            if (it != null) {
+                with(binding) {
                     clubNameEt.setText(it.club.title)
                     clubDescriptionEt.setText(it.club.description)
                     LinkEt.setText(it.club.notionLink)
@@ -199,14 +209,17 @@ class EditClubFragment: BaseFragment<FragmentEditClubBinding>(R.layout.fragment_
                     }
                     bannerIcon.visibility = View.GONE
                     bannerTxt.visibility = View.GONE
-                    clubMemberAdapter.notifyDataSetChanged()
                     activityPhotoUrlList = it.activityUrls.toMutableList()
+                    memberList = editViewModel.memberList
+                    Log.d("TAG", "observeClubInfo: ${it.member}, $memberList")
+                    clubMemberAdapter.notifyDataSetChanged()
                     addBitmapToList()
 
                 }
             }
         }
     }
+
     private fun addBitmapToList() {
         lifecycleScope.launch {
             Log.d("TAG", "beforeBitmap: ${editViewModel.clubInfo.value?.activityUrls}")
@@ -214,11 +227,9 @@ class EditClubFragment: BaseFragment<FragmentEditClubBinding>(R.layout.fragment_
                 activityPhotoList.add(ActivityPhotoType(activityPhoto = getBitmapFromUrl(it)))
                 Log.d("TAG", "bitmapping: $it")
             }
-            Log.d("TAG", "add/BitmapToList: $activityPhotoList")
             legacyList = activityPhotoList.toList()
             activityAdapter.notifyDataSetChanged()
         }
-
     }
 
     private fun getClubInfo() {
@@ -236,8 +247,23 @@ class EditClubFragment: BaseFragment<FragmentEditClubBinding>(R.layout.fragment_
             ActivityPhotosAdapter.OnItemClickListener {
             override fun onClick(position: Int) {
                 activityPhotoList.removeAt(position)
-                if(activityPhotoUrlList.size >= position + 1) activityPhotoUrlList.removeAt(position)
-                Log.d("TAG", "activityPhotoUrlList: $activityPhotoUrlList, newList: ${activityPhotoList.filter { !legacyList.contains(it) }}, removed: ${editViewModel.clubInfo.value!!.activityUrls.filter { !activityPhotoUrlList.contains(it) }}")
+                if (activityPhotoUrlList.size >= position + 1) activityPhotoUrlList.removeAt(
+                    position
+                )
+                Log.d(
+                    "TAG",
+                    "activityPhotoUrlList: $activityPhotoUrlList, newList: ${
+                        activityPhotoList.filter {
+                            !legacyList.contains(it)
+                        }
+                    }, removed: ${
+                        editViewModel.clubInfo.value!!.activityUrls.filter {
+                            !activityPhotoUrlList.contains(
+                                it
+                            )
+                        }
+                    }"
+                )
                 activityAdapter.notifyDataSetChanged()
             }
         })
@@ -246,9 +272,10 @@ class EditClubFragment: BaseFragment<FragmentEditClubBinding>(R.layout.fragment_
 
     private fun clubMemberRecyclerView() {
         clubMemberAdapter = ClubMemberAdapter(editViewModel.memberList)
-        clubMemberAdapter.setItemOnClickListener(object: ClubMemberAdapter.OnItemClickListener {
+        Log.d("TAG", "clubMemberRecyclerView: ${editViewModel.memberList}}")
+        clubMemberAdapter.setItemOnClickListener(object : ClubMemberAdapter.OnItemClickListener {
             override fun onClick(position: Int) {
-
+                findNavController().navigate(R.id.action_editClubFragment_to_editSearchFragment)
             }
         })
         binding.clubMemberRv.adapter = clubMemberAdapter
@@ -263,7 +290,6 @@ class EditClubFragment: BaseFragment<FragmentEditClubBinding>(R.layout.fragment_
         return (result as BitmapDrawable).bitmap
     }
 
-
     @SuppressLint("Range")
     private fun getPathFromUri(uri: Uri?): String {
         val cursor: Cursor? = requireActivity().contentResolver.query(uri!!, null, null, null, null)
@@ -274,6 +300,5 @@ class EditClubFragment: BaseFragment<FragmentEditClubBinding>(R.layout.fragment_
     }
 
     private fun editClub() {
-
     }
 }
