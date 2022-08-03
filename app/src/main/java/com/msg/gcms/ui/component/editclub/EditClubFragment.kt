@@ -61,6 +61,7 @@ class EditClubFragment : BaseFragment<FragmentEditClubBinding>(R.layout.fragment
     private var legacyList = listOf<ActivityPhotoType>()
 
     private var memberList = mutableListOf<UserData>()
+    var getClubInfoListener = false
 
     override fun init() {
         binding.fragment = this
@@ -196,26 +197,36 @@ class EditClubFragment : BaseFragment<FragmentEditClubBinding>(R.layout.fragment
 
     private fun observeClubInfo() {
         editViewModel.clubInfo.observe(this) {
-            if (it != null) {
+            if (!getClubInfoListener) {
+                getClubInfoListener = true
+                if (it != null) {
+                    with(binding) {
+                        clubNameEt.setText(it.club.title)
+                        clubDescriptionEt.setText(it.club.description)
+                        LinkEt.setText(it.club.notionLink)
+                        contactEt.setText(it.club.contact)
+                        teacherNameEt.setText(it.club.teacher)
+                        bannerImageView.load(it.club.bannerUrl) {
+                            crossfade(true)
+                            transformations(RoundedCornersTransformation(8f, 8f, 8f, 8f))
+                        }
+                        bannerIcon.visibility = View.GONE
+                        bannerTxt.visibility = View.GONE
+                        activityPhotoUrlList = it.activityUrls.toMutableList()
+                        memberList = editViewModel.memberList
+                        Log.d("TAG", "observeClubInfo: ${it.member}, $memberList")
+                        clubMemberAdapter.notifyDataSetChanged()
+                        addBitmapToList()
+                    }
+                }
+            } else {
                 with(binding) {
-                    clubNameEt.setText(it.club.title)
-                    clubDescriptionEt.setText(it.club.description)
-                    LinkEt.setText(it.club.notionLink)
-                    contactEt.setText(it.club.contact)
-                    teacherNameEt.setText(it.club.teacher)
                     bannerImageView.load(it.club.bannerUrl) {
                         crossfade(true)
                         transformations(RoundedCornersTransformation(8f, 8f, 8f, 8f))
                     }
                     bannerIcon.visibility = View.GONE
-                    bannerTxt.visibility = View.GONE
-                    activityPhotoUrlList = it.activityUrls.toMutableList()
-                    memberList = editViewModel.memberList
-                    Log.d("TAG", "observeClubInfo: ${it.member}, $memberList")
-                    clubMemberAdapter.notifyDataSetChanged()
-                    addBitmapToList()
-
-                }
+                    bannerTxt.visibility = View.GONE }
             }
         }
     }

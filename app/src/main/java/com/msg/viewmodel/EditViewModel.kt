@@ -6,7 +6,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.msg.gcms.R
-import com.msg.gcms.data.local.entity.ActivityPhotoType
 import com.msg.gcms.data.remote.dto.datasource.club.response.ClubInfoResponse
 import com.msg.gcms.data.remote.dto.datasource.user.response.UserData
 import com.msg.gcms.domain.usecase.club.GetDetailUseCase
@@ -34,7 +33,6 @@ class EditViewModel @Inject constructor(
     val result: LiveData<List<UserData>> get() = _result
 
     var beforeActivityPhotoList = mutableListOf<String>()
-    var afterActivityPhotoList = mutableListOf<ActivityPhotoType>()
 
     private var clubMemberEmail = mutableListOf<String>()
 
