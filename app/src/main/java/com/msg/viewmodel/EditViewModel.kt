@@ -88,7 +88,7 @@ class EditViewModel @Inject constructor(
         }
         else {
             memberList.addAll(clubInfo.value!!.member)
-            Log.d("TAG", "memberCheck: $memberList")
+            Log.d("TAG", "memberCheck: ${memberList.distinct()}")
         }
     }
 

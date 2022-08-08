@@ -226,7 +226,9 @@ class EditClubFragment : BaseFragment<FragmentEditClubBinding>(R.layout.fragment
                         transformations(RoundedCornersTransformation(8f, 8f, 8f, 8f))
                     }
                     bannerIcon.visibility = View.GONE
-                    bannerTxt.visibility = View.GONE }
+                    bannerTxt.visibility = View.GONE
+
+                }
             }
         }
     }
@@ -245,7 +247,7 @@ class EditClubFragment : BaseFragment<FragmentEditClubBinding>(R.layout.fragment
 
     private fun getClubInfo() {
         Log.d("TAG", "getClubInfo")
-        editViewModel.getClubInfo()
+        if(editViewModel.memberList.isEmpty()) editViewModel.getClubInfo()
     }
 
     private fun clickBackBtn() {
