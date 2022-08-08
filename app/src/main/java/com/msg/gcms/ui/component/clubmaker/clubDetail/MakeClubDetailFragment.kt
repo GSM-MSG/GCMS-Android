@@ -27,6 +27,7 @@ import com.msg.gcms.databinding.FragmentMakeClubDetailBinding
 import com.msg.gcms.ui.adapter.ActivityPhotosAdapter
 import com.msg.gcms.ui.adapter.ClubMemberAdapter
 import com.msg.gcms.ui.base.BaseFragment
+import com.msg.gcms.ui.base.BaseModal
 import com.msg.gcms.utils.ItemDecorator
 import com.msg.viewmodel.ClubViewModel
 import com.msg.viewmodel.MakeClubViewModel
@@ -65,6 +66,7 @@ class MakeClubDetailFragment :
     private fun observeEvent() {
         observeImageChange()
         observeResult()
+        observeStatus()
     }
 
     private fun observeImageChange() {
@@ -271,6 +273,26 @@ class MakeClubDetailFragment :
         val path: String = cursor!!.getString(cursor.getColumnIndex("_data"))
         cursor.close()
         return path
+    }
+
+    private fun observeStatus() {
+        makeClubViewModel.status.observe(this) {
+            when (it) {
+                201 -> {
+                    BaseModal("생성 성공", "동아리 생성에 성공했습니다.", requireContext()).show()
+                }
+                400 -> {
+                    BaseModal("생성 실패", "이미 존재하는 동아리 이거나, 다른 동아리에 속해있습니다.", requireContext()).show()
+                }
+                409 -> {
+                    BaseModal("생성 실패", "이미 다른 동아리에 소속 또는 신청중입니다.", requireContext()).show()
+                }
+                else -> {
+                    BaseModal("생성 실패", "알수 없는 오류가 발생했습니다.", requireContext()).show()
+                }
+            }
+            clubViewModel.stopLottie()
+        }
     }
 }
 
