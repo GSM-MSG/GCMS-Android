@@ -12,6 +12,7 @@ import com.msg.gcms.domain.usecase.club.GetDetailUseCase
 import com.msg.gcms.domain.usecase.user.UserUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import okhttp3.MultipartBody
 import javax.inject.Inject
 
 @HiltViewModel
@@ -116,5 +117,9 @@ class EditViewModel @Inject constructor(
             clubMemberEmail.add(it.email)
         }
         memberList.distinct()
+    }
+
+    fun uploadImage(list: List<MultipartBody.Part>) {
+
     }
 }

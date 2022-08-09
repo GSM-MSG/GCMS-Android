@@ -63,6 +63,8 @@ class EditClubFragment : BaseFragment<FragmentEditClubBinding>(R.layout.fragment
     private var memberList = mutableListOf<UserData>()
     var getClubInfoListener = false
 
+    private val updateImageList = mutableListOf<MultipartBody.Part>()
+
     override fun init() {
         binding.fragment = this
         observeEvent()
@@ -247,7 +249,7 @@ class EditClubFragment : BaseFragment<FragmentEditClubBinding>(R.layout.fragment
 
     private fun getClubInfo() {
         Log.d("TAG", "getClubInfo")
-        if(editViewModel.memberList.isEmpty()) editViewModel.getClubInfo()
+        if (editViewModel.memberList.isEmpty()) editViewModel.getClubInfo()
     }
 
     private fun clickBackBtn() {
@@ -313,5 +315,31 @@ class EditClubFragment : BaseFragment<FragmentEditClubBinding>(R.layout.fragment
     }
 
     private fun editClub() {
+        fieldCheck()
+    }
+
+    private fun fieldCheck() {
+        if (binding.clubNameEt.text.isNotEmpty()
+            && binding.clubDescriptionEt.text.isNotEmpty()
+            && binding.LinkEt.text.isNotEmpty()
+            && binding.contactEt.text.isNotEmpty()
+        ) {
+            if (binding.LinkEt.text.startsWith("http://") || binding.LinkEt.text.toString()
+                    .startsWith("https://") && binding.LinkEt.text.toString().endsWith(".com")
+            ) {
+                imageUpload()
+            } else shortToast("링크 형식으로 입력해주세요")
+        } else shortToast("필수 기입 요소들을 다시 확인해주세요!!")
+    }
+
+    private fun imageUpload() {
+        updateImageList.add(bannerImage!!)
+        val newActivityPhoto = activityPhotoList.filter { legacyList.contains(it) }
+        newActivityPhoto.forEach {
+        }
+    }
+
+    private fun convertBitmapToFile() {
+
     }
 }
