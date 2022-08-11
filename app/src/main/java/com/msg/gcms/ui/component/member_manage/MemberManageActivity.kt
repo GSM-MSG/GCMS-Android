@@ -11,6 +11,7 @@ import com.msg.gcms.ui.adapter.ApplicantAdapter
 import com.msg.gcms.ui.adapter.MemberAdapter
 import com.msg.gcms.ui.base.BaseActivity
 import com.msg.gcms.ui.base.BaseDialog
+import com.msg.gcms.ui.base.BaseModal
 import com.msg.viewmodel.MemberManageViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -27,6 +28,7 @@ class MemberManageActivity :
         viewModel.applicantList.observe(this) {
             settingApplicantAdapter()
         }
+        observeStatus()
     }
 
     override fun viewSetting() {
@@ -38,7 +40,7 @@ class MemberManageActivity :
     }
 
     private fun viewTitle() {
-        if(intent.getStringExtra("role").equals("MEMBER")) binding.title.text = "동아리 멤버 확인하기"
+        if (intent.getStringExtra("role").equals("MEMBER")) binding.title.text = "동아리 멤버 확인하기"
     }
 
     private fun showDialog(title: String, msg: String, context: Context, action: () -> Unit) {
@@ -79,7 +81,8 @@ class MemberManageActivity :
     }
 
     private fun settingApplicantAdapter() {
-        applicantAdapter = ApplicantAdapter(viewModel.applicantList.value!!, intent.getStringExtra("role")!!)
+        applicantAdapter =
+            ApplicantAdapter(viewModel.applicantList.value!!, intent.getStringExtra("role")!!)
         applicantAdapter.setOnClickListener(object : ApplicantAdapter.onClickListener {
             override fun accept(position: Int) {
                 showDialog(
@@ -128,6 +131,25 @@ class MemberManageActivity :
     private fun clickBackBtn() {
         binding.backBtn.setOnClickListener {
             finish()
+        }
+    }
+
+    private fun observeStatus() {
+        viewModel.status.observe(this) {
+            when (it) {
+                401, 406 -> {
+                    BaseModal("오류", "알수 없는 오류가 발생했습니다.", this).show()
+                }
+                403 -> {
+                    BaseModal("실패", "부장만이 이 행동을 할수 있습니다.", this).show()
+                }
+                404 -> {
+                    BaseModal("오류", "동아리를 찾을 수 없습니다.", this).show()
+                }
+                409 -> {
+                    BaseModal("불가", "이미 현재 동아리 또는 다른 동아리에 소속되어 있습니다.", this).show()
+                }
+            }
         }
     }
 }
