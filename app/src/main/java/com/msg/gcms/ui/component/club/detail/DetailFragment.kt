@@ -19,6 +19,7 @@ import com.msg.gcms.ui.adapter.DetailPhotoAdapter
 import com.msg.gcms.ui.adapter.DetailSideBarAdapter
 import com.msg.gcms.ui.base.BaseDialog
 import com.msg.gcms.ui.base.BaseFragment
+import com.msg.gcms.ui.base.BaseModal
 import com.msg.gcms.ui.component.club.ClubFragment
 import com.msg.gcms.ui.component.editclub.EditClubActivity
 import com.msg.gcms.ui.component.main.MainActivity
@@ -380,10 +381,9 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
             }
             when (status) {
                 in 200..299 -> {}
-                401 -> shortToast("토큰이 만료되었습니다, 다시 로그인 해주세요")
-                403 -> shortToast("권한이 없습니다.")
-                404 -> shortToast("존재하지 않는 동아리 입니다.")
-                409 -> shortToast("이미 다른 동아리에 신청 혹은 소속되어있습니다.")
+                401 -> {BaseModal("오류","토큰이 만료되었습니다, 앱 종료후 다시 실행해 주세요",requireContext()).show()}
+                403 -> {BaseModal("실패","부장만이 할수있는 행동입니다.",requireContext()).show()}
+                409 -> {BaseModal("실패","이미 다른 동아리에 소속 또는 신청중인 사람입니다.",requireContext()).show()}
                 else -> shortToast("알수 없는 오류.")
             }
         }
