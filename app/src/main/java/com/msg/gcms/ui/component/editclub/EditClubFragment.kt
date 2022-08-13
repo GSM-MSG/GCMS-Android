@@ -335,11 +335,12 @@ class EditClubFragment : BaseFragment<FragmentEditClubBinding>(R.layout.fragment
     private fun imageUpload() {
         updateImageList.add(bannerImage!!)
         val newActivityPhoto = activityPhotoList.filter { legacyList.contains(it) }
-        newActivityPhoto.forEach {
-        }
+        convertBitmapToFile(newActivityPhoto)
     }
 
-    private fun convertBitmapToFile() {
+    private fun convertBitmapToFile(list: List<ActivityPhotoType>) {
+        list.forEach {
 
+        }
     }
 }
