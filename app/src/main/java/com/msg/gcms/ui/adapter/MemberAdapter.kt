@@ -1,6 +1,5 @@
 package com.msg.gcms.ui.adapter
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,7 +19,7 @@ class MemberAdapter(val itemList: List<MemberSummaryResponse>, val role: String)
             }
             binding.userClassTxt.text = "${item.grade}학년 ${item.`class`}반 ${item.num}번"
 
-            if(role.equals("MEMBER")) {
+            if(role.equals("MEMBER") || item.equals("HEAD")) {
                 binding.withdrawalBtn.visibility = View.INVISIBLE
                 binding.mandateBtn.visibility = View.INVISIBLE
             }
