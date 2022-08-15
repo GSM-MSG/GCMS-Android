@@ -64,6 +64,7 @@ class EditClubFragment : BaseFragment<FragmentEditClubBinding>(R.layout.fragment
     private val activityPhotoList = mutableListOf<ActivityPhotoType>()
     private var activityPhotoUrlList = mutableListOf<String>()
     private var legacyList = listOf<ActivityPhotoType>()
+    private var newPhotosList = mutableListOf<MultipartBody.Part>()
 
     private var memberList = mutableListOf<UserData>()
     var getClubInfoListener = false
@@ -338,11 +339,16 @@ class EditClubFragment : BaseFragment<FragmentEditClubBinding>(R.layout.fragment
     private fun imageUpload() {
         Log.d("TAG", "imageUploadLogic")
         val newActivityPhoto : MutableList<ActivityPhotoType> = activityPhotoList.filter { legacyList.contains(it) }.toMutableList()
-        convertBitmapToFile(newActivityPhoto)
+
+        newPhotosList = convertBitmapToFile(newActivityPhoto).toMutableList()
+        // newPhotosList.add(bannerImage!!)
+        Log.d("TAG", "imageUpload: $newPhotosList")
     }
 
-    private fun convertBitmapToFile(list: List<ActivityPhotoType>): List<File> {
-        val fileList = mutableListOf<File>()
+    private fun convertBitmapToFile(list: List<ActivityPhotoType>): List<MultipartBody.Part> {
+
+        val imgList = mutableListOf<MultipartBody.Part>()
+
         list.forEach {
             val wrapper = ContextWrapper(context)
             var file = wrapper.getDir("images", Context.MODE_PRIVATE)
@@ -353,13 +359,15 @@ class EditClubFragment : BaseFragment<FragmentEditClubBinding>(R.layout.fragment
                 it.activityPhoto.compress(Bitmap.CompressFormat.JPEG, 100, stream)
                 stream.flush()
                 stream.close()
+                val requestFile = RequestBody.create("image/*".toMediaTypeOrNull(), file)
+                val img = MultipartBody.Part.createFormData("files", file.name, requestFile)
 
-                fileList.add(file)
-                Log.d("TAG", "convertBitmapToFile: ${fileList}")
+                imgList.add(img)
+                Log.d("TAG", "convertBitmapToMultiPart: $imgList")
             }catch(e: Exception){
                 e.printStackTrace()
             }
         }
-        return fileList
+        return imgList
     }
 }

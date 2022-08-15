@@ -43,6 +43,7 @@
             android:exported="false"/>
         <activity android:name=".ui.component.editclub.EditClubActivity"
             android:exported="false"/>
+
     </application>
 
 </manifest>
