@@ -41,6 +41,8 @@
             android:exported="false" />
         <activity android:name=".ui.component.editclub.EditClubActivity"
             android:exported="false"/>
+        <activity android:name=".ui.component.member_manage.MemberManageActivity"
+            android:exported="false"/>
     </application>
 
 </manifest>
