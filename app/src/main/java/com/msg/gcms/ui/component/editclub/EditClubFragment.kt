@@ -3,6 +3,8 @@ package com.msg.gcms.ui.component.editclub
 import android.Manifest
 import android.annotation.SuppressLint
 import android.app.Activity
+import android.content.Context
+import android.content.ContextWrapper
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.database.Cursor
@@ -42,6 +44,9 @@ import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import java.io.File
+import java.io.FileOutputStream
+import java.io.OutputStream
+import java.util.UUID
 
 @AndroidEntryPoint
 class EditClubFragment : BaseFragment<FragmentEditClubBinding>(R.layout.fragment_edit_club) {
@@ -62,8 +67,6 @@ class EditClubFragment : BaseFragment<FragmentEditClubBinding>(R.layout.fragment
 
     private var memberList = mutableListOf<UserData>()
     var getClubInfoListener = false
-
-    private val updateImageList = mutableListOf<MultipartBody.Part>()
 
     override fun init() {
         binding.fragment = this
@@ -325,7 +328,7 @@ class EditClubFragment : BaseFragment<FragmentEditClubBinding>(R.layout.fragment
             && binding.contactEt.text.isNotEmpty()
         ) {
             if (binding.LinkEt.text.startsWith("http://") || binding.LinkEt.text.toString()
-                    .startsWith("https://") && binding.LinkEt.text.toString().endsWith(".com")
+                    .startsWith("https://")
             ) {
                 imageUpload()
             } else shortToast("링크 형식으로 입력해주세요")
@@ -333,14 +336,30 @@ class EditClubFragment : BaseFragment<FragmentEditClubBinding>(R.layout.fragment
     }
 
     private fun imageUpload() {
-        updateImageList.add(bannerImage!!)
-        val newActivityPhoto = activityPhotoList.filter { legacyList.contains(it) }
+        Log.d("TAG", "imageUploadLogic")
+        val newActivityPhoto : MutableList<ActivityPhotoType> = activityPhotoList.filter { legacyList.contains(it) }.toMutableList()
         convertBitmapToFile(newActivityPhoto)
     }
 
-    private fun convertBitmapToFile(list: List<ActivityPhotoType>) {
+    private fun convertBitmapToFile(list: List<ActivityPhotoType>): List<File> {
+        val fileList = mutableListOf<File>()
         list.forEach {
+            val wrapper = ContextWrapper(context)
+            var file = wrapper.getDir("images", Context.MODE_PRIVATE)
+            file = File(file, "${UUID.randomUUID()}.jpg}")
 
+            try {
+              val stream: OutputStream = FileOutputStream(file)
+                it.activityPhoto.compress(Bitmap.CompressFormat.JPEG, 100, stream)
+                stream.flush()
+                stream.close()
+
+                fileList.add(file)
+                Log.d("TAG", "convertBitmapToFile: ${fileList}")
+            }catch(e: Exception){
+                e.printStackTrace()
+            }
         }
+        return fileList
     }
 }
