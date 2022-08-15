@@ -384,7 +384,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
                 401 -> {BaseModal("오류","토큰이 만료되었습니다, 앱 종료후 다시 실행해 주세요",requireContext()).show()}
                 403 -> {BaseModal("실패","부장만이 할수있는 행동입니다.",requireContext()).show()}
                 409 -> {BaseModal("실패","이미 다른 동아리에 소속 또는 신청중인 사람입니다.",requireContext()).show()}
-                else -> shortToast("알수 없는 오류.")
+                else -> {BaseModal("오류","알수 없는 오류 발생.",requireContext()).show()}
             }
         }
     }
