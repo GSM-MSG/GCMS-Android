@@ -55,6 +55,7 @@ class EditClubFragment : BaseFragment<FragmentEditClubBinding>(R.layout.fragment
 
     private var bannerImage: MultipartBody.Part? = null
     private var bannerImageUri: Uri? = null
+    private var bannerImageBitmap: Bitmap? = null
 
     private val activityPhotoMultipart = mutableListOf<MultipartBody.Part>()
 
@@ -223,6 +224,9 @@ class EditClubFragment : BaseFragment<FragmentEditClubBinding>(R.layout.fragment
                         Log.d("TAG", "observeClubInfo: ${it.member}, $memberList")
                         clubMemberAdapter.notifyDataSetChanged()
                         addBitmapToList()
+                        lifecycleScope.launch {
+                            bannerImageBitmap = getBitmapFromUrl(it.club.bannerUrl)
+                        }
                     }
                 }
             } else {
@@ -301,7 +305,7 @@ class EditClubFragment : BaseFragment<FragmentEditClubBinding>(R.layout.fragment
     }
 
     private suspend fun getBitmapFromUrl(url: String): Bitmap {
-        val loading: ImageLoader = ImageLoader(requireContext())
+        val loading = ImageLoader(requireContext())
         val request: ImageRequest = ImageRequest.Builder(requireContext())
             .data(url)
             .build()
@@ -341,7 +345,7 @@ class EditClubFragment : BaseFragment<FragmentEditClubBinding>(R.layout.fragment
         val newActivityPhoto : MutableList<ActivityPhotoType> = activityPhotoList.filter { legacyList.contains(it) }.toMutableList()
 
         newPhotosList = convertBitmapToFile(newActivityPhoto).toMutableList()
-        // newPhotosList.add(bannerImage!!)
+        newPhotosList.add(if(bannerImage != null) bannerImage!! else convertBitmapToMultiPart(bannerImageBitmap!!))
         Log.d("TAG", "imageUpload: $newPhotosList")
     }
 
@@ -369,5 +373,25 @@ class EditClubFragment : BaseFragment<FragmentEditClubBinding>(R.layout.fragment
             }
         }
         return imgList
+    }
+
+    private fun convertBitmapToMultiPart(bitmap: Bitmap): MultipartBody.Part {
+        val wrapper = ContextWrapper(context)
+        var file = wrapper.getDir("images", Context.MODE_PRIVATE)
+        file = File(file, "${UUID.randomUUID()}.jpg}")
+        lateinit var image: MultipartBody.Part
+
+        try {
+            val stream: OutputStream = FileOutputStream(file)
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream)
+            stream.flush()
+            stream.close()
+            val requestFile = RequestBody.create("image/*".toMediaTypeOrNull(), file)
+            image = MultipartBody.Part.createFormData("files", file.name, requestFile)
+            Log.d("TAG", "convertBitmapToMultiPart: $image")
+        }catch(e: Exception){
+            e.printStackTrace()
+        }
+        return image
     }
 }
