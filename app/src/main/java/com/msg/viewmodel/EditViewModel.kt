@@ -1,6 +1,7 @@
 package com.msg.viewmodel
 
 import android.util.Log
+import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -9,7 +10,9 @@ import com.msg.gcms.R
 import com.msg.gcms.data.remote.dto.datasource.club.response.ClubInfoResponse
 import com.msg.gcms.data.remote.dto.datasource.user.response.UserData
 import com.msg.gcms.domain.usecase.club.GetDetailUseCase
+import com.msg.gcms.domain.usecase.image.ImageUseCase
 import com.msg.gcms.domain.usecase.user.UserUseCase
+import com.msg.gcms.ui.base.LottieFragment
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import okhttp3.MultipartBody
@@ -18,7 +21,8 @@ import javax.inject.Inject
 @HiltViewModel
 class EditViewModel @Inject constructor(
     private val getDetailUseCase: GetDetailUseCase,
-    private val userUserCase: UserUseCase
+    private val userUserCase: UserUseCase,
+    private val imageUseCase: ImageUseCase
     ) : ViewModel() {
 
     private val _clubInfo = MutableLiveData<ClubInfoResponse>()
@@ -38,6 +42,11 @@ class EditViewModel @Inject constructor(
     private var clubMemberEmail = mutableListOf<String>()
 
     var memberList: MutableList<UserData> = mutableListOf()
+
+    private val _convertImage = MutableLiveData<List<String>>()
+    val convertImage: LiveData<List<String>> get() = _convertImage
+
+    private val lottie by lazy { LottieFragment() }
 
     fun clubTypeDivider(clubType: String) {
         val clubType = clubType.split("+")
@@ -120,6 +129,30 @@ class EditViewModel @Inject constructor(
     }
 
     fun uploadImage(list: List<MultipartBody.Part>) {
+        viewModelScope.launch {
+            val response = imageUseCase.postImage(list)
+            when(response.code()){
+                201 -> {
+                    Log.d("TAG", "uploadImage: ${response.body()}")
+                    _convertImage.value = response.body()
+                }
+              else -> {
+                  Log.e("TAG", "uploadImage: ${response.body()}")
+              }
+            }
 
+        }
+    }
+
+    fun startLottie(fragmentManager: FragmentManager) {
+        if(!lottie.isAdded){
+            lottie.show(fragmentManager,"Lottie")
+        }
+    }
+
+    fun stopLottie() {
+        if (lottie.isAdded) {
+            lottie.dismissAllowingStateLoss()
+        }
     }
 }

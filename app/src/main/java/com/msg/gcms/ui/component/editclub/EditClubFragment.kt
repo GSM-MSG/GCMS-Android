@@ -323,8 +323,14 @@ class EditClubFragment : BaseFragment<FragmentEditClubBinding>(R.layout.fragment
     }
 
     private fun editClub() {
+        startLottie()
         fieldCheck()
     }
+
+    private fun startLottie() {
+        editViewModel.startLottie(fragmentManager = requireActivity().supportFragmentManager)
+    }
+
 
     private fun fieldCheck() {
         if (binding.clubNameEt.text.isNotEmpty()
@@ -347,6 +353,7 @@ class EditClubFragment : BaseFragment<FragmentEditClubBinding>(R.layout.fragment
         newPhotosList = convertBitmapToFile(newActivityPhoto).toMutableList()
         newPhotosList.add(if(bannerImage != null) bannerImage!! else convertBitmapToMultiPart(bannerImageBitmap!!))
         Log.d("TAG", "imageUpload: $newPhotosList")
+        imageUploadToServer(newPhotosList)
     }
 
     private fun convertBitmapToFile(list: List<ActivityPhotoType>): List<MultipartBody.Part> {
@@ -373,6 +380,10 @@ class EditClubFragment : BaseFragment<FragmentEditClubBinding>(R.layout.fragment
             }
         }
         return imgList
+    }
+
+    private fun imageUploadToServer(list: List<MultipartBody.Part>) {
+        editViewModel.uploadImage(list)
     }
 
     private fun convertBitmapToMultiPart(bitmap: Bitmap): MultipartBody.Part {
