@@ -7,8 +7,10 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.msg.gcms.R
+import com.msg.gcms.data.remote.dto.datasource.club.request.ModifyClubInfoRequest
 import com.msg.gcms.data.remote.dto.datasource.club.response.ClubInfoResponse
 import com.msg.gcms.data.remote.dto.datasource.user.response.UserData
+import com.msg.gcms.domain.usecase.club.EditClubInfoUseCase
 import com.msg.gcms.domain.usecase.club.GetDetailUseCase
 import com.msg.gcms.domain.usecase.image.ImageUseCase
 import com.msg.gcms.domain.usecase.user.UserUseCase
@@ -22,7 +24,8 @@ import javax.inject.Inject
 class EditViewModel @Inject constructor(
     private val getDetailUseCase: GetDetailUseCase,
     private val userUserCase: UserUseCase,
-    private val imageUseCase: ImageUseCase
+    private val imageUseCase: ImageUseCase,
+    private val editClubInfoUseCase: EditClubInfoUseCase
     ) : ViewModel() {
 
     private val _clubInfo = MutableLiveData<ClubInfoResponse>()
@@ -37,7 +40,7 @@ class EditViewModel @Inject constructor(
     private val _result = MutableLiveData<List<UserData>>()
     val result: LiveData<List<UserData>> get() = _result
 
-    var beforeActivityPhotoList = mutableListOf<String>()
+    var newPhotos = mutableListOf<String>()
 
     private var clubMemberEmail = mutableListOf<String>()
 
@@ -71,7 +74,7 @@ class EditViewModel @Inject constructor(
                     200 -> {
                         Log.d("TAG", "getClubInfo: ${response.body()}")
                         memberCheck()
-                        beforeActivityPhotoList = clubInfo.value!!.activityUrls.toMutableList()
+                        newPhotos = clubInfo.value!!.activityUrls.toMutableList()
                     }
                     else -> {
                         Log.d("TAG", "getClubInfo: ${response.code()}, ${response.body()}")
@@ -129,18 +132,22 @@ class EditViewModel @Inject constructor(
     }
 
     fun uploadImage(list: List<MultipartBody.Part>) {
+        Log.d("TAG", "uploadImage")
         viewModelScope.launch {
-            val response = imageUseCase.postImage(list)
-            when(response.code()){
-                201 -> {
-                    Log.d("TAG", "uploadImage: ${response.body()}")
-                    _convertImage.value = response.body()
+            try {
+                val response = imageUseCase.postImage(list)
+                when(response.code()){
+                    201 -> {
+                        Log.d("TAG", "uploadImage: ${response.body()}")
+                        _convertImage.value = response.body()
+                    }
+                    else -> {
+                        Log.e("TAG", "uploadImage: ${response.body()}")
+                    }
                 }
-              else -> {
-                  Log.e("TAG", "uploadImage: ${response.body()}")
-              }
+            }catch(e: Exception){
+              e.printStackTrace()
             }
-
         }
     }
 
@@ -150,9 +157,18 @@ class EditViewModel @Inject constructor(
         }
     }
 
-    fun stopLottie() {
-        if (lottie.isAdded) {
-            lottie.dismissAllowingStateLoss()
+    fun putChangeClubInfo(body: ModifyClubInfoRequest) {
+        viewModelScope.launch {
+            try {
+                val response = editClubInfoUseCase.putChangeClub(body)
+                when(response.code()){
+                  else -> {
+
+                  }
+                }
+            }catch(e: Exception){
+              e.printStackTrace()
+            }
         }
     }
 }

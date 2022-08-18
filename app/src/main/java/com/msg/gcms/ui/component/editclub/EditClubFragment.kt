@@ -31,6 +31,7 @@ import coil.request.SuccessResult
 import coil.transform.RoundedCornersTransformation
 import com.msg.gcms.R
 import com.msg.gcms.data.local.entity.ActivityPhotoType
+import com.msg.gcms.data.remote.dto.datasource.club.request.ModifyClubInfoRequest
 import com.msg.gcms.data.remote.dto.datasource.user.response.UserData
 import com.msg.gcms.databinding.FragmentEditClubBinding
 import com.msg.gcms.ui.adapter.ActivityPhotosAdapter
@@ -194,6 +195,13 @@ class EditClubFragment : BaseFragment<FragmentEditClubBinding>(R.layout.fragment
     private fun observeEvent() {
         observeClubInfo()
         observeClubTypeDivider()
+        observeConvertImage()
+    }
+
+    private fun observeConvertImage() {
+        editViewModel.convertImage.observe(this) {
+            editClubInfo()
+        }
     }
 
     private fun observeClubTypeDivider() {
@@ -210,7 +218,7 @@ class EditClubFragment : BaseFragment<FragmentEditClubBinding>(R.layout.fragment
                     with(binding) {
                         clubNameEt.setText(it.club.title)
                         clubDescriptionEt.setText(it.club.description)
-                        LinkEt.setText(it.club.notionLink)
+                        linkEt.setText(it.club.notionLink)
                         contactEt.setText(it.club.contact)
                         teacherNameEt.setText(it.club.teacher)
                         bannerImageView.load(it.club.bannerUrl) {
@@ -331,14 +339,13 @@ class EditClubFragment : BaseFragment<FragmentEditClubBinding>(R.layout.fragment
         editViewModel.startLottie(fragmentManager = requireActivity().supportFragmentManager)
     }
 
-
     private fun fieldCheck() {
         if (binding.clubNameEt.text.isNotEmpty()
             && binding.clubDescriptionEt.text.isNotEmpty()
-            && binding.LinkEt.text.isNotEmpty()
+            && binding.linkEt.text.isNotEmpty()
             && binding.contactEt.text.isNotEmpty()
         ) {
-            if (binding.LinkEt.text.startsWith("http://") || binding.LinkEt.text.toString()
+            if (binding.linkEt.text.startsWith("http://") || binding.linkEt.text.toString()
                     .startsWith("https://")
             ) {
                 imageUpload()
@@ -348,10 +355,15 @@ class EditClubFragment : BaseFragment<FragmentEditClubBinding>(R.layout.fragment
 
     private fun imageUpload() {
         Log.d("TAG", "imageUploadLogic")
-        val newActivityPhoto : MutableList<ActivityPhotoType> = activityPhotoList.filter { legacyList.contains(it) }.toMutableList()
+        val newActivityPhoto: MutableList<ActivityPhotoType> =
+            activityPhotoList.filter { legacyList.contains(it) }.toMutableList()
 
         newPhotosList = convertBitmapToFile(newActivityPhoto).toMutableList()
-        newPhotosList.add(if(bannerImage != null) bannerImage!! else convertBitmapToMultiPart(bannerImageBitmap!!))
+        newPhotosList.add(
+            if (bannerImage != null) bannerImage!! else convertBitmapToMultiPart(
+                bannerImageBitmap!!
+            )
+        )
         Log.d("TAG", "imageUpload: $newPhotosList")
         imageUploadToServer(newPhotosList)
     }
@@ -366,7 +378,7 @@ class EditClubFragment : BaseFragment<FragmentEditClubBinding>(R.layout.fragment
             file = File(file, "${UUID.randomUUID()}.jpg}")
 
             try {
-              val stream: OutputStream = FileOutputStream(file)
+                val stream: OutputStream = FileOutputStream(file)
                 it.activityPhoto.compress(Bitmap.CompressFormat.JPEG, 100, stream)
                 stream.flush()
                 stream.close()
@@ -375,7 +387,7 @@ class EditClubFragment : BaseFragment<FragmentEditClubBinding>(R.layout.fragment
 
                 imgList.add(img)
                 Log.d("TAG", "convertBitmapToMultiPart: $imgList")
-            }catch(e: Exception){
+            } catch (e: Exception) {
                 e.printStackTrace()
             }
         }
@@ -400,9 +412,26 @@ class EditClubFragment : BaseFragment<FragmentEditClubBinding>(R.layout.fragment
             val requestFile = RequestBody.create("image/*".toMediaTypeOrNull(), file)
             image = MultipartBody.Part.createFormData("files", file.name, requestFile)
             Log.d("TAG", "convertBitmapToMultiPart: $image")
-        }catch(e: Exception){
+        } catch (e: Exception) {
             e.printStackTrace()
         }
         return image
+    }
+
+    private fun editClubInfo() {
+        editViewModel.putChangeClubInfo(
+            ModifyClubInfoRequest(
+                q = editViewModel.clubInfo.value!!.club.title,
+                type = editViewModel.clubInfo.value!!.club.type,
+                title = binding.clubNameEt.text.toString().trim(),
+                description = binding.clubDescriptionEt.text.toString(),
+                contact = binding.contactEt.text.toString(),
+                notionLink = binding.linkEt.text.toString(),
+                teacher = binding.teacherNameEt.text.toString(),
+                deleteActivityUrls = ,
+                bannerUrl = editViewModel.newPhotos.last(),
+                activityUrls = editViewModel.newPhotos.subList(0, -1)
+            )
+        )
     }
 }

@@ -9,8 +9,6 @@ data class ModifyClubInfoRequest(
     val notionLink: String?,
     val teacher :String?,
     val deleteActivityUrls: List<String>?,
-    val deleteMember : List<String>?,
-    val newMember : List<String>?,
     val bannerUrl: String,
     val activityUrls: List<String>?
 )

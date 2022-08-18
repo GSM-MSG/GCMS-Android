@@ -174,7 +174,7 @@
                 android:id="@+id/textView27" />
 
             <EditText
-                android:id="@+id/LinkEt"
+                android:id="@+id/linkEt"
                 android:layout_width="0dp"
                 android:layout_height="45dp"
                 android:hint="@string/link_url"
@@ -198,7 +198,7 @@
                 android:fontFamily="@font/notosans"
                 android:layout_marginTop="40dp"
                 app:layout_constraintStart_toStartOf="@+id/guideline20"
-                app:layout_constraintTop_toBottomOf="@+id/LinkEt"
+                app:layout_constraintTop_toBottomOf="@+id/linkEt"
                 android:id="@+id/textView28" />
 
             <EditText
