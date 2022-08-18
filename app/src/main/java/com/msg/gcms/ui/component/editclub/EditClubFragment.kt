@@ -22,7 +22,6 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import coil.ImageLoader
 import coil.load
@@ -304,11 +303,6 @@ class EditClubFragment : BaseFragment<FragmentEditClubBinding>(R.layout.fragment
     private fun clubMemberRecyclerView() {
         clubMemberAdapter = ClubMemberAdapter(editViewModel.memberList)
         Log.d("TAG", "clubMemberRecyclerView: ${editViewModel.memberList}}")
-        clubMemberAdapter.setItemOnClickListener(object : ClubMemberAdapter.OnItemClickListener {
-            override fun onClick(position: Int) {
-                findNavController().navigate(R.id.action_editClubFragment_to_editSearchFragment)
-            }
-        })
         binding.clubMemberRv.adapter = clubMemberAdapter
     }
 
