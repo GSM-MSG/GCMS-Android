@@ -416,9 +416,6 @@ class EditClubFragment : BaseFragment<FragmentEditClubBinding>(R.layout.fragment
     }
 
     private fun editClubInfo() {
-        Log.d("TAG", "editClubInfo: ${editViewModel.clubInfo.value!!.activityUrls}")
-        Log.d("TAG", "editClubInfo: ${editViewModel.clubInfo.value!!.activityUrls.filterNot { activityPhotoUrlList.contains(it)}}")
-        Log.d("TAG", "editClubInfo: ${editViewModel.newPhotos.dropLast(1)}")
         editViewModel.putChangeClubInfo(
             ModifyClubInfoRequest(
                 q = editViewModel.clubInfo.value!!.club.title,

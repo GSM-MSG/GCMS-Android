@@ -135,7 +135,7 @@ class EditViewModel @Inject constructor(
             try {
                 val response = imageUseCase.postImage(list)
                 when (response.code()) {
-                    200 -> {
+                    201 -> {
                         Log.d("TAG", "uploadImage: ${response.body()}")
                         newPhotos = response.body()!!.toMutableList()
                         _convertImage.value = response.body()
@@ -161,7 +161,7 @@ class EditViewModel @Inject constructor(
             try {
                 val response = editClubInfoUseCase.putChangeClub(body)
                 when (response.code()) {
-                    201 -> {
+                    200 -> {
                         Log.d("TAG", "putChangeClubInfo: ${response.code()}")
                     }
                     else -> {

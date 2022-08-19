@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.msg.gcms.data.local.entity.ActivityPhotoType
 import com.msg.gcms.data.remote.dto.datasource.club.request.CreateClubRequest
+import com.msg.gcms.data.remote.dto.datasource.club.response.UserInfo
 import com.msg.gcms.data.remote.dto.datasource.user.response.UserData
 import com.msg.gcms.domain.usecase.club.ClubUseCase
 import com.msg.gcms.domain.usecase.image.ImageUseCase

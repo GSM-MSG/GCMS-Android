@@ -99,7 +99,7 @@
     <string name="club_member_management">동아리 멤버 관리</string>
     <string name="club_edit">동아리 수정하기</string>
     <string name="club_delete">동아리 삭제하기</string>
-    
+
     <string name="club_member_showing">동아리 멤버 확인</string>
     <string name="club_leave">동아리 탈퇴</string>
     <string name="terms_of_service">서비스 이용 약관</string>
@@ -108,7 +108,7 @@
     <string name="logoutAsk">가시려구요?</string>
     <string name="logoutBtn">로그아웃</string>
     <string name="withdrawalBtn">회원탈퇴</string>
-    
+
     <string name="withdrawal">탈퇴하기</string>
     <string name="withdrawalAsk">탈퇴하시기 전에 확인해 주세요!</string>
     <string name="withdrawalRule1">유저의 프로필, 아이디 등이 사라지게 됩니다.</string>

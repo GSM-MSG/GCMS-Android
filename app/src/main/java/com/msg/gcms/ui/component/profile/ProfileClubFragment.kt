@@ -1,6 +1,8 @@
 package com.msg.gcms.ui.component.profile
 
+import android.content.Intent
 import android.graphics.Rect
+import android.util.Log
 import android.view.View
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.GridLayoutManager
@@ -12,10 +14,17 @@ import com.msg.gcms.data.remote.dto.datasource.user.response.ClubData
 import com.msg.gcms.databinding.FragmentProfileClubBinding
 import com.msg.gcms.ui.adapter.EditorialClubAdapter
 import com.msg.gcms.ui.base.BaseFragment
+import com.msg.gcms.ui.component.main.MainActivity
+import com.msg.viewmodel.ClubDetailViewModel
+import com.msg.viewmodel.ClubViewModel
 import com.msg.viewmodel.ProfileViewModel
 
-class ProfileClubFragment: BaseFragment<FragmentProfileClubBinding>(R.layout.fragment_profile_club) {
+class ProfileClubFragment :
+    BaseFragment<FragmentProfileClubBinding>(R.layout.fragment_profile_club) {
+    private val TAG = "ProfileClubFragment"
     private val viewModel by activityViewModels<ProfileViewModel>()
+    private val detailViewModel by activityViewModels<ClubDetailViewModel>()
+    private val clubViewModel by activityViewModels<ClubViewModel>()
     private val privateClubList: ArrayList<ClubData> = ArrayList()
     private lateinit var adapter: EditorialClubAdapter
     override fun init() {
@@ -34,33 +43,39 @@ class ProfileClubFragment: BaseFragment<FragmentProfileClubBinding>(R.layout.fra
 
     private fun viewClub() {
         viewModel.profileData.observe(this) {
-            it.clubs.forEach {
-                when (it.type) {
+            it.clubs.forEach { clubData ->
+                when (clubData.type) {
                     "MAJOR" -> {
                         binding.apply {
                             noMajorClubImg.visibility = View.GONE
                             majorClubLayout.visibility = View.VISIBLE
-                            majorClubImg.load(it.bannerUrl) {
+                            majorClubImg.load(clubData.bannerUrl) {
                                 transformations(RoundedCornersTransformation(9f, 9f, 0f, 0f))
                             }
-                            majorClubName.text = it.title
+                            majorClubName.text = clubData.title
+                            majorClubImg.setOnClickListener {
+                                getDetail(clubData.type, clubData.title)
+                            }
                         }
                     }
                     "FREEDOM" -> {
                         binding.apply {
                             noFreedomClubImg.visibility = View.GONE
                             freedomClubLayout.visibility = View.VISIBLE
-                            freedomClubImg.load(it.bannerUrl) {
+                            freedomClubImg.load(clubData.bannerUrl) {
                                 transformations(RoundedCornersTransformation(9f, 9f, 0f, 0f))
                             }
-                            freedomClubName.text = it.title
+                            freedomClubName.text = clubData.title
+                            freedomClubImg.setOnClickListener {
+                                getDetail(clubData.type, clubData.title)
+                            }
                         }
                     }
                     "EDITORIAL" -> {
                         binding.apply {
                             privateClub.visibility = View.VISIBLE
                             privateClubRecyclerview.visibility = View.VISIBLE
-                            privateClubList.add(it)
+                            privateClubList.add(clubData)
                         }
                     }
                 }
@@ -69,12 +84,29 @@ class ProfileClubFragment: BaseFragment<FragmentProfileClubBinding>(R.layout.fra
         }
     }
 
+    private fun getDetail(type: String, q: String) {
+        detailViewModel.getDetail(type, q)
+        clubViewModel.startLottie(requireActivity().supportFragmentManager)
+        observeStatus()
+    }
+
     private fun setRecyclerView() {
+        adapter = EditorialClubAdapter(privateClubList)
+        binding.privateClubRecyclerview.adapter = adapter
         binding.privateClubRecyclerview.apply {
-            adapter = EditorialClubAdapter(privateClubList)
             layoutManager = GridLayoutManager(context, 2)
             addItemDecoration(HorizontalItemDecorator(20))
         }
+        adapter.setItemOnClickListener(object : EditorialClubAdapter.OnItemClickListener {
+            override fun onClick(position: Int) {
+                Log.d("WWWW","클릭")
+                getDetail(
+                    privateClubList[position].type,
+                    privateClubList[position].title
+                )
+                Log.d("clubsss",viewModel.profileData.value?.clubs.toString())
+            }
+        })
     }
 
     inner class HorizontalItemDecorator(private val divHeight: Int) :
@@ -90,7 +122,31 @@ class ProfileClubFragment: BaseFragment<FragmentProfileClubBinding>(R.layout.fra
                 0 -> outRect.right = divHeight
                 1 -> outRect.left = divHeight
             }
-            outRect.bottom = divHeight*2
+            outRect.bottom = divHeight * 2
+        }
+    }
+
+    private fun observeStatus() {
+        detailViewModel.clearResult()
+        detailViewModel.result.observe(this) {
+            if (it != null) {
+                when (detailViewModel.getDetailStatus.value) {
+                    in 200..299 -> {
+                        Log.d(TAG, "GetDetail : Status - ${detailViewModel.getDetailStatus.value}")
+                        val intent = Intent(requireActivity(), MainActivity::class.java)
+                        Log.d(TAG, detailViewModel.result.value.toString())
+                        intent.putExtra("isProfile", true)
+                        startActivity(intent)
+                    }
+                    else -> {
+                        shortToast("동아리 정보를 불러오지 못했습니다.")
+                        Log.d(
+                            TAG,
+                            "GetDetail : Error Status - ${detailViewModel.getDetailStatus.value}"
+                        )
+                    }
+                }
+            }
         }
     }
 }
