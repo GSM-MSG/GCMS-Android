@@ -136,6 +136,7 @@ class ProfileClubFragment :
                         val intent = Intent(requireActivity(), MainActivity::class.java)
                         Log.d(TAG, detailViewModel.result.value.toString())
                         intent.putExtra("isProfile", true)
+                        intent.putExtra("result", detailViewModel.result.value)
                         startActivity(intent)
                     }
                     else -> {
