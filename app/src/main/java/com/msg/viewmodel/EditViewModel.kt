@@ -49,6 +49,9 @@ class EditViewModel @Inject constructor(
     private val _convertImage = MutableLiveData<List<String>>()
     val convertImage: LiveData<List<String>> get() = _convertImage
 
+    private val _editClubResult = MutableLiveData<Int>()
+    val editClubResult: LiveData<Int> get() = _editClubResult
+
     private val lottie by lazy { LottieFragment() }
 
     fun clubTypeDivider(clubType: String) {
@@ -163,9 +166,11 @@ class EditViewModel @Inject constructor(
                 when (response.code()) {
                     200 -> {
                         Log.d("TAG", "putChangeClubInfo: ${response.code()}")
+                        _editClubResult.value = response.code()
                     }
                     else -> {
                         Log.d("TAG", "putChangeClubInfo: $response")
+                        _editClubResult.value = response.code()
                     }
                 }
             } catch (e: Exception) {

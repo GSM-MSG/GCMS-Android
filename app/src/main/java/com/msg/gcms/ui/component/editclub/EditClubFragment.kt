@@ -36,6 +36,7 @@ import com.msg.gcms.databinding.FragmentEditClubBinding
 import com.msg.gcms.ui.adapter.ActivityPhotosAdapter
 import com.msg.gcms.ui.adapter.ClubMemberAdapter
 import com.msg.gcms.ui.base.BaseFragment
+import com.msg.gcms.ui.base.BaseModal
 import com.msg.gcms.utils.ItemDecorator
 import com.msg.viewmodel.EditViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -195,6 +196,7 @@ class EditClubFragment : BaseFragment<FragmentEditClubBinding>(R.layout.fragment
         observeClubInfo()
         observeClubTypeDivider()
         observeConvertImage()
+        observeEditClubResult()
     }
 
     private fun observeConvertImage() {
@@ -430,5 +432,22 @@ class EditClubFragment : BaseFragment<FragmentEditClubBinding>(R.layout.fragment
                 newActivityUrls = editViewModel.newPhotos.dropLast(1)
             )
         )
+    }
+
+    private fun observeEditClubResult() {
+        editViewModel.editClubResult.observe(this) {
+            when(it) {
+                200 -> {
+                    shortToast("동아리 정보가 수정되었습니다.")
+                    requireActivity().finish()
+                }
+                401 -> {
+                    BaseModal(context = requireContext(), title = "시간 만료", msg = "앱을 재실행 해주세요!!")
+                }
+                else -> {
+                    BaseModal(context = requireContext(), title = "동아리 정보 수정", msg = "동아리 정보 수정에 실패하였습니다.")
+                }
+            }
+        }
     }
 }
