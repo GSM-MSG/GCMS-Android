@@ -56,6 +56,9 @@ class MakeClubViewModel @Inject constructor(
     private val _createResult = MutableLiveData<Boolean>()
     val createResult: LiveData<Boolean> get() = _createResult
 
+    private val _status = MutableLiveData<Int>()
+    val status: LiveData<Int> get() = _status
+
     var title: String = ""
     var description: String = ""
     var contact: String = ""
@@ -154,6 +157,7 @@ class MakeClubViewModel @Inject constructor(
                     bannerUrl = _bannerResult.value!!
                 )
             )
+            _status.value = response.code()
             when (response.code()) {
                 201 -> {
                     Log.d("TAG", "createClub: 성공")

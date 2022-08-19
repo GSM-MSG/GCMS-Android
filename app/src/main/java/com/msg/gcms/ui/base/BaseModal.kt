@@ -5,15 +5,15 @@ import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import com.msg.gcms.databinding.DetailDialogBinding
+import com.msg.gcms.databinding.ErrorExeptionDialogBinding
 
-class BaseDialog(val title: String, val msg: String, context: Context) : Dialog(context) {
+class BaseModal(val title: String, val msg: String, context: Context) : Dialog(context) {
 
-    lateinit var dialogBinding: DetailDialogBinding
+    lateinit var dialogBinding: ErrorExeptionDialogBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        dialogBinding = DetailDialogBinding.inflate(layoutInflater)
+        dialogBinding = ErrorExeptionDialogBinding.inflate(layoutInflater)
         setContentView(dialogBinding.root)
         viewSet()
     }
@@ -21,7 +21,7 @@ class BaseDialog(val title: String, val msg: String, context: Context) : Dialog(
     private fun viewSet() = with(dialogBinding) {
         setCancelable(true)
         window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-        cancel.setOnClickListener {
+        ok.setOnClickListener {
             dismiss()
         }
         dialogTitle.text = title

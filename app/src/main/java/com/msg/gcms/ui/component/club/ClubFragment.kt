@@ -8,6 +8,7 @@ import com.msg.gcms.R
 import com.msg.gcms.databinding.FragmentClubBinding
 import com.msg.gcms.ui.adapter.ClubListAdapter
 import com.msg.gcms.ui.base.BaseFragment
+import com.msg.gcms.ui.base.BaseModal
 import com.msg.gcms.ui.component.club.detail.DetailFragment
 import com.msg.gcms.ui.component.clubmaker.MakeClubActivity
 import com.msg.gcms.ui.component.profile.ProfileActivity
@@ -89,6 +90,18 @@ class ClubFragment : BaseFragment<FragmentClubBinding>(R.layout.fragment_club) {
                             "GetDetail : Error Status - ${detailViewModel.getDetailStatus.value}"
                         )
                     }
+                }
+            }
+        }
+
+        clubViewModel.getClubStatus.observe(this) {
+            when (it) {
+                in 200..299 -> {}
+                401 -> {
+                    BaseModal("오류", "토큰이 만료되었습니다, 앱 종료후 다시 실행해 주세요", requireContext()).show()
+                }
+                else -> {
+                    BaseModal("오류", "알수 없는 오류 발생, 개발자에게 문의해주세요", requireContext()).show()
                 }
             }
         }
