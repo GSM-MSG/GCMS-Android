@@ -138,7 +138,7 @@ class MemberManageActivity :
         viewModel.status.observe(this) {
             when (it) {
                 401, 406 -> {
-                    BaseModal("오류", "알수 없는 오류가 발생했습니다.", this).show()
+                    BaseModal("오류", "알수 없는 오류 발생, 개발자에게 문의해주세요", this).show()
                 }
                 403 -> {
                     BaseModal("실패", "부장만이 이 행동을 할수 있습니다.", this).show()
