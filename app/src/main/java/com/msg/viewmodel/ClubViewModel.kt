@@ -20,7 +20,7 @@ import javax.inject.Inject
 class ClubViewModel @Inject constructor(
     private val clubUseCase: ClubUseCase,
     private val exitUseCase: ExitUseCase,
-    private val clubDeleteUseCase: ClubDeleteUseCase
+    private val clubDeleteUseCase: ClubDeleteUseCase,
 ) : ViewModel() {
 
     private val lottie by lazy { LottieFragment() }

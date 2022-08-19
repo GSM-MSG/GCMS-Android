@@ -12,7 +12,7 @@ import com.msg.gcms.R
 import com.msg.gcms.data.local.entity.DetailPageSideBar
 import com.msg.gcms.data.local.entity.PromotionPicType
 import com.msg.gcms.data.remote.dto.datasource.club.response.MemberSummaryResponse
-import com.msg.gcms.data.remote.dto.datasource.club.response.UserInfo
+import com.msg.gcms.data.remote.dto.datasource.user.response.UserData
 import com.msg.gcms.databinding.FragmentDetailBinding
 import com.msg.gcms.ui.adapter.DetailMemberAdapter
 import com.msg.gcms.ui.adapter.DetailPhotoAdapter
@@ -127,14 +127,14 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
         detailViewModel.setIsProfile(false)
     }
 
-    private fun clubMemberRecycler(member: List<UserInfo>) {
+    private fun clubMemberRecycler(member: List<UserData>) {
         membersList.clear()
         for (i in member.indices) {
             try {
                 membersList.add(
                     MemberSummaryResponse(
                         name = member[i].name,
-                        userImg = member[i].userImg.toString(),
+                        userImg = member[i].userImg,
                         email = member[i].email,
                         `class` = member[i].`class`,
                         num = member[i].num,

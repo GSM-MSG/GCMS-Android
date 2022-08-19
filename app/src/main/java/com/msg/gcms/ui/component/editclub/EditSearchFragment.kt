@@ -1,4 +1,4 @@
-package com.msg.gcms.ui.component.clubmaker.searchstudent
+package com.msg.gcms.ui.component.editclub
 
 import android.util.Log
 import android.view.View
@@ -11,12 +11,13 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.msg.gcms.R
 import com.msg.gcms.data.local.entity.AddMemberType
 import com.msg.gcms.data.remote.dto.datasource.user.response.UserData
-import com.msg.gcms.databinding.FragmentStudentSearchBinding
+import com.msg.gcms.databinding.FragmentEditSearchBinding
 import com.msg.gcms.ui.adapter.AddMemberAdapter
 import com.msg.gcms.ui.adapter.UserSearchAdapter
 import com.msg.gcms.ui.base.BaseFragment
 import com.msg.gcms.utils.ItemDecorator
-import com.msg.viewmodel.MakeClubViewModel
+import com.msg.viewmodel.EditViewModel
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.cancel
@@ -27,10 +28,10 @@ import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.launch
 import kotlin.coroutines.CoroutineContext
 
-class StudentSearchFragment :
-    BaseFragment<FragmentStudentSearchBinding>(R.layout.fragment_student_search) {
+@AndroidEntryPoint
+class EditSearchFragment: BaseFragment<FragmentEditSearchBinding>(R.layout.fragment_edit_search) {
 
-    private val makeClubViewModel by activityViewModels<MakeClubViewModel>()
+    private val editViewModel by activityViewModels<EditViewModel>()
 
     private lateinit var searchAdapter: UserSearchAdapter
     private lateinit var addMemberAdapter: AddMemberAdapter
@@ -70,7 +71,8 @@ class StudentSearchFragment :
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
             setHasFixedSize(true)
             addItemDecoration(ItemDecorator(16, "HORIZONTAL"))
-            addMemberAdapter.setMemberList(makeClubViewModel.memberList)
+            memberList = editViewModel.memberList
+            addMemberAdapter.setMemberList(memberList.distinct())
             adapter = addMemberAdapter
         }
         addMemberAdapter.setItemOnClickListener(object : AddMemberAdapter.OnItemClickListener {
@@ -107,13 +109,13 @@ class StudentSearchFragment :
                 .distinctUntilChanged()
                 .collect {
                     Log.d("TAG", "observeEditText: $it")
-                    makeClubViewModel.getSearchUser(it)
+                    editViewModel.getSearchUser(it)
                 }
         }
     }
 
     private fun observeResult() {
-        makeClubViewModel.result.observe(this) {
+        editViewModel.result.observe(this) {
             userList = it as MutableList<UserData>
             searchAdapter.submitList(it)
         }
@@ -126,9 +128,9 @@ class StudentSearchFragment :
             }
             binding.selectBtn.id -> {
                 if(memberList.isNotEmpty()) {
-                    makeClubViewModel.memberList = memberList
+                    editViewModel.memberList = memberList.distinct().toMutableList()
                 }
-                makeClubViewModel.setMemberEmail()
+                editViewModel.setMemberEmail()
                 this.findNavController().popBackStack()
             }
         }
@@ -138,5 +140,4 @@ class StudentSearchFragment :
         coroutineContext.cancel()
         super.onDestroy()
     }
-
 }

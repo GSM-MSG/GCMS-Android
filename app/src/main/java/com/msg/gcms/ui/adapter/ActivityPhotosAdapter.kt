@@ -2,9 +2,8 @@ package com.msg.gcms.ui.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
-import coil.load
-import coil.transform.RoundedCornersTransformation
 import com.msg.gcms.data.local.entity.ActivityPhotoType
 import com.msg.gcms.databinding.ListClubPictureBinding
 
@@ -26,10 +25,8 @@ class ActivityPhotosAdapter(private val items: List<ActivityPhotoType>) :
     class BannerViewHolder(val binding: ListClubPictureBinding, listener: OnItemClickListener) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(data: ActivityPhotoType) {
-            binding.activityPhoto.load(data.activityPhoto) {
-                crossfade(true)
-                transformations(RoundedCornersTransformation(6f))
-            }
+            binding.activityPhoto.setImageBitmap(data.activityPhoto)
+            binding.activityPhoto.scaleType = ImageView.ScaleType.CENTER_CROP
             binding.executePendingBindings()
         }
 

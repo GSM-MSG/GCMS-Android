@@ -6,7 +6,10 @@ import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.database.Cursor
+import android.graphics.Bitmap
+import android.graphics.ImageDecoder
 import android.net.Uri
+import android.os.Build
 import android.provider.MediaStore
 import android.util.Log
 import android.view.View
@@ -51,6 +54,8 @@ class MakeClubDetailFragment :
 
     private var bannerImageUri: Uri? = null
 
+    private var imageState = false
+
     override fun init() {
         binding.fragment = this
         settingRecyclerView()
@@ -59,17 +64,25 @@ class MakeClubDetailFragment :
 
     override fun onResume() {
         imageSetting()
+        settingRecyclerView()
         super.onResume()
     }
 
     private fun observeEvent() {
         observeImageChange()
         observeStatus()
+        observeResult()
     }
 
     private fun observeImageChange() {
-        makeClubViewModel.imageUploadCheck.observe(this) {
-            postCreateClub()
+        makeClubViewModel.imageUploadCheck.observe(requireActivity()) {
+            if(it != null) {
+                if(!imageState) {
+                    postCreateClub()
+                    Log.d("TAG", "observeImageChange: 카운트")
+                    imageState = true
+                }
+            }
         }
     }
 
@@ -77,8 +90,23 @@ class MakeClubDetailFragment :
         makeClubViewModel.createClub()
     }
 
+    private fun observeResult() {
+        makeClubViewModel.createResult.observe(this) {
+            when (it) {
+                true -> {
+                    shortToast("생성 성공!!")
+                    requireActivity().finish()
+                }
+                false -> {
+                    shortToast("생성 실패")
+                    clubViewModel.stopLottie()
+                }
+            }
+        }
+    }
+
     private fun imageSetting() {
-        if (bannerImage.isNotEmpty() || makeClubViewModel.activityPhotoList.isNotEmpty()) {
+        if (bannerImage.isNotEmpty() || makeClubViewModel.activityPhotoList.isNotEmpty() || makeClubViewModel.memberList.isNotEmpty()) {
             binding.addBannerPicture.load(bannerImageUri) {
                 crossfade(true)
                 transformations(RoundedCornersTransformation(8f))
@@ -173,11 +201,6 @@ class MakeClubDetailFragment :
         }
 
         clubMemberAdapter = ClubMemberAdapter(makeClubViewModel.memberList)
-        clubMemberAdapter.setItemOnClickListener(object : ClubMemberAdapter.OnItemClickListener {
-            override fun onClick(position: Int) {
-                findNavController().navigate(R.id.action_makeClubDetailFragment_to_studentSearchFragment)
-            }
-        })
         binding.clubMemberRv.adapter = clubMemberAdapter
     }
 
@@ -220,7 +243,7 @@ class MakeClubDetailFragment :
 
         if (resultCode == Activity.RESULT_OK && resultCode == requestCode) {
             if (data?.clipData != null) {
-                if (data.clipData!!.itemCount > 4) {
+                if (data.clipData!!.itemCount + makeClubViewModel.activityPhotoList.size > 4) {
                     shortToast("활동사진은 최대 4개까지 가능합니다.")
                     return
                 } else {
@@ -228,7 +251,9 @@ class MakeClubDetailFragment :
                     activityPhotoMultipart.clear()
                     for (i in 0 until data.clipData!!.itemCount) {
                         val imageUri: Uri = data.clipData!!.getItemAt(i).uri
-                        makeClubViewModel.activityPhotoList.add(ActivityPhotoType(activityPhoto = imageUri))
+                        val imageBitmap = uriToBitMap(imageUri)
+                        makeClubViewModel.activityPhotoList.add(ActivityPhotoType(activityPhoto = imageBitmap))
+                        Log.d("TAG", "getBitmap: $imageBitmap")
                         activityAdapter = ActivityPhotosAdapter(makeClubViewModel.activityPhotoList)
                         val file = File(getPathFromUri(imageUri))
                         val requestFile = RequestBody.create("image/*".toMediaTypeOrNull(), file)
@@ -236,7 +261,9 @@ class MakeClubDetailFragment :
                         Log.d("TAG", "onActivityResult: $img")
                         activityPhotoMultipart.add(img)
                     }
+                    Log.d("TAG", "finallyImage: ${makeClubViewModel.activityPhotoList.size}")
                     binding.clubActivePicture.adapter = activityAdapter
+
 
                     activityAdapter.setItemOnClickListener(object :
                         ActivityPhotosAdapter.OnItemClickListener {
@@ -248,6 +275,15 @@ class MakeClubDetailFragment :
                 }
             }
         }
+    }
+
+    private fun uriToBitMap(imageUri: Uri): Bitmap {
+        val bitmap = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+            ImageDecoder.decodeBitmap(ImageDecoder.createSource(requireContext().contentResolver, imageUri))
+        } else {
+            MediaStore.Images.Media.getBitmap(requireContext().contentResolver, imageUri)
+        }
+        return bitmap
     }
 
     @SuppressLint("Range")
