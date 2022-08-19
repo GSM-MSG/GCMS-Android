@@ -71,13 +71,14 @@ class MakeClubDetailFragment :
     private fun observeEvent() {
         observeImageChange()
         observeStatus()
+        observeResult()
     }
 
     private fun observeImageChange() {
         makeClubViewModel.imageUploadCheck.observe(requireActivity()) {
             if(it != null) {
                 if(!imageState) {
-                    Event(postCreateClub()).getContentIfNotHandled()
+                    postCreateClub()
                     Log.d("TAG", "observeImageChange: 카운트")
                     imageState = true
                 }
@@ -93,11 +94,11 @@ class MakeClubDetailFragment :
         makeClubViewModel.createResult.observe(this) {
             when (it) {
                 true -> {
-                    shortToast(Event("생성 성공!!").getContentIfNotHandled().toString())
+                    shortToast("생성 성공!!")
                     requireActivity().finish()
                 }
                 false -> {
-                    shortToast(Event("생성 실패").getContentIfNotHandled().toString())
+                    shortToast("생성 실패")
                     clubViewModel.stopLottie()
                 }
             }
