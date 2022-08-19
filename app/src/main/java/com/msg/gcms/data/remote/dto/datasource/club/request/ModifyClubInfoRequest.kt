@@ -10,5 +10,5 @@ data class ModifyClubInfoRequest(
     val teacher :String?,
     val deleteActivityUrls: List<String>?,
     val bannerUrl: String,
-    val activityUrls: List<String>?
+    val newActivityUrls: List<String>?
 )

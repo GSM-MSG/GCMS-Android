@@ -199,7 +199,9 @@ class EditClubFragment : BaseFragment<FragmentEditClubBinding>(R.layout.fragment
 
     private fun observeConvertImage() {
         editViewModel.convertImage.observe(this) {
-            editClubInfo()
+            if(it.isNotEmpty()) {
+                editClubInfo()
+            }
         }
     }
 
@@ -350,7 +352,7 @@ class EditClubFragment : BaseFragment<FragmentEditClubBinding>(R.layout.fragment
     private fun imageUpload() {
         Log.d("TAG", "imageUploadLogic")
         val newActivityPhoto: MutableList<ActivityPhotoType> =
-            activityPhotoList.filter { legacyList.contains(it) }.toMutableList()
+            activityPhotoList.filterNot { legacyList.contains(it) }.toMutableList()
 
         newPhotosList = convertBitmapToFile(newActivityPhoto).toMutableList()
         newPhotosList.add(
@@ -360,6 +362,7 @@ class EditClubFragment : BaseFragment<FragmentEditClubBinding>(R.layout.fragment
         )
         Log.d("TAG", "imageUpload: $newPhotosList")
         imageUploadToServer(newPhotosList)
+
     }
 
     private fun convertBitmapToFile(list: List<ActivityPhotoType>): List<MultipartBody.Part> {
@@ -413,6 +416,9 @@ class EditClubFragment : BaseFragment<FragmentEditClubBinding>(R.layout.fragment
     }
 
     private fun editClubInfo() {
+        Log.d("TAG", "editClubInfo: ${editViewModel.clubInfo.value!!.activityUrls}")
+        Log.d("TAG", "editClubInfo: ${editViewModel.clubInfo.value!!.activityUrls.filterNot { activityPhotoUrlList.contains(it)}}")
+        Log.d("TAG", "editClubInfo: ${editViewModel.newPhotos.dropLast(1)}")
         editViewModel.putChangeClubInfo(
             ModifyClubInfoRequest(
                 q = editViewModel.clubInfo.value!!.club.title,
@@ -422,9 +428,9 @@ class EditClubFragment : BaseFragment<FragmentEditClubBinding>(R.layout.fragment
                 contact = binding.contactEt.text.toString(),
                 notionLink = binding.linkEt.text.toString(),
                 teacher = binding.teacherNameEt.text.toString(),
-                deleteActivityUrls = ,
+                deleteActivityUrls = editViewModel.clubInfo.value!!.activityUrls.filterNot { activityPhotoUrlList.contains(it) },
                 bannerUrl = editViewModel.newPhotos.last(),
-                activityUrls = editViewModel.newPhotos.subList(0, -1)
+                newActivityUrls = editViewModel.newPhotos.dropLast(1)
             )
         )
     }

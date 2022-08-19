@@ -26,7 +26,7 @@ class EditViewModel @Inject constructor(
     private val userUserCase: UserUseCase,
     private val imageUseCase: ImageUseCase,
     private val editClubInfoUseCase: EditClubInfoUseCase
-    ) : ViewModel() {
+) : ViewModel() {
 
     private val _clubInfo = MutableLiveData<ClubInfoResponse>()
     val clubInfo: LiveData<ClubInfoResponse> get() = _clubInfo
@@ -74,7 +74,6 @@ class EditViewModel @Inject constructor(
                     200 -> {
                         Log.d("TAG", "getClubInfo: ${response.body()}")
                         memberCheck()
-                        newPhotos = clubInfo.value!!.activityUrls.toMutableList()
                     }
                     else -> {
                         Log.d("TAG", "getClubInfo: ${response.code()}, ${response.body()}")
@@ -98,8 +97,7 @@ class EditViewModel @Inject constructor(
                     userImg = R.drawable.bg_banner_placeholder.toString()
                 )
             )
-        }
-        else {
+        } else {
             memberList.addAll(clubInfo.value!!.member)
             Log.d("TAG", "memberCheck: ${memberList.distinct()}")
         }
@@ -136,24 +134,25 @@ class EditViewModel @Inject constructor(
         viewModelScope.launch {
             try {
                 val response = imageUseCase.postImage(list)
-                when(response.code()){
-                    201 -> {
+                when (response.code()) {
+                    200 -> {
                         Log.d("TAG", "uploadImage: ${response.body()}")
+                        newPhotos = response.body()!!.toMutableList()
                         _convertImage.value = response.body()
                     }
                     else -> {
                         Log.e("TAG", "uploadImage: ${response.body()}")
                     }
                 }
-            }catch(e: Exception){
-              e.printStackTrace()
+            } catch (e: Exception) {
+                e.printStackTrace()
             }
         }
     }
 
     fun startLottie(fragmentManager: FragmentManager) {
-        if(!lottie.isAdded){
-            lottie.show(fragmentManager,"Lottie")
+        if (!lottie.isAdded) {
+            lottie.show(fragmentManager, "Lottie")
         }
     }
 
@@ -161,13 +160,16 @@ class EditViewModel @Inject constructor(
         viewModelScope.launch {
             try {
                 val response = editClubInfoUseCase.putChangeClub(body)
-                when(response.code()){
-                  else -> {
-
-                  }
+                when (response.code()) {
+                    201 -> {
+                        Log.d("TAG", "putChangeClubInfo: ${response.code()}")
+                    }
+                    else -> {
+                        Log.d("TAG", "putChangeClubInfo: $response")
+                    }
                 }
-            }catch(e: Exception){
-              e.printStackTrace()
+            } catch (e: Exception) {
+                e.printStackTrace()
             }
         }
     }
