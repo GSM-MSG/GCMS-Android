@@ -159,6 +159,12 @@ class EditViewModel @Inject constructor(
         }
     }
 
+    fun stopLottie() {
+        if(lottie.isAdded) {
+            lottie.dismissAllowingStateLoss()
+        }
+    }
+
     fun putChangeClubInfo(body: ModifyClubInfoRequest) {
         viewModelScope.launch {
             try {

@@ -442,9 +442,11 @@ class EditClubFragment : BaseFragment<FragmentEditClubBinding>(R.layout.fragment
                     requireActivity().finish()
                 }
                 401 -> {
+                    editViewModel.stopLottie()
                     BaseModal(context = requireContext(), title = "시간 만료", msg = "앱을 재실행 해주세요!!")
                 }
                 else -> {
+                    editViewModel.stopLottie()
                     BaseModal(context = requireContext(), title = "동아리 정보 수정", msg = "동아리 정보 수정에 실패하였습니다.")
                 }
             }
