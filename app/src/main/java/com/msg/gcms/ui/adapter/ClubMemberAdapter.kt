@@ -13,13 +13,14 @@ class ClubMemberAdapter(private val items: List<UserData>) :
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MemberViewHolder {
         val binding =
             ListClubMemberBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return MemberViewHolder(binding)
+        return MemberViewHolder(binding, itemClickListener)
     }
 
     override fun getItemCount(): Int = items.size
 
     class MemberViewHolder(
         val binding: ListClubMemberBinding,
+        listener: OnItemClickListener
     ) :
         RecyclerView.ViewHolder(binding.root) {
 
@@ -31,12 +32,25 @@ class ClubMemberAdapter(private val items: List<UserData>) :
             }
             binding.executePendingBindings()
         }
+
+        init {
+            binding.root.setOnClickListener {
+                listener.onClick(adapterPosition)
+            }
+        }
     }
 
     override fun onBindViewHolder(holder: MemberViewHolder, position: Int) {
         holder.bind(items[position])
     }
 
+    interface OnItemClickListener {
+        fun onClick(position: Int)
+    }
 
+    fun setItemOnClickListener(onItemClickListener: OnItemClickListener) {
+        this.itemClickListener = onItemClickListener
+    }
 
+    private lateinit var itemClickListener: OnItemClickListener
 }
