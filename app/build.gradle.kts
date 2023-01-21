@@ -38,6 +38,10 @@ android {
     }
     buildFeatures {
         dataBinding = true
+        compose = true
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion = "1.1.1"
     }
 }
 
@@ -57,9 +61,6 @@ dependencies {
     implementation(Dependency.Google.FIREBASE)
     implementation(Dependency.Google.GMS_PLAY_SERVICE_AUTH)
     implementation(Dependency.Google.GMS_PLAY_SERVICE_BASE)
-    implementation("androidx.appcompat:appcompat:1.4.2")
-    implementation("com.google.android.material:material:1.6.1")
-    implementation("androidx.constraintlayout:constraintlayout:2.1.4")
     kapt(Dependency.AndroidX.ROOM_COMPILER)
 
     implementation(Dependency.Kotlin.COROUTINES_CORE)
@@ -97,4 +98,13 @@ dependencies {
     implementation(Dependency.Libraries.SHIMMER)
 
     implementation(Dependency.Lottie.LOTTIE)
+
+    implementation(Dependency.Libraries.GAUTH)
+
+    implementation(Dependency.Compose.ACTIVITY_COMPOSE)
+    implementation(Dependency.Compose.COMPOSE)
+    implementation(Dependency.Compose.COMPOSE_PREVIEW)
+    androidTestImplementation(Dependency.Compose.COMPOSE_JUNIT)
+    debugImplementation(Dependency.Compose.COMPOSE_TOOLING)
+    debugImplementation(Dependency.Compose.COMPOSE_TEST)
 }

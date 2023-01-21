@@ -65,6 +65,7 @@ object Dependency {
         const val MOSHI = "com.squareup.moshi:moshi-kotlin:${Versions.MOSHI}"
         const val MOSHI_COMPILER = "com.squareup.moshi:moshi-kotlin-codegen:${Versions.MOSHI}"
         const val SHIMMER = "com.facebook.shimmer:shimmer:${Versions.SHIMMER}"
+        const val GAUTH = "com.github.GSM-MSG:GAuth-Signin-Android:v${Versions.GAUTH}"
     }
 
     object UnitTest {
@@ -99,5 +100,15 @@ object Dependency {
 
     object Lottie {
         const val LOTTIE = "com.airbnb.android:lottie:${Versions.LOTTIE_VERSION}"
+    }
+
+    object Compose {
+        const val ACTIVITY_COMPOSE =
+            "androidx.activity:activity-compose:${Versions.ACTIVITY_COMPOSE}"
+        const val COMPOSE = "androidx.compose.ui:ui:${Versions.COMPOSE}"
+        const val COMPOSE_PREVIEW = "androidx.compose.ui:ui-tooling-preview:${Versions.COMPOSE}"
+        const val COMPOSE_JUNIT = "androidx.compose.ui:ui-test-junit4:${Versions.COMPOSE}"
+        const val COMPOSE_TOOLING = "androidx.compose.ui:ui-tooling:${Versions.COMPOSE}"
+        const val COMPOSE_TEST = "androidx.compose.ui:ui-test-manifest:${Versions.COMPOSE}"
     }
 }

@@ -178,18 +178,11 @@
             app:layout_constraintStart_toEndOf="@+id/view10" />
 
 
-        <TextView
+        <androidx.compose.ui.platform.ComposeView
             android:paddingStart="35dp"
             android:id="@+id/signInBtn"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:background="@drawable/bg_sign_btn"
-            android:fontFamily="@font/notosans"
-            android:gravity="center"
-            android:text="@string/google_login"
-            android:textColor="@color/black"
-            android:textSize="16sp"
-            android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@+id/guideline24"
             app:layout_constraintEnd_toStartOf="@+id/guideline18"
             app:layout_constraintStart_toStartOf="@+id/guideline17"
