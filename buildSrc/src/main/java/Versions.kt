@@ -1,16 +1,14 @@
 import org.gradle.api.JavaVersion
 
 object Versions {
-    const val GRADLE_ANDROID = "7.0.4"
+    const val GRADLE_ANDROID = "7.3.0"
     const val GRADLE_KOTLIN = "1.6.10"
 
     val JAVA_VERSION = JavaVersion.VERSION_1_8
     const val KOTLIN_VERSION = "1.6.10"
     const val KOTLINX_COROUTINES = "1.6.0"
 
-    const val BUILD_GRADLE = "4.2.1"
     const val COMPILE_SDK_VERSION = 32
-    const val BUILD_TOOLS_VERSION = "32.0.0"
     const val MIN_SDK_VERSION = 26
     const val TARGET_SDK_VERSION = 32
 
@@ -51,6 +49,7 @@ object Versions {
     const val COROUTINE = "1.3.9"
 
     const val KTLINT = "2.1.2"
+    const val KTLINT_PLUGIN = "10.2.1"
 
     const val COIL_VERSION = "2.1.0"
     const val SHIMMER = "0.5.0"

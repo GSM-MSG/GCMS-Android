@@ -18,6 +18,9 @@ class IntroActivity : BaseActivity<ActivityIntroBinding>(R.layout.activity_intro
 
     override fun viewSetting() {
         binding.login = this
+        binding.signInBtn.setContent {
+
+        }
     }
 
     override fun observeEvent() {

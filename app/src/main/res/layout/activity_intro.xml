@@ -179,15 +179,13 @@
 
 
         <androidx.compose.ui.platform.ComposeView
-            android:paddingStart="35dp"
             android:id="@+id/signInBtn"
             android:layout_width="0dp"
             android:layout_height="0dp"
             app:layout_constraintBottom_toTopOf="@+id/guideline24"
             app:layout_constraintEnd_toStartOf="@+id/guideline18"
             app:layout_constraintStart_toStartOf="@+id/guideline17"
-            app:layout_constraintTop_toTopOf="@+id/guideline21"
-            app:drawableLeftCompat="@drawable/google_icon" />
+            app:layout_constraintTop_toTopOf="@+id/guideline21" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
