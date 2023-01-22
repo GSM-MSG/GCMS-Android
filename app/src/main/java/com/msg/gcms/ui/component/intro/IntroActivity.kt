@@ -2,8 +2,13 @@ package com.msg.gcms.ui.component.intro
 
 import android.content.Intent
 import android.net.Uri
+import android.util.Log
 import android.view.View
+import androidx.activity.compose.setContent
 import androidx.activity.viewModels
+import com.msg.gauthsignin.GAuthButton
+import com.msg.gauthsignin.GAuthSigninWebView
+import com.msg.gauthsignin.component.utils.Types
 import com.msg.gcms.R
 import com.msg.gcms.databinding.ActivityIntroBinding
 import com.msg.gcms.ui.base.BaseActivity
@@ -19,7 +24,20 @@ class IntroActivity : BaseActivity<ActivityIntroBinding>(R.layout.activity_intro
     override fun viewSetting() {
         binding.login = this
         binding.signInBtn.setContent {
-
+            GAuthButton(
+                style = Types.Style.DEFAULT,
+                actionType = Types.ActionType.SIGNIN,
+                colors = Types.Colors.COLORED
+            ) {
+                setContent {
+                    GAuthSigninWebView(
+                        clientId = "00ce71cc5f774d4191db789d4e6aea40260080b4498947de98f3c7bd7d5ec78d",
+                        redirectUri = "https://www.google.com"
+                    ) {
+                        Log.d("code", it)
+                    }
+                }
+            }
         }
     }
 

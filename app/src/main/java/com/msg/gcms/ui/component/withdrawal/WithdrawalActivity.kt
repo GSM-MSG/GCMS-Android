@@ -1,14 +1,10 @@
 package com.msg.gcms.ui.component.withdrawal
 
-import android.content.Intent
 import androidx.activity.viewModels
-import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.msg.gcms.R
 import com.msg.gcms.databinding.ActivityWithdrawalBinding
 import com.msg.gcms.ui.base.BaseActivity
-import com.msg.gcms.ui.component.intro.IntroActivity
 import com.msg.viewmodel.WithdrawalViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -29,17 +25,17 @@ class WithdrawalActivity : BaseActivity<ActivityWithdrawalBinding>(R.layout.acti
 
     private fun isWithdrawal(){
         viewModel.isWithdrawal.observe(this) {
-            if(it) {
-                val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                    .requestIdToken(getString(R.string.default_web_client_id))
-                    .requestEmail()
-                    .build()
-                client = GoogleSignIn.getClient(this, gso)
-                client.signOut()
-                val intent = Intent(this, IntroActivity::class.java)
-                startActivity(intent)
-                finish()
-            }
+            // if(it) {
+            //     val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+            //         .requestIdToken(getString(R.string.default_web_client_id))
+            //         .requestEmail()
+            //         .build()
+            //     client = GoogleSignIn.getClient(this, gso)
+            //     client.signOut()
+            //     val intent = Intent(this, IntroActivity::class.java)
+            //     startActivity(intent)
+            //     finish()
+            // }
         }
     }
 
