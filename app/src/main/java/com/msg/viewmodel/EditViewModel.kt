@@ -13,7 +13,7 @@ import com.msg.gcms.data.remote.dto.datasource.user.response.UserData
 import com.msg.gcms.domain.usecase.club.EditClubInfoUseCase
 import com.msg.gcms.domain.usecase.club.GetDetailUseCase
 import com.msg.gcms.domain.usecase.image.ImageUseCase
-import com.msg.gcms.domain.usecase.user.UserUseCase
+import com.msg.gcms.domain.usecase.user.GetSearchUserUseCase
 import com.msg.gcms.ui.base.LottieFragment
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -23,7 +23,7 @@ import javax.inject.Inject
 @HiltViewModel
 class EditViewModel @Inject constructor(
     private val getDetailUseCase: GetDetailUseCase,
-    private val userUserCase: UserUseCase,
+    private val getSearchUserUseCase: GetSearchUserUseCase,
     private val imageUseCase: ImageUseCase,
     private val editClubInfoUseCase: EditClubInfoUseCase
 ) : ViewModel() {
@@ -111,7 +111,7 @@ class EditViewModel @Inject constructor(
         queryString["name"] = name
         queryString["type"] = clubType.value.toString()
         viewModelScope.launch {
-            val response = userUserCase.getSearchUser(queryString)
+            val response = getSearchUserUseCase(queryString)
             when (response.code()) {
                 200 -> {
                     _result.value = response.body()

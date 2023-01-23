@@ -6,14 +6,14 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.msg.gcms.data.remote.dto.datasource.user.response.UserData
-import com.msg.gcms.domain.usecase.user.UserUseCase
+import com.msg.gcms.domain.usecase.user.GetSearchUserUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class UserViewModel @Inject constructor(
-    private val userCase: UserUseCase
+    private val getSearchUserUseCase: GetSearchUserUseCase
 ) : ViewModel() {
     var clubType = "MAJOR"
 
@@ -26,7 +26,7 @@ class UserViewModel @Inject constructor(
         queryString["name"] = name
         queryString["type"] = clubType
         viewModelScope.launch {
-            val response = userCase.getSearchUser(queryString)
+            val response = getSearchUserUseCase(queryString)
             when(response.code()){
                200 -> {
                    _result.value = response.body()

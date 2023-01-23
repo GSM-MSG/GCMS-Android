@@ -5,7 +5,7 @@ import com.msg.gcms.domain.repository.ImageRepository
 import com.msg.gcms.domain.repository.UserRepository
 import com.msg.gcms.domain.usecase.common.RegistrationUseCase
 import com.msg.gcms.domain.usecase.image.ImageUseCase
-import com.msg.gcms.domain.usecase.user.UserUseCase
+import com.msg.gcms.domain.usecase.user.GetSearchUserUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -22,7 +22,7 @@ object UseCaseModule {
 
     @Provides
     @Singleton
-    fun provideUserUseCase(repository: UserRepository): UserUseCase = UserUseCase(repository)
+    fun provideUserUseCase(repository: UserRepository): GetSearchUserUseCase = GetSearchUserUseCase(repository)
 
     @Provides
     @Singleton

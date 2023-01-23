@@ -10,7 +10,7 @@ import com.msg.gcms.data.remote.dto.datasource.club.request.CreateClubRequest
 import com.msg.gcms.data.remote.dto.datasource.user.response.UserData
 import com.msg.gcms.domain.usecase.club.PostCreateClubUseCase
 import com.msg.gcms.domain.usecase.image.ImageUseCase
-import com.msg.gcms.domain.usecase.user.UserUseCase
+import com.msg.gcms.domain.usecase.user.GetSearchUserUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import okhttp3.MultipartBody
@@ -19,7 +19,7 @@ import javax.inject.Inject
 @HiltViewModel
 class MakeClubViewModel @Inject constructor(
     private val postCreateClubUseCase: PostCreateClubUseCase,
-    private val userUserCase: UserUseCase,
+    private val getSearchUserUseCase: GetSearchUserUseCase,
     private val imageUseCase: ImageUseCase
 ) : ViewModel() {
 
@@ -69,7 +69,7 @@ class MakeClubViewModel @Inject constructor(
         queryString["name"] = name
         queryString["type"] = clubType.value.toString()
         viewModelScope.launch {
-            val response = userUserCase.getSearchUser(queryString)
+            val response = getSearchUserUseCase(queryString)
             when (response.code()) {
                 200 -> {
                     _result.value = response.body()
