@@ -7,13 +7,15 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.msg.gcms.data.remote.dto.datasource.club.response.SummaryClubResponse
 import com.msg.gcms.domain.usecase.club.ClubUseCase
+import com.msg.gcms.domain.usecase.club.GetClubListUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
-    private val clubUseCase: ClubUseCase
+    private val clubUseCase: ClubUseCase,
+    private val getClubListUseCase: GetClubListUseCase
 ) : ViewModel() {
     private val _clubName = MutableLiveData<String>()
     val clubName: LiveData<String>
@@ -33,7 +35,7 @@ class MainViewModel @Inject constructor(
     fun getClubList() {
         viewModelScope.launch {
             try {
-                val response = clubUseCase.getClubList(
+                val response = getClubListUseCase(
                     when (clubName.value) {
                         "전공동아리" -> "MAJOR"
                         "자율동아리" -> "FREEDOM"
