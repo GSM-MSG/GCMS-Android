@@ -7,5 +7,5 @@ import javax.inject.Inject
 class RegistrationUseCase @Inject constructor(
     private val repository: CommonRepository
 ) {
-    suspend fun postRegistration(body: RegisterRequest) = repository.postRegistration(body)
+    suspend operator fun invoke(body: RegisterRequest) = repository.postRegistration(body)
 }

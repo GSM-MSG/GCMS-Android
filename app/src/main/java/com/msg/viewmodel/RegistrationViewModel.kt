@@ -57,7 +57,7 @@ class RegistrationViewModel @Inject constructor(
     fun sendIdTokenLogic(idToken: String) {
         viewModelScope.launch {
             try {
-                val response = registrationUseCase.postRegistration(RegisterRequest(idToken = idToken))
+                val response = registrationUseCase(RegisterRequest(idToken = idToken))
                 when (response.code()) {
                     in 200..299 -> {
                         printStatus(response.code())
