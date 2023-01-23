@@ -8,8 +8,6 @@ import javax.inject.Inject
 class ClubUseCase @Inject constructor(
     private val repository: ClubRepository
 ) {
-    suspend fun postClubApply(body: ClubIdentificationRequest) = repository.postClubApply(body)
-
     suspend fun postClubCancel(body: ClubIdentificationRequest) = repository.postClubCancel(body)
 
     suspend fun putClubOpen(body: ClubIdentificationRequest) = repository.putClubOpen(body)
