@@ -10,7 +10,7 @@ import com.msg.gcms.data.remote.dto.datasource.user.response.UserInfoResponse
 import com.msg.gcms.domain.usecase.user.EditProfileUseCase
 import com.msg.gcms.domain.usecase.common.LogoutUseCase
 import com.msg.gcms.domain.usecase.image.ImageUseCase
-import com.msg.gcms.domain.usecase.user.ProfileUseCase
+import com.msg.gcms.domain.usecase.user.GetUserInfoUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import okhttp3.MultipartBody
@@ -18,7 +18,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ProfileViewModel @Inject constructor(
-    private val profileUseCase: ProfileUseCase,
+    private val profileUseCase: GetUserInfoUseCase,
     private val logoutUseCase: LogoutUseCase,
     private val imgUseCase: ImageUseCase,
     private val editProfileUseCase: EditProfileUseCase
@@ -38,7 +38,7 @@ class ProfileViewModel @Inject constructor(
     fun getUserInfo() {
         viewModelScope.launch {
             try {
-                val response = profileUseCase.getUserInfo()
+                val response = profileUseCase()
                 Log.d("userInfo", "getUserInfo: ${response.body()}")
                 when (response.code()) {
                     200 -> {
