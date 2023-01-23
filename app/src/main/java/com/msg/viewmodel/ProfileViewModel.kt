@@ -89,7 +89,7 @@ class ProfileViewModel @Inject constructor(
     fun saveImg(img: String) {
         viewModelScope.launch {
             try {
-                val response = editProfileUseCase.putProfile(UserProfileRequest(img))
+                val response = editProfileUseCase(UserProfileRequest(img))
             } catch (e: Exception) {
                 e.printStackTrace()
             }
