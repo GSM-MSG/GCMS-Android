@@ -7,5 +7,5 @@ import javax.inject.Inject
 class ApplicantRejectUseCase @Inject constructor(
     private val repository: ClubRepository
 ) {
-    suspend fun reject(body: MemberManagementRequest) = repository.postApplicationReject(body)
+    suspend operator fun invoke(body: MemberManagementRequest) = repository.postApplicationReject(body)
 }
