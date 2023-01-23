@@ -74,7 +74,7 @@ class ProfileViewModel @Inject constructor(
     fun uploadImg(img: MultipartBody.Part) {
         viewModelScope.launch {
             try {
-                val response = imgUseCase.postImage(listOf(img))
+                val response = imgUseCase(listOf(img))
                 when (response.code()) {
                     in 200..299 -> {
                         saveImg(response.body()!!.get(0))

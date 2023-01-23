@@ -136,7 +136,7 @@ class EditViewModel @Inject constructor(
         Log.d("TAG", "uploadImage")
         viewModelScope.launch {
             try {
-                val response = imageUseCase.postImage(list)
+                val response = imageUseCase(list)
                 when (response.code()) {
                     201 -> {
                         Log.d("TAG", "uploadImage: ${response.body()}")

@@ -100,7 +100,7 @@ class MakeClubViewModel @Inject constructor(
 
     fun bannerImageUpload(image: List<MultipartBody.Part>) {
         viewModelScope.launch {
-            val response = imageUseCase.postImage(image)
+            val response = imageUseCase(image)
             when (response.code()) {
                 201 -> {
                     Log.d("TAG", "banner: ${response.body()}")
@@ -117,7 +117,7 @@ class MakeClubViewModel @Inject constructor(
 
     fun activityPhotoUpload(image: List<MultipartBody.Part>) {
         viewModelScope.launch {
-            val response = imageUseCase.postImage(image)
+            val response = imageUseCase(image)
             when (response.code()) {
                 201 -> {
                     Log.d("TAG", "activityPhoto: ${response.body()}")
