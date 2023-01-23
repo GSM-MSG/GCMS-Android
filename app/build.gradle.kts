@@ -1,3 +1,5 @@
+import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
+
 plugins {
     id("com.android.application")
     id("dagger.hilt.android.plugin")
@@ -16,6 +18,25 @@ android {
         versionCode = 1
         versionName = "1.0"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+        buildConfigField(
+            "String",
+            "CLIENT_ID",
+            gradleLocalProperties(rootDir)
+                .getProperty("CLIENT_ID", "")
+        )
+        buildConfigField(
+            "String",
+            "CLIENT_SECRET",
+            gradleLocalProperties(rootDir)
+                .getProperty("CLIENT_SECRET", "")
+        )
+        buildConfigField(
+            "String",
+            "REDIRECT_URI",
+            gradleLocalProperties(rootDir)
+                .getProperty("REDIRECT_URI", "")
+        )
     }
 
     buildTypes {

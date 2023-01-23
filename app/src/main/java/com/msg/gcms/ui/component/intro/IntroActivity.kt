@@ -2,7 +2,6 @@ package com.msg.gcms.ui.component.intro
 
 import android.content.Intent
 import android.net.Uri
-import android.util.Log
 import android.view.View
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
@@ -18,10 +17,10 @@ import androidx.compose.ui.unit.dp
 import com.msg.gauthsignin.GAuthButton
 import com.msg.gauthsignin.GAuthSigninWebView
 import com.msg.gauthsignin.component.utils.Types
+import com.msg.gcms.BuildConfig
 import com.msg.gcms.R
 import com.msg.gcms.databinding.ActivityIntroBinding
 import com.msg.gcms.ui.base.BaseActivity
-import com.msg.gcms.ui.component.main.MainActivity
 import com.msg.viewmodel.RegistrationViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -39,8 +38,8 @@ class IntroActivity : BaseActivity<ActivityIntroBinding>(R.layout.activity_intro
             ) {
                 setContent {
                     GAuthSigninWebView(
-                        clientId = "00ce71cc5f774d4191db789d4e6aea40260080b4498947de98f3c7bd7d5ec78d",
-                        redirectUri = "https://www.google.com"
+                        clientId = BuildConfig.CLIENT_ID,
+                        redirectUri = BuildConfig.REDIRECT_URI
                     ) { code ->
                         viewModel.setGAuthCode(code = code)
                     }
@@ -62,27 +61,13 @@ class IntroActivity : BaseActivity<ActivityIntroBinding>(R.layout.activity_intro
     }
 
     override fun observeEvent() {
-        isLogin()
         isCodeArrive()
-    }
-
-    private fun isLogin() {
-        viewModel.apply {
-            checkLogin()
-            isLogin.observe(this@IntroActivity) {
-                if (it) {
-                    startActivity(Intent(this@IntroActivity, MainActivity::class.java))
-                } else {
-
-                }
-            }
-        }
     }
 
     private fun isCodeArrive() = viewModel.apply {
         gAuthCode.observe(this@IntroActivity) {
-            Log.d("code", it)
             isLoginInProgress.value = true
+            getGAuthToken(this@IntroActivity)
         }
     }
 
