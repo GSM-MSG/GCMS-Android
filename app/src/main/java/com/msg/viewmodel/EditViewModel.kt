@@ -168,7 +168,7 @@ class EditViewModel @Inject constructor(
     fun putChangeClubInfo(body: ModifyClubInfoRequest) {
         viewModelScope.launch {
             try {
-                val response = editClubInfoUseCase.putChangeClub(body)
+                val response = editClubInfoUseCase(body)
                 when (response.code()) {
                     200 -> {
                         Log.d("TAG", "putChangeClubInfo: ${response.code()}")
