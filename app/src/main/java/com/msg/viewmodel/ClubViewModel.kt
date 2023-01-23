@@ -21,7 +21,6 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ClubViewModel @Inject constructor(
-    private val clubUseCase: ClubUseCase,
     private val postClubApplyUseCase: PostClubApplyUseCase,
     private val postClubCancelUseCase: PostClubCancelUseCase,
     private val putClubOpenUseCase: PutClubOpenUseCase,
@@ -124,7 +123,7 @@ class ClubViewModel @Inject constructor(
     fun deleteClub(q: String, type: String) {
         viewModelScope.launch {
             try {
-                val response = clubDeleteUseCase.postDelete(ClubIdentificationRequest(q = q, type = type))
+                val response = clubDeleteUseCase(ClubIdentificationRequest(q = q, type = type))
             } catch (e: Exception) {
                 e.printStackTrace()
             }
