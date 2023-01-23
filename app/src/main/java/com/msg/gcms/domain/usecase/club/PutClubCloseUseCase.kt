@@ -4,8 +4,8 @@ import com.msg.gcms.data.remote.dto.datasource.club.request.ClubIdentificationRe
 import com.msg.gcms.domain.repository.ClubRepository
 import javax.inject.Inject
 
-class ClubDeleteUseCase @Inject constructor(
+class PutClubCloseUseCase @Inject constructor(
     private val repository: ClubRepository
-) {
-    suspend operator fun invoke(body: ClubIdentificationRequest) = repository.deleteClub(body)
+){
+    suspend operator fun invoke(body: ClubIdentificationRequest) = repository.putClubClose(body)
 }

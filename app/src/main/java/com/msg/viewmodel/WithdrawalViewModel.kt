@@ -1,6 +1,5 @@
 package com.msg.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -12,7 +11,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class WithdrawalViewModel @Inject constructor(
-    private val useCase: DeleteUserUseCase
+    private val deleteUserUseCase: DeleteUserUseCase
 ): ViewModel() {
 
     private val _isApproved = MutableLiveData<Boolean>()
@@ -28,7 +27,7 @@ class WithdrawalViewModel @Inject constructor(
     fun withdrawal() {
         viewModelScope.launch {
             try {
-                val response = useCase.deleteUser()
+                val response = deleteUserUseCase()
                 when(response.code()) {
                     in 200..299 -> _isWithdrawal.value = true
                     else -> _isWithdrawal.value = false

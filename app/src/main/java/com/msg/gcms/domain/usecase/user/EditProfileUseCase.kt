@@ -7,5 +7,5 @@ import javax.inject.Inject
 class EditProfileUseCase @Inject constructor(
     private val repository: UserRepository
 ) {
-    suspend fun putProfile(img: UserProfileRequest) = repository.putProfile(img)
+    suspend operator fun invoke(img: UserProfileRequest) = repository.putProfile(img)
 }

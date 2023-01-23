@@ -13,7 +13,7 @@ import com.msg.gcms.data.remote.dto.datasource.user.response.UserData
 import com.msg.gcms.domain.usecase.club.EditClubInfoUseCase
 import com.msg.gcms.domain.usecase.club.GetDetailUseCase
 import com.msg.gcms.domain.usecase.image.ImageUseCase
-import com.msg.gcms.domain.usecase.user.UserUseCase
+import com.msg.gcms.domain.usecase.user.GetSearchUserUseCase
 import com.msg.gcms.ui.base.LottieFragment
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -23,7 +23,7 @@ import javax.inject.Inject
 @HiltViewModel
 class EditViewModel @Inject constructor(
     private val getDetailUseCase: GetDetailUseCase,
-    private val userUserCase: UserUseCase,
+    private val getSearchUserUseCase: GetSearchUserUseCase,
     private val imageUseCase: ImageUseCase,
     private val editClubInfoUseCase: EditClubInfoUseCase
 ) : ViewModel() {
@@ -68,7 +68,7 @@ class EditViewModel @Inject constructor(
                     "TAG",
                     "getClubInfo: ${_clubType.value.toString()}, ${_clubName.value.toString()}"
                 )
-                val response = getDetailUseCase.getDetail(
+                val response = getDetailUseCase(
                     type = _clubType.value.toString(),
                     clubName = _clubName.value.toString()
                 )
@@ -111,7 +111,7 @@ class EditViewModel @Inject constructor(
         queryString["name"] = name
         queryString["type"] = clubType.value.toString()
         viewModelScope.launch {
-            val response = userUserCase.getSearchUser(queryString)
+            val response = getSearchUserUseCase(queryString)
             when (response.code()) {
                 200 -> {
                     _result.value = response.body()
@@ -136,7 +136,7 @@ class EditViewModel @Inject constructor(
         Log.d("TAG", "uploadImage")
         viewModelScope.launch {
             try {
-                val response = imageUseCase.postImage(list)
+                val response = imageUseCase(list)
                 when (response.code()) {
                     201 -> {
                         Log.d("TAG", "uploadImage: ${response.body()}")
@@ -168,7 +168,7 @@ class EditViewModel @Inject constructor(
     fun putChangeClubInfo(body: ModifyClubInfoRequest) {
         viewModelScope.launch {
             try {
-                val response = editClubInfoUseCase.putChangeClub(body)
+                val response = editClubInfoUseCase(body)
                 when (response.code()) {
                     200 -> {
                         Log.d("TAG", "putChangeClubInfo: ${response.code()}")
