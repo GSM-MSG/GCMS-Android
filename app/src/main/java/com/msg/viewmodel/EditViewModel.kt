@@ -68,7 +68,7 @@ class EditViewModel @Inject constructor(
                     "TAG",
                     "getClubInfo: ${_clubType.value.toString()}, ${_clubName.value.toString()}"
                 )
-                val response = getDetailUseCase.getDetail(
+                val response = getDetailUseCase(
                     type = _clubType.value.toString(),
                     clubName = _clubName.value.toString()
                 )

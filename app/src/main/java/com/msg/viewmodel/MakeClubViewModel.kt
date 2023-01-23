@@ -7,9 +7,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.msg.gcms.data.local.entity.ActivityPhotoType
 import com.msg.gcms.data.remote.dto.datasource.club.request.CreateClubRequest
-import com.msg.gcms.data.remote.dto.datasource.club.response.UserInfo
 import com.msg.gcms.data.remote.dto.datasource.user.response.UserData
-import com.msg.gcms.domain.usecase.club.ClubUseCase
+import com.msg.gcms.domain.usecase.club.PostCreateClubUseCase
 import com.msg.gcms.domain.usecase.image.ImageUseCase
 import com.msg.gcms.domain.usecase.user.UserUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -19,7 +18,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MakeClubViewModel @Inject constructor(
-    private val clubUseCase: ClubUseCase,
+    private val postCreateClubUseCase: PostCreateClubUseCase,
     private val userUserCase: UserUseCase,
     private val imageUseCase: ImageUseCase
 ) : ViewModel() {
@@ -143,7 +142,7 @@ class MakeClubViewModel @Inject constructor(
                 "createClub: type: ${clubType.value.toString()}, title: $title, description: $description, contact: $contact, notionLink: $notionLink, teacher: $teacher, member: $clubMemberEmail, activityUrls: ${activityPhoto.value}, bannerUrl: ${bannerResult.value}"
             )
             clubMemberEmail.remove("")
-            val response = clubUseCase.postCreateClub(
+            val response = postCreateClubUseCase(
                 CreateClubRequest
                     (
                     type = clubType.value.toString().trim(),

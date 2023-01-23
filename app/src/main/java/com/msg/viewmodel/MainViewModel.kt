@@ -6,7 +6,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.msg.gcms.data.remote.dto.datasource.club.response.SummaryClubResponse
-import com.msg.gcms.domain.usecase.club.ClubUseCase
 import com.msg.gcms.domain.usecase.club.GetClubListUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch

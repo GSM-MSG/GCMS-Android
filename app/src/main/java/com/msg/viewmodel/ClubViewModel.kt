@@ -9,7 +9,6 @@ import androidx.lifecycle.viewModelScope
 import com.msg.gcms.data.remote.dto.datasource.club.request.ClubIdentificationRequest
 import com.msg.gcms.data.remote.dto.datasource.user.request.UserDeleteRequest
 import com.msg.gcms.domain.usecase.club.ClubDeleteUseCase
-import com.msg.gcms.domain.usecase.club.ClubUseCase
 import com.msg.gcms.domain.usecase.club.PostClubApplyUseCase
 import com.msg.gcms.domain.usecase.club.PostClubCancelUseCase
 import com.msg.gcms.domain.usecase.club.PutClubCloseUseCase
