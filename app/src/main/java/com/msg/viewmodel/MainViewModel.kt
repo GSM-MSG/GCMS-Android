@@ -13,7 +13,6 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
-    private val clubUseCase: ClubUseCase,
     private val getClubListUseCase: GetClubListUseCase
 ) : ViewModel() {
     private val _clubName = MutableLiveData<String>()
