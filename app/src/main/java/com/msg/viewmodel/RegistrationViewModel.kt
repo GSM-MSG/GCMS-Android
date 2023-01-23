@@ -1,6 +1,8 @@
 package com.msg.viewmodel
 
 import android.util.Log
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -26,14 +28,20 @@ class RegistrationViewModel @Inject constructor(
     private val _isLogin = MutableLiveData<Boolean>()
     val isLogin: LiveData<Boolean> get() = _isLogin
 
+    private val _gAuthCode = MutableLiveData<String>()
+    val gAuthCode: LiveData<String> get() = _gAuthCode
+
+    private val _isLoginInProgress = mutableStateOf(false)
+    val isLoginInProgress: MutableState<Boolean> get() = _isLoginInProgress
+
     private val TAG = "google login"
 
-    private fun saveToken(response: RegisterResponse){
+    private fun saveToken(response: RegisterResponse) {
         GCMSApplication.prefs.apply {
             accessToken = response.accessToken
             refreshToken = response.refreshToken
-            Log.d(TAG,"access : $accessToken")
-            Log.d(TAG,"refresh : $refreshToken")
+            Log.d(TAG, "access : $accessToken")
+            Log.d(TAG, "refresh : $refreshToken")
         }
     }
 
@@ -79,7 +87,11 @@ class RegistrationViewModel @Inject constructor(
         }
     }
 
-    private fun printStatus(code : Int) {
-        Log.d(TAG,"status : $code")
+    fun setGAuthCode(code: String) {
+        _gAuthCode.value = code
+    }
+
+    private fun printStatus(code: Int) {
+        Log.d(TAG, "status : $code")
     }
 }
