@@ -59,7 +59,7 @@ class ProfileViewModel @Inject constructor(
     fun logout(){
         viewModelScope.launch {
             try {
-                val response = logoutUseCase.postLogout()
+                val response = logoutUseCase()
                 when (response.code()) {
                     200 -> {
                         _logoutStatus.value = true
