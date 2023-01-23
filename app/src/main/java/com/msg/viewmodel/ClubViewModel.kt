@@ -12,6 +12,7 @@ import com.msg.gcms.domain.usecase.club.ClubDeleteUseCase
 import com.msg.gcms.domain.usecase.club.ClubUseCase
 import com.msg.gcms.domain.usecase.club.PostClubApplyUseCase
 import com.msg.gcms.domain.usecase.club.PostClubCancelUseCase
+import com.msg.gcms.domain.usecase.club.PutClubOpenUseCase
 import com.msg.gcms.domain.usecase.user.ExitUseCase
 import com.msg.gcms.ui.base.LottieFragment
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -23,6 +24,7 @@ class ClubViewModel @Inject constructor(
     private val clubUseCase: ClubUseCase,
     private val postClubApplyUseCase: PostClubApplyUseCase,
     private val postClubCancelUseCase: PostClubCancelUseCase,
+    private val putClubOpenUseCase: PutClubOpenUseCase,
     private val exitUseCase: ExitUseCase,
     private val clubDeleteUseCase: ClubDeleteUseCase,
 ) : ViewModel() {
@@ -64,7 +66,7 @@ class ClubViewModel @Inject constructor(
         viewModelScope.launch {
             try {
                 val response =
-                    clubUseCase.putClubOpen(ClubIdentificationRequest(type = type, q = q))
+                    putClubOpenUseCase(ClubIdentificationRequest(type = type, q = q))
                 _getClubStatus.value = response.code()
                 checkStatus(response.code())
             } catch (e: Exception) {
