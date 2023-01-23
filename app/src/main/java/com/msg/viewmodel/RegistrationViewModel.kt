@@ -1,16 +1,12 @@
 package com.msg.viewmodel
 
-import android.content.Context
 import android.util.Log
-import android.widget.Toast
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.msg.gauthsignin.GAuth
-import com.msg.gcms.BuildConfig
 import com.msg.gcms.base.di.GCMSApplication
 import com.msg.gcms.domain.usecase.common.RefreshUseCase
 import com.msg.gcms.domain.usecase.common.RegistrationUseCase
@@ -47,21 +43,6 @@ class RegistrationViewModel @Inject constructor(
                 }
             } catch (e: Exception) {
                 Log.d("ERROR", "checkLogin: ${e.message}")
-            }
-        }
-    }
-
-    fun getGAuthToken(context: Context) {
-        GAuth.getGAuthTokenRequest(
-            code = gAuthCode.value!!,
-            clientId = BuildConfig.CLIENT_ID,
-            clientSecret = BuildConfig.CLIENT_SECRET,
-            redirectUri = BuildConfig.REDIRECT_URI
-        ) {
-            if (it.status == 200)
-                saveToken(it.accessToken!!, it.refreshToken!!)
-            else {
-                Toast.makeText(context, "알 수 없는 오류가 발생했습니다.", Toast.LENGTH_SHORT).show()
             }
         }
     }

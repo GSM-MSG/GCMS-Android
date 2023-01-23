@@ -67,7 +67,6 @@ class IntroActivity : BaseActivity<ActivityIntroBinding>(R.layout.activity_intro
     private fun isCodeArrive() = viewModel.apply {
         gAuthCode.observe(this@IntroActivity) {
             isLoginInProgress.value = true
-            getGAuthToken(this@IntroActivity)
         }
     }
 
