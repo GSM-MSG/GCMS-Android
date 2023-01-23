@@ -113,7 +113,7 @@ class ClubViewModel @Inject constructor(
     fun exit(q: String, type: String) {
         viewModelScope.launch {
             try {
-                exitUseCase.postExit(UserDeleteRequest(q = q, type = type))
+                exitUseCase(UserDeleteRequest(q = q, type = type))
             } catch (e: Exception) {
                 e.printStackTrace()
             }

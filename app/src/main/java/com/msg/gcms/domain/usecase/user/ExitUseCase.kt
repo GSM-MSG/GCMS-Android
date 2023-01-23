@@ -7,5 +7,5 @@ import javax.inject.Inject
 class ExitUseCase @Inject constructor(
     private val repository: UserRepository
 ) {
-    suspend fun postExit(body: UserDeleteRequest) = repository.postExit(body)
+    suspend operator fun invoke(body: UserDeleteRequest) = repository.postExit(body)
 }
