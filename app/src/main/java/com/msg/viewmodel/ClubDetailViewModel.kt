@@ -34,7 +34,7 @@ class ClubDetailViewModel @Inject constructor(
         viewModelScope.launch {
             Log.d(TAG, "타입 : ${type}, 이름 : ${q}")
             try {
-                val response = getDetailUseCase.getDetail(type, q)
+                val response = getDetailUseCase(type, q)
                 _getDetailStatus.value = response.code()
                 _result.value = response.body()
                 when (response.code()) {

@@ -7,5 +7,5 @@ import javax.inject.Inject
 class EditClubInfoUseCase @Inject constructor(
     private val repository: ClubRepository
 ) {
-    suspend fun putChangeClub(body: ModifyClubInfoRequest) = repository.putChangeClub(body)
+    suspend operator fun invoke(body: ModifyClubInfoRequest) = repository.putChangeClub(body)
 }

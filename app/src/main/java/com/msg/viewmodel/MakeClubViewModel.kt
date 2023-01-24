@@ -7,11 +7,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.msg.gcms.data.local.entity.ActivityPhotoType
 import com.msg.gcms.data.remote.dto.datasource.club.request.CreateClubRequest
-import com.msg.gcms.data.remote.dto.datasource.club.response.UserInfo
 import com.msg.gcms.data.remote.dto.datasource.user.response.UserData
-import com.msg.gcms.domain.usecase.club.ClubUseCase
+import com.msg.gcms.domain.usecase.club.PostCreateClubUseCase
 import com.msg.gcms.domain.usecase.image.ImageUseCase
-import com.msg.gcms.domain.usecase.user.UserUseCase
+import com.msg.gcms.domain.usecase.user.GetSearchUserUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import okhttp3.MultipartBody
@@ -19,8 +18,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MakeClubViewModel @Inject constructor(
-    private val clubUseCase: ClubUseCase,
-    private val userUserCase: UserUseCase,
+    private val postCreateClubUseCase: PostCreateClubUseCase,
+    private val getSearchUserUseCase: GetSearchUserUseCase,
     private val imageUseCase: ImageUseCase
 ) : ViewModel() {
 
@@ -70,7 +69,7 @@ class MakeClubViewModel @Inject constructor(
         queryString["name"] = name
         queryString["type"] = clubType.value.toString()
         viewModelScope.launch {
-            val response = userUserCase.getSearchUser(queryString)
+            val response = getSearchUserUseCase(queryString)
             when (response.code()) {
                 200 -> {
                     _result.value = response.body()
@@ -101,7 +100,7 @@ class MakeClubViewModel @Inject constructor(
 
     fun bannerImageUpload(image: List<MultipartBody.Part>) {
         viewModelScope.launch {
-            val response = imageUseCase.postImage(image)
+            val response = imageUseCase(image)
             when (response.code()) {
                 201 -> {
                     Log.d("TAG", "banner: ${response.body()}")
@@ -118,7 +117,7 @@ class MakeClubViewModel @Inject constructor(
 
     fun activityPhotoUpload(image: List<MultipartBody.Part>) {
         viewModelScope.launch {
-            val response = imageUseCase.postImage(image)
+            val response = imageUseCase(image)
             when (response.code()) {
                 201 -> {
                     Log.d("TAG", "activityPhoto: ${response.body()}")
@@ -143,7 +142,7 @@ class MakeClubViewModel @Inject constructor(
                 "createClub: type: ${clubType.value.toString()}, title: $title, description: $description, contact: $contact, notionLink: $notionLink, teacher: $teacher, member: $clubMemberEmail, activityUrls: ${activityPhoto.value}, bannerUrl: ${bannerResult.value}"
             )
             clubMemberEmail.remove("")
-            val response = clubUseCase.postCreateClub(
+            val response = postCreateClubUseCase(
                 CreateClubRequest
                     (
                     type = clubType.value.toString().trim(),

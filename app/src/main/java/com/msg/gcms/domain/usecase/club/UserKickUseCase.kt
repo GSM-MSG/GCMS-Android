@@ -7,5 +7,5 @@ import javax.inject.Inject
 class UserKickUseCase @Inject constructor(
     private val repository: ClubRepository
 ) {
-    suspend fun kick(body: MemberManagementRequest) = repository.deleteMemberExpel(body)
+    suspend operator fun invoke(body: MemberManagementRequest) = repository.deleteMemberExpel(body)
 }

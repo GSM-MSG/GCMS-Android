@@ -34,7 +34,7 @@ class RegistrationViewModel @Inject constructor(
     fun checkLogin(){
         viewModelScope.launch {
             try {
-                val response = refreshUseCase.postRefresh()
+                val response = refreshUseCase()
                 when(response.code()) {
                     in 200..299 -> {
                         _isLogin.value = true

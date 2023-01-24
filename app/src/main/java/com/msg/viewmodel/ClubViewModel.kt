@@ -9,7 +9,10 @@ import androidx.lifecycle.viewModelScope
 import com.msg.gcms.data.remote.dto.datasource.club.request.ClubIdentificationRequest
 import com.msg.gcms.data.remote.dto.datasource.user.request.UserDeleteRequest
 import com.msg.gcms.domain.usecase.club.ClubDeleteUseCase
-import com.msg.gcms.domain.usecase.club.ClubUseCase
+import com.msg.gcms.domain.usecase.club.PostClubApplyUseCase
+import com.msg.gcms.domain.usecase.club.PostClubCancelUseCase
+import com.msg.gcms.domain.usecase.club.PutClubCloseUseCase
+import com.msg.gcms.domain.usecase.club.PutClubOpenUseCase
 import com.msg.gcms.domain.usecase.user.ExitUseCase
 import com.msg.gcms.ui.base.LottieFragment
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -18,7 +21,10 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ClubViewModel @Inject constructor(
-    private val clubUseCase: ClubUseCase,
+    private val postClubApplyUseCase: PostClubApplyUseCase,
+    private val postClubCancelUseCase: PostClubCancelUseCase,
+    private val putClubOpenUseCase: PutClubOpenUseCase,
+    private val putClubCloseUseCase: PutClubCloseUseCase,
     private val exitUseCase: ExitUseCase,
     private val clubDeleteUseCase: ClubDeleteUseCase,
 ) : ViewModel() {
@@ -34,7 +40,7 @@ class ClubViewModel @Inject constructor(
         viewModelScope.launch {
             try {
                 val response =
-                    clubUseCase.postClubApply(ClubIdentificationRequest(type = type, q = q))
+                    postClubApplyUseCase(ClubIdentificationRequest(type = type, q = q))
                 _getClubStatus.value = response.code()
                 checkStatus(response.code())
             } catch (e: Exception) {
@@ -47,7 +53,7 @@ class ClubViewModel @Inject constructor(
         viewModelScope.launch {
             try {
                 val response =
-                    clubUseCase.postClubCancel(ClubIdentificationRequest(type = type, q = q))
+                    postClubCancelUseCase(ClubIdentificationRequest(type = type, q = q))
                 _getClubStatus.value = response.code()
                 checkStatus(response.code())
             } catch (e: Exception) {
@@ -60,7 +66,7 @@ class ClubViewModel @Inject constructor(
         viewModelScope.launch {
             try {
                 val response =
-                    clubUseCase.putClubOpen(ClubIdentificationRequest(type = type, q = q))
+                    putClubOpenUseCase(ClubIdentificationRequest(type = type, q = q))
                 _getClubStatus.value = response.code()
                 checkStatus(response.code())
             } catch (e: Exception) {
@@ -73,7 +79,7 @@ class ClubViewModel @Inject constructor(
         viewModelScope.launch {
             try {
                 val response =
-                    clubUseCase.putClubClose(ClubIdentificationRequest(type = type, q = q))
+                    putClubCloseUseCase(ClubIdentificationRequest(type = type, q = q))
                 _getClubStatus.value = response.code()
             } catch (e: Exception) {
                 Log.d(TAG, "error : $e")
@@ -107,7 +113,7 @@ class ClubViewModel @Inject constructor(
     fun exit(q: String, type: String) {
         viewModelScope.launch {
             try {
-                exitUseCase.postExit(UserDeleteRequest(q = q, type = type))
+                exitUseCase(UserDeleteRequest(q = q, type = type))
             } catch (e: Exception) {
                 e.printStackTrace()
             }
@@ -117,7 +123,7 @@ class ClubViewModel @Inject constructor(
     fun deleteClub(q: String, type: String) {
         viewModelScope.launch {
             try {
-                val response = clubDeleteUseCase.postDelete(ClubIdentificationRequest(q = q, type = type))
+                val response = clubDeleteUseCase(ClubIdentificationRequest(q = q, type = type))
             } catch (e: Exception) {
                 e.printStackTrace()
             }

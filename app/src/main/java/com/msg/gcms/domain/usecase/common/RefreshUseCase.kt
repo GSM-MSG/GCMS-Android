@@ -6,5 +6,5 @@ import javax.inject.Inject
 class RefreshUseCase @Inject constructor(
     private val repository: CommonRepository
 ) {
-    suspend fun postRefresh() = repository.postRefresh()
+    suspend operator fun invoke() = repository.postRefresh()
 }
