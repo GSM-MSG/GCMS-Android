@@ -3,17 +3,7 @@ package com.msg.gcms.ui.component.intro
 import android.content.Intent
 import android.net.Uri
 import android.view.View
-import androidx.activity.compose.setContent
 import androidx.activity.viewModels
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.size
-import androidx.compose.material.CircularProgressIndicator
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.unit.dp
 import com.msg.gauthsignin.GAuthButton
 import com.msg.gauthsignin.GAuthSigninWebView
 import com.msg.gauthsignin.component.utils.Types
@@ -36,25 +26,15 @@ class IntroActivity : BaseActivity<ActivityIntroBinding>(R.layout.activity_intro
                 actionType = Types.ActionType.CONTINUE,
                 colors = Types.Colors.OUTLINE
             ) {
-                setContent {
+                binding.gAuthWebView.visibility = View.VISIBLE
+                binding.gAuthWebView.setContent {
                     GAuthSigninWebView(
                         clientId = BuildConfig.CLIENT_ID,
                         redirectUri = BuildConfig.REDIRECT_URI
                     ) { code ->
                         viewModel.setGAuthCode(code = code)
+                        binding.gAuthWebView.visibility = View.INVISIBLE
                     }
-                    if (viewModel.isLoginInProgress.value)
-                        Column(
-                            modifier = Modifier.fillMaxSize(),
-                            horizontalAlignment = Alignment.CenterHorizontally,
-                            verticalArrangement = Arrangement.Center
-                        ) {
-                            CircularProgressIndicator(
-                                modifier = Modifier.size(50.dp),
-                                color = Color.Black,
-                                strokeWidth = 6.dp
-                            )
-                        }
                 }
             }
         }
