@@ -11,6 +11,7 @@ import com.msg.gcms.BuildConfig
 import com.msg.gcms.R
 import com.msg.gcms.databinding.ActivityIntroBinding
 import com.msg.gcms.ui.base.BaseActivity
+import com.msg.gcms.ui.component.intro.Component.ProgressDialog
 import com.msg.viewmodel.RegistrationViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -19,6 +20,7 @@ class IntroActivity : BaseActivity<ActivityIntroBinding>(R.layout.activity_intro
     private val viewModel by viewModels<RegistrationViewModel>()
 
     override fun viewSetting() {
+        val progressDialog = ProgressDialog(this)
         binding.login = this
         binding.signInBtn.setContent {
             GAuthButton(
@@ -34,6 +36,7 @@ class IntroActivity : BaseActivity<ActivityIntroBinding>(R.layout.activity_intro
                     ) { code ->
                         viewModel.setGAuthCode(code = code)
                         binding.gAuthWebView.visibility = View.INVISIBLE
+                        progressDialog.show()
                     }
                 }
             }
