@@ -3,10 +3,8 @@ package com.msg.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import com.msg.gcms.domain.usecase.user.DeleteUserUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -24,17 +22,18 @@ class WithdrawalViewModel @Inject constructor(
         _isApproved.value = isCheck
     }
 
-    fun withdrawal() {
-        viewModelScope.launch {
-            try {
-                val response = deleteUserUseCase()
-                when(response.code()) {
-                    in 200..299 -> _isWithdrawal.value = true
-                    else -> _isWithdrawal.value = false
-                }
-            } catch (e : Exception) {
-                e.printStackTrace()
-            }
-        }
-    }
+    // Todo(KimHyunseung) 여기 코드 다 갖다 쳐버리기
+    // fun withdrawal() {
+    //     viewModelScope.launch {
+    //         try {
+    //             val response = deleteUserUseCase()
+    //             when(response.code()) {
+    //                 in 200..299 -> _isWithdrawal.value = true
+    //                 else -> _isWithdrawal.value = false
+    //             }
+    //         } catch (e : Exception) {
+    //             e.printStackTrace()
+    //         }
+    //     }
+    // }
 }
