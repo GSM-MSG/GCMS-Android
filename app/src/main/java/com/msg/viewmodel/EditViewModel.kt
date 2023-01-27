@@ -10,6 +10,8 @@ import com.msg.gcms.R
 import com.msg.gcms.data.remote.dto.datasource.club.request.ModifyClubInfoRequest
 import com.msg.gcms.data.remote.dto.datasource.club.response.ClubInfoResponse
 import com.msg.gcms.data.remote.dto.datasource.user.response.UserData
+import com.msg.gcms.domain.exception.NotFoundException
+import com.msg.gcms.domain.exception.UnauthorizedException
 import com.msg.gcms.domain.usecase.club.EditClubInfoUseCase
 import com.msg.gcms.domain.usecase.club.GetDetailUseCase
 import com.msg.gcms.domain.usecase.image.ImageUseCase
@@ -68,18 +70,19 @@ class EditViewModel @Inject constructor(
                     "TAG",
                     "getClubInfo: ${_clubType.value.toString()}, ${_clubName.value.toString()}"
                 )
-                val response = getDetailUseCase(
+                getDetailUseCase(
                     type = _clubType.value.toString(),
                     clubName = _clubName.value.toString()
-                )
-                _clubInfo.value = response.body()
-                when (response.code()) {
-                    200 -> {
-                        Log.d("TAG", "getClubInfo: ${response.body()}")
-                        memberCheck()
-                    }
-                    else -> {
-                        Log.d("TAG", "getClubInfo: ${response.code()}, ${response.body()}")
+                ).onSuccess {
+                    _clubInfo.value = it.body()
+                    Log.d("TAG", "getClubInfo: ${it.body()}")
+                    memberCheck()
+
+                }.onFailure {
+                    when (it) {
+                        is UnauthorizedException -> Log.d("TAG", "getClubInfo: $it")
+                        is NotFoundException -> Log.d("TAG", "getClubInfo: $it")
+                        else -> Log.d("TAG", "getClubInfo: $it")
                     }
                 }
             } catch (e: Exception) {
@@ -160,7 +163,7 @@ class EditViewModel @Inject constructor(
     }
 
     fun stopLottie() {
-        if(lottie.isAdded) {
+        if (lottie.isAdded) {
             lottie.dismissAllowingStateLoss()
         }
     }
