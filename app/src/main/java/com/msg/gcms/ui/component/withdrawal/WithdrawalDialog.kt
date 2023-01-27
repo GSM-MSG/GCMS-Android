@@ -1,17 +1,10 @@
 package com.msg.gcms.ui.component.withdrawal
 
-import android.app.Dialog
 import android.content.Context
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.util.Log
 import android.view.Gravity
-import android.view.View
 import android.view.WindowManager
-import androidx.annotation.LayoutRes
 import com.google.android.material.bottomsheet.BottomSheetDialog
-import com.msg.gcms.R
 import com.msg.gcms.databinding.LogoutDialogBinding
 
 class WithdrawalDialog(context: Context) : BottomSheetDialog(context) {

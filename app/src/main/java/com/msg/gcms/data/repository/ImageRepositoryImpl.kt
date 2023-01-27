@@ -1,7 +1,6 @@
 package com.msg.gcms.data.repository
 
 import com.msg.gcms.data.remote.datasource.ImageDataSourceImpl
-import com.msg.gcms.data.remote.dto.datasource.Image.ImageResponse
 import com.msg.gcms.domain.repository.ImageRepository
 import okhttp3.MultipartBody
 import retrofit2.Response
