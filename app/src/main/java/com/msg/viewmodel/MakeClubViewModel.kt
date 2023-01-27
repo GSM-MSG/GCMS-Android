@@ -121,16 +121,17 @@ class MakeClubViewModel @Inject constructor(
 
     fun activityPhotoUpload(image: List<MultipartBody.Part>) {
         viewModelScope.launch {
-            val response = imageUseCase(image)
-            when (response.code()) {
-                201 -> {
-                    Log.d("TAG", "activityPhoto: ${response.body()}")
-                    _activityPhotoResult.value = response.body()
-                    _activityUpload = true
-                    imageUploadCheck()
-                }
-                else -> {
-                    Log.d("TAG", "changeImage: else ${response.code()}")
+            imageUseCase(
+                image = image
+            ).onSuccess {
+                Log.d("TAG", "activityPhoto: ${it.body()}")
+                _activityPhotoResult.value = it.body()
+                _activityUpload = true
+                imageUploadCheck()
+            }.onFailure {
+                when (it) {
+                    is BadRequestException -> Log.d("TAG", "changeImage: else $it")
+                    else -> Log.d("TAG", "changeImage: else $it")
                 }
             }
         }
