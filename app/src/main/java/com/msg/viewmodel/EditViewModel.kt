@@ -11,6 +11,8 @@ import com.msg.gcms.data.remote.dto.datasource.club.request.ModifyClubInfoReques
 import com.msg.gcms.data.remote.dto.datasource.club.response.ClubInfoResponse
 import com.msg.gcms.data.remote.dto.datasource.user.response.UserData
 import com.msg.gcms.domain.exception.BadRequestException
+import com.msg.gcms.domain.exception.ConflictException
+import com.msg.gcms.domain.exception.ForBiddenException
 import com.msg.gcms.domain.exception.NotFoundException
 import com.msg.gcms.domain.exception.ServerException
 import com.msg.gcms.domain.exception.UnauthorizedException
@@ -153,11 +155,10 @@ class EditViewModel @Inject constructor(
                     when (it) {
                         is BadRequestException -> Log.d("TAG", "uploadImage: $it")
                         else -> {
-                            Log.e("TAG", "uploadImage: ${it}")
+                            Log.e("TAG", "uploadImage: $it")
                         }
                     }
                 }
-
             } catch (e: Exception) {
                 e.printStackTrace()
             }
@@ -179,15 +180,23 @@ class EditViewModel @Inject constructor(
     fun putChangeClubInfo(body: ModifyClubInfoRequest) {
         viewModelScope.launch {
             try {
-                val response = editClubInfoUseCase(body)
-                when (response.code()) {
-                    200 -> {
-                        Log.d("TAG", "putChangeClubInfo: ${response.code()}")
-                        _editClubResult.value = response.code()
-                    }
-                    else -> {
-                        Log.d("TAG", "putChangeClubInfo: $response")
-                        _editClubResult.value = response.code()
+                editClubInfoUseCase(
+                    body = body
+                ).onSuccess {
+                    Log.d("TAG", "putChangeClubInfo: ${it.code()}")
+                    _editClubResult.value = it.code()
+                }.onFailure {
+                    when (it) {
+                        is BadRequestException -> Log.d("TAG", "putChangeClubInfo: $it")
+                        is UnauthorizedException -> Log.d("TAG", "putChangeClubInfo: $it")
+                        is ForBiddenException -> Log.d("TAG", "putChangeClubInfo: $it")
+                        is NotFoundException -> Log.d("TAG", "putChangeClubInfo: $it")
+                        is ConflictException -> Log.d("TAG", "putChangeClubInfo: $it")
+                        else -> {
+                            Log.d("TAG", "putChangeClubInfo: $it")
+                            // Todo(LeeHyeonbin) presentation 에서 Status 로 이벤트 되는거 수정하기
+                            // _editClubResult.value = it
+                        }
                     }
                 }
             } catch (e: Exception) {
