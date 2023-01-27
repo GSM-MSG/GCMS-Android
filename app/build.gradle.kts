@@ -23,19 +23,19 @@ android {
             "String",
             "CLIENT_ID",
             gradleLocalProperties(rootDir)
-                .getProperty("CLIENT_ID", "Defalut")
+                .getProperty("CLIENT_ID", "\"Defalut\"")
         )
         buildConfigField(
             "String",
             "CLIENT_SECRET",
             gradleLocalProperties(rootDir)
-                .getProperty("CLIENT_SECRET", "Defalut")
+                .getProperty("CLIENT_SECRET", "\"Defalut\"")
         )
         buildConfigField(
             "String",
             "REDIRECT_URI",
             gradleLocalProperties(rootDir)
-                .getProperty("REDIRECT_URI", "Defalut")
+                .getProperty("REDIRECT_URI", "\"Defalut\"")
         )
         buildConfigField(
             "String",
