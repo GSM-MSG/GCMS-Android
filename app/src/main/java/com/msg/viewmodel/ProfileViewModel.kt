@@ -7,6 +7,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.msg.gcms.data.remote.dto.datasource.user.request.UserProfileRequest
 import com.msg.gcms.data.remote.dto.datasource.user.response.UserInfoResponse
+import com.msg.gcms.domain.exception.NotFoundException
+import com.msg.gcms.domain.exception.UnauthorizedException
 import com.msg.gcms.domain.usecase.user.EditProfileUseCase
 import com.msg.gcms.domain.usecase.common.LogoutUseCase
 import com.msg.gcms.domain.usecase.image.ImageUseCase
@@ -38,16 +40,16 @@ class ProfileViewModel @Inject constructor(
     fun getUserInfo() {
         viewModelScope.launch {
             try {
-                val response = profileUseCase()
-                Log.d("userInfo", "getUserInfo: ${response.body()}")
-                when (response.code()) {
-                    200 -> {
-                        _profileData.value = response.body()
-                        _clubStatus.value = response.body()?.clubs?.size != 0
-                        _afterSchoolStatus.value = response.body()?.afterSchools?.size != 0
-                    }
-                    else -> {
-                        _clubStatus.value = false
+                profileUseCase().onSuccess {
+                    _profileData.value = it.body()
+                    _clubStatus.value = it.body()?.clubs?.size != 0
+                    _afterSchoolStatus.value = it.body()?.afterSchools?.size != 0
+                }.onFailure {
+                    _clubStatus.value = false
+                    when(it) {
+                        is UnauthorizedException -> Log.d("TAG", "getUserInfo: $it")
+                        is NotFoundException -> Log.d("TAG", "getUserInfo: $it")
+                        else -> Log.d("TAG", "getUserInfo: $it")
                     }
                 }
             } catch (e: Exception){
