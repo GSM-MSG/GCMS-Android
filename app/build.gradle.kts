@@ -37,6 +37,12 @@ android {
             gradleLocalProperties(rootDir)
                 .getProperty("REDIRECT_URI", "Defalut")
         )
+        buildConfigField(
+            "String",
+            "BASE_URL",
+            gradleLocalProperties(rootDir)
+                .getProperty("BASE_URL","\"http://\"")
+        )
     }
 
     buildTypes {
