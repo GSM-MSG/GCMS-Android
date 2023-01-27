@@ -155,7 +155,7 @@ class MemberManageViewModel @Inject constructor(
                         id
                     )
                 ).onSuccess {
-                    // Todo(LeeHyeonbin) 여기도 Status로 되어있음
+                    // Todo(LeeHyeonbin) 여기도 Status로 되어있리
                     _status.value = it.code()
                 }.onFailure {
                     when (it) {
@@ -174,14 +174,23 @@ class MemberManageViewModel @Inject constructor(
     fun accept(id: String) {
         viewModelScope.launch {
             try {
-                val response = applicantAcceptUseCase(
+                applicantAcceptUseCase(
                     MemberManagementRequest(
                         _clubName.value!!,
                         _clubType.value!!,
                         id
                     )
-                )
-                _status.value = response.code()
+                ).onSuccess {
+                    // Todo (LeeHyeonbin) 여기도
+                    _status.value = it.code()
+                }.onFailure {
+                    when (it) {
+                        is ForBiddenException -> Log.d("TAG", "accept: $it")
+                        is NotFoundException -> Log.d("TAG", "accept: $it")
+                        is ConflictException -> Log.d("TAG", "accept: $it")
+                        else -> Log.d("TAG", "accept: $it")
+                    }
+                }
             } catch (e: Exception) {
                 e.printStackTrace()
             }
