@@ -146,7 +146,18 @@ class ClubViewModel @Inject constructor(
     fun deleteClub(q: String, type: String) {
         viewModelScope.launch {
             try {
-                val response = clubDeleteUseCase(ClubIdentificationRequest(q = q, type = type))
+                clubDeleteUseCase(
+                    ClubIdentificationRequest(q = q, type = type)
+                ).onSuccess {
+                    Log.d(TAG, "deleteClub: ${it.code()}")
+                }.onFailure {
+                    when (it) {
+                        is UnauthorizedException -> Log.d(TAG, "deleteClub: $it")
+                        is ForBiddenException -> Log.d(TAG, "deleteClub: $it")
+                        is NotFoundException -> Log.d(TAG, "deleteClub: $it")
+                        else -> Log.d(TAG, "deleteClub: $it")
+                    }
+                }
             } catch (e: Exception) {
                 e.printStackTrace()
             }
