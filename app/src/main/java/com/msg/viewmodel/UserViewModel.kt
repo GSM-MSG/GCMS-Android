@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.msg.gcms.data.remote.dto.datasource.user.response.UserData
+import com.msg.gcms.domain.exception.UnauthorizedException
 import com.msg.gcms.domain.usecase.user.GetSearchUserUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -26,15 +27,16 @@ class UserViewModel @Inject constructor(
         queryString["name"] = name
         queryString["type"] = clubType
         viewModelScope.launch {
-            val response = getSearchUserUseCase(queryString)
-            when(response.code()){
-               200 -> {
-                   _result.value = response.body()
-                   Log.d("TAG", "searchResult: ${_result.value}")
-               }
-              else -> {
-                  Log.d("TAG", "searchResult: ${response.body()} ")
-              }
+            val response = getSearchUserUseCase(
+                userSearch = queryString
+            ).onSuccess {
+                _result.value = it.body()
+                Log.d("TAG", "searchResult: ${_result.value}")
+            }.onFailure {
+                when(it) {
+                    is UnauthorizedException -> Log.d("TAG", "getSearchUser: $it")
+                    else -> Log.d("TAG", "getSearchUser: $it")
+                }
             }
         }
     }
