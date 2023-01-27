@@ -49,7 +49,7 @@ object Versions {
     const val COROUTINE = "1.3.9"
 
     const val KTLINT = "2.1.2"
-    const val KTLINT_PLUGIN = "10.2.1"
+    const val KTLINT_PLUGIN = "11.1.0"
 
     const val COIL_VERSION = "2.1.0"
     const val SHIMMER = "0.5.0"

@@ -57,15 +57,7 @@ class ProfileActivity : BaseActivity<ActivityProfileBinding>(R.layout.activity_p
 
     private fun isLogout() {
         viewModel.logoutStatus.observe(this) {
-            // val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            //     .requestIdToken(getString(R.string.default_web_client_id))
-            //     .requestEmail()
-            //     .build()
-            // GoogleSignIn.getClient(this, gso).signOut()
-            // val intent = Intent(this, IntroActivity::class.java)
-            // intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
-            // startActivity(intent)
-            // finish()
+            TODO("GAuth 방식으로 로그아웃 교체")
         }
     }
 

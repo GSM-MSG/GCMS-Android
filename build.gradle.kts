@@ -1,7 +1,6 @@
 buildscript {
     dependencies {
         classpath(Dependency.GradlePlugin.GRADLE_HILT)
-        classpath(Dependency.GradlePlugin.GRADLE_KTLINT)
     }
 }
 
@@ -11,5 +10,3 @@ plugins {
     id(Dependency.GradlePlugin.ANDROID_LIBRARY_PLUGIN) version Versions.GRADLE_ANDROID apply false
     id(Dependency.GradlePlugin.KOTLIN_ANDROID_PLUGIN) version Versions.GRADLE_KOTLIN apply false
 }
-
-apply(plugin = Dependency.GradlePlugin.KOTLINTER_PLUGIN)

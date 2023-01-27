@@ -25,17 +25,7 @@ class WithdrawalActivity : BaseActivity<ActivityWithdrawalBinding>(R.layout.acti
 
     private fun isWithdrawal(){
         viewModel.isWithdrawal.observe(this) {
-            // if(it) {
-            //     val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            //         .requestIdToken(getString(R.string.default_web_client_id))
-            //         .requestEmail()
-            //         .build()
-            //     client = GoogleSignIn.getClient(this, gso)
-            //     client.signOut()
-            //     val intent = Intent(this, IntroActivity::class.java)
-            //     startActivity(intent)
-            //     finish()
-            // }
+            TODO("GAUth도입으로 전체 코드 삭제 필요")
         }
     }
 
