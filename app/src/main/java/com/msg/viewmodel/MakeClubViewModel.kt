@@ -8,6 +8,7 @@ import androidx.lifecycle.viewModelScope
 import com.msg.gcms.data.local.entity.ActivityPhotoType
 import com.msg.gcms.data.remote.dto.datasource.club.request.CreateClubRequest
 import com.msg.gcms.data.remote.dto.datasource.user.response.UserData
+import com.msg.gcms.domain.exception.UnauthorizedException
 import com.msg.gcms.domain.usecase.club.PostCreateClubUseCase
 import com.msg.gcms.domain.usecase.image.ImageUseCase
 import com.msg.gcms.domain.usecase.user.GetSearchUserUseCase
@@ -46,9 +47,9 @@ class MakeClubViewModel @Inject constructor(
     private val _imageUploadCheck = MutableLiveData<Boolean?>()
     val imageUploadCheck: LiveData<Boolean?> get() = _imageUploadCheck
 
-    private var _bannerUpload : Boolean? = null
+    private var _bannerUpload: Boolean? = null
 
-    private var _activityUpload : Boolean? = null
+    private var _activityUpload: Boolean? = null
 
     var activityPhotoList = mutableListOf<ActivityPhotoType>()
 
@@ -69,18 +70,19 @@ class MakeClubViewModel @Inject constructor(
         queryString["name"] = name
         queryString["type"] = clubType.value.toString()
         viewModelScope.launch {
-            val response = getSearchUserUseCase(queryString)
-            when (response.code()) {
-                200 -> {
-                    _result.value = response.body()
-                    Log.d("TAG", "searchResult: ${_result.value}")
-                }
-                else -> {
-                    Log.d("TAG", "searchResult: ${response.body()} ")
+            getSearchUserUseCase(queryString).onSuccess {
+                _result.value = it.body()
+                Log.d("TAG", "searchResult: ${_result.value}")
+            }.onFailure {
+                when(it) {
+                    is UnauthorizedException -> Log.d("TAG", "searchResult: $it ")
+                    else ->
+                        Log.d("TAG", "searchResult: $it ")
                 }
             }
         }
     }
+
     fun imageUploadCheck() {
         if (_bannerUpload == true && _activityUpload == true) {
             _imageUploadCheck.value = true
