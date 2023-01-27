@@ -96,14 +96,22 @@ class MemberManageViewModel @Inject constructor(
     fun kickUser(id: String) {
         viewModelScope.launch {
             try {
-                val response = userKickUseCase(
+                userKickUseCase(
                     MemberManagementRequest(
                         _clubName.value!!,
                         _clubType.value!!,
                         id
                     )
-                )
-                _status.value = response.code()
+                ).onSuccess {
+                    // Todo(Leehyeonbin) 여기도 스테이터스에서 처리함
+                    _status.value = it.code()
+                }.onFailure {
+                    when (it) {
+                        is UnauthorizedException -> Log.d("TAG", "kickUser: $it")
+                        is ForBiddenException -> Log.d("TAG", "kickUser: $it")
+                        else -> Log.d("TAG", "kickUser: $it")
+                    }
+                }
             } catch (e: Exception) {
                 e.printStackTrace()
             }
