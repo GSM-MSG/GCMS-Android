@@ -121,14 +121,23 @@ class MemberManageViewModel @Inject constructor(
     fun delegate(id: String) {
         viewModelScope.launch {
             try {
-                val response = userDelegateUseCase(
+                userDelegateUseCase(
                     MemberManagementRequest(
                         _clubName.value!!,
                         _clubType.value!!,
                         id
                     )
-                )
-                _status.value = response.code()
+                ).onSuccess {
+                    // Todo(Leehyeonbin) 여기도 Status로 되어있음
+                    _status.value = it.code()
+                }.onFailure {
+                    when (it) {
+                        is UnauthorizedException -> Log.d("TAG", "delegate: $it")
+                        is ForBiddenException -> Log.d("TAG", "delegate: $it")
+                        is NotFoundException -> Log.d("TAG", "delegate: $it")
+                        else -> Log.d("TAG", "delegate: $it")
+                    }
+                }
             } catch (e: Exception) {
                 e.printStackTrace()
             }
