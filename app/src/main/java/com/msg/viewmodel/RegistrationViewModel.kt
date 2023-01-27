@@ -8,6 +8,7 @@ import androidx.lifecycle.viewModelScope
 import com.msg.gcms.base.di.GCMSApplication
 import com.msg.gcms.data.remote.dto.datasource.auth.request.RegisterRequest
 import com.msg.gcms.data.remote.dto.datasource.auth.response.RegisterResponse
+import com.msg.gcms.domain.exception.BadRequestException
 import com.msg.gcms.domain.usecase.common.RefreshUseCase
 import com.msg.gcms.domain.usecase.common.RegistrationUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -57,20 +58,16 @@ class RegistrationViewModel @Inject constructor(
     fun sendIdTokenLogic(idToken: String) {
         viewModelScope.launch {
             try {
-                val response = registrationUseCase(RegisterRequest(idToken = idToken))
-                when (response.code()) {
-                    in 200..299 -> {
-                        printStatus(response.code())
-                        _idTokenStatus.value = response.code()
-                        saveToken(response.body()!!)
-                    }
-                    400 -> {
-                        printStatus(response.code())
-                        _idTokenStatus.value = response.code()
-                    }
-                    else -> {
-                        printStatus(response.code())
-                        _idTokenStatus.value = response.code()
+                registrationUseCase(RegisterRequest(
+                    idToken = idToken
+                )).onSuccess {
+                    // Todo(Leehyeonbin) 여기도 스테이터스로 되어있음
+                    _idTokenStatus.value = it.code()
+                    saveToken(it.body()!!)
+                }.onFailure {
+                    when (it){
+                        is BadRequestException -> Log.d(TAG, "sendIdTokenLogic: $it")
+                        else -> Log.d(TAG, "sendIdTokenLogic: $it")
                     }
                 }
             } catch (e: Exception) {
@@ -79,7 +76,5 @@ class RegistrationViewModel @Inject constructor(
         }
     }
 
-    private fun printStatus(code : Int) {
-        Log.d(TAG,"status : $code")
-    }
+\
 }
