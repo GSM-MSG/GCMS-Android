@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.msg.gcms.data.remote.dto.datasource.user.request.UserProfileRequest
 import com.msg.gcms.data.remote.dto.datasource.user.response.UserInfoResponse
+import com.msg.gcms.domain.exception.BadRequestException
 import com.msg.gcms.domain.exception.NotFoundException
 import com.msg.gcms.domain.exception.UnauthorizedException
 import com.msg.gcms.domain.usecase.user.EditProfileUseCase
@@ -79,10 +80,14 @@ class ProfileViewModel @Inject constructor(
     fun uploadImg(img: MultipartBody.Part) {
         viewModelScope.launch {
             try {
-                val response = imgUseCase(listOf(img))
-                when (response.code()) {
-                    in 200..299 -> {
-                        saveImg(response.body()!!.get(0))
+                imgUseCase(
+                    image = listOf(img)
+                ).onSuccess {
+                    saveImg(it.body()!!.get(0))
+                }.onFailure {
+                    when (it) {
+                        is BadRequestException -> Log.d("TAG", "uploadImg: $it")
+                        else -> Log.d("TAG", "uploadImg: $it")
                     }
                 }
             } catch (e: Exception) {
