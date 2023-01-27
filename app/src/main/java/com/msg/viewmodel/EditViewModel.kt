@@ -10,6 +10,7 @@ import com.msg.gcms.R
 import com.msg.gcms.data.remote.dto.datasource.club.request.ModifyClubInfoRequest
 import com.msg.gcms.data.remote.dto.datasource.club.response.ClubInfoResponse
 import com.msg.gcms.data.remote.dto.datasource.user.response.UserData
+import com.msg.gcms.domain.exception.BadRequestException
 import com.msg.gcms.domain.exception.NotFoundException
 import com.msg.gcms.domain.exception.ServerException
 import com.msg.gcms.domain.exception.UnauthorizedException
@@ -121,7 +122,7 @@ class EditViewModel @Inject constructor(
                 _result.value = it.body()
                 Log.d("TAG", "searchResult: ${_result.value}")
             }.onFailure {
-                when(it) {
+                when (it) {
                     is UnauthorizedException -> Log.d("TAG", "getSearchUser: $it")
                     is ServerException -> Log.d("TAG", "getSearchUser: $it")
                     else -> Log.d("TAG", "getSearchUser: $it")
@@ -142,17 +143,21 @@ class EditViewModel @Inject constructor(
         Log.d("TAG", "uploadImage")
         viewModelScope.launch {
             try {
-                val response = imageUseCase(list)
-                when (response.code()) {
-                    201 -> {
-                        Log.d("TAG", "uploadImage: ${response.body()}")
-                        newPhotos = response.body()!!.toMutableList()
-                        _convertImage.value = response.body()
-                    }
-                    else -> {
-                        Log.e("TAG", "uploadImage: ${response.body()}")
+                imageUseCase(
+                    list
+                ).onSuccess {
+                    Log.d("TAG", "uploadImage: ${it.body()}")
+                    newPhotos = it.body()!!.toMutableList()
+                    _convertImage.value = it.body()
+                }.onFailure {
+                    when (it) {
+                        is BadRequestException -> Log.d("TAG", "uploadImage: $it")
+                        else -> {
+                            Log.e("TAG", "uploadImage: ${it}")
+                        }
                     }
                 }
+
             } catch (e: Exception) {
                 e.printStackTrace()
             }
