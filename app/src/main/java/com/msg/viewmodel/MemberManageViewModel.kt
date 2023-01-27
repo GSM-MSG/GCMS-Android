@@ -1,11 +1,14 @@
 package com.msg.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.msg.gcms.data.remote.dto.datasource.club.request.MemberManagementRequest
 import com.msg.gcms.data.remote.dto.datasource.club.response.MemberSummaryResponse
+import com.msg.gcms.domain.exception.ForBiddenException
+import com.msg.gcms.domain.exception.NotAcceptableException
 import com.msg.gcms.domain.usecase.club.ApplicantAcceptUseCase
 import com.msg.gcms.domain.usecase.club.ApplicantRejectUseCase
 import com.msg.gcms.domain.usecase.club.GetApplicantUseCase
@@ -46,9 +49,19 @@ class MemberManageViewModel @Inject constructor(
     fun getMember() {
         viewModelScope.launch {
             try {
-                val response = getMemberUseCase(_clubName.value!!, _clubType.value!!)
-                _memberList.value = response.body()!!.requestUser
-                _status.value = response.code()
+                getMemberUseCase(
+                    clubName = _clubName.value!!,
+                    type = _clubType.value!!
+                ).onSuccess {
+                    _memberList.value = it.body()!!.requestUser
+                    _status.value = it.code()
+                }.onFailure {
+                    when (it) {
+                        is ForBiddenException -> Log.d("TAG", "getMember: $it")
+                        is NotAcceptableException -> Log.d("TAG", "getMember: $it")
+                        else -> Log.d("TAG", "getMember: $it")
+                    }
+                }
             } catch (e: Exception) {
                 e.printStackTrace()
             }

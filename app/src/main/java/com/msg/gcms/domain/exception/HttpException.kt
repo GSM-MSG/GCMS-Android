@@ -37,6 +37,14 @@ class NotFoundException(
 
 
 /**
+ * 에이전트가 정해준 규격에 맞는게 없을 경우
+ * Http Status 가 406번일 때 사용
+ */
+class NotAcceptableException(
+    override val message: String?
+) : RuntimeException()
+
+/**
  * 요청이 너무 오래 걸리는 경우
  * Http Status가 408번 일 때 사용
  */
