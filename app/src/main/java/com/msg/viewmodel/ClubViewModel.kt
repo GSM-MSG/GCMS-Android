@@ -8,6 +8,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.msg.gcms.data.remote.dto.datasource.club.request.ClubIdentificationRequest
 import com.msg.gcms.data.remote.dto.datasource.user.request.UserDeleteRequest
+import com.msg.gcms.domain.exception.ConflictException
+import com.msg.gcms.domain.exception.NotFoundException
+import com.msg.gcms.domain.exception.UnauthorizedException
 import com.msg.gcms.domain.usecase.club.ClubDeleteUseCase
 import com.msg.gcms.domain.usecase.club.PostClubApplyUseCase
 import com.msg.gcms.domain.usecase.club.PostClubCancelUseCase
@@ -39,10 +42,18 @@ class ClubViewModel @Inject constructor(
     fun postClubApply(type: String, q: String) {
         viewModelScope.launch {
             try {
-                val response =
-                    postClubApplyUseCase(ClubIdentificationRequest(type = type, q = q))
-                _getClubStatus.value = response.code()
-                checkStatus(response.code())
+                postClubApplyUseCase(
+                    ClubIdentificationRequest(type = type, q = q)
+                ).onSuccess {
+                    _getClubStatus.value = it.code()
+                }.onFailure {
+                    when (it) {
+                        is UnauthorizedException -> Log.d(TAG, "postClubApply: $it")
+                        is NotFoundException -> Log.d(TAG, "postClubApply: $it")
+                        is ConflictException -> Log.d(TAG, "postClubApply: $it")
+                        else -> Log.d(TAG, "postClubApply: $it")
+                    }
+                }
             } catch (e: Exception) {
                 Log.d(TAG, "error : $e")
             }
@@ -87,10 +98,9 @@ class ClubViewModel @Inject constructor(
         }
     }
 
-
     fun startLottie(fragmentManager: FragmentManager) {
-        if(!lottie.isAdded){
-            lottie.show(fragmentManager,"Lottie")
+        if (!lottie.isAdded) {
+            lottie.show(fragmentManager, "Lottie")
         }
     }
 
