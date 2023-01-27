@@ -37,7 +37,9 @@ class ClubDetailViewModel @Inject constructor(
         viewModelScope.launch {
             Log.d(TAG, "타입 : ${type}, 이름 : ${q}")
             try {
-                getDetailUseCase(type, q).onSuccess {
+                getDetailUseCase(
+                    type, q
+                ).onSuccess {
                     _getDetailStatus.value = it.code()
                     _result.value = it.body()
                 }.onFailure {
