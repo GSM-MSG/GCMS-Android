@@ -6,5 +6,7 @@ import javax.inject.Inject
 class GetSearchUserUseCase @Inject constructor(
     private val userRepository : UserRepository
 )  {
-    suspend operator fun invoke(userSearch : Map<String,String>) = userRepository.getUserSearch(userSearch)
+    suspend operator fun invoke(userSearch : Map<String,String>) = kotlin.runCatching {
+        userRepository.getUserSearch(userSearch)
+    }
 }

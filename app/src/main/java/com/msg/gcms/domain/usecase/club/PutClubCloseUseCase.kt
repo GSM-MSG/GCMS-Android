@@ -7,5 +7,7 @@ import javax.inject.Inject
 class PutClubCloseUseCase @Inject constructor(
     private val repository: ClubRepository
 ){
-    suspend operator fun invoke(body: ClubIdentificationRequest) = repository.putClubClose(body)
+    suspend operator fun invoke(body: ClubIdentificationRequest) = kotlin.runCatching {
+        repository.putClubClose(body)
+    }
 }
