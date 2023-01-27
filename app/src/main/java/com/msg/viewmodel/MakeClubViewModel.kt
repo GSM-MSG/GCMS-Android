@@ -8,6 +8,7 @@ import androidx.lifecycle.viewModelScope
 import com.msg.gcms.data.local.entity.ActivityPhotoType
 import com.msg.gcms.data.remote.dto.datasource.club.request.CreateClubRequest
 import com.msg.gcms.data.remote.dto.datasource.user.response.UserData
+import com.msg.gcms.domain.exception.BadRequestException
 import com.msg.gcms.domain.exception.UnauthorizedException
 import com.msg.gcms.domain.usecase.club.PostCreateClubUseCase
 import com.msg.gcms.domain.usecase.image.ImageUseCase
@@ -74,7 +75,7 @@ class MakeClubViewModel @Inject constructor(
                 _result.value = it.body()
                 Log.d("TAG", "searchResult: ${_result.value}")
             }.onFailure {
-                when(it) {
+                when (it) {
                     is UnauthorizedException -> Log.d("TAG", "searchResult: $it ")
                     else ->
                         Log.d("TAG", "searchResult: $it ")
@@ -102,16 +103,17 @@ class MakeClubViewModel @Inject constructor(
 
     fun bannerImageUpload(image: List<MultipartBody.Part>) {
         viewModelScope.launch {
-            val response = imageUseCase(image)
-            when (response.code()) {
-                201 -> {
-                    Log.d("TAG", "banner: ${response.body()}")
-                    _bannerResult.value = response.body()?.get(0)
-                    _bannerUpload = true
-                    imageUploadCheck()
-                }
-                else -> {
-                    Log.d("TAG", "changeImage: else ${response.code()}")
+            imageUseCase(
+                image = image
+            ).onSuccess {
+                Log.d("TAG", "banner: ${it.body()}")
+                _bannerResult.value = it.body()?.get(0)
+                _bannerUpload = true
+                imageUploadCheck()
+            }.onFailure {
+                when (it) {
+                    is BadRequestException -> Log.d("TAG", "changeImage: else $it")
+                    else -> Log.d("TAG", "changeImage: else $it")
                 }
             }
         }
