@@ -147,7 +147,7 @@ class MakeClubViewModel @Inject constructor(
                 "createClub: type: ${clubType.value.toString()}, title: $title, description: $description, contact: $contact, notionLink: $notionLink, teacher: $teacher, member: $clubMemberEmail, activityUrls: ${activityPhoto.value}, bannerUrl: ${bannerResult.value}"
             )
             clubMemberEmail.remove("")
-            val response = postCreateClubUseCase(
+            postCreateClubUseCase(
                 CreateClubRequest
                     (
                     type = clubType.value.toString().trim(),
@@ -160,17 +160,16 @@ class MakeClubViewModel @Inject constructor(
                     activityUrls = _activityPhotoResult.value,
                     bannerUrl = _bannerResult.value!!
                 )
-            )
-            _status.value = response.code()
-            when (response.code()) {
-                201 -> {
-                    Log.d("TAG", "createClub: 성공")
-                    _createResult.value = true
-                }
-                else -> {
-                    Log.d("TAG", "createClub: $response, ${response.body()}")
-                    _createResult.value = false
-                }
+            ).onSuccess {
+                Log.d("TAG", "createClub: 성공")
+                _status.value = it.code()
+                _createResult.value = true
+
+            }.onFailure {
+                // Todo(LeeHyeonbin) 스테이터스 코드로 예외되는거 수정하기
+                // _status.value = it.code()
+                _createResult.value = false
+                Log.d("TAG", "createClub: $it")
             }
         }
     }
