@@ -8,27 +8,33 @@ on:
 
 jobs:
   build:
-    env: 
-      ENCRYPTED_SERVICES_PATH: ${{ 'app/google-services.json.gpg' }}
-      DECRYPTED_SERVICES_PATH: ${{ 'app/google-services.json' }}
-      SERVICES_PW: ${{ secrets.GOOGLE_SERVICES_PW }}
-  
+
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v3
-    - name: set up JDK 11
-      uses: actions/setup-java@v3
-      with:
-        java-version: '11'
-        distribution: 'temurin'
-        cache: gradle
-    - name: decode google-services.json
-      run: gpg --pinentry-mode=loopback --passphrase  "$SERVICES_PW" -d -o "$DECRYPTED_SERVICES_PATH" "$ENCRYPTED_SERVICES_PATH"
+      - name: Check out Repository
+        uses: actions/checkout@v3
 
-    - name: Grant execute permission for gradlew
-      run: chmod +x gradlew
-    - name: Build with Gradle
-      run: ./gradlew build
-    - name: Run test
-      run: ./gradlew test
+      - name: Cache Action
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
+      - name: set up JDK 11
+        uses: actions/setup-java@v3
+        with:
+          java-version: '11'
+          distribution: 'temurin'
+          cache: gradle
+
+
+
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
+
+      - name: Build with Gradle
+        run: ./gradlew build
