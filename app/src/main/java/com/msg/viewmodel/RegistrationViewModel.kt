@@ -4,15 +4,11 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import com.msg.gcms.base.di.GCMSApplication
-import com.msg.gcms.data.remote.dto.datasource.auth.request.RegisterRequest
 import com.msg.gcms.data.remote.dto.datasource.auth.response.RegisterResponse
-import com.msg.gcms.domain.exception.BadRequestException
 import com.msg.gcms.domain.usecase.common.RefreshUseCase
 import com.msg.gcms.domain.usecase.common.RegistrationUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -38,16 +34,18 @@ class RegistrationViewModel @Inject constructor(
         }
     }
 
+    /*
     fun checkLogin(){
         viewModelScope.launch {
             try {
-                val response = refreshUseCase()
-                when(response.code()) {
-                    in 200..299 -> {
-                        _isLogin.value = true
-                        saveToken(response.body()!!)
+                refreshUseCase().onSuccess {
+                    _isLogin.value = true
+                    saveToken(it.body()!!)
+                }.onFailure {
+                    when (it) {
+                        _isLogin.value = false
+                        else -> _isLogin.value = false
                     }
-                    else -> _isLogin.value = false
                 }
             } catch (e: Exception) {
                 Log.d("ERROR", "checkLogin: ${e.message}")
@@ -60,7 +58,7 @@ class RegistrationViewModel @Inject constructor(
             try {
                 registrationUseCase(RegisterRequest(
                     idToken = idToken
-                )).onSuccess {
+               )).onSuccess {
                     // Todo(Leehyeonbin) 여기도 스테이터스로 되어있음
                     _idTokenStatus.value = it.code()
                     saveToken(it.body()!!)
@@ -74,7 +72,6 @@ class RegistrationViewModel @Inject constructor(
                 Log.d("send IdToken error", "error : $e")
             }
         }
-    }
+    } */
 
-\
 }
