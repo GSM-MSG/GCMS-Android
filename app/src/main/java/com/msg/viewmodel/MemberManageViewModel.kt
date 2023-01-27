@@ -9,6 +9,8 @@ import com.msg.gcms.data.remote.dto.datasource.club.request.MemberManagementRequ
 import com.msg.gcms.data.remote.dto.datasource.club.response.MemberSummaryResponse
 import com.msg.gcms.domain.exception.ForBiddenException
 import com.msg.gcms.domain.exception.NotAcceptableException
+import com.msg.gcms.domain.exception.NotFoundException
+import com.msg.gcms.domain.exception.UnauthorizedException
 import com.msg.gcms.domain.usecase.club.ApplicantAcceptUseCase
 import com.msg.gcms.domain.usecase.club.ApplicantRejectUseCase
 import com.msg.gcms.domain.usecase.club.GetApplicantUseCase
@@ -71,10 +73,20 @@ class MemberManageViewModel @Inject constructor(
     fun getApplicant() {
         viewModelScope.launch {
             try {
-                val response =
-                    getApplicantUseCase(_clubName.value!!, _clubType.value!!)
-                _applicantList.value = response.body()!!.requestUser
-                _status.value = response.code()
+                getApplicantUseCase(
+                    clubName = _clubName.value!!,
+                    type = _clubType.value!!
+                ).onSuccess {
+                    _applicantList.value = it.body()!!.requestUser
+                    _status.value = it.code()
+                }.onFailure {
+                    when (it) {
+                        is UnauthorizedException -> Log.d("TAG", "getApplicant: $it")
+                        is NotFoundException -> Log.d("TAG", "getApplicant: $it")
+                        is NotAcceptableException -> Log.d("TAG", "getApplicant: $it")
+                        else -> Log.d("TAG", "getApplicant: $it")
+                    }
+                }
             } catch (e: Exception) {
                 e.printStackTrace()
             }
