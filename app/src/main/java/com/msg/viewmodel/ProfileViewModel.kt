@@ -61,10 +61,13 @@ class ProfileViewModel @Inject constructor(
     fun logout(){
         viewModelScope.launch {
             try {
-                val response = logoutUseCase()
-                when (response.code()) {
-                    200 -> {
-                        _logoutStatus.value = true
+                logoutUseCase().onSuccess {
+                    _logoutStatus.value = true
+                }.onFailure {
+                    when (it) {
+                        is UnauthorizedException -> Log.d("TAG", "logout: $it")
+                        is NotFoundException -> Log.d("TAG", "logout: $it")
+                        else -> Log.d("TAG", "logout: $it")
                     }
                 }
             } catch (e: Exception) {
