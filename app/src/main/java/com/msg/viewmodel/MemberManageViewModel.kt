@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.msg.gcms.data.remote.dto.datasource.club.request.MemberManagementRequest
 import com.msg.gcms.data.remote.dto.datasource.club.response.MemberSummaryResponse
+import com.msg.gcms.domain.exception.ConflictException
 import com.msg.gcms.domain.exception.ForBiddenException
 import com.msg.gcms.domain.exception.NotAcceptableException
 import com.msg.gcms.domain.exception.NotFoundException
@@ -147,15 +148,23 @@ class MemberManageViewModel @Inject constructor(
     fun reject(id: String) {
         viewModelScope.launch {
             try {
-                val response =
-                    applicantRejectUseCase(
-                        MemberManagementRequest(
-                            _clubName.value!!,
-                            _clubType.value!!,
-                            id
-                        )
+                applicantRejectUseCase(
+                    MemberManagementRequest(
+                        _clubName.value!!,
+                        _clubType.value!!,
+                        id
                     )
-                _status.value = response.code()
+                ).onSuccess {
+                    // Todo(LeeHyeonbin) 여기도 Status로 되어있음
+                    _status.value = it.code()
+                }.onFailure {
+                    when (it) {
+                        is ForBiddenException -> Log.d("TAG", "reject: $it")
+                        is NotFoundException -> Log.d("TAG", "reject: $it")
+                        is ConflictException -> Log.d("TAG", "reject: $it")
+                        else -> Log.d("TAG", "reject: $it")
+                    }
+                }
             } catch (e: Exception) {
                 e.printStackTrace()
             }
