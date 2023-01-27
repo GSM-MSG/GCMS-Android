@@ -87,16 +87,6 @@ class ClubViewModel @Inject constructor(
         }
     }
 
-    private fun checkStatus(code: Int) {
-        when (code) {
-            201 -> {
-                Log.d(TAG, "status: $code")
-            }
-            else -> {
-                Log.d(TAG, "status: $code")
-            }
-        }
-    }
 
     fun startLottie(fragmentManager: FragmentManager) {
         if(!lottie.isAdded){
