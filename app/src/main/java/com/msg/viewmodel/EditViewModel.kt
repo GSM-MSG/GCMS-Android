@@ -11,6 +11,7 @@ import com.msg.gcms.data.remote.dto.datasource.club.request.ModifyClubInfoReques
 import com.msg.gcms.data.remote.dto.datasource.club.response.ClubInfoResponse
 import com.msg.gcms.data.remote.dto.datasource.user.response.UserData
 import com.msg.gcms.domain.exception.NotFoundException
+import com.msg.gcms.domain.exception.ServerException
 import com.msg.gcms.domain.exception.UnauthorizedException
 import com.msg.gcms.domain.usecase.club.EditClubInfoUseCase
 import com.msg.gcms.domain.usecase.club.GetDetailUseCase
@@ -114,14 +115,16 @@ class EditViewModel @Inject constructor(
         queryString["name"] = name
         queryString["type"] = clubType.value.toString()
         viewModelScope.launch {
-            val response = getSearchUserUseCase(queryString)
-            when (response.code()) {
-                200 -> {
-                    _result.value = response.body()
-                    Log.d("TAG", "searchResult: ${_result.value}")
-                }
-                else -> {
-                    Log.d("TAG", "searchResult: ${response.body()} ")
+            getSearchUserUseCase(
+                queryString
+            ).onSuccess {
+                _result.value = it.body()
+                Log.d("TAG", "searchResult: ${_result.value}")
+            }.onFailure {
+                when(it) {
+                    is UnauthorizedException -> Log.d("TAG", "getSearchUser: $it")
+                    is ServerException -> Log.d("TAG", "getSearchUser: $it")
+                    else -> Log.d("TAG", "getSearchUser: $it")
                 }
             }
         }
