@@ -5,7 +5,7 @@
     <data>
         <variable
             name="afterSchoolItem"
-            type="com.msg.gcms.data.remote.dto.datasource.user.response.AftersData" />
+            type="com.msg.gcms.data.remote.dto.user.response.AftersData" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

@@ -3,7 +3,7 @@ package com.msg.gcms.ui.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.msg.gcms.data.remote.dto.datasource.user.response.AftersData
+import com.msg.gcms.data.remote.dto.user.response.AftersData
 import com.msg.gcms.databinding.ListAfterSchoolBinding
 
 class AfterSchoolListAdapter(private val itemList: List<AftersData>): RecyclerView.Adapter<AfterSchoolListAdapter.ViewHolder>() {

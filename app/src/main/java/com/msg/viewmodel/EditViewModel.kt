@@ -7,9 +7,9 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.msg.gcms.R
-import com.msg.gcms.data.remote.dto.datasource.club.request.ModifyClubInfoRequest
-import com.msg.gcms.data.remote.dto.datasource.club.response.ClubInfoResponse
-import com.msg.gcms.data.remote.dto.datasource.user.response.UserData
+import com.msg.gcms.data.remote.dto.club.request.ModifyClubInfoRequest
+import com.msg.gcms.data.remote.dto.club.response.ClubInfoResponse
+import com.msg.gcms.data.remote.dto.user.response.UserData
 import com.msg.gcms.domain.exception.BadRequestException
 import com.msg.gcms.domain.exception.ConflictException
 import com.msg.gcms.domain.exception.ForBiddenException
@@ -117,7 +117,8 @@ class EditViewModel @Inject constructor(
             getSearchUserUseCase(
                 queryString
             ).onSuccess {
-                _result.value = it.body()
+                //Todo(Leeyeonbin) 여기도 코드 다 수정하기
+                // _result.value = it.body()
                 Log.d("TAG", "searchResult: ${_result.value}")
             }.onFailure {
                 when (it) {
@@ -143,9 +144,11 @@ class EditViewModel @Inject constructor(
             imageUseCase(
                 list
             ).onSuccess {
-                Log.d("TAG", "uploadImage: ${it.body()}")
-                newPhotos = it.body()!!.toMutableList()
-                _convertImage.value = it.body()
+                //Todo(LeeHyeonbin) 여기 코드 다 수정하기
+                //Log.d("TAG", "uploadImage: ${it.body()}")
+                //newPhotos = it.body()!!.toMutableList()
+                //_convertImage.value = it.body()
+
             }.onFailure {
                 when (it) {
                     is BadRequestException -> Log.d("TAG", "uploadImage: $it")
@@ -174,8 +177,9 @@ class EditViewModel @Inject constructor(
             editClubInfoUseCase(
                 body = body
             ).onSuccess {
-                Log.d("TAG", "putChangeClubInfo: ${it.code()}")
-                _editClubResult.value = it.code()
+                //Todo(Leeyeonbin) 여기도 코드 다 수정하기
+                // Log.d("TAG", "putChangeClubInfo: ${it.code()}")
+                // _editClubResult.value = it.code()
             }.onFailure {
                 when (it) {
                     is BadRequestException -> Log.d("TAG", "putChangeClubInfo: $it")

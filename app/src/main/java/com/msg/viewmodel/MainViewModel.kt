@@ -5,7 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.msg.gcms.data.remote.dto.datasource.club.response.SummaryClubResponse
+import com.msg.gcms.data.remote.dto.club.response.SummaryClubResponse
 import com.msg.gcms.domain.exception.BadRequestException
 import com.msg.gcms.domain.exception.UnauthorizedException
 import com.msg.gcms.domain.usecase.club.GetClubListUseCase

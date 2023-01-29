@@ -5,7 +5,7 @@
 
         <variable
             name="editorialItem"
-            type="com.msg.gcms.data.remote.dto.datasource.user.response.ClubData" />
+            type="com.msg.gcms.data.remote.dto.user.response.ClubData" />
     </data>
 
     <LinearLayout

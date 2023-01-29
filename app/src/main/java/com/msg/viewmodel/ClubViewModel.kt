@@ -6,8 +6,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.msg.gcms.data.remote.dto.datasource.club.request.ClubIdentificationRequest
-import com.msg.gcms.data.remote.dto.datasource.user.request.UserDeleteRequest
+import com.msg.gcms.data.remote.dto.club.request.ClubIdentificationRequest
+import com.msg.gcms.data.remote.dto.user.request.UserDeleteRequest
 import com.msg.gcms.domain.exception.ConflictException
 import com.msg.gcms.domain.exception.ForBiddenException
 import com.msg.gcms.domain.exception.NotFoundException
@@ -45,7 +45,8 @@ class ClubViewModel @Inject constructor(
             postClubApplyUseCase(
                 ClubIdentificationRequest(type = type, q = q)
             ).onSuccess {
-                _getClubStatus.value = it.code()
+                //Todo(Leeyeonbin) 여기도 스테이터스로 예외하는거 다 수정하기
+                // _getClubStatus.value = it.code()
             }.onFailure {
                 when (it) {
                     is UnauthorizedException -> Log.d(TAG, "postClubApply: $it")
@@ -62,7 +63,8 @@ class ClubViewModel @Inject constructor(
             postClubCancelUseCase(
                 ClubIdentificationRequest(type = type, q = q)
             ).onSuccess {
-                _getClubStatus.value = it.code()
+                //Todo(Leeyeonbin) 여기 스테이터스로 예외하는거 수정
+                // _getClubStatus.value = it.code()
             }.onFailure {
                 when (it) {
                     is UnauthorizedException -> Log.d(TAG, "postClubCancel: $it")
@@ -78,7 +80,8 @@ class ClubViewModel @Inject constructor(
             putClubOpenUseCase(
                 ClubIdentificationRequest(type = type, q = q)
             ).onSuccess {
-                _getClubStatus.value = it.code()
+                //Todo(Leeyeonbin) 여기 스테이터스로 예외하는거 수정
+                // _getClubStatus.value = it.code()
             }.onFailure {
                 when (it) {
                     is UnauthorizedException -> Log.d(TAG, "putClubOpen: $it")
@@ -94,7 +97,8 @@ class ClubViewModel @Inject constructor(
             putClubCloseUseCase(
                 ClubIdentificationRequest(type = type, q = q)
             ).onSuccess {
-                _getClubStatus.value = it.code()
+                //Todo(Leeyeonbin) 여기 스테이터스로 예외하는거 수정
+                // _getClubStatus.value = it.code()
             }.onFailure {
                 when (it) {
                     is UnauthorizedException -> Log.d(TAG, "putClubClose: $it")
@@ -132,7 +136,8 @@ class ClubViewModel @Inject constructor(
             clubDeleteUseCase(
                 ClubIdentificationRequest(q = q, type = type)
             ).onSuccess {
-                Log.d(TAG, "deleteClub: ${it.code()}")
+                //Todo(Leeyeonbin) 여기 스테이터스로 예외하는거 수정
+                // Log.d(TAG, "deleteClub: ${it.code()}")
             }.onFailure {
                 when (it) {
                     is UnauthorizedException -> Log.d(TAG, "deleteClub: $it")

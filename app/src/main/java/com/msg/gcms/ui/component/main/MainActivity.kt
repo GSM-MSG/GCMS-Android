@@ -5,7 +5,7 @@ import androidx.activity.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.msg.gcms.R
-import com.msg.gcms.data.remote.dto.datasource.club.response.ClubInfoResponse
+import com.msg.gcms.data.remote.dto.club.response.ClubInfoResponse
 import com.msg.gcms.databinding.ActivityMainBinding
 import com.msg.gcms.ui.base.BaseActivity
 import com.msg.gcms.ui.component.club.detail.DetailFragment

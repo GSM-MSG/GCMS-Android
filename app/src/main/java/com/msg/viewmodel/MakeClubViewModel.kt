@@ -6,8 +6,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.msg.gcms.data.local.entity.ActivityPhotoType
-import com.msg.gcms.data.remote.dto.datasource.club.request.CreateClubRequest
-import com.msg.gcms.data.remote.dto.datasource.user.response.UserData
+import com.msg.gcms.data.remote.dto.club.request.CreateClubRequest
+import com.msg.gcms.data.remote.dto.user.response.UserData
 import com.msg.gcms.domain.exception.BadRequestException
 import com.msg.gcms.domain.exception.UnauthorizedException
 import com.msg.gcms.domain.usecase.club.PostCreateClubUseCase
@@ -74,7 +74,8 @@ class MakeClubViewModel @Inject constructor(
             getSearchUserUseCase(
                 queryString
             ).onSuccess {
-                _result.value = it.body()
+                //Todo(Leeyeonbin) 여기도 코드 다 수정하기
+                // _result.value = it.body()
                 Log.d("TAG", "searchResult: ${_result.value}")
             }.onFailure {
                 when (it) {
@@ -108,8 +109,9 @@ class MakeClubViewModel @Inject constructor(
             imageUseCase(
                 image = image
             ).onSuccess {
-                Log.d("TAG", "banner: ${it.body()}")
-                _bannerResult.value = it.body()?.get(0)
+                //Todo(Leeyeonbin) 여기도 코드 다 수정하기
+                // Log.d("TAG", "banner: ${it.body()}")
+                // _bannerResult.value = it.body()?.get(0)
                 _bannerUpload = true
                 imageUploadCheck()
             }.onFailure {
@@ -126,8 +128,9 @@ class MakeClubViewModel @Inject constructor(
             imageUseCase(
                 image = image
             ).onSuccess {
-                Log.d("TAG", "activityPhoto: ${it.body()}")
-                _activityPhotoResult.value = it.body()
+                //Todo(Leeyeonbin) 여기도 코드 다 수정하기
+                // Log.d("TAG", "activityPhoto: ${it.body()}")
+                // _activityPhotoResult.value = it.body()
                 _activityUpload = true
                 imageUploadCheck()
             }.onFailure {
@@ -164,7 +167,8 @@ class MakeClubViewModel @Inject constructor(
                 )
             ).onSuccess {
                 Log.d("TAG", "createClub: 성공")
-                _status.value = it.code()
+                //Todo(Leeyeonbin) 스테이터스로 예외되는거 수정하기
+                // _status.value = it.code()
                 _createResult.value = true
 
             }.onFailure {

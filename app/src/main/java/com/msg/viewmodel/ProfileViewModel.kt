@@ -5,14 +5,14 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.msg.gcms.data.remote.dto.datasource.user.request.UserProfileRequest
-import com.msg.gcms.data.remote.dto.datasource.user.response.UserInfoResponse
+import com.msg.gcms.data.remote.dto.user.request.UserProfileRequest
+import com.msg.gcms.data.remote.dto.user.response.UserInfoResponse
 import com.msg.gcms.domain.exception.BadRequestException
 import com.msg.gcms.domain.exception.NotFoundException
 import com.msg.gcms.domain.exception.UnauthorizedException
-import com.msg.gcms.domain.usecase.user.EditProfileUseCase
 import com.msg.gcms.domain.usecase.common.LogoutUseCase
 import com.msg.gcms.domain.usecase.image.ImageUseCase
+import com.msg.gcms.domain.usecase.user.EditProfileUseCase
 import com.msg.gcms.domain.usecase.user.GetUserInfoUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -41,9 +41,10 @@ class ProfileViewModel @Inject constructor(
     fun getUserInfo() {
         viewModelScope.launch {
             profileUseCase().onSuccess {
-                _profileData.value = it.body()
-                _clubStatus.value = it.body()?.clubs?.size != 0
-                _afterSchoolStatus.value = it.body()?.afterSchools?.size != 0
+                //Todo(Leeyeonbin) 여기도 코드 다 수정하기
+                // _profileData.value = it.body()
+                // _clubStatus.value = it.body()?.clubs?.size != 0
+                // _afterSchoolStatus.value = it.body()?.afterSchools?.size != 0
             }.onFailure {
                 _clubStatus.value = false
                 when (it) {
@@ -74,7 +75,8 @@ class ProfileViewModel @Inject constructor(
             imgUseCase(
                 image = listOf(img)
             ).onSuccess {
-                saveImg(it.body()!!.get(0))
+                //Todo(LeeHyeonbin) 여기도 수저하기
+                // saveImg(it.body()!!.get(0))
             }.onFailure {
                 when (it) {
                     is BadRequestException -> Log.d("TAG", "uploadImg: $it")

@@ -5,7 +5,7 @@
     <data>
         <variable
             name="member"
-            type="com.msg.gcms.data.remote.dto.datasource.club.response.MemberSummaryResponse" />
+            type="com.msg.gcms.data.remote.dto.club.response.MemberSummaryResponse" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

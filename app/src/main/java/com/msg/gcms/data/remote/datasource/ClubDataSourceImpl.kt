@@ -1,15 +1,15 @@
 package com.msg.gcms.data.remote.datasource
 
-import com.msg.gcms.data.remote.dto.datasource.club.request.ClubIdentificationRequest
-import com.msg.gcms.data.remote.dto.datasource.club.request.CreateClubRequest
-import com.msg.gcms.data.remote.dto.datasource.club.request.MemberManagementRequest
-import com.msg.gcms.data.remote.dto.datasource.club.request.ModifyClubInfoRequest
-import com.msg.gcms.data.remote.dto.datasource.club.response.ClubInfoResponse
-import com.msg.gcms.data.remote.dto.datasource.club.response.MemberInfo
-import com.msg.gcms.data.remote.dto.datasource.club.response.SummaryClubResponse
+import com.msg.gcms.data.remote.dto.club.request.ClubIdentificationRequest
+import com.msg.gcms.data.remote.dto.club.request.CreateClubRequest
+import com.msg.gcms.data.remote.dto.club.request.MemberManagementRequest
+import com.msg.gcms.data.remote.dto.club.request.ModifyClubInfoRequest
+import com.msg.gcms.data.remote.dto.club.response.ClubInfoResponse
+import com.msg.gcms.data.remote.dto.club.response.MemberInfo
+import com.msg.gcms.data.remote.dto.club.response.SummaryClubResponse
 import com.msg.gcms.data.remote.network.ClubAPI
 import com.msg.gcms.data.remote.util.GCMSApiHandler
-import retrofit2.Response
+import com.msg.gcms.domain.datasource.ClubDataSource
 import javax.inject.Inject
 
 class ClubDataSourceImpl @Inject constructor(
@@ -28,58 +28,85 @@ class ClubDataSourceImpl @Inject constructor(
             .sendRequest()
     }
 
-    override suspend fun postCreateClub(body: CreateClubRequest): Response<Void> {
-        return service.postCreateClub(body = body)
+    override suspend fun postCreateClub(body: CreateClubRequest) {
+        return GCMSApiHandler<Unit>()
+            .httpRequest { service.postCreateClub(body = body) }
+            .sendRequest()
     }
 
-    override suspend fun putChangeClub(body: ModifyClubInfoRequest): Response<Void> {
-        return service.putChangeClub(body = body)
+    override suspend fun putChangeClub(body: ModifyClubInfoRequest) {
+        return GCMSApiHandler<Unit>()
+            .httpRequest { service.putChangeClub(body = body)}
+            .sendRequest()
     }
 
-    override suspend fun deleteClub(body: ClubIdentificationRequest): Response<Void> {
-        return service.deleteClub(body = body)
+    override suspend fun deleteClub(body: ClubIdentificationRequest) {
+        return GCMSApiHandler<Unit>()
+            .httpRequest { service.deleteClub(body = body) }
+            .sendRequest()
     }
 
-    override suspend fun getMemberList(clubName: String, type: String): Response<MemberInfo> {
-        return service.getMemberList(clubName = clubName, type = type)
+    override suspend fun getMemberList(clubName: String, type: String): MemberInfo {
+        return GCMSApiHandler<MemberInfo>()
+            .httpRequest { service.getMemberList(clubName = clubName, type = type) }
+            .sendRequest()
     }
 
     override suspend fun getApplicantList(
         clubName: String,
         type: String
-    ): Response<MemberInfo> {
-        return service.getApplicantList(clubName = clubName, type = type)
+    ): MemberInfo {
+        return GCMSApiHandler<MemberInfo>()
+            .httpRequest { service.getApplicantList(clubName = clubName, type = type) }
+            .sendRequest()
     }
 
-    override suspend fun postApplicationAccept(body: MemberManagementRequest): Response<Void> {
-        return service.postApplicantAccept(body = body)
+    override suspend fun postApplicationAccept(body: MemberManagementRequest) {
+        return GCMSApiHandler<Unit>()
+            .httpRequest { service.postApplicantAccept(body = body) }
+            .sendRequest()
     }
 
-    override suspend fun postApplicationReject(body: MemberManagementRequest): Response<Void> {
-        return service.postApplicantReject(body = body)
+    override suspend fun postApplicationReject(body: MemberManagementRequest) {
+        return GCMSApiHandler<Unit>()
+            .httpRequest { service.postApplicantReject(body = body) }
+            .sendRequest()
     }
 
-    override suspend fun putClubOpen(body: ClubIdentificationRequest): Response<Void> {
-        return service.putClubOpen(body = body)
+    override suspend fun putClubOpen(body: ClubIdentificationRequest) {
+        return GCMSApiHandler<Unit>()
+            .httpRequest { service.putClubOpen(body = body) }
+            .sendRequest()
     }
 
-    override suspend fun putClubClose(body: ClubIdentificationRequest): Response<Void> {
-        return service.putClubClose(body = body)
+    override suspend fun putClubClose(body: ClubIdentificationRequest) {
+        return GCMSApiHandler<Unit>()
+            .httpRequest { service.putClubClose(body = body) }
+            .sendRequest()
+
     }
 
-    override suspend fun deleteMemberExpel(body: MemberManagementRequest): Response<Void> {
-        return service.deleteMemberExpel(body = body)
+    override suspend fun deleteMemberExpel(body: MemberManagementRequest) {
+        return GCMSApiHandler<Unit>()
+            .httpRequest { service.deleteMemberExpel(body = body) }
+            .sendRequest()
     }
 
-    override suspend fun postClubApply(body: ClubIdentificationRequest): Response<Void> {
-        return service.postClubApply(body = body)
+    override suspend fun postClubApply(body: ClubIdentificationRequest) {
+        return GCMSApiHandler<Unit>()
+            .httpRequest { service.postClubApply(body = body) }
+            .sendRequest()
     }
 
-    override suspend fun postClubCancel(body: ClubIdentificationRequest): Response<Void> {
-        return service.postClubCancel(body = body)
+    override suspend fun postClubCancel(body: ClubIdentificationRequest) {
+        return GCMSApiHandler<Unit>()
+            .httpRequest { service.postClubCancel(body = body) }
+            .sendRequest()
     }
 
-    override suspend fun putDelegationOfRepresentation(body: MemberManagementRequest): Response<Void> {
-        return service.putDelegationOfRepresentation(body = body)
+    override suspend fun putDelegationOfRepresentation(body: MemberManagementRequest) {
+        return GCMSApiHandler<Unit>()
+            .httpRequest { service.putDelegationOfRepresentation(body = body) }
+            .sendRequest()
     }
 }
