@@ -78,8 +78,8 @@ class EditViewModel @Inject constructor(
                     type = _clubType.value.toString(),
                     clubName = _clubName.value.toString()
                 ).onSuccess {
-                    _clubInfo.value = it.body()
-                    Log.d("TAG", "getClubInfo: ${it.body()}")
+                    _clubInfo.value = it
+                    Log.d("TAG", "getClubInfo: $it")
                     memberCheck()
 
                 }.onFailure {
