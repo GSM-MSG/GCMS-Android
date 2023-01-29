@@ -74,8 +74,7 @@ class MakeClubViewModel @Inject constructor(
             getSearchUserUseCase(
                 queryString
             ).onSuccess {
-                //Todo(Leeyeonbin) 여기도 코드 다 수정하기
-                // _result.value = it.body()
+                _result.value = it
                 Log.d("TAG", "searchResult: ${_result.value}")
             }.onFailure {
                 when (it) {
@@ -109,9 +108,8 @@ class MakeClubViewModel @Inject constructor(
             imageUseCase(
                 image = image
             ).onSuccess {
-                //Todo(Leeyeonbin) 여기도 코드 다 수정하기
-                // Log.d("TAG", "banner: ${it.body()}")
-                // _bannerResult.value = it.body()?.get(0)
+                Log.d("TAG", "banner: $it")
+                _bannerResult.value = it[0]
                 _bannerUpload = true
                 imageUploadCheck()
             }.onFailure {
@@ -128,9 +126,8 @@ class MakeClubViewModel @Inject constructor(
             imageUseCase(
                 image = image
             ).onSuccess {
-                //Todo(Leeyeonbin) 여기도 코드 다 수정하기
-                // Log.d("TAG", "activityPhoto: ${it.body()}")
-                // _activityPhotoResult.value = it.body()
+                Log.d("TAG", "activityPhoto: $it")
+                _activityPhotoResult.value = it
                 _activityUpload = true
                 imageUploadCheck()
             }.onFailure {
