@@ -69,28 +69,24 @@ class EditViewModel @Inject constructor(
 
     fun getClubInfo() {
         viewModelScope.launch {
-            try {
-                Log.d(
-                    "TAG",
-                    "getClubInfo: ${_clubType.value.toString()}, ${_clubName.value.toString()}"
-                )
-                getDetailUseCase(
-                    type = _clubType.value.toString(),
-                    clubName = _clubName.value.toString()
-                ).onSuccess {
-                    _clubInfo.value = it
-                    Log.d("TAG", "getClubInfo: $it")
-                    memberCheck()
+            Log.d(
+                "TAG",
+                "getClubInfo: ${_clubType.value.toString()}, ${_clubName.value.toString()}"
+            )
+            getDetailUseCase(
+                type = _clubType.value.toString(),
+                clubName = _clubName.value.toString()
+            ).onSuccess {
+                _clubInfo.value = it
+                Log.d("TAG", "getClubInfo: $it")
+                memberCheck()
 
-                }.onFailure {
-                    when (it) {
-                        is UnauthorizedException -> Log.d("TAG", "getClubInfo: $it")
-                        is NotFoundException -> Log.d("TAG", "getClubInfo: $it")
-                        else -> Log.d("TAG", "getClubInfo: $it")
-                    }
+            }.onFailure {
+                when (it) {
+                    is UnauthorizedException -> Log.d("TAG", "getClubInfo: $it")
+                    is NotFoundException -> Log.d("TAG", "getClubInfo: $it")
+                    else -> Log.d("TAG", "getClubInfo: $it")
                 }
-            } catch (e: Exception) {
-                e.printStackTrace()
             }
         }
     }
@@ -144,23 +140,19 @@ class EditViewModel @Inject constructor(
     fun uploadImage(list: List<MultipartBody.Part>) {
         Log.d("TAG", "uploadImage")
         viewModelScope.launch {
-            try {
-                imageUseCase(
-                    list
-                ).onSuccess {
-                    Log.d("TAG", "uploadImage: ${it.body()}")
-                    newPhotos = it.body()!!.toMutableList()
-                    _convertImage.value = it.body()
-                }.onFailure {
-                    when (it) {
-                        is BadRequestException -> Log.d("TAG", "uploadImage: $it")
-                        else -> {
-                            Log.e("TAG", "uploadImage: $it")
-                        }
+            imageUseCase(
+                list
+            ).onSuccess {
+                Log.d("TAG", "uploadImage: ${it.body()}")
+                newPhotos = it.body()!!.toMutableList()
+                _convertImage.value = it.body()
+            }.onFailure {
+                when (it) {
+                    is BadRequestException -> Log.d("TAG", "uploadImage: $it")
+                    else -> {
+                        Log.e("TAG", "uploadImage: $it")
                     }
                 }
-            } catch (e: Exception) {
-                e.printStackTrace()
             }
         }
     }
@@ -179,28 +171,24 @@ class EditViewModel @Inject constructor(
 
     fun putChangeClubInfo(body: ModifyClubInfoRequest) {
         viewModelScope.launch {
-            try {
-                editClubInfoUseCase(
-                    body = body
-                ).onSuccess {
-                    Log.d("TAG", "putChangeClubInfo: ${it.code()}")
-                    _editClubResult.value = it.code()
-                }.onFailure {
-                    when (it) {
-                        is BadRequestException -> Log.d("TAG", "putChangeClubInfo: $it")
-                        is UnauthorizedException -> Log.d("TAG", "putChangeClubInfo: $it")
-                        is ForBiddenException -> Log.d("TAG", "putChangeClubInfo: $it")
-                        is NotFoundException -> Log.d("TAG", "putChangeClubInfo: $it")
-                        is ConflictException -> Log.d("TAG", "putChangeClubInfo: $it")
-                        else -> {
-                            Log.d("TAG", "putChangeClubInfo: $it")
-                            // Todo(LeeHyeonbin) presentation 에서 Status 로 이벤트 되는거 수정하기
-                            // _editClubResult.value = it
-                        }
+            editClubInfoUseCase(
+                body = body
+            ).onSuccess {
+                Log.d("TAG", "putChangeClubInfo: ${it.code()}")
+                _editClubResult.value = it.code()
+            }.onFailure {
+                when (it) {
+                    is BadRequestException -> Log.d("TAG", "putChangeClubInfo: $it")
+                    is UnauthorizedException -> Log.d("TAG", "putChangeClubInfo: $it")
+                    is ForBiddenException -> Log.d("TAG", "putChangeClubInfo: $it")
+                    is NotFoundException -> Log.d("TAG", "putChangeClubInfo: $it")
+                    is ConflictException -> Log.d("TAG", "putChangeClubInfo: $it")
+                    else -> {
+                        Log.d("TAG", "putChangeClubInfo: $it")
+                        // Todo(LeeHyeonbin) presentation 에서 Status 로 이벤트 되는거 수정하기
+                        // _editClubResult.value = it
                     }
                 }
-            } catch (e: Exception) {
-                e.printStackTrace()
             }
         }
     }

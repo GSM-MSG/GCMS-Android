@@ -71,7 +71,9 @@ class MakeClubViewModel @Inject constructor(
         queryString["name"] = name
         queryString["type"] = clubType.value.toString()
         viewModelScope.launch {
-            getSearchUserUseCase(queryString).onSuccess {
+            getSearchUserUseCase(
+                queryString
+            ).onSuccess {
                 _result.value = it.body()
                 Log.d("TAG", "searchResult: ${_result.value}")
             }.onFailure {

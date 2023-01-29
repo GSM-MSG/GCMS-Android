@@ -25,7 +25,7 @@ class ProfileViewModel @Inject constructor(
     private val logoutUseCase: LogoutUseCase,
     private val imgUseCase: ImageUseCase,
     private val editProfileUseCase: EditProfileUseCase
-): ViewModel() {
+) : ViewModel() {
     private val _clubStatus = MutableLiveData<Boolean>()
     val clubStatus: LiveData<Boolean> get() = _clubStatus
 
@@ -40,69 +40,53 @@ class ProfileViewModel @Inject constructor(
 
     fun getUserInfo() {
         viewModelScope.launch {
-            try {
-                profileUseCase().onSuccess {
-                    _profileData.value = it.body()
-                    _clubStatus.value = it.body()?.clubs?.size != 0
-                    _afterSchoolStatus.value = it.body()?.afterSchools?.size != 0
-                }.onFailure {
-                    _clubStatus.value = false
-                    when(it) {
-                        is UnauthorizedException -> Log.d("TAG", "getUserInfo: $it")
-                        is NotFoundException -> Log.d("TAG", "getUserInfo: $it")
-                        else -> Log.d("TAG", "getUserInfo: $it")
-                    }
+            profileUseCase().onSuccess {
+                _profileData.value = it.body()
+                _clubStatus.value = it.body()?.clubs?.size != 0
+                _afterSchoolStatus.value = it.body()?.afterSchools?.size != 0
+            }.onFailure {
+                _clubStatus.value = false
+                when (it) {
+                    is UnauthorizedException -> Log.d("TAG", "getUserInfo: $it")
+                    is NotFoundException -> Log.d("TAG", "getUserInfo: $it")
+                    else -> Log.d("TAG", "getUserInfo: $it")
                 }
-            } catch (e: Exception){
-                Log.d("ERROR", "getUserInfo: ${e.message}")
             }
         }
     }
 
-    fun logout(){
+    fun logout() {
         viewModelScope.launch {
-            try {
-                logoutUseCase().onSuccess {
-                    _logoutStatus.value = true
-                }.onFailure {
-                    when (it) {
-                        is UnauthorizedException -> Log.d("TAG", "logout: $it")
-                        is NotFoundException -> Log.d("TAG", "logout: $it")
-                        else -> Log.d("TAG", "logout: $it")
-                    }
+            logoutUseCase().onSuccess {
+                _logoutStatus.value = true
+            }.onFailure {
+                when (it) {
+                    is UnauthorizedException -> Log.d("TAG", "logout: $it")
+                    is NotFoundException -> Log.d("TAG", "logout: $it")
+                    else -> Log.d("TAG", "logout: $it")
                 }
-            } catch (e: Exception) {
-                Log.d("TAG", "logout: ${e.message}")
             }
         }
     }
 
     fun uploadImg(img: MultipartBody.Part) {
         viewModelScope.launch {
-            try {
-                imgUseCase(
-                    image = listOf(img)
-                ).onSuccess {
-                    saveImg(it.body()!!.get(0))
-                }.onFailure {
-                    when (it) {
-                        is BadRequestException -> Log.d("TAG", "uploadImg: $it")
-                        else -> Log.d("TAG", "uploadImg: $it")
-                    }
+            imgUseCase(
+                image = listOf(img)
+            ).onSuccess {
+                saveImg(it.body()!!.get(0))
+            }.onFailure {
+                when (it) {
+                    is BadRequestException -> Log.d("TAG", "uploadImg: $it")
+                    else -> Log.d("TAG", "uploadImg: $it")
                 }
-            } catch (e: Exception) {
-                e.printStackTrace()
             }
         }
     }
 
     fun saveImg(img: String) {
         viewModelScope.launch {
-            try {
-                val response = editProfileUseCase(UserProfileRequest(img))
-            } catch (e: Exception) {
-                e.printStackTrace()
-            }
+            val response = editProfileUseCase(UserProfileRequest(img))
         }
     }
 }

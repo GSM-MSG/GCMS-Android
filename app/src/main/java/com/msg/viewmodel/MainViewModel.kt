@@ -34,25 +34,21 @@ class MainViewModel @Inject constructor(
 
     fun getClubList() {
         viewModelScope.launch {
-            try {
-                getClubListUseCase(
-                    when (clubName.value) {
-                        "전공동아리" -> "MAJOR"
-                        "자율동아리" -> "FREEDOM"
-                        "사설동아리" -> "EDITORIAL"
-                        else -> "MAJOR"
-                    }
-                ).onSuccess {
-                    _clubData.value = it
-                }.onFailure {
-                    when (it) {
-                        is BadRequestException -> Log.d("TAG", "getClubList: $it")
-                        is UnauthorizedException -> Log.d("TAG", "getClubList: $it")
-                        else -> Log.d("TAG", "getClubList: $it")
-                    }
+            getClubListUseCase(
+                when (clubName.value) {
+                    "전공동아리" -> "MAJOR"
+                    "자율동아리" -> "FREEDOM"
+                    "사설동아리" -> "EDITORIAL"
+                    else -> "MAJOR"
                 }
-            } catch (e: Exception) {
-                Log.d("ERROR", "getClubList: ${e.message}")
+            ).onSuccess {
+                _clubData.value = it
+            }.onFailure {
+                when (it) {
+                    is BadRequestException -> Log.d("TAG", "getClubList: $it")
+                    is UnauthorizedException -> Log.d("TAG", "getClubList: $it")
+                    else -> Log.d("TAG", "getClubList: $it")
+                }
             }
         }
     }
