@@ -49,7 +49,7 @@ class NotAcceptableException(
  * Http Status가 408번 일 때 사용
  */
 class TimeOutException(
-    override val message: String?,
+    override val message: String?
 ) : RuntimeException()
 
 
@@ -58,7 +58,7 @@ class TimeOutException(
  * Http Status 가 409일 때 사용
  * */
 class ConflictException(
-    override val message: String?,
+    override val message: String?
 ) : RuntimeException()
 
 
@@ -67,7 +67,7 @@ class ConflictException(
  * Http Status 가 50X일 때 사용
  */
 class ServerException(
-    override val message: String?,
+    override val message: String?
 ) : RuntimeException()
 
 
@@ -76,7 +76,13 @@ class ServerException(
  */
 class OtherHttpException(
     val code: Int,
-    override val message: String?,
+    override val message: String?
+) : RuntimeException()
+
+
+class UnKnownException(
+    val code: Int,
+    override val message: String?
 ) : RuntimeException()
 
 
