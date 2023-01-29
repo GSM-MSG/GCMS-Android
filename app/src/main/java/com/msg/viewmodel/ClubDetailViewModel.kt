@@ -40,8 +40,8 @@ class ClubDetailViewModel @Inject constructor(
                 getDetailUseCase(
                     type, q
                 ).onSuccess {
-                    _getDetailStatus.value = it.code()
-                    _result.value = it.body()
+                    // _getDetailStatus.value = it.code()
+                    _result.value = it
                 }.onFailure {
                     when (it) {
                         is BadRequestException -> Log.d(TAG, "getDetail: $it")
