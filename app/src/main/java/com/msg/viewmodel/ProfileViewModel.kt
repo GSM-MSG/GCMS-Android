@@ -41,10 +41,9 @@ class ProfileViewModel @Inject constructor(
     fun getUserInfo() {
         viewModelScope.launch {
             profileUseCase().onSuccess {
-                //Todo(Leeyeonbin) 여기도 코드 다 수정하기
-                // _profileData.value = it.body()
-                // _clubStatus.value = it.body()?.clubs?.size != 0
-                // _afterSchoolStatus.value = it.body()?.afterSchools?.size != 0
+                _profileData.value = it
+                _clubStatus.value = it.clubs.isNotEmpty()
+                _afterSchoolStatus.value = it.afterSchools.isNotEmpty()
             }.onFailure {
                 _clubStatus.value = false
                 when (it) {
@@ -75,8 +74,7 @@ class ProfileViewModel @Inject constructor(
             imgUseCase(
                 image = listOf(img)
             ).onSuccess {
-                //Todo(LeeHyeonbin) 여기도 수저하기
-                // saveImg(it.body()!!.get(0))
+                saveImg(it[0])
             }.onFailure {
                 when (it) {
                     is BadRequestException -> Log.d("TAG", "uploadImg: $it")
