@@ -39,6 +39,7 @@ class ClubDetailViewModel @Inject constructor(
                 getDetailUseCase(
                     type, q
                 ).onSuccess {
+                    // Todo(LeeHyeonbin) code 지우기
                     // _getDetailStatus.value = it.code()
                     _result.value = it
                 }.onFailure {

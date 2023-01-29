@@ -117,8 +117,7 @@ class EditViewModel @Inject constructor(
             getSearchUserUseCase(
                 queryString
             ).onSuccess {
-                //Todo(Leeyeonbin) 여기도 코드 다 수정하기
-                // _result.value = it.body()
+                _result.value = it
                 Log.d("TAG", "searchResult: ${_result.value}")
             }.onFailure {
                 when (it) {
@@ -144,10 +143,9 @@ class EditViewModel @Inject constructor(
             imageUseCase(
                 list
             ).onSuccess {
-                //Todo(LeeHyeonbin) 여기 코드 다 수정하기
-                //Log.d("TAG", "uploadImage: ${it.body()}")
-                //newPhotos = it.body()!!.toMutableList()
-                //_convertImage.value = it.body()
+                Log.d("TAG", "uploadImage: $it")
+                newPhotos = it.toMutableList()
+                _convertImage.value = it
 
             }.onFailure {
                 when (it) {
@@ -189,7 +187,6 @@ class EditViewModel @Inject constructor(
                     is ConflictException -> Log.d("TAG", "putChangeClubInfo: $it")
                     else -> {
                         Log.d("TAG", "putChangeClubInfo: $it")
-                        // Todo(LeeHyeonbin) presentation 에서 Status 로 이벤트 되는거 수정하기
                         // _editClubResult.value = it
                     }
                 }
