@@ -56,7 +56,7 @@ class MemberManageViewModel @Inject constructor(
                 type = _clubType.value!!
             ).onSuccess {
                 //Todo(Leeyeonbin) 여기 코드 다 수정하기
-                // _memberList.value = it.body()!!.requestUser
+                _memberList.value = it.requestUser
                 // _status.value = it.code()
             }.onFailure {
                 when (it) {
@@ -75,7 +75,7 @@ class MemberManageViewModel @Inject constructor(
                 type = _clubType.value!!
             ).onSuccess {
                 //Todo(Leeyeonbin) 여기 코드 다 수정하기
-                // _applicantList.value = it.body()!!.requestUser
+                _applicantList.value = it.requestUser
                 // _status.value = it.code()
             }.onFailure {
                 when (it) {
