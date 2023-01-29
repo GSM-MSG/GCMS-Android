@@ -3,13 +3,18 @@ package com.msg.gcms.data.remote.util
 import com.msg.gcms.domain.exception.BadRequestException
 import com.msg.gcms.domain.exception.ConflictException
 import com.msg.gcms.domain.exception.ForBiddenException
+import com.msg.gcms.domain.exception.NoInternetException
 import com.msg.gcms.domain.exception.NotFoundException
 import com.msg.gcms.domain.exception.OtherHttpException
 import com.msg.gcms.domain.exception.ServerException
+import com.msg.gcms.domain.exception.TimeOutException
+import com.msg.gcms.domain.exception.UnKnownException
 import com.msg.gcms.domain.exception.UnauthorizedException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import retrofit2.HttpException
+import java.net.SocketTimeoutException
+import java.net.UnknownHostException
 
 suspend inline fun <T> gcmsApiHandler(
     crossinline function: suspend () -> T
@@ -44,5 +49,11 @@ suspend inline fun <T> gcmsApiHandler(
                 code = e.code()
             )
         }
+    } catch (e: SocketTimeoutException) {
+        throw TimeOutException(message = e.message)
+    } catch (e: UnknownHostException) {
+        throw NoInternetException()
+    } catch (e: Exception) {
+        throw UnKnownException(message = e.message)
     }
 }
