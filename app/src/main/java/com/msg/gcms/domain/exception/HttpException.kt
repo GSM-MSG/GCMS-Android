@@ -81,7 +81,6 @@ class OtherHttpException(
 
 
 class UnKnownException(
-    val code: Int,
     override val message: String?
 ) : RuntimeException()
 
