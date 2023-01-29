@@ -8,18 +8,24 @@ import com.msg.gcms.data.remote.dto.datasource.club.response.ClubInfoResponse
 import com.msg.gcms.data.remote.dto.datasource.club.response.MemberInfo
 import com.msg.gcms.data.remote.dto.datasource.club.response.SummaryClubResponse
 import com.msg.gcms.data.remote.network.ClubAPI
+import com.msg.gcms.data.remote.util.GCMSApiHandler
 import retrofit2.Response
 import javax.inject.Inject
 
 class ClubDataSourceImpl @Inject constructor(
-    private val service : ClubAPI
-) :  ClubDataSource {
-    override suspend fun getClubList(type: String): Response<List<SummaryClubResponse>> {
-        return service.getClubList(type = type)
+    private val service: ClubAPI
+) : ClubDataSource {
+
+    override suspend fun getClubList(type: String): List<SummaryClubResponse> {
+        return GCMSApiHandler<List<SummaryClubResponse>>()
+            .httpRequest { service.getClubList(type = type) }
+            .sendRequest()
     }
 
-    override suspend fun getDetail(type: String, clubName: String): Response<ClubInfoResponse> {
-        return service.getDetail(type = type, clubName = clubName)
+    override suspend fun getDetail(type: String, clubName: String): ClubInfoResponse {
+        return GCMSApiHandler<ClubInfoResponse>()
+            .httpRequest { service.getDetail(type = type, clubName = clubName) }
+            .sendRequest()
     }
 
     override suspend fun postCreateClub(body: CreateClubRequest): Response<Void> {
@@ -35,7 +41,7 @@ class ClubDataSourceImpl @Inject constructor(
     }
 
     override suspend fun getMemberList(clubName: String, type: String): Response<MemberInfo> {
-        return service.getMemberList(clubName = clubName, type= type)
+        return service.getMemberList(clubName = clubName, type = type)
     }
 
     override suspend fun getApplicantList(
@@ -46,7 +52,7 @@ class ClubDataSourceImpl @Inject constructor(
     }
 
     override suspend fun postApplicationAccept(body: MemberManagementRequest): Response<Void> {
-        return service.postApplicantAccept(body= body)
+        return service.postApplicantAccept(body = body)
     }
 
     override suspend fun postApplicationReject(body: MemberManagementRequest): Response<Void> {

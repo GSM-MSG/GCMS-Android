@@ -19,13 +19,13 @@ interface ClubAPI {
     @GET("club/list")
     suspend fun getClubList(
         @Query("type") type: String
-    ): Response<List<SummaryClubResponse>>
+    ): List<SummaryClubResponse>
 
     @GET("club/detail")
     suspend fun getDetail(
         @Query("type") type: String,
         @Query("q") clubName: String
-    ): Response<ClubInfoResponse>
+    ): ClubInfoResponse
 
     @POST("club/")
     suspend fun postCreateClub(

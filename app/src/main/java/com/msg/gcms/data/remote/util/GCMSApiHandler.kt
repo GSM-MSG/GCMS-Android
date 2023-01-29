@@ -1,6 +1,15 @@
 package com.msg.gcms.data.remote.util
 
-import com.msg.gcms.domain.exception.*
+import com.msg.gcms.domain.exception.BadRequestException
+import com.msg.gcms.domain.exception.ConflictException
+import com.msg.gcms.domain.exception.ForBiddenException
+import com.msg.gcms.domain.exception.NoInternetException
+import com.msg.gcms.domain.exception.NotFoundException
+import com.msg.gcms.domain.exception.OtherHttpException
+import com.msg.gcms.domain.exception.ServerException
+import com.msg.gcms.domain.exception.TimeOutException
+import com.msg.gcms.domain.exception.UnKnownException
+import com.msg.gcms.domain.exception.UnauthorizedException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import retrofit2.HttpException
@@ -8,12 +17,15 @@ import java.net.SocketTimeoutException
 import java.net.UnknownHostException
 
 class GCMSApiHandler<T> {
-    suspend inline fun invoke(
-        crossinline function: suspend () -> T
-    ): T {
+    private lateinit var httpRequest: suspend () -> T
+
+    fun httpRequest(httpRequest: suspend () -> T) =
+        this.apply { this.httpRequest = httpRequest }
+
+    suspend fun sendRequest(): T {
         return try {
             withContext(Dispatchers.IO) {
-                function.invoke()
+                httpRequest.invoke()
             }
         } catch (e: HttpException) {
             val message = e.message
