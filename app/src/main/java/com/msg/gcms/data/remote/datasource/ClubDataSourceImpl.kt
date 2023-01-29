@@ -28,20 +28,20 @@ class ClubDataSourceImpl @Inject constructor(
             .sendRequest()
     }
 
-    override suspend fun postCreateClub(body: CreateClubRequest): Void {
-        return GCMSApiHandler<Void>()
+    override suspend fun postCreateClub(body: CreateClubRequest) {
+        return GCMSApiHandler<Unit>()
             .httpRequest { service.postCreateClub(body = body) }
             .sendRequest()
     }
 
-    override suspend fun putChangeClub(body: ModifyClubInfoRequest): Void {
-        return GCMSApiHandler<Void>()
+    override suspend fun putChangeClub(body: ModifyClubInfoRequest) {
+        return GCMSApiHandler<Unit>()
             .httpRequest { service.putChangeClub(body = body)}
             .sendRequest()
     }
 
-    override suspend fun deleteClub(body: ClubIdentificationRequest): Void {
-        return GCMSApiHandler<Void>()
+    override suspend fun deleteClub(body: ClubIdentificationRequest) {
+        return GCMSApiHandler<Unit>()
             .httpRequest { service.deleteClub(body = body) }
             .sendRequest()
     }
@@ -61,51 +61,51 @@ class ClubDataSourceImpl @Inject constructor(
             .sendRequest()
     }
 
-    override suspend fun postApplicationAccept(body: MemberManagementRequest): Void {
-        return GCMSApiHandler<Void>()
+    override suspend fun postApplicationAccept(body: MemberManagementRequest) {
+        return GCMSApiHandler<Unit>()
             .httpRequest { service.postApplicantAccept(body = body) }
             .sendRequest()
     }
 
-    override suspend fun postApplicationReject(body: MemberManagementRequest): Void {
-        return GCMSApiHandler<Void>()
+    override suspend fun postApplicationReject(body: MemberManagementRequest) {
+        return GCMSApiHandler<Unit>()
             .httpRequest { service.postApplicantReject(body = body) }
             .sendRequest()
     }
 
-    override suspend fun putClubOpen(body: ClubIdentificationRequest): Void {
-        return GCMSApiHandler<Void>()
+    override suspend fun putClubOpen(body: ClubIdentificationRequest) {
+        return GCMSApiHandler<Unit>()
             .httpRequest { service.putClubOpen(body = body) }
             .sendRequest()
     }
 
-    override suspend fun putClubClose(body: ClubIdentificationRequest): Void {
-        return GCMSApiHandler<Void>()
+    override suspend fun putClubClose(body: ClubIdentificationRequest) {
+        return GCMSApiHandler<Unit>()
             .httpRequest { service.putClubClose(body = body) }
             .sendRequest()
 
     }
 
-    override suspend fun deleteMemberExpel(body: MemberManagementRequest): Void {
-        return GCMSApiHandler<Void>()
+    override suspend fun deleteMemberExpel(body: MemberManagementRequest) {
+        return GCMSApiHandler<Unit>()
             .httpRequest { service.deleteMemberExpel(body = body) }
             .sendRequest()
     }
 
-    override suspend fun postClubApply(body: ClubIdentificationRequest): Void {
-        return GCMSApiHandler<Void>()
+    override suspend fun postClubApply(body: ClubIdentificationRequest) {
+        return GCMSApiHandler<Unit>()
             .httpRequest { service.postClubApply(body = body) }
             .sendRequest()
     }
 
-    override suspend fun postClubCancel(body: ClubIdentificationRequest): Void {
-        return GCMSApiHandler<Void>()
+    override suspend fun postClubCancel(body: ClubIdentificationRequest) {
+        return GCMSApiHandler<Unit>()
             .httpRequest { service.postClubCancel(body = body) }
             .sendRequest()
     }
 
-    override suspend fun putDelegationOfRepresentation(body: MemberManagementRequest): Void {
-        return GCMSApiHandler<Void>()
+    override suspend fun putDelegationOfRepresentation(body: MemberManagementRequest) {
+        return GCMSApiHandler<Unit>()
             .httpRequest { service.putDelegationOfRepresentation(body = body) }
             .sendRequest()
     }

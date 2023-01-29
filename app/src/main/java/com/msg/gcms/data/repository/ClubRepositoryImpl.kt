@@ -22,15 +22,15 @@ class ClubRepositoryImpl @Inject constructor(
         return dataSource.getDetail(type = type, clubName = clubName)
     }
 
-    override suspend fun postCreateClub(body: CreateClubRequest): Void {
+    override suspend fun postCreateClub(body: CreateClubRequest) {
         return dataSource.postCreateClub(body = body)
     }
 
-    override suspend fun putChangeClub(body: ModifyClubInfoRequest): Void {
+    override suspend fun putChangeClub(body: ModifyClubInfoRequest) {
         return dataSource.putChangeClub(body = body)
     }
 
-    override suspend fun deleteClub(body: ClubIdentificationRequest): Void {
+    override suspend fun deleteClub(body: ClubIdentificationRequest) {
         return dataSource.deleteClub(body = body)
     }
 
@@ -45,35 +45,35 @@ class ClubRepositoryImpl @Inject constructor(
         return dataSource.getApplicantList(clubName = clubName, type = type)
     }
 
-    override suspend fun postApplicationAccept(body: MemberManagementRequest): Void {
+    override suspend fun postApplicationAccept(body: MemberManagementRequest) {
         return dataSource.postApplicationAccept(body = body)
     }
 
-    override suspend fun postApplicationReject(body: MemberManagementRequest): Void {
+    override suspend fun postApplicationReject(body: MemberManagementRequest) {
         return dataSource.postApplicationReject(body = body)
     }
 
-    override suspend fun putClubOpen(body: ClubIdentificationRequest): Void{
+    override suspend fun putClubOpen(body: ClubIdentificationRequest) {
         return dataSource.putClubOpen(body = body)
     }
 
-    override suspend fun putClubClose(body: ClubIdentificationRequest): Void{
+    override suspend fun putClubClose(body: ClubIdentificationRequest) {
         return dataSource.putClubClose(body = body)
     }
 
-    override suspend fun deleteMemberExpel(body: MemberManagementRequest): Void {
+    override suspend fun deleteMemberExpel(body: MemberManagementRequest) {
         return dataSource.deleteMemberExpel(body = body)
     }
 
-    override suspend fun postClubApply(body: ClubIdentificationRequest): Void {
+    override suspend fun postClubApply(body: ClubIdentificationRequest) {
         return dataSource.postClubApply(body = body)
     }
 
-    override suspend fun postClubCancel(body: ClubIdentificationRequest): Void {
+    override suspend fun postClubCancel(body: ClubIdentificationRequest) {
         return dataSource.postClubCancel(body = body)
     }
 
-    override suspend fun putDelegationOfRepresentation(body: MemberManagementRequest): Void {
+    override suspend fun putDelegationOfRepresentation(body: MemberManagementRequest) {
         return dataSource.putDelegationOfRepresentation(body = body)
     }
 }

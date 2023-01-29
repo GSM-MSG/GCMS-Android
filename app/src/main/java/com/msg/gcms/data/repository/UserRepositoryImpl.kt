@@ -17,7 +17,7 @@ class UserRepositoryImpl @Inject constructor(
 
     override suspend fun putProfile(
         body: UserProfileRequest
-    ): Void {
+    ) {
         return dataSource.putProfile(body)
     }
 
@@ -25,11 +25,11 @@ class UserRepositoryImpl @Inject constructor(
         return dataSource.getUserSearch(QueryString)
     }
 
-    override suspend fun postExit(body: UserDeleteRequest): Void {
+    override suspend fun postExit(body: UserDeleteRequest) {
         return dataSource.postExit(body)
     }
 
-    override suspend fun deleteUser(): Void {
+    override suspend fun deleteUser() {
         return dataSource.deleteUser()
     }
 }

@@ -20,8 +20,8 @@ class UserDataSourceImpl @Inject constructor(
 
     override suspend fun putProfile(
         body: UserProfileRequest
-    ): Void {
-        return GCMSApiHandler<Void>()
+    ) {
+        return GCMSApiHandler<Unit>()
             .httpRequest { service.putProfile(body) }
             .sendRequest()
     }
@@ -32,14 +32,14 @@ class UserDataSourceImpl @Inject constructor(
             .sendRequest()
     }
 
-    override suspend fun postExit(body: UserDeleteRequest): Void {
-        return GCMSApiHandler<Void>()
+    override suspend fun postExit(body: UserDeleteRequest) {
+        return GCMSApiHandler<Unit>()
             .httpRequest { service.postExit(body) }
             .sendRequest()
     }
 
-    override suspend fun deleteUser(): Void {
-        return GCMSApiHandler<Void>()
+    override suspend fun deleteUser() {
+        return GCMSApiHandler<Unit>()
             .httpRequest { service.deleteUser() }
             .sendRequest()
     }

@@ -18,20 +18,20 @@ class CommonDataSourceImpl @Inject constructor(
         }.sendRequest()
     }
 
-    override suspend fun postEmail(body: CodeIssuanceRequest): Void {
-        return GCMSApiHandler<Void>()
+    override suspend fun postEmail(body: CodeIssuanceRequest) {
+        return GCMSApiHandler<Unit>()
             .httpRequest { service.postEmail(body) }
             .sendRequest()
     }
 
-    override suspend fun headCheckCode(email: String, code: String): Void {
-        return GCMSApiHandler<Void>()
+    override suspend fun headCheckCode(email: String, code: String) {
+        return GCMSApiHandler<Unit>()
             .httpRequest { service.headCheckCode(email, code) }
             .sendRequest()
     }
 
-    override suspend fun postLogout(): Void {
-        return GCMSApiHandler<Void>()
+    override suspend fun postLogout() {
+        return GCMSApiHandler<Unit>()
             .httpRequest { service.postLogout() }
             .sendRequest()
     }

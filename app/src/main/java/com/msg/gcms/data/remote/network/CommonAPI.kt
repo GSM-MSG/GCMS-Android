@@ -16,16 +16,16 @@ interface CommonAPI {
     @POST("auth/verify")
     suspend fun postEmail(
         @Body body: CodeIssuanceRequest
-    ): Void
+    )
 
     @HEAD("auth/verify")
     suspend fun headCheckCode(
         @Query("email") email: String,
         @Query("code") code: String
-    ): Void
+    )
 
     @POST("auth/logout")
-    suspend fun postLogout(): Void
+    suspend fun postLogout()
 
     @POST("auth/refresh")
     suspend fun postRefresh(

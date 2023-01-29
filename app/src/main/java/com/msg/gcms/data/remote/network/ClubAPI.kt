@@ -29,17 +29,17 @@ interface ClubAPI {
     @POST("club/")
     suspend fun postCreateClub(
         @Body body: CreateClubRequest
-    ): Void
+    )
 
     @PUT("club/")
     suspend fun putChangeClub(
         @Body body: ModifyClubInfoRequest
-    ): Void
+    )
 
     @POST("club/delete")
     suspend fun deleteClub(
         @Body body: ClubIdentificationRequest
-    ): Void
+    )
 
     @GET("club/members")
     suspend fun getMemberList(
@@ -56,40 +56,40 @@ interface ClubAPI {
     @POST("club/accept")
     suspend fun postApplicantAccept(
         @Body body: MemberManagementRequest
-    ): Void
+    )
 
     @POST("club/reject")
     suspend fun postApplicantReject(
         @Body body: MemberManagementRequest
-    ): Void
+    )
 
     @PUT("club/open")
     suspend fun putClubOpen(
         @Body body: ClubIdentificationRequest
-    ): Void
+    )
 
     @PUT("club/close")
     suspend fun putClubClose(
         @Body body: ClubIdentificationRequest
-    ): Void
+    )
 
     @POST("club/kick")
     suspend fun deleteMemberExpel(
         @Body body: MemberManagementRequest
-    ): Void
+    )
 
     @POST("club/apply")
     suspend fun postClubApply(
         @Body body: ClubIdentificationRequest
-    ): Void
+    )
 
     @POST("club/cancel")
     suspend fun postClubCancel(
         @Body body: ClubIdentificationRequest
-    ): Void
+    )
 
     @PUT("club/delegation")
     suspend fun putDelegationOfRepresentation(
         @Body body: MemberManagementRequest
-    ): Void
+    )
 }

@@ -8,7 +8,7 @@ interface CommonRepository {
         body: RegisterRequest
     ): RegisterResponse
 
-    suspend fun postLogout():Void
+    suspend fun postLogout()
 
     suspend fun postRefresh(): RegisterResponse
 }

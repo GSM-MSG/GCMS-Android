@@ -15,31 +15,31 @@ interface ClubRepository {
 
     suspend fun postCreateClub(
         body: CreateClubRequest
-    ): Void
+    )
 
     suspend fun putChangeClub(
         body: ModifyClubInfoRequest
-    ): Void
+    )
 
-    suspend fun deleteClub(body: ClubIdentificationRequest): Void
+    suspend fun deleteClub(body: ClubIdentificationRequest)
 
     suspend fun getMemberList(clubName: String, type: String): MemberInfo
 
     suspend fun getApplicationList(clubName: String, type: String): MemberInfo
 
-    suspend fun postApplicationAccept(body: MemberManagementRequest): Void
+    suspend fun postApplicationAccept(body: MemberManagementRequest)
 
-    suspend fun postApplicationReject(body: MemberManagementRequest): Void
+    suspend fun postApplicationReject(body: MemberManagementRequest)
 
-    suspend fun putClubOpen(body: ClubIdentificationRequest): Void
+    suspend fun putClubOpen(body: ClubIdentificationRequest)
 
-    suspend fun putClubClose(body: ClubIdentificationRequest): Void
+    suspend fun putClubClose(body: ClubIdentificationRequest)
 
-    suspend fun deleteMemberExpel(body: MemberManagementRequest): Void
+    suspend fun deleteMemberExpel(body: MemberManagementRequest)
 
-    suspend fun postClubApply(body: ClubIdentificationRequest): Void
+    suspend fun postClubApply(body: ClubIdentificationRequest)
 
-    suspend fun postClubCancel(body: ClubIdentificationRequest): Void
+    suspend fun postClubCancel(body: ClubIdentificationRequest)
 
-    suspend fun putDelegationOfRepresentation(body: MemberManagementRequest): Void
+    suspend fun putDelegationOfRepresentation(body: MemberManagementRequest)
 }
