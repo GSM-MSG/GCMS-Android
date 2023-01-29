@@ -9,6 +9,7 @@ import com.msg.gcms.data.remote.dto.datasource.club.response.MemberInfo
 import com.msg.gcms.data.remote.dto.datasource.club.response.SummaryClubResponse
 import com.msg.gcms.data.remote.network.ClubAPI
 import com.msg.gcms.data.remote.util.GCMSApiHandler
+import com.msg.gcms.domain.datasource.ClubDataSource
 import javax.inject.Inject
 
 class ClubDataSourceImpl @Inject constructor(

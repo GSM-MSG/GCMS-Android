@@ -1,7 +1,6 @@
-package com.msg.gcms.data.remote.datasource
+package com.msg.gcms.domain.datasource
 
 import okhttp3.MultipartBody
-import retrofit2.Response
 
 interface ImageDataSource {
     suspend fun postImage(image : List<MultipartBody.Part>): List<String>
