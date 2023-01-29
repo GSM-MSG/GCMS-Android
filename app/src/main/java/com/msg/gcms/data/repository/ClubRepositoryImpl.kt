@@ -15,11 +15,11 @@ import javax.inject.Inject
 class ClubRepositoryImpl @Inject constructor(
     private val dataSource: ClubDataSourceImpl
 ) : ClubRepository {
-    override suspend fun getClubList(type: String): Response<List<SummaryClubResponse>> {
+    override suspend fun getClubList(type: String): List<SummaryClubResponse> {
         return dataSource.getClubList(type = type)
     }
 
-    override suspend fun getDetail(type: String, clubName: String): Response<ClubInfoResponse> {
+    override suspend fun getDetail(type: String, clubName: String): ClubInfoResponse {
         return dataSource.getDetail(type = type, clubName = clubName)
     }
 
