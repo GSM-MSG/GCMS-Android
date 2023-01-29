@@ -43,7 +43,7 @@ class MainViewModel @Inject constructor(
                         else -> "MAJOR"
                     }
                 ).onSuccess {
-                    _clubData.value = it.body()
+                    _clubData.value = it
                 }.onFailure {
                     when (it) {
                         is BadRequestException -> Log.d("TAG", "getClubList: $it")
