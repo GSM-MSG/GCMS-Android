@@ -1,9 +1,9 @@
 package com.msg.gcms.data.remote.network
 
-import com.msg.gcms.data.remote.dto.datasource.user.request.UserDeleteRequest
-import com.msg.gcms.data.remote.dto.datasource.user.request.UserProfileRequest
-import com.msg.gcms.data.remote.dto.datasource.user.response.UserData
-import com.msg.gcms.data.remote.dto.datasource.user.response.UserInfoResponse
+import com.msg.gcms.data.remote.dto.user.request.UserDeleteRequest
+import com.msg.gcms.data.remote.dto.user.request.UserProfileRequest
+import com.msg.gcms.data.remote.dto.user.response.UserData
+import com.msg.gcms.data.remote.dto.user.response.UserInfoResponse
 import retrofit2.http.Body
 import retrofit2.http.DELETE
 import retrofit2.http.GET

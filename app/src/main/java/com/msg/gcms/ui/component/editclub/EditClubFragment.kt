@@ -30,8 +30,8 @@ import coil.request.SuccessResult
 import coil.transform.RoundedCornersTransformation
 import com.msg.gcms.R
 import com.msg.gcms.data.local.entity.ActivityPhotoType
-import com.msg.gcms.data.remote.dto.datasource.club.request.ModifyClubInfoRequest
-import com.msg.gcms.data.remote.dto.datasource.user.response.UserData
+import com.msg.gcms.data.remote.dto.club.request.ModifyClubInfoRequest
+import com.msg.gcms.data.remote.dto.user.response.UserData
 import com.msg.gcms.databinding.FragmentEditClubBinding
 import com.msg.gcms.ui.adapter.ActivityPhotosAdapter
 import com.msg.gcms.ui.adapter.ClubMemberAdapter

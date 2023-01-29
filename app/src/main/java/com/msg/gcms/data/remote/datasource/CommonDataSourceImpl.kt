@@ -1,8 +1,8 @@
 package com.msg.gcms.data.remote.datasource
 
-import com.msg.gcms.data.remote.dto.datasource.auth.request.CodeIssuanceRequest
-import com.msg.gcms.data.remote.dto.datasource.auth.request.RegisterRequest
-import com.msg.gcms.data.remote.dto.datasource.auth.response.RegisterResponse
+import com.msg.gcms.data.remote.dto.auth.request.CodeIssuanceRequest
+import com.msg.gcms.data.remote.dto.auth.request.RegisterRequest
+import com.msg.gcms.data.remote.dto.auth.response.RegisterResponse
 import com.msg.gcms.data.remote.network.CommonAPI
 import com.msg.gcms.data.remote.util.GCMSApiHandler
 import com.msg.gcms.domain.datasource.CommonDataSource

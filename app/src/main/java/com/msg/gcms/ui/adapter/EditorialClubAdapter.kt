@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import coil.transform.RoundedCornersTransformation
-import com.msg.gcms.data.remote.dto.datasource.user.response.ClubData
+import com.msg.gcms.data.remote.dto.user.response.ClubData
 import com.msg.gcms.databinding.ListClubEditorialBinding
 
 class EditorialClubAdapter(private val clubList: ArrayList<ClubData>) :

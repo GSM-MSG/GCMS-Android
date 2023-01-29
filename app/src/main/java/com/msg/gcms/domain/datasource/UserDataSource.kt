@@ -1,9 +1,9 @@
 package com.msg.gcms.domain.datasource
 
-import com.msg.gcms.data.remote.dto.datasource.user.request.UserDeleteRequest
-import com.msg.gcms.data.remote.dto.datasource.user.request.UserProfileRequest
-import com.msg.gcms.data.remote.dto.datasource.user.response.UserData
-import com.msg.gcms.data.remote.dto.datasource.user.response.UserInfoResponse
+import com.msg.gcms.data.remote.dto.user.request.UserDeleteRequest
+import com.msg.gcms.data.remote.dto.user.request.UserProfileRequest
+import com.msg.gcms.data.remote.dto.user.response.UserData
+import com.msg.gcms.data.remote.dto.user.response.UserInfoResponse
 
 interface UserDataSource {
     suspend fun getUserInfo(): UserInfoResponse

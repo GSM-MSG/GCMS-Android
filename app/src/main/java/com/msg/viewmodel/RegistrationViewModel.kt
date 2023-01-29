@@ -5,7 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.msg.gcms.base.di.GCMSApplication
-import com.msg.gcms.data.remote.dto.datasource.auth.response.RegisterResponse
+import com.msg.gcms.data.remote.dto.auth.response.RegisterResponse
 import com.msg.gcms.domain.usecase.common.RefreshUseCase
 import com.msg.gcms.domain.usecase.common.RegistrationUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel

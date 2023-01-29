@@ -1,12 +1,12 @@
 package com.msg.gcms.domain.datasource
 
-import com.msg.gcms.data.remote.dto.datasource.club.request.ClubIdentificationRequest
-import com.msg.gcms.data.remote.dto.datasource.club.request.CreateClubRequest
-import com.msg.gcms.data.remote.dto.datasource.club.request.MemberManagementRequest
-import com.msg.gcms.data.remote.dto.datasource.club.request.ModifyClubInfoRequest
-import com.msg.gcms.data.remote.dto.datasource.club.response.ClubInfoResponse
-import com.msg.gcms.data.remote.dto.datasource.club.response.MemberInfo
-import com.msg.gcms.data.remote.dto.datasource.club.response.SummaryClubResponse
+import com.msg.gcms.data.remote.dto.club.request.ClubIdentificationRequest
+import com.msg.gcms.data.remote.dto.club.request.CreateClubRequest
+import com.msg.gcms.data.remote.dto.club.request.MemberManagementRequest
+import com.msg.gcms.data.remote.dto.club.request.ModifyClubInfoRequest
+import com.msg.gcms.data.remote.dto.club.response.ClubInfoResponse
+import com.msg.gcms.data.remote.dto.club.response.MemberInfo
+import com.msg.gcms.data.remote.dto.club.response.SummaryClubResponse
 
 interface ClubDataSource {
     suspend fun getClubList(type: String): List<SummaryClubResponse>

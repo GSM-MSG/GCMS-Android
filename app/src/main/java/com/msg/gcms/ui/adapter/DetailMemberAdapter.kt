@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import coil.transform.CircleCropTransformation
-import com.msg.gcms.data.remote.dto.datasource.club.response.MemberSummaryResponse
+import com.msg.gcms.data.remote.dto.club.response.MemberSummaryResponse
 import com.msg.gcms.databinding.ListClubMemberBinding
 
 class DetailMemberAdapter :

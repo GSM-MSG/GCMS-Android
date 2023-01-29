@@ -1,9 +1,9 @@
 package com.msg.gcms.data.remote.network
 
 import com.msg.gcms.base.di.GCMSApplication
-import com.msg.gcms.data.remote.dto.datasource.auth.request.CodeIssuanceRequest
-import com.msg.gcms.data.remote.dto.datasource.auth.request.RegisterRequest
-import com.msg.gcms.data.remote.dto.datasource.auth.response.RegisterResponse
+import com.msg.gcms.data.remote.dto.auth.request.CodeIssuanceRequest
+import com.msg.gcms.data.remote.dto.auth.request.RegisterRequest
+import com.msg.gcms.data.remote.dto.auth.response.RegisterResponse
 import retrofit2.http.*
 
 interface CommonAPI {

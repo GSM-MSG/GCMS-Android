@@ -5,8 +5,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.msg.gcms.data.remote.dto.datasource.club.request.MemberManagementRequest
-import com.msg.gcms.data.remote.dto.datasource.club.response.MemberSummaryResponse
+import com.msg.gcms.data.remote.dto.club.request.MemberManagementRequest
+import com.msg.gcms.data.remote.dto.club.response.MemberSummaryResponse
 import com.msg.gcms.domain.exception.ConflictException
 import com.msg.gcms.domain.exception.ForBiddenException
 import com.msg.gcms.domain.exception.NotAcceptableException
@@ -55,8 +55,9 @@ class MemberManageViewModel @Inject constructor(
                 clubName = _clubName.value!!,
                 type = _clubType.value!!
             ).onSuccess {
-                _memberList.value = it.body()!!.requestUser
-                _status.value = it.code()
+                //Todo(Leeyeonbin) 여기 코드 다 수정하기
+                // _memberList.value = it.body()!!.requestUser
+                // _status.value = it.code()
             }.onFailure {
                 when (it) {
                     is ForBiddenException -> Log.d("TAG", "getMember: $it")
@@ -73,8 +74,9 @@ class MemberManageViewModel @Inject constructor(
                 clubName = _clubName.value!!,
                 type = _clubType.value!!
             ).onSuccess {
-                _applicantList.value = it.body()!!.requestUser
-                _status.value = it.code()
+                //Todo(Leeyeonbin) 여기 코드 다 수정하기
+                // _applicantList.value = it.body()!!.requestUser
+                // _status.value = it.code()
             }.onFailure {
                 when (it) {
                     is UnauthorizedException -> Log.d("TAG", "getApplicant: $it")
@@ -96,7 +98,7 @@ class MemberManageViewModel @Inject constructor(
                 )
             ).onSuccess {
                 // Todo(Leehyeonbin) 여기도 스테이터스에서 처리함
-                _status.value = it.code()
+                // _status.value = it.code()
             }.onFailure {
                 when (it) {
                     is UnauthorizedException -> Log.d("TAG", "kickUser: $it")
@@ -117,7 +119,7 @@ class MemberManageViewModel @Inject constructor(
                 )
             ).onSuccess {
                 // Todo(Leehyeonbin) 여기도 Status로 되어있음
-                _status.value = it.code()
+                // _status.value = it.code()
             }.onFailure {
                 when (it) {
                     is UnauthorizedException -> Log.d("TAG", "delegate: $it")
@@ -139,7 +141,7 @@ class MemberManageViewModel @Inject constructor(
                 )
             ).onSuccess {
                 // Todo(LeeHyeonbin) 여기도 Status로 되어있리
-                _status.value = it.code()
+                // _status.value = it.code()
             }.onFailure {
                 when (it) {
                     is ForBiddenException -> Log.d("TAG", "reject: $it")
@@ -161,7 +163,7 @@ class MemberManageViewModel @Inject constructor(
                 )
             ).onSuccess {
                 // Todo (LeeHyeonbin) 여기도
-                _status.value = it.code()
+                // _status.value = it.code()
             }.onFailure {
                 when (it) {
                     is ForBiddenException -> Log.d("TAG", "accept: $it")
