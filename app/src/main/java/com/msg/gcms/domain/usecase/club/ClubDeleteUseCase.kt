@@ -7,5 +7,7 @@ import javax.inject.Inject
 class ClubDeleteUseCase @Inject constructor(
     private val repository: ClubRepository
 ) {
-    suspend operator fun invoke(body: ClubIdentificationRequest) = repository.deleteClub(body)
+    suspend operator fun invoke(body: ClubIdentificationRequest) = kotlin.runCatching {
+        repository.deleteClub(body)
+    }
 }

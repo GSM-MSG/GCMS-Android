@@ -1,11 +1,17 @@
 package com.msg.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.msg.gcms.data.remote.dto.datasource.club.request.MemberManagementRequest
 import com.msg.gcms.data.remote.dto.datasource.club.response.MemberSummaryResponse
+import com.msg.gcms.domain.exception.ConflictException
+import com.msg.gcms.domain.exception.ForBiddenException
+import com.msg.gcms.domain.exception.NotAcceptableException
+import com.msg.gcms.domain.exception.NotFoundException
+import com.msg.gcms.domain.exception.UnauthorizedException
 import com.msg.gcms.domain.usecase.club.ApplicantAcceptUseCase
 import com.msg.gcms.domain.usecase.club.ApplicantRejectUseCase
 import com.msg.gcms.domain.usecase.club.GetApplicantUseCase
@@ -45,94 +51,124 @@ class MemberManageViewModel @Inject constructor(
 
     fun getMember() {
         viewModelScope.launch {
-            try {
-                val response = getMemberUseCase(_clubName.value!!, _clubType.value!!)
-                _memberList.value = response.body()!!.requestUser
-                _status.value = response.code()
-            } catch (e: Exception) {
-                e.printStackTrace()
+            getMemberUseCase(
+                clubName = _clubName.value!!,
+                type = _clubType.value!!
+            ).onSuccess {
+                _memberList.value = it.body()!!.requestUser
+                _status.value = it.code()
+            }.onFailure {
+                when (it) {
+                    is ForBiddenException -> Log.d("TAG", "getMember: $it")
+                    is NotAcceptableException -> Log.d("TAG", "getMember: $it")
+                    else -> Log.d("TAG", "getMember: $it")
+                }
             }
         }
     }
 
     fun getApplicant() {
         viewModelScope.launch {
-            try {
-                val response =
-                    getApplicantUseCase(_clubName.value!!, _clubType.value!!)
-                _applicantList.value = response.body()!!.requestUser
-                _status.value = response.code()
-            } catch (e: Exception) {
-                e.printStackTrace()
+            getApplicantUseCase(
+                clubName = _clubName.value!!,
+                type = _clubType.value!!
+            ).onSuccess {
+                _applicantList.value = it.body()!!.requestUser
+                _status.value = it.code()
+            }.onFailure {
+                when (it) {
+                    is UnauthorizedException -> Log.d("TAG", "getApplicant: $it")
+                    is NotFoundException -> Log.d("TAG", "getApplicant: $it")
+                    is NotAcceptableException -> Log.d("TAG", "getApplicant: $it")
+                    else -> Log.d("TAG", "getApplicant: $it")
+                }
             }
         }
     }
 
     fun kickUser(id: String) {
         viewModelScope.launch {
-            try {
-                val response = userKickUseCase(
-                    MemberManagementRequest(
-                        _clubName.value!!,
-                        _clubType.value!!,
-                        id
-                    )
+            userKickUseCase(
+                MemberManagementRequest(
+                    _clubName.value!!,
+                    _clubType.value!!,
+                    id
                 )
-                _status.value = response.code()
-            } catch (e: Exception) {
-                e.printStackTrace()
+            ).onSuccess {
+                // Todo(Leehyeonbin) 여기도 스테이터스에서 처리함
+                _status.value = it.code()
+            }.onFailure {
+                when (it) {
+                    is UnauthorizedException -> Log.d("TAG", "kickUser: $it")
+                    is ForBiddenException -> Log.d("TAG", "kickUser: $it")
+                    else -> Log.d("TAG", "kickUser: $it")
+                }
             }
         }
     }
 
     fun delegate(id: String) {
         viewModelScope.launch {
-            try {
-                val response = userDelegateUseCase(
-                    MemberManagementRequest(
-                        _clubName.value!!,
-                        _clubType.value!!,
-                        id
-                    )
+            userDelegateUseCase(
+                MemberManagementRequest(
+                    _clubName.value!!,
+                    _clubType.value!!,
+                    id
                 )
-                _status.value = response.code()
-            } catch (e: Exception) {
-                e.printStackTrace()
+            ).onSuccess {
+                // Todo(Leehyeonbin) 여기도 Status로 되어있음
+                _status.value = it.code()
+            }.onFailure {
+                when (it) {
+                    is UnauthorizedException -> Log.d("TAG", "delegate: $it")
+                    is ForBiddenException -> Log.d("TAG", "delegate: $it")
+                    is NotFoundException -> Log.d("TAG", "delegate: $it")
+                    else -> Log.d("TAG", "delegate: $it")
+                }
             }
         }
     }
 
     fun reject(id: String) {
         viewModelScope.launch {
-            try {
-                val response =
-                    applicantRejectUseCase(
-                        MemberManagementRequest(
-                            _clubName.value!!,
-                            _clubType.value!!,
-                            id
-                        )
-                    )
-                _status.value = response.code()
-            } catch (e: Exception) {
-                e.printStackTrace()
+            applicantRejectUseCase(
+                MemberManagementRequest(
+                    _clubName.value!!,
+                    _clubType.value!!,
+                    id
+                )
+            ).onSuccess {
+                // Todo(LeeHyeonbin) 여기도 Status로 되어있리
+                _status.value = it.code()
+            }.onFailure {
+                when (it) {
+                    is ForBiddenException -> Log.d("TAG", "reject: $it")
+                    is NotFoundException -> Log.d("TAG", "reject: $it")
+                    is ConflictException -> Log.d("TAG", "reject: $it")
+                    else -> Log.d("TAG", "reject: $it")
+                }
             }
         }
     }
 
     fun accept(id: String) {
         viewModelScope.launch {
-            try {
-                val response = applicantAcceptUseCase(
-                    MemberManagementRequest(
-                        _clubName.value!!,
-                        _clubType.value!!,
-                        id
-                    )
+            applicantAcceptUseCase(
+                MemberManagementRequest(
+                    _clubName.value!!,
+                    _clubType.value!!,
+                    id
                 )
-                _status.value = response.code()
-            } catch (e: Exception) {
-                e.printStackTrace()
+            ).onSuccess {
+                // Todo (LeeHyeonbin) 여기도
+                _status.value = it.code()
+            }.onFailure {
+                when (it) {
+                    is ForBiddenException -> Log.d("TAG", "accept: $it")
+                    is NotFoundException -> Log.d("TAG", "accept: $it")
+                    is ConflictException -> Log.d("TAG", "accept: $it")
+                    else -> Log.d("TAG", "accept: $it")
+                }
             }
         }
     }

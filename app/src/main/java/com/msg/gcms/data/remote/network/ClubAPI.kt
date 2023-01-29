@@ -1,16 +1,14 @@
 package com.msg.gcms.data.remote.network
 
-import com.msg.gcms.data.remote.dto.datasource.club.request.MemberManagementRequest
 import com.msg.gcms.data.remote.dto.datasource.club.request.ClubIdentificationRequest
 import com.msg.gcms.data.remote.dto.datasource.club.request.CreateClubRequest
+import com.msg.gcms.data.remote.dto.datasource.club.request.MemberManagementRequest
 import com.msg.gcms.data.remote.dto.datasource.club.request.ModifyClubInfoRequest
 import com.msg.gcms.data.remote.dto.datasource.club.response.ClubInfoResponse
 import com.msg.gcms.data.remote.dto.datasource.club.response.MemberInfo
 import com.msg.gcms.data.remote.dto.datasource.club.response.SummaryClubResponse
-import com.msg.gcms.data.remote.dto.datasource.user.response.UserData
 import retrofit2.Response
 import retrofit2.http.Body
-import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.PUT
@@ -21,13 +19,13 @@ interface ClubAPI {
     @GET("club/list")
     suspend fun getClubList(
         @Query("type") type: String
-    ): Response<List<SummaryClubResponse>>
+    ): List<SummaryClubResponse>
 
     @GET("club/detail")
     suspend fun getDetail(
         @Query("type") type: String,
         @Query("q") clubName: String
-    ): Response<ClubInfoResponse>
+    ): ClubInfoResponse
 
     @POST("club/")
     suspend fun postCreateClub(

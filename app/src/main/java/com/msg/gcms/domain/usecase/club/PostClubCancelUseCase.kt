@@ -7,6 +7,8 @@ import javax.inject.Inject
 class PostClubCancelUseCase @Inject constructor(
     private val repository: ClubRepository
 ) {
-    suspend operator fun invoke(body: ClubIdentificationRequest) = repository.postClubCancel(body)
+    suspend operator fun invoke(body: ClubIdentificationRequest) = kotlin.runCatching {
+        repository.postClubCancel(body)
+    }
 
 }

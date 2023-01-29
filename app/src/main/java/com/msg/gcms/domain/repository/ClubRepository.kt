@@ -10,9 +10,9 @@ import com.msg.gcms.data.remote.dto.datasource.club.response.SummaryClubResponse
 import retrofit2.Response
 
 interface ClubRepository {
-    suspend fun getClubList(type: String): Response<List<SummaryClubResponse>>
+    suspend fun getClubList(type: String): List<SummaryClubResponse>
 
-    suspend fun getDetail(type: String, clubName: String): Response<ClubInfoResponse>
+    suspend fun getDetail(type: String, clubName: String): ClubInfoResponse
 
     suspend fun postCreateClub(
         body: CreateClubRequest

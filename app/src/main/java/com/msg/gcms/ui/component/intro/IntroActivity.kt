@@ -40,7 +40,7 @@ class IntroActivity : BaseActivity<ActivityIntroBinding>(R.layout.activity_intro
             try {
                 val account = task.getResult(ApiException::class.java)!!
                 Log.d(TAG, "Google id: ${account.idToken}")
-                viewModel.sendIdTokenLogic(account.idToken!!)
+                // viewModel.sendIdTokenLogic(account.idToken!!)
             } catch (e: ApiException) {
                 Log.w(TAG, e)
             }
@@ -65,7 +65,6 @@ class IntroActivity : BaseActivity<ActivityIntroBinding>(R.layout.activity_intro
 
     private fun isLogin() {
         viewModel.apply {
-            checkLogin()
             isLogin.observe(this@IntroActivity) {
                 if (it) {
                     startActivity(Intent(this@IntroActivity, MainActivity::class.java))

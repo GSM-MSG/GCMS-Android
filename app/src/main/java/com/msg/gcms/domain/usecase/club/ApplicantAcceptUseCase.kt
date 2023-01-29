@@ -7,5 +7,7 @@ import javax.inject.Inject
 class ApplicantAcceptUseCase @Inject constructor(
     private val repository: ClubRepository
 ) {
-    suspend operator fun invoke(body: MemberManagementRequest) = repository.postApplicationAccept(body)
+    suspend operator fun invoke(body: MemberManagementRequest) = kotlin.runCatching {
+        repository.postApplicationAccept(body)
+    }
 }

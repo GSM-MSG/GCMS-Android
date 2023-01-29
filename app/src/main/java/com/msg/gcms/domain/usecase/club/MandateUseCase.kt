@@ -7,5 +7,7 @@ import javax.inject.Inject
 class MandateUseCase @Inject constructor(
     private val repository: ClubRepository
 ) {
-    suspend operator fun invoke(body: MemberManagementRequest) = repository.putDelegationOfRepresentation(body)
+    suspend operator fun invoke(body: MemberManagementRequest) = kotlin.runCatching {
+        repository.putDelegationOfRepresentation(body)
+    }
 }

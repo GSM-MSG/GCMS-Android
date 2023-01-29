@@ -7,5 +7,7 @@ import javax.inject.Inject
 class PostCreateClubUseCase @Inject constructor(
     private val repository: ClubRepository
 ) {
-    suspend operator fun invoke(body: CreateClubRequest) = repository.postCreateClub(body = body)
+    suspend operator fun invoke(body: CreateClubRequest) = kotlin.runCatching {
+        repository.postCreateClub(body = body)
+    }
 }
