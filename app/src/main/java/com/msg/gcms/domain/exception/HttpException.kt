@@ -63,15 +63,6 @@ class ConflictException(
 
 
 /**
- * 너무 많은 요청을 보내는 경우
- * HttpStatus 가 429일 때 사용
- */
-class TooManyRequestsException(
-    override val message: String?,
-) : RuntimeException()
-
-
-/**
  * 서버에러가 발생하는 경우
  * Http Status 가 50X일 때 사용
  */
@@ -79,6 +70,14 @@ class ServerException(
     override val message: String?,
 ) : RuntimeException()
 
+
+/**
+ * 예상하지 못한 에러가 발생하는 경우
+ */
+class OtherHttpException(
+    val code: Int,
+    override val message: String?,
+) : RuntimeException()
 
 
 
