@@ -36,7 +36,6 @@ class ClubDetailViewModel @Inject constructor(
     fun getDetail(type: String, q: String) {
         viewModelScope.launch {
             Log.d(TAG, "타입 : ${type}, 이름 : ${q}")
-            try {
                 getDetailUseCase(
                     type, q
                 ).onSuccess {
@@ -50,9 +49,6 @@ class ClubDetailViewModel @Inject constructor(
                         else -> Log.d(TAG, "getDetail: $it")
                     }
                 }
-            } catch (e: Exception) {
-                Log.d(TAG, "error : $e")
-            }
         }
     }
 
