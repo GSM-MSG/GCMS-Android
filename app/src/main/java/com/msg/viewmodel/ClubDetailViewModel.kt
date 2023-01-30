@@ -33,23 +33,33 @@ class ClubDetailViewModel @Inject constructor(
     private val _isProfile = MutableLiveData<Boolean>()
     val isProfile: LiveData<Boolean> get() = _isProfile
 
+    private val _getClubDetail = MutableLiveData<ClubInfoResponse>()
+    val getClubDetail: LiveData<ClubInfoResponse> get() = _getClubDetail
+
     fun getDetail(type: String, q: String) {
         viewModelScope.launch {
             Log.d(TAG, "타입 : ${type}, 이름 : ${q}")
-                getDetailUseCase(
-                    type, q
-                ).onSuccess {
-                    // Todo(LeeHyeonbin) code 지우기
-                    // _getDetailStatus.value = it.code()
-                    _result.value = it
-                }.onFailure {
-                    when (it) {
-                        is BadRequestException -> Log.d(TAG, "getDetail: $it")
-                        is UnauthorizedException -> Log.d(TAG, "getDetail: $it")
-                        is NotFoundException -> Log.d(TAG, "getDetail: $it")
-                        else -> Log.d(TAG, "getDetail: $it")
+            getDetailUseCase(
+                type, q
+            ).onSuccess {
+                // Todo(LeeHyeonbin) code 지우기
+                _getClubDetail.value = it
+            }.onFailure {
+                when (it) {
+                    is BadRequestException -> {
+                        Log.d(TAG, "getDetail: $it")
+                    }
+                    is UnauthorizedException -> {
+                        Log.d(TAG, "getDetail: $it")
+                    }
+                    is NotFoundException -> {
+                        Log.d(TAG, "getDetail: $it")
+                    }
+                    else -> {
+                        Log.d(TAG, "getDetail: $it")
                     }
                 }
+            }
         }
     }
 

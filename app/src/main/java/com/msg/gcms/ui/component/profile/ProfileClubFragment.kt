@@ -128,6 +128,8 @@ class ProfileClubFragment :
 
     private fun observeStatus() {
         detailViewModel.clearResult()
+
+        /* code로 하나씩 obdserve하는 로직
         detailViewModel.result.observe(this) {
             if (it != null) {
                 when (detailViewModel.getDetailStatus.value) {
@@ -148,6 +150,6 @@ class ProfileClubFragment :
                     }
                 }
             }
-        }
+        } */
     }
 }
