@@ -1,6 +1,5 @@
 package com.msg.gcms.ui.component.profile
 
-import android.content.Intent
 import android.graphics.Rect
 import android.util.Log
 import android.view.View
@@ -14,7 +13,6 @@ import com.msg.gcms.data.remote.dto.user.response.ClubData
 import com.msg.gcms.databinding.FragmentProfileClubBinding
 import com.msg.gcms.ui.adapter.EditorialClubAdapter
 import com.msg.gcms.ui.base.BaseFragment
-import com.msg.gcms.ui.component.main.MainActivity
 import com.msg.viewmodel.ClubDetailViewModel
 import com.msg.viewmodel.ClubViewModel
 import com.msg.viewmodel.ProfileViewModel
@@ -127,7 +125,7 @@ class ProfileClubFragment :
     }
 
     private fun observeStatus() {
-        detailViewModel.clearResult()
+        // detailViewModel.clearResult()
 
         /* code로 하나씩 obdserve하는 로직
         detailViewModel.result.observe(this) {

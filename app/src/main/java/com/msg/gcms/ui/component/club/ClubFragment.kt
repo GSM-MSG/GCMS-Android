@@ -1,7 +1,6 @@
 package com.msg.gcms.ui.component.club
 
 import android.content.Intent
-import android.util.Log
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import com.msg.gcms.R
@@ -14,6 +13,7 @@ import com.msg.gcms.ui.component.clubmaker.MakeClubActivity
 import com.msg.gcms.ui.component.profile.ProfileActivity
 import com.msg.viewmodel.ClubDetailViewModel
 import com.msg.viewmodel.ClubViewModel
+import com.msg.viewmodel.Event
 import com.msg.viewmodel.MainViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -74,7 +74,8 @@ class ClubFragment : BaseFragment<FragmentClubBinding>(R.layout.fragment_club) {
     }
 
     private fun observeStatus() {
-        detailViewModel.clearResult()
+        // detailViewModel.clearResult()
+        /*
         detailViewModel.result.observe(this) {
             if (it != null) {
                 when (detailViewModel.getDetailStatus.value) {
@@ -90,6 +91,23 @@ class ClubFragment : BaseFragment<FragmentClubBinding>(R.layout.fragment_club) {
                             "GetDetail : Error Status - ${detailViewModel.getDetailStatus.value}"
                         )
                     }
+                }
+            }
+        }*/
+        detailViewModel.getClubDetail.observe(this) {
+            when(it) {
+                is Event.Success -> {
+                    requireActivity().supportFragmentManager.beginTransaction()
+                        .replace(R.id.fragment_club, DetailFragment()).commit()
+                }
+                is Event.BadRequest -> {
+                    shortToast("동아리 정보를 불러오지 못했습니다.")
+                }
+                is Event.Unauthorized -> {
+                    BaseModal("오류", "토큰이 만료되었습니다, 앱 종료후 다시 실행해 주세요", requireContext()).show()
+                }
+                is Event.UnKnown -> {
+                    BaseModal("오류", "알수 없는 오류 발생, 개발자에게 문의해주세요", requireContext()).show()
                 }
             }
         }
