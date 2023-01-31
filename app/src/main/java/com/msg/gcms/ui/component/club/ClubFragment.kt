@@ -13,7 +13,7 @@ import com.msg.gcms.ui.component.clubmaker.MakeClubActivity
 import com.msg.gcms.ui.component.profile.ProfileActivity
 import com.msg.viewmodel.ClubDetailViewModel
 import com.msg.viewmodel.ClubViewModel
-import com.msg.viewmodel.Event
+import com.msg.viewmodel.util.Event
 import com.msg.viewmodel.MainViewModel
 import dagger.hilt.android.AndroidEntryPoint
 

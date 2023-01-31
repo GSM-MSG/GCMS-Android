@@ -10,6 +10,7 @@ import com.msg.gcms.domain.exception.BadRequestException
 import com.msg.gcms.domain.exception.NotFoundException
 import com.msg.gcms.domain.exception.UnauthorizedException
 import com.msg.gcms.domain.usecase.club.GetDetailUseCase
+import com.msg.viewmodel.util.Event
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject

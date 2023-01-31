@@ -1,4 +1,4 @@
-package com.msg.viewmodel
+package com.msg.viewmodel.util
 
 sealed class Event (
 ) {
