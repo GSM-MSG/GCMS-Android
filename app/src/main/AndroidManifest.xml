@@ -37,14 +37,15 @@
         <activity
             android:name=".ui.component.main.MainActivity"
             android:exported="false" />
-        <activity android:name=".ui.component.profile.ProfileActivity" />
         <activity
-            android:name=".ui.component.withdrawal.WithdrawalActivity"
+            android:name=".ui.component.profile.ProfileActivity"
             android:exported="false" />
-        <activity android:name=".ui.component.editclub.EditClubActivity"
-            android:exported="false"/>
-        <activity android:name=".ui.component.member_manage.MemberManageActivity"
-            android:exported="false"/>
+        <activity
+            android:name=".ui.component.editclub.EditClubActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.component.member_manage.MemberManageActivity"
+            android:exported="false" />
     </application>
 
 </manifest>
