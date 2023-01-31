@@ -52,6 +52,9 @@ class ClubViewModel @Inject constructor(
     private val _openingClubApplication = MutableLiveData<Event>()
     val openingClubApplication: LiveData<Event> get() = _openingClubApplication
 
+    private val _deleteClub = MutableLiveData<Event>()
+    val deleteClub: LiveData<Event> get() = _deleteClub
+
     private val TAG = "ClubViewModel"
 
     fun postClubApply(type: String, q: String) {
@@ -204,12 +207,29 @@ class ClubViewModel @Inject constructor(
             ).onSuccess {
                 //Todo(Leeyeonbin) 여기 스테이터스로 예외하는거 수정
                 // Log.d(TAG, "deleteClub: ${it.code()}")
+                _deleteClub.value = Event.Success
+
             }.onFailure {
-                when (it) {
-                    is UnauthorizedException -> Log.d(TAG, "deleteClub: $it")
-                    is ForBiddenException -> Log.d(TAG, "deleteClub: $it")
-                    is NotFoundException -> Log.d(TAG, "deleteClub: $it")
-                    else -> Log.d(TAG, "deleteClub: $it")
+                _deleteClub.value = when (it) {
+                    is UnauthorizedException -> {
+                        Log.d(TAG, "deleteClub: $it")
+                        Event.Unauthorized
+                    }
+                    is ForBiddenException -> {
+                        Log.d(TAG, "deleteClub: $it")
+                        Event.ForBidden
+                    }
+                    is NotFoundException -> {
+                        Log.d(TAG, "deleteClub: $it")
+                        Event.NotFound
+                    }
+                    is ServerException -> {
+                        Event.Server
+                    }
+                    else -> {
+                        Log.d(TAG, "deleteClub: $it")
+                        Event.UnKnown
+                    }
                 }
             }
         }
