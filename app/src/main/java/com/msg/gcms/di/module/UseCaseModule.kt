@@ -1,4 +1,4 @@
-package com.msg.gcms.base.di.module
+package com.msg.gcms.di.module
 
 import com.msg.gcms.domain.repository.ClubRepository
 import com.msg.gcms.domain.repository.CommonRepository

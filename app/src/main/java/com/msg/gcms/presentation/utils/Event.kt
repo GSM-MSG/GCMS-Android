@@ -1,4 +1,4 @@
-package com.msg.gcms.base.utils
+package com.msg.gcms.presentation.utils
 
 import androidx.lifecycle.Observer
 
