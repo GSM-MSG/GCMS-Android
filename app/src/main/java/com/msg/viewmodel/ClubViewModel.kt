@@ -6,8 +6,12 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.msg.gcms.data.remote.dto.datasource.club.request.ClubIdentificationRequest
-import com.msg.gcms.data.remote.dto.datasource.user.request.UserDeleteRequest
+import com.msg.gcms.data.remote.dto.club.request.ClubIdentificationRequest
+import com.msg.gcms.data.remote.dto.user.request.UserDeleteRequest
+import com.msg.gcms.domain.exception.ConflictException
+import com.msg.gcms.domain.exception.ForBiddenException
+import com.msg.gcms.domain.exception.NotFoundException
+import com.msg.gcms.domain.exception.UnauthorizedException
 import com.msg.gcms.domain.usecase.club.ClubDeleteUseCase
 import com.msg.gcms.domain.usecase.club.PostClubApplyUseCase
 import com.msg.gcms.domain.usecase.club.PostClubCancelUseCase
@@ -38,69 +42,76 @@ class ClubViewModel @Inject constructor(
 
     fun postClubApply(type: String, q: String) {
         viewModelScope.launch {
-            try {
-                val response =
-                    postClubApplyUseCase(ClubIdentificationRequest(type = type, q = q))
-                _getClubStatus.value = response.code()
-                checkStatus(response.code())
-            } catch (e: Exception) {
-                Log.d(TAG, "error : $e")
+            postClubApplyUseCase(
+                ClubIdentificationRequest(type = type, q = q)
+            ).onSuccess {
+                //Todo(Leeyeonbin) 여기도 스테이터스로 예외하는거 다 수정하기
+                // _getClubStatus.value = it.code()
+            }.onFailure {
+                when (it) {
+                    is UnauthorizedException -> Log.d(TAG, "postClubApply: $it")
+                    is NotFoundException -> Log.d(TAG, "postClubApply: $it")
+                    is ConflictException -> Log.d(TAG, "postClubApply: $it")
+                    else -> Log.d(TAG, "postClubApply: $it")
+                }
             }
         }
     }
 
     fun postClubCancel(type: String, q: String) {
         viewModelScope.launch {
-            try {
-                val response =
-                    postClubCancelUseCase(ClubIdentificationRequest(type = type, q = q))
-                _getClubStatus.value = response.code()
-                checkStatus(response.code())
-            } catch (e: Exception) {
-                Log.d(TAG, "error : $e")
+            postClubCancelUseCase(
+                ClubIdentificationRequest(type = type, q = q)
+            ).onSuccess {
+                //Todo(Leeyeonbin) 여기 스테이터스로 예외하는거 수정
+                // _getClubStatus.value = it.code()
+            }.onFailure {
+                when (it) {
+                    is UnauthorizedException -> Log.d(TAG, "postClubCancel: $it")
+                    is NotFoundException -> Log.d(TAG, "postClubCancel: $it")
+                    else -> Log.d(TAG, "postClubCancel: $it")
+                }
             }
         }
     }
 
     fun putClubOpen(type: String, q: String) {
         viewModelScope.launch {
-            try {
-                val response =
-                    putClubOpenUseCase(ClubIdentificationRequest(type = type, q = q))
-                _getClubStatus.value = response.code()
-                checkStatus(response.code())
-            } catch (e: Exception) {
-                Log.d(TAG, "error : $e")
+            putClubOpenUseCase(
+                ClubIdentificationRequest(type = type, q = q)
+            ).onSuccess {
+                //Todo(Leeyeonbin) 여기 스테이터스로 예외하는거 수정
+                // _getClubStatus.value = it.code()
+            }.onFailure {
+                when (it) {
+                    is UnauthorizedException -> Log.d(TAG, "putClubOpen: $it")
+                    is ForBiddenException -> Log.d(TAG, "putClubOpen: $it")
+                    else -> Log.d(TAG, "putClubOpen: $it")
+                }
             }
         }
     }
 
     fun putClubClose(type: String, q: String) {
         viewModelScope.launch {
-            try {
-                val response =
-                    putClubCloseUseCase(ClubIdentificationRequest(type = type, q = q))
-                _getClubStatus.value = response.code()
-            } catch (e: Exception) {
-                Log.d(TAG, "error : $e")
-            }
-        }
-    }
-
-    private fun checkStatus(code: Int) {
-        when (code) {
-            201 -> {
-                Log.d(TAG, "status: $code")
-            }
-            else -> {
-                Log.d(TAG, "status: $code")
+            putClubCloseUseCase(
+                ClubIdentificationRequest(type = type, q = q)
+            ).onSuccess {
+                //Todo(Leeyeonbin) 여기 스테이터스로 예외하는거 수정
+                // _getClubStatus.value = it.code()
+            }.onFailure {
+                when (it) {
+                    is UnauthorizedException -> Log.d(TAG, "putClubClose: $it")
+                    is ForBiddenException -> Log.d(TAG, "putClubClose: $it")
+                    else -> Log.d(TAG, "putClubClose: $it")
+                }
             }
         }
     }
 
     fun startLottie(fragmentManager: FragmentManager) {
-        if(!lottie.isAdded){
-            lottie.show(fragmentManager,"Lottie")
+        if (!lottie.isAdded) {
+            lottie.show(fragmentManager, "Lottie")
         }
     }
 
@@ -122,10 +133,18 @@ class ClubViewModel @Inject constructor(
 
     fun deleteClub(q: String, type: String) {
         viewModelScope.launch {
-            try {
-                val response = clubDeleteUseCase(ClubIdentificationRequest(q = q, type = type))
-            } catch (e: Exception) {
-                e.printStackTrace()
+            clubDeleteUseCase(
+                ClubIdentificationRequest(q = q, type = type)
+            ).onSuccess {
+                //Todo(Leeyeonbin) 여기 스테이터스로 예외하는거 수정
+                // Log.d(TAG, "deleteClub: ${it.code()}")
+            }.onFailure {
+                when (it) {
+                    is UnauthorizedException -> Log.d(TAG, "deleteClub: $it")
+                    is ForBiddenException -> Log.d(TAG, "deleteClub: $it")
+                    is NotFoundException -> Log.d(TAG, "deleteClub: $it")
+                    else -> Log.d(TAG, "deleteClub: $it")
+                }
             }
         }
     }

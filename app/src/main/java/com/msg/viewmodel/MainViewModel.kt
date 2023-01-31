@@ -5,7 +5,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.msg.gcms.data.remote.dto.datasource.club.response.SummaryClubResponse
+import com.msg.gcms.data.remote.dto.club.response.SummaryClubResponse
+import com.msg.gcms.domain.exception.BadRequestException
+import com.msg.gcms.domain.exception.UnauthorizedException
 import com.msg.gcms.domain.usecase.club.GetClubListUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -32,18 +34,21 @@ class MainViewModel @Inject constructor(
 
     fun getClubList() {
         viewModelScope.launch {
-            try {
-                val response = getClubListUseCase(
-                    when (clubName.value) {
-                        "전공동아리" -> "MAJOR"
-                        "자율동아리" -> "FREEDOM"
-                        "사설동아리" -> "EDITORIAL"
-                        else -> "MAJOR"
-                    }
-                )
-                _clubData.value = response.body()
-            } catch (e: Exception) {
-                Log.d("ERROR", "getClubList: ${e.message}")
+            getClubListUseCase(
+                when (clubName.value) {
+                    "전공동아리" -> "MAJOR"
+                    "자율동아리" -> "FREEDOM"
+                    "사설동아리" -> "EDITORIAL"
+                    else -> "MAJOR"
+                }
+            ).onSuccess {
+                _clubData.value = it
+            }.onFailure {
+                when (it) {
+                    is BadRequestException -> Log.d("TAG", "getClubList: $it")
+                    is UnauthorizedException -> Log.d("TAG", "getClubList: $it")
+                    else -> Log.d("TAG", "getClubList: $it")
+                }
             }
         }
     }

@@ -23,7 +23,7 @@ class SplashActivity : AppCompatActivity() {
 
     private fun isLogin() {
         viewModel.apply {
-            checkLogin()
+            // checkLogin()
             isLogin.observe(this@SplashActivity) {
                 startActivity(
                     Intent(

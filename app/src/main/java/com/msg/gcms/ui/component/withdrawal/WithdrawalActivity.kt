@@ -50,7 +50,7 @@ class WithdrawalActivity : BaseActivity<ActivityWithdrawalBinding>(R.layout.acti
     private fun withdrawal() {
         binding.withdrawalBtn.setOnClickListener {
             if(it.isActivated){
-                viewModel.withdrawal()
+                // viewModel.withdrawal()
             }
         }
     }

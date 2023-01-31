@@ -5,7 +5,10 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.msg.gcms.data.remote.dto.datasource.club.response.ClubInfoResponse
+import com.msg.gcms.data.remote.dto.club.response.ClubInfoResponse
+import com.msg.gcms.domain.exception.BadRequestException
+import com.msg.gcms.domain.exception.NotFoundException
+import com.msg.gcms.domain.exception.UnauthorizedException
 import com.msg.gcms.domain.usecase.club.GetDetailUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -14,7 +17,7 @@ import javax.inject.Inject
 @HiltViewModel
 class ClubDetailViewModel @Inject constructor(
     private val getDetailUseCase: GetDetailUseCase
-): ViewModel() {
+) : ViewModel() {
 
     private val TAG = "GetDetailViewModel"
 
@@ -33,22 +36,19 @@ class ClubDetailViewModel @Inject constructor(
     fun getDetail(type: String, q: String) {
         viewModelScope.launch {
             Log.d(TAG, "타입 : ${type}, 이름 : ${q}")
-            try {
-                val response = getDetailUseCase(type, q)
-                _getDetailStatus.value = response.code()
-                _result.value = response.body()
-                when (response.code()) {
-                    200 -> {
-                        Log.d(TAG, "status : ${response.code()}")
-                        Log.d(TAG, "body : ${response.body()}")
-                    }
-                    else -> {
-                        Log.d(TAG, "status : ${response.code()}")
+                getDetailUseCase(
+                    type, q
+                ).onSuccess {
+                    // _getDetailStatus.value = it.code()
+                    _result.value = it
+                }.onFailure {
+                    when (it) {
+                        is BadRequestException -> Log.d(TAG, "getDetail: $it")
+                        is UnauthorizedException -> Log.d(TAG, "getDetail: $it")
+                        is NotFoundException -> Log.d(TAG, "getDetail: $it")
+                        else -> Log.d(TAG, "getDetail: $it")
                     }
                 }
-            } catch (e: Exception) {
-                Log.d(TAG, "error : $e")
-            }
         }
     }
 
@@ -62,10 +62,9 @@ class ClubDetailViewModel @Inject constructor(
         _showNav.value = boolean
     }
 
-    fun setIsProfile(boolean: Boolean){
+    fun setIsProfile(boolean: Boolean) {
         _isProfile.value = boolean
     }
-
 
     fun clearResult() {
         _result.value = null

@@ -1,10 +1,9 @@
 package com.msg.gcms.data.remote.network
 
-import com.msg.gcms.data.remote.dto.datasource.user.request.UserDeleteRequest
-import com.msg.gcms.data.remote.dto.datasource.user.request.UserProfileRequest
-import com.msg.gcms.data.remote.dto.datasource.user.response.UserData
-import com.msg.gcms.data.remote.dto.datasource.user.response.UserInfoResponse
-import retrofit2.Response
+import com.msg.gcms.data.remote.dto.user.request.UserDeleteRequest
+import com.msg.gcms.data.remote.dto.user.request.UserProfileRequest
+import com.msg.gcms.data.remote.dto.user.response.UserData
+import com.msg.gcms.data.remote.dto.user.response.UserInfoResponse
 import retrofit2.http.Body
 import retrofit2.http.DELETE
 import retrofit2.http.GET
@@ -14,23 +13,23 @@ import retrofit2.http.QueryMap
 
 interface UserAPI {
     @GET("user/my")
-    suspend fun getUserInfo(): Response<UserInfoResponse>
+    suspend fun getUserInfo(): UserInfoResponse
 
     @PUT("user/profile")
     suspend fun putProfile(
         @Body body: UserProfileRequest
-    ): Response<Void>
+    ): Void
 
     @GET("user/search")
     suspend fun getUserSearch(
         @QueryMap QueryString: Map<String, String>
-    ): Response<List<UserData>>
+    ): List<UserData>
 
     @POST("user/exit")
     suspend fun postExit(
         @Body body: UserDeleteRequest
-    ): Response<Void>
+    ): Void
 
     @DELETE("user/withdrawal")
-    suspend fun deleteUser(): Response<Void>
+    suspend fun deleteUser(): Void
 }

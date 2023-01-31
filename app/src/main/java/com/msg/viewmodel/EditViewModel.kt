@@ -7,9 +7,15 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.msg.gcms.R
-import com.msg.gcms.data.remote.dto.datasource.club.request.ModifyClubInfoRequest
-import com.msg.gcms.data.remote.dto.datasource.club.response.ClubInfoResponse
-import com.msg.gcms.data.remote.dto.datasource.user.response.UserData
+import com.msg.gcms.data.remote.dto.club.request.ModifyClubInfoRequest
+import com.msg.gcms.data.remote.dto.club.response.ClubInfoResponse
+import com.msg.gcms.data.remote.dto.user.response.UserData
+import com.msg.gcms.domain.exception.BadRequestException
+import com.msg.gcms.domain.exception.ConflictException
+import com.msg.gcms.domain.exception.ForBiddenException
+import com.msg.gcms.domain.exception.NotFoundException
+import com.msg.gcms.domain.exception.ServerException
+import com.msg.gcms.domain.exception.UnauthorizedException
 import com.msg.gcms.domain.usecase.club.EditClubInfoUseCase
 import com.msg.gcms.domain.usecase.club.GetDetailUseCase
 import com.msg.gcms.domain.usecase.image.ImageUseCase
@@ -63,27 +69,24 @@ class EditViewModel @Inject constructor(
 
     fun getClubInfo() {
         viewModelScope.launch {
-            try {
-                Log.d(
-                    "TAG",
-                    "getClubInfo: ${_clubType.value.toString()}, ${_clubName.value.toString()}"
-                )
-                val response = getDetailUseCase(
-                    type = _clubType.value.toString(),
-                    clubName = _clubName.value.toString()
-                )
-                _clubInfo.value = response.body()
-                when (response.code()) {
-                    200 -> {
-                        Log.d("TAG", "getClubInfo: ${response.body()}")
-                        memberCheck()
-                    }
-                    else -> {
-                        Log.d("TAG", "getClubInfo: ${response.code()}, ${response.body()}")
-                    }
+            Log.d(
+                "TAG",
+                "getClubInfo: ${_clubType.value.toString()}, ${_clubName.value.toString()}"
+            )
+            getDetailUseCase(
+                type = _clubType.value.toString(),
+                clubName = _clubName.value.toString()
+            ).onSuccess {
+                _clubInfo.value = it
+                Log.d("TAG", "getClubInfo: $it")
+                memberCheck()
+
+            }.onFailure {
+                when (it) {
+                    is UnauthorizedException -> Log.d("TAG", "getClubInfo: $it")
+                    is NotFoundException -> Log.d("TAG", "getClubInfo: $it")
+                    else -> Log.d("TAG", "getClubInfo: $it")
                 }
-            } catch (e: Exception) {
-                e.printStackTrace()
             }
         }
     }
@@ -111,14 +114,17 @@ class EditViewModel @Inject constructor(
         queryString["name"] = name
         queryString["type"] = clubType.value.toString()
         viewModelScope.launch {
-            val response = getSearchUserUseCase(queryString)
-            when (response.code()) {
-                200 -> {
-                    _result.value = response.body()
-                    Log.d("TAG", "searchResult: ${_result.value}")
-                }
-                else -> {
-                    Log.d("TAG", "searchResult: ${response.body()} ")
+            getSearchUserUseCase(
+                queryString
+            ).onSuccess {
+                //Todo(Leeyeonbin) 여기도 코드 다 수정하기
+                // _result.value = it.body()
+                Log.d("TAG", "searchResult: ${_result.value}")
+            }.onFailure {
+                when (it) {
+                    is UnauthorizedException -> Log.d("TAG", "getSearchUser: $it")
+                    is ServerException -> Log.d("TAG", "getSearchUser: $it")
+                    else -> Log.d("TAG", "getSearchUser: $it")
                 }
             }
         }
@@ -135,20 +141,21 @@ class EditViewModel @Inject constructor(
     fun uploadImage(list: List<MultipartBody.Part>) {
         Log.d("TAG", "uploadImage")
         viewModelScope.launch {
-            try {
-                val response = imageUseCase(list)
-                when (response.code()) {
-                    201 -> {
-                        Log.d("TAG", "uploadImage: ${response.body()}")
-                        newPhotos = response.body()!!.toMutableList()
-                        _convertImage.value = response.body()
-                    }
+            imageUseCase(
+                list
+            ).onSuccess {
+                //Todo(LeeHyeonbin) 여기 코드 다 수정하기
+                //Log.d("TAG", "uploadImage: ${it.body()}")
+                //newPhotos = it.body()!!.toMutableList()
+                //_convertImage.value = it.body()
+
+            }.onFailure {
+                when (it) {
+                    is BadRequestException -> Log.d("TAG", "uploadImage: $it")
                     else -> {
-                        Log.e("TAG", "uploadImage: ${response.body()}")
+                        Log.e("TAG", "uploadImage: $it")
                     }
                 }
-            } catch (e: Exception) {
-                e.printStackTrace()
             }
         }
     }
@@ -160,27 +167,32 @@ class EditViewModel @Inject constructor(
     }
 
     fun stopLottie() {
-        if(lottie.isAdded) {
+        if (lottie.isAdded) {
             lottie.dismissAllowingStateLoss()
         }
     }
 
     fun putChangeClubInfo(body: ModifyClubInfoRequest) {
         viewModelScope.launch {
-            try {
-                val response = editClubInfoUseCase(body)
-                when (response.code()) {
-                    200 -> {
-                        Log.d("TAG", "putChangeClubInfo: ${response.code()}")
-                        _editClubResult.value = response.code()
-                    }
+            editClubInfoUseCase(
+                body = body
+            ).onSuccess {
+                //Todo(Leeyeonbin) 여기도 코드 다 수정하기
+                // Log.d("TAG", "putChangeClubInfo: ${it.code()}")
+                // _editClubResult.value = it.code()
+            }.onFailure {
+                when (it) {
+                    is BadRequestException -> Log.d("TAG", "putChangeClubInfo: $it")
+                    is UnauthorizedException -> Log.d("TAG", "putChangeClubInfo: $it")
+                    is ForBiddenException -> Log.d("TAG", "putChangeClubInfo: $it")
+                    is NotFoundException -> Log.d("TAG", "putChangeClubInfo: $it")
+                    is ConflictException -> Log.d("TAG", "putChangeClubInfo: $it")
                     else -> {
-                        Log.d("TAG", "putChangeClubInfo: $response")
-                        _editClubResult.value = response.code()
+                        Log.d("TAG", "putChangeClubInfo: $it")
+                        // Todo(LeeHyeonbin) presentation 에서 Status 로 이벤트 되는거 수정하기
+                        // _editClubResult.value = it
                     }
                 }
-            } catch (e: Exception) {
-                e.printStackTrace()
             }
         }
     }

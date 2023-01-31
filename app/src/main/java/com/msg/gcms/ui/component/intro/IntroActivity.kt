@@ -11,45 +11,41 @@ import com.msg.gcms.BuildConfig
 import com.msg.gcms.R
 import com.msg.gcms.databinding.ActivityIntroBinding
 import com.msg.gcms.ui.base.BaseActivity
-import com.msg.gcms.ui.component.intro.Component.ProgressDialog
 import com.msg.viewmodel.RegistrationViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class IntroActivity : BaseActivity<ActivityIntroBinding>(R.layout.activity_intro) {
+
     private val viewModel by viewModels<RegistrationViewModel>()
 
     override fun viewSetting() {
-        val progressDialog = ProgressDialog(this)
-        binding.login = this
+        setGAuthButtonComponent()
+    }
+
+    override fun observeEvent() {
+    }
+
+    private fun setGAuthButtonComponent() {
         binding.signInBtn.setContent {
             GAuthButton(
                 style = Types.Style.DEFAULT,
-                actionType = Types.ActionType.CONTINUE,
+                actionType = Types.ActionType.SIGNIN,
                 colors = Types.Colors.OUTLINE
             ) {
-                binding.gAuthWebView.visibility = View.VISIBLE
-                binding.gAuthWebView.setContent {
-                    GAuthSigninWebView(
-                        clientId = BuildConfig.CLIENT_ID,
-                        redirectUri = BuildConfig.REDIRECT_URI
-                    ) { code ->
-                        viewModel.setGAuthCode(code = code)
-                        binding.gAuthWebView.visibility = View.INVISIBLE
-                        progressDialog.show()
-                    }
-                }
+                setGAuthWebViewComponent()
             }
         }
     }
 
-    override fun observeEvent() {
-        isCodeArrive()
-    }
+    private fun setGAuthWebViewComponent() {
+        binding.gAuthWebView.setContent {
+            GAuthSigninWebView(
+                clientId = BuildConfig.CLIENT_ID,
+                redirectUri = BuildConfig.REDIRECT_URI,
+            ) {
 
-    private fun isCodeArrive() = viewModel.apply {
-        gAuthCode.observe(this@IntroActivity) {
-            isLoginInProgress.value = true
+            }
         }
     }
 

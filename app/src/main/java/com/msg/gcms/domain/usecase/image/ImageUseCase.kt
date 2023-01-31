@@ -7,5 +7,7 @@ import javax.inject.Inject
 class ImageUseCase @Inject constructor(
     private val imageRepository: ImageRepository
 ) {
-    suspend operator fun invoke(image: List<MultipartBody.Part>) = imageRepository.postImage(image = image)
+    suspend operator fun invoke(image: List<MultipartBody.Part>) = kotlin.runCatching {
+        imageRepository.postImage(image = image)
+    }
 }

@@ -6,5 +6,7 @@ import javax.inject.Inject
 class GetMemberUseCase @Inject constructor(
     private val repository: ClubRepository
 ) {
-    suspend operator fun invoke(clubName: String, type: String) = repository.getMemberList(clubName, type)
+    suspend operator fun invoke(clubName: String, type: String) = kotlin.runCatching {
+        repository.getMemberList(clubName, type)
+    }
 }

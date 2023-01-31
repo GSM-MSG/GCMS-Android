@@ -6,5 +6,7 @@ import javax.inject.Inject
 class GetApplicantUseCase @Inject constructor(
     private val repository: ClubRepository
 ) {
-    suspend operator fun invoke(clubName: String, type: String) = repository.getApplicationList(clubName, type)
+    suspend operator fun invoke(clubName: String, type: String) = kotlin.runCatching {
+        repository.getApplicationList(clubName, type)
+    }
 }

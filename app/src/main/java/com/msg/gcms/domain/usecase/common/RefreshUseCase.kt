@@ -6,5 +6,7 @@ import javax.inject.Inject
 class RefreshUseCase @Inject constructor(
     private val repository: CommonRepository
 ) {
-    suspend operator fun invoke() = repository.postRefresh()
+    suspend operator fun invoke() = kotlin.runCatching {
+        repository.postRefresh()
+    }
 }
