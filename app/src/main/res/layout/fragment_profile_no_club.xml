@@ -5,7 +5,7 @@
     <data>
         <variable
             name="profileNoClub"
-            type="com.msg.gcms.ui.component.profile.ProfileNoClubFragment" />
+            type="com.msg.gcms.presentation.component.profile.ProfileNoClubFragment" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

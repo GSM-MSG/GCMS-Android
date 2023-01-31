@@ -7,14 +7,14 @@
 
         <variable
             name="main"
-            type="com.msg.gcms.ui.component.main.MainActivity" />
+            type="com.msg.gcms.presentation.component.main.MainActivity" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/light_black"
-        tools:context=".ui.component.main.MainActivity">
+        tools:context=".presentation.component.main.MainActivity">
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline1"

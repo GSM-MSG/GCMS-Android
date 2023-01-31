@@ -6,7 +6,7 @@
 
         <variable
             name="memberManage"
-            type="com.msg.gcms.ui.component.member_manage.MemberManageActivity" />
+            type="com.msg.gcms.presentation.component.member_manage.MemberManageActivity" />
     </data>
 
     <LinearLayout
