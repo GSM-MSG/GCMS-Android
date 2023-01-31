@@ -114,11 +114,12 @@ class ClubFragment : BaseFragment<FragmentClubBinding>(R.layout.fragment_club) {
 
         clubViewModel.getClubStatus.observe(this) {
             when (it) {
-                in 200..299 -> {}
-                401 -> {
+                is Event.Success -> {
+                }
+                is Event.Unauthorized -> {
                     BaseModal("오류", "토큰이 만료되었습니다, 앱 종료후 다시 실행해 주세요", requireContext()).show()
                 }
-                else -> {
+                is Event.UnKnown -> {
                     BaseModal("오류", "알수 없는 오류 발생, 개발자에게 문의해주세요", requireContext()).show()
                 }
             }

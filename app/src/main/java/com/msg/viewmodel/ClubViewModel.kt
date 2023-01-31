@@ -19,6 +19,7 @@ import com.msg.gcms.domain.usecase.club.PutClubCloseUseCase
 import com.msg.gcms.domain.usecase.club.PutClubOpenUseCase
 import com.msg.gcms.domain.usecase.user.ExitUseCase
 import com.msg.gcms.ui.base.LottieFragment
+import com.msg.viewmodel.util.Event
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -35,8 +36,8 @@ class ClubViewModel @Inject constructor(
 
     private val lottie by lazy { LottieFragment() }
 
-    private val _getClubStatus = MutableLiveData<Int>()
-    val getClubStatus: LiveData<Int> get() = _getClubStatus
+    private val _getClubStatus = MutableLiveData<Event>()
+    val getClubStatus: LiveData<Event> get() = _getClubStatus
 
     private val TAG = "ClubViewModel"
 
