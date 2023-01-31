@@ -119,8 +119,9 @@ class ClubFragment : BaseFragment<FragmentClubBinding>(R.layout.fragment_club) {
         }
     }
 
-    private fun observe() {
-        clubViewModel.getClubStatus.observe(this) {
+    // Todo(LeeHyeonbin) 아무리 봐도 이 함수는 의도를 모르겠음. 하는게 없음
+    private fun observeUmm() {
+        /* clubViewModel.getClubStatus.observe(this) {
             when (it) {
                 Event.Success -> {
                 }
@@ -134,6 +135,6 @@ class ClubFragment : BaseFragment<FragmentClubBinding>(R.layout.fragment_club) {
                     BaseModal("오류", "알수 없는 오류 발생, 개발자에게 문의해주세요", requireContext()).show()
                 }
             }
-        }
+        } */
     }
 }
