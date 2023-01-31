@@ -7,7 +7,7 @@
 
         <variable
             name="fragment"
-            type="com.msg.gcms.presentation.component.clubmaker.clubDetail.MakeClubDetailFragment" />
+            type="com.msg.gcms.presentation.view.clubmaker.clubDetail.MakeClubDetailFragment" />
     </data>
 
     <ScrollView

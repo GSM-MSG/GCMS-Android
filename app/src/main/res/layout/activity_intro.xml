@@ -7,14 +7,14 @@
 
         <variable
             name="login"
-            type="com.msg.gcms.presentation.component.intro.IntroActivity" />
+            type="com.msg.gcms.presentation.view.intro.IntroActivity" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/light_black"
-        tools:context=".presentation.component.intro.IntroActivity">
+        tools:context=".presentation.view.intro.IntroActivity">
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline22"

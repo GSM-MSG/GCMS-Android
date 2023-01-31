@@ -7,15 +7,15 @@
 
     <fragment
         android:id="@+id/freeFragment"
-        android:name="com.msg.gcms.presentation.component.club.ClubFragment"
+        android:name="com.msg.gcms.presentation.view.club.ClubFragment"
         tools:layout="@layout/fragment_club"/>
     <fragment
         android:id="@+id/majorFragment"
-        android:name="com.msg.gcms.presentation.component.club.ClubFragment"
+        android:name="com.msg.gcms.presentation.view.club.ClubFragment"
         tools:layout="@layout/fragment_club"/>
     <fragment
         android:id="@+id/personalFragment"
-        android:name="com.msg.gcms.presentation.component.club.ClubFragment"
+        android:name="com.msg.gcms.presentation.view.club.ClubFragment"
         tools:layout="@layout/fragment_club"/>
 
 </navigation>

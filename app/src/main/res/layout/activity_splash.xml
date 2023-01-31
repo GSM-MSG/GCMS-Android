@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/black"
-    tools:context=".presentation.component.splash.SplashActivity">
+    tools:context=".presentation.view.splash.SplashActivity">
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline1"

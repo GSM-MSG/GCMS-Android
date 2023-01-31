@@ -7,7 +7,7 @@
 
         <variable
             name="detail"
-            type="com.msg.gcms.presentation.component.club.detail.DetailFragment" />
+            type="com.msg.gcms.presentation.view.club.detail.DetailFragment" />
     </data>
 
     <androidx.drawerlayout.widget.DrawerLayout
@@ -23,7 +23,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/dark_blue"
-            tools:context=".presentation.component.club.detail.DetailFragment">
+            tools:context=".presentation.view.club.detail.DetailFragment">
 
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/guideline1"

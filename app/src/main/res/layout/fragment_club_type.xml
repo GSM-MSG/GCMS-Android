@@ -8,14 +8,14 @@
 
         <variable
             name="fragment"
-            type="com.msg.gcms.presentation.component.clubmaker.clubType.ClubTypeFragment" />
+            type="com.msg.gcms.presentation.view.clubmaker.clubType.ClubTypeFragment" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/light_black"
-        tools:context=".presentation.component.clubmaker.clubType.ClubTypeFragment">
+        tools:context=".presentation.view.clubmaker.clubType.ClubTypeFragment">
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline30"

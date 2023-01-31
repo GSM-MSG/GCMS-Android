@@ -4,7 +4,7 @@
     <data>
         <variable
             name="profileClub"
-            type="com.msg.gcms.presentation.component.profile.ProfileClubFragment" />
+            type="com.msg.gcms.presentation.view.profile.ProfileClubFragment" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

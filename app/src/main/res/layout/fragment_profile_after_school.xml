@@ -4,7 +4,7 @@
     <data>
         <variable
             name="profileAfterSchool"
-            type="com.msg.gcms.presentation.component.profile.ProfileAfterSchoolFragment" />
+            type="com.msg.gcms.presentation.view.profile.ProfileAfterSchoolFragment" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
