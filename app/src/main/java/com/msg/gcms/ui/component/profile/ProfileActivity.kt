@@ -17,8 +17,6 @@ import com.msg.gcms.R
 import com.msg.gcms.databinding.ActivityProfileBinding
 import com.msg.gcms.ui.base.BaseActivity
 import com.msg.gcms.ui.component.main.MainActivity
-import com.msg.gcms.ui.component.withdrawal.WithdrawalActivity
-import com.msg.gcms.ui.component.withdrawal.WithdrawalDialog
 import com.msg.viewmodel.ProfileViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
@@ -38,7 +36,6 @@ class ProfileActivity : BaseActivity<ActivityProfileBinding>(R.layout.activity_p
     override fun viewSetting() {
         clickBackBtn()
         clickProfileEdit()
-        clickLogout()
     }
 
     private fun myProfile() {
@@ -97,24 +94,6 @@ class ProfileActivity : BaseActivity<ActivityProfileBinding>(R.layout.activity_p
                     this,
                     arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE), 1
                 )
-            }
-        }
-    }
-
-    private fun clickLogout() {
-        binding.logoutOption.setOnClickListener {
-            WithdrawalDialog(this).apply {
-                setDialogListener(object : WithdrawalDialog.WithdrawalDialogListener {
-                    override fun logout() {
-                        viewModel.logout()
-                    }
-
-                    override fun goWithdrawal() {
-                        val intent = Intent(this@ProfileActivity, WithdrawalActivity::class.java)
-                        startActivity(intent)
-                    }
-                })
-                show()
             }
         }
     }
