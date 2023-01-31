@@ -43,6 +43,15 @@ class ClubViewModel @Inject constructor(
     private val _cancelClubApply = MutableLiveData<Event>()
     val cancelClubApply: LiveData<Event> get() = _cancelClubApply
 
+    private val _applyClub = MutableLiveData<Event>()
+    val applyClub: LiveData<Event> get() = _applyClub
+
+    private val _closingClubApplication = MutableLiveData<Event>()
+    val closingClubApplication: LiveData<Event> get() = _closingClubApplication
+
+    private val _openingClubApplication = MutableLiveData<Event>()
+    val openingClubApplication: LiveData<Event> get() = _openingClubApplication
+
     private val TAG = "ClubViewModel"
 
     fun postClubApply(type: String, q: String) {
@@ -51,13 +60,29 @@ class ClubViewModel @Inject constructor(
                 ClubIdentificationRequest(type = type, q = q)
             ).onSuccess {
                 //Todo(Leeyeonbin) 여기도 스테이터스로 예외하는거 다 수정하기
-                // _getClubStatus.value = it.code()
+                _applyClub.value = Event.Success
             }.onFailure {
-                when (it) {
-                    is UnauthorizedException -> Log.d(TAG, "postClubApply: $it")
-                    is NotFoundException -> Log.d(TAG, "postClubApply: $it")
-                    is ConflictException -> Log.d(TAG, "postClubApply: $it")
-                    else -> Log.d(TAG, "postClubApply: $it")
+                _applyClub.value = when (it) {
+                    is UnauthorizedException -> {
+                        Log.d(TAG, "postClubApply: $it")
+                        Event.Unauthorized
+                    }
+                    is NotFoundException -> {
+                        Log.d(TAG, "postClubApply: $it")
+                        Event.NotFound
+                    }
+                    is ConflictException -> {
+                        Log.d(TAG, "postClubApply: $it")
+                        Event.Conflict
+                    }
+                    is ServerException -> {
+                        Log.d(TAG, "postClubApply: $it")
+                        Event.Server
+                    }
+                    else -> {
+                        Log.d(TAG, "postClubApply: $it")
+                        Event.UnKnown
+                    }
                 }
             }
         }
@@ -98,12 +123,24 @@ class ClubViewModel @Inject constructor(
                 ClubIdentificationRequest(type = type, q = q)
             ).onSuccess {
                 //Todo(Leeyeonbin) 여기 스테이터스로 예외하는거 수정
-                // _getClubStatus.value = it.code()
+                _openingClubApplication.value = Event.Success
             }.onFailure {
-                when (it) {
-                    is UnauthorizedException -> Log.d(TAG, "putClubOpen: $it")
-                    is ForBiddenException -> Log.d(TAG, "putClubOpen: $it")
-                    else -> Log.d(TAG, "putClubOpen: $it")
+                _openingClubApplication.value = when (it) {
+                    is UnauthorizedException -> {
+                        Log.d(TAG, "putClubOpen: $it")
+                        Event.Unauthorized
+                    }
+                    is ForBiddenException -> {
+                        Log.d(TAG, "putClubOpen: $it")
+                        Event.ForBidden
+                    }
+                    is ServerException -> {
+                        Event.Server
+                    }
+                    else -> {
+                        Log.d(TAG, "putClubOpen: $it")
+                        Event.UnKnown
+                    }
                 }
             }
         }
@@ -115,12 +152,24 @@ class ClubViewModel @Inject constructor(
                 ClubIdentificationRequest(type = type, q = q)
             ).onSuccess {
                 //Todo(Leeyeonbin) 여기 스테이터스로 예외하는거 수정
-                // _getClubStatus.value = it.code()
+                _closingClubApplication.value = Event.Success
             }.onFailure {
-                when (it) {
-                    is UnauthorizedException -> Log.d(TAG, "putClubClose: $it")
-                    is ForBiddenException -> Log.d(TAG, "putClubClose: $it")
-                    else -> Log.d(TAG, "putClubClose: $it")
+                _closingClubApplication.value = when (it) {
+                    is UnauthorizedException -> {
+                        Log.d(TAG, "putClubClose: $it")
+                        Event.Unauthorized
+                    }
+                    is ForBiddenException -> {
+                        Log.d(TAG, "putClubClose: $it")
+                        Event.ForBidden
+                    }
+                    is ServerException -> {
+                        Event.Server
+                    }
+                    else -> {
+                        Log.d(TAG, "putClubClose: $it")
+                        Event.UnKnown
+                    }
                 }
             }
         }
