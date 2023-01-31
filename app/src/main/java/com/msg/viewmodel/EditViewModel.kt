@@ -21,6 +21,7 @@ import com.msg.gcms.domain.usecase.club.GetDetailUseCase
 import com.msg.gcms.domain.usecase.image.ImageUseCase
 import com.msg.gcms.domain.usecase.user.GetSearchUserUseCase
 import com.msg.gcms.ui.base.LottieFragment
+import com.msg.viewmodel.util.Event
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import okhttp3.MultipartBody
@@ -55,8 +56,8 @@ class EditViewModel @Inject constructor(
     private val _convertImage = MutableLiveData<List<String>>()
     val convertImage: LiveData<List<String>> get() = _convertImage
 
-    private val _editClubResult = MutableLiveData<Int>()
-    val editClubResult: LiveData<Int> get() = _editClubResult
+    private val _editClubResult = MutableLiveData<Event>()
+    val editClubResult: LiveData<Event> get() = _editClubResult
 
     private val lottie by lazy { LottieFragment() }
 
@@ -177,17 +178,36 @@ class EditViewModel @Inject constructor(
             ).onSuccess {
                 //Todo(Leeyeonbin) 여기도 코드 다 수정하기
                 // Log.d("TAG", "putChangeClubInfo: ${it.code()}")
-                // _editClubResult.value = it.code()
+                 _editClubResult.value = Event.Success
             }.onFailure {
-                when (it) {
-                    is BadRequestException -> Log.d("TAG", "putChangeClubInfo: $it")
-                    is UnauthorizedException -> Log.d("TAG", "putChangeClubInfo: $it")
-                    is ForBiddenException -> Log.d("TAG", "putChangeClubInfo: $it")
-                    is NotFoundException -> Log.d("TAG", "putChangeClubInfo: $it")
-                    is ConflictException -> Log.d("TAG", "putChangeClubInfo: $it")
+                _editClubResult.value = when (it) {
+                    is BadRequestException ->  {
+                        Log.d("TAG", "putChangeClubInfo: $it")
+                        Event.BadRequest
+                    }
+                    is UnauthorizedException -> {
+                        Log.d("TAG", "putChangeClubInfo: $it")
+                        Event.Unauthorized
+                    }
+                    is ForBiddenException -> {
+                        Log.d("TAG", "putChangeClubInfo: $it")
+                        Event.ForBidden
+                    }
+                    is NotFoundException -> {
+                        Log.d("TAG", "putChangeClubInfo: $it")
+                        Event.NotFound
+                    }
+                    is ConflictException -> {
+                        Log.d("TAG", "putChangeClubInfo: $it")
+                        Event.Conflict
+                    }
+                    is ServerException -> {
+                        Log.d("TAG", "putChangeClubInfo: $it")
+                        Event.Server
+                    }
                     else -> {
                         Log.d("TAG", "putChangeClubInfo: $it")
-                        // _editClubResult.value = it
+                        Event.UnKnown
                     }
                 }
             }

@@ -39,6 +39,7 @@ import com.msg.gcms.ui.base.BaseFragment
 import com.msg.gcms.ui.base.BaseModal
 import com.msg.gcms.utils.ItemDecorator
 import com.msg.viewmodel.EditViewModel
+import com.msg.viewmodel.util.Event
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
@@ -437,15 +438,30 @@ class EditClubFragment : BaseFragment<FragmentEditClubBinding>(R.layout.fragment
     private fun observeEditClubResult() {
         editViewModel.editClubResult.observe(this) {
             when(it) {
-                200 -> {
+                Event.Success -> {
                     shortToast("동아리 정보가 수정되었습니다.")
                     requireActivity().finish()
                 }
-                401 -> {
+                Event.BadRequest-> {
+
+                }
+                Event.Unauthorized -> {
                     editViewModel.stopLottie()
                     BaseModal(context = requireContext(), title = "시간 만료", msg = "앱을 재실행 해주세요!!")
                 }
-                else -> {
+                Event.ForBidden -> {
+
+                }
+                Event.NotFound -> {
+
+                }
+                Event.Conflict -> {
+
+                }
+                Event.Server -> {
+
+                }
+                Event.UnKnown -> {
                     editViewModel.stopLottie()
                     BaseModal(context = requireContext(), title = "동아리 정보 수정", msg = "동아리 정보 수정에 실패하였습니다.")
                 }
