@@ -37,8 +37,8 @@ class ClubViewModel @Inject constructor(
 
     private val lottie by lazy { LottieFragment() }
 
-    private val _getClubStatus = MutableLiveData<Event>()
-    val getClubStatus: LiveData<Event> get() = _getClubStatus
+    // private val _getClubStatus = MutableLiveData<Event>()
+    // val getClubStatus: LiveData<Event> get() = _getClubStatus
 
     private val _cancelClubApply = MutableLiveData<Event>()
     val cancelClubApply: LiveData<Event> get() = _cancelClubApply

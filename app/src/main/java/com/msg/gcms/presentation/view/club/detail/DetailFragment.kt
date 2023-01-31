@@ -335,7 +335,10 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
                                     clubViewModel.putClubOpen(result.type, result.title)
                                 }
                             }
-                            clubViewModel.getClubStatus.observe(this) {
+                            clubViewModel.openingClubApplication.observe(this) {
+                                dialog.dismiss()
+                            }
+                            clubViewModel.closingClubApplication.observe(this) {
                                 dialog.dismiss()
                             }
                         }
@@ -365,7 +368,10 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
                                         result.type,
                                         result.title
                                     )
-                                clubViewModel.getClubStatus.observe(this) {
+                                clubViewModel.applyClub.observe(this) {
+                                    dialog.dismiss()
+                                }
+                                clubViewModel.cancelClubApply.observe(this) {
                                     dialog.dismiss()
                                 }
                             }
@@ -377,7 +383,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
     }
 
     private fun observeStatus() {
-        clubViewModel.getClubStatus.observe(this) { status ->
+        clubViewModel.deleteClub.observe(this) { status ->
             detailViewModel.result.value!!.club.let {
                 detailViewModel.getDetail(it.type, it.title)
             }
