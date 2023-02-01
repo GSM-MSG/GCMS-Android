@@ -74,7 +74,6 @@ class MemberManageViewModel @Inject constructor(
                 clubName = _clubName.value!!,
                 type = _clubType.value!!
             ).onSuccess {
-                //Todo(Leeyeonbin) 여기 코드 다 수정하기
                 _memberList.value = it.requestUser
                 _getMemberListState.value = Event.Success
                 // _status.value = it.code()
@@ -107,7 +106,6 @@ class MemberManageViewModel @Inject constructor(
                 clubName = _clubName.value!!,
                 type = _clubType.value!!
             ).onSuccess {
-                //Todo(Leeyeonbin) 여기 코드 다 수정하기
                 _applicantList.value = it.requestUser
                 _getApplicantListState.value = Event.Success
             }.onFailure {
@@ -146,8 +144,6 @@ class MemberManageViewModel @Inject constructor(
                     id
                 )
             ).onSuccess {
-                // Todo(Leehyeonbin) 여기도 스테이터스에서 처리함
-                // _status.value = it.code()
                 _kickUserState.value = Event.Success
             }.onFailure {
                 _kickUserState.value = when (it) {
@@ -181,8 +177,6 @@ class MemberManageViewModel @Inject constructor(
                     id
                 )
             ).onSuccess {
-                // Todo(Leehyeonbin) 여기도 Status로 되어있음
-                // _status.value = it.code()
                 _delegateState.value = Event.Success
             }.onFailure {
                 _delegateState.value = when (it) {
@@ -220,8 +214,6 @@ class MemberManageViewModel @Inject constructor(
                     id
                 )
             ).onSuccess {
-                // Todo (LeeHyeonbin) 여기도
-                // _status.value = it.code()
                 _acceptApplicantState.value = Event.Success
             }.onFailure {
                 _acceptApplicantState.value = when (it) {
@@ -259,8 +251,6 @@ class MemberManageViewModel @Inject constructor(
                     id
                 )
             ).onSuccess {
-                // Todo(LeeHyeonbin) 여기도 Status로 되어있리
-                // _status.value = it.code()
                 _rejectApplicantState.value = Event.Success
             }.onFailure {
                 _rejectApplicantState.value = when (it) {
