@@ -42,7 +42,6 @@ class MemberManageViewModel @Inject constructor(
     private val _status = MutableLiveData<Int>()
     val status: LiveData<Int> get() = _status
 
-
     private val _clubName = MutableLiveData<String>()
     private val _clubType = MutableLiveData<String>()
 
@@ -155,7 +154,6 @@ class MemberManageViewModel @Inject constructor(
                     is UnauthorizedException -> {
                         Log.d("TAG", "kickUser: $it")
                         Event.Unauthorized
-
                     }
                     is ForBiddenException -> {
                         Log.d("TAG", "kickUser: $it")
