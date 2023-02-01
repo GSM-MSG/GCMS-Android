@@ -1,4 +1,5 @@
-import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
+import java.io.FileInputStream
+import java.util.Properties
 
 plugins {
     id("com.android.application")
@@ -21,20 +22,17 @@ android {
         buildConfigField(
             "String",
             "CLIENT_ID",
-            gradleLocalProperties(rootDir)
-                .getProperty("CLIENT_ID")
+            getApiKey("CLIENT_ID")
         )
         buildConfigField(
             "String",
             "REDIRECT_URI",
-            gradleLocalProperties(rootDir)
-                .getProperty("REDIRECT_URI")
+            getApiKey("REDIRECT_URI")
         )
         buildConfigField(
             "String",
             "BASE_URL",
-            gradleLocalProperties(rootDir)
-                .getProperty("BASE_URL")
+            getApiKey("BASE_URL")
         )
     }
 
@@ -127,4 +125,11 @@ dependencies {
     androidTestImplementation(Dependency.Compose.COMPOSE_JUNIT)
     debugImplementation(Dependency.Compose.COMPOSE_TOOLING)
     debugImplementation(Dependency.Compose.COMPOSE_TEST)
+}
+
+fun getApiKey(propertyKey: String): String {
+    val propFile = rootProject.file("./local.properties")
+    val properties = Properties()
+    properties.load(FileInputStream(propFile))
+    return properties.getProperty(propertyKey)
 }
