@@ -35,8 +35,11 @@ class MakeClubViewModel @Inject constructor(
         _clubType.value = type
     }
 
-    private val _result = MutableLiveData<List<UserData>>()
-    val result: LiveData<List<UserData>> get() = _result
+    private val _searchUserResult = MutableLiveData<List<UserData>>()
+    val searchUserResult: LiveData<List<UserData>> get() = _searchUserResult
+
+    private val _searchUserState = MutableLiveData<Event>()
+    val searchUserState: LiveData<Event> get() = _searchUserState
 
     private val _bannerResult = MutableLiveData<String>()
     val bannerResult: LiveData<String> get() = _bannerResult
@@ -77,13 +80,23 @@ class MakeClubViewModel @Inject constructor(
             getSearchUserUseCase(
                 queryString
             ).onSuccess {
-                _result.value = it
-                Log.d("TAG", "searchResult: ${_result.value}")
+                _searchUserResult.value = it
+                _searchUserState.value = Event.Success
+                Log.d("TAG", "searchResult: ${_searchUserResult.value}")
             }.onFailure {
-                when (it) {
-                    is UnauthorizedException -> Log.d("TAG", "searchResult: $it ")
-                    else ->
+                _searchUserState.value = when (it) {
+                    is UnauthorizedException -> {
                         Log.d("TAG", "searchResult: $it ")
+                        Event.Unauthorized
+                    }
+                    is ServerException -> {
+                        Log.d("TAG", "getSearchUser: $it")
+                        Event.Server
+                    }
+                    else -> {
+                        Log.d("TAG", "searchResult: $it ")
+                        Event.UnKnown
+                    }
                 }
             }
         }
@@ -166,13 +179,9 @@ class MakeClubViewModel @Inject constructor(
                 )
             ).onSuccess {
                 Log.d("TAG", "createClub: 성공")
-                //Todo(Leeyeonbin) 스테이터스로 예외되는거 수정하기
-                // _status.value = it.code()
                 _createClubResult.value = Event.Success
 
             }.onFailure {
-                // Todo(LeeHyeonbin) 스테이터스 코드로 예외되는거 수정하기
-                // _status.value = it.code()
                 _createClubResult.value = when(it) {
                     is BadRequestException -> {
                         Event.BadRequest

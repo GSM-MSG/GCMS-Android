@@ -113,7 +113,7 @@ class StudentSearchFragment :
     }
 
     private fun observeResult() {
-        makeClubViewModel.result.observe(this) {
+        makeClubViewModel.searchUserResult.observe(this) {
             userList = it as MutableList<UserData>
             searchAdapter.submitList(it)
         }
