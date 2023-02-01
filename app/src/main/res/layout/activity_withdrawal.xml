@@ -6,7 +6,7 @@
 
         <variable
             name="withdrawal"
-            type="com.msg.gcms.ui.component.withdrawal.WithdrawalActivity" />
+            type="com.msg.gcms.presentation.view.withdrawal.WithdrawalActivity" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

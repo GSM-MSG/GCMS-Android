@@ -5,7 +5,7 @@
     <data>
         <variable
             name="logoutDialog"
-            type="com.msg.gcms.ui.component.withdrawal.WithdrawalDialog" />
+            type="com.msg.gcms.presentation.view.withdrawal.WithdrawalDialog" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

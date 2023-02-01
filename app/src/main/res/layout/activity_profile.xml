@@ -6,7 +6,7 @@
 
         <variable
             name="profile"
-            type="com.msg.gcms.ui.component.profile.ProfileActivity" />
+            type="com.msg.gcms.presentation.view.profile.ProfileActivity" />
     </data>
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -112,7 +112,7 @@
                         android:id="@+id/profileList"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:name="com.msg.gcms.ui.component.profile.ProfileNoClubFragment" />
+                        android:name="com.msg.gcms.presentation.view.profile.ProfileNoClubFragment" />
                 </LinearLayout>
             </ScrollView>
 

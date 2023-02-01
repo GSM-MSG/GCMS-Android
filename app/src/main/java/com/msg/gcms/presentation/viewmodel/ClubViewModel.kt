@@ -1,0 +1,237 @@
+package com.msg.gcms.presentation.viewmodel
+
+import android.util.Log
+import androidx.fragment.app.FragmentManager
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.msg.gcms.data.remote.dto.club.request.ClubIdentificationRequest
+import com.msg.gcms.data.remote.dto.user.request.UserDeleteRequest
+import com.msg.gcms.domain.exception.ConflictException
+import com.msg.gcms.domain.exception.ForBiddenException
+import com.msg.gcms.domain.exception.NotFoundException
+import com.msg.gcms.domain.exception.ServerException
+import com.msg.gcms.domain.exception.UnauthorizedException
+import com.msg.gcms.domain.usecase.club.ClubDeleteUseCase
+import com.msg.gcms.domain.usecase.club.PostClubApplyUseCase
+import com.msg.gcms.domain.usecase.club.PostClubCancelUseCase
+import com.msg.gcms.domain.usecase.club.PutClubCloseUseCase
+import com.msg.gcms.domain.usecase.club.PutClubOpenUseCase
+import com.msg.gcms.domain.usecase.user.ExitUseCase
+import com.msg.gcms.presentation.base.LottieFragment
+import com.msg.gcms.presentation.viewmodel.util.Event
+import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.launch
+import javax.inject.Inject
+
+@HiltViewModel
+class ClubViewModel @Inject constructor(
+    private val postClubApplyUseCase: PostClubApplyUseCase,
+    private val postClubCancelUseCase: PostClubCancelUseCase,
+    private val putClubOpenUseCase: PutClubOpenUseCase,
+    private val putClubCloseUseCase: PutClubCloseUseCase,
+    private val exitUseCase: ExitUseCase,
+    private val clubDeleteUseCase: ClubDeleteUseCase,
+) : ViewModel() {
+
+    private val lottie by lazy { LottieFragment() }
+
+    // private val _getClubStatus = MutableLiveData<Event>()
+    // val getClubStatus: LiveData<Event> get() = _getClubStatus
+
+    private val _cancelClubApply = MutableLiveData<Event>()
+    val cancelClubApply: LiveData<Event> get() = _cancelClubApply
+
+    private val _applyClub = MutableLiveData<Event>()
+    val applyClub: LiveData<Event> get() = _applyClub
+
+    private val _closingClubApplication = MutableLiveData<Event>()
+    val closingClubApplication: LiveData<Event> get() = _closingClubApplication
+
+    private val _openingClubApplication = MutableLiveData<Event>()
+    val openingClubApplication: LiveData<Event> get() = _openingClubApplication
+
+    private val _deleteClub = MutableLiveData<Event>()
+    val deleteClub: LiveData<Event> get() = _deleteClub
+
+    private val TAG = "ClubViewModel"
+
+    fun postClubApply(type: String, q: String) {
+        viewModelScope.launch {
+            postClubApplyUseCase(
+                ClubIdentificationRequest(type = type, q = q)
+            ).onSuccess {
+                //Todo(Leeyeonbin) 여기도 스테이터스로 예외하는거 다 수정하기
+                _applyClub.value = Event.Success
+            }.onFailure {
+                _applyClub.value = when (it) {
+                    is UnauthorizedException -> {
+                        Log.d(TAG, "postClubApply: $it")
+                        Event.Unauthorized
+                    }
+                    is NotFoundException -> {
+                        Log.d(TAG, "postClubApply: $it")
+                        Event.NotFound
+                    }
+                    is ConflictException -> {
+                        Log.d(TAG, "postClubApply: $it")
+                        Event.Conflict
+                    }
+                    is ServerException -> {
+                        Log.d(TAG, "postClubApply: $it")
+                        Event.Server
+                    }
+                    else -> {
+                        Log.d(TAG, "postClubApply: $it")
+                        Event.UnKnown
+                    }
+                }
+            }
+        }
+    }
+
+    fun postClubCancel(type: String, q: String) {
+        viewModelScope.launch {
+            postClubCancelUseCase(
+                ClubIdentificationRequest(type = type, q = q)
+            ).onSuccess {
+                //Todo(Leeyeonbin) 여기 스테이터스로 예외하는거 수정
+                _cancelClubApply.value = Event.Success
+            }.onFailure {
+                _cancelClubApply.value = when (it) {
+                    is UnauthorizedException -> {
+                        Log.d(TAG, "postClubCancel: $it")
+                        Event.Unauthorized
+                    }
+                    is NotFoundException -> {
+                        Log.d(TAG, "postClubCancel: $it")
+                        Event.NotFound
+                    }
+                    is ServerException -> {
+                        Event.Server
+                    }
+                    else -> {
+                        Log.d(TAG, "postClubCancel: $it")
+                        Event.UnKnown
+                    }
+                }
+            }
+        }
+    }
+
+    fun putClubOpen(type: String, q: String) {
+        viewModelScope.launch {
+            putClubOpenUseCase(
+                ClubIdentificationRequest(type = type, q = q)
+            ).onSuccess {
+                //Todo(Leeyeonbin) 여기 스테이터스로 예외하는거 수정
+                _openingClubApplication.value = Event.Success
+            }.onFailure {
+                _openingClubApplication.value = when (it) {
+                    is UnauthorizedException -> {
+                        Log.d(TAG, "putClubOpen: $it")
+                        Event.Unauthorized
+                    }
+                    is ForBiddenException -> {
+                        Log.d(TAG, "putClubOpen: $it")
+                        Event.ForBidden
+                    }
+                    is ServerException -> {
+                        Event.Server
+                    }
+                    else -> {
+                        Log.d(TAG, "putClubOpen: $it")
+                        Event.UnKnown
+                    }
+                }
+            }
+        }
+    }
+
+    fun putClubClose(type: String, q: String) {
+        viewModelScope.launch {
+            putClubCloseUseCase(
+                ClubIdentificationRequest(type = type, q = q)
+            ).onSuccess {
+                //Todo(Leeyeonbin) 여기 스테이터스로 예외하는거 수정
+                _closingClubApplication.value = Event.Success
+            }.onFailure {
+                _closingClubApplication.value = when (it) {
+                    is UnauthorizedException -> {
+                        Log.d(TAG, "putClubClose: $it")
+                        Event.Unauthorized
+                    }
+                    is ForBiddenException -> {
+                        Log.d(TAG, "putClubClose: $it")
+                        Event.ForBidden
+                    }
+                    is ServerException -> {
+                        Event.Server
+                    }
+                    else -> {
+                        Log.d(TAG, "putClubClose: $it")
+                        Event.UnKnown
+                    }
+                }
+            }
+        }
+    }
+
+    fun startLottie(fragmentManager: FragmentManager) {
+        if (!lottie.isAdded) {
+            lottie.show(fragmentManager, "Lottie")
+        }
+    }
+
+    fun stopLottie() {
+        if (lottie.isAdded) {
+            lottie.dismissAllowingStateLoss()
+        }
+    }
+
+    fun exit(q: String, type: String) {
+        viewModelScope.launch {
+            try {
+                exitUseCase(UserDeleteRequest(q = q, type = type))
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }
+    }
+
+    fun deleteClub(q: String, type: String) {
+        viewModelScope.launch {
+            clubDeleteUseCase(
+                ClubIdentificationRequest(q = q, type = type)
+            ).onSuccess {
+                //Todo(Leeyeonbin) 여기 스테이터스로 예외하는거 수정
+                // Log.d(TAG, "deleteClub: ${it.code()}")
+                _deleteClub.value = Event.Success
+
+            }.onFailure {
+                _deleteClub.value = when (it) {
+                    is UnauthorizedException -> {
+                        Log.d(TAG, "deleteClub: $it")
+                        Event.Unauthorized
+                    }
+                    is ForBiddenException -> {
+                        Log.d(TAG, "deleteClub: $it")
+                        Event.ForBidden
+                    }
+                    is NotFoundException -> {
+                        Log.d(TAG, "deleteClub: $it")
+                        Event.NotFound
+                    }
+                    is ServerException -> {
+                        Event.Server
+                    }
+                    else -> {
+                        Log.d(TAG, "deleteClub: $it")
+                        Event.UnKnown
+                    }
+                }
+            }
+        }
+    }
+}

@@ -7,7 +7,7 @@
 
     <application
         android:requestLegacyExternalStorage="true"
-        android:name="com.msg.gcms.base.di.GCMSApplication"
+        android:name="com.msg.gcms.di.GCMSApplication"
         android:allowBackup="true"
         android:configChanges="orientation|screenSize"
         android:icon="@mipmap/ic_main"
@@ -17,11 +17,11 @@
         android:theme="@style/Theme.MSGGCMS"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".ui.component.clubmaker.MakeClubActivity"
+            android:name=".presentation.view.clubmaker.MakeClubActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustNothing" />
         <activity
-            android:name=".ui.component.splash.SplashActivity"
+            android:name=".presentation.view.splash.SplashActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -30,18 +30,18 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.component.intro.IntroActivity"
+            android:name=".presentation.view.intro.IntroActivity"
             android:exported="true"/>
         <activity
-            android:name=".ui.component.main.MainActivity"
+            android:name=".presentation.view.main.MainActivity"
             android:exported="false" />
-        <activity android:name=".ui.component.profile.ProfileActivity" />
+        <activity android:name=".presentation.view.profile.ProfileActivity" />
         <activity
-            android:name=".ui.component.withdrawal.WithdrawalActivity"
+            android:name=".presentation.view.withdrawal.WithdrawalActivity"
             android:exported="false" />
-        <activity android:name=".ui.component.editclub.EditClubActivity"
+        <activity android:name=".presentation.view.editclub.EditClubActivity"
             android:exported="false"/>
-        <activity android:name=".ui.component.member_manage.MemberManageActivity"
+        <activity android:name=".presentation.view.member_manage.MemberManageActivity"
             android:exported="false"/>
     </application>
 
