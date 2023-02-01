@@ -33,6 +33,7 @@ import com.msg.gcms.presentation.base.BaseModal
 import com.msg.gcms.presentation.utils.ItemDecorator
 import com.msg.gcms.presentation.viewmodel.ClubViewModel
 import com.msg.gcms.presentation.viewmodel.MakeClubViewModel
+import com.msg.gcms.presentation.viewmodel.util.Event
 import dagger.hilt.android.AndroidEntryPoint
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
@@ -70,14 +71,13 @@ class MakeClubDetailFragment :
 
     private fun observeEvent() {
         observeImageChange()
-        observeStatus()
-        observeResult()
+        observeCreateClubStatus()
     }
 
     private fun observeImageChange() {
         makeClubViewModel.imageUploadCheck.observe(requireActivity()) {
-            if(it != null) {
-                if(!imageState) {
+            if (it != null) {
+                if (!imageState) {
                     postCreateClub()
                     Log.d("TAG", "observeImageChange: 카운트")
                     imageState = true
@@ -88,21 +88,6 @@ class MakeClubDetailFragment :
 
     private fun postCreateClub() {
         makeClubViewModel.createClub()
-    }
-
-    private fun observeResult() {
-        makeClubViewModel.createClubResult.observe(this) {
-            when (it) {
-                true -> {
-                    shortToast("생성 성공!!")
-                    requireActivity().finish()
-                }
-                false -> {
-                    shortToast("생성 실패")
-                    clubViewModel.stopLottie()
-                }
-            }
-        }
     }
 
     private fun imageSetting() {
@@ -200,7 +185,7 @@ class MakeClubDetailFragment :
             )
         }
         clubMemberAdapter = ClubMemberAdapter(makeClubViewModel.memberList)
-        clubMemberAdapter.setItemOnClickListener(object: ClubMemberAdapter.OnItemClickListener {
+        clubMemberAdapter.setItemOnClickListener(object : ClubMemberAdapter.OnItemClickListener {
             override fun onClick(position: Int) {
                 findNavController().navigate(R.id.action_makeClubDetailFragment_to_studentSearchFragment)
             }
@@ -283,7 +268,12 @@ class MakeClubDetailFragment :
 
     private fun uriToBitMap(imageUri: Uri): Bitmap {
         val bitmap = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-            ImageDecoder.decodeBitmap(ImageDecoder.createSource(requireContext().contentResolver, imageUri))
+            ImageDecoder.decodeBitmap(
+                ImageDecoder.createSource(
+                    requireContext().contentResolver,
+                    imageUri
+                )
+            )
         } else {
             MediaStore.Images.Media.getBitmap(requireContext().contentResolver, imageUri)
         }
@@ -299,10 +289,10 @@ class MakeClubDetailFragment :
         return path
     }
 
-    private fun observeStatus() {
-        makeClubViewModel.status.observe(this) {
+    private fun observeCreateClubStatus() {
+        makeClubViewModel.createClubResult.observe(this) {
             when (it) {
-                201 -> {
+                Event.Success -> {
                     BaseModal("생성 성공", "동아리 생성에 성공했습니다.", requireContext()).let { dialog ->
                         dialog.show()
                         dialog.dialogBinding.ok.setOnClickListener {
@@ -310,7 +300,7 @@ class MakeClubDetailFragment :
                         }
                     }
                 }
-                400 -> {
+                Event.BadRequest -> {
                     BaseModal("생성 실패", "이미 다른 동아리에 소속 또는 신청중입니다.", requireContext()).let { dialog ->
                         dialog.show()
                         dialog.dialogBinding.ok.setOnClickListener {
@@ -318,11 +308,14 @@ class MakeClubDetailFragment :
                         }
                     }
                 }
-                409 -> {
+                Event.Conflict -> {
                     BaseModal("생성 실패", "이미 존재하는 동아리 입니다.", requireContext()).show()
                 }
-                401 -> {
+                Event.Unauthorized -> {
                     BaseModal("오류", "토큰이 만료되었습니다, 앱 종료후 다시 실행해 주세요", requireContext()).show()
+                }
+                Event.Server -> {
+                    Log.d("TAG", "observeStatus: $it")
                 }
                 else -> {
                     BaseModal("생성 실패", "알수 없는 오류 발생, 개발자에게 문의해주세요", requireContext()).show()
