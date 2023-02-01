@@ -23,6 +23,6 @@ class WithdrawalViewModel @Inject constructor(
     }
 
     fun withdrawal() {
-        TODO("GAuth에 맞는 방식으로 변경 필요")
+
     }
 }

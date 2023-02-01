@@ -24,7 +24,7 @@ class WithdrawalActivity : BaseActivity<ActivityWithdrawalBinding>(R.layout.acti
 
     private fun isWithdrawal() {
         viewModel.isWithdrawal.observe(this) {
-            TODO("GAuth에 맞는 방식으로 변경 필요")
+
         }
     }
 
