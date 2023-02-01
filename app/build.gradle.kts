@@ -3,9 +3,8 @@ import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
 plugins {
     id("com.android.application")
     id("dagger.hilt.android.plugin")
-    kotlin("android")
-    kotlin("kapt")
     id("kotlin-android")
+    id("kotlin-kapt")
 }
 
 android {
@@ -23,25 +22,19 @@ android {
             "String",
             "CLIENT_ID",
             gradleLocalProperties(rootDir)
-                .getProperty("CLIENT_ID", "\"Defalut\"")
-        )
-        buildConfigField(
-            "String",
-            "CLIENT_SECRET",
-            gradleLocalProperties(rootDir)
-                .getProperty("CLIENT_SECRET", "\"Defalut\"")
+                .getProperty("CLIENT_ID")
         )
         buildConfigField(
             "String",
             "REDIRECT_URI",
             gradleLocalProperties(rootDir)
-                .getProperty("REDIRECT_URI", "\"Defalut\"")
+                .getProperty("REDIRECT_URI")
         )
         buildConfigField(
             "String",
             "BASE_URL",
             gradleLocalProperties(rootDir)
-                .getProperty("BASE_URL","\"http://\"")
+                .getProperty("BASE_URL")
         )
     }
 
