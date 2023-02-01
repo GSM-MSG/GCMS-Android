@@ -91,7 +91,7 @@ class MakeClubDetailFragment :
     }
 
     private fun observeResult() {
-        makeClubViewModel.createResult.observe(this) {
+        makeClubViewModel.createClubResult.observe(this) {
             when (it) {
                 true -> {
                     shortToast("생성 성공!!")

@@ -9,10 +9,13 @@ import com.msg.gcms.data.local.entity.ActivityPhotoType
 import com.msg.gcms.data.remote.dto.club.request.CreateClubRequest
 import com.msg.gcms.data.remote.dto.user.response.UserData
 import com.msg.gcms.domain.exception.BadRequestException
+import com.msg.gcms.domain.exception.ConflictException
+import com.msg.gcms.domain.exception.ServerException
 import com.msg.gcms.domain.exception.UnauthorizedException
 import com.msg.gcms.domain.usecase.club.PostCreateClubUseCase
 import com.msg.gcms.domain.usecase.image.ImageUseCase
 import com.msg.gcms.domain.usecase.user.GetSearchUserUseCase
+import com.msg.gcms.presentation.viewmodel.util.Event
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import okhttp3.MultipartBody
@@ -54,8 +57,8 @@ class MakeClubViewModel @Inject constructor(
 
     var activityPhotoList = mutableListOf<ActivityPhotoType>()
 
-    private val _createResult = MutableLiveData<Boolean>()
-    val createResult: LiveData<Boolean> get() = _createResult
+    private val _createClubResult = MutableLiveData<Event>()
+    val createClubResult: LiveData<Event> get() = _createClubResult
 
     private val _status = MutableLiveData<Int>()
     val status: LiveData<Int> get() = _status
@@ -143,7 +146,6 @@ class MakeClubViewModel @Inject constructor(
         viewModelScope.launch {
             if (_activityPhotoResult.value == null)
                 _activityPhotoResult.value = emptyList()
-
             Log.d(
                 "TAG",
                 "createClub: type: ${clubType.value.toString()}, title: $title, description: $description, contact: $contact, notionLink: $notionLink, teacher: $teacher, member: $clubMemberEmail, activityUrls: ${activityPhoto.value}, bannerUrl: ${bannerResult.value}"
@@ -166,12 +168,28 @@ class MakeClubViewModel @Inject constructor(
                 Log.d("TAG", "createClub: 성공")
                 //Todo(Leeyeonbin) 스테이터스로 예외되는거 수정하기
                 // _status.value = it.code()
-                _createResult.value = true
+                _createClubResult.value = Event.Success
 
             }.onFailure {
                 // Todo(LeeHyeonbin) 스테이터스 코드로 예외되는거 수정하기
                 // _status.value = it.code()
-                _createResult.value = false
+                _createClubResult.value = when(it) {
+                    is BadRequestException -> {
+                        Event.BadRequest
+                    }
+                    is UnauthorizedException -> {
+                        Event.Unauthorized
+                    }
+                    is ConflictException -> {
+                        Event.Conflict
+                    }
+                    is ServerException -> {
+                        Event.Server
+                    }
+                    else -> {
+                        Event.UnKnown
+                    }
+                }
                 Log.d("TAG", "createClub: $it")
             }
         }
