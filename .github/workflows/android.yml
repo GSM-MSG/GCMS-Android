@@ -26,23 +26,17 @@ jobs:
       - name: Access CLIENT_ID
         env:
           CLIENT_ID: ${{ secrets.CLIENT_ID }}
-        run: echo CLIENT_ID=\"$CLIENT_ID\" > ./local.properties
+        run: echo CLIENT_ID=\"$CLIENT_ID\" >> ./local.properties
 
       - name: Access REDIRECT_URI
         env:
           REDIRECT_URI: ${{ secrets.REDIRECT_URI }}
-        run: echo REDIRECT_URI=\"$REDIRECT_URI\" > ./local.properties
+        run: echo REDIRECT_URI=\"$REDIRECT_URI\" >> ./local.properties
 
       - name: Access BASE_URL
         env:
           BASE_URL: ${{ secrets.BASE_URL }}
-        run: echo BASE_URL=\"$BASE_URL\" > ./local.properties
-
-      - name: Secret Test
-        env:
-          TEST_SECRET: ${{ secrets.CLIENT_ID }}
-        run: |
-          if [ $TEST_SECRET==00ce71cc5f774d4191db789d4e6aea40260080b4498947de98f3c7bd7d5ec78d ]; then echo same ; fi
+        run: echo BASE_URL=\"$BASE_URL\" >> ./local.properties
 
       - name: Run ktlint
         run: ./gradlew ktlintCheck
