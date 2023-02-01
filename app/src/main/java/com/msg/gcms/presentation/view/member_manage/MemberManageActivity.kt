@@ -28,7 +28,7 @@ class MemberManageActivity :
         viewModel.applicantList.observe(this) {
             settingApplicantAdapter()
         }
-        observeStatus()
+        baseObserveStatus()
     }
 
     override fun viewSetting() {
@@ -130,7 +130,7 @@ class MemberManageActivity :
         }
     }
 
-    private fun observeStatus() {
+    private fun baseObserveStatus() {
         viewModel.status.observe(this) {
             when (it) {
                 401, 406 -> {
