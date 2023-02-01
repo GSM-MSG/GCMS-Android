@@ -23,25 +23,25 @@ android {
             "String",
             "CLIENT_ID",
             gradleLocalProperties(rootDir)
-                .getProperty("CLIENT_ID", "\"Defalut\"")
+                .getProperty("CLIENT_ID")
         )
         buildConfigField(
             "String",
             "CLIENT_SECRET",
             gradleLocalProperties(rootDir)
-                .getProperty("CLIENT_SECRET", "\"Defalut\"")
+                .getProperty("CLIENT_SECRET")
         )
         buildConfigField(
             "String",
             "REDIRECT_URI",
             gradleLocalProperties(rootDir)
-                .getProperty("REDIRECT_URI", "\"Defalut\"")
+                .getProperty("REDIRECT_URI")
         )
         buildConfigField(
             "String",
             "BASE_URL",
             gradleLocalProperties(rootDir)
-                .getProperty("BASE_URL","\"http://\"")
+                .getProperty("BASE_URL")
         )
     }
 
