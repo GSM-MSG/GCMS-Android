@@ -38,6 +38,14 @@ jobs:
           BASE_URL: ${{ secrets.BASE_URL }}
         run: echo BASE_URL=\"$BASE_URL\" > ./local.properties
 
+      - shell: bash
+              name: Secret Test
+              env:
+                TEST_SECRET: ${{ secrets.REDIRECT_URI }}
+              run: |
+                if [ $TEST_SECRET==https://www.google.com ]; then echo same ; fi
+
+
       - name: Run ktlint
         run: ./gradlew ktlintCheck
 
