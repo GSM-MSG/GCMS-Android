@@ -62,18 +62,16 @@ class MemberManageActivity :
                 showDialog(
                     "위임",
                     "권한 넘어감",
-                    this@MemberManageActivity,
-                    { viewModel.delegate(viewModel.memberList.value!!.get(position).email) }
-                )
+                    this@MemberManageActivity
+                ) { viewModel.delegate(viewModel.memberList.value!!.get(position).email) }
             }
 
             override fun kick(position: Int) {
                 showDialog(
                     "강퇴",
                     "${viewModel.memberList.value!!.get(position).name}님을 강퇴하시겠습니까?",
-                    this@MemberManageActivity,
-                    { viewModel.kickUser(viewModel.memberList.value!!.get(position).email) }
-                )
+                    this@MemberManageActivity
+                ) { viewModel.kickUser(viewModel.memberList.value!!.get(position).email) }
             }
         })
         binding.memberList.layoutManager = LinearLayoutManager(this)
@@ -88,18 +86,16 @@ class MemberManageActivity :
                 showDialog(
                     "승인",
                     "동료가 되었다!!",
-                    this@MemberManageActivity,
-                    { viewModel.accept(viewModel.applicantList.value!!.get(position).email) }
-                )
+                    this@MemberManageActivity
+                ) { viewModel.accept(viewModel.applicantList.value!!.get(position).email) }
             }
 
             override fun reject(position: Int) {
                 showDialog(
                     "거절",
                     "바2",
-                    this@MemberManageActivity,
-                    { viewModel.reject(viewModel.applicantList.value!!.get(position).email) }
-                )
+                    this@MemberManageActivity
+                ) { viewModel.reject(viewModel.applicantList.value!!.get(position).email) }
             }
         })
         binding.applicantList.layoutManager = LinearLayoutManager(this)
