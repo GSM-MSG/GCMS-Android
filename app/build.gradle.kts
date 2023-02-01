@@ -22,19 +22,19 @@ android {
             "String",
             "CLIENT_ID",
             gradleLocalProperties(rootDir)
-                .getProperty("CLIENT_ID","")
+                .getProperty("CLIENT_ID")
         )
         buildConfigField(
             "String",
             "REDIRECT_URI",
             gradleLocalProperties(rootDir)
-                .getProperty("REDIRECT_URI","")
+                .getProperty("REDIRECT_URI")
         )
         buildConfigField(
             "String",
             "BASE_URL",
             gradleLocalProperties(rootDir)
-                .getProperty("BASE_URL","")
+                .getProperty("BASE_URL")
         )
     }
 

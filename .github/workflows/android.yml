@@ -25,17 +25,17 @@ jobs:
 
       - name: Access CLIENT_ID
         env:
-          APOD_API_KEY: ${{ secrets.CLIENT_ID }}
+          CLIENT_ID: ${{ secrets.CLIENT_ID }}
         run: echo CLIENT_ID=\"$CLIENT_ID\" > ./local.properties
 
       - name: Access REDIRECT_URI
         env:
-          APOD_API_KEY: ${{ secrets.REDIRECT_URI }}
+          REDIRECT_URI: ${{ secrets.REDIRECT_URI }}
         run: echo REDIRECT_URI=\"$REDIRECT_URI\" > ./local.properties
 
       - name: Access BASE_URL
         env:
-          APOD_API_KEY: ${{ secrets.BASE_URL }}
+          BASE_URL: ${{ secrets.BASE_URL }}
         run: echo BASE_URL=\"$BASE_URL\" > ./local.properties
 
       - name: Run ktlint
