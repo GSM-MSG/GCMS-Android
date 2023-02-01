@@ -57,7 +57,7 @@ class ProfileActivity : BaseActivity<ActivityProfileBinding>(R.layout.activity_p
 
     private fun isLogout() {
         viewModel.logoutStatus.observe(this) {
-
+            TODO("GAuth 방식으로 로그아웃 교체")
         }
     }
 
