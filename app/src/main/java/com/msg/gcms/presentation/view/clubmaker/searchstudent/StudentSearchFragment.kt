@@ -53,7 +53,7 @@ class StudentSearchFragment :
 
     private fun observeEvent() {
         observeEditText()
-        observeResult()
+        observeSearchResult()
     }
 
     private fun settingRecyclerView() {
@@ -112,7 +112,7 @@ class StudentSearchFragment :
         }
     }
 
-    private fun observeResult() {
+    private fun observeSearchResult() {
         makeClubViewModel.searchUserResult.observe(this) {
             userList = it as MutableList<UserData>
             searchAdapter.submitList(it)

@@ -63,8 +63,8 @@ class MakeClubViewModel @Inject constructor(
     private val _createClubResult = MutableLiveData<Event>()
     val createClubResult: LiveData<Event> get() = _createClubResult
 
-    private val _status = MutableLiveData<Int>()
-    val status: LiveData<Int> get() = _status
+    // private val _status = MutableLiveData<Int>()
+    // val status: LiveData<Int> get() = _status
 
     var title: String = ""
     var description: String = ""
