@@ -6,7 +6,7 @@
 
         <variable
             name="fragment"
-            type="com.msg.gcms.ui.component.clubmaker.clubIntroduce.ClubIntroduceFragment" />
+            type="com.msg.gcms.presentation.view.clubmaker.clubIntroduce.ClubIntroduceFragment" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

@@ -1,6 +1,6 @@
 package com.msg.gcms.data.remote.network
 
-import com.msg.gcms.base.di.GCMSApplication
+import com.msg.gcms.di.GCMSApplication
 import com.msg.gcms.data.remote.dto.auth.request.CodeIssuanceRequest
 import com.msg.gcms.data.remote.dto.auth.request.RegisterRequest
 import com.msg.gcms.data.remote.dto.auth.response.RegisterResponse

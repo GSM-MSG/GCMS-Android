@@ -7,7 +7,7 @@
 
         <variable
             name="member"
-            type="com.msg.gcms.ui.component.member.AddMemberFragment" />
+            type="com.msg.gcms.presentation.view.member.AddMemberFragment" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

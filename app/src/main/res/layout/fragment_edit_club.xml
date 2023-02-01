@@ -7,7 +7,7 @@
 
         <variable
             name="fragment"
-            type="com.msg.gcms.ui.component.editclub.EditClubFragment" />
+            type="com.msg.gcms.presentation.view.editclub.EditClubFragment" />
     </data>
 
     <ScrollView
