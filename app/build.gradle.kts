@@ -49,6 +49,7 @@ dependencies {
     implementation(Dependency.AndroidX.CONSTRAINT_LAYOUT)
     implementation(Dependency.AndroidX.LIFECYCLE_VIEWMODEL_KTX)
     implementation(Dependency.AndroidX.RECYCLER_VIEW)
+    implementation(Dependency.AndroidX.SPLASH_SCREEN)
 
     implementation(Dependency.AndroidX.ROOM_KTX)
     implementation(Dependency.AndroidX.LEGACY_SUPPORT)
@@ -57,9 +58,6 @@ dependencies {
     implementation(Dependency.Google.FIREBASE)
     implementation(Dependency.Google.GMS_PLAY_SERVICE_AUTH)
     implementation(Dependency.Google.GMS_PLAY_SERVICE_BASE)
-    implementation("androidx.appcompat:appcompat:1.4.2")
-    implementation("com.google.android.material:material:1.6.1")
-    implementation("androidx.constraintlayout:constraintlayout:2.1.4")
     kapt(Dependency.AndroidX.ROOM_COMPILER)
 
     implementation(Dependency.Kotlin.COROUTINES_CORE)
@@ -97,4 +95,5 @@ dependencies {
     implementation(Dependency.Libraries.SHIMMER)
 
     implementation(Dependency.Lottie.LOTTIE)
+
 }

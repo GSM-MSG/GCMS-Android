@@ -37,6 +37,9 @@ object Dependency {
         const val ROOM_COMPILER = "androidx.room:room-compiler:${Versions.ROOM}"
 
         const val LEGACY_SUPPORT = "androidx.legacy:legacy-support-v4:${Versions.LEGACY}"
+
+        const val SPLASH_SCREEN = "androidx.core:core-splashscreen:${Versions.SPLASH}"
+
     }
 
     object Google {
