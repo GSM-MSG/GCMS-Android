@@ -22,7 +22,7 @@ object Versions {
     const val LEGACY = "1.0.0"
     const val RECYCLERVIEW = "1.1.0"
 
-    const val HILT = "2.38.1"
+    const val HILT = "2.44"
     const val MATERIAL = "1.3.0"
     const val GMS_PLAY_SERVICE_BASE = "18.0.1"
     const val GMS_PLAY_SERVICE_AUTH = "20.2.0"
