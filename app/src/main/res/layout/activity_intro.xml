@@ -101,6 +101,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/guideline25" />
+
         <TextView
             android:id="@+id/introTxt2"
             android:layout_width="wrap_content"
@@ -178,23 +179,19 @@
             app:layout_constraintStart_toEndOf="@+id/view10" />
 
 
-        <TextView
-            android:paddingStart="35dp"
+        <androidx.compose.ui.platform.ComposeView
             android:id="@+id/signInBtn"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:background="@drawable/bg_sign_btn"
-            android:fontFamily="@font/notosans"
-            android:gravity="center"
-            android:text="@string/google_login"
-            android:textColor="@color/black"
-            android:textSize="16sp"
-            android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@+id/guideline24"
             app:layout_constraintEnd_toStartOf="@+id/guideline18"
             app:layout_constraintStart_toStartOf="@+id/guideline17"
-            app:layout_constraintTop_toTopOf="@+id/guideline21"
-            app:drawableLeftCompat="@drawable/google_icon" />
+            app:layout_constraintTop_toTopOf="@+id/guideline21" />
+
+        <androidx.compose.ui.platform.ComposeView
+            android:id="@+id/gAuthWebView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

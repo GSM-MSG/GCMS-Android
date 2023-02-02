@@ -1,10 +1,11 @@
+import java.io.FileInputStream
+import java.util.Properties
+
 plugins {
     id("com.android.application")
     id("dagger.hilt.android.plugin")
-    id("com.google.gms.google-services")
-    kotlin("android")
-    kotlin("kapt")
     id("kotlin-android")
+    id("kotlin-kapt")
 }
 
 android {
@@ -17,6 +18,22 @@ android {
         versionCode = 1
         versionName = "1.0"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+        buildConfigField(
+            "String",
+            "CLIENT_ID",
+            getApiKey("CLIENT_ID")
+        )
+        buildConfigField(
+            "String",
+            "REDIRECT_URI",
+            getApiKey("REDIRECT_URI")
+        )
+        buildConfigField(
+            "String",
+            "BASE_URL",
+            getApiKey("BASE_URL")
+        )
     }
 
     buildTypes {
@@ -38,6 +55,10 @@ android {
     }
     buildFeatures {
         dataBinding = true
+        compose = true
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion = "1.2.0-alpha03"
     }
 }
 
@@ -57,9 +78,6 @@ dependencies {
     implementation(Dependency.Google.FIREBASE)
     implementation(Dependency.Google.GMS_PLAY_SERVICE_AUTH)
     implementation(Dependency.Google.GMS_PLAY_SERVICE_BASE)
-    implementation("androidx.appcompat:appcompat:1.4.2")
-    implementation("com.google.android.material:material:1.6.1")
-    implementation("androidx.constraintlayout:constraintlayout:2.1.4")
     kapt(Dependency.AndroidX.ROOM_COMPILER)
 
     implementation(Dependency.Kotlin.COROUTINES_CORE)
@@ -97,4 +115,21 @@ dependencies {
     implementation(Dependency.Libraries.SHIMMER)
 
     implementation(Dependency.Lottie.LOTTIE)
+
+    implementation(Dependency.Libraries.GAUTH)
+
+    implementation(Dependency.Compose.ACTIVITY_COMPOSE)
+    implementation(Dependency.Compose.COMPOSE)
+    implementation(Dependency.Compose.COMPOSE_PREVIEW)
+    implementation(Dependency.Compose.COMPOSE_MATERIAL)
+    androidTestImplementation(Dependency.Compose.COMPOSE_JUNIT)
+    debugImplementation(Dependency.Compose.COMPOSE_TOOLING)
+    debugImplementation(Dependency.Compose.COMPOSE_TEST)
+}
+
+fun getApiKey(propertyKey: String): String {
+    val propFile = rootProject.file("./local.properties")
+    val properties = Properties()
+    properties.load(FileInputStream(propFile))
+    return properties.getProperty(propertyKey)
 }

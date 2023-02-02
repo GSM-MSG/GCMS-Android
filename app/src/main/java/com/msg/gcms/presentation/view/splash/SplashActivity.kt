@@ -5,9 +5,10 @@ import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.msg.gcms.R
-import com.msg.gcms.presentation.view.intro.IntroActivity
+
 import com.msg.gcms.presentation.view.main.MainActivity
 import com.msg.gcms.presentation.viewmodel.RegistrationViewModel
+import com.msg.gcms.presentation.view.intro.IntroActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

@@ -1,5 +1,6 @@
 package com.msg.gcms.di.module
 
+import com.msg.gcms.BuildConfig
 import com.msg.gcms.data.remote.network.ClubAPI
 import com.msg.gcms.data.remote.network.CommonAPI
 import com.msg.gcms.data.remote.network.ImageAPI
@@ -18,8 +19,6 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object NetworkModule {
-
-    private const val BASE_URL = "https://server.gcms.site/"
 
     @Provides
     @Singleton
@@ -42,7 +41,7 @@ object NetworkModule {
         gsonConverterFactory: GsonConverterFactory
     ): Retrofit {
         return Retrofit.Builder()
-            .baseUrl(BASE_URL)
+            .baseUrl(BuildConfig.BASE_URL)
             .client(okHttpClient)
             .client(provideOkhttpClient())
             .addConverterFactory(gsonConverterFactory)

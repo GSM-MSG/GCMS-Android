@@ -2,33 +2,50 @@ name: Android CI
 
 on:
   push:
-    branches: [ develop ]
+    branches: [ "develop" ]
   pull_request:
-    branches: [ develop ]
+    branches: [ "develop" ]
 
 jobs:
   build:
-    env: 
-      ENCRYPTED_SERVICES_PATH: ${{ 'app/google-services.json.gpg' }}
-      DECRYPTED_SERVICES_PATH: ${{ 'app/google-services.json' }}
-      SERVICES_PW: ${{ secrets.GOOGLE_SERVICES_PW }}
-  
     runs-on: ubuntu-latest
-
     steps:
-    - uses: actions/checkout@v3
-    - name: set up JDK 11
-      uses: actions/setup-java@v3
-      with:
-        java-version: '11'
-        distribution: 'temurin'
-        cache: gradle
-    - name: decode google-services.json
-      run: gpg --pinentry-mode=loopback --passphrase  "$SERVICES_PW" -d -o "$DECRYPTED_SERVICES_PATH" "$ENCRYPTED_SERVICES_PATH"
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
 
-    - name: Grant execute permission for gradlew
-      run: chmod +x gradlew
-    - name: Build with Gradle
-      run: ./gradlew build
-    - name: Run test
-      run: ./gradlew test
+      - name: Setup JDK 11
+        uses: actions/setup-java@v3
+        with:
+          distribution: "zulu"
+          java-version: 11
+
+      - name: Setup Android SDK
+        uses: android-actions/setup-android@v2
+
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
+
+      - name: Access CLIENT_ID
+        env:
+          CLIENT_ID: ${{ secrets.CLIENT_ID }}
+        run: echo CLIENT_ID=\"$CLIENT_ID\" >> ./local.properties
+
+      - name: Access REDIRECT_URI
+        env:
+          REDIRECT_URI: ${{ secrets.REDIRECT_URI }}
+        run: echo REDIRECT_URI=\"$REDIRECT_URI\" >> ./local.properties
+
+      - name: Access BASE_URL
+        env:
+          BASE_URL: ${{ secrets.BASE_URL }}
+        run: echo BASE_URL=\"$BASE_URL\" >> ./local.properties
+
+      - name: Run ktlint
+        run: ./gradlew ktlintCheck
+
+      - name: Run Lint
+        run: ./gradlew lint
+
+      - name: Build with Gradle
+        run: ./gradlew build

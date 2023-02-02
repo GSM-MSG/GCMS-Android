@@ -10,7 +10,7 @@ import javax.inject.Inject
 @HiltViewModel
 class WithdrawalViewModel @Inject constructor(
     private val deleteUserUseCase: DeleteUserUseCase
-): ViewModel() {
+) : ViewModel() {
 
     private val _isApproved = MutableLiveData<Boolean>()
     val isApproved: LiveData<Boolean> get() = _isApproved
@@ -22,18 +22,7 @@ class WithdrawalViewModel @Inject constructor(
         _isApproved.value = isCheck
     }
 
-    // Todo(KimHyunseung) 여기 코드 다 갖다 쳐버리기
-    // fun withdrawal() {
-    //     viewModelScope.launch {
-    //         try {
-    //             val response = deleteUserUseCase()
-    //             when(response.code()) {
-    //                 in 200..299 -> _isWithdrawal.value = true
-    //                 else -> _isWithdrawal.value = false
-    //             }
-    //         } catch (e : Exception) {
-    //             e.printStackTrace()
-    //         }
-    //     }
-    // }
+    fun withdrawal() {
+        TODO("GAuth에 맞는 방식으로 변경 필요")
+    }
 }

@@ -1,10 +1,10 @@
 object Dependency {
     object GradlePlugin {
-        const val GRADLE_ANDROID = "com.android.tools.build:gradle:${Versions.GRADLE_ANDROID}"
-        const val GRADLE_KOTLIN =
-            "org.jetbrains.kotlin:kotlin-gradle-plugin:${Versions.GRADLE_KOTLIN}"
+        const val ANDROID_APPLICATION_PLUGIN = "com.android.application"
+        const val KOTLIN_ANDROID_PLUGIN = "org.jetbrains.kotlin.android"
+        const val ANDROID_LIBRARY_PLUGIN = "com.android.library"
+        const val KTLINT_PLUGIN = "org.jlleitschuh.gradle.ktlint"
         const val GRADLE_HILT = "com.google.dagger:hilt-android-gradle-plugin:${Versions.HILT}"
-        const val GRADLE_KTLINT = "org.jmailen.gradle:kotlinter-gradle:${Versions.KTLINT}"
     }
 
     object Kotlin {
@@ -65,6 +65,7 @@ object Dependency {
         const val MOSHI = "com.squareup.moshi:moshi-kotlin:${Versions.MOSHI}"
         const val MOSHI_COMPILER = "com.squareup.moshi:moshi-kotlin-codegen:${Versions.MOSHI}"
         const val SHIMMER = "com.facebook.shimmer:shimmer:${Versions.SHIMMER}"
+        const val GAUTH = "com.github.GSM-MSG:GAuth-Signin-Android:v${Versions.GAUTH}"
     }
 
     object UnitTest {
@@ -99,5 +100,17 @@ object Dependency {
 
     object Lottie {
         const val LOTTIE = "com.airbnb.android:lottie:${Versions.LOTTIE_VERSION}"
+    }
+
+    object Compose {
+        const val ACTIVITY_COMPOSE =
+            "androidx.activity:activity-compose:${Versions.ACTIVITY_COMPOSE}"
+        const val COMPOSE = "androidx.compose.ui:ui:${Versions.COMPOSE}"
+        const val COMPOSE_PREVIEW = "androidx.compose.ui:ui-tooling-preview:${Versions.COMPOSE}"
+        const val COMPOSE_JUNIT = "androidx.compose.ui:ui-test-junit4:${Versions.COMPOSE}"
+        const val COMPOSE_TOOLING = "androidx.compose.ui:ui-tooling:${Versions.COMPOSE}"
+        const val COMPOSE_TEST = "androidx.compose.ui:ui-test-manifest:${Versions.COMPOSE}"
+        const val COMPOSE_MATERIAL =
+            "androidx.compose.material:material:${Versions.COMPOSE_METARIAL}"
     }
 }

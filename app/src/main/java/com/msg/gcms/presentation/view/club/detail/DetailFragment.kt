@@ -3,6 +3,7 @@ package com.msg.gcms.presentation.view.club.detail
 import android.content.Intent
 import android.util.Log
 import android.view.View
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -20,12 +21,12 @@ import com.msg.gcms.presentation.adapter.DetailSideBarAdapter
 import com.msg.gcms.presentation.base.BaseDialog
 import com.msg.gcms.presentation.base.BaseFragment
 import com.msg.gcms.presentation.base.BaseModal
+import com.msg.gcms.presentation.utils.ItemDecorator
 import com.msg.gcms.presentation.view.club.ClubFragment
 import com.msg.gcms.presentation.view.editclub.EditClubActivity
 import com.msg.gcms.presentation.view.main.MainActivity
 import com.msg.gcms.presentation.view.member_manage.MemberManageActivity
 import com.msg.gcms.presentation.view.profile.ProfileActivity
-import com.msg.gcms.presentation.utils.ItemDecorator
 import com.msg.gcms.presentation.viewmodel.ClubDetailViewModel
 import com.msg.gcms.presentation.viewmodel.ClubViewModel
 import com.msg.gcms.presentation.viewmodel.util.Event
@@ -281,7 +282,12 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
         binding.submitBtn.let {
             when (detailViewModel.result.value!!.scope) {
                 "HEAD" -> {
-                    it.setBackgroundColor(resources.getColor(R.color.dark_blue))
+                    it.setBackgroundColor(
+                        ContextCompat.getColor(
+                            requireActivity(),
+                            R.color.dark_blue
+                        )
+                    )
                     it.text = getString(
                         if (detailViewModel.result.value!!.club.isOpened) {
                             R.string.close_application
@@ -305,7 +311,12 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
                         detailViewModel.result.value!!.isApplied.let { applied ->
                             it.text =
                                 getString(if (applied) R.string.club_application_cancle else R.string.club_application)
-                            it.setBackgroundColor(resources.getColor(if (applied) R.color.pink else R.color.dark_blue))
+                            it.setBackgroundColor(
+                                ContextCompat.getColor(
+                                    requireActivity(),
+                                    if (applied) R.color.pink else R.color.dark_blue
+                                )
+                            )
                         }
                         it.visibility = View.VISIBLE
                     } else {

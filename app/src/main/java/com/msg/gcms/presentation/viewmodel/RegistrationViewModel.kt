@@ -1,6 +1,5 @@
 package com.msg.gcms.presentation.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -29,49 +28,6 @@ class RegistrationViewModel @Inject constructor(
         GCMSApplication.prefs.apply {
             accessToken = response.accessToken
             refreshToken = response.refreshToken
-            Log.d(TAG,"access : $accessToken")
-            Log.d(TAG,"refresh : $refreshToken")
         }
     }
-
-    /*
-    fun checkLogin(){
-        viewModelScope.launch {
-            try {
-                refreshUseCase().onSuccess {
-                    _isLogin.value = true
-                    saveToken(it.body()!!)
-                }.onFailure {
-                    when (it) {
-                        _isLogin.value = false
-                        else -> _isLogin.value = false
-                    }
-                }
-            } catch (e: Exception) {
-                Log.d("ERROR", "checkLogin: ${e.message}")
-            }
-        }
-    }
-
-    fun sendIdTokenLogic(idToken: String) {
-        viewModelScope.launch {
-            try {
-                registrationUseCase(RegisterRequest(
-                    idToken = idToken
-               )).onSuccess {
-                    // Todo(Leehyeonbin) 여기도 스테이터스로 되어있음
-                    _idTokenStatus.value = it.code()
-                    saveToken(it.body()!!)
-                }.onFailure {
-                    when (it){
-                        is BadRequestException -> Log.d(TAG, "sendIdTokenLogic: $it")
-                        else -> Log.d(TAG, "sendIdTokenLogic: $it")
-                    }
-                }
-            } catch (e: Exception) {
-                Log.d("send IdToken error", "error : $e")
-            }
-        }
-    } */
-
 }
