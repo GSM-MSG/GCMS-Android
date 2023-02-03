@@ -2,6 +2,7 @@ package com.msg.gcms.presentation.view.intro
 
 import android.content.Intent
 import android.net.Uri
+import android.util.Log
 import android.view.View
 import androidx.activity.viewModels
 import com.msg.gauthsignin.GAuthButton
@@ -12,6 +13,7 @@ import com.msg.gcms.R
 import com.msg.gcms.databinding.ActivityIntroBinding
 import com.msg.gcms.presentation.base.BaseActivity
 import com.msg.gcms.presentation.viewmodel.AuthViewModel
+import com.msg.gcms.presentation.viewmodel.util.Event
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -24,6 +26,7 @@ class IntroActivity : BaseActivity<ActivityIntroBinding>(R.layout.activity_intro
     }
 
     override fun observeEvent() {
+        observeSignInEvent()
     }
 
     private fun setGAuthButtonComponent() {
@@ -44,7 +47,25 @@ class IntroActivity : BaseActivity<ActivityIntroBinding>(R.layout.activity_intro
                 clientId = BuildConfig.CLIENT_ID,
                 redirectUri = BuildConfig.REDIRECT_URI,
             ) {
+                Log.d("TAG",it)
+                viewModel.postSignInRequest(code = it)
+            }
+        }
+    }
 
+    private fun observeSignInEvent() {
+        viewModel.postSignInRequest.observe(this) { event ->
+            when (event) {
+                Event.BadRequest -> Log.d("TAG",event.toString())
+                Event.Conflict -> Log.d("TAG",event.toString())
+                Event.ForBidden -> Log.d("TAG",event.toString())
+                Event.NotAcceptable -> Log.d("TAG",event.toString())
+                Event.NotFound -> Log.d("TAG",event.toString())
+                Event.Server -> Log.d("TAG",event.toString())
+                Event.Success -> Log.d("TAG",event.toString())
+                Event.TimeOut -> Log.d("TAG",event.toString())
+                Event.UnKnown -> Log.d("TAG",event.toString())
+                Event.Unauthorized -> Log.d("TAG",event.toString())
             }
         }
     }
