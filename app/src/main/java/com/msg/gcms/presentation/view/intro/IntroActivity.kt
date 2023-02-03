@@ -11,13 +11,13 @@ import com.msg.gcms.BuildConfig
 import com.msg.gcms.R
 import com.msg.gcms.databinding.ActivityIntroBinding
 import com.msg.gcms.presentation.base.BaseActivity
-import com.msg.gcms.presentation.viewmodel.RegistrationViewModel
+import com.msg.gcms.presentation.viewmodel.AuthViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class IntroActivity : BaseActivity<ActivityIntroBinding>(R.layout.activity_intro) {
 
-    private val viewModel by viewModels<RegistrationViewModel>()
+    private val viewModel by viewModels<AuthViewModel>()
 
     override fun viewSetting() {
         setGAuthButtonComponent()

@@ -5,14 +5,14 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.msg.gcms.di.GCMSApplication
 import com.msg.gcms.data.remote.dto.auth.response.SignInResponse
-import com.msg.gcms.domain.usecase.common.RefreshUseCase
-import com.msg.gcms.domain.usecase.common.RegistrationUseCase
+import com.msg.gcms.domain.usecase.auth.RefreshUseCase
+import com.msg.gcms.domain.usecase.auth.SignInUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class RegistrationViewModel @Inject constructor(
-    private val registrationUseCase: RegistrationUseCase,
+class AuthViewModel @Inject constructor(
+    private val registrationUseCase: SignInUseCase,
     private val refreshUseCase: RefreshUseCase
 ) : ViewModel() {
 

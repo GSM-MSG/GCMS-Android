@@ -1,7 +1,7 @@
 package com.msg.gcms.di.module
 
 import com.msg.gcms.domain.repository.ClubRepository
-import com.msg.gcms.domain.repository.CommonRepository
+import com.msg.gcms.domain.repository.AuthRepository
 import com.msg.gcms.domain.repository.ImageRepository
 import com.msg.gcms.domain.repository.UserRepository
 import com.msg.gcms.domain.usecase.club.ApplicantAcceptUseCase
@@ -19,9 +19,9 @@ import com.msg.gcms.domain.usecase.club.PostCreateClubUseCase
 import com.msg.gcms.domain.usecase.club.PutClubCloseUseCase
 import com.msg.gcms.domain.usecase.club.PutClubOpenUseCase
 import com.msg.gcms.domain.usecase.club.UserKickUseCase
-import com.msg.gcms.domain.usecase.common.LogoutUseCase
-import com.msg.gcms.domain.usecase.common.RefreshUseCase
-import com.msg.gcms.domain.usecase.common.RegistrationUseCase
+import com.msg.gcms.domain.usecase.auth.LogoutUseCase
+import com.msg.gcms.domain.usecase.auth.RefreshUseCase
+import com.msg.gcms.domain.usecase.auth.SignInUseCase
 import com.msg.gcms.domain.usecase.image.ImageUseCase
 import com.msg.gcms.domain.usecase.user.DeleteUserUseCase
 import com.msg.gcms.domain.usecase.user.EditProfileUseCase
@@ -115,22 +115,22 @@ object UseCaseModule {
         UserKickUseCase(repository)
 
 
-    // --- Common UseCase ---
+    // --- Auth UseCase ---
 
     @Provides
     @Singleton
-    fun provideLogoutUseCase(repository: CommonRepository): LogoutUseCase =
+    fun provideLogoutUseCase(repository: AuthRepository): LogoutUseCase =
         LogoutUseCase(repository)
 
     @Provides
     @Singleton
-    fun provideRefreshUseCase(repository: CommonRepository): RefreshUseCase =
+    fun provideRefreshUseCase(repository: AuthRepository): RefreshUseCase =
         RefreshUseCase(repository)
 
     @Provides
     @Singleton
-    fun provideRegistrationUseCase(repository: CommonRepository): RegistrationUseCase =
-        RegistrationUseCase(repository)
+    fun provideSignInUseCase(repository: AuthRepository): SignInUseCase =
+        SignInUseCase(repository)
 
 
     // --- Image UseCase ---

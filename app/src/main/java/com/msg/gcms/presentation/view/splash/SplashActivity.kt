@@ -7,14 +7,14 @@ import androidx.appcompat.app.AppCompatActivity
 import com.msg.gcms.R
 
 import com.msg.gcms.presentation.view.main.MainActivity
-import com.msg.gcms.presentation.viewmodel.RegistrationViewModel
+import com.msg.gcms.presentation.viewmodel.AuthViewModel
 import com.msg.gcms.presentation.view.intro.IntroActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class SplashActivity : AppCompatActivity() {
 
-    private val viewModel by viewModels<RegistrationViewModel>()
+    private val viewModel by viewModels<AuthViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

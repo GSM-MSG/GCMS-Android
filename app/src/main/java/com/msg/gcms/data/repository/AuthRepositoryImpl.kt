@@ -3,12 +3,12 @@ package com.msg.gcms.data.repository
 import com.msg.gcms.data.remote.datasource.AuthDataSourceImpl
 import com.msg.gcms.data.remote.dto.auth.request.SignInRequest
 import com.msg.gcms.data.remote.dto.auth.response.SignInResponse
-import com.msg.gcms.domain.repository.CommonRepository
+import com.msg.gcms.domain.repository.AuthRepository
 import javax.inject.Inject
 
-class CommonRepositoryImpl @Inject constructor(
+class AuthRepositoryImpl @Inject constructor(
     private val datasource: AuthDataSourceImpl,
-) : CommonRepository {
+) : AuthRepository {
     override suspend fun postRegistration(body: SignInRequest): SignInResponse {
         return datasource.postRegistration(body = body)
     }
