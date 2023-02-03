@@ -5,15 +5,13 @@ import com.msg.gcms.data.remote.dto.auth.request.SignInRequest
 import com.msg.gcms.data.remote.dto.auth.response.SignInResponse
 import com.msg.gcms.data.remote.network.AuthAPI
 import com.msg.gcms.data.remote.util.GCMSApiHandler
-import com.msg.gcms.domain.datasource.CommonDataSource
 import javax.inject.Inject
 
-class CommonDataSourceImpl @Inject constructor(
+class AuthDataSourceImpl @Inject constructor(
     private val service: AuthAPI
-) : CommonDataSource {
+) : AuthDataSource {
     override suspend fun postRegistration(body: SignInRequest): SignInResponse {
-        return GCMSApiHandler<SignInResponse>().
-        httpRequest {
+        return GCMSApiHandler<SignInResponse>().httpRequest {
             service.postSignIn(body)
         }.sendRequest()
     }

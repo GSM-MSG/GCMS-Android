@@ -1,7 +1,7 @@
 package com.msg.gcms.di.module
 
 import com.msg.gcms.data.remote.datasource.ClubDataSourceImpl
-import com.msg.gcms.data.remote.datasource.CommonDataSourceImpl
+import com.msg.gcms.data.remote.datasource.AuthDataSourceImpl
 import com.msg.gcms.data.remote.datasource.ImageDataSourceImpl
 import com.msg.gcms.data.remote.network.ClubAPI
 import com.msg.gcms.data.remote.network.AuthAPI
@@ -19,8 +19,8 @@ import javax.inject.Singleton
 object DataSourceModule {
     @Provides
     @Singleton
-    fun provideCommonDataSource(service: AuthAPI) =
-        CommonDataSourceImpl(service)
+    fun provideAuthDataSource(service: AuthAPI) =
+        AuthDataSourceImpl(service)
 
     @Provides
     @Singleton

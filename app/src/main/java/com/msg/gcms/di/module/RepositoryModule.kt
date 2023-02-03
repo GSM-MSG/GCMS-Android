@@ -1,7 +1,7 @@
 package com.msg.gcms.di.module
 
 import com.msg.gcms.data.remote.datasource.ClubDataSourceImpl
-import com.msg.gcms.data.remote.datasource.CommonDataSourceImpl
+import com.msg.gcms.data.remote.datasource.AuthDataSourceImpl
 import com.msg.gcms.data.remote.datasource.ImageDataSourceImpl
 import com.msg.gcms.data.remote.datasource.UserDataSourceImpl
 import com.msg.gcms.data.repository.ClubRepositoryImpl
@@ -23,7 +23,7 @@ import javax.inject.Singleton
 object RepositoryModule {
     @Provides
     @Singleton
-    fun provideCommonRepository(dataSource: CommonDataSourceImpl): CommonRepository =
+    fun provideCommonRepository(dataSource: AuthDataSourceImpl): CommonRepository =
         CommonRepositoryImpl(dataSource)
 
     @Provides

@@ -6,7 +6,6 @@ import com.msg.gcms.data.remote.dto.user.response.UserData
 import com.msg.gcms.data.remote.dto.user.response.UserInfoResponse
 import com.msg.gcms.data.remote.network.UserAPI
 import com.msg.gcms.data.remote.util.GCMSApiHandler
-import com.msg.gcms.domain.datasource.UserDataSource
 import javax.inject.Inject
 
 class UserDataSourceImpl @Inject constructor(
