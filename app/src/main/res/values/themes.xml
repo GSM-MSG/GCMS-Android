@@ -29,4 +29,9 @@
         parent="Widget.Design.BottomSheet.Modal">
         <item name="android:background">@drawable/bg_profile_list</item>
     </style>
+    
+    <style name="SplashTheme" parent="Theme.AppCompat.NoActionBar">
+        <item name="android:windowBackground"></item>
+    </style>
+
 </resources>
