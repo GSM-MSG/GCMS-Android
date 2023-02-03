@@ -1,11 +1,11 @@
 package com.msg.gcms.domain.datasource
 
 import com.msg.gcms.data.remote.dto.auth.request.CodeIssuanceRequest
-import com.msg.gcms.data.remote.dto.auth.request.RegisterRequest
-import com.msg.gcms.data.remote.dto.auth.response.RegisterResponse
+import com.msg.gcms.data.remote.dto.auth.request.SignInRequest
+import com.msg.gcms.data.remote.dto.auth.response.SignInResponse
 
 interface CommonDataSource {
-    suspend fun postRegistration(body: RegisterRequest): RegisterResponse
+    suspend fun postRegistration(body: SignInRequest): SignInResponse
 
     suspend fun postEmail(body: CodeIssuanceRequest)
 
@@ -13,5 +13,5 @@ interface CommonDataSource {
 
     suspend fun postLogout()
 
-    suspend fun postRefresh(): RegisterResponse
+    suspend fun postRefresh(): SignInResponse
 }

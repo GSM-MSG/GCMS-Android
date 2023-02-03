@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.msg.gcms.di.GCMSApplication
-import com.msg.gcms.data.remote.dto.auth.response.RegisterResponse
+import com.msg.gcms.data.remote.dto.auth.response.SignInResponse
 import com.msg.gcms.domain.usecase.common.RefreshUseCase
 import com.msg.gcms.domain.usecase.common.RegistrationUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -24,7 +24,7 @@ class RegistrationViewModel @Inject constructor(
 
     private val TAG = "google login"
 
-    private fun saveToken(response: RegisterResponse){
+    private fun saveToken(response: SignInResponse){
         GCMSApplication.prefs.apply {
             accessToken = response.accessToken
             refreshToken = response.refreshToken

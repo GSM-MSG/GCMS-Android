@@ -1,20 +1,20 @@
 package com.msg.gcms.data.remote.datasource
 
 import com.msg.gcms.data.remote.dto.auth.request.CodeIssuanceRequest
-import com.msg.gcms.data.remote.dto.auth.request.RegisterRequest
-import com.msg.gcms.data.remote.dto.auth.response.RegisterResponse
-import com.msg.gcms.data.remote.network.CommonAPI
+import com.msg.gcms.data.remote.dto.auth.request.SignInRequest
+import com.msg.gcms.data.remote.dto.auth.response.SignInResponse
+import com.msg.gcms.data.remote.network.AuthAPI
 import com.msg.gcms.data.remote.util.GCMSApiHandler
 import com.msg.gcms.domain.datasource.CommonDataSource
 import javax.inject.Inject
 
 class CommonDataSourceImpl @Inject constructor(
-    private val service: CommonAPI
+    private val service: AuthAPI
 ) : CommonDataSource {
-    override suspend fun postRegistration(body: RegisterRequest): RegisterResponse {
-        return GCMSApiHandler<RegisterResponse>().
+    override suspend fun postRegistration(body: SignInRequest): SignInResponse {
+        return GCMSApiHandler<SignInResponse>().
         httpRequest {
-            service.postRegistration(body)
+            service.postSignIn(body)
         }.sendRequest()
     }
 
@@ -36,8 +36,8 @@ class CommonDataSourceImpl @Inject constructor(
             .sendRequest()
     }
 
-    override suspend fun postRefresh(): RegisterResponse {
-        return GCMSApiHandler<RegisterResponse>()
+    override suspend fun postRefresh(): SignInResponse {
+        return GCMSApiHandler<SignInResponse>()
             .httpRequest { service.postRefresh() }
             .sendRequest()
     }
