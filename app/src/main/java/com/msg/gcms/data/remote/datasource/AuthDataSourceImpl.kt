@@ -11,9 +11,9 @@ class AuthDataSourceImpl @Inject constructor(
     private val service: AuthAPI
 ) : AuthDataSource {
     override suspend fun postRegistration(body: SignInRequest): SignInResponse {
-        return GCMSApiHandler<SignInResponse>().httpRequest {
-            service.postSignIn(body)
-        }.sendRequest()
+        return GCMSApiHandler<SignInResponse>()
+            .httpRequest { service.postSignIn(body) }
+            .sendRequest()
     }
 
     override suspend fun postEmail(body: CodeIssuanceRequest) {

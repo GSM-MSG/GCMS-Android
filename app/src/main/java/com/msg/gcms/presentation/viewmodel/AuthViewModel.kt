@@ -42,19 +42,19 @@ class AuthViewModel @Inject constructor(
         }.onFailure {
             _postSignInRequest.value = when (it) {
                 is BadRequestException -> {
-                    Log.d(TAG, "getDetail: $it.")
+                    Log.d(TAG, "PostSignIn: $it.")
                     Event.BadRequest
                 }
                 is UnauthorizedException -> {
-                    Log.d(TAG, "getDetail: $it")
+                    Log.d(TAG, "PostSignIn: $it")
                     Event.Unauthorized
                 }
                 is NotFoundException -> {
-                    Log.d(TAG, "getDetail: $it")
+                    Log.d(TAG, "PostSignIn: $it")
                     Event.NotFound
                 }
                 else -> {
-                    Log.d(TAG, "getDetail: $it")
+                    Log.d(TAG, "PostSignIn: $it")
                     Event.UnKnown
                 }
             }

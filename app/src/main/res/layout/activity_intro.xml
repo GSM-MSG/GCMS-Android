@@ -178,16 +178,6 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/view10" />
 
-        <ProgressBar
-            android:visibility="invisible"
-            android:id="@+id/progressBar"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            app:layout_constraintBottom_toBottomOf="@+id/gAuthWebView"
-            app:layout_constraintEnd_toEndOf="@+id/gAuthWebView"
-            app:layout_constraintStart_toStartOf="@+id/gAuthWebView"
-            app:layout_constraintTop_toTopOf="parent" />
-
         <androidx.compose.ui.platform.ComposeView
             android:id="@+id/signInBtn"
             android:layout_width="0dp"
