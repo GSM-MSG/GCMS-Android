@@ -25,7 +25,7 @@ object Versions {
     const val RECYCLERVIEW = "1.1.0"
 
     const val HILT = "2.38.1"
-    const val MATERIAL = "1.8.0"
+    const val MATERIAL = "1.6.0"
     const val GMS_PLAY_SERVICE_BASE = "18.0.1"
     const val GMS_PLAY_SERVICE_AUTH = "20.2.0"
     const val FIREBASE = "21.0.3"
