@@ -12,7 +12,7 @@ class LoginInterceptor : Interceptor {
         val path = request.url.encodedPath
         val method = request.method
         val ignorePath = listOf(
-            "/auth/"
+            "/auth"
         )
         val ignoreMethod = listOf(
             "POST"
