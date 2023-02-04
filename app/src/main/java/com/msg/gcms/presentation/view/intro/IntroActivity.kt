@@ -12,6 +12,7 @@ import com.msg.gcms.BuildConfig
 import com.msg.gcms.R
 import com.msg.gcms.databinding.ActivityIntroBinding
 import com.msg.gcms.presentation.base.BaseActivity
+import com.msg.gcms.presentation.view.main.MainActivity
 import com.msg.gcms.presentation.viewmodel.AuthViewModel
 import com.msg.gcms.presentation.viewmodel.util.Event
 import com.msg.gcms.ui.component.intro.component.ProgressDialog
@@ -63,11 +64,10 @@ class IntroActivity : BaseActivity<ActivityIntroBinding>(R.layout.activity_intro
             progressDialog.dismiss()
             when (event) {
                 Event.Success -> {
-                    Toast.makeText(this, "로그인에 성공했습니다!", Toast.LENGTH_SHORT).show()
+                    startActivity(Intent(this, MainActivity::class.java))
+                    finish()
                 }
-                else -> {
-                    Toast.makeText(this, "알 수 없는 오류가 발생했습니다.", Toast.LENGTH_SHORT).show()
-                }
+                else -> Toast.makeText(this, "알 수 없는 오류가 발생했습니다.", Toast.LENGTH_SHORT).show()
             }
         }
     }
