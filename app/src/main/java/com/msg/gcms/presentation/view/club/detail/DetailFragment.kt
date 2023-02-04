@@ -22,6 +22,9 @@ import com.msg.gcms.presentation.base.BaseDialog
 import com.msg.gcms.presentation.base.BaseFragment
 import com.msg.gcms.presentation.base.BaseModal
 import com.msg.gcms.presentation.utils.ItemDecorator
+import com.msg.gcms.presentation.utils.enterActivity
+import com.msg.gcms.presentation.utils.exitActivity
+import com.msg.gcms.presentation.utils.exitFragment
 import com.msg.gcms.presentation.view.club.ClubFragment
 import com.msg.gcms.presentation.view.editclub.EditClubActivity
 import com.msg.gcms.presentation.view.main.MainActivity
@@ -119,12 +122,10 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
 
     private fun goBack() {
         if (detailViewModel.isProfile.value == true) {
-            val intent = Intent(requireActivity(), ProfileActivity::class.java)
-            startActivity(intent)
+            exitActivity(requireActivity())
         } else {
             detailViewModel.setNav(true)
-            requireActivity().supportFragmentManager.beginTransaction()
-                .replace(R.id.fragment_club, ClubFragment()).commit()
+            exitFragment(requireActivity(), R.id.fragment_club, ClubFragment())
         }
         detailViewModel.setIsProfile(false)
     }

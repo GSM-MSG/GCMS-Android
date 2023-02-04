@@ -6,6 +6,7 @@ import androidx.navigation.fragment.findNavController
 import com.msg.gcms.R
 import com.msg.gcms.databinding.FragmentClubTypeBinding
 import com.msg.gcms.presentation.base.BaseFragment
+import com.msg.gcms.presentation.utils.exitActivity
 import com.msg.gcms.presentation.viewmodel.MakeClubViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -31,7 +32,7 @@ class ClubTypeFragment : BaseFragment<FragmentClubTypeBinding>(R.layout.fragment
 
             this.findNavController().navigate(R.id.action_clubTypeFragment_to_clubIntroduceFragment)
         } else if (view.id == binding.clubTypeBackBtn.id) {
-            activity?.finish()
+            exitActivity(requireActivity())
         }
     }
 }
