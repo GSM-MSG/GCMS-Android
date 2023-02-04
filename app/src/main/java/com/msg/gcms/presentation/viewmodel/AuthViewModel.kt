@@ -65,6 +65,8 @@ class AuthViewModel @Inject constructor(
         GCMSApplication.prefs.apply {
             accessToken = response.accessToken
             refreshToken = response.refreshToken
+            accessExp = response.accessExp
+            refreshExp = response.refreshExp
         }
     }
 }

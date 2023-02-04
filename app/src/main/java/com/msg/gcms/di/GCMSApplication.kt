@@ -1,17 +1,17 @@
 package com.msg.gcms.di
 
 import android.app.Application
-import com.msg.gcms.data.local.dao.LoginToken
+import com.msg.gcms.data.local.dao.TokenHandler
 import dagger.hilt.android.HiltAndroidApp
 
 @HiltAndroidApp
 class GCMSApplication : Application() {
     companion object {
-        lateinit var prefs: LoginToken
+        lateinit var prefs: TokenHandler
     }
 
     override fun onCreate() {
         super.onCreate()
-        prefs = LoginToken(applicationContext)
+        prefs = TokenHandler(applicationContext)
     }
 }
