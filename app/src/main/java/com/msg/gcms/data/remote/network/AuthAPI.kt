@@ -2,16 +2,16 @@ package com.msg.gcms.data.remote.network
 
 import com.msg.gcms.di.GCMSApplication
 import com.msg.gcms.data.remote.dto.auth.request.CodeIssuanceRequest
-import com.msg.gcms.data.remote.dto.auth.request.RegisterRequest
-import com.msg.gcms.data.remote.dto.auth.response.RegisterResponse
+import com.msg.gcms.data.remote.dto.auth.request.SignInRequest
+import com.msg.gcms.data.remote.dto.auth.response.SignInResponse
 import retrofit2.http.*
 
-interface CommonAPI {
+interface AuthAPI {
 
-    @POST("auth/mobile")
-    suspend fun postRegistration(
-        @Body body: RegisterRequest
-    ): RegisterResponse
+    @POST("auth")
+    suspend fun postSignIn(
+        @Body body: SignInRequest
+    ): SignInResponse
 
     @POST("auth/verify")
     suspend fun postEmail(
@@ -30,5 +30,5 @@ interface CommonAPI {
     @POST("auth/refresh")
     suspend fun postRefresh(
         @Header("Authorization") refreshToken: String? = "Bearer ${GCMSApplication.prefs.refreshToken}"
-    ): RegisterResponse
+    ): SignInResponse
 }

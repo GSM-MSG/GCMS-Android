@@ -178,7 +178,6 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/view10" />
 
-
         <androidx.compose.ui.platform.ComposeView
             android:id="@+id/signInBtn"
             android:layout_width="0dp"

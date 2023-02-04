@@ -1,10 +1,10 @@
-package com.msg.gcms.domain.usecase.common
+package com.msg.gcms.domain.usecase.auth
 
-import com.msg.gcms.domain.repository.CommonRepository
+import com.msg.gcms.domain.repository.AuthRepository
 import javax.inject.Inject
 
 class RefreshUseCase @Inject constructor(
-    private val repository: CommonRepository
+    private val repository: AuthRepository
 ) {
     suspend operator fun invoke() = kotlin.runCatching {
         repository.postRefresh()

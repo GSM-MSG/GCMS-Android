@@ -3,6 +3,7 @@ package com.msg.gcms.presentation.view.intro
 import android.content.Intent
 import android.net.Uri
 import android.view.View
+import android.widget.Toast
 import androidx.activity.viewModels
 import com.msg.gauthsignin.GAuthButton
 import com.msg.gauthsignin.GAuthSigninWebView
@@ -11,19 +12,25 @@ import com.msg.gcms.BuildConfig
 import com.msg.gcms.R
 import com.msg.gcms.databinding.ActivityIntroBinding
 import com.msg.gcms.presentation.base.BaseActivity
-import com.msg.gcms.presentation.viewmodel.RegistrationViewModel
+import com.msg.gcms.presentation.view.main.MainActivity
+import com.msg.gcms.presentation.viewmodel.AuthViewModel
+import com.msg.gcms.presentation.viewmodel.util.Event
+import com.msg.gcms.ui.component.intro.component.ProgressDialog
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class IntroActivity : BaseActivity<ActivityIntroBinding>(R.layout.activity_intro) {
 
-    private val viewModel by viewModels<RegistrationViewModel>()
+    private lateinit var progressDialog: ProgressDialog
+    private val viewModel by viewModels<AuthViewModel>()
 
     override fun viewSetting() {
+        progressDialog = ProgressDialog(this)
         setGAuthButtonComponent()
     }
 
     override fun observeEvent() {
+        observeSignInEvent()
     }
 
     private fun setGAuthButtonComponent() {
@@ -33,6 +40,7 @@ class IntroActivity : BaseActivity<ActivityIntroBinding>(R.layout.activity_intro
                 actionType = Types.ActionType.SIGNIN,
                 colors = Types.Colors.OUTLINE
             ) {
+                binding.gAuthWebView.visibility = View.VISIBLE
                 setGAuthWebViewComponent()
             }
         }
@@ -44,7 +52,22 @@ class IntroActivity : BaseActivity<ActivityIntroBinding>(R.layout.activity_intro
                 clientId = BuildConfig.CLIENT_ID,
                 redirectUri = BuildConfig.REDIRECT_URI,
             ) {
+                progressDialog.show()
+                binding.gAuthWebView.visibility = View.INVISIBLE
+                viewModel.postSignInRequest(code = it)
+            }
+        }
+    }
 
+    private fun observeSignInEvent() {
+        viewModel.postSignInRequest.observe(this) { event ->
+            progressDialog.dismiss()
+            when (event) {
+                Event.Success -> {
+                    startActivity(Intent(this, MainActivity::class.java))
+                    finish()
+                }
+                else -> Toast.makeText(this, "알 수 없는 오류가 발생했습니다.", Toast.LENGTH_SHORT).show()
             }
         }
     }

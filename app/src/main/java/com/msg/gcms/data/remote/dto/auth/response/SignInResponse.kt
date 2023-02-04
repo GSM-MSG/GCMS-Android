@@ -1,7 +1,8 @@
 package com.msg.gcms.data.remote.dto.auth.response
 
-data class RegisterResponse(
+data class SignInResponse(
     val accessToken: String,
     val refreshToken: String,
-    val expiredAt: String
+    val accessExp: String,
+    val refreshExp: String
 )

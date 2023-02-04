@@ -10,7 +10,7 @@ import com.msg.gcms.data.remote.dto.user.response.UserInfoResponse
 import com.msg.gcms.domain.exception.BadRequestException
 import com.msg.gcms.domain.exception.NotFoundException
 import com.msg.gcms.domain.exception.UnauthorizedException
-import com.msg.gcms.domain.usecase.common.LogoutUseCase
+import com.msg.gcms.domain.usecase.auth.LogoutUseCase
 import com.msg.gcms.domain.usecase.image.ImageUseCase
 import com.msg.gcms.domain.usecase.user.EditProfileUseCase
 import com.msg.gcms.domain.usecase.user.GetUserInfoUseCase

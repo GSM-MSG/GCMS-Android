@@ -2,7 +2,7 @@ package com.msg.gcms.di.module
 
 import com.msg.gcms.BuildConfig
 import com.msg.gcms.data.remote.network.ClubAPI
-import com.msg.gcms.data.remote.network.CommonAPI
+import com.msg.gcms.data.remote.network.AuthAPI
 import com.msg.gcms.data.remote.network.ImageAPI
 import com.msg.gcms.data.remote.network.LoginInterceptor
 import com.msg.gcms.data.remote.network.UserAPI
@@ -56,8 +56,8 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun provideCommonService(retrofit: Retrofit): CommonAPI {
-        return retrofit.create(CommonAPI::class.java)
+    fun provideAuthService(retrofit: Retrofit): AuthAPI {
+        return retrofit.create(AuthAPI::class.java)
     }
 
     @Provides
