@@ -11,14 +11,10 @@ class LoginInterceptor : Interceptor {
         val request = chain.request()
         val path = request.url.encodedPath
         val method = request.method
-        val ignorePath = listOf(
-            "/auth"
-        )
-        val ignoreMethod = listOf(
-            "POST"
-        )
+        val ignorePath = "/auth"
+        val ignoreMethod = "POST"
 
-        if (ignorePath.contains(path) && ignoreMethod.contains(method)) {
+        if (ignorePath == path && ignoreMethod == method) {
             return chain.proceed(request)
         }
 
