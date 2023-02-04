@@ -1,6 +1,5 @@
 package com.msg.gcms.presentation.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -23,9 +22,6 @@ class AuthViewModel @Inject constructor(
     private val signInUseCase: SignInUseCase,
     private val refreshUseCase: RefreshUseCase
 ) : ViewModel() {
-
-    private val TAG = "AuthViewModel"
-
     private val _postSignInRequest = MutableLiveData<Event>()
     val postSignInRequest: LiveData<Event> get() = _postSignInRequest
 
@@ -36,27 +32,14 @@ class AuthViewModel @Inject constructor(
         signInUseCase(
             SignInRequest(code = code)
         ).onSuccess {
-            Log.d(TAG, it.toString())
             saveToken(it)
             _postSignInRequest.value = Event.Success
         }.onFailure {
             _postSignInRequest.value = when (it) {
-                is BadRequestException -> {
-                    Log.d(TAG, "PostSignIn: $it.")
-                    Event.BadRequest
-                }
-                is UnauthorizedException -> {
-                    Log.d(TAG, "PostSignIn: $it")
-                    Event.Unauthorized
-                }
-                is NotFoundException -> {
-                    Log.d(TAG, "PostSignIn: $it")
-                    Event.NotFound
-                }
-                else -> {
-                    Log.d(TAG, "PostSignIn: $it")
-                    Event.UnKnown
-                }
+                is BadRequestException -> Event.BadRequest
+                is UnauthorizedException -> Event.Unauthorized
+                is NotFoundException -> Event.NotFound
+                else -> Event.UnKnown
             }
         }
     }
