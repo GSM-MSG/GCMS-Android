@@ -191,12 +191,9 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
     }
 
     private fun clickSubmitBtn() {
-        // Todo(KimHs) 여기는 뭘처리하길래 result를 넘기고 안씀? - LeeHyeonbin
-        detailViewModel.result.value!!.club.let { result ->
-            binding.submitBtn.setOnClickListener {
-                observeStatus()
-                changeDialog()
-            }
+        binding.submitBtn.setOnClickListener {
+            observeStatus()
+            changeDialog()
         }
     }
 
