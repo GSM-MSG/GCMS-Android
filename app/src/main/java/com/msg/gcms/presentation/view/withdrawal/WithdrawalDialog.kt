@@ -30,7 +30,10 @@ class WithdrawalDialog(context: Context) : BottomSheetDialog(context) {
     fun dialog() = with(binding) {
         setCanceledOnTouchOutside(true)
         window!!.apply {
-            setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT)
+            setLayout(
+                WindowManager.LayoutParams.MATCH_PARENT,
+                WindowManager.LayoutParams.WRAP_CONTENT
+            )
             setGravity(Gravity.BOTTOM)
         }
         logoutBtn.setOnClickListener {
