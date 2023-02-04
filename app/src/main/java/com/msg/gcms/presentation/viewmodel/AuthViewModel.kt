@@ -25,9 +25,6 @@ class AuthViewModel @Inject constructor(
     private val _postSignInRequest = MutableLiveData<Event>()
     val postSignInRequest: LiveData<Event> get() = _postSignInRequest
 
-    private val _isLogin = MutableLiveData<Boolean>()
-    val isLogin: LiveData<Boolean> get() = _isLogin
-
     fun postSignInRequest(code: String) = viewModelScope.launch {
         signInUseCase(
             SignInRequest(code = code)

@@ -24,15 +24,15 @@
             android:name=".presentation.view.splash.SplashActivity"
             android:theme="@style/SplashTheme"
             android:exported="true">
-        </activity>
-        <activity
-            android:name=".presentation.view.intro.IntroActivity"
-            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".presentation.view.intro.IntroActivity"
+            android:exported="true">
         </activity>
         <activity
             android:name=".presentation.view.main.MainActivity"
