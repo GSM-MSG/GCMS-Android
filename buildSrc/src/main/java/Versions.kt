@@ -59,4 +59,6 @@ object Versions {
     const val COMPOSE = "1.2.0-alpha03"
     const val ACTIVITY_COMPOSE = "1.3.1"
     const val COMPOSE_METARIAL = "1.1.1"
+
+    const val SPLASH = "1.0.0-beta01"
 }
