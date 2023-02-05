@@ -13,19 +13,22 @@ import java.time.LocalDateTime
 @AndroidEntryPoint
 class SplashActivity : AppCompatActivity() {
     private val currentTime = LocalDateTime.now()
-    private val expriedAt = LocalDateTime.parse(GCMSApplication.prefs.refreshExp)
-    private val isLogin: Boolean =
-        currentTime.isAfter(expriedAt) && !GCMSApplication.prefs.accessToken.isNullOrEmpty()
+    private val refreshExpriedAt =
+        LocalDateTime.parse(GCMSApplication.prefs.refreshExp!!.substring(0, 19))
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
+        startActivity()
+    }
 
+    private fun startActivity() {
         startActivity(
             Intent(
                 this@SplashActivity,
-                (if (isLogin) MainActivity::class else IntroActivity::class).java
+                (if (currentTime.isAfter(refreshExpriedAt)) IntroActivity::class else MainActivity::class).java
             )
         )
+        finish()
     }
 }
