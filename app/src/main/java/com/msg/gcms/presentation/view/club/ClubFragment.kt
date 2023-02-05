@@ -1,6 +1,5 @@
 package com.msg.gcms.presentation.view.club
 
-import android.content.Intent
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import com.msg.gcms.R
@@ -8,6 +7,8 @@ import com.msg.gcms.databinding.FragmentClubBinding
 import com.msg.gcms.presentation.adapter.ClubListAdapter
 import com.msg.gcms.presentation.base.BaseFragment
 import com.msg.gcms.presentation.base.BaseModal
+import com.msg.gcms.presentation.utils.enterActivity
+import com.msg.gcms.presentation.utils.enterFragment
 import com.msg.gcms.presentation.view.club.detail.DetailFragment
 import com.msg.gcms.presentation.view.clubmaker.MakeClubActivity
 import com.msg.gcms.presentation.view.profile.ProfileActivity
@@ -59,17 +60,13 @@ class ClubFragment : BaseFragment<FragmentClubBinding>(R.layout.fragment_club) {
 
     private fun clickProfile() {
         binding.profileBtn.setOnClickListener {
-            val intent = Intent(activity, ProfileActivity::class.java)
-            intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP)
-            startActivity(intent)
+            enterActivity(requireActivity(), ProfileActivity())
         }
     }
 
     private fun clickMakeClubBtn() {
         binding.addClubBtn.setOnClickListener {
-            val intent = Intent(activity, MakeClubActivity::class.java)
-            intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP)
-            startActivity(intent)
+            enterActivity(requireActivity(), MakeClubActivity())
         }
     }
 
@@ -98,13 +95,11 @@ class ClubFragment : BaseFragment<FragmentClubBinding>(R.layout.fragment_club) {
         }*/
     }
 
-
     private fun observeClubDetailInfo() {
         detailViewModel.getClubDetail.observe(this) {
-            when(it) {
+            when (it) {
                 Event.Success -> {
-                    requireActivity().supportFragmentManager.beginTransaction()
-                        .replace(R.id.fragment_club, DetailFragment()).commit()
+                    enterFragment(requireActivity(), R.id.fragment_club, DetailFragment())
                 }
                 Event.BadRequest -> {
                     shortToast("동아리 정보를 불러오지 못했습니다.")

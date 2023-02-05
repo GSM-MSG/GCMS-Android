@@ -1,8 +1,10 @@
 package com.msg.gcms.presentation.view.club.detail
 
+import android.content.Context
 import android.content.Intent
 import android.util.Log
 import android.view.View
+import androidx.activity.OnBackPressedCallback
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.GridLayoutManager
@@ -22,6 +24,8 @@ import com.msg.gcms.presentation.base.BaseDialog
 import com.msg.gcms.presentation.base.BaseFragment
 import com.msg.gcms.presentation.base.BaseModal
 import com.msg.gcms.presentation.utils.ItemDecorator
+import com.msg.gcms.presentation.utils.exitActivity
+import com.msg.gcms.presentation.utils.exitFragment
 import com.msg.gcms.presentation.view.club.ClubFragment
 import com.msg.gcms.presentation.view.editclub.EditClubActivity
 import com.msg.gcms.presentation.view.main.MainActivity
@@ -39,6 +43,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
     private val TAG = "DetailFragment"
     private val detailViewModel by activityViewModels<ClubDetailViewModel>()
     private val clubViewModel by activityViewModels<ClubViewModel>()
+    private lateinit var callback: OnBackPressedCallback
     var membersList = mutableListOf<MemberSummaryResponse>()
     var activityUrlsList = mutableListOf<PromotionPicType>()
     private val detailMemberAdapter = DetailMemberAdapter()
@@ -55,6 +60,21 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
         DetailPageSideBar("동아리 멤버 확인하기", R.drawable.ic_person_two),
         DetailPageSideBar("동아리 탈퇴하기", R.drawable.ic_club_delete)
     )
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        callback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                exitActivity(requireActivity())
+            }
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(this, callback)
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        callback.remove()
+    }
 
     override fun init() {
         observeEvent()
@@ -119,12 +139,10 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
 
     private fun goBack() {
         if (detailViewModel.isProfile.value == true) {
-            val intent = Intent(requireActivity(), ProfileActivity::class.java)
-            startActivity(intent)
+            exitActivity(requireActivity())
         } else {
             detailViewModel.setNav(true)
-            requireActivity().supportFragmentManager.beginTransaction()
-                .replace(R.id.fragment_club, ClubFragment()).commit()
+            exitFragment(requireActivity(), R.id.fragment_club, ClubFragment())
         }
         detailViewModel.setIsProfile(false)
     }

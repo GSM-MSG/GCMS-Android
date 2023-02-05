@@ -34,18 +34,18 @@ class LoginInterceptor : Interceptor {
         if (currentTime.isAfter(accessExp)) {
             val client = OkHttpClient()
             val request = Request.Builder()
-                .url(BuildConfig.BASE_URL + "")
+                .url(BuildConfig.BASE_URL + "auth")
                 .patch("".toRequestBody("application/json".toMediaTypeOrNull()))
-                .addHeader("RefreshToken", GCMSApplication.prefs.refreshToken!!)
+                .addHeader("RefreshToken", "Bearer ${GCMSApplication.prefs.refreshToken!!}")
                 .build()
             val jsonParser = JsonParser()
             val response = client.newCall(request).execute()
             if (response.isSuccessful) {
                 val token = jsonParser.parse(response.body!!.string()) as JsonObject
-                GCMSApplication.prefs.accessToken = token["accessToken"].toString().removeQuotation()
-                GCMSApplication.prefs.refreshToken = token["refreshToken"].toString().removeQuotation()
-                GCMSApplication.prefs.accessExp = token["accessExp"].toString().removeQuotation()
-                GCMSApplication.prefs.refreshExp = token["refreshExp"].toString().removeQuotation()
+                GCMSApplication.prefs.accessToken = token["accessToken"].toString()
+                GCMSApplication.prefs.refreshToken = token["refreshToken"].toString()
+                GCMSApplication.prefs.accessExp = token["accessExp"].toString()
+                GCMSApplication.prefs.refreshExp = token["refreshExp"].toString()
             } else throw RuntimeException()
         }
 
@@ -54,9 +54,5 @@ class LoginInterceptor : Interceptor {
                 .addHeader("Authorization", "Bearer ${GCMSApplication.prefs.accessToken}")
                 .build()
         )
-    }
-
-    private fun String.removeQuotation(): String {
-        return this.replace("\"","")
     }
 }

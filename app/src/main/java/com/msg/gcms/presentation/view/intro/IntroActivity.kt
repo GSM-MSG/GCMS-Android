@@ -25,6 +25,7 @@ class IntroActivity : BaseActivity<ActivityIntroBinding>(R.layout.activity_intro
     private val viewModel by viewModels<AuthViewModel>()
 
     override fun viewSetting() {
+        binding.login = this
         progressDialog = ProgressDialog(this)
         setGAuthButtonComponent()
     }
