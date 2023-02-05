@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.msg.gcms.data.remote.dto.user.request.UserProfileRequest
 import com.msg.gcms.data.remote.dto.user.response.UserInfoResponse
+import com.msg.gcms.di.GCMSApplication
 import com.msg.gcms.domain.exception.BadRequestException
 import com.msg.gcms.domain.exception.NotFoundException
 import com.msg.gcms.domain.exception.UnauthorizedException
@@ -35,9 +36,6 @@ class ProfileViewModel @Inject constructor(
     private val _profileData = MutableLiveData<UserInfoResponse>()
     val profileData: LiveData<UserInfoResponse> get() = _profileData
 
-    private val _logoutStatus = MutableLiveData<Boolean>()
-    val logoutStatus: LiveData<Boolean> get() = _logoutStatus
-
     fun getUserInfo() {
         viewModelScope.launch {
             profileUseCase().onSuccess {
@@ -56,17 +54,10 @@ class ProfileViewModel @Inject constructor(
     }
 
     fun logout() {
-        viewModelScope.launch {
-            logoutUseCase().onSuccess {
-                _logoutStatus.value = true
-            }.onFailure {
-                when (it) {
-                    is UnauthorizedException -> Log.d("TAG", "logout: $it")
-                    is NotFoundException -> Log.d("TAG", "logout: $it")
-                    else -> Log.d("TAG", "logout: $it")
-                }
-            }
-        }
+        GCMSApplication.prefs.accessToken = ""
+        GCMSApplication.prefs.refreshToken = ""
+        GCMSApplication.prefs.accessExp = ""
+        GCMSApplication.prefs.refreshExp = ""
     }
 
     fun uploadImg(img: MultipartBody.Part) {
