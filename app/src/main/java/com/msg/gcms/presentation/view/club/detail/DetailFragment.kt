@@ -1,8 +1,10 @@
 package com.msg.gcms.presentation.view.club.detail
 
+import android.content.Context
 import android.content.Intent
 import android.util.Log
 import android.view.View
+import androidx.activity.OnBackPressedCallback
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.GridLayoutManager
@@ -42,6 +44,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
     private val TAG = "DetailFragment"
     private val detailViewModel by activityViewModels<ClubDetailViewModel>()
     private val clubViewModel by activityViewModels<ClubViewModel>()
+    private lateinit var callback: OnBackPressedCallback
     var membersList = mutableListOf<MemberSummaryResponse>()
     var activityUrlsList = mutableListOf<PromotionPicType>()
     private val detailMemberAdapter = DetailMemberAdapter()
@@ -58,6 +61,21 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
         DetailPageSideBar("동아리 멤버 확인하기", R.drawable.ic_person_two),
         DetailPageSideBar("동아리 탈퇴하기", R.drawable.ic_club_delete)
     )
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        callback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                exitActivity(requireActivity())
+            }
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(this, callback)
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        callback.remove()
+    }
 
     override fun init() {
         observeEvent()

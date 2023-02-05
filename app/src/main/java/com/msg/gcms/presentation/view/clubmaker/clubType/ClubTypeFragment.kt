@@ -1,6 +1,8 @@
 package com.msg.gcms.presentation.view.clubmaker.clubType
 
+import android.content.Context
 import android.view.View
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.msg.gcms.R
@@ -14,12 +16,28 @@ import dagger.hilt.android.AndroidEntryPoint
 class ClubTypeFragment : BaseFragment<FragmentClubTypeBinding>(R.layout.fragment_club_type) {
 
     private val makeClubViewModel by activityViewModels<MakeClubViewModel>()
+    private lateinit var callback: OnBackPressedCallback
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        callback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                exitActivity(requireActivity())
+            }
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(this, callback)
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        callback.remove()
+    }
 
     override fun init() {
         binding.fragment = this
     }
 
-    private lateinit var clubType : String
+    private lateinit var clubType: String
 
     fun whenClickedBtn(view: View) {
         if (view.id != binding.clubTypeBackBtn.id) {
