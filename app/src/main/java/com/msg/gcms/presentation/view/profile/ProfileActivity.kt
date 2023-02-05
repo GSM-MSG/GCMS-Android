@@ -16,6 +16,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.msg.gcms.R
 import com.msg.gcms.databinding.ActivityProfileBinding
 import com.msg.gcms.presentation.base.BaseActivity
+import com.msg.gcms.presentation.utils.exitActivity
 import com.msg.gcms.presentation.view.main.MainActivity
 import com.msg.gcms.presentation.view.withdrawal.WithdrawalDialog
 import com.msg.gcms.presentation.viewmodel.ProfileViewModel
@@ -72,13 +73,13 @@ class ProfileActivity : BaseActivity<ActivityProfileBinding>(R.layout.activity_p
 
     private fun clickBackBtn() {
         binding.backBtn.setOnClickListener {
-            startActivity(Intent(this, MainActivity::class.java))
+            exitActivity(this)
         }
     }
 
     override fun onBackPressed() {
         super.onBackPressed()
-        startActivity(Intent(this, MainActivity::class.java))
+        exitActivity(this)
     }
 
     private fun clickProfileEdit() {
