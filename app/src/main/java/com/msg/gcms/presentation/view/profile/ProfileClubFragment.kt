@@ -26,18 +26,8 @@ class ProfileClubFragment :
     private val privateClubList: ArrayList<ClubData> = ArrayList()
     private lateinit var adapter: EditorialClubAdapter
     override fun init() {
-        // isAfterSchool()
         viewClub()
     }
-
-    // private fun isAfterSchool() {
-    //     viewModel.afterSchoolStatus.observe(this) {
-    //         if (it) {
-    //             childFragmentManager.beginTransaction()
-    //                 .replace(R.id.afterSchoolFragmentView, ProfileAfterSchoolFragment()).commit()
-    //         }
-    //     }
-    // }
 
     private fun viewClub() {
         viewModel.profileData.observe(this) {
