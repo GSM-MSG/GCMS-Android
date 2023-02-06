@@ -6,7 +6,6 @@
         motion:constraintSetEnd="@+id/end"
         motion:constraintSetStart="@id/start"
         motion:duration="200">
-        <KeyFrameSet></KeyFrameSet>
         <OnSwipe motion:touchAnchorId="@+id/profileScrollView" />
     </Transition>
 
