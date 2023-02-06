@@ -2,16 +2,16 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data>
+
         <variable
             name="profileClub"
             type="com.msg.gcms.presentation.view.profile.ProfileClubFragment" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/bg_profile_list"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:background="@color/light_black"
         android:paddingTop="32dp">
 
         <androidx.constraintlayout.widget.Guideline
@@ -87,7 +87,7 @@
             android:background="@drawable/bg_club_img"
             app:layout_constraintTop_toBottomOf="@id/majorTxt"
             app:layout_constraintStart_toStartOf="@id/guideline8"
-            app:layout_constraintEnd_toEndOf="@id/guideline9"/>
+            app:layout_constraintEnd_toEndOf="@id/guideline9" />
 
         <TextView
             android:id="@+id/freedomTxt"
@@ -113,7 +113,7 @@
                 android:id="@+id/freedomClubImg"
                 android:layout_width="match_parent"
                 android:layout_height="150dp"
-                android:layout_marginTop="7.97dp"/>
+                android:layout_marginTop="7.97dp" />
 
             <TextView
                 android:id="@+id/freedomClubName"
@@ -134,7 +134,7 @@
             android:background="@drawable/bg_club_img"
             app:layout_constraintTop_toBottomOf="@id/freedomTxt"
             app:layout_constraintStart_toStartOf="@id/guideline10"
-            app:layout_constraintEnd_toEndOf="@id/guideline11"/>
+            app:layout_constraintEnd_toEndOf="@id/guideline11" />
 
         <TextView
             android:visibility="invisible"
@@ -149,15 +149,13 @@
             app:layout_constraintTop_toBottomOf="@id/majorClubLayout" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:visibility="gone"
             android:id="@+id/privateClubRecyclerview"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="7.97dp"
-            android:overScrollMode="never"
             app:layout_constraintEnd_toEndOf="@id/guideline11"
             app:layout_constraintStart_toStartOf="@id/guideline8"
-            app:layout_constraintTop_toBottomOf="@id/privateClub"/>
+            app:layout_constraintTop_toBottomOf="@id/privateClub" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
