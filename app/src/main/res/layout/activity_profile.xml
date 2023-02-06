@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/light_blue3"
-        android:id="@+id/constraintLayout"
+        android:id="@+id/profileLayout"
         app:layoutDescription="@xml/activity_profile_xml_constraintlayout_scene">
 
         <androidx.constraintlayout.widget.Guideline
