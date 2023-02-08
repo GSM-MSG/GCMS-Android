@@ -2,16 +2,16 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data>
+
         <variable
             name="profileClub"
             type="com.msg.gcms.presentation.view.profile.ProfileClubFragment" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/bg_profile_list"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:background="@color/light_black"
         android:paddingTop="32dp">
 
         <androidx.constraintlayout.widget.Guideline
@@ -41,27 +41,6 @@
             android:layout_height="0.5dp"
             android:orientation="vertical"
             app:layout_constraintGuide_percent="0.95" />
-
-
-<!--        <TextView-->
-<!--            android:id="@+id/afterSchoolTxt"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:textSize="18sp"-->
-<!--            android:text="@string/afterSchool"-->
-<!--            android:fontFamily="@font/notosans"-->
-<!--            android:textFontWeight="700"-->
-<!--            android:layout_marginTop="61dp"-->
-<!--            android:textColor="@color/white"-->
-<!--            app:layout_constraintTop_toTopOf="parent"-->
-<!--            app:layout_constraintStart_toStartOf="@id/guideline8" />-->
-
-<!--        <androidx.fragment.app.FragmentContainerView-->
-<!--            android:id="@+id/afterSchoolFragmentView"-->
-<!--            app:layout_constraintTop_toBottomOf="@id/afterSchoolTxt"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:name="com.msg.gcms.ui.component.profile.ProfileNoAfterSchoolFragment" />-->
 
         <TextView
             android:id="@+id/majorTxt"
@@ -108,7 +87,7 @@
             android:background="@drawable/bg_club_img"
             app:layout_constraintTop_toBottomOf="@id/majorTxt"
             app:layout_constraintStart_toStartOf="@id/guideline8"
-            app:layout_constraintEnd_toEndOf="@id/guideline9"/>
+            app:layout_constraintEnd_toEndOf="@id/guideline9" />
 
         <TextView
             android:id="@+id/freedomTxt"
@@ -134,7 +113,7 @@
                 android:id="@+id/freedomClubImg"
                 android:layout_width="match_parent"
                 android:layout_height="150dp"
-                android:layout_marginTop="7.97dp"/>
+                android:layout_marginTop="7.97dp" />
 
             <TextView
                 android:id="@+id/freedomClubName"
@@ -155,7 +134,7 @@
             android:background="@drawable/bg_club_img"
             app:layout_constraintTop_toBottomOf="@id/freedomTxt"
             app:layout_constraintStart_toStartOf="@id/guideline10"
-            app:layout_constraintEnd_toEndOf="@id/guideline11"/>
+            app:layout_constraintEnd_toEndOf="@id/guideline11" />
 
         <TextView
             android:visibility="invisible"
@@ -170,15 +149,13 @@
             app:layout_constraintTop_toBottomOf="@id/majorClubLayout" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:visibility="gone"
             android:id="@+id/privateClubRecyclerview"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="7.97dp"
-            android:overScrollMode="never"
             app:layout_constraintEnd_toEndOf="@id/guideline11"
             app:layout_constraintStart_toStartOf="@id/guideline8"
-            app:layout_constraintTop_toBottomOf="@id/privateClub"/>
+            app:layout_constraintTop_toBottomOf="@id/privateClub" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

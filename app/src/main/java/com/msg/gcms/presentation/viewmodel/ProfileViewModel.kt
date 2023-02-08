@@ -29,9 +29,6 @@ class ProfileViewModel @Inject constructor(
     private val _clubStatus = MutableLiveData<Boolean>()
     val clubStatus: LiveData<Boolean> get() = _clubStatus
 
-    private val _afterSchoolStatus = MutableLiveData<Boolean>()
-    val afterSchoolStatus: LiveData<Boolean> get() = _afterSchoolStatus
-
     private val _profileData = MutableLiveData<UserInfoResponse>()
     val profileData: LiveData<UserInfoResponse> get() = _profileData
 
@@ -43,7 +40,6 @@ class ProfileViewModel @Inject constructor(
             profileUseCase().onSuccess {
                 _profileData.value = it
                 _clubStatus.value = it.clubs.isNotEmpty()
-                _afterSchoolStatus.value = it.afterSchools.isNotEmpty()
             }.onFailure {
                 _clubStatus.value = false
                 when (it) {
