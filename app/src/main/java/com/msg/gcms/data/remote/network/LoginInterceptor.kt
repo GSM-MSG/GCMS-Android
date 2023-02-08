@@ -3,6 +3,7 @@ package com.msg.gcms.data.remote.network
 import com.google.gson.JsonObject
 import com.google.gson.JsonParser
 import com.msg.gcms.BuildConfig
+import com.msg.gcms.data.local.datastorage.AuthDataStorage
 import com.msg.gcms.di.GCMSApplication
 import okhttp3.Interceptor
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
@@ -12,8 +13,11 @@ import okhttp3.RequestBody.Companion.toRequestBody
 import okhttp3.Response
 import java.io.IOException
 import java.time.LocalDateTime
+import javax.inject.Inject
 
-class LoginInterceptor : Interceptor {
+class LoginInterceptor @Inject constructor(
+    private val authDataStorage: AuthDataStorage
+) : Interceptor {
     @Throws(IOException::class)
     override fun intercept(chain: Interceptor.Chain): Response = with(chain) {
         val request = chain.request()
@@ -42,16 +46,16 @@ class LoginInterceptor : Interceptor {
             val response = client.newCall(request).execute()
             if (response.isSuccessful) {
                 val token = jsonParser.parse(response.body!!.string()) as JsonObject
-                GCMSApplication.prefs.accessToken = token["accessToken"].toString()
-                GCMSApplication.prefs.refreshToken = token["refreshToken"].toString()
-                GCMSApplication.prefs.accessExp = token["accessExp"].toString()
-                GCMSApplication.prefs.refreshExp = token["refreshExp"].toString()
+                authDataStorage.setAccessToken(token["accessToken"].toString())
+                authDataStorage.setRefreshToken(token["refreshToken"].toString())
+                authDataStorage.setAccessExpiredAt(token["accessExp"].toString())
+                authDataStorage.setRefreshExpiredAt(token["refreshExp"].toString())
             } else throw RuntimeException()
         }
 
         return proceed(
             request.newBuilder()
-                .addHeader("Authorization", "Bearer ${GCMSApplication.prefs.accessToken}")
+                .addHeader("Authorization", "Bearer ${authDataStorage.getAccessToken()}")
                 .build()
         )
     }
