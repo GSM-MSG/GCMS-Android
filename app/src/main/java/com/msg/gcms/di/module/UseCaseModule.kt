@@ -1,9 +1,17 @@
 package com.msg.gcms.di.module
 
-import com.msg.gcms.domain.repository.ClubRepository
 import com.msg.gcms.domain.repository.AuthRepository
+import com.msg.gcms.domain.repository.ClubRepository
 import com.msg.gcms.domain.repository.ImageRepository
 import com.msg.gcms.domain.repository.UserRepository
+import com.msg.gcms.domain.usecase.auth.GetAccessExpUseCase
+import com.msg.gcms.domain.usecase.auth.GetAccessTokenUseCase
+import com.msg.gcms.domain.usecase.auth.GetRefreshExpUseCase
+import com.msg.gcms.domain.usecase.auth.GetRefreshTokenUseCase
+import com.msg.gcms.domain.usecase.auth.LogoutUseCase
+import com.msg.gcms.domain.usecase.auth.RefreshUseCase
+import com.msg.gcms.domain.usecase.auth.SaveTokenInfoUseCase
+import com.msg.gcms.domain.usecase.auth.SignInUseCase
 import com.msg.gcms.domain.usecase.club.ApplicantAcceptUseCase
 import com.msg.gcms.domain.usecase.club.ApplicantRejectUseCase
 import com.msg.gcms.domain.usecase.club.ClubDeleteUseCase
@@ -19,9 +27,6 @@ import com.msg.gcms.domain.usecase.club.PostCreateClubUseCase
 import com.msg.gcms.domain.usecase.club.PutClubCloseUseCase
 import com.msg.gcms.domain.usecase.club.PutClubOpenUseCase
 import com.msg.gcms.domain.usecase.club.UserKickUseCase
-import com.msg.gcms.domain.usecase.auth.LogoutUseCase
-import com.msg.gcms.domain.usecase.auth.RefreshUseCase
-import com.msg.gcms.domain.usecase.auth.SignInUseCase
 import com.msg.gcms.domain.usecase.image.ImageUseCase
 import com.msg.gcms.domain.usecase.user.DeleteUserUseCase
 import com.msg.gcms.domain.usecase.user.EditProfileUseCase
@@ -132,6 +137,30 @@ object UseCaseModule {
     fun provideSignInUseCase(repository: AuthRepository): SignInUseCase =
         SignInUseCase(repository)
 
+    @Provides
+    @Singleton
+    fun provideGetAccessTokenUseCase(repository: AuthRepository): GetAccessTokenUseCase =
+        GetAccessTokenUseCase(repository)
+
+    @Provides
+    @Singleton
+    fun provideGetAccessExpUseCase(repository: AuthRepository): GetAccessExpUseCase =
+        GetAccessExpUseCase(repository)
+
+    @Provides
+    @Singleton
+    fun provideGetRefreshTokenUseCase(repository: AuthRepository): GetRefreshTokenUseCase =
+        GetRefreshTokenUseCase(repository)
+
+    @Provides
+    @Singleton
+    fun provideGetRefreshExpUseCase(repository: AuthRepository): GetRefreshExpUseCase =
+        GetRefreshExpUseCase(repository)
+
+    @Provides
+    @Singleton
+    fun provideSaveTokenInfoUseCase(repository: AuthRepository): SaveTokenInfoUseCase =
+        SaveTokenInfoUseCase(repository)
 
     // --- Image UseCase ---
 
@@ -139,7 +168,6 @@ object UseCaseModule {
     @Singleton
     fun provideImageUseCase(repository: ImageRepository): ImageUseCase =
         ImageUseCase(repository)
-
 
     // --- User UseCase ----
 
