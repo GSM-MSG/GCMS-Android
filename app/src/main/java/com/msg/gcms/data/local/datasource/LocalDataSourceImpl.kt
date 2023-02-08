@@ -14,12 +14,12 @@ class LocalDataSourceImpl @Inject constructor(
 
     override suspend fun getRefreshExp(): String = authDataStorage.getRefreshExpiredAt()
 
-    override suspend fun saveToken(
-        access: String, refresh: String, accessExp: String, refreshExp: String
+    override suspend fun saveTokenInfo(
+        accessToken: String, refreshToken: String, accessExp: String, refreshExp: String
     ) {
         with(authDataStorage) {
-            setAccessToken(access)
-            setRefreshToken(refresh)
+            setAccessToken(accessToken)
+            setRefreshToken(refreshToken)
             setAccessExpiredAt(accessExp)
             setRefreshExpiredAt(refreshExp)
         }

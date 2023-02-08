@@ -17,16 +17,16 @@ class AuthDataStorageImpl @Inject constructor(
         const val REFRESH_EXP = "refreshExp"
     }
 
-    override fun setAccessToken(token: String) {
-        getSharedPreferences().edit().putString(ACCESS_TOKEN, token).apply()
+    override fun setAccessToken(accessToken: String) {
+        getSharedPreferences().edit().putString(ACCESS_TOKEN, accessToken).apply()
     }
 
     override fun getAccessToken(): String {
         return getSharedPreferences().getString(ACCESS_TOKEN, "") ?: ""
     }
 
-    override fun setRefreshToken(token: String) {
-        getSharedPreferences().edit().putString(REFRESH_TOKEN, token).apply()
+    override fun setRefreshToken(refreshToken: String) {
+        getSharedPreferences().edit().putString(REFRESH_TOKEN, refreshToken).apply()
     }
 
     override fun getRefreshToken(): String {

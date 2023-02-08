@@ -5,5 +5,5 @@ interface LocalDataSource {
     suspend fun getRefreshToken(): String
     suspend fun getAccessExp(): String
     suspend fun getRefreshExp(): String
-    suspend fun saveToken(access: String, refresh: String, accessExp: String, refreshExp: String)
+    suspend fun saveTokenInfo(accessToken: String, refreshToken: String, accessExp: String, refreshExp: String)
 }

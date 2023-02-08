@@ -1,10 +1,10 @@
 package com.msg.gcms.data.local.datastorage
 
 interface AuthDataStorage {
-    fun setAccessToken(token: String)
+    fun setAccessToken(accessToken: String)
     fun getAccessToken(): String
 
-    fun setRefreshToken(token: String)
+    fun setRefreshToken(refreshToken: String)
     fun getRefreshToken(): String
 
     fun setAccessExpiredAt(accessExp: String)
