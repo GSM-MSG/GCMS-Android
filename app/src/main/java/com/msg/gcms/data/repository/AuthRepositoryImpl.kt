@@ -14,10 +14,6 @@ class AuthRepositoryImpl @Inject constructor(
     override suspend fun postRegistration(body: SignInRequest): SignInResponse =
         remoteDatasource.postRegistration(body = body)
 
-    override suspend fun postLogout() = remoteDatasource.postLogout()
-
-    override suspend fun postRefresh(): SignInResponse = remoteDatasource.postRefresh()
-
     override suspend fun getAccessToken(): String = localDataSource.getAccessToken()
 
     override suspend fun getRefreshToken(): String = localDataSource.getRefreshToken()

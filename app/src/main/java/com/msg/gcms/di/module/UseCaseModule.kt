@@ -8,8 +8,6 @@ import com.msg.gcms.domain.usecase.auth.GetAccessExpUseCase
 import com.msg.gcms.domain.usecase.auth.GetAccessTokenUseCase
 import com.msg.gcms.domain.usecase.auth.GetRefreshExpUseCase
 import com.msg.gcms.domain.usecase.auth.GetRefreshTokenUseCase
-import com.msg.gcms.domain.usecase.auth.LogoutUseCase
-import com.msg.gcms.domain.usecase.auth.RefreshUseCase
 import com.msg.gcms.domain.usecase.auth.SaveTokenInfoUseCase
 import com.msg.gcms.domain.usecase.auth.SignInUseCase
 import com.msg.gcms.domain.usecase.club.ApplicantAcceptUseCase
@@ -121,16 +119,6 @@ object UseCaseModule {
 
 
     // --- Auth UseCase ---
-
-    @Provides
-    @Singleton
-    fun provideLogoutUseCase(repository: AuthRepository): LogoutUseCase =
-        LogoutUseCase(repository)
-
-    @Provides
-    @Singleton
-    fun provideRefreshUseCase(repository: AuthRepository): RefreshUseCase =
-        RefreshUseCase(repository)
 
     @Provides
     @Singleton
