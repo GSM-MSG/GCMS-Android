@@ -7,11 +7,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.msg.gcms.data.remote.dto.user.request.UserProfileRequest
 import com.msg.gcms.data.remote.dto.user.response.UserInfoResponse
-import com.msg.gcms.di.GCMSApplication
 import com.msg.gcms.domain.exception.BadRequestException
 import com.msg.gcms.domain.exception.NotFoundException
 import com.msg.gcms.domain.exception.UnauthorizedException
-import com.msg.gcms.domain.usecase.auth.LogoutUseCase
+import com.msg.gcms.domain.usecase.auth.SaveTokenInfoUseCase
 import com.msg.gcms.domain.usecase.image.ImageUseCase
 import com.msg.gcms.domain.usecase.user.EditProfileUseCase
 import com.msg.gcms.domain.usecase.user.GetUserInfoUseCase
@@ -23,7 +22,7 @@ import javax.inject.Inject
 @HiltViewModel
 class ProfileViewModel @Inject constructor(
     private val profileUseCase: GetUserInfoUseCase,
-    private val logoutUseCase: LogoutUseCase,
+    private val saveTokenInfoUseCase: SaveTokenInfoUseCase,
     private val imgUseCase: ImageUseCase,
     private val editProfileUseCase: EditProfileUseCase
 ) : ViewModel() {
@@ -53,11 +52,8 @@ class ProfileViewModel @Inject constructor(
         }
     }
 
-    fun logout() {
-        GCMSApplication.prefs.accessToken = ""
-        GCMSApplication.prefs.refreshToken = ""
-        GCMSApplication.prefs.accessExp = ""
-        GCMSApplication.prefs.refreshExp = ""
+    fun logout() = viewModelScope.launch {
+        saveTokenInfoUseCase("", "", "", "")
     }
 
     fun uploadImg(img: MultipartBody.Part) {

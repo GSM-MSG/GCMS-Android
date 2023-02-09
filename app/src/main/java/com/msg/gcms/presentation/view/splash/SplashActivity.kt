@@ -1,42 +1,35 @@
 package com.msg.gcms.presentation.view.splash
 
 import android.os.Bundle
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.msg.gcms.R
-import com.msg.gcms.di.GCMSApplication
 import com.msg.gcms.presentation.utils.enterActivity
 import com.msg.gcms.presentation.view.intro.IntroActivity
 import com.msg.gcms.presentation.view.main.MainActivity
+import com.msg.gcms.presentation.viewmodel.SplashViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import java.time.LocalDateTime
 
 @AndroidEntryPoint
 class SplashActivity : AppCompatActivity() {
-    private val currentTime = LocalDateTime.now()
-    private lateinit var refreshExpriedAt: LocalDateTime
+    private val splashViewModel by viewModels<SplashViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
+        splashViewModel.checkAutoLoginAble(this)
         startActivity()
     }
 
     private fun startActivity() {
-        refreshExpriedAt =
-            if (!GCMSApplication.prefs.refreshExp.isNullOrEmpty())
-                LocalDateTime.parse(
-                    GCMSApplication.prefs.refreshExp!!.substring(0, 19)
-                )
-            else {
-                currentTime
-            }
-
-        enterActivity(
-            this@SplashActivity,
-            if (currentTime.isAfter(refreshExpriedAt) || GCMSApplication.prefs.refreshExp.isNullOrEmpty())
-                IntroActivity()
-            else
-                MainActivity()
-        )
+        splashViewModel.isLoginAble.observe(this) {
+            enterActivity(
+                this@SplashActivity,
+                if (it)
+                    MainActivity()
+                else
+                    IntroActivity()
+            )
+        }
     }
 }

@@ -10,7 +10,6 @@ import dagger.hilt.components.SingletonComponent
 @Module
 @InstallIn(SingletonComponent::class)
 abstract class LocalDataStorageModule {
-
     @Binds
     abstract fun provideAuthDataStorage(
         authDataStorageImpl: AuthDataStorageImpl

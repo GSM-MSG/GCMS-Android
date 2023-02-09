@@ -4,7 +4,6 @@ import com.google.gson.JsonObject
 import com.google.gson.JsonParser
 import com.msg.gcms.BuildConfig
 import com.msg.gcms.data.local.datastorage.AuthDataStorage
-import com.msg.gcms.di.GCMSApplication
 import okhttp3.Interceptor
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.OkHttpClient
@@ -32,7 +31,7 @@ class LoginInterceptor @Inject constructor(
 
         val currentTime = LocalDateTime.now()
         val accessExp = LocalDateTime.parse(
-            GCMSApplication.prefs.accessExp!!.substring(0, 19)
+            authDataStorage.getRefreshExpiredAt().substring(0, 19)
         )
 
         if (currentTime.isAfter(accessExp)) {
@@ -40,7 +39,10 @@ class LoginInterceptor @Inject constructor(
             val request = Request.Builder()
                 .url(BuildConfig.BASE_URL + "auth")
                 .patch("".toRequestBody("application/json".toMediaTypeOrNull()))
-                .addHeader("RefreshToken", "Bearer ${GCMSApplication.prefs.refreshToken!!}")
+                .addHeader(
+                    "RefreshToken",
+                    "Bearer ${authDataStorage.getRefreshExpiredAt()}"
+                )
                 .build()
             val jsonParser = JsonParser()
             val response = client.newCall(request).execute()
