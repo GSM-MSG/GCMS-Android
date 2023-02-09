@@ -17,37 +17,35 @@ class AuthDataStorageImpl @Inject constructor(
         const val REFRESH_EXP = "refreshExp"
     }
 
-    override fun setAccessToken(accessToken: String) {
-        getSharedPreferences().edit().putString(ACCESS_TOKEN, accessToken).apply()
-    }
+    override fun setAccessToken(accessToken: String) = setData(ACCESS_TOKEN, accessToken)
+
+    override fun setRefreshToken(refreshToken: String) = setData(REFRESH_TOKEN, refreshToken)
+
+    override fun setAccessExpiredAt(accessExp: String) = setData(ACCESS_EXP, accessExp)
+
+    override fun setRefreshExpiredAt(refreshExp: String) = setData(REFRESH_EXP, refreshExp)
 
     override fun getAccessToken(): String {
         return getSharedPreferences().getString(ACCESS_TOKEN, "") ?: ""
-    }
-
-    override fun setRefreshToken(refreshToken: String) {
-        getSharedPreferences().edit().putString(REFRESH_TOKEN, refreshToken).apply()
     }
 
     override fun getRefreshToken(): String {
         return getSharedPreferences().getString(REFRESH_TOKEN, "") ?: ""
     }
 
-    override fun setAccessExpiredAt(accessExp: String) {
-        getSharedPreferences().edit().putString(ACCESS_EXP, accessExp).apply()
-    }
-
     override fun getAccessExpiredAt(): String {
         return getSharedPreferences().getString(ACCESS_EXP, "") ?: ""
-    }
-
-    override fun setRefreshExpiredAt(refreshExp: String) {
-        getSharedPreferences().edit().putString(ACCESS_EXP, refreshExp).apply()
     }
 
     override fun getRefreshExpiredAt(): String {
         return getSharedPreferences().getString(REFRESH_EXP, "") ?: ""
     }
+
+    private fun setData(id: String, data: String?) =
+        getSharedPreferences().edit().let {
+            it.putString(id, data)
+            it.apply()
+        }
 
     private fun getSharedPreferences() =
         context.getSharedPreferences(NAME, MODE_PRIVATE)
