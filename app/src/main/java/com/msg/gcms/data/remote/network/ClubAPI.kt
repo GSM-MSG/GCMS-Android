@@ -8,6 +8,7 @@ import com.msg.gcms.data.remote.dto.club.response.ClubInfoResponse
 import com.msg.gcms.data.remote.dto.club.response.MemberInfo
 import com.msg.gcms.data.remote.dto.club.response.SummaryClubResponse
 import retrofit2.http.Body
+import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.PATCH
 import retrofit2.http.POST
@@ -38,9 +39,9 @@ interface ClubAPI {
         @Body body: ModifyClubInfoRequest
     )
 
-    @POST("club/delete")
+    @DELETE("club/{club_id}")
     suspend fun deleteClub(
-        @Body body: ClubIdentificationRequest
+        @Path("club_id") clubId: Long
     )
 
     @GET("club/members")

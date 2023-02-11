@@ -23,7 +23,7 @@ interface ClubDataSource {
     )
 
     suspend fun deleteClub(
-        body: ClubIdentificationRequest
+        clubId: Long
     )
 
     suspend fun getMemberList(clubName: String, type: String): MemberInfo
