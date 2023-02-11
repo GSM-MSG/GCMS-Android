@@ -1,4 +1,4 @@
-package com.msg.gcms.data.remote.network
+package com.msg.gcms.data.remote.network.api
 
 import com.msg.gcms.data.remote.dto.club.request.MemberManagementRequest
 import com.msg.gcms.data.remote.dto.club.response.MemberInfo
@@ -8,7 +8,7 @@ import retrofit2.http.POST
 import retrofit2.http.PUT
 import retrofit2.http.Query
 
-interface ClubMemberApi {
+interface ClubMemberAPI {
 
     @GET("club/members")
     suspend fun getMemberList(

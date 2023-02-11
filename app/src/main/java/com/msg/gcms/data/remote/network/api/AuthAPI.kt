@@ -1,4 +1,4 @@
-package com.msg.gcms.data.remote.network
+package com.msg.gcms.data.remote.network.api
 
 import com.msg.gcms.di.GCMSApplication
 import com.msg.gcms.data.remote.dto.auth.request.CodeIssuanceRequest

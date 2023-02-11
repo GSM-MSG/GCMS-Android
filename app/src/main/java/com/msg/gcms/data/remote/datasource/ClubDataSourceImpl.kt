@@ -7,7 +7,7 @@ import com.msg.gcms.data.remote.dto.club.request.ModifyClubInfoRequest
 import com.msg.gcms.data.remote.dto.club.response.ClubInfoResponse
 import com.msg.gcms.data.remote.dto.club.response.MemberInfo
 import com.msg.gcms.data.remote.dto.club.response.SummaryClubResponse
-import com.msg.gcms.data.remote.network.ClubAPI
+import com.msg.gcms.data.remote.network.api.ClubAPI
 import com.msg.gcms.data.remote.util.GCMSApiHandler
 import javax.inject.Inject
 

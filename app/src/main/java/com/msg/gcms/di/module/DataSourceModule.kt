@@ -3,11 +3,11 @@ package com.msg.gcms.di.module
 import com.msg.gcms.data.remote.datasource.ClubDataSourceImpl
 import com.msg.gcms.data.remote.datasource.AuthDataSourceImpl
 import com.msg.gcms.data.remote.datasource.ImageDataSourceImpl
-import com.msg.gcms.data.remote.network.ClubAPI
-import com.msg.gcms.data.remote.network.AuthAPI
-import com.msg.gcms.data.remote.network.ImageAPI
+import com.msg.gcms.data.remote.network.api.ClubAPI
+import com.msg.gcms.data.remote.network.api.AuthAPI
+import com.msg.gcms.data.remote.network.api.ImageAPI
 import com.msg.gcms.data.remote.datasource.UserDataSourceImpl
-import com.msg.gcms.data.remote.network.UserAPI
+import com.msg.gcms.data.remote.network.api.UserAPI
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

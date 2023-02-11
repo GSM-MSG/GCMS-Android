@@ -4,7 +4,7 @@ import com.msg.gcms.data.remote.dto.user.request.UserDeleteRequest
 import com.msg.gcms.data.remote.dto.user.request.UserProfileRequest
 import com.msg.gcms.data.remote.dto.user.response.UserData
 import com.msg.gcms.data.remote.dto.user.response.UserInfoResponse
-import com.msg.gcms.data.remote.network.UserAPI
+import com.msg.gcms.data.remote.network.api.UserAPI
 import com.msg.gcms.data.remote.util.GCMSApiHandler
 import javax.inject.Inject
 

@@ -1,4 +1,4 @@
-package com.msg.gcms.data.remote.network
+package com.msg.gcms.data.remote.network.api
 
 import com.msg.gcms.data.remote.dto.club.request.ClubIdentificationRequest
 import com.msg.gcms.data.remote.dto.club.request.CreateClubRequest
@@ -43,12 +43,6 @@ interface ClubAPI {
     suspend fun deleteClub(
         @Path("club_id") clubId: Long
     )
-
-    @GET("club/applicant")
-    suspend fun getApplicantList(
-        @Query("q") clubName: String,
-        @Query("type") type: String
-    ): MemberInfo
 
     @POST("club/accept")
     suspend fun postApplicantAccept(

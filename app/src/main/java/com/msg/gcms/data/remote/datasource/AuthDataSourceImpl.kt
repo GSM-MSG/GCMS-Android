@@ -3,7 +3,7 @@ package com.msg.gcms.data.remote.datasource
 import com.msg.gcms.data.remote.dto.auth.request.CodeIssuanceRequest
 import com.msg.gcms.data.remote.dto.auth.request.SignInRequest
 import com.msg.gcms.data.remote.dto.auth.response.SignInResponse
-import com.msg.gcms.data.remote.network.AuthAPI
+import com.msg.gcms.data.remote.network.api.AuthAPI
 import com.msg.gcms.data.remote.util.GCMSApiHandler
 import javax.inject.Inject
 

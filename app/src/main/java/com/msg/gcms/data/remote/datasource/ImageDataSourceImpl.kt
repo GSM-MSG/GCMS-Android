@@ -1,6 +1,6 @@
 package com.msg.gcms.data.remote.datasource
 
-import com.msg.gcms.data.remote.network.ImageAPI
+import com.msg.gcms.data.remote.network.api.ImageAPI
 import com.msg.gcms.data.remote.util.GCMSApiHandler
 import okhttp3.MultipartBody
 import javax.inject.Inject
