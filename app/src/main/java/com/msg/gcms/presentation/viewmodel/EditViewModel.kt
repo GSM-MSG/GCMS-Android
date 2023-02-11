@@ -38,11 +38,8 @@ class EditViewModel @Inject constructor(
     private val _clubInfo = MutableLiveData<ClubInfoResponse>()
     val clubInfo: LiveData<ClubInfoResponse> get() = _clubInfo
 
-    private val _clubType = MutableLiveData<String>()
-    val clubType: LiveData<String> get() = _clubType
-
-    private val _clubName = MutableLiveData<String>()
-    val clubName: LiveData<String> get() = _clubName
+    private val _clubId = MutableLiveData<Long>()
+    val clubId: LiveData<Long> get() = _clubId
 
     private val _result = MutableLiveData<List<UserData>>()
     val result: LiveData<List<UserData>> get() = _result
@@ -61,22 +58,10 @@ class EditViewModel @Inject constructor(
 
     private val lottie by lazy { LottieFragment() }
 
-    fun clubTypeDivider(clubType: String) {
-        val clubType = clubType.split("+")
-        this._clubType.value = clubType[1].trim()
-        this._clubName.value = clubType[0].trim()
-        Log.d("TAG", "clubTypeDivider: ${this.clubType.value}, ${this.clubName.value}")
-    }
-
     fun getClubInfo() {
         viewModelScope.launch {
-            Log.d(
-                "TAG",
-                "getClubInfo: ${_clubType.value.toString()}, ${_clubName.value.toString()}"
-            )
             getDetailUseCase(
-                type = _clubType.value.toString(),
-                clubName = _clubName.value.toString()
+                clubId = clubId.value!!
             ).onSuccess {
                 _clubInfo.value = it
                 Log.d("TAG", "getClubInfo: $it")
