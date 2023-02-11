@@ -33,9 +33,9 @@ class ClubDataSourceImpl @Inject constructor(
             .sendRequest()
     }
 
-    override suspend fun putChangeClub(body: ModifyClubInfoRequest) {
+    override suspend fun putChangeClub(body: ModifyClubInfoRequest, clubId: Long) {
         return GCMSApiHandler<Unit>()
-            .httpRequest { service.putChangeClub(body = body)}
+            .httpRequest { service.putChangeClub(body = body, clubId = clubId)}
             .sendRequest()
     }
 

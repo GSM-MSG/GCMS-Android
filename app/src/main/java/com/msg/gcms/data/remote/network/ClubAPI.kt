@@ -9,6 +9,7 @@ import com.msg.gcms.data.remote.dto.club.response.MemberInfo
 import com.msg.gcms.data.remote.dto.club.response.SummaryClubResponse
 import retrofit2.http.Body
 import retrofit2.http.GET
+import retrofit2.http.PATCH
 import retrofit2.http.POST
 import retrofit2.http.PUT
 import retrofit2.http.Path
@@ -31,8 +32,9 @@ interface ClubAPI {
         @Body body: CreateClubRequest
     )
 
-    @PUT("club/")
+    @PATCH("club/{club_id}")
     suspend fun putChangeClub(
+        @Path("club_id") clubId: Long,
         @Body body: ModifyClubInfoRequest
     )
 

@@ -18,7 +18,8 @@ interface ClubDataSource {
     )
 
     suspend fun putChangeClub(
-        body: ModifyClubInfoRequest
+        body: ModifyClubInfoRequest,
+        clubId: Long
     )
 
     suspend fun deleteClub(

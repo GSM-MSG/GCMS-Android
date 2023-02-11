@@ -18,7 +18,8 @@ interface ClubRepository {
     )
 
     suspend fun putChangeClub(
-        body: ModifyClubInfoRequest
+        body: ModifyClubInfoRequest,
+        clubId: Long
     )
 
     suspend fun deleteClub(body: ClubIdentificationRequest)

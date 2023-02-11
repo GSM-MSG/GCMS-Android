@@ -26,8 +26,8 @@ class ClubRepositoryImpl @Inject constructor(
         return dataSource.postCreateClub(body = body)
     }
 
-    override suspend fun putChangeClub(body: ModifyClubInfoRequest) {
-        return dataSource.putChangeClub(body = body)
+    override suspend fun putChangeClub(body: ModifyClubInfoRequest, clubId: Long) {
+        return dataSource.putChangeClub(body = body, clubId = clubId)
     }
 
     override suspend fun deleteClub(body: ClubIdentificationRequest) {
