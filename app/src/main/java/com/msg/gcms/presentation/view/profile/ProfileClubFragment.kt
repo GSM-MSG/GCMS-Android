@@ -42,7 +42,7 @@ class ProfileClubFragment :
                             }
                             majorClubName.text = clubData.title
                             majorClubImg.setOnClickListener {
-                                getDetail(clubData.type, clubData.title)
+                                getDetail(clubId = clubData.id)
                             }
                         }
                     }
@@ -55,7 +55,7 @@ class ProfileClubFragment :
                             }
                             freedomClubName.text = clubData.title
                             freedomClubImg.setOnClickListener {
-                                getDetail(clubData.type, clubData.title)
+                                getDetail(clubData.id)
                             }
                         }
                     }
@@ -72,8 +72,8 @@ class ProfileClubFragment :
         }
     }
 
-    private fun getDetail(type: String, q: String) {
-        detailViewModel.getDetail(type, q)
+    private fun getDetail(clubId: Long) {
+        detailViewModel.getDetail(clubId)
         clubViewModel.startLottie(requireActivity().supportFragmentManager)
         observeStatus()
     }
@@ -89,8 +89,9 @@ class ProfileClubFragment :
             override fun onClick(position: Int) {
                 Log.d("WWWW","클릭")
                 getDetail(
-                    privateClubList[position].type,
-                    privateClubList[position].title
+                    privateClubList[position].id
+                    // privateClubList[position].type,
+                    // privateClubList[position].title
                 )
                 Log.d("clubsss",viewModel.profileData.value?.clubs.toString())
             }

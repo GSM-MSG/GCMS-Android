@@ -1,7 +1,7 @@
 package com.msg.gcms.data.remote.dto.user.response
 
 data class ClubData(
-    val id: Int,
+    val id: Long,
     val type: String,
     val bannerUrl: String,
     val title: String,
