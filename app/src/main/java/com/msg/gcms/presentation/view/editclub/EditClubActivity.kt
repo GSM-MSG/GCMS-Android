@@ -21,7 +21,7 @@ class EditClubActivity: BaseActivity<ActivityEditClubBinding>(R.layout.activity_
     }
 
     private fun getClubType() {
-        val clubType = intent.getStringExtra("query")
-        editViewModel.clubTypeDivider(clubType = clubType!!)
+        val clubId = intent.getLongExtra("clubId", 0)
+        // editViewModel.clubTypeDivider(clubType = clubType!!)
     }
 }

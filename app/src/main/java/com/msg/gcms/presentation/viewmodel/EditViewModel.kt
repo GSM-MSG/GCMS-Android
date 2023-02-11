@@ -161,8 +161,6 @@ class EditViewModel @Inject constructor(
             editClubInfoUseCase(
                 body = body
             ).onSuccess {
-                //Todo(Leeyeonbin) 여기도 코드 다 수정하기
-                // Log.d("TAG", "putChangeClubInfo: ${it.code()}")
                 _editClubResult.value = Event.Success
             }.onFailure {
                 _editClubResult.value = when (it) {

@@ -258,8 +258,8 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
                         1 -> {
                             val intent = Intent(context, EditClubActivity::class.java)
                             intent.putExtra(
-                                "query",
-                                "${detailViewModel.result.value!!.club.title} + ${detailViewModel.result.value!!.club.type}"
+                                "clubId",
+                                detailViewModel.result.value!!.id
                             )
                             startActivity(intent)
                         }

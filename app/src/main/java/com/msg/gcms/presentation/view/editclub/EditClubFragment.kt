@@ -209,7 +209,7 @@ class EditClubFragment : BaseFragment<FragmentEditClubBinding>(R.layout.fragment
     }
 
     private fun observeClubTypeDivider() {
-        editViewModel.clubName.observe(this) {
+        editViewModel.clubId.observe(this) {
             getClubInfo()
         }
     }
