@@ -44,12 +44,6 @@ interface ClubAPI {
         @Path("club_id") clubId: Long
     )
 
-    @GET("club/members")
-    suspend fun getMemberList(
-        @Query("q") clubName: String,
-        @Query("type") type: String
-    ): MemberInfo
-
     @GET("club/applicant")
     suspend fun getApplicantList(
         @Query("q") clubName: String,
@@ -76,11 +70,6 @@ interface ClubAPI {
         @Body body: ClubIdentificationRequest
     )
 
-    @POST("club/kick")
-    suspend fun deleteMemberExpel(
-        @Body body: MemberManagementRequest
-    )
-
     @POST("club/apply")
     suspend fun postClubApply(
         @Body body: ClubIdentificationRequest
@@ -91,8 +80,4 @@ interface ClubAPI {
         @Body body: ClubIdentificationRequest
     )
 
-    @PUT("club/delegation")
-    suspend fun putDelegationOfRepresentation(
-        @Body body: MemberManagementRequest
-    )
 }
