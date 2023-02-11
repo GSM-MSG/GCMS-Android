@@ -31,7 +31,7 @@ class LoginInterceptor @Inject constructor(
 
         val currentTime = LocalDateTime.now()
         val accessExp = LocalDateTime.parse(
-            authDataStorage.getRefreshExpiredAt().substring(0, 19)
+            authDataStorage.getAccessExpiredAt().substring(0, 19)
         )
 
         if (currentTime.isAfter(accessExp)) {
@@ -40,8 +40,8 @@ class LoginInterceptor @Inject constructor(
                 .url(BuildConfig.BASE_URL + "auth")
                 .patch("".toRequestBody("application/json".toMediaTypeOrNull()))
                 .addHeader(
-                    "RefreshToken",
-                    "Bearer ${authDataStorage.getRefreshExpiredAt()}"
+                    "Refresh-Token",
+                    "Bearer ${authDataStorage.getRefreshToken()}"
                 )
                 .build()
             val jsonParser = JsonParser()
