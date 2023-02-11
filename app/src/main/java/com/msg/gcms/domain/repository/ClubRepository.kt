@@ -11,7 +11,7 @@ import com.msg.gcms.data.remote.dto.club.response.SummaryClubResponse
 interface ClubRepository {
     suspend fun getClubList(type: String): List<SummaryClubResponse>
 
-    suspend fun getDetail(type: String, clubName: String): ClubInfoResponse
+    suspend fun getDetail(clubId: Long): ClubInfoResponse
 
     suspend fun postCreateClub(
         body: CreateClubRequest

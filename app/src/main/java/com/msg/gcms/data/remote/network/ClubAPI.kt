@@ -11,6 +11,7 @@ import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.PUT
+import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface ClubAPI {
@@ -20,10 +21,9 @@ interface ClubAPI {
         @Query("type") type: String
     ): List<SummaryClubResponse>
 
-    @GET("club/detail")
+    @GET("club/{club_id}")
     suspend fun getDetail(
-        @Query("type") type: String,
-        @Query("q") clubName: String
+        @Path("clubId") clubId: Long,
     ): ClubInfoResponse
 
     @POST("club/")

@@ -36,11 +36,10 @@ class ClubDetailViewModel @Inject constructor(
 
     // private lateinit var clubInfo: ClubInfoResponse
 
-    fun getDetail(type: String, q: String) {
+    fun getDetail(clubId: Long) {
         viewModelScope.launch {
-            Log.d(TAG, "타입 : ${type}, 이름 : ${q}")
             getDetailUseCase(
-                type, q
+                clubId
             ).onSuccess {
                 // Todo(LeeHyeonbin) liveData로 값받아오는거 수정하기
                 _result.value = it

@@ -18,8 +18,8 @@ class ClubRepositoryImpl @Inject constructor(
         return dataSource.getClubList(type = type)
     }
 
-    override suspend fun getDetail(type: String, clubName: String): ClubInfoResponse {
-        return dataSource.getDetail(type = type, clubName = clubName)
+    override suspend fun getDetail(clubId: Long): ClubInfoResponse {
+        return dataSource.getDetail(clubId)
     }
 
     override suspend fun postCreateClub(body: CreateClubRequest) {
