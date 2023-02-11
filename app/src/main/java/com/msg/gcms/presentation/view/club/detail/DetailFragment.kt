@@ -411,7 +411,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
     private fun observeStatus() {
         clubViewModel.deleteClub.observe(this) { status ->
             detailViewModel.result.value!!.club.let {
-                detailViewModel.getDetail(it.clubId)
+                detailViewModel.getDetail(it.id)
             }
             when (status) {
                 Event.Success -> {}

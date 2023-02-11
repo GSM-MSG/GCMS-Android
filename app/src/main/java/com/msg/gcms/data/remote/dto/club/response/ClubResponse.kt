@@ -3,6 +3,7 @@ package com.msg.gcms.data.remote.dto.club.response
 import java.io.Serializable
 
 data class ClubResponse(
+    val id: Long,
     val type: String,
     val bannerUrl: String,
     val title: String,

@@ -41,7 +41,6 @@ class ClubDetailViewModel @Inject constructor(
             getDetailUseCase(
                 clubId
             ).onSuccess {
-                // Todo(LeeHyeonbin) liveData로 값받아오는거 수정하기
                 _result.value = it
                 _getClubDetail.value = Event.Success
             }.onFailure {
