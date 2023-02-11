@@ -28,15 +28,16 @@
         <activity
             android:name=".presentation.view.intro.IntroActivity"
             android:exported="true">
+        </activity>
+        <activity
+            android:name=".presentation.view.main.MainActivity"
+            android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".presentation.view.main.MainActivity"
-            android:exported="false" />
         <activity android:name=".presentation.view.profile.ProfileActivity" />
         <activity
             android:name=".presentation.view.withdrawal.WithdrawalActivity"

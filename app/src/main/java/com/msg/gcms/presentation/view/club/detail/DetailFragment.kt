@@ -24,7 +24,6 @@ import com.msg.gcms.presentation.base.BaseDialog
 import com.msg.gcms.presentation.base.BaseFragment
 import com.msg.gcms.presentation.base.BaseModal
 import com.msg.gcms.presentation.utils.ItemDecorator
-import com.msg.gcms.presentation.utils.enterActivity
 import com.msg.gcms.presentation.utils.exitActivity
 import com.msg.gcms.presentation.utils.exitFragment
 import com.msg.gcms.presentation.view.club.ClubFragment
@@ -412,7 +411,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
     private fun observeStatus() {
         clubViewModel.deleteClub.observe(this) { status ->
             detailViewModel.result.value!!.club.let {
-                detailViewModel.getDetail(it.type, it.title)
+                detailViewModel.getDetail(it.clubId)
             }
             when (status) {
                 Event.Success -> {}
