@@ -421,7 +421,6 @@ class EditClubFragment : BaseFragment<FragmentEditClubBinding>(R.layout.fragment
     private fun editClubInfo() {
         editViewModel.putChangeClubInfo(
             ModifyClubInfoRequest(
-                q = editViewModel.clubInfo.value!!.club.title,
                 type = editViewModel.clubInfo.value!!.club.type,
                 title = binding.clubNameEt.text.toString().trim(),
                 description = binding.clubDescriptionEt.text.toString(),

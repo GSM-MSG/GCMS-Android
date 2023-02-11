@@ -159,7 +159,8 @@ class EditViewModel @Inject constructor(
     fun putChangeClubInfo(body: ModifyClubInfoRequest) {
         viewModelScope.launch {
             editClubInfoUseCase(
-                body = body
+                body = body,
+                clubId = clubId.value!!
             ).onSuccess {
                 _editClubResult.value = Event.Success
             }.onFailure {

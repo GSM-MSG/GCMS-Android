@@ -7,7 +7,7 @@ import javax.inject.Inject
 class EditClubInfoUseCase @Inject constructor(
     private val repository: ClubRepository
 ) {
-    suspend operator fun invoke(body: ModifyClubInfoRequest) = kotlin.runCatching {
-        repository.putChangeClub(body)
+    suspend operator fun invoke(body: ModifyClubInfoRequest, clubId: Long) = kotlin.runCatching {
+        repository.putChangeClub(body, clubId)
     }
 }
