@@ -268,8 +268,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
                                 dialog.show()
                                 dialog.dialogBinding.ok.setOnClickListener {
                                     clubViewModel.deleteClub(
-                                        detailViewModel.result.value!!.club.title,
-                                        detailViewModel.result.value!!.club.type
+                                        detailViewModel.result.value!!.club.id
                                     )
                                     dialog.dismiss()
                                     requireActivity().supportFragmentManager.beginTransaction()

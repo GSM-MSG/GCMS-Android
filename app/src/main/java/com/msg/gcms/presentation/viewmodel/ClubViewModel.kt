@@ -200,10 +200,10 @@ class ClubViewModel @Inject constructor(
         }
     }
 
-    fun deleteClub(q: String, type: String) {
+    fun deleteClub(clubId: Long) {
         viewModelScope.launch {
             clubDeleteUseCase(
-                ClubIdentificationRequest(q = q, type = type)
+                clubId
             ).onSuccess {
                 //Todo(Leeyeonbin) 여기 스테이터스로 예외하는거 수정
                 // Log.d(TAG, "deleteClub: ${it.code()}")
