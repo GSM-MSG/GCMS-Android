@@ -109,7 +109,7 @@ class EditSearchFragment: BaseFragment<FragmentEditSearchBinding>(R.layout.fragm
                 .distinctUntilChanged()
                 .collect {
                     Log.d("TAG", "observeEditText: $it")
-                    editViewModel.getSearchUser(it)
+                    editViewModel.getSearchUser(it, editViewModel.clubInfo.value!!.club.type)
                 }
         }
     }

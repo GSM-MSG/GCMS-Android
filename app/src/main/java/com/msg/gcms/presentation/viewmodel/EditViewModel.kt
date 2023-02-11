@@ -95,10 +95,10 @@ class EditViewModel @Inject constructor(
         }
     }
 
-    fun getSearchUser(name: String) {
+    fun getSearchUser(name: String, type: String) {
         val queryString: HashMap<String, String> = HashMap()
         queryString["name"] = name
-        queryString["type"] = clubType.value.toString()
+        queryString["type"] = type
         viewModelScope.launch {
             getSearchUserUseCase(
                 queryString
