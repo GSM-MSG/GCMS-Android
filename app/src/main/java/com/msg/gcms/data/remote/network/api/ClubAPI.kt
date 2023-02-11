@@ -44,16 +44,6 @@ interface ClubAPI {
         @Path("club_id") clubId: Long
     )
 
-    @POST("club/accept")
-    suspend fun postApplicantAccept(
-        @Body body: MemberManagementRequest
-    )
-
-    @POST("club/reject")
-    suspend fun postApplicantReject(
-        @Body body: MemberManagementRequest
-    )
-
     @PUT("club/open")
     suspend fun putClubOpen(
         @Body body: ClubIdentificationRequest
@@ -61,11 +51,6 @@ interface ClubAPI {
 
     @PUT("club/close")
     suspend fun putClubClose(
-        @Body body: ClubIdentificationRequest
-    )
-
-    @POST("club/apply")
-    suspend fun postClubApply(
         @Body body: ClubIdentificationRequest
     )
 
