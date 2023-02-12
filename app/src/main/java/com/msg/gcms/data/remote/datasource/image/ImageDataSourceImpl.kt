@@ -1,5 +1,6 @@
-package com.msg.gcms.data.remote.datasource
+package com.msg.gcms.data.remote.datasource.image
 
+import com.msg.gcms.data.remote.datasource.image.ImageDataSource
 import com.msg.gcms.data.remote.network.api.ImageAPI
 import com.msg.gcms.data.remote.util.GCMSApiHandler
 import okhttp3.MultipartBody

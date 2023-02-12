@@ -1,6 +1,6 @@
 package com.msg.gcms.data.repository
 
-import com.msg.gcms.data.remote.datasource.AuthDataSourceImpl
+import com.msg.gcms.data.remote.datasource.auth.AuthDataSourceImpl
 import com.msg.gcms.data.remote.dto.auth.request.SignInRequest
 import com.msg.gcms.data.remote.dto.auth.response.SignInResponse
 import com.msg.gcms.domain.repository.AuthRepository

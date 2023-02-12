@@ -1,6 +1,6 @@
 package com.msg.gcms.data.repository
 
-import com.msg.gcms.data.remote.datasource.UserDataSourceImpl
+import com.msg.gcms.data.remote.datasource.user_data.UserDataSourceImpl
 import com.msg.gcms.data.remote.dto.user.request.UserDeleteRequest
 import com.msg.gcms.data.remote.dto.user.request.UserProfileRequest
 import com.msg.gcms.data.remote.dto.user.response.UserData

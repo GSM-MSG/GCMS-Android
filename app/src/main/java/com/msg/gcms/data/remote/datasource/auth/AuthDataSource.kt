@@ -1,4 +1,4 @@
-package com.msg.gcms.data.remote.datasource
+package com.msg.gcms.data.remote.datasource.auth
 
 import com.msg.gcms.data.remote.dto.auth.request.CodeIssuanceRequest
 import com.msg.gcms.data.remote.dto.auth.request.SignInRequest

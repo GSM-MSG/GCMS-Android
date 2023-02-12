@@ -1,5 +1,6 @@
-package com.msg.gcms.data.remote.datasource
+package com.msg.gcms.data.remote.datasource.club_data
 
+import com.msg.gcms.data.remote.datasource.club_data.ClubDataSource
 import com.msg.gcms.data.remote.dto.club.request.ClubIdentificationRequest
 import com.msg.gcms.data.remote.dto.club.request.CreateClubRequest
 import com.msg.gcms.data.remote.dto.club.request.MemberManagementRequest

@@ -1,4 +1,4 @@
-package com.msg.gcms.data.remote.datasource
+package com.msg.gcms.data.remote.datasource.image
 
 import okhttp3.MultipartBody
 

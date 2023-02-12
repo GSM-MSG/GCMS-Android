@@ -1,4 +1,4 @@
-package com.msg.gcms.data.remote.datasource
+package com.msg.gcms.data.remote.datasource.user_data
 
 import com.msg.gcms.data.remote.dto.user.request.UserDeleteRequest
 import com.msg.gcms.data.remote.dto.user.request.UserProfileRequest
