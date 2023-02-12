@@ -81,6 +81,7 @@ class EditViewModel @Inject constructor(
         if (clubInfo.value!!.member.isEmpty()) {
             memberList.add(
                 UserData(
+                    uuid = "0",
                     email = "",
                     name = "추가하기",
                     grade = 0,

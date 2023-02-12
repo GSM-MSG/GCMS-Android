@@ -46,7 +46,6 @@ class MemberManageViewModel @Inject constructor(
     // private val _clubName = MutableLiveData<String>()
     // private val _clubType = MutableLiveData<String>()
 
-    //Todo 여기 아직 값지정해주는 거 없으니까 만들기
     private val _clubId = mutableStateOf<Long>(0)
 
     private val _getMemberListState = MutableLiveData<Event>()
@@ -66,6 +65,10 @@ class MemberManageViewModel @Inject constructor(
 
     private val _rejectApplicantState = MutableLiveData<Event>()
     val rejectApplicantState: LiveData<Event> get() = _rejectApplicantState
+
+    fun setClubId(clubId: Long) {
+        _clubId.value = clubId
+    }
 
     fun getMember() {
         viewModelScope.launch {

@@ -57,10 +57,10 @@ class ClubViewModel @Inject constructor(
 
     private val TAG = "ClubViewModel"
 
-    fun postClubApply(type: String, q: String) {
+    fun postClubApply(clubId: Long) {
         viewModelScope.launch {
             postClubApplyUseCase(
-                ClubIdentificationRequest(type = type, q = q)
+                clubId = clubId
             ).onSuccess {
                 //Todo(Leeyeonbin) 여기도 스테이터스로 예외하는거 다 수정하기
                 _applyClub.value = Event.Success
@@ -91,10 +91,10 @@ class ClubViewModel @Inject constructor(
         }
     }
 
-    fun postClubCancel(type: String, q: String) {
+    fun postClubCancel(clubId: Long) {
         viewModelScope.launch {
             postClubCancelUseCase(
-                ClubIdentificationRequest(type = type, q = q)
+                clubId = clubId
             ).onSuccess {
                 //Todo(Leeyeonbin) 여기 스테이터스로 예외하는거 수정
                 _cancelClubApply.value = Event.Success

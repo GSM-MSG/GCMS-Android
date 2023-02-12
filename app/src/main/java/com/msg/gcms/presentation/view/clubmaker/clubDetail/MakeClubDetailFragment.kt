@@ -175,6 +175,7 @@ class MakeClubDetailFragment :
         if (makeClubViewModel.memberList.isEmpty()) {
             makeClubViewModel.memberList.add(
                 UserData(
+                    uuid = "0",
                     email = "",
                     name = "추가하기",
                     grade = 0,

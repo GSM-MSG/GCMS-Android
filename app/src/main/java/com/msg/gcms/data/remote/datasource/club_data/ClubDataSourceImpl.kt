@@ -55,11 +55,4 @@ class ClubDataSourceImpl @Inject constructor(
             .sendRequest()
 
     }
-
-    override suspend fun postClubCancel(body: ClubIdentificationRequest) {
-        return GCMSApiHandler<Unit>()
-            .httpRequest { service.postClubCancel(body = body) }
-            .sendRequest()
-    }
-
 }

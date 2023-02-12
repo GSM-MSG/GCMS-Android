@@ -287,8 +287,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
 
     private fun goManageActivity() {
         val intent = Intent(context, MemberManageActivity::class.java)
-        intent.putExtra("name", detailViewModel.result.value!!.club.title)
-        intent.putExtra("type", detailViewModel.result.value!!.club.type)
+        intent.putExtra("clubId", detailViewModel.result.value!!.id)
         intent.putExtra("role", detailViewModel.result.value!!.scope)
         startActivity(intent)
     }
@@ -386,13 +385,11 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
                             dialog.dialogBinding.ok.setOnClickListener {
                                 if (applied) {
                                     clubViewModel.postClubCancel(
-                                        result.type,
-                                        result.title
+                                        clubId = detailViewModel.result.value!!.id
                                     )
                                 } else
                                     clubViewModel.postClubApply(
-                                        result.type,
-                                        result.title
+                                        clubId = detailViewModel.result.value!!.id
                                     )
                                 clubViewModel.applyClub.observe(this) {
                                     dialog.dismiss()

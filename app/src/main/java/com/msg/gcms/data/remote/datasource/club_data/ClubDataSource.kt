@@ -28,6 +28,4 @@ interface ClubDataSource {
 
     suspend fun putClubClose(body: ClubIdentificationRequest)
 
-    suspend fun postClubCancel(body: ClubIdentificationRequest)
-
 }
