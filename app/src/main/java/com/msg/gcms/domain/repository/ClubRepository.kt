@@ -25,6 +25,4 @@ interface ClubRepository {
     suspend fun putClubOpen(body: ClubIdentificationRequest)
 
     suspend fun putClubClose(body: ClubIdentificationRequest)
-
-    suspend fun postClubCancel(body: ClubIdentificationRequest)
 }

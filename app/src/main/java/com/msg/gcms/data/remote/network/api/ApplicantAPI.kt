@@ -19,6 +19,11 @@ interface ApplicantAPI {
         @Path("club_id") clubId: Long
     )
 
+    @POST("applicant/{club_id}")
+    suspend fun deleteClubApply(
+        @Path("club_id") clubId: Long
+    )
+
     @POST("applicant/{club_id}/accept")
     suspend fun postApplicantAccept(
         @Path("club_id") clubId: Long,

@@ -7,21 +7,25 @@ import com.msg.gcms.domain.repository.ApplicantRepository
 import javax.inject.Inject
 
 class ApplicantRepositoryImpl @Inject constructor(
-    private val datasource: ApplicantDataSourceImpl
+    private val dataSource: ApplicantDataSourceImpl
 ): ApplicantRepository{
     override suspend fun getApplicantList(clubId: Long): MemberInfo {
-        return datasource.getApplicantList(clubId = clubId)
+        return dataSource.getApplicantList(clubId = clubId)
     }
 
     override suspend fun postClubApply(clubId: Long) {
-        return datasource.postClubApply(clubId = clubId)
+        return dataSource.postClubApply(clubId = clubId)
+    }
+
+    override suspend fun deleteClubApply(clubId: Long) {
+        return dataSource.deleteClubApply(clubId = clubId)
     }
 
     override suspend fun postApplicantAccept(clubId: Long, body: MemberManagementRequest) {
-        return datasource.postApplicantAccept(clubId = clubId, body = body)
+        return dataSource.postApplicantAccept(clubId = clubId, body = body)
     }
 
     override suspend fun postApplicantReject(clubId: Long, body: MemberManagementRequest) {
-        return datasource.postApplicantReject(clubId = clubId, body = body)
+        return dataSource.postApplicantReject(clubId = clubId, body = body)
     }
 }

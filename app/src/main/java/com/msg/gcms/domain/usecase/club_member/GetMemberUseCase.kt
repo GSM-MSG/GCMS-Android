@@ -1,4 +1,4 @@
-package com.msg.gcms.domain.usecase.club
+package com.msg.gcms.domain.usecase.club_member
 
 import com.msg.gcms.domain.repository.ClubMemberRepository
 import javax.inject.Inject

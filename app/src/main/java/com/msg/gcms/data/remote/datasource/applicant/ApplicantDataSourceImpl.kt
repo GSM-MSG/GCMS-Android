@@ -21,6 +21,12 @@ class ApplicantDataSourceImpl @Inject constructor(
             .sendRequest()
     }
 
+    override suspend fun deleteClubApply(clubId: Long) {
+        return GCMSApiHandler<Unit>()
+            .httpRequest { service.deleteClubApply(clubId) }
+            .sendRequest()
+    }
+
     override suspend fun postApplicantAccept(clubId: Long ,body: MemberManagementRequest) {
         return GCMSApiHandler<Unit>()
             .httpRequest { service.postApplicantAccept(clubId = clubId, body = body) }

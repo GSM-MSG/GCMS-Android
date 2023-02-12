@@ -1,4 +1,4 @@
-package com.msg.gcms.domain.usecase.club
+package com.msg.gcms.domain.usecase.club_member
 
 import com.msg.gcms.data.remote.dto.club.request.MemberManagementRequest
 import com.msg.gcms.domain.repository.ClubMemberRepository

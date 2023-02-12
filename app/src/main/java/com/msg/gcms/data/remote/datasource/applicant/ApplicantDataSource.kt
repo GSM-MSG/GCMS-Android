@@ -8,6 +8,8 @@ interface ApplicantDataSource {
 
     suspend fun postClubApply(clubId: Long)
 
+    suspend fun deleteClubApply(clubId: Long)
+
     suspend fun postApplicantAccept(clubId: Long, body: MemberManagementRequest)
 
     suspend fun postApplicantReject(clubId: Long, body: MemberManagementRequest)

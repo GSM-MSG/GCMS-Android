@@ -14,8 +14,8 @@ import com.msg.gcms.domain.exception.NotFoundException
 import com.msg.gcms.domain.exception.ServerException
 import com.msg.gcms.domain.exception.UnauthorizedException
 import com.msg.gcms.domain.usecase.club.ClubDeleteUseCase
-import com.msg.gcms.domain.usecase.club.PostClubApplyUseCase
-import com.msg.gcms.domain.usecase.club.PostClubCancelUseCase
+import com.msg.gcms.domain.usecase.applicant.PostClubApplyUseCase
+import com.msg.gcms.domain.usecase.applicant.PostClubCancelUseCase
 import com.msg.gcms.domain.usecase.club.PutClubCloseUseCase
 import com.msg.gcms.domain.usecase.club.PutClubOpenUseCase
 import com.msg.gcms.domain.usecase.user.ExitUseCase

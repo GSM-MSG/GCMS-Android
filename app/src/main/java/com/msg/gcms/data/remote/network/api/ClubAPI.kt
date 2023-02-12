@@ -54,9 +54,4 @@ interface ClubAPI {
         @Body body: ClubIdentificationRequest
     )
 
-    @POST("club/cancel")
-    suspend fun postClubCancel(
-        @Body body: ClubIdentificationRequest
-    )
-
 }

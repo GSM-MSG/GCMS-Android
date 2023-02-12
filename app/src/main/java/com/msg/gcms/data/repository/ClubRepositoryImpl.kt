@@ -40,8 +40,4 @@ class ClubRepositoryImpl @Inject constructor(
         return dataSource.putClubClose(body = body)
     }
 
-    override suspend fun postClubCancel(body: ClubIdentificationRequest) {
-        return dataSource.postClubCancel(body = body)
-    }
-
 }
