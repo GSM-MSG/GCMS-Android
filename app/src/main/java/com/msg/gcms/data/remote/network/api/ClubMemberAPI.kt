@@ -4,25 +4,26 @@ import com.msg.gcms.data.remote.dto.club.request.MemberManagementRequest
 import com.msg.gcms.data.remote.dto.club.response.MemberInfo
 import retrofit2.http.Body
 import retrofit2.http.GET
+import retrofit2.http.PATCH
 import retrofit2.http.POST
-import retrofit2.http.PUT
-import retrofit2.http.Query
+import retrofit2.http.Path
 
 interface ClubMemberAPI {
 
-    @GET("club/members")
+    @GET("club-member/{club_id}")
     suspend fun getMemberList(
-        @Query("q") clubName: String,
-        @Query("type") type: String
+        @Path("club_id") clubId: Long
     ): MemberInfo
 
-    @POST("club/kick")
+    @POST("club-member/{club_id}")
     suspend fun deleteMemberExpel(
+        @Path("club_id") clubId: Long,
         @Body body: MemberManagementRequest
     )
 
-    @PUT("club/delegation")
+    @PATCH("club-member/{club_id}")
     suspend fun putDelegationOfRepresentation(
+        @Path("club_id") clubId: Long,
         @Body body: MemberManagementRequest
     )
 }
