@@ -1,33 +1,33 @@
 package com.msg.gcms.data.remote.network.api
 
-import com.msg.gcms.data.remote.dto.club.request.ClubIdentificationRequest
 import com.msg.gcms.data.remote.dto.club.request.MemberManagementRequest
 import com.msg.gcms.data.remote.dto.club.response.MemberInfo
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
-import retrofit2.http.Query
+import retrofit2.http.Path
 
 interface ApplicantAPI {
 
-    @GET("club/applicant")
+    @GET("applicant/{club_id}")
     suspend fun getApplicantList(
-        @Query("q") clubName: String,
-        @Query("type") type: String
+        @Path("club_id") clubId: Long
     ): MemberInfo
 
-    @POST("club/apply")
+    @POST("applicant/club_id")
     suspend fun postClubApply(
-        @Body body: ClubIdentificationRequest
+        @Path("club_id") clubId: Long
     )
 
-    @POST("club/accept")
+    @POST("applicant/{club_id}/accept")
     suspend fun postApplicantAccept(
+        @Path("club_id") clubId: Long,
         @Body body: MemberManagementRequest
     )
 
-    @POST("club/reject")
+    @POST("applicant/{club_id}/reject")
     suspend fun postApplicantReject(
+        @Path("club_id") clubId: Long,
         @Body body: MemberManagementRequest
     )
 }
