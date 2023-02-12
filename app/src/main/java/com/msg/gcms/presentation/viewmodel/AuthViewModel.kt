@@ -6,13 +6,13 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.msg.gcms.data.remote.dto.auth.request.SignInRequest
 import com.msg.gcms.data.remote.dto.auth.response.SignInResponse
-import com.msg.gcms.di.GCMSApplication
 import com.msg.gcms.domain.exception.BadRequestException
 import com.msg.gcms.domain.exception.NotFoundException
 import com.msg.gcms.domain.exception.UnauthorizedException
-import com.msg.gcms.domain.usecase.auth.RefreshUseCase
+import com.msg.gcms.domain.usecase.auth.SaveTokenInfoUseCase
 import com.msg.gcms.domain.usecase.auth.SignInUseCase
 import com.msg.gcms.presentation.viewmodel.util.Event
+import com.msg.gcms.util.removeDot
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -20,13 +20,10 @@ import javax.inject.Inject
 @HiltViewModel
 class AuthViewModel @Inject constructor(
     private val signInUseCase: SignInUseCase,
-    private val refreshUseCase: RefreshUseCase
+    private val saveTokenInfoUseCase: SaveTokenInfoUseCase
 ) : ViewModel() {
     private val _postSignInRequest = MutableLiveData<Event>()
     val postSignInRequest: LiveData<Event> get() = _postSignInRequest
-
-    private val _isLogin = MutableLiveData<Boolean>()
-    val isLogin: LiveData<Boolean> get() = _isLogin
 
     fun postSignInRequest(code: String) = viewModelScope.launch {
         signInUseCase(
@@ -44,12 +41,12 @@ class AuthViewModel @Inject constructor(
         }
     }
 
-    private fun saveToken(response: SignInResponse) {
-        GCMSApplication.prefs.apply {
-            accessToken = response.accessToken
-            refreshToken = response.refreshToken
-            accessExp = response.accessExp
-            refreshExp = response.refreshExp
-        }
+    private fun saveToken(response: SignInResponse) = viewModelScope.launch {
+        saveTokenInfoUseCase(
+            accessToken = response.accessToken.removeDot(),
+            refreshToken = response.refreshToken.removeDot(),
+            accessExp = response.accessExp.removeDot(),
+            refreshExp = response.refreshExp.removeDot()
+        )
     }
 }

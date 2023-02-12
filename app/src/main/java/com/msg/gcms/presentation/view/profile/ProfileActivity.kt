@@ -16,11 +16,12 @@ import com.google.android.material.snackbar.Snackbar
 import com.msg.gcms.R
 import com.msg.gcms.databinding.ActivityProfileBinding
 import com.msg.gcms.presentation.base.BaseActivity
+import com.msg.gcms.presentation.utils.enterActivity
 import com.msg.gcms.presentation.utils.exitActivity
-import com.msg.gcms.presentation.view.main.MainActivity
+import com.msg.gcms.presentation.view.intro.IntroActivity
+import com.msg.gcms.presentation.view.withdrawal.WithdrawalActivity
 import com.msg.gcms.presentation.view.withdrawal.WithdrawalDialog
 import com.msg.gcms.presentation.viewmodel.ProfileViewModel
-import com.msg.gcms.presentation.view.withdrawal.WithdrawalActivity
 import dagger.hilt.android.AndroidEntryPoint
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
@@ -33,7 +34,6 @@ class ProfileActivity : BaseActivity<ActivityProfileBinding>(R.layout.activity_p
     override fun observeEvent() {
         myProfile()
         isClub()
-        isLogout()
     }
 
     override fun viewSetting() {
@@ -53,12 +53,6 @@ class ProfileActivity : BaseActivity<ActivityProfileBinding>(R.layout.activity_p
                     transformations(CircleCropTransformation())
                 }
             }
-        }
-    }
-
-    private fun isLogout() {
-        viewModel.logoutStatus.observe(this) {
-            TODO("GAuth 방식으로 로그아웃 교체")
         }
     }
 
@@ -108,6 +102,7 @@ class ProfileActivity : BaseActivity<ActivityProfileBinding>(R.layout.activity_p
                 setDialogListener(object : WithdrawalDialog.WithdrawalDialogListener {
                     override fun logout() {
                         viewModel.logout()
+                        enterActivity(this@ProfileActivity, IntroActivity())
                     }
 
                     override fun goWithdrawal() {

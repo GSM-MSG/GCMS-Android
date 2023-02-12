@@ -1,15 +1,16 @@
 package com.msg.gcms.di.module
 
-import com.msg.gcms.data.remote.datasource.ClubDataSourceImpl
+import com.msg.gcms.data.local.datasource.LocalDataSourceImpl
 import com.msg.gcms.data.remote.datasource.AuthDataSourceImpl
+import com.msg.gcms.data.remote.datasource.ClubDataSourceImpl
 import com.msg.gcms.data.remote.datasource.ImageDataSourceImpl
 import com.msg.gcms.data.remote.datasource.UserDataSourceImpl
-import com.msg.gcms.data.repository.ClubRepositoryImpl
 import com.msg.gcms.data.repository.AuthRepositoryImpl
+import com.msg.gcms.data.repository.ClubRepositoryImpl
 import com.msg.gcms.data.repository.ImageRepositoryImpl
 import com.msg.gcms.data.repository.UserRepositoryImpl
-import com.msg.gcms.domain.repository.ClubRepository
 import com.msg.gcms.domain.repository.AuthRepository
+import com.msg.gcms.domain.repository.ClubRepository
 import com.msg.gcms.domain.repository.ImageRepository
 import com.msg.gcms.domain.repository.UserRepository
 import dagger.Module
@@ -23,8 +24,11 @@ import javax.inject.Singleton
 object RepositoryModule {
     @Provides
     @Singleton
-    fun provideAuthRepository(dataSource: AuthDataSourceImpl): AuthRepository =
-        AuthRepositoryImpl(dataSource)
+    fun provideAuthRepository(
+        remoteDataSource: AuthDataSourceImpl,
+        localDataSource: LocalDataSourceImpl
+    ): AuthRepository =
+        AuthRepositoryImpl(remoteDataSource, localDataSource)
 
     @Provides
     @Singleton

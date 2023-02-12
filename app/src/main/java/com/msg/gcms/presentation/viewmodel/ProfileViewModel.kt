@@ -10,7 +10,7 @@ import com.msg.gcms.data.remote.dto.user.response.UserInfoResponse
 import com.msg.gcms.domain.exception.BadRequestException
 import com.msg.gcms.domain.exception.NotFoundException
 import com.msg.gcms.domain.exception.UnauthorizedException
-import com.msg.gcms.domain.usecase.auth.LogoutUseCase
+import com.msg.gcms.domain.usecase.auth.SaveTokenInfoUseCase
 import com.msg.gcms.domain.usecase.image.ImageUseCase
 import com.msg.gcms.domain.usecase.user.EditProfileUseCase
 import com.msg.gcms.domain.usecase.user.GetUserInfoUseCase
@@ -22,7 +22,7 @@ import javax.inject.Inject
 @HiltViewModel
 class ProfileViewModel @Inject constructor(
     private val profileUseCase: GetUserInfoUseCase,
-    private val logoutUseCase: LogoutUseCase,
+    private val saveTokenInfoUseCase: SaveTokenInfoUseCase,
     private val imgUseCase: ImageUseCase,
     private val editProfileUseCase: EditProfileUseCase
 ) : ViewModel() {
@@ -31,9 +31,6 @@ class ProfileViewModel @Inject constructor(
 
     private val _profileData = MutableLiveData<UserInfoResponse>()
     val profileData: LiveData<UserInfoResponse> get() = _profileData
-
-    private val _logoutStatus = MutableLiveData<Boolean>()
-    val logoutStatus: LiveData<Boolean> get() = _logoutStatus
 
     fun getUserInfo() {
         viewModelScope.launch {
@@ -51,18 +48,8 @@ class ProfileViewModel @Inject constructor(
         }
     }
 
-    fun logout() {
-        viewModelScope.launch {
-            logoutUseCase().onSuccess {
-                _logoutStatus.value = true
-            }.onFailure {
-                when (it) {
-                    is UnauthorizedException -> Log.d("TAG", "logout: $it")
-                    is NotFoundException -> Log.d("TAG", "logout: $it")
-                    else -> Log.d("TAG", "logout: $it")
-                }
-            }
-        }
+    fun logout() = viewModelScope.launch {
+        saveTokenInfoUseCase("", "", "", "")
     }
 
     fun uploadImg(img: MultipartBody.Part) {

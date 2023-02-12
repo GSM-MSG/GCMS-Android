@@ -1,11 +1,23 @@
 package com.msg.gcms.data.remote.network
 
-import com.msg.gcms.di.GCMSApplication
+import com.google.gson.JsonObject
+import com.google.gson.JsonParser
+import com.msg.gcms.BuildConfig
+import com.msg.gcms.data.local.datastorage.AuthDataStorage
+import com.msg.gcms.util.removeDot
 import okhttp3.Interceptor
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.OkHttpClient
+import okhttp3.Request
+import okhttp3.RequestBody.Companion.toRequestBody
 import okhttp3.Response
 import java.io.IOException
+import java.time.LocalDateTime
+import javax.inject.Inject
 
-class LoginInterceptor : Interceptor {
+class LoginInterceptor @Inject constructor(
+    private val authDataStorage: AuthDataStorage
+) : Interceptor {
     @Throws(IOException::class)
     override fun intercept(chain: Interceptor.Chain): Response = with(chain) {
         val request = chain.request()
@@ -18,11 +30,39 @@ class LoginInterceptor : Interceptor {
             return chain.proceed(request)
         }
 
-        val accessTokenRequest =
-            request.newBuilder()
-                .addHeader("Authorization", "Bearer ${GCMSApplication.prefs.accessToken}")
-                .build()
+        val currentTime = LocalDateTime.now()
+        val accessExp = LocalDateTime.parse(
+            authDataStorage.getAccessExpiredAt().substring(0, 19)
+        )
+        val refreshToken = authDataStorage.getRefreshToken()
 
-        return proceed(accessTokenRequest)
+        if (currentTime.isAfter(accessExp)) {
+            val client = OkHttpClient()
+            val refreshRequest = Request.Builder()
+                .url(BuildConfig.BASE_URL + "auth")
+                .patch("".toRequestBody("application/json".toMediaTypeOrNull()))
+                .addHeader(
+                    "Refresh-Token",
+                    "Bearer $refreshToken"
+                )
+                .build()
+            val jsonParser = JsonParser()
+            val response = client.newCall(refreshRequest).execute()
+            if (response.isSuccessful) {
+                val token = jsonParser.parse(response.body!!.string()) as JsonObject
+                authDataStorage.setAccessToken(token["accessToken"].toString().removeDot())
+                authDataStorage.setRefreshToken(token["refreshToken"].toString().removeDot())
+                authDataStorage.setAccessExpiredAt(token["accessExp"].toString().removeDot())
+                authDataStorage.setRefreshExpiredAt(token["refreshExp"].toString().removeDot())
+            } else throw RuntimeException()
+        }
+
+        val accessToken = authDataStorage.getAccessToken()
+
+        return proceed(
+            request.newBuilder()
+                .addHeader("Authorization", "Bearer $accessToken")
+                .build()
+        )
     }
 }

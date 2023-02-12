@@ -8,7 +8,7 @@ interface AuthRepository {
         body: SignInRequest
     ): SignInResponse
 
-    suspend fun postLogout()
+    suspend fun checkLoginStatus(): Boolean
 
-    suspend fun postRefresh(): SignInResponse
+    suspend fun saveTokenInfo(accessToken: String, refreshToken: String, accessExp: String, refreshExp: String)
 }

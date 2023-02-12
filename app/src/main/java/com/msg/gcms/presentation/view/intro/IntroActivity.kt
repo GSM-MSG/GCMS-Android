@@ -17,10 +17,11 @@ import com.msg.gcms.presentation.viewmodel.AuthViewModel
 import com.msg.gcms.presentation.viewmodel.util.Event
 import com.msg.gcms.ui.component.intro.component.ProgressDialog
 import dagger.hilt.android.AndroidEntryPoint
+import kotlin.system.exitProcess
 
 @AndroidEntryPoint
 class IntroActivity : BaseActivity<ActivityIntroBinding>(R.layout.activity_intro) {
-
+    private var backButtonWait: Long = 0
     private lateinit var progressDialog: ProgressDialog
     private val viewModel by viewModels<AuthViewModel>()
 
@@ -92,5 +93,25 @@ class IntroActivity : BaseActivity<ActivityIntroBinding>(R.layout.activity_intro
                 )
             }
         }
+    }
+
+    override fun onBackPressed() {
+        supportFragmentManager.fragments.filter { it is OnBackPressedListener }
+            .map { it as OnBackPressedListener }
+            .forEach { it.onBackPressed(); return }
+
+        if (System.currentTimeMillis() - backButtonWait >= 2000) {
+            backButtonWait = System.currentTimeMillis()
+            Toast.makeText(this, "뒤로 가기 버튼을 한 번 더 누르면 종료됩니다.", Toast.LENGTH_LONG).show()
+        } else {
+            super.onBackPressed()
+            moveTaskToBack(true)
+            finishAndRemoveTask()
+            exitProcess(0)
+        }
+    }
+
+    interface OnBackPressedListener {
+        fun onBackPressed()
     }
 }

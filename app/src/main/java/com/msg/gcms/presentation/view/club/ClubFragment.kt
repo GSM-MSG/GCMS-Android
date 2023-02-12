@@ -1,6 +1,5 @@
 package com.msg.gcms.presentation.view.club
 
-import android.content.Intent
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import com.msg.gcms.R
@@ -10,7 +9,6 @@ import com.msg.gcms.presentation.base.BaseFragment
 import com.msg.gcms.presentation.base.BaseModal
 import com.msg.gcms.presentation.utils.enterActivity
 import com.msg.gcms.presentation.utils.enterFragment
-import com.msg.gcms.presentation.utils.exitFragment
 import com.msg.gcms.presentation.view.club.detail.DetailFragment
 import com.msg.gcms.presentation.view.clubmaker.MakeClubActivity
 import com.msg.gcms.presentation.view.profile.ProfileActivity
