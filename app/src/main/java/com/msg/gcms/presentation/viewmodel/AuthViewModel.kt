@@ -12,6 +12,7 @@ import com.msg.gcms.domain.exception.UnauthorizedException
 import com.msg.gcms.domain.usecase.auth.SaveTokenInfoUseCase
 import com.msg.gcms.domain.usecase.auth.SignInUseCase
 import com.msg.gcms.presentation.viewmodel.util.Event
+import com.msg.gcms.util.removeDot
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -47,9 +48,5 @@ class AuthViewModel @Inject constructor(
             accessExp = response.accessExp.removeDot(),
             refreshExp = response.refreshExp.removeDot()
         )
-    }
-
-    private fun String.removeDot(): String {
-        return this.replace("^\"|\"$".toRegex(), "")
     }
 }

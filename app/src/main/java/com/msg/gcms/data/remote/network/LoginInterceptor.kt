@@ -1,10 +1,10 @@
 package com.msg.gcms.data.remote.network
 
-import android.util.Log
 import com.google.gson.JsonObject
 import com.google.gson.JsonParser
 import com.msg.gcms.BuildConfig
 import com.msg.gcms.data.local.datastorage.AuthDataStorage
+import com.msg.gcms.util.removeDot
 import okhttp3.Interceptor
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.OkHttpClient
@@ -32,10 +32,9 @@ class LoginInterceptor @Inject constructor(
 
         val currentTime = LocalDateTime.now()
         val accessExp = LocalDateTime.parse(
-            authDataStorage.getAccessExpiredAt().substring(0,19)
+            authDataStorage.getAccessExpiredAt().substring(0, 19)
         )
-
-        Log.d("Interceptor", authDataStorage.getAccessExpiredAt())
+        val refreshToken = authDataStorage.getRefreshToken()
 
         if (currentTime.isAfter(accessExp)) {
             val client = OkHttpClient()
@@ -44,7 +43,7 @@ class LoginInterceptor @Inject constructor(
                 .patch("".toRequestBody("application/json".toMediaTypeOrNull()))
                 .addHeader(
                     "Refresh-Token",
-                    "Bearer ${authDataStorage.getRefreshToken()}"
+                    "Bearer $refreshToken"
                 )
                 .build()
             val jsonParser = JsonParser()
@@ -58,14 +57,12 @@ class LoginInterceptor @Inject constructor(
             } else throw RuntimeException()
         }
 
+        val accessToken = authDataStorage.getAccessToken()
+
         return proceed(
             request.newBuilder()
-                .addHeader("Authorization", "Bearer ${authDataStorage.getAccessToken()}")
+                .addHeader("Authorization", "Bearer $accessToken")
                 .build()
         )
-    }
-
-    private fun String.removeDot(): String {
-        return this.replace("^\"|\"$".toRegex(), "")
     }
 }
