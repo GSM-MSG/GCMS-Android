@@ -1,5 +1,6 @@
 package com.msg.gcms.data.remote.network
 
+import android.util.Log
 import com.google.gson.JsonObject
 import com.google.gson.JsonParser
 import com.msg.gcms.BuildConfig
@@ -31,12 +32,14 @@ class LoginInterceptor @Inject constructor(
 
         val currentTime = LocalDateTime.now()
         val accessExp = LocalDateTime.parse(
-            authDataStorage.getAccessExpiredAt().substring(0, 19)
+            authDataStorage.getAccessExpiredAt().substring(0,19)
         )
+
+        Log.d("Interceptor", authDataStorage.getAccessExpiredAt())
 
         if (currentTime.isAfter(accessExp)) {
             val client = OkHttpClient()
-            val request = Request.Builder()
+            val refreshRequest = Request.Builder()
                 .url(BuildConfig.BASE_URL + "auth")
                 .patch("".toRequestBody("application/json".toMediaTypeOrNull()))
                 .addHeader(
@@ -45,14 +48,16 @@ class LoginInterceptor @Inject constructor(
                 )
                 .build()
             val jsonParser = JsonParser()
-            val response = client.newCall(request).execute()
+            val response = client.newCall(refreshRequest).execute()
             if (response.isSuccessful) {
                 val token = jsonParser.parse(response.body!!.string()) as JsonObject
-                authDataStorage.setAccessToken(token["accessToken"].toString())
-                authDataStorage.setRefreshToken(token["refreshToken"].toString())
-                authDataStorage.setAccessExpiredAt(token["accessExp"].toString())
-                authDataStorage.setRefreshExpiredAt(token["refreshExp"].toString())
-            } else throw RuntimeException()
+                authDataStorage.setAccessToken(token["accessToken"].toString().removeDot())
+                authDataStorage.setRefreshToken(token["refreshToken"].toString().removeDot())
+                authDataStorage.setAccessExpiredAt(token["accessExp"].toString().removeDot())
+                authDataStorage.setRefreshExpiredAt(token["refreshExp"].toString().removeDot())
+            } else {
+                Log.d("Interceptor", response.code.toString())
+            }
         }
 
         return proceed(
@@ -60,5 +65,9 @@ class LoginInterceptor @Inject constructor(
                 .addHeader("Authorization", "Bearer ${authDataStorage.getAccessToken()}")
                 .build()
         )
+    }
+
+    private fun String.removeDot(): String {
+        return this.replace("^\"|\"$".toRegex(), "")
     }
 }

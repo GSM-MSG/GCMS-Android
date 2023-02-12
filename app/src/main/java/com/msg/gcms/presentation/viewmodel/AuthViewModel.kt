@@ -42,10 +42,14 @@ class AuthViewModel @Inject constructor(
 
     private fun saveToken(response: SignInResponse) = viewModelScope.launch {
         saveTokenInfoUseCase(
-            accessToken = response.accessToken,
-            refreshToken = response.refreshToken,
-            accessExp = response.accessExp,
-            refreshExp = response.refreshExp
+            accessToken = response.accessToken.removeDot(),
+            refreshToken = response.refreshToken.removeDot(),
+            accessExp = response.accessExp.removeDot(),
+            refreshExp = response.refreshExp.removeDot()
         )
+    }
+
+    private fun String.removeDot(): String {
+        return this.replace("^\"|\"$".toRegex(), "")
     }
 }

@@ -1,7 +1,6 @@
 package com.msg.gcms.presentation.viewmodel
 
 import android.content.Context
-import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -24,12 +23,11 @@ class SplashViewModel @Inject constructor(
 
     fun checkAutoLoginAble(context: Context) = viewModelScope.launch {
         getRefreshExpUseCase().onSuccess {
-            Log.d("TAAAG", it)
             if (it.isBlank()) {
                 _isLoginAble.value = false
             } else {
                 val refreshExpriedAt = LocalDateTime.parse(
-                    it.substring(0, 19)
+                    it
                 )
                 _isLoginAble.value = !currentTime.isAfter(refreshExpriedAt)
             }
