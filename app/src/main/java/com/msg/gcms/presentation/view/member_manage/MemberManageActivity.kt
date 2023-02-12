@@ -87,7 +87,7 @@ class MemberManageActivity :
                     "강퇴",
                     "${viewModel.memberList.value!!.get(position).name}님을 강퇴하시겠습니까?",
                     this@MemberManageActivity
-                ) { viewModel.kickUser(viewModel.memberList.value!!.get(position).email) }
+                ) { viewModel.kickUser(viewModel.memberList.value!!.get(position).uuid) }
             }
         })
         binding.memberList.layoutManager = LinearLayoutManager(this)

@@ -1,12 +1,13 @@
 package com.msg.gcms.domain.usecase.club
 
+import com.msg.gcms.domain.repository.ApplicantRepository
 import com.msg.gcms.domain.repository.ClubRepository
 import javax.inject.Inject
 
 class GetApplicantUseCase @Inject constructor(
-    private val repository: ClubRepository
+    private val repository: ApplicantRepository
 ) {
-    suspend operator fun invoke(clubName: String, type: String) = kotlin.runCatching {
-        repository.getApplicationList(clubName, type)
+    suspend operator fun invoke(clubId: Long) = kotlin.runCatching {
+        repository.getApplicantList(clubId = clubId)
     }
 }

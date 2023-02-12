@@ -1,6 +1,7 @@
 package com.msg.gcms.presentation.viewmodel
 
 import android.util.Log
+import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -42,8 +43,11 @@ class MemberManageViewModel @Inject constructor(
     private val _status = MutableLiveData<Int>()
     val status: LiveData<Int> get() = _status
 
-    private val _clubName = MutableLiveData<String>()
-    private val _clubType = MutableLiveData<String>()
+    // private val _clubName = MutableLiveData<String>()
+    // private val _clubType = MutableLiveData<String>()
+
+    //Todo 여기 아직 값지정해주는 거 없으니까 만들기
+    private val _clubId = mutableStateOf<Long>(0)
 
     private val _getMemberListState = MutableLiveData<Event>()
     val getMemberListState: LiveData<Event> get() = _getMemberListState
@@ -63,16 +67,10 @@ class MemberManageViewModel @Inject constructor(
     private val _rejectApplicantState = MutableLiveData<Event>()
     val rejectApplicantState: LiveData<Event> get() = _rejectApplicantState
 
-    fun setClub(name: String, type: String) {
-        _clubName.value = name
-        _clubType.value = type
-    }
-
     fun getMember() {
         viewModelScope.launch {
             getMemberUseCase(
-                clubName = _clubName.value!!,
-                type = _clubType.value!!
+                clubId = _clubId.value
             ).onSuccess {
                 _memberList.value = it.requestUser
                 _getMemberListState.value = Event.Success
@@ -103,8 +101,7 @@ class MemberManageViewModel @Inject constructor(
     fun getApplicant() {
         viewModelScope.launch {
             getApplicantUseCase(
-                clubName = _clubName.value!!,
-                type = _clubType.value!!
+                clubId = _clubId.value
             ).onSuccess {
                 _applicantList.value = it.requestUser
                 _getApplicantListState.value = Event.Success
@@ -135,14 +132,11 @@ class MemberManageViewModel @Inject constructor(
         }
     }
 
-    fun kickUser(id: String) {
+    fun kickUser(uuid: String) {
         viewModelScope.launch {
             userKickUseCase(
-                MemberManagementRequest(
-                    _clubName.value!!,
-                    _clubType.value!!,
-                    id
-                )
+                body = MemberManagementRequest(uuid),
+                clubId = _clubId.value
             ).onSuccess {
                 _kickUserState.value = Event.Success
             }.onFailure {
@@ -171,11 +165,8 @@ class MemberManageViewModel @Inject constructor(
     fun delegate(id: String) {
         viewModelScope.launch {
             userDelegateUseCase(
-                MemberManagementRequest(
-                    _clubName.value!!,
-                    _clubType.value!!,
-                    id
-                )
+                clubId = _clubId.value,
+                body = MemberManagementRequest(id)
             ).onSuccess {
                 _delegateState.value = Event.Success
             }.onFailure {
@@ -208,11 +199,8 @@ class MemberManageViewModel @Inject constructor(
     fun accept(id: String) {
         viewModelScope.launch {
             applicantAcceptUseCase(
-                MemberManagementRequest(
-                    _clubName.value!!,
-                    _clubType.value!!,
-                    id
-                )
+                clubId = _clubId.value,
+                body = MemberManagementRequest(id)
             ).onSuccess {
                 _acceptApplicantState.value = Event.Success
             }.onFailure {
@@ -245,11 +233,8 @@ class MemberManageViewModel @Inject constructor(
     fun reject(id: String) {
         viewModelScope.launch {
             applicantRejectUseCase(
-                MemberManagementRequest(
-                    _clubName.value!!,
-                    _clubType.value!!,
-                    id
-                )
+                clubId = _clubId.value,
+                body = MemberManagementRequest(id)
             ).onSuccess {
                 _rejectApplicantState.value = Event.Success
             }.onFailure {

@@ -153,6 +153,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
             try {
                 membersList.add(
                     MemberSummaryResponse(
+                        uuid = member[i].uuid,
                         name = member[i].name,
                         userImg = member[i].userImg,
                         email = member[i].email,
