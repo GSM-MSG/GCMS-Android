@@ -1,7 +1,6 @@
 package com.msg.gcms.domain.usecase.club
 
 import com.msg.gcms.domain.repository.ApplicantRepository
-import com.msg.gcms.domain.repository.ClubRepository
 import javax.inject.Inject
 
 class GetApplicantUseCase @Inject constructor(
