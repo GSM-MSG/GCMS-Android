@@ -5,6 +5,7 @@ import com.msg.gcms.data.remote.datasource.AuthDataSource
 import com.msg.gcms.data.remote.dto.auth.request.SignInRequest
 import com.msg.gcms.data.remote.dto.auth.response.SignInResponse
 import com.msg.gcms.domain.repository.AuthRepository
+import java.time.LocalDateTime
 import javax.inject.Inject
 
 class AuthRepositoryImpl @Inject constructor(
@@ -14,13 +15,16 @@ class AuthRepositoryImpl @Inject constructor(
     override suspend fun postRegistration(body: SignInRequest): SignInResponse =
         remoteDatasource.postRegistration(body = body)
 
-    override suspend fun getAccessToken(): String = localDataSource.getAccessToken()
-
-    override suspend fun getRefreshToken(): String = localDataSource.getRefreshToken()
-
-    override suspend fun getAccessExp(): String = localDataSource.getAccessExp()
-
-    override suspend fun getRefreshExp(): String = localDataSource.getRefreshExp()
+    override suspend fun checkIsLogin(): Boolean =
+        if (localDataSource.getRefreshExp().isBlank()) {
+            false
+        } else {
+            val currentTime = LocalDateTime.now()
+            val refreshExpriedAt = LocalDateTime.parse(
+                localDataSource.getRefreshExp()
+            )
+            !currentTime.isAfter(refreshExpriedAt)
+        }
 
     override suspend fun saveTokenInfo(accessToken: String, refreshToken: String, accessExp: String, refreshExp: String) =
         localDataSource.saveTokenInfo(accessToken, refreshToken, accessExp, refreshExp)

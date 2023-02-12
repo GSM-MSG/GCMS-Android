@@ -4,10 +4,7 @@ import com.msg.gcms.domain.repository.AuthRepository
 import com.msg.gcms.domain.repository.ClubRepository
 import com.msg.gcms.domain.repository.ImageRepository
 import com.msg.gcms.domain.repository.UserRepository
-import com.msg.gcms.domain.usecase.auth.GetAccessExpUseCase
-import com.msg.gcms.domain.usecase.auth.GetAccessTokenUseCase
-import com.msg.gcms.domain.usecase.auth.GetRefreshExpUseCase
-import com.msg.gcms.domain.usecase.auth.GetRefreshTokenUseCase
+import com.msg.gcms.domain.usecase.auth.CheckIsLoginUseCase
 import com.msg.gcms.domain.usecase.auth.SaveTokenInfoUseCase
 import com.msg.gcms.domain.usecase.auth.SignInUseCase
 import com.msg.gcms.domain.usecase.club.ApplicantAcceptUseCase
@@ -127,23 +124,8 @@ object UseCaseModule {
 
     @Provides
     @Singleton
-    fun provideGetAccessTokenUseCase(repository: AuthRepository): GetAccessTokenUseCase =
-        GetAccessTokenUseCase(repository)
-
-    @Provides
-    @Singleton
-    fun provideGetAccessExpUseCase(repository: AuthRepository): GetAccessExpUseCase =
-        GetAccessExpUseCase(repository)
-
-    @Provides
-    @Singleton
-    fun provideGetRefreshTokenUseCase(repository: AuthRepository): GetRefreshTokenUseCase =
-        GetRefreshTokenUseCase(repository)
-
-    @Provides
-    @Singleton
-    fun provideGetRefreshExpUseCase(repository: AuthRepository): GetRefreshExpUseCase =
-        GetRefreshExpUseCase(repository)
+    fun provideCheckIsLoginUseCase(repository: AuthRepository): CheckIsLoginUseCase =
+        CheckIsLoginUseCase(repository)
 
     @Provides
     @Singleton

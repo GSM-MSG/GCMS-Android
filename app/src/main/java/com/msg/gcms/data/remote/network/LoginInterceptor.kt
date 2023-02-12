@@ -55,9 +55,7 @@ class LoginInterceptor @Inject constructor(
                 authDataStorage.setRefreshToken(token["refreshToken"].toString().removeDot())
                 authDataStorage.setAccessExpiredAt(token["accessExp"].toString().removeDot())
                 authDataStorage.setRefreshExpiredAt(token["refreshExp"].toString().removeDot())
-            } else {
-                Log.d("Interceptor", response.code.toString())
-            }
+            } else throw RuntimeException()
         }
 
         return proceed(
