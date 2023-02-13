@@ -37,9 +37,9 @@ interface ClubAPI {
         @Body body: ModifyClubInfoRequest
     )
 
-    @PUT("club/open")
+    @PATCH("club/{club_id}/open")
     suspend fun putClubOpen(
-        @Body body: ClubIdentificationRequest
+        @Path("club_id") clubId: Long,
     )
 
     @PUT("club/close")
