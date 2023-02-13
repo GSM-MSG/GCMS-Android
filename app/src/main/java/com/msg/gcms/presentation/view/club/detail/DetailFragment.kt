@@ -95,7 +95,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
     private fun viewSet() {
         detailViewModel.setNav(false)
         settingRecyclerView()
-        controllShimmer(true)
+        controlShimmer(true)
     }
 
     private fun showInfo() {
@@ -117,7 +117,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
                 }
                 clubMemberRecycler(it.member)
                 clubPromotionImgRecycler(it.activityUrls)
-                controllShimmer(false)
+                controlShimmer(false)
                 clubViewModel.stopLottie()
             }
         }
@@ -429,7 +429,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
         }
     }
 
-    private fun controllShimmer(loading: Boolean) {
+    private fun controlShimmer(loading: Boolean) {
         with(binding) {
             if (loading) {
                 clubBanner.visibility = View.GONE
