@@ -17,10 +17,9 @@ import com.msg.gcms.R
 import com.msg.gcms.databinding.ActivityProfileBinding
 import com.msg.gcms.presentation.base.BaseActivity
 import com.msg.gcms.presentation.utils.exitActivity
-import com.msg.gcms.presentation.view.main.MainActivity
+import com.msg.gcms.presentation.view.withdrawal.WithdrawalActivity
 import com.msg.gcms.presentation.view.withdrawal.WithdrawalDialog
 import com.msg.gcms.presentation.viewmodel.ProfileViewModel
-import com.msg.gcms.presentation.view.withdrawal.WithdrawalActivity
 import dagger.hilt.android.AndroidEntryPoint
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody

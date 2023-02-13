@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import coil.transform.RoundedCornersTransformation
 import com.msg.gcms.R
-import com.msg.gcms.data.remote.dto.user.response.ClubData
+import com.msg.gcms.data.remote.dto.user.response.SummarizedClubInfo
 import com.msg.gcms.databinding.FragmentProfileClubBinding
 import com.msg.gcms.presentation.adapter.EditorialClubAdapter
 import com.msg.gcms.presentation.base.BaseFragment
@@ -23,7 +23,7 @@ class ProfileClubFragment :
     private val viewModel by activityViewModels<ProfileViewModel>()
     private val detailViewModel by activityViewModels<ClubDetailViewModel>()
     private val clubViewModel by activityViewModels<ClubViewModel>()
-    private val privateClubList: ArrayList<ClubData> = ArrayList()
+    private val privateClubList: ArrayList<SummarizedClubInfo> = ArrayList()
     private lateinit var adapter: EditorialClubAdapter
     override fun init() {
         viewClub()
@@ -37,7 +37,7 @@ class ProfileClubFragment :
                         binding.apply {
                             noMajorClubImg.visibility = View.GONE
                             majorClubLayout.visibility = View.VISIBLE
-                            majorClubImg.load(clubData.bannerUrl) {
+                            majorClubImg.load(clubData.bannerImg) {
                                 transformations(RoundedCornersTransformation(9f, 9f, 0f, 0f))
                             }
                             majorClubName.text = clubData.title
@@ -50,7 +50,7 @@ class ProfileClubFragment :
                         binding.apply {
                             noFreedomClubImg.visibility = View.GONE
                             freedomClubLayout.visibility = View.VISIBLE
-                            freedomClubImg.load(clubData.bannerUrl) {
+                            freedomClubImg.load(clubData.bannerImg) {
                                 transformations(RoundedCornersTransformation(9f, 9f, 0f, 0f))
                             }
                             freedomClubName.text = clubData.title

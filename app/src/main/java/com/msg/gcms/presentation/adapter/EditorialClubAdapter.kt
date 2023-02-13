@@ -5,16 +5,16 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import coil.transform.RoundedCornersTransformation
-import com.msg.gcms.data.remote.dto.user.response.ClubData
+import com.msg.gcms.data.remote.dto.user.response.SummarizedClubInfo
 import com.msg.gcms.databinding.ListClubEditorialBinding
 
-class EditorialClubAdapter(private val clubList: ArrayList<ClubData>) :
+class EditorialClubAdapter(private val clubList: ArrayList<SummarizedClubInfo>) :
     RecyclerView.Adapter<EditorialClubAdapter.ViewHolder>() {
     class ViewHolder(val binding: ListClubEditorialBinding, listener: OnItemClickListener) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(club: ClubData) {
+        fun bind(club: SummarizedClubInfo) {
             binding.editorialItem = club
-            binding.itemClubImg.load(club.bannerUrl) {
+            binding.itemClubImg.load(club.bannerImg) {
                 transformations(RoundedCornersTransformation(9f, 9f, 0f, 0f))
             }
         }
