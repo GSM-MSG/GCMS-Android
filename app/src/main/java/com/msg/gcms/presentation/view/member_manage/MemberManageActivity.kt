@@ -48,10 +48,6 @@ class MemberManageActivity :
     }
 
     override fun viewSetting() {
-        //TODO 음
-        // viewModel.setClub(intent.getStringExtra("name")!!, intent.getStringExtra("type")!!).let {
-        //     clickExpandable()
-        // }
         viewModel.setClubId(intent.getLongExtra("clubId", 0))
         clickExpandable()
         clickBackBtn()
