@@ -12,7 +12,7 @@ import retrofit2.http.PUT
 import retrofit2.http.QueryMap
 
 interface UserAPI {
-    @GET("user/my")
+    @GET("user/")
     suspend fun getUserInfo(): UserInfoResponse
 
     @PUT("user/profile")
