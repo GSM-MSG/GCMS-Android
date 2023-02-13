@@ -6,7 +6,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.msg.gcms.data.remote.dto.user.request.UserDeleteRequest
 import com.msg.gcms.domain.exception.ConflictException
 import com.msg.gcms.domain.exception.ForBiddenException
 import com.msg.gcms.domain.exception.NotFoundException
@@ -189,10 +188,10 @@ class ClubViewModel @Inject constructor(
         }
     }
 
-    fun exit(q: String, type: String) {
+    fun exit(clubId: Long) {
         viewModelScope.launch {
             try {
-                exitUseCase(UserDeleteRequest(q = q, type = type))
+                exitUseCase(clubId = clubId)
             } catch (e: Exception) {
                 e.printStackTrace()
             }
