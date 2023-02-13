@@ -37,11 +37,6 @@ interface ClubAPI {
         @Body body: ModifyClubInfoRequest
     )
 
-    @DELETE("club/{club_id}")
-    suspend fun deleteClub(
-        @Path("club_id") clubId: Long
-    )
-
     @PUT("club/open")
     suspend fun putClubOpen(
         @Body body: ClubIdentificationRequest
@@ -50,6 +45,16 @@ interface ClubAPI {
     @PUT("club/close")
     suspend fun putClubClose(
         @Body body: ClubIdentificationRequest
+    )
+
+    @DELETE("club/{club_id}/exit")
+    suspend fun exitClub(
+        @Path("club_id") clubId: Long
+    )
+
+    @DELETE("club/{club_id}")
+    suspend fun deleteClub(
+        @Path("club_id") clubId: Long
     )
 
 }
