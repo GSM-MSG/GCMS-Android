@@ -16,7 +16,7 @@ import retrofit2.http.Query
 
 interface ClubAPI {
 
-    @GET("club/list")
+    @GET("club/")
     suspend fun getClubList(
         @Query("type") type: String
     ): List<SummaryClubResponse>
