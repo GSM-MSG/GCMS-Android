@@ -1,6 +1,5 @@
 package com.msg.gcms.domain.repository
 
-import com.msg.gcms.data.remote.dto.club.request.ClubIdentificationRequest
 import com.msg.gcms.data.remote.dto.club.request.CreateClubRequest
 import com.msg.gcms.data.remote.dto.club.request.ModifyClubInfoRequest
 import com.msg.gcms.data.remote.dto.club.response.ClubInfoResponse
@@ -20,9 +19,15 @@ interface ClubRepository {
         clubId: Long
     )
 
-    suspend fun deleteClub(clubId: Long)
+    suspend fun deleteClub(
+        clubId: Long
+    )
 
-    suspend fun putClubOpen(body: ClubIdentificationRequest)
+    suspend fun putClubOpen(
+        clubId: Long
+    )
 
-    suspend fun putClubClose(body: ClubIdentificationRequest)
+    suspend fun putClubClose(
+        clubId: Long
+    )
 }
