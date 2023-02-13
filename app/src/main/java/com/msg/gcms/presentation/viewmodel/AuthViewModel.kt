@@ -47,12 +47,12 @@ class AuthViewModel @Inject constructor(
     fun logoutRequest() = viewModelScope.launch {
         logoutUseCase()
             .onSuccess {
-                showLog("Logout: Success!")
+                showDebugLog("Logout: Success!")
             }.onFailure {
                 when (it) {
-                    is UnauthorizedException -> showLog("Logout: UnauthorizedException")
-                    is NotFoundException -> showLog("Logout: NotFoundException")
-                    else -> showLog("Logout: Unknown, status: $it")
+                    is UnauthorizedException -> showDebugLog("Logout: UnauthorizedException")
+                    is NotFoundException -> showDebugLog("Logout: NotFoundException")
+                    else -> showDebugLog("Logout: Unknown, status: $it")
                 }
             }
         saveTokenInfoUseCase("", "", "", "")
@@ -67,7 +67,7 @@ class AuthViewModel @Inject constructor(
         )
     }
 
-    private fun showLog(msg: String) {
+    private fun showDebugLog(msg: String) {
         Log.d("AuthViewModel", msg)
     }
 }
