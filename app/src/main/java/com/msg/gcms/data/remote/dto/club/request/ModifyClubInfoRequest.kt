@@ -3,7 +3,6 @@ package com.msg.gcms.data.remote.dto.club.request
 import com.google.gson.annotations.SerializedName
 
 data class ModifyClubInfoRequest(
-    // val q : String,
     @SerializedName("type")
     val type : String,
     @SerializedName("type")
