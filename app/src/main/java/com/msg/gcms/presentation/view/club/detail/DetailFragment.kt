@@ -355,9 +355,9 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
                         dialog.dialogBinding.ok.setOnClickListener {
                             detailViewModel.result.value!!.club.let { result ->
                                 if (open) {
-                                    clubViewModel.putClubClose(result.type, result.title)
+                                    clubViewModel.putClubClose(clubId = detailViewModel.result.value!!.id)
                                 } else {
-                                    clubViewModel.putClubOpen(result.type, result.title)
+                                    clubViewModel.putClubOpen(clubId = detailViewModel.result.value!!.id)
                                 }
                             }
                             clubViewModel.openingClubApplication.observe(this) {
