@@ -1,6 +1,5 @@
 package com.msg.gcms.data.remote.datasource.club_data
 
-import com.msg.gcms.data.remote.dto.club.request.ClubIdentificationRequest
 import com.msg.gcms.data.remote.dto.club.request.CreateClubRequest
 import com.msg.gcms.data.remote.dto.club.request.ModifyClubInfoRequest
 import com.msg.gcms.data.remote.dto.club.response.ClubInfoResponse
@@ -49,9 +48,9 @@ class ClubDataSourceImpl @Inject constructor(
             .sendRequest()
     }
 
-    override suspend fun putClubClose(body: ClubIdentificationRequest) {
+    override suspend fun putClubClose(clubId: Long) {
         return GCMSApiHandler<Unit>()
-            .httpRequest { service.putClubClose(body = body) }
+            .httpRequest { service.putClubClose(clubId = clubId) }
             .sendRequest()
 
     }

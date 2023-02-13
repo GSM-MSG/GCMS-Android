@@ -1,6 +1,5 @@
 package com.msg.gcms.data.remote.datasource.club_data
 
-import com.msg.gcms.data.remote.dto.club.request.ClubIdentificationRequest
 import com.msg.gcms.data.remote.dto.club.request.CreateClubRequest
 import com.msg.gcms.data.remote.dto.club.request.ModifyClubInfoRequest
 import com.msg.gcms.data.remote.dto.club.response.ClubInfoResponse
@@ -24,8 +23,12 @@ interface ClubDataSource {
         clubId: Long
     )
 
-    suspend fun putClubOpen(body: ClubIdentificationRequest)
+    suspend fun putClubOpen(
+        clubId: Long
+    )
 
-    suspend fun putClubClose(body: ClubIdentificationRequest)
+    suspend fun putClubClose(
+        clubId: Long
+    )
 
 }
