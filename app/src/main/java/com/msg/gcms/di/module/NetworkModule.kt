@@ -24,7 +24,9 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun provideOkhttpClient(): OkHttpClient {
+    fun provideOkhttpClient(
+        loginInterceptor: LoginInterceptor
+    ): OkHttpClient {
         return OkHttpClient.Builder()
             // 요청을 시작한 후 서버와의 TCP handshake 가 완료되기까지 지속되는 시간
             .connectTimeout(30, TimeUnit.SECONDS)
@@ -32,7 +34,7 @@ object NetworkModule {
             .readTimeout(30, TimeUnit.SECONDS)
             // 읽기 타임 아웃의 반대 방향. 얼마나 빨리 서버에 바이트를 보낼 수 있는지 확인
             .writeTimeout(30, TimeUnit.SECONDS)
-            .addInterceptor(LoginInterceptor())
+            .addInterceptor(loginInterceptor)
             .build()
     }
 
@@ -45,7 +47,6 @@ object NetworkModule {
         return Retrofit.Builder()
             .baseUrl(BuildConfig.BASE_URL)
             .client(okHttpClient)
-            .client(provideOkhttpClient())
             .addConverterFactory(gsonConverterFactory)
             .build()
     }

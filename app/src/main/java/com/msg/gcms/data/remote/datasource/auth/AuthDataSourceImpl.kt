@@ -1,7 +1,5 @@
 package com.msg.gcms.data.remote.datasource.auth
 
-import com.msg.gcms.data.remote.datasource.auth.AuthDataSource
-import com.msg.gcms.data.remote.dto.auth.request.CodeIssuanceRequest
 import com.msg.gcms.data.remote.dto.auth.request.SignInRequest
 import com.msg.gcms.data.remote.dto.auth.response.SignInResponse
 import com.msg.gcms.data.remote.network.api.AuthAPI
@@ -17,27 +15,9 @@ class AuthDataSourceImpl @Inject constructor(
             .sendRequest()
     }
 
-    override suspend fun postEmail(body: CodeIssuanceRequest) {
+    override suspend fun logout() {
         return GCMSApiHandler<Unit>()
-            .httpRequest { service.postEmail(body) }
-            .sendRequest()
-    }
-
-    override suspend fun headCheckCode(email: String, code: String) {
-        return GCMSApiHandler<Unit>()
-            .httpRequest { service.headCheckCode(email, code) }
-            .sendRequest()
-    }
-
-    override suspend fun postLogout() {
-        return GCMSApiHandler<Unit>()
-            .httpRequest { service.postLogout() }
-            .sendRequest()
-    }
-
-    override suspend fun postRefresh(): SignInResponse {
-        return GCMSApiHandler<SignInResponse>()
-            .httpRequest { service.postRefresh() }
+            .httpRequest { service.logout() }
             .sendRequest()
     }
 }

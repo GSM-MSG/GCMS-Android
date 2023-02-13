@@ -5,9 +5,9 @@ import com.msg.gcms.domain.repository.AuthRepository
 import javax.inject.Inject
 
 class SignInUseCase @Inject constructor(
-    private val repository: AuthRepository
+    private val authRepository: AuthRepository
 ) {
     suspend operator fun invoke(body: SignInRequest) = kotlin.runCatching {
-        repository.postRegistration(body)
+        authRepository.postRegistration(body)
     }
 }

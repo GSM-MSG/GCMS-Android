@@ -1,29 +1,29 @@
 package com.msg.gcms.di.module
 
 import com.msg.gcms.domain.repository.ApplicantRepository
-import com.msg.gcms.domain.repository.ClubRepository
 import com.msg.gcms.domain.repository.AuthRepository
 import com.msg.gcms.domain.repository.ClubMemberRepository
+import com.msg.gcms.domain.repository.ClubRepository
 import com.msg.gcms.domain.repository.ImageRepository
 import com.msg.gcms.domain.repository.UserRepository
 import com.msg.gcms.domain.usecase.applicant.ApplicantAcceptUseCase
 import com.msg.gcms.domain.usecase.applicant.ApplicantRejectUseCase
-import com.msg.gcms.domain.usecase.club.ClubDeleteUseCase
-import com.msg.gcms.domain.usecase.club.EditClubInfoUseCase
 import com.msg.gcms.domain.usecase.applicant.GetApplicantUseCase
-import com.msg.gcms.domain.usecase.club.GetClubListUseCase
-import com.msg.gcms.domain.usecase.club.GetDetailUseCase
-import com.msg.gcms.domain.usecase.club_member.GetMemberUseCase
-import com.msg.gcms.domain.usecase.club_member.MandateUseCase
 import com.msg.gcms.domain.usecase.applicant.PostClubApplyUseCase
 import com.msg.gcms.domain.usecase.applicant.PostClubCancelUseCase
+import com.msg.gcms.domain.usecase.auth.CheckLoginStatusUseCase
+import com.msg.gcms.domain.usecase.auth.SaveTokenInfoUseCase
+import com.msg.gcms.domain.usecase.auth.SignInUseCase
+import com.msg.gcms.domain.usecase.club.ClubDeleteUseCase
+import com.msg.gcms.domain.usecase.club.EditClubInfoUseCase
+import com.msg.gcms.domain.usecase.club.GetClubListUseCase
+import com.msg.gcms.domain.usecase.club.GetDetailUseCase
 import com.msg.gcms.domain.usecase.club.PostCreateClubUseCase
 import com.msg.gcms.domain.usecase.club.PutClubCloseUseCase
 import com.msg.gcms.domain.usecase.club.PutClubOpenUseCase
+import com.msg.gcms.domain.usecase.club_member.GetMemberUseCase
+import com.msg.gcms.domain.usecase.club_member.MandateUseCase
 import com.msg.gcms.domain.usecase.club_member.UserKickUseCase
-import com.msg.gcms.domain.usecase.auth.LogoutUseCase
-import com.msg.gcms.domain.usecase.auth.RefreshUseCase
-import com.msg.gcms.domain.usecase.auth.SignInUseCase
 import com.msg.gcms.domain.usecase.image.ImageUseCase
 import com.msg.gcms.domain.usecase.user.DeleteUserUseCase
 import com.msg.gcms.domain.usecase.user.EditProfileUseCase
@@ -128,18 +128,18 @@ object UseCaseModule {
 
     @Provides
     @Singleton
-    fun provideLogoutUseCase(repository: AuthRepository): LogoutUseCase =
-        LogoutUseCase(repository)
-
-    @Provides
-    @Singleton
-    fun provideRefreshUseCase(repository: AuthRepository): RefreshUseCase =
-        RefreshUseCase(repository)
-
-    @Provides
-    @Singleton
     fun provideSignInUseCase(repository: AuthRepository): SignInUseCase =
         SignInUseCase(repository)
+
+    @Provides
+    @Singleton
+    fun provideCheckLoginStatusUseCase(repository: AuthRepository): CheckLoginStatusUseCase =
+        CheckLoginStatusUseCase(repository)
+
+    @Provides
+    @Singleton
+    fun provideSaveTokenInfoUseCase(repository: AuthRepository): SaveTokenInfoUseCase =
+        SaveTokenInfoUseCase(repository)
 
 
     // --- Image UseCase ---

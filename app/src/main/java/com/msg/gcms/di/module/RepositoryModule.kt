@@ -1,5 +1,6 @@
 package com.msg.gcms.di.module
 
+import com.msg.gcms.data.local.datasource.LocalDataSourceImpl
 import com.msg.gcms.data.remote.datasource.applicant.ApplicantDataSourceImpl
 import com.msg.gcms.data.remote.datasource.auth.AuthDataSourceImpl
 import com.msg.gcms.data.remote.datasource.club_data.ClubDataSourceImpl
@@ -27,10 +28,14 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object RepositoryModule {
+
     @Provides
     @Singleton
-    fun provideAuthRepository(dataSource: AuthDataSourceImpl): AuthRepository =
-        AuthRepositoryImpl(dataSource)
+    fun provideAuthRepository(
+        remoteDataSource: AuthDataSourceImpl,
+        localDataSource: LocalDataSourceImpl
+    ): AuthRepository =
+        AuthRepositoryImpl(remoteDataSource, localDataSource)
 
     @Provides
     @Singleton
