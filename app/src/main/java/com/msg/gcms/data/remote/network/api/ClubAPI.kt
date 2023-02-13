@@ -1,6 +1,5 @@
 package com.msg.gcms.data.remote.network.api
 
-import com.msg.gcms.data.remote.dto.club.request.ClubIdentificationRequest
 import com.msg.gcms.data.remote.dto.club.request.CreateClubRequest
 import com.msg.gcms.data.remote.dto.club.request.ModifyClubInfoRequest
 import com.msg.gcms.data.remote.dto.club.response.ClubInfoResponse
@@ -10,9 +9,7 @@ import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.PATCH
 import retrofit2.http.POST
-import retrofit2.http.PUT
 import retrofit2.http.Path
-import retrofit2.http.Query
 
 interface ClubAPI {
 
@@ -42,9 +39,9 @@ interface ClubAPI {
         @Path("club_id") clubId: Long,
     )
 
-    @PUT("club/close")
+    @PATCH("club/{club_id}/close")
     suspend fun putClubClose(
-        @Body body: ClubIdentificationRequest
+        @Path("club_id") clubId: Long
     )
 
     @DELETE("club/{club_id}/exit")
