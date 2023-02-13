@@ -14,8 +14,8 @@ import com.msg.gcms.presentation.view.clubmaker.MakeClubActivity
 import com.msg.gcms.presentation.view.profile.ProfileActivity
 import com.msg.gcms.presentation.viewmodel.ClubDetailViewModel
 import com.msg.gcms.presentation.viewmodel.ClubViewModel
-import com.msg.gcms.presentation.viewmodel.util.Event
 import com.msg.gcms.presentation.viewmodel.MainViewModel
+import com.msg.gcms.presentation.viewmodel.util.Event
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

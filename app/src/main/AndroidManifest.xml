@@ -18,8 +18,9 @@
         android:usesCleartextTraffic="true">
         <activity
             android:name=".presentation.view.clubmaker.MakeClubActivity"
-            android:exported="false"
-            android:windowSoftInputMode="adjustNothing" />
+            android:exported="true"
+            android:windowSoftInputMode="adjustNothing" >
+        </activity>
         <activity
             android:name=".presentation.view.splash.SplashActivity"
             android:theme="@style/SplashTheme"
