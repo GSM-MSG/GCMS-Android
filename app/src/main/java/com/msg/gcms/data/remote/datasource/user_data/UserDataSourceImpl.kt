@@ -1,6 +1,5 @@
 package com.msg.gcms.data.remote.datasource.user_data
 
-import com.msg.gcms.data.remote.dto.user.request.UserDeleteRequest
 import com.msg.gcms.data.remote.dto.user.request.UserProfileRequest
 import com.msg.gcms.data.remote.dto.user.response.UserData
 import com.msg.gcms.data.remote.dto.user.response.UserInfoResponse
@@ -28,12 +27,6 @@ class UserDataSourceImpl @Inject constructor(
     override suspend fun getUserSearch(QueryString: Map<String, String>): List<UserData> {
         return GCMSApiHandler<List<UserData>>()
             .httpRequest { service.getUserSearch(QueryString) }
-            .sendRequest()
-    }
-
-    override suspend fun postExit(body: UserDeleteRequest) {
-        return GCMSApiHandler<Unit>()
-            .httpRequest { service.postExit(body) }
             .sendRequest()
     }
 
