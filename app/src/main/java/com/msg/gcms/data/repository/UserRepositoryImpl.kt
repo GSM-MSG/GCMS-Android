@@ -1,7 +1,6 @@
 package com.msg.gcms.data.repository
 
 import com.msg.gcms.data.remote.datasource.user_data.UserDataSourceImpl
-import com.msg.gcms.data.remote.dto.user.request.UserDeleteRequest
 import com.msg.gcms.data.remote.dto.user.request.UserProfileRequest
 import com.msg.gcms.data.remote.dto.user.response.UserData
 import com.msg.gcms.data.remote.dto.user.response.UserInfoResponse
@@ -23,10 +22,6 @@ class UserRepositoryImpl @Inject constructor(
 
     override suspend fun getUserSearch(QueryString: Map<String,String>): List<UserData> {
         return dataSource.getUserSearch(QueryString)
-    }
-
-    override suspend fun postExit(body: UserDeleteRequest) {
-        return dataSource.postExit(body)
     }
 
     override suspend fun deleteUser() {
