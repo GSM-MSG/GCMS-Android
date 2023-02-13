@@ -1,6 +1,5 @@
 package com.msg.gcms.data.remote.datasource.image
 
-import com.msg.gcms.data.remote.datasource.image.ImageDataSource
 import com.msg.gcms.data.remote.network.api.ImageAPI
 import com.msg.gcms.data.remote.util.GCMSApiHandler
 import okhttp3.MultipartBody
@@ -11,7 +10,7 @@ class ImageDataSourceImpl @Inject constructor(
 ) : ImageDataSource {
     override suspend fun postImage(image: List<MultipartBody.Part>): List<String> {
         return GCMSApiHandler<List<String>>()
-            .httpRequest { service.postImage(files = image) }
+            .httpRequest { service.postImage(file = image) }
             .sendRequest()
     }
 }
