@@ -45,7 +45,6 @@ class AuthViewModel @Inject constructor(
     }
 
     fun logoutRequest() = viewModelScope.launch {
-        saveTokenInfoUseCase("", "", "", "")
         logoutUseCase()
             .onSuccess {
                 showLog("Logout: Success!")
@@ -56,6 +55,7 @@ class AuthViewModel @Inject constructor(
                     else -> showLog("Logout: Unknown, status: $it")
                 }
             }
+        saveTokenInfoUseCase("", "", "", "")
     }
 
     private fun saveToken(response: SignInResponse) = viewModelScope.launch {
