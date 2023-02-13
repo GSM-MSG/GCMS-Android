@@ -5,6 +5,7 @@ import com.msg.gcms.domain.repository.ClubRepository
 import com.msg.gcms.domain.repository.ImageRepository
 import com.msg.gcms.domain.repository.UserRepository
 import com.msg.gcms.domain.usecase.auth.CheckLoginStatusUseCase
+import com.msg.gcms.domain.usecase.auth.LogoutUseCase
 import com.msg.gcms.domain.usecase.auth.SaveTokenInfoUseCase
 import com.msg.gcms.domain.usecase.auth.SignInUseCase
 import com.msg.gcms.domain.usecase.club.ApplicantAcceptUseCase
@@ -114,13 +115,17 @@ object UseCaseModule {
     fun provideUserKickUseCase(repository: ClubRepository): UserKickUseCase =
         UserKickUseCase(repository)
 
-
     // --- Auth UseCase ---
 
     @Provides
     @Singleton
     fun provideSignInUseCase(repository: AuthRepository): SignInUseCase =
         SignInUseCase(repository)
+
+    @Provides
+    @Singleton
+    fun provideLogoutUseCase(repository: AuthRepository): LogoutUseCase =
+        LogoutUseCase(repository)
 
     @Provides
     @Singleton

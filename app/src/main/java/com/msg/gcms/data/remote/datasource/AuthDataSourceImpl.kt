@@ -14,4 +14,10 @@ class AuthDataSourceImpl @Inject constructor(
             .httpRequest { service.postSignIn(body) }
             .sendRequest()
     }
+
+    override suspend fun logout() {
+        return GCMSApiHandler<Unit>()
+            .httpRequest { service.logout() }
+            .sendRequest()
+    }
 }
