@@ -19,15 +19,19 @@ interface ClubRepository {
         clubId: Long
     )
 
-    suspend fun deleteClub(
-        clubId: Long
-    )
-
     suspend fun putClubOpen(
         clubId: Long
     )
 
     suspend fun putClubClose(
+        clubId: Long
+    )
+
+    suspend fun exitClub(
+        clubId: Long
+    )
+
+    suspend fun deleteClub(
         clubId: Long
     )
 }

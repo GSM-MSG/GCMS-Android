@@ -39,4 +39,7 @@ class ClubRepositoryImpl @Inject constructor(
         return dataSource.putClubClose(clubId = clubId)
     }
 
+    override suspend fun exitClub(clubId: Long) {
+        return dataSource.deleteClub(clubId = clubId)
+    }
 }

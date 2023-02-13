@@ -67,10 +67,6 @@ object UseCaseModule {
         PostClubCancelUseCase(repository)
 
     // --- Club UseCase ---
-    @Provides
-    @Singleton
-    fun provideClubDeleteUseCase(repository: ClubRepository): ClubDeleteUseCase =
-        ClubDeleteUseCase(repository)
 
     @Provides
     @Singleton
@@ -101,6 +97,16 @@ object UseCaseModule {
     @Singleton
     fun providePutClubOpenUseCase(repository: ClubRepository): PutClubOpenUseCase =
         PutClubOpenUseCase(repository)
+
+    @Provides
+    @Singleton
+    fun provideExitUseCase(repository: ClubRepository): ExitUseCase =
+        ExitUseCase(repository)
+
+    @Provides
+    @Singleton
+    fun provideClubDeleteUseCase(repository: ClubRepository): ClubDeleteUseCase =
+        ClubDeleteUseCase(repository)
 
     // --- Club Member UserCase
     @Provides
@@ -155,11 +161,6 @@ object UseCaseModule {
     @Singleton
     fun provideEditProfileUseCase(repository: UserRepository): EditProfileUseCase =
         EditProfileUseCase(repository)
-
-    @Provides
-    @Singleton
-    fun provideExitUseCase(repository: UserRepository): ExitUseCase =
-        ExitUseCase(repository)
 
     @Provides
     @Singleton
