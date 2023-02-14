@@ -6,4 +6,5 @@ import com.msg.gcms.data.remote.dto.auth.response.SignInResponse
 interface AuthDataSource {
     suspend fun postRegistration(body: SignInRequest): SignInResponse
 
-    suspend fun logout()}
+    suspend fun logout()
+}
