@@ -10,11 +10,11 @@ data class UserInfoResponse (
     @SerializedName("name")
     val name: String,
     @SerializedName("grade")
-    val grade: String,
+    val grade: Int,
     @SerializedName("classNum")
-    val classNum: String,
+    val classNum: Int,
     @SerializedName("number")
-    val number: String,
+    val number: Int,
     @SerializedName("profileImg")
     val profileImg: String,
     @SerializedName("clubs")
