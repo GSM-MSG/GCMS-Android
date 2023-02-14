@@ -1,14 +1,28 @@
 package com.msg.gcms.data.remote.dto.club.response
 
-import com.msg.gcms.data.remote.dto.user.response.UserData
-import java.io.Serializable
+import com.google.gson.annotations.SerializedName
 
 data class ClubInfoResponse(
+    @SerializedName("id")
     val id: Long,
-    val club: ClubResponse,
-    val activityUrls: List<String>,
+    @SerializedName("type")
+    val type: String,
+    @SerializedName("bannerImg")
+    val bannerImg: String,
+    @SerializedName("name")
+    val name: String,
+    @SerializedName("content")
+    val content: String,
+    @SerializedName("contact")
+    val contact: String,
+    @SerializedName("teacher")
+    val teacher: String,
+    @SerializedName("head")
     val head: UserInfo,
-    val member: List<UserData>,
+    @SerializedName("member")
+    val member: List<UserInfo>,
+    @SerializedName("scope")
     val scope: String,
+    @SerializedName("isApplied")
     val isApplied: Boolean
-): Serializable
+)
