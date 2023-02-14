@@ -13,15 +13,15 @@ interface UserAPI {
     @GET("user/")
     suspend fun getUserInfo(): UserInfoResponse
 
-    @PATCH("user/")
-    suspend fun putProfile(
-        @Body body: UserProfileRequest
-    ): Void
-
     @GET("user/search")
     suspend fun getUserSearch(
         @QueryMap QueryString: Map<String, String>
     ): List<UserData>
+
+    @PATCH("user/")
+    suspend fun putProfile(
+        @Body body: UserProfileRequest
+    ): Void
 
     @DELETE("user/withdrawal")
     suspend fun deleteUser(): Void
