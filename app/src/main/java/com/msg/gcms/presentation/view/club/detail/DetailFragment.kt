@@ -101,14 +101,12 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
     private fun showInfo() {
         with(binding) {
             detailViewModel.result.value!!.let { it ->
-                it.club.let {
-                    clubName.text = it.title
-                    clubBanner.load(it.bannerUrl)
-                    explainClubTxt.text = it.description
-                    link.text = it.notionLink
-                    setTeacherInfo(it.teacher)
-                    directoryTxt.text = it.contact
-                }
+                clubName.text = it.name
+                clubBanner.load(it.bannerImg)
+                explainClubTxt.text = it.content
+                link.text = it.
+                setTeacherInfo(it.teacher)
+                directoryTxt.text = it.contact
                 it.head.let {
                     bossImg.load(it.userImg) {
                         transformations(CircleCropTransformation())

@@ -1,8 +1,7 @@
 package com.msg.gcms.data.remote.datasource.club_data
 
-import com.msg.gcms.data.remote.dto.club.request.CreateClubRequest
-import com.msg.gcms.data.remote.dto.club.request.ModifyClubInfoRequest
-import com.msg.gcms.data.remote.dto.club.response.ClubInfoResponse
+import com.msg.gcms.data.remote.dto.club.modify_club_info.ModifyClubInfoRequest
+import com.msg.gcms.data.remote.dto.club.get_club_detail.ClubDetailResponse
 import com.msg.gcms.data.remote.dto.club.response.SummaryClubResponse
 import com.msg.gcms.data.remote.network.api.ClubAPI
 import com.msg.gcms.data.remote.util.GCMSApiHandler
@@ -18,13 +17,13 @@ class ClubDataSourceImpl @Inject constructor(
             .sendRequest()
     }
 
-    override suspend fun getDetail(clubId: Long): ClubInfoResponse {
-        return GCMSApiHandler<ClubInfoResponse>()
+    override suspend fun getDetail(clubId: Long): ClubDetailResponse {
+        return GCMSApiHandler<ClubDetailResponse>()
             .httpRequest { service.getDetail(clubId) }
             .sendRequest()
     }
 
-    override suspend fun postCreateClub(body: CreateClubRequest) {
+    override suspend fun postCreateClub(body: _root_ide_package_.com.msg.gcms.data.remote.dto.club.create_club.CreateClubRequest) {
         return GCMSApiHandler<Unit>()
             .httpRequest { service.postCreateClub(body = body) }
             .sendRequest()

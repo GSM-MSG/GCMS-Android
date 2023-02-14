@@ -1,8 +1,8 @@
-package com.msg.gcms.data.remote.dto.club.request
+package com.msg.gcms.data.remote.dto.club.create_club
 
 import com.google.gson.annotations.SerializedName
 
-data class ModifyClubInfoRequest(
+data class CreateClubRequest(
     @SerializedName("type")
     val type: String,
     @SerializedName("name")
@@ -10,16 +10,15 @@ data class ModifyClubInfoRequest(
     @SerializedName("content")
     val description: String,
     @SerializedName("bannerImg")
-    val bannerUrl: String,
+    val bannerUrl:String,
     @SerializedName("contact")
     val contact: String,
     @SerializedName("notionLink")
-    val notionLink: String?,
+    val notionLink: String,
     @SerializedName("teacher")
     val teacher: String?,
     @SerializedName("activityImgs")
-    val activityImgs: List<String>,
+    val activityUrls: List<String>?,
     @SerializedName("member")
-    val member: List<String>
-
+    val member: List<String>?,
 )

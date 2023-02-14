@@ -5,7 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.msg.gcms.data.remote.dto.club.response.ClubInfoResponse
+import com.msg.gcms.data.remote.dto.club.get_club_detail.ClubDetailResponse
 import com.msg.gcms.domain.exception.BadRequestException
 import com.msg.gcms.domain.exception.NotFoundException
 import com.msg.gcms.domain.exception.UnauthorizedException
@@ -22,8 +22,8 @@ class ClubDetailViewModel @Inject constructor(
 
     private val TAG = "GetDetailViewModel"
 
-    private val _result = MutableLiveData<ClubInfoResponse?>()
-    val result: LiveData<ClubInfoResponse?> get() = _result
+    private val _result = MutableLiveData<ClubDetailResponse?>()
+    val result: LiveData<ClubDetailResponse?> get() = _result
 
     private val _showNav = MutableLiveData<Boolean>()
     val showNav: LiveData<Boolean> get() = _showNav
@@ -67,7 +67,7 @@ class ClubDetailViewModel @Inject constructor(
     }
 
     // Todo (KimHs) 이름 좀 명시적으로 바꿔주세요
-    fun setResult(myClubResult: ClubInfoResponse) {
+    fun setResult(myClubResult: ClubDetailResponse) {
         if (_result.value == null) {
             _result.value = myClubResult
         }

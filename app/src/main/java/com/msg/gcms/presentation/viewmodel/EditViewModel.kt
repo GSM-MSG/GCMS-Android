@@ -7,8 +7,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.msg.gcms.R
-import com.msg.gcms.data.remote.dto.club.request.ModifyClubInfoRequest
-import com.msg.gcms.data.remote.dto.club.response.ClubInfoResponse
+import com.msg.gcms.data.remote.dto.club.modify_club_info.ModifyClubInfoRequest
+import com.msg.gcms.data.remote.dto.club.get_club_detail.ClubDetailResponse
 import com.msg.gcms.data.remote.dto.user.response.UserData
 import com.msg.gcms.domain.exception.BadRequestException
 import com.msg.gcms.domain.exception.ConflictException
@@ -35,8 +35,8 @@ class EditViewModel @Inject constructor(
     private val editClubInfoUseCase: EditClubInfoUseCase
 ) : ViewModel() {
 
-    private val _clubInfo = MutableLiveData<ClubInfoResponse>()
-    val clubInfo: LiveData<ClubInfoResponse> get() = _clubInfo
+    private val _clubInfo = MutableLiveData<ClubDetailResponse>()
+    val clubInfo: LiveData<ClubDetailResponse> get() = _clubInfo
 
     private val _clubId = MutableLiveData<Long>()
     val clubId: LiveData<Long> get() = _clubId
