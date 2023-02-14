@@ -36,6 +36,12 @@ class ClubDataSourceImpl @Inject constructor(
             .sendRequest()
     }
 
+    override suspend fun exitClub(clubId: Long) {
+        return GCMSApiHandler<Unit>()
+            .httpRequest { service.exitClub(clubId = clubId) }
+            .sendRequest()
+    }
+
     override suspend fun deleteClub(clubId: Long) {
         return GCMSApiHandler<Unit>()
             .httpRequest { service.deleteClub(clubId = clubId) }
