@@ -23,6 +23,6 @@ interface UserAPI {
         @Body body: UserProfileRequest
     ): Void
 
-    @DELETE("user/withdrawal")
+    @DELETE("user/")
     suspend fun deleteUser(): Void
 }
