@@ -47,7 +47,7 @@ class EditViewModel @Inject constructor(
 
     private var clubMemberEmail = mutableListOf<String>()
 
-    var memberList: MutableList<MemberListData> = mutableListOf()
+    var memberList: MutableList<String> = mutableListOf()
 
     private val _convertImage = MutableLiveData<List<String>>()
     val convertImage: LiveData<List<String>> get() = _convertImage
@@ -119,8 +119,8 @@ class EditViewModel @Inject constructor(
 
     fun setMemberEmail() {
         memberList.forEach {
-            Log.d("TAG", "setMemberEmail: ${it.email}")
-            clubMemberEmail.add(it.email)
+            Log.d("TAG", "setMemberEmail: $it")
+            clubMemberEmail.add(it)
         }
         memberList.distinct()
     }
