@@ -6,7 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.msg.gcms.data.local.entity.ActivityPhotoType
-import com.msg.gcms.data.remote.dto.club.create_club.CreateClubRequest
+import com.msg.gcms.domain.data.club.create_club.CreateClubData
 import com.msg.gcms.data.remote.dto.user.response.UserData
 import com.msg.gcms.domain.exception.BadRequestException
 import com.msg.gcms.domain.exception.ConflictException
@@ -169,7 +169,7 @@ class MakeClubViewModel @Inject constructor(
                 )
                 clubMemberEmail.remove("")
                 postCreateClubUseCase(
-                    CreateClubRequest
+                    CreateClubData
                         (
                         type = clubType.value.toString().trim(),
                         title = title,

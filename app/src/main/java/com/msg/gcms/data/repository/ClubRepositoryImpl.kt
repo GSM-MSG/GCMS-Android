@@ -6,6 +6,7 @@ import com.msg.gcms.data.remote.dto.club.create_club.CreateClubRequest
 import com.msg.gcms.domain.data.club.get_club_detail.ClubDetailData
 import com.msg.gcms.domain.data.club.get_club_list.GetClubListData
 import com.msg.gcms.data.remote.dto.club.modify_club_info.ModifyClubInfoRequest
+import com.msg.gcms.domain.data.club.create_club.CreateClubData
 import com.msg.gcms.domain.repository.ClubRepository
 import javax.inject.Inject
 
@@ -20,8 +21,18 @@ class ClubRepositoryImpl @Inject constructor(
         return ClubMapper.mapperToDetailData(dataSource.getDetail(clubId))
     }
 
-    override suspend fun postCreateClub(body: CreateClubRequest) {
-        return dataSource.postCreateClub(body = body)
+    override suspend fun postCreateClub(body: CreateClubData) {
+        return dataSource.postCreateClub(body = CreateClubRequest(
+            activityUrls = body.activityUrls,
+            bannerUrl = body.bannerUrl,
+            contact = body.contact,
+            description = body.description,
+            member = body.member,
+            notionLink = body.notionLink,
+            teacher = body.teacher,
+            title = body.title,
+            type = body.type
+        ))
     }
 
     override suspend fun putChangeClub(body: ModifyClubInfoRequest, clubId: Long) {
