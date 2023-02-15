@@ -2,7 +2,7 @@ package com.msg.gcms.domain.repository
 
 import com.msg.gcms.domain.data.club.get_club_detail.ClubDetailData
 import com.msg.gcms.domain.data.club.get_club_list.GetClubListData
-import com.msg.gcms.data.remote.dto.club.modify_club_info.ModifyClubInfoRequest
+import com.msg.gcms.domain.data.club.modify_club_info.ModifyClubInfoData
 
 interface ClubRepository {
     suspend fun getClubList(type: String): List<GetClubListData>
@@ -14,7 +14,7 @@ interface ClubRepository {
     )
 
     suspend fun putChangeClub(
-        body: ModifyClubInfoRequest,
+        body: ModifyClubInfoData,
         clubId: Long
     )
 

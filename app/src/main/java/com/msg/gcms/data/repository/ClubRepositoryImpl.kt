@@ -3,9 +3,10 @@ package com.msg.gcms.data.repository
 import com.msg.gcms.data.mapper.ClubMapper
 import com.msg.gcms.data.remote.datasource.club.ClubDataSourceImpl
 import com.msg.gcms.data.remote.dto.club.create_club.CreateClubRequest
+import com.msg.gcms.data.remote.dto.club.modify_club_info.ModifyClubInfoRequest
 import com.msg.gcms.domain.data.club.get_club_detail.ClubDetailData
 import com.msg.gcms.domain.data.club.get_club_list.GetClubListData
-import com.msg.gcms.data.remote.dto.club.modify_club_info.ModifyClubInfoRequest
+import com.msg.gcms.domain.data.club.modify_club_info.ModifyClubInfoData
 import com.msg.gcms.domain.data.club.create_club.CreateClubData
 import com.msg.gcms.domain.repository.ClubRepository
 import javax.inject.Inject
@@ -22,21 +23,35 @@ class ClubRepositoryImpl @Inject constructor(
     }
 
     override suspend fun postCreateClub(body: CreateClubData) {
-        return dataSource.postCreateClub(body = CreateClubRequest(
-            activityUrls = body.activityUrls,
-            bannerUrl = body.bannerUrl,
-            contact = body.contact,
-            description = body.description,
-            member = body.member,
-            notionLink = body.notionLink,
-            teacher = body.teacher,
-            title = body.title,
-            type = body.type
-        ))
+        return dataSource.postCreateClub(
+            body = CreateClubRequest(
+                activityUrls = body.activityUrls,
+                bannerUrl = body.bannerUrl,
+                contact = body.contact,
+                description = body.description,
+                member = body.member,
+                notionLink = body.notionLink,
+                teacher = body.teacher,
+                title = body.title,
+                type = body.type
+            )
+        )
     }
 
-    override suspend fun putChangeClub(body: ModifyClubInfoRequest, clubId: Long) {
-        return dataSource.putChangeClub(body = body, clubId = clubId)
+    override suspend fun putChangeClub(body: ModifyClubInfoData, clubId: Long) {
+        return dataSource.putChangeClub(
+            body = ModifyClubInfoRequest(
+                type = body.type,
+                activityImgs = body.activityImgs,
+                bannerUrl = body.bannerUrl,
+                contact = body.contact,
+                description = body.description,
+                member = body.member,
+                notionLink = body.notionLink,
+                teacher = body.teacher,
+                title = body.title
+            ), clubId = clubId
+        )
     }
 
     override suspend fun deleteClub(clubId: Long) {

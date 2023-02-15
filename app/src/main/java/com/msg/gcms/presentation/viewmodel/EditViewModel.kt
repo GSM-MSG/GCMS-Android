@@ -7,7 +7,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.msg.gcms.domain.data.club.get_club_detail.ClubDetailData
-import com.msg.gcms.data.remote.dto.club.modify_club_info.ModifyClubInfoRequest
+import com.msg.gcms.domain.data.club.modify_club_info.ModifyClubInfoData
 import com.msg.gcms.data.remote.dto.user.response.UserData
 import com.msg.gcms.domain.exception.BadRequestException
 import com.msg.gcms.domain.exception.ConflictException
@@ -158,7 +158,7 @@ class EditViewModel @Inject constructor(
         }
     }
 
-    fun putChangeClubInfo(body: ModifyClubInfoRequest) {
+    fun putChangeClubInfo(body: ModifyClubInfoData) {
         viewModelScope.launch {
             editClubInfoUseCase(
                 body = body,
