@@ -9,6 +9,7 @@ import androidx.lifecycle.viewModelScope
 import com.msg.gcms.R
 import com.msg.gcms.data.remote.dto.club.modify_club_info.ModifyClubInfoRequest
 import com.msg.gcms.data.remote.dto.club.get_club_detail.ClubDetailResponse
+import com.msg.gcms.data.remote.dto.club.get_club_detail.ClubMemberInfo
 import com.msg.gcms.data.remote.dto.user.response.UserData
 import com.msg.gcms.domain.exception.BadRequestException
 import com.msg.gcms.domain.exception.ConflictException
@@ -48,7 +49,7 @@ class EditViewModel @Inject constructor(
 
     private var clubMemberEmail = mutableListOf<String>()
 
-    var memberList: MutableList<UserData> = mutableListOf()
+    var memberList: MutableList<ClubMemberInfo> = mutableListOf()
 
     private val _convertImage = MutableLiveData<List<String>>()
     val convertImage: LiveData<List<String>> get() = _convertImage
@@ -80,7 +81,7 @@ class EditViewModel @Inject constructor(
     private fun memberCheck() {
         if (clubInfo.value!!.member.isEmpty()) {
             memberList.add(
-                UserData(
+                ClubMemberInfo(
                     uuid = "0",
                     email = "",
                     name = "추가하기",
