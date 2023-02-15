@@ -6,11 +6,10 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.msg.gcms.R
-import com.msg.gcms.data.remote.dto.club.modify_club_info.ModifyClubInfoRequest
 import com.msg.gcms.data.remote.dto.club.get_club_detail.ClubDetailResponse
-import com.msg.gcms.data.remote.dto.club.get_club_detail.ClubMemberInfo
+import com.msg.gcms.data.remote.dto.club.modify_club_info.ModifyClubInfoRequest
 import com.msg.gcms.data.remote.dto.user.response.UserData
+import com.msg.gcms.domain.data.club.MemberListData
 import com.msg.gcms.domain.exception.BadRequestException
 import com.msg.gcms.domain.exception.ConflictException
 import com.msg.gcms.domain.exception.ForBiddenException
@@ -49,7 +48,7 @@ class EditViewModel @Inject constructor(
 
     private var clubMemberEmail = mutableListOf<String>()
 
-    var memberList: MutableList<ClubMemberInfo> = mutableListOf()
+    var memberList: MutableList<MemberListData> = mutableListOf()
 
     private val _convertImage = MutableLiveData<List<String>>()
     val convertImage: LiveData<List<String>> get() = _convertImage
@@ -80,19 +79,21 @@ class EditViewModel @Inject constructor(
 
     private fun memberCheck() {
         if (clubInfo.value!!.member.isEmpty()) {
-            memberList.add(
-                ClubMemberInfo(
-                    uuid = "0",
-                    email = "",
-                    name = "추가하기",
-                    grade = 0,
-                    `class` = 0,
-                    num = 0,
-                    userImg = R.drawable.bg_banner_placeholder.toString()
-                )
-            )
+            // TODO 여기 타입 변경하기
+            // memberList.add(
+            //     MemberListData(
+            //         uuid = "0",
+            //         email = "",
+            //         name = "추가하기",
+            //         grade = 0,
+            //         `class` = 0,
+            //         num = 0,
+            //         userImg = R.drawable.bg_banner_placeholder.toString()
+            //     )
+            // )
         } else {
-            memberList.addAll(clubInfo.value!!.member)
+            //TODO 여기 타입 변경하기
+            // memberList.addAll(clubInfo.value!!.member)
             Log.d("TAG", "memberCheck: ${memberList.distinct()}")
         }
     }

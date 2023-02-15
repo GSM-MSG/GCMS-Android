@@ -1,4 +1,4 @@
-package com.msg.gcms.presentation.view.club.detail.state
+package com.msg.gcms.domain.data.club
 
 
 data class MemberListData(

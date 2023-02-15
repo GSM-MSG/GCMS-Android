@@ -26,7 +26,7 @@ import com.msg.gcms.presentation.utils.ItemDecorator
 import com.msg.gcms.presentation.utils.exitActivity
 import com.msg.gcms.presentation.utils.exitFragment
 import com.msg.gcms.presentation.view.club.ClubFragment
-import com.msg.gcms.presentation.view.club.detail.state.MemberListData
+import com.msg.gcms.domain.data.club.MemberListData
 import com.msg.gcms.presentation.view.editclub.EditClubActivity
 import com.msg.gcms.presentation.view.main.MainActivity
 import com.msg.gcms.presentation.view.member_manage.MemberManageActivity

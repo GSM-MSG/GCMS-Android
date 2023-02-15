@@ -7,7 +7,7 @@ import javax.inject.Inject
 class PostCreateClubUseCase @Inject constructor(
     private val repository: ClubRepository
 ) {
-    suspend operator fun invoke(body: _root_ide_package_.com.msg.gcms.data.remote.dto.club.create_club.CreateClubRequest) = kotlin.runCatching {
+    suspend operator fun invoke(body: CreateClubRequest) = kotlin.runCatching {
         repository.postCreateClub(body = body)
     }
 }

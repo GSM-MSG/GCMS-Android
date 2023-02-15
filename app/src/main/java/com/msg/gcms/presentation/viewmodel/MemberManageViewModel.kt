@@ -19,7 +19,7 @@ import com.msg.gcms.domain.usecase.applicant.GetApplicantUseCase
 import com.msg.gcms.domain.usecase.club_member.GetMemberUseCase
 import com.msg.gcms.domain.usecase.club_member.MandateUseCase
 import com.msg.gcms.domain.usecase.club_member.UserKickUseCase
-import com.msg.gcms.presentation.view.member_manage.state.MemberData
+import com.msg.gcms.domain.data.club_member.MemberData
 import com.msg.gcms.presentation.viewmodel.util.Event
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch

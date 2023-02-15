@@ -1,4 +1,4 @@
-package com.msg.gcms.presentation.view.member_manage.state
+package com.msg.gcms.domain.data.club_member
 
 data class MemberData(
     val uuid: String,
