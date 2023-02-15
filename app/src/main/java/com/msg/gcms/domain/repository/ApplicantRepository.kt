@@ -1,10 +1,9 @@
 package com.msg.gcms.domain.repository
 
-import com.msg.gcms.data.remote.dto.club.request.MemberManagementRequest
-import com.msg.gcms.data.remote.dto.club.response.MemberInfo
+import com.msg.gcms.domain.data.applicant.get_applicant_list.GetApplicantListData
 
 interface ApplicantRepository {
-    suspend fun getApplicantList(clubId: Long): MemberInfo
+    suspend fun getApplicantList(clubId: Long): GetApplicantListData
 
     suspend fun postClubApply(clubId: Long)
 

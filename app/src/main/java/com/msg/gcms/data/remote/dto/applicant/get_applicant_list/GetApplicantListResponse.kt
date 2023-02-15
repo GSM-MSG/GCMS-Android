@@ -6,5 +6,5 @@ data class GetApplicantListResponse(
     @SerializedName("userScope")
     val userScope: String,
     @SerializedName("applicantList")
-    val applicantList: ApplicantListResponse
+    val applicantList: List<ApplicantListResponse>
 )

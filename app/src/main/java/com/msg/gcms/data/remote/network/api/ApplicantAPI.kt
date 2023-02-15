@@ -1,7 +1,7 @@
 package com.msg.gcms.data.remote.network.api
 
-import com.msg.gcms.data.remote.dto.club.request.MemberManagementRequest
-import com.msg.gcms.data.remote.dto.club.response.MemberInfo
+import com.msg.gcms.data.remote.dto.applicant.get_applicant_list.GetApplicantListResponse
+import com.msg.gcms.domain.data.applicant.get_applicant_list.GetApplicantListData
 import retrofit2.http.Body
 import retrofit2.http.DELETE
 import retrofit2.http.GET
@@ -13,7 +13,7 @@ interface ApplicantAPI {
     @GET("applicant/{club_id}")
     suspend fun getApplicantList(
         @Path("club_id") clubId: Long
-    ): MemberInfo
+    ): GetApplicantListResponse
 
     @POST("applicant/club_id")
     suspend fun postClubApply(

@@ -1,7 +1,7 @@
 package com.msg.gcms.data.remote.datasource.applicant
 
-import com.msg.gcms.data.remote.dto.club.request.MemberManagementRequest
-import com.msg.gcms.data.remote.dto.club.response.MemberInfo
+import com.msg.gcms.data.remote.dto.applicant.get_applicant_list.GetApplicantListResponse
+import com.msg.gcms.domain.data.applicant.get_applicant_list.GetApplicantListData
 import com.msg.gcms.data.remote.network.api.ApplicantAPI
 import com.msg.gcms.data.remote.util.GCMSApiHandler
 import javax.inject.Inject
@@ -9,8 +9,8 @@ import javax.inject.Inject
 class ApplicantDataSourceImpl @Inject constructor(
     val service: ApplicantAPI
 ) : ApplicantDataSource {
-    override suspend fun getApplicantList(clubId: Long): MemberInfo {
-        return GCMSApiHandler<MemberInfo>()
+    override suspend fun getApplicantList(clubId: Long): GetApplicantListResponse {
+        return GCMSApiHandler<GetApplicantListResponse>()
             .httpRequest { service.getApplicantList(clubId) }
             .sendRequest()
     }
