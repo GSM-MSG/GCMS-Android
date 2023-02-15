@@ -8,7 +8,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.msg.gcms.data.remote.dto.club.request.MemberManagementRequest
 import com.msg.gcms.data.remote.dto.club.response.MemberSummaryResponse
-import com.msg.gcms.data.remote.dto.club_member.get_club_member.MemberData
 import com.msg.gcms.domain.exception.ForBiddenException
 import com.msg.gcms.domain.exception.NotAcceptableException
 import com.msg.gcms.domain.exception.NotFoundException
@@ -20,6 +19,7 @@ import com.msg.gcms.domain.usecase.applicant.GetApplicantUseCase
 import com.msg.gcms.domain.usecase.club_member.GetMemberUseCase
 import com.msg.gcms.domain.usecase.club_member.MandateUseCase
 import com.msg.gcms.domain.usecase.club_member.UserKickUseCase
+import com.msg.gcms.presentation.view.member_manage.state.MemberData
 import com.msg.gcms.presentation.viewmodel.util.Event
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -76,9 +76,20 @@ class MemberManageViewModel @Inject constructor(
             getMemberUseCase(
                 clubId = _clubId.value
             ).onSuccess {
-                _memberList.value = it.requestUser
+                _memberList.value =
+                    it.requestUser.map { data ->
+                        MemberData(
+                            uuid = data.uuid,
+                            email = data.email,
+                            name = data.name,
+                            grade = data.grade,
+                            `class` = data.`class`,
+                            num = data.num,
+                            userImg = data.userImg,
+                            scope = data.scope
+                        )
+                    }
                 _getMemberListState.value = Event.Success
-                // _status.value = it.code()
             }.onFailure {
                 _getMemberListState.value = when (it) {
                     is ForBiddenException -> {
