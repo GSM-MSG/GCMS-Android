@@ -1,4 +1,4 @@
-package com.msg.gcms.data.remote.datasource.club_data
+package com.msg.gcms.data.remote.datasource.club
 
 import com.msg.gcms.data.remote.dto.club.create_club.CreateClubRequest
 import com.msg.gcms.data.remote.dto.club.get_club_detail.ClubDetailResponse

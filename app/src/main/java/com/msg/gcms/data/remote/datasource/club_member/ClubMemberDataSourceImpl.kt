@@ -1,7 +1,8 @@
 package com.msg.gcms.data.remote.datasource.club_member
 
-import com.msg.gcms.data.remote.dto.club.request.MemberManagementRequest
-import com.msg.gcms.domain.data.club.get_club_member.GetClubMemberResponse
+import com.msg.gcms.data.remote.dto.club_member.delegation_of_manager.DelegationOfManagerRequest
+import com.msg.gcms.data.remote.dto.club_member.get_club_member.GetClubMemberResponse
+import com.msg.gcms.data.remote.dto.club_member.member_expelled.MemberExpelledRequest
 import com.msg.gcms.data.remote.network.api.ClubMemberAPI
 import com.msg.gcms.data.remote.util.GCMSApiHandler
 import javax.inject.Inject
@@ -17,7 +18,7 @@ class ClubMemberDataSourceImpl @Inject constructor(
 
     override suspend fun deleteMemberExpel(
         clubId: Long,
-        body: MemberManagementRequest
+        body: MemberExpelledRequest
     ) {
         return GCMSApiHandler<Unit>()
             .httpRequest { service.deleteMemberExpel(clubId = clubId, body = body) }
@@ -26,7 +27,7 @@ class ClubMemberDataSourceImpl @Inject constructor(
 
     override suspend fun putDelegationOfRepresentation(
         clubId: Long,
-        body: MemberManagementRequest
+        body: DelegationOfManagerRequest
     ) {
         return GCMSApiHandler<Unit>()
             .httpRequest { service.putDelegationOfRepresentation(clubId = clubId, body = body) }

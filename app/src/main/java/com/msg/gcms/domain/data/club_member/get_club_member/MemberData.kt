@@ -1,4 +1,4 @@
-package com.msg.gcms.domain.data.club.get_club_member
+package com.msg.gcms.domain.data.club_member.get_club_member
 
 
 data class MemberData(

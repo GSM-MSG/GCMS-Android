@@ -1,7 +1,7 @@
 package com.msg.gcms.di.module
 
 import com.msg.gcms.data.remote.datasource.applicant.ApplicantDataSourceImpl
-import com.msg.gcms.data.remote.datasource.club_data.ClubDataSourceImpl
+import com.msg.gcms.data.remote.datasource.club.ClubDataSourceImpl
 import com.msg.gcms.data.remote.datasource.auth.AuthDataSourceImpl
 import com.msg.gcms.data.remote.datasource.club_member.ClubMemberDataSourceImpl
 import com.msg.gcms.data.remote.datasource.image.ImageDataSourceImpl
