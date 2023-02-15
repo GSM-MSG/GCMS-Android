@@ -71,7 +71,8 @@ class EditSearchFragment: BaseFragment<FragmentEditSearchBinding>(R.layout.fragm
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
             setHasFixedSize(true)
             addItemDecoration(ItemDecorator(16, "HORIZONTAL"))
-            memberList = editViewModel.memberList
+            // TODO 타입 변경하기
+            // memberList = editViewModel.memberList
             addMemberAdapter.setMemberList(memberList.distinct())
             adapter = addMemberAdapter
         }
@@ -109,7 +110,7 @@ class EditSearchFragment: BaseFragment<FragmentEditSearchBinding>(R.layout.fragm
                 .distinctUntilChanged()
                 .collect {
                     Log.d("TAG", "observeEditText: $it")
-                    editViewModel.getSearchUser(it, editViewModel.clubInfo.value!!.club.type)
+                    editViewModel.getSearchUser(it, editViewModel.clubInfo.value!!.type)
                 }
         }
     }
@@ -128,7 +129,8 @@ class EditSearchFragment: BaseFragment<FragmentEditSearchBinding>(R.layout.fragm
             }
             binding.selectBtn.id -> {
                 if(memberList.isNotEmpty()) {
-                    editViewModel.memberList = memberList.distinct().toMutableList()
+                    // TODO 여기 타입 변경하기
+                    // editViewModel.memberList = memberList.distinct().toMutableList()
                 }
                 editViewModel.setMemberEmail()
                 this.findNavController().popBackStack()

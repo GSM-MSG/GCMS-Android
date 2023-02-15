@@ -42,7 +42,8 @@ class MainViewModel @Inject constructor(
                     else -> "MAJOR"
                 }
             ).onSuccess {
-                _clubData.value = it
+                // TODO 여기 타입 수정하기
+                // _clubData.value = it
             }.onFailure {
                 when (it) {
                     is BadRequestException -> Log.d("TAG", "getClubList: $it")

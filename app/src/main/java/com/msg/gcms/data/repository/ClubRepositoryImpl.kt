@@ -1,6 +1,7 @@
 package com.msg.gcms.data.repository
 
 import com.msg.gcms.data.remote.datasource.club_data.ClubDataSourceImpl
+import com.msg.gcms.data.remote.dto.club.create_club.CreateClubRequest
 import com.msg.gcms.data.remote.dto.club.get_club_detail.ClubDetailResponse
 import com.msg.gcms.data.remote.dto.club.get_club_list.GetClubListResponse
 import com.msg.gcms.data.remote.dto.club.modify_club_info.ModifyClubInfoRequest
@@ -18,7 +19,7 @@ class ClubRepositoryImpl @Inject constructor(
         return dataSource.getDetail(clubId)
     }
 
-    override suspend fun postCreateClub(body: _root_ide_package_.com.msg.gcms.data.remote.dto.club.create_club.CreateClubRequest) {
+    override suspend fun postCreateClub(body: CreateClubRequest) {
         return dataSource.postCreateClub(body = body)
     }
 
