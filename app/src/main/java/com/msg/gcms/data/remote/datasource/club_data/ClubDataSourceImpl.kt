@@ -1,8 +1,8 @@
 package com.msg.gcms.data.remote.datasource.club_data
 
-import com.msg.gcms.data.remote.dto.club.modify_club_info.ModifyClubInfoRequest
 import com.msg.gcms.data.remote.dto.club.get_club_detail.ClubDetailResponse
-import com.msg.gcms.data.remote.dto.club.response.SummaryClubResponse
+import com.msg.gcms.data.remote.dto.club.get_club_list.GetClubListResponse
+import com.msg.gcms.data.remote.dto.club.modify_club_info.ModifyClubInfoRequest
 import com.msg.gcms.data.remote.network.api.ClubAPI
 import com.msg.gcms.data.remote.util.GCMSApiHandler
 import javax.inject.Inject
@@ -11,8 +11,8 @@ class ClubDataSourceImpl @Inject constructor(
     private val service: ClubAPI
 ) : ClubDataSource {
 
-    override suspend fun getClubList(type: String): List<SummaryClubResponse> {
-        return GCMSApiHandler<List<SummaryClubResponse>>()
+    override suspend fun getClubList(type: String): List<GetClubListResponse> {
+        return GCMSApiHandler<List<GetClubListResponse>>()
             .httpRequest { service.getClubList(type = type) }
             .sendRequest()
     }

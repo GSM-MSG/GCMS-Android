@@ -14,8 +14,7 @@ import coil.transform.CircleCropTransformation
 import com.msg.gcms.R
 import com.msg.gcms.data.local.entity.DetailPageSideBar
 import com.msg.gcms.data.local.entity.PromotionPicType
-import com.msg.gcms.data.remote.dto.club.response.MemberSummaryResponse
-import com.msg.gcms.data.remote.dto.user.response.UserData
+import com.msg.gcms.data.remote.dto.club.get_club_detail.ClubMemberInfo
 import com.msg.gcms.databinding.FragmentDetailBinding
 import com.msg.gcms.presentation.adapter.DetailMemberAdapter
 import com.msg.gcms.presentation.adapter.DetailPhotoAdapter
@@ -27,6 +26,7 @@ import com.msg.gcms.presentation.utils.ItemDecorator
 import com.msg.gcms.presentation.utils.exitActivity
 import com.msg.gcms.presentation.utils.exitFragment
 import com.msg.gcms.presentation.view.club.ClubFragment
+import com.msg.gcms.presentation.view.club.detail.state.MemberListData
 import com.msg.gcms.presentation.view.editclub.EditClubActivity
 import com.msg.gcms.presentation.view.main.MainActivity
 import com.msg.gcms.presentation.view.member_manage.MemberManageActivity
@@ -44,7 +44,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
     private val detailViewModel by activityViewModels<ClubDetailViewModel>()
     private val clubViewModel by activityViewModels<ClubViewModel>()
     private lateinit var callback: OnBackPressedCallback
-    var membersList = mutableListOf<MemberSummaryResponse>()
+    var membersList = mutableListOf<MemberListData>()
     var activityUrlsList = mutableListOf<PromotionPicType>()
     private val detailMemberAdapter = DetailMemberAdapter()
     private val detailPhotoAdapter = DetailPhotoAdapter()
@@ -104,7 +104,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
                 clubName.text = it.name
                 clubBanner.load(it.bannerImg)
                 explainClubTxt.text = it.content
-                link.text = it.
+                link.text = it.notionLink
                 setTeacherInfo(it.teacher)
                 directoryTxt.text = it.contact
                 it.head.let {
@@ -114,7 +114,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
                     bossName.text = it.name
                 }
                 clubMemberRecycler(it.member)
-                clubPromotionImgRecycler(it.activityUrls)
+                clubPromotionImgRecycler(it.activityImgs)
                 controlShimmer(false)
                 clubViewModel.stopLottie()
             }
@@ -145,12 +145,12 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
         detailViewModel.setIsProfile(false)
     }
 
-    private fun clubMemberRecycler(member: List<UserData>) {
+    private fun clubMemberRecycler(member: List<ClubMemberInfo>) {
         membersList.clear()
         for (i in member.indices) {
             try {
                 membersList.add(
-                    MemberSummaryResponse(
+                    MemberListData(
                         uuid = member[i].uuid,
                         name = member[i].name,
                         userImg = member[i].userImg,
@@ -266,7 +266,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
                                 dialog.show()
                                 dialog.dialogBinding.ok.setOnClickListener {
                                     clubViewModel.deleteClub(
-                                        detailViewModel.result.value!!.club.id
+                                        detailViewModel.result.value!!.id
                                     )
                                     dialog.dismiss()
                                     requireActivity().supportFragmentManager.beginTransaction()
@@ -300,7 +300,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
                         )
                     )
                     it.text = getString(
-                        if (detailViewModel.result.value!!.club.isOpened) {
+                        if (detailViewModel.result.value!!.isOpened) {
                             R.string.close_application
                         } else R.string.open_application
                     )
@@ -318,7 +318,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
                     binding.sideBarBtn.visibility = View.GONE
                 }
                 "USER" -> {
-                    if (detailViewModel.result.value!!.club.isOpened) {
+                    if (detailViewModel.result.value!!.isOpened) {
                         detailViewModel.result.value!!.isApplied.let { applied ->
                             it.text =
                                 getString(if (applied) R.string.club_application_cancle else R.string.club_application)
@@ -342,7 +342,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
     private fun changeDialog() {
         when (detailViewModel.result.value!!.scope) {
             "HEAD" -> {
-                detailViewModel.result.value!!.club.isOpened.let { open ->
+                detailViewModel.result.value!!.isOpened.let { open ->
                     BaseDialog(
                         getString(if (open) R.string.deadline else R.string.open),
                         getString(if (open) R.string.ask_dead_club_application else R.string.ask_open_club_application),
@@ -350,7 +350,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
                     ).let { dialog ->
                         dialog.show()
                         dialog.dialogBinding.ok.setOnClickListener {
-                            detailViewModel.result.value!!.club.let { result ->
+                            detailViewModel.result.value!!.let { result ->
                                 if (open) {
                                     clubViewModel.putClubClose(clubId = detailViewModel.result.value!!.id)
                                 } else {
@@ -368,13 +368,13 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
                 }
             }
             "USER" -> {
-                detailViewModel.result.value!!.club.let { result ->
+                detailViewModel.result.value!!.let { result ->
                     detailViewModel.result.value!!.isApplied.let { applied ->
                         BaseDialog(
                             getString(if (applied) R.string.cancel else R.string.application),
                             getString(
                                 if (applied) R.string.ask_cancel_application else R.string.ask_application_club,
-                                result.title
+                                result.name
                             ),
                             requireContext()
                         ).let { dialog ->
@@ -404,7 +404,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
 
     private fun observeStatus() {
         clubViewModel.deleteClub.observe(this) { status ->
-            detailViewModel.result.value!!.club.let {
+            detailViewModel.result.value!!.let {
                 detailViewModel.getDetail(it.id)
             }
             when (status) {

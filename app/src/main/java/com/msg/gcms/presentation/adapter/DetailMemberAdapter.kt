@@ -7,17 +7,18 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import coil.transform.CircleCropTransformation
-import com.msg.gcms.data.remote.dto.club.response.MemberSummaryResponse
+import com.msg.gcms.R
 import com.msg.gcms.databinding.ListClubMemberBinding
+import com.msg.gcms.presentation.view.club.detail.state.MemberListData
 
 class DetailMemberAdapter :
-    ListAdapter<MemberSummaryResponse, DetailMemberAdapter.ClubMemberViewHolder>(diffCallBack) {
+    ListAdapter<MemberListData, DetailMemberAdapter.ClubMemberViewHolder>(diffCallBack) {
 
     class ClubMemberViewHolder(private val binding: ListClubMemberBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(data: MemberSummaryResponse) {
+        fun bind(data: MemberListData) {
             binding.userName.text = data.name
-            binding.userProfileIv.load(data.userImg){
+            binding.userProfileIv.load(data.userImg ?: R.drawable.ic_default_profile){
                 transformations(CircleCropTransformation())
             }
             binding.executePendingBindings()
@@ -39,17 +40,17 @@ class DetailMemberAdapter :
     }
 
     companion object {
-        val diffCallBack = object : DiffUtil.ItemCallback<MemberSummaryResponse>() {
+        val diffCallBack = object : DiffUtil.ItemCallback<MemberListData>() {
             override fun areItemsTheSame(
-                oldItem: MemberSummaryResponse,
-                newItem: MemberSummaryResponse
+                oldItem: MemberListData,
+                newItem: MemberListData
             ): Boolean {
                 return oldItem == newItem
             }
 
             override fun areContentsTheSame(
-                oldItem: MemberSummaryResponse,
-                newItem: MemberSummaryResponse
+                oldItem: MemberListData,
+                newItem: MemberListData
             ): Boolean {
                 return oldItem.name == newItem.name && oldItem.userImg == newItem.userImg
             }
