@@ -1,9 +1,9 @@
 package com.msg.gcms.data.remote.network.api
 
 import com.msg.gcms.data.remote.dto.club.create_club.CreateClubRequest
+import com.msg.gcms.data.remote.dto.club.get_club_detail.ClubDetailResponse
 import com.msg.gcms.data.remote.dto.club.get_club_list.GetClubListResponse
 import com.msg.gcms.data.remote.dto.club.modify_club_info.ModifyClubInfoRequest
-import com.msg.gcms.data.remote.dto.club.get_club_detail.ClubDetailResponse
 import retrofit2.http.Body
 import retrofit2.http.DELETE
 import retrofit2.http.GET

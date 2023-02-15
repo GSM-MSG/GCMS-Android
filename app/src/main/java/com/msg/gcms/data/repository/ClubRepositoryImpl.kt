@@ -1,9 +1,10 @@
 package com.msg.gcms.data.repository
 
+import com.msg.gcms.data.mapper.ClubMapper
 import com.msg.gcms.data.remote.datasource.club.ClubDataSourceImpl
 import com.msg.gcms.data.remote.dto.club.create_club.CreateClubRequest
 import com.msg.gcms.data.remote.dto.club.get_club_detail.ClubDetailResponse
-import com.msg.gcms.data.remote.dto.club.get_club_list.GetClubListResponse
+import com.msg.gcms.domain.data.club.get_club_list.GetClubListData
 import com.msg.gcms.data.remote.dto.club.modify_club_info.ModifyClubInfoRequest
 import com.msg.gcms.domain.repository.ClubRepository
 import javax.inject.Inject
@@ -11,8 +12,8 @@ import javax.inject.Inject
 class ClubRepositoryImpl @Inject constructor(
     private val dataSource: ClubDataSourceImpl
 ) : ClubRepository {
-    override suspend fun getClubList(type: String): List<GetClubListResponse> {
-        return dataSource.getClubList(type = type)
+    override suspend fun getClubList(type: String): List<GetClubListData> {
+        return ClubMapper.mapperToGetClubListData(dataSource.getClubList(type = type))
     }
 
     override suspend fun getDetail(clubId: Long): ClubDetailResponse {
