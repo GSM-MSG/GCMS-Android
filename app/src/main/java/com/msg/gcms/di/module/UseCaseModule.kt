@@ -12,6 +12,7 @@ import com.msg.gcms.domain.usecase.applicant.GetApplicantUseCase
 import com.msg.gcms.domain.usecase.applicant.PostClubApplyUseCase
 import com.msg.gcms.domain.usecase.applicant.PostClubCancelUseCase
 import com.msg.gcms.domain.usecase.auth.CheckLoginStatusUseCase
+import com.msg.gcms.domain.usecase.auth.LogoutUseCase
 import com.msg.gcms.domain.usecase.auth.SaveTokenInfoUseCase
 import com.msg.gcms.domain.usecase.auth.SignInUseCase
 import com.msg.gcms.domain.usecase.club.ClubDeleteUseCase
@@ -135,6 +136,11 @@ object UseCaseModule {
     @Singleton
     fun provideCheckLoginStatusUseCase(repository: AuthRepository): CheckLoginStatusUseCase =
         CheckLoginStatusUseCase(repository)
+
+    @Provides
+    @Singleton
+    fun provideLogoutUseCase(repository: AuthRepository): LogoutUseCase =
+        LogoutUseCase(repository)
 
     @Provides
     @Singleton

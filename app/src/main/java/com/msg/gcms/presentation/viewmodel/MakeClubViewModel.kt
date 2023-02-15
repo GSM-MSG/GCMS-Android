@@ -66,6 +66,8 @@ class MakeClubViewModel @Inject constructor(
     // private val _status = MutableLiveData<Int>()
     // val status: LiveData<Int> get() = _status
 
+    private var isAlreadyRequest = false
+
     var title: String = ""
     var description: String = ""
     var contact: String = ""
@@ -157,49 +159,52 @@ class MakeClubViewModel @Inject constructor(
 
     fun createClub() {
         viewModelScope.launch {
-            if (_activityPhotoResult.value == null)
-                _activityPhotoResult.value = emptyList()
-            Log.d(
-                "TAG",
-                "createClub: type: ${clubType.value.toString()}, title: $title, description: $description, contact: $contact, notionLink: $notionLink, teacher: $teacher, member: $clubMemberEmail, activityUrls: ${activityPhoto.value}, bannerUrl: ${bannerResult.value}"
-            )
-            clubMemberEmail.remove("")
-            postCreateClubUseCase(
-                CreateClubRequest
-                    (
-                    type = clubType.value.toString().trim(),
-                    title = title,
-                    description = description,
-                    contact = contact,
-                    notionLink = notionLink,
-                    teacher = teacher,
-                    member = clubMemberEmail,
-                    activityUrls = _activityPhotoResult.value,
-                    bannerUrl = _bannerResult.value!!
+            if(!isAlreadyRequest) {
+                isAlreadyRequest = true
+                if (_activityPhotoResult.value == null)
+                    _activityPhotoResult.value = emptyList()
+                Log.d(
+                    "TAG",
+                    "createClub: type: ${clubType.value.toString()}, title: $title, description: $description, contact: $contact, notionLink: $notionLink, teacher: $teacher, member: $clubMemberEmail, activityUrls: ${activityPhoto.value}, bannerUrl: ${bannerResult.value}"
                 )
-            ).onSuccess {
-                Log.d("TAG", "createClub: 성공")
-                _createClubResult.value = Event.Success
+                clubMemberEmail.remove("")
+                postCreateClubUseCase(
+                    CreateClubRequest
+                        (
+                        type = clubType.value.toString().trim(),
+                        title = title,
+                        description = description,
+                        contact = contact,
+                        notionLink = notionLink,
+                        teacher = teacher,
+                        member = clubMemberEmail,
+                        activityUrls = _activityPhotoResult.value,
+                        bannerUrl = _bannerResult.value!!
+                    )
+                ).onSuccess {
+                    Log.d("TAG", "createClub: 성공")
+                    _createClubResult.value = Event.Success
 
-            }.onFailure {
-                _createClubResult.value = when(it) {
-                    is BadRequestException -> {
-                        Event.BadRequest
+                }.onFailure {
+                    _createClubResult.value = when(it) {
+                        is BadRequestException -> {
+                            Event.BadRequest
+                        }
+                        is UnauthorizedException -> {
+                            Event.Unauthorized
+                        }
+                        is ConflictException -> {
+                            Event.Conflict
+                        }
+                        is ServerException -> {
+                            Event.Server
+                        }
+                        else -> {
+                            Event.UnKnown
+                        }
                     }
-                    is UnauthorizedException -> {
-                        Event.Unauthorized
-                    }
-                    is ConflictException -> {
-                        Event.Conflict
-                    }
-                    is ServerException -> {
-                        Event.Server
-                    }
-                    else -> {
-                        Event.UnKnown
-                    }
+                    Log.d("TAG", "createClub: $it")
                 }
-                Log.d("TAG", "createClub: $it")
             }
         }
     }

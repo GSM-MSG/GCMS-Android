@@ -21,6 +21,7 @@ import com.msg.gcms.presentation.utils.exitActivity
 import com.msg.gcms.presentation.view.intro.IntroActivity
 import com.msg.gcms.presentation.view.withdrawal.WithdrawalActivity
 import com.msg.gcms.presentation.view.withdrawal.WithdrawalDialog
+import com.msg.gcms.presentation.viewmodel.AuthViewModel
 import com.msg.gcms.presentation.viewmodel.ProfileViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
@@ -30,7 +31,9 @@ import java.io.File
 
 @AndroidEntryPoint
 class ProfileActivity : BaseActivity<ActivityProfileBinding>(R.layout.activity_profile) {
-    private val viewModel by viewModels<ProfileViewModel>()
+    private val profileViewModel by viewModels<ProfileViewModel>()
+    private val authViewModel by viewModels<AuthViewModel>()
+
     override fun observeEvent() {
         myProfile()
         isClub()
@@ -43,8 +46,8 @@ class ProfileActivity : BaseActivity<ActivityProfileBinding>(R.layout.activity_p
     }
 
     private fun myProfile() {
-        viewModel.getUserInfo()
-        viewModel.profileData.observe(this) {
+        profileViewModel.getUserInfo()
+        profileViewModel.profileData.observe(this) {
             binding.apply {
                 userNameTxt.text = it.name
                 userClassTxt.text =
@@ -57,7 +60,7 @@ class ProfileActivity : BaseActivity<ActivityProfileBinding>(R.layout.activity_p
     }
 
     private fun isClub() {
-        viewModel.clubStatus.observe(this) {
+        profileViewModel.clubStatus.observe(this) {
             if (it) {
                 supportFragmentManager.beginTransaction()
                     .replace(R.id.profileList, ProfileClubFragment()).commit()
@@ -101,7 +104,7 @@ class ProfileActivity : BaseActivity<ActivityProfileBinding>(R.layout.activity_p
             WithdrawalDialog(this).apply {
                 setDialogListener(object : WithdrawalDialog.WithdrawalDialogListener {
                     override fun logout() {
-                        viewModel.logout()
+                        authViewModel.logoutRequest()
                         enterActivity(this@ProfileActivity, IntroActivity())
                     }
 
@@ -127,7 +130,7 @@ class ProfileActivity : BaseActivity<ActivityProfileBinding>(R.layout.activity_p
                     val file = File(getPathFromUri(currentUri))
                     val requestFile = RequestBody.create("image/*".toMediaTypeOrNull(), file)
                     val img = MultipartBody.Part.createFormData("files", file.name, requestFile)
-                    viewModel.uploadImg(img)
+                    profileViewModel.uploadImg(img)
                 } catch (e: Exception) {
                     e.printStackTrace()
                 }
