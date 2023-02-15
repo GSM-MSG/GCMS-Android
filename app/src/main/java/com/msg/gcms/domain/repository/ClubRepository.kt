@@ -1,14 +1,14 @@
 package com.msg.gcms.domain.repository
 
 import com.msg.gcms.data.remote.dto.club.create_club.CreateClubRequest
-import com.msg.gcms.data.remote.dto.club.get_club_detail.ClubDetailResponse
+import com.msg.gcms.domain.data.club.get_club_detail.ClubDetailData
 import com.msg.gcms.domain.data.club.get_club_list.GetClubListData
 import com.msg.gcms.data.remote.dto.club.modify_club_info.ModifyClubInfoRequest
 
 interface ClubRepository {
     suspend fun getClubList(type: String): List<GetClubListData>
 
-    suspend fun getDetail(clubId: Long): ClubDetailResponse
+    suspend fun getDetail(clubId: Long): ClubDetailData
 
     suspend fun postCreateClub(
         body: CreateClubRequest

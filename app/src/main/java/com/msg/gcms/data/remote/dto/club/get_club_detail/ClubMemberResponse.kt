@@ -2,7 +2,7 @@ package com.msg.gcms.data.remote.dto.club.get_club_detail
 
 import com.google.gson.annotations.SerializedName
 
-data class ClubMemberInfo(
+data class ClubMemberResponse(
     @SerializedName("uuid")
     val uuid: String,
     @SerializedName("email")

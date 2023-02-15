@@ -14,7 +14,7 @@ import coil.transform.CircleCropTransformation
 import com.msg.gcms.R
 import com.msg.gcms.data.local.entity.DetailPageSideBar
 import com.msg.gcms.data.local.entity.PromotionPicType
-import com.msg.gcms.data.remote.dto.club.get_club_detail.ClubMemberInfo
+import com.msg.gcms.domain.data.club.get_club_detail.ClubMemberData
 import com.msg.gcms.databinding.FragmentDetailBinding
 import com.msg.gcms.presentation.adapter.DetailMemberAdapter
 import com.msg.gcms.presentation.adapter.DetailPhotoAdapter
@@ -144,7 +144,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
         detailViewModel.setIsProfile(false)
     }
 
-    private fun clubMemberRecycler(member: List<ClubMemberInfo>) {
+    private fun clubMemberRecycler(member: List<ClubMemberData>) {
         membersList.clear()
         for (i in member.indices) {
             try {

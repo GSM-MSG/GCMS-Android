@@ -1,6 +1,7 @@
 package com.msg.gcms.data.remote.dto.club.get_club_detail
 
 import com.google.gson.annotations.SerializedName
+import com.msg.gcms.domain.data.club.get_club_detail.ClubMemberData
 
 data class ClubDetailResponse(
     @SerializedName("id")
@@ -24,9 +25,9 @@ data class ClubDetailResponse(
     @SerializedName("activityImgs")
     val activityImgs: List<String>,
     @SerializedName("head")
-    val head: ClubMemberInfo,
+    val head: ClubMemberData,
     @SerializedName("member")
-    val member: List<ClubMemberInfo>,
+    val member: List<ClubMemberResponse>,
     @SerializedName("scope")
     val scope: String,
     @SerializedName("isApplied")
