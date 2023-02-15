@@ -1,9 +1,10 @@
 package com.msg.gcms.data.remote.datasource.applicant
 
 import com.msg.gcms.data.remote.dto.applicant.get_applicant_list.GetApplicantListResponse
-import com.msg.gcms.domain.data.applicant.get_applicant_list.GetApplicantListData
 import com.msg.gcms.data.remote.network.api.ApplicantAPI
 import com.msg.gcms.data.remote.util.GCMSApiHandler
+import com.msg.gcms.data.remote.dto.applicant.club_apply_accept.ClubApplyAcceptRequest
+import com.msg.gcms.data.remote.dto.applicant.club_apply_reject.ClubApplyRejectRequest
 import javax.inject.Inject
 
 class ApplicantDataSourceImpl @Inject constructor(
@@ -27,13 +28,13 @@ class ApplicantDataSourceImpl @Inject constructor(
             .sendRequest()
     }
 
-    override suspend fun postApplicantAccept(clubId: Long ,body: MemberManagementRequest) {
+    override suspend fun postApplicantAccept(clubId: Long ,body: ClubApplyAcceptRequest) {
         return GCMSApiHandler<Unit>()
             .httpRequest { service.postApplicantAccept(clubId = clubId, body = body) }
             .sendRequest()
     }
 
-    override suspend fun postApplicantReject(clubId: Long, body: MemberManagementRequest) {
+    override suspend fun postApplicantReject(clubId: Long, body: ClubApplyRejectRequest) {
         return GCMSApiHandler<Unit>()
             .httpRequest { service.postApplicantReject(clubId = clubId, body = body) }
             .sendRequest()
