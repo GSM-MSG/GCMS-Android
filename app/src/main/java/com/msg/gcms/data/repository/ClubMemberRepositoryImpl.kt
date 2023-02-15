@@ -2,7 +2,7 @@ package com.msg.gcms.data.repository
 
 import com.msg.gcms.data.remote.datasource.club_member.ClubMemberDataSourceImpl
 import com.msg.gcms.data.remote.dto.club.request.MemberManagementRequest
-import com.msg.gcms.data.remote.dto.club_member.get_club_member.GetClubMemberResponse
+import com.msg.gcms.domain.data.club.get_club_member.GetClubMemberResponse
 import com.msg.gcms.domain.repository.ClubMemberRepository
 import javax.inject.Inject
 

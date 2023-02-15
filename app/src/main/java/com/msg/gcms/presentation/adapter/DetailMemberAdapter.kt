@@ -9,7 +9,6 @@ import coil.load
 import coil.transform.CircleCropTransformation
 import com.msg.gcms.R
 import com.msg.gcms.databinding.ListClubMemberBinding
-import com.msg.gcms.domain.data.club.MemberListData
 
 class DetailMemberAdapter :
     ListAdapter<MemberListData, DetailMemberAdapter.ClubMemberViewHolder>(diffCallBack) {

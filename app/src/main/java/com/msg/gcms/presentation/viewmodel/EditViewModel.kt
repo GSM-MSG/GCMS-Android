@@ -9,7 +9,6 @@ import androidx.lifecycle.viewModelScope
 import com.msg.gcms.data.remote.dto.club.get_club_detail.ClubDetailResponse
 import com.msg.gcms.data.remote.dto.club.modify_club_info.ModifyClubInfoRequest
 import com.msg.gcms.data.remote.dto.user.response.UserData
-import com.msg.gcms.domain.data.club.MemberListData
 import com.msg.gcms.domain.exception.BadRequestException
 import com.msg.gcms.domain.exception.ConflictException
 import com.msg.gcms.domain.exception.ForBiddenException
