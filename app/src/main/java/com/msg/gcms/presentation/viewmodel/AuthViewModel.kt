@@ -1,5 +1,6 @@
 package com.msg.gcms.presentation.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -9,6 +10,7 @@ import com.msg.gcms.data.remote.dto.auth.response.SignInResponse
 import com.msg.gcms.domain.exception.BadRequestException
 import com.msg.gcms.domain.exception.NotFoundException
 import com.msg.gcms.domain.exception.UnauthorizedException
+import com.msg.gcms.domain.usecase.auth.LogoutUseCase
 import com.msg.gcms.domain.usecase.auth.SaveTokenInfoUseCase
 import com.msg.gcms.domain.usecase.auth.SignInUseCase
 import com.msg.gcms.presentation.viewmodel.util.Event
@@ -20,6 +22,7 @@ import javax.inject.Inject
 @HiltViewModel
 class AuthViewModel @Inject constructor(
     private val signInUseCase: SignInUseCase,
+    private val logoutUseCase: LogoutUseCase,
     private val saveTokenInfoUseCase: SaveTokenInfoUseCase
 ) : ViewModel() {
     private val _postSignInRequest = MutableLiveData<Event>()
@@ -41,6 +44,20 @@ class AuthViewModel @Inject constructor(
         }
     }
 
+    fun logoutRequest() = viewModelScope.launch {
+        logoutUseCase()
+            .onSuccess {
+                showDebugLog("Logout: Success!")
+            }.onFailure {
+                when (it) {
+                    is UnauthorizedException -> showDebugLog("Logout: UnauthorizedException")
+                    is NotFoundException -> showDebugLog("Logout: NotFoundException")
+                    else -> showDebugLog("Logout: Unknown, status: $it")
+                }
+            }
+        saveTokenInfoUseCase("", "", "", "")
+    }
+
     private fun saveToken(response: SignInResponse) = viewModelScope.launch {
         saveTokenInfoUseCase(
             accessToken = response.accessToken.removeDot(),
@@ -48,5 +65,9 @@ class AuthViewModel @Inject constructor(
             accessExp = response.accessExp.removeDot(),
             refreshExp = response.refreshExp.removeDot()
         )
+    }
+
+    private fun showDebugLog(msg: String) {
+        Log.d("AuthViewModel", msg)
     }
 }
