@@ -2,14 +2,14 @@ package com.msg.gcms.data.repository
 
 import com.msg.gcms.data.remote.datasource.club_member.ClubMemberDataSourceImpl
 import com.msg.gcms.data.remote.dto.club.request.MemberManagementRequest
-import com.msg.gcms.data.remote.dto.club.response.MemberInfo
+import com.msg.gcms.data.remote.dto.club_member.get_club_member.GetClubMemberResponse
 import com.msg.gcms.domain.repository.ClubMemberRepository
 import javax.inject.Inject
 
 class ClubMemberRepositoryImpl @Inject constructor(
     private val datasource: ClubMemberDataSourceImpl
 ) : ClubMemberRepository {
-    override suspend fun getMemberList(clubId: Long): MemberInfo {
+    override suspend fun getMemberList(clubId: Long): GetClubMemberResponse {
         return datasource.getMemberList(clubId = clubId)
     }
 

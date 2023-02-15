@@ -8,6 +8,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.msg.gcms.data.remote.dto.club.request.MemberManagementRequest
 import com.msg.gcms.data.remote.dto.club.response.MemberSummaryResponse
+import com.msg.gcms.data.remote.dto.club_member.get_club_member.MemberData
 import com.msg.gcms.domain.exception.ForBiddenException
 import com.msg.gcms.domain.exception.NotAcceptableException
 import com.msg.gcms.domain.exception.NotFoundException
@@ -34,8 +35,8 @@ class MemberManageViewModel @Inject constructor(
     private val applicantAcceptUseCase: ApplicantAcceptUseCase
 ) : ViewModel() {
 
-    private val _memberList = MutableLiveData<List<MemberSummaryResponse>>()
-    val memberList: LiveData<List<MemberSummaryResponse>> get() = _memberList
+    private val _memberList = MutableLiveData<List<MemberData>>()
+    val memberList: LiveData<List<MemberData>> get() = _memberList
 
     private val _applicantList = MutableLiveData<List<MemberSummaryResponse>>()
     val applicantList: LiveData<List<MemberSummaryResponse>> get() = _applicantList
