@@ -1,17 +1,18 @@
 package com.msg.gcms.data.repository
 
-import com.msg.gcms.data.remote.datasource.user_data.UserDataSourceImpl
+import com.msg.gcms.data.mapper.UserMapper
+import com.msg.gcms.data.remote.datasource.user.UserDataSourceImpl
 import com.msg.gcms.data.remote.dto.user.request.UserProfileRequest
 import com.msg.gcms.data.remote.dto.user.response.UserData
-import com.msg.gcms.data.remote.dto.user.response.UserInfoResponse
+import com.msg.gcms.domain.data.user.get_my_profile.GetMyProfileData
 import com.msg.gcms.domain.repository.UserRepository
 import javax.inject.Inject
 
 class UserRepositoryImpl @Inject constructor(
     private val dataSource: UserDataSourceImpl
 ) : UserRepository {
-    override suspend fun getUserInfo(): UserInfoResponse {
-        return dataSource.getUserInfo()
+    override suspend fun getUserInfo(): GetMyProfileData {
+        return UserMapper.mapperToGetMyProfileData(dataSource.getUserInfo())
     }
 
     override suspend fun putProfile(

@@ -1,11 +1,11 @@
-package com.msg.gcms.data.remote.datasource.user_data
+package com.msg.gcms.data.remote.datasource.user
 
+import com.msg.gcms.data.remote.dto.user.get_my_profile.GetMyProfileResponse
 import com.msg.gcms.data.remote.dto.user.request.UserProfileRequest
 import com.msg.gcms.data.remote.dto.user.response.UserData
-import com.msg.gcms.data.remote.dto.user.response.UserInfoResponse
 
 interface UserDataSource {
-    suspend fun getUserInfo(): UserInfoResponse
+    suspend fun getUserInfo(): GetMyProfileResponse
 
     suspend fun putProfile(body: UserProfileRequest)
 

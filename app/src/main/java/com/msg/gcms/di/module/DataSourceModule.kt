@@ -8,7 +8,7 @@ import com.msg.gcms.data.remote.datasource.image.ImageDataSourceImpl
 import com.msg.gcms.data.remote.network.api.ClubAPI
 import com.msg.gcms.data.remote.network.api.AuthAPI
 import com.msg.gcms.data.remote.network.api.ImageAPI
-import com.msg.gcms.data.remote.datasource.user_data.UserDataSourceImpl
+import com.msg.gcms.data.remote.datasource.user.UserDataSourceImpl
 import com.msg.gcms.data.remote.network.api.ApplicantAPI
 import com.msg.gcms.data.remote.network.api.ClubMemberAPI
 import com.msg.gcms.data.remote.network.api.UserAPI

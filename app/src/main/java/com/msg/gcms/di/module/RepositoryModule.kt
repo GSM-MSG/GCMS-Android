@@ -6,7 +6,7 @@ import com.msg.gcms.data.remote.datasource.auth.AuthDataSourceImpl
 import com.msg.gcms.data.remote.datasource.club.ClubDataSourceImpl
 import com.msg.gcms.data.remote.datasource.club_member.ClubMemberDataSourceImpl
 import com.msg.gcms.data.remote.datasource.image.ImageDataSourceImpl
-import com.msg.gcms.data.remote.datasource.user_data.UserDataSourceImpl
+import com.msg.gcms.data.remote.datasource.user.UserDataSourceImpl
 import com.msg.gcms.data.repository.ApplicantRepositoryImpl
 import com.msg.gcms.data.repository.AuthRepositoryImpl
 import com.msg.gcms.data.repository.ClubMemberRepositoryImpl
