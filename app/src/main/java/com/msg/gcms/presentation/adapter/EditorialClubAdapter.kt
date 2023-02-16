@@ -33,7 +33,7 @@ class EditorialClubAdapter(private val clubList: ArrayList<ProfileClubData>) :
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(clubList?.get(position))
+        holder.bind(clubList[position])
         holder.itemView.setOnClickListener {
             itemClickListener.onClick(position)
         }
