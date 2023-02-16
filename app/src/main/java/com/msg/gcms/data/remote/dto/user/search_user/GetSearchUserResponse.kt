@@ -1,8 +1,8 @@
-package com.msg.gcms.data.remote.dto.user.response
+package com.msg.gcms.data.remote.dto.user.search_user
 
 import com.google.gson.annotations.SerializedName
 
-data class UserInfoResponse (
+data class GetSearchUserResponse(
     @SerializedName("uuid")
     val uuid: String,
     @SerializedName("email")
@@ -16,8 +16,5 @@ data class UserInfoResponse (
     @SerializedName("number")
     val number: Int,
     @SerializedName("profileImg")
-    val profileImg: String,
-    @SerializedName("clubs")
-    val clubs: List<SummarizedClubInfo>,
+    val profileImg: String
 )
-
