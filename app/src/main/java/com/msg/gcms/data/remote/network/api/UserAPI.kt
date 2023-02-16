@@ -10,7 +10,7 @@ import retrofit2.http.PATCH
 import retrofit2.http.QueryMap
 
 interface UserAPI {
-    @GET("user/")
+    @GET("user")
     suspend fun getUserInfo(): GetMyProfileResponse
 
     @GET("user/search")
@@ -18,11 +18,11 @@ interface UserAPI {
         @QueryMap QueryString: Map<String, String>
     ): List<GetSearchUserResponse>
 
-    @PATCH("user/")
+    @PATCH("user")
     suspend fun putProfile(
         @Body body: ModifyProfileImageRequest
     ): Void
 
-    @DELETE("user/")
+    @DELETE("user")
     suspend fun deleteUser(): Void
 }
