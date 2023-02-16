@@ -8,7 +8,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.msg.gcms.domain.data.club.get_club_detail.ClubDetailData
 import com.msg.gcms.domain.data.club.modify_club_info.ModifyClubInfoData
-import com.msg.gcms.data.remote.dto.user.response.UserData
+import com.msg.gcms.domain.data.user.search_user.GetSearchUserData
 import com.msg.gcms.domain.exception.BadRequestException
 import com.msg.gcms.domain.exception.ConflictException
 import com.msg.gcms.domain.exception.ForBiddenException
@@ -40,8 +40,8 @@ class EditViewModel @Inject constructor(
     private val _clubId = MutableLiveData<Long>()
     val clubId: LiveData<Long> get() = _clubId
 
-    private val _result = MutableLiveData<List<UserData>>()
-    val result: LiveData<List<UserData>> get() = _result
+    private val _result = MutableLiveData<List<GetSearchUserData>>()
+    val result: LiveData<List<GetSearchUserData>> get() = _result
 
     var newPhotos = mutableListOf<String>()
 

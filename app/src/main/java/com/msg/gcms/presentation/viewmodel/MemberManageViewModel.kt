@@ -6,8 +6,12 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.msg.gcms.data.remote.dto.club.request.MemberManagementRequest
-import com.msg.gcms.data.remote.dto.club.response.MemberSummaryResponse
+import com.msg.gcms.domain.data.applicant.clubApplyAccept.ClubApplyAcceptData
+import com.msg.gcms.domain.data.applicant.club_apply_reject.ClubApplyRejectData
+import com.msg.gcms.domain.data.applicant.get_applicant_list.ApplicantListData
+import com.msg.gcms.domain.data.club_member.delegation_of_manager.DelegationOfManagerData
+import com.msg.gcms.domain.data.club_member.get_club_member.MemberData
+import com.msg.gcms.domain.data.club_member.member_expelled.MemberExpelledData
 import com.msg.gcms.domain.exception.ForBiddenException
 import com.msg.gcms.domain.exception.NotAcceptableException
 import com.msg.gcms.domain.exception.NotFoundException
@@ -19,7 +23,6 @@ import com.msg.gcms.domain.usecase.applicant.GetApplicantUseCase
 import com.msg.gcms.domain.usecase.club_member.GetMemberUseCase
 import com.msg.gcms.domain.usecase.club_member.MandateUseCase
 import com.msg.gcms.domain.usecase.club_member.UserKickUseCase
-import com.msg.gcms.domain.data.club_member.MemberData
 import com.msg.gcms.presentation.viewmodel.util.Event
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -38,8 +41,8 @@ class MemberManageViewModel @Inject constructor(
     private val _memberList = MutableLiveData<List<MemberData>>()
     val memberList: LiveData<List<MemberData>> get() = _memberList
 
-    private val _applicantList = MutableLiveData<List<MemberSummaryResponse>>()
-    val applicantList: LiveData<List<MemberSummaryResponse>> get() = _applicantList
+    private val _applicantList = MutableLiveData<List<ApplicantListData>>()
+    val applicantList: LiveData<List<ApplicantListData>> get() = _applicantList
 
     private val _status = MutableLiveData<Int>()
     val status: LiveData<Int> get() = _status
@@ -118,7 +121,7 @@ class MemberManageViewModel @Inject constructor(
             getApplicantUseCase(
                 clubId = _clubId.value
             ).onSuccess {
-                _applicantList.value = it.requestUser
+                _applicantList.value = it.applicantList
                 _getApplicantListState.value = Event.Success
             }.onFailure {
                 _getApplicantListState.value = when (it) {
@@ -150,7 +153,7 @@ class MemberManageViewModel @Inject constructor(
     fun kickUser(uuid: String) {
         viewModelScope.launch {
             userKickUseCase(
-                body = MemberManagementRequest(uuid),
+                body = MemberExpelledData(uuid),
                 clubId = _clubId.value
             ).onSuccess {
                 _kickUserState.value = Event.Success
@@ -181,7 +184,7 @@ class MemberManageViewModel @Inject constructor(
         viewModelScope.launch {
             userDelegateUseCase(
                 clubId = _clubId.value,
-                body = MemberManagementRequest(id)
+                body = DelegationOfManagerData(id)
             ).onSuccess {
                 _delegateState.value = Event.Success
             }.onFailure {
@@ -215,7 +218,7 @@ class MemberManageViewModel @Inject constructor(
         viewModelScope.launch {
             applicantAcceptUseCase(
                 clubId = _clubId.value,
-                body = MemberManagementRequest(id)
+                body = ClubApplyAcceptData(id)
             ).onSuccess {
                 _acceptApplicantState.value = Event.Success
             }.onFailure {
@@ -249,7 +252,7 @@ class MemberManageViewModel @Inject constructor(
         viewModelScope.launch {
             applicantRejectUseCase(
                 clubId = _clubId.value,
-                body = MemberManagementRequest(id)
+                body = ClubApplyRejectData(id)
             ).onSuccess {
                 _rejectApplicantState.value = Event.Success
             }.onFailure {

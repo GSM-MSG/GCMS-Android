@@ -5,7 +5,7 @@
     <data>
         <variable
             name="member"
-            type="com.msg.gcms.domain.data.club_member.MemberData" />
+            type="com.msg.gcms.domain.data.club_member.get_club_member.MemberData" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

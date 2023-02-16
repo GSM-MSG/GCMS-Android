@@ -5,30 +5,30 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import coil.transform.CircleCropTransformation
-import com.msg.gcms.data.remote.dto.user.response.UserData
 import com.msg.gcms.databinding.ListSearchMemberBinding
+import com.msg.gcms.domain.data.user.search_user.GetSearchUserData
 
 class UserSearchAdapter:
     RecyclerView.Adapter<UserSearchAdapter.SearchUserViewHolder>() {
 
-    private var list = mutableListOf<UserData>()
+    private var list = mutableListOf<GetSearchUserData>()
 
     class SearchUserViewHolder(
         private val binding: ListSearchMemberBinding,
         listener: OnItemClickListener
     ) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(data: UserData) {
+        fun bind(data: GetSearchUserData) {
             binding.userNameTv.text = data.name
-            binding.userInfoTv.text = "${data.grade}학년 ${data.`class`}반 ${data.num}번"
-            binding.userProfileIv.load(data.userImg) {
+            binding.userInfoTv.text = "${data.grade}학년 ${data.classNum}반 ${data.number}번"
+            binding.userProfileIv.load(data.profileImg) {
                 crossfade(true)
                 transformations(CircleCropTransformation())
             }
         }
     }
 
-    fun submitList(list : List<UserData>) {
+    fun submitList(list : List<GetSearchUserData>) {
         this.list = list.toMutableList()
         notifyDataSetChanged()
     }

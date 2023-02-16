@@ -30,8 +30,8 @@ import coil.request.SuccessResult
 import coil.transform.RoundedCornersTransformation
 import com.msg.gcms.R
 import com.msg.gcms.data.local.entity.ActivityPhotoType
-import com.msg.gcms.data.remote.dto.user.response.UserData
 import com.msg.gcms.databinding.FragmentEditClubBinding
+import com.msg.gcms.domain.data.club.get_club_detail.ClubMemberData
 import com.msg.gcms.presentation.adapter.ActivityPhotosAdapter
 import com.msg.gcms.presentation.adapter.ClubMemberAdapter
 import com.msg.gcms.presentation.base.BaseFragment
@@ -68,7 +68,7 @@ class EditClubFragment : BaseFragment<FragmentEditClubBinding>(R.layout.fragment
     private var legacyList = listOf<ActivityPhotoType>()
     private var newPhotosList = mutableListOf<MultipartBody.Part>()
 
-    private var memberList = mutableListOf<UserData>()
+    private var memberList = mutableListOf<ClubMemberData>()
     var getClubInfoListener = false
 
     override fun init() {
@@ -233,7 +233,7 @@ class EditClubFragment : BaseFragment<FragmentEditClubBinding>(R.layout.fragment
                         activityPhotoUrlList = it.activityImgs.toMutableList()
                         // TODO 여기 타입 변경하기
                         // memberList = editViewModel.memberList
-                        Log.d("TAG", "observeClubInfo: ${it.member}, $memberList")
+                        Log.d("TAG", "observeClubInfo: ${it.member}")
                         clubMemberAdapter.notifyDataSetChanged()
                         addBitmapToList()
                         lifecycleScope.launch {

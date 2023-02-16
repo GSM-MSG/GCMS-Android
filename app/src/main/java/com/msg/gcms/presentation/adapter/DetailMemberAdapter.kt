@@ -9,13 +9,14 @@ import coil.load
 import coil.transform.CircleCropTransformation
 import com.msg.gcms.R
 import com.msg.gcms.databinding.ListClubMemberBinding
+import com.msg.gcms.domain.data.club_member.get_club_member.MemberData
 
 class DetailMemberAdapter :
-    ListAdapter<MemberListData, DetailMemberAdapter.ClubMemberViewHolder>(diffCallBack) {
+    ListAdapter<MemberData, DetailMemberAdapter.ClubMemberViewHolder>(diffCallBack) {
 
     class ClubMemberViewHolder(private val binding: ListClubMemberBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(data: MemberListData) {
+        fun bind(data: MemberData) {
             binding.userName.text = data.name
             binding.userProfileIv.load(data.userImg ?: R.drawable.ic_default_profile){
                 transformations(CircleCropTransformation())
@@ -39,17 +40,17 @@ class DetailMemberAdapter :
     }
 
     companion object {
-        val diffCallBack = object : DiffUtil.ItemCallback<MemberListData>() {
+        val diffCallBack = object : DiffUtil.ItemCallback<MemberData>() {
             override fun areItemsTheSame(
-                oldItem: MemberListData,
-                newItem: MemberListData
+                oldItem: MemberData,
+                newItem: MemberData
             ): Boolean {
                 return oldItem == newItem
             }
 
             override fun areContentsTheSame(
-                oldItem: MemberListData,
-                newItem: MemberListData
+                oldItem: MemberData,
+                newItem: MemberData
             ): Boolean {
                 return oldItem.name == newItem.name && oldItem.userImg == newItem.userImg
             }

@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import coil.transform.CircleCropTransformation
 import com.msg.gcms.databinding.ListMemberBinding
-import com.msg.gcms.domain.data.club_member.MemberData
+import com.msg.gcms.domain.data.club_member.get_club_member.MemberData
 
 class MemberAdapter(private val itemList: List<MemberData>, private val role: String) :
     RecyclerView.Adapter<MemberAdapter.ViewHolder>() {

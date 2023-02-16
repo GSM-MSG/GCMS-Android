@@ -16,6 +16,7 @@ import com.msg.gcms.data.local.entity.DetailPageSideBar
 import com.msg.gcms.data.local.entity.PromotionPicType
 import com.msg.gcms.domain.data.club.get_club_detail.ClubMemberData
 import com.msg.gcms.databinding.FragmentDetailBinding
+import com.msg.gcms.domain.data.club_member.get_club_member.MemberData
 import com.msg.gcms.presentation.adapter.DetailMemberAdapter
 import com.msg.gcms.presentation.adapter.DetailPhotoAdapter
 import com.msg.gcms.presentation.adapter.DetailSideBarAdapter
@@ -43,7 +44,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
     private val detailViewModel by activityViewModels<ClubDetailViewModel>()
     private val clubViewModel by activityViewModels<ClubViewModel>()
     private lateinit var callback: OnBackPressedCallback
-    var membersList = mutableListOf<MemberListData>()
+    var membersList = mutableListOf<MemberData>()
     var activityUrlsList = mutableListOf<PromotionPicType>()
     private val detailMemberAdapter = DetailMemberAdapter()
     private val detailPhotoAdapter = DetailPhotoAdapter()
@@ -149,7 +150,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
         for (i in member.indices) {
             try {
                 membersList.add(
-                    MemberListData(
+                    MemberData(
                         uuid = member[i].uuid,
                         name = member[i].name,
                         userImg = member[i].userImg,

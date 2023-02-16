@@ -1,5 +1,6 @@
 package com.msg.gcms.domain.repository
 
+import com.msg.gcms.domain.data.club.create_club.CreateClubData
 import com.msg.gcms.domain.data.club.get_club_detail.ClubDetailData
 import com.msg.gcms.domain.data.club.get_club_list.GetClubListData
 import com.msg.gcms.domain.data.club.modify_club_info.ModifyClubInfoData
@@ -10,7 +11,7 @@ interface ClubRepository {
     suspend fun getDetail(clubId: Long): ClubDetailData
 
     suspend fun postCreateClub(
-        body: _root_ide_package_.com.msg.gcms.domain.data.club.create_club.CreateClubData
+        body: CreateClubData
     )
 
     suspend fun putChangeClub(

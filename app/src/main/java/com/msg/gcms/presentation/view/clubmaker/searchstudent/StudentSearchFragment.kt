@@ -10,8 +10,9 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.msg.gcms.R
 import com.msg.gcms.data.local.entity.AddMemberType
-import com.msg.gcms.data.remote.dto.user.response.UserData
 import com.msg.gcms.databinding.FragmentStudentSearchBinding
+import com.msg.gcms.domain.data.club_member.get_club_member.MemberData
+import com.msg.gcms.domain.data.user.search_user.GetSearchUserData
 import com.msg.gcms.presentation.adapter.AddMemberAdapter
 import com.msg.gcms.presentation.adapter.UserSearchAdapter
 import com.msg.gcms.presentation.base.BaseFragment
@@ -35,8 +36,8 @@ class StudentSearchFragment :
     private lateinit var searchAdapter: UserSearchAdapter
     private lateinit var addMemberAdapter: AddMemberAdapter
 
-    private var userList = mutableListOf<UserData>()
-    private var memberList = mutableListOf<UserData>()
+    private var userList = mutableListOf<GetSearchUserData>()
+    private var memberList = mutableListOf<MemberData>()
 
     private val coroutineJob: Job = Job()
     private val coroutineContext: CoroutineContext
@@ -83,13 +84,14 @@ class StudentSearchFragment :
         searchAdapter.setItemOnClickListener(object : UserSearchAdapter.OnItemClickListener {
             override fun onClick(position: Int) {
                 val item = userList[position]
-                if(!memberList.contains(item)) {
-                    memberList.add(item)
-                    addMemberAdapter.submitList(AddMemberType(item.name, item.email, item.userImg))
-                    Log.d("TAG", "addMemberList : $memberList")
-                }else {
-                    Log.d("TAG", "that user contained list")
-                }
+                // Todo 여기 유저 검색에서 recyclerView 추가하는 부분 수정하기
+                // if(!memberList.contains(item)) {
+                //     memberList.add(item)
+                //     addMemberAdapter.submitList(AddMemberType(item.name, item.email, item.profileImg))
+                //     Log.d("TAG", "addMemberList : $memberList")
+                // }else {
+                //     Log.d("TAG", "that user contained list")
+                // }
             }
         })
     }
@@ -114,7 +116,7 @@ class StudentSearchFragment :
 
     private fun observeSearchResult() {
         makeClubViewModel.searchUserResult.observe(this) {
-            userList = it as MutableList<UserData>
+            userList = it as MutableList<GetSearchUserData>
             searchAdapter.submitList(it)
         }
     }

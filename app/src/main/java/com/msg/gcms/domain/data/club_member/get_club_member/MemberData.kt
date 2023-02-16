@@ -8,6 +8,6 @@ data class MemberData(
     val grade: Int,
     val `class`: Int,
     val num: Int,
-    val userImg: String,
+    val userImg: String?,
     val scope: String
 )

@@ -6,18 +6,18 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import coil.transform.CircleCropTransformation
-import com.msg.gcms.data.remote.dto.club.response.MemberSummaryResponse
 import com.msg.gcms.databinding.ListApplicantBinding
+import com.msg.gcms.domain.data.applicant.get_applicant_list.ApplicantListData
 
-class ApplicantAdapter(val itemList: List<MemberSummaryResponse>, val role: String) :
+class ApplicantAdapter(val itemList: List<ApplicantListData>, val role: String) :
     RecyclerView.Adapter<ApplicantAdapter.ViewHolder>() {
     class ViewHolder(val binding: ListApplicantBinding, itemClickListener: onClickListener) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(item: MemberSummaryResponse, role: String) {
+        fun bind(item: ApplicantListData, role: String) {
             binding.applicant = item
-            binding.userProfileImg.load(item.userImg){
+            binding.userProfileImg.load(item.profileImg){
                 transformations(CircleCropTransformation())
             }
-            binding.userClassTxt.text = "${item.grade}학년 ${item.`class`}반 ${item.num}번"
+            binding.userClassTxt.text = "${item.grade}학년 ${item.classNum}반 ${item.number}번"
 
             if(role.equals("MEMBER")) {
                 binding.refuseBtn.visibility = View.GONE
