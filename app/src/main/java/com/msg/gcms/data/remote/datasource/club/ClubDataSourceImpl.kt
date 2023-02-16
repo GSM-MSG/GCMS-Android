@@ -20,7 +20,7 @@ class ClubDataSourceImpl @Inject constructor(
 
     override suspend fun getDetail(clubId: Long): ClubDetailResponse {
         return GCMSApiHandler<ClubDetailResponse>()
-            .httpRequest { service.getDetail(clubId) }
+            .httpRequest { service.getDetail(clubId = clubId) }
             .sendRequest()
     }
 

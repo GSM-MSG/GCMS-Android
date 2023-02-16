@@ -19,7 +19,7 @@ class MemberAdapter(private val itemList: List<MemberData>, private val role: St
             }
             binding.userClassTxt.text = "${item.grade}학년 ${item.`class`}반 ${item.num}번"
 
-            if(role == "MEMBER" || item.equals("HEAD")) {
+            if(role == "MEMBER" || item.scope == "HEAD") {
                 binding.withdrawalBtn.visibility = View.INVISIBLE
                 binding.mandateBtn.visibility = View.INVISIBLE
             }

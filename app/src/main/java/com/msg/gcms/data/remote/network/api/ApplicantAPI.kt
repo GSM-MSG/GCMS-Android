@@ -16,7 +16,7 @@ interface ApplicantAPI {
         @Path("club_id") clubId: Long
     ): GetApplicantListResponse
 
-    @POST("applicant/club_id")
+    @POST("applicant/{club_id}")
     suspend fun postClubApply(
         @Path("club_id") clubId: Long
     )
