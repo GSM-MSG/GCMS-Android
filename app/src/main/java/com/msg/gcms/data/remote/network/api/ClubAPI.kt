@@ -14,7 +14,7 @@ import retrofit2.http.Query
 
 interface ClubAPI {
 
-    @GET("club/")
+    @GET("club")
     suspend fun getClubList(
         @Query("type") type: String
     ): List<GetClubListResponse>
@@ -24,7 +24,7 @@ interface ClubAPI {
         @Path("clubId") clubId: Long,
     ): ClubDetailResponse
 
-    @POST("club/")
+    @POST("club")
     suspend fun postCreateClub(
         @Body body: CreateClubRequest
     )
