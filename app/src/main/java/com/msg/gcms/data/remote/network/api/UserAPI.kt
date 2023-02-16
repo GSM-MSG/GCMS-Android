@@ -2,7 +2,7 @@ package com.msg.gcms.data.remote.network.api
 
 import com.msg.gcms.data.remote.dto.user.get_my_profile.GetMyProfileResponse
 import com.msg.gcms.data.remote.dto.user.modify_profile_image.ModifyProfileImageRequest
-import com.msg.gcms.data.remote.dto.user.response.UserData
+import com.msg.gcms.data.remote.dto.user.search_user.GetSearchUserResponse
 import retrofit2.http.Body
 import retrofit2.http.DELETE
 import retrofit2.http.GET
@@ -16,7 +16,7 @@ interface UserAPI {
     @GET("user/search")
     suspend fun getUserSearch(
         @QueryMap QueryString: Map<String, String>
-    ): List<UserData>
+    ): List<GetSearchUserResponse>
 
     @PATCH("user/")
     suspend fun putProfile(
