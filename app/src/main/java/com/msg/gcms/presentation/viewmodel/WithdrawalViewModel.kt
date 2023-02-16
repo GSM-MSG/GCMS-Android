@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.msg.gcms.domain.exception.BadRequestException
 import com.msg.gcms.domain.exception.NotFoundException
 import com.msg.gcms.domain.exception.UnauthorizedException
+import com.msg.gcms.domain.usecase.auth.SaveTokenInfoUseCase
 import com.msg.gcms.domain.usecase.user.DeleteUserUseCase
 import com.msg.gcms.presentation.viewmodel.util.Event
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -15,7 +16,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class WithdrawalViewModel @Inject constructor(
-    private val deleteUserUseCase: DeleteUserUseCase
+    private val deleteUserUseCase: DeleteUserUseCase,
+    private val saveTokenInfoUseCase: SaveTokenInfoUseCase
 ) : ViewModel() {
 
     private val _isApproved = MutableLiveData<Boolean>()
@@ -29,6 +31,7 @@ class WithdrawalViewModel @Inject constructor(
     }
 
     fun withdrawal() = viewModelScope.launch {
+        saveTokenInfoUseCase("", "", "", "")
         deleteUserUseCase()
             .onSuccess {
                 _withDrawalRequest.value = Event.Success
