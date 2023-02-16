@@ -1,7 +1,7 @@
 package com.msg.gcms.data.remote.network.api
 
 import com.msg.gcms.data.remote.dto.user.get_my_profile.GetMyProfileResponse
-import com.msg.gcms.data.remote.dto.user.request.UserProfileRequest
+import com.msg.gcms.data.remote.dto.user.modify_profile_image.ModifyProfileImageRequest
 import com.msg.gcms.data.remote.dto.user.response.UserData
 import retrofit2.http.Body
 import retrofit2.http.DELETE
@@ -20,7 +20,7 @@ interface UserAPI {
 
     @PATCH("user/")
     suspend fun putProfile(
-        @Body body: UserProfileRequest
+        @Body body: ModifyProfileImageRequest
     ): Void
 
     @DELETE("user/")

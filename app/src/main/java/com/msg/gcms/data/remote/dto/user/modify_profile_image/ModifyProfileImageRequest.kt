@@ -1,8 +1,8 @@
-package com.msg.gcms.data.remote.dto.user.request
+package com.msg.gcms.data.remote.dto.user.modify_profile_image
 
 import com.google.gson.annotations.SerializedName
 
-data class UserProfileRequest(
+data class ModifyProfileImageRequest(
     @SerializedName("profileImg")
     val url: String
 )
