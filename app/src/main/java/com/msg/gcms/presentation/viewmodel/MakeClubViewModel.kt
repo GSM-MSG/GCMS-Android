@@ -128,7 +128,7 @@ class MakeClubViewModel @Inject constructor(
                 image = image
             ).onSuccess {
                 Log.d("TAG", "banner: $it")
-                _bannerResult.value = it[0]
+                _bannerResult.value = it.images[0]
                 _bannerUpload = true
                 imageUploadCheck()
             }.onFailure {
@@ -146,7 +146,7 @@ class MakeClubViewModel @Inject constructor(
                 image = image
             ).onSuccess {
                 Log.d("TAG", "activityPhoto: $it")
-                _activityPhotoResult.value = it
+                _activityPhotoResult.value = it.images
                 _activityUpload = true
                 imageUploadCheck()
             }.onFailure {

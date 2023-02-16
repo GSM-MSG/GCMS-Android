@@ -132,8 +132,8 @@ class EditViewModel @Inject constructor(
                 list
             ).onSuccess {
                 Log.d("TAG", "uploadImage: $it")
-                newPhotos = it.toMutableList()
-                _convertImage.value = it
+                newPhotos = it.images.toMutableList()
+                _convertImage.value = it.images
 
             }.onFailure {
                 when (it) {

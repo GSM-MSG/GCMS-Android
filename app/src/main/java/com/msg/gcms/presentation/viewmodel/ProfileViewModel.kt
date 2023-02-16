@@ -51,7 +51,7 @@ class ProfileViewModel @Inject constructor(
             imgUseCase(
                 image = listOf(img)
             ).onSuccess {
-                saveImg(it[0])
+                saveImg(it.images[0])
             }.onFailure {
                 when (it) {
                     is BadRequestException -> Log.d("TAG", "uploadImg: $it")
