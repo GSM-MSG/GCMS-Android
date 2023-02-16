@@ -5,10 +5,10 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import coil.transform.CircleCropTransformation
-import com.msg.gcms.data.remote.dto.user.response.UserData
 import com.msg.gcms.databinding.ListClubMemberBinding
+import com.msg.gcms.domain.data.club.get_club_detail.ClubMemberData
 
-class ClubMemberAdapter(private val items: List<UserData>) :
+class ClubMemberAdapter(private val items: List<ClubMemberData>) :
     RecyclerView.Adapter<ClubMemberAdapter.MemberViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MemberViewHolder {
         val binding =
@@ -24,7 +24,7 @@ class ClubMemberAdapter(private val items: List<UserData>) :
     ) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(data: UserData) {
+        fun bind(data: ClubMemberData) {
             binding.userName.text = data.name
             binding.userProfileIv.load(data.userImg) {
                 crossfade(true)

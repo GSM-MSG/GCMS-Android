@@ -5,8 +5,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.msg.gcms.data.remote.dto.auth.request.SignInRequest
-import com.msg.gcms.data.remote.dto.auth.response.SignInResponse
+import com.msg.gcms.domain.data.auth.SignInRequestData
+import com.msg.gcms.domain.data.auth.SignInResponseData
 import com.msg.gcms.domain.exception.BadRequestException
 import com.msg.gcms.domain.exception.NotFoundException
 import com.msg.gcms.domain.exception.UnauthorizedException
@@ -30,7 +30,7 @@ class AuthViewModel @Inject constructor(
 
     fun postSignInRequest(code: String) = viewModelScope.launch {
         signInUseCase(
-            SignInRequest(code = code)
+            SignInRequestData(code = code)
         ).onSuccess {
             saveToken(it)
             _postSignInRequest.value = Event.Success
@@ -58,7 +58,7 @@ class AuthViewModel @Inject constructor(
         saveTokenInfoUseCase("", "", "", "")
     }
 
-    private fun saveToken(response: SignInResponse) = viewModelScope.launch {
+    private fun saveToken(response: SignInResponseData) = viewModelScope.launch {
         saveTokenInfoUseCase(
             accessToken = response.accessToken.removeDot(),
             refreshToken = response.refreshToken.removeDot(),

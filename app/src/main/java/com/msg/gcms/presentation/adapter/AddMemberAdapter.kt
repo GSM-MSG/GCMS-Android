@@ -4,8 +4,8 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.msg.gcms.data.local.entity.AddMemberType
-import com.msg.gcms.data.remote.dto.user.response.UserData
 import com.msg.gcms.databinding.ListAddMemberBinding
+import com.msg.gcms.domain.data.club_member.get_club_member.MemberData
 
 class AddMemberAdapter : RecyclerView.Adapter<AddMemberAdapter.AddMemberViewHolder>() {
 
@@ -18,7 +18,7 @@ class AddMemberAdapter : RecyclerView.Adapter<AddMemberAdapter.AddMemberViewHold
             binding.addUserNameTv.text = data.userName
         }
     }
-    fun setMemberList(list: List<UserData>) {
+    fun setMemberList(list: List<MemberData>) {
         list.filter { it.email != "" }.forEach {
             this.list.add(AddMemberType(userEmail = it.email, userName = it.name, userImg = it.userImg))
         }

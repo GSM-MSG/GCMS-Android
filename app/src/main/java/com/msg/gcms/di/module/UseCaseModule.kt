@@ -1,28 +1,30 @@
 package com.msg.gcms.di.module
 
+import com.msg.gcms.domain.repository.ApplicantRepository
 import com.msg.gcms.domain.repository.AuthRepository
+import com.msg.gcms.domain.repository.ClubMemberRepository
 import com.msg.gcms.domain.repository.ClubRepository
 import com.msg.gcms.domain.repository.ImageRepository
 import com.msg.gcms.domain.repository.UserRepository
+import com.msg.gcms.domain.usecase.applicant.ApplicantAcceptUseCase
+import com.msg.gcms.domain.usecase.applicant.ApplicantRejectUseCase
+import com.msg.gcms.domain.usecase.applicant.GetApplicantUseCase
+import com.msg.gcms.domain.usecase.applicant.PostClubApplyUseCase
+import com.msg.gcms.domain.usecase.applicant.PostClubCancelUseCase
 import com.msg.gcms.domain.usecase.auth.CheckLoginStatusUseCase
 import com.msg.gcms.domain.usecase.auth.LogoutUseCase
 import com.msg.gcms.domain.usecase.auth.SaveTokenInfoUseCase
 import com.msg.gcms.domain.usecase.auth.SignInUseCase
-import com.msg.gcms.domain.usecase.club.ApplicantAcceptUseCase
-import com.msg.gcms.domain.usecase.club.ApplicantRejectUseCase
 import com.msg.gcms.domain.usecase.club.ClubDeleteUseCase
 import com.msg.gcms.domain.usecase.club.EditClubInfoUseCase
-import com.msg.gcms.domain.usecase.club.GetApplicantUseCase
 import com.msg.gcms.domain.usecase.club.GetClubListUseCase
 import com.msg.gcms.domain.usecase.club.GetDetailUseCase
-import com.msg.gcms.domain.usecase.club.GetMemberUseCase
-import com.msg.gcms.domain.usecase.club.MandateUseCase
-import com.msg.gcms.domain.usecase.club.PostClubApplyUseCase
-import com.msg.gcms.domain.usecase.club.PostClubCancelUseCase
 import com.msg.gcms.domain.usecase.club.PostCreateClubUseCase
 import com.msg.gcms.domain.usecase.club.PutClubCloseUseCase
 import com.msg.gcms.domain.usecase.club.PutClubOpenUseCase
-import com.msg.gcms.domain.usecase.club.UserKickUseCase
+import com.msg.gcms.domain.usecase.club_member.GetMemberUseCase
+import com.msg.gcms.domain.usecase.club_member.MandateUseCase
+import com.msg.gcms.domain.usecase.club_member.UserKickUseCase
 import com.msg.gcms.domain.usecase.image.ImageUseCase
 import com.msg.gcms.domain.usecase.user.DeleteUserUseCase
 import com.msg.gcms.domain.usecase.user.EditProfileUseCase
@@ -39,31 +41,38 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 object UseCaseModule {
 
-    // --- Club UseCase ---
+    // --- Applicant UseCase ---
     @Provides
     @Singleton
-    fun provideApplicantAcceptUseCase(repository: ClubRepository): ApplicantAcceptUseCase =
+    fun provideApplicantAcceptUseCase(repository: ApplicantRepository): ApplicantAcceptUseCase =
         ApplicantAcceptUseCase(repository)
 
     @Provides
     @Singleton
-    fun provideApplicantRejectUseCase(repository: ClubRepository): ApplicantRejectUseCase =
+    fun provideApplicantRejectUseCase(repository: ApplicantRepository): ApplicantRejectUseCase =
         ApplicantRejectUseCase(repository)
 
     @Provides
     @Singleton
-    fun provideClubDeleteUseCase(repository: ClubRepository): ClubDeleteUseCase =
-        ClubDeleteUseCase(repository)
+    fun provideGetApplicantUseCase(repository: ApplicantRepository): GetApplicantUseCase =
+        GetApplicantUseCase(repository)
+
+    @Provides
+    @Singleton
+    fun providePostClubApplyUseCase(repository: ApplicantRepository): PostClubApplyUseCase =
+        PostClubApplyUseCase(repository)
+
+    @Provides
+    @Singleton
+    fun providePostClubCancelUseCase(repository: ApplicantRepository): PostClubCancelUseCase =
+        PostClubCancelUseCase(repository)
+
+    // --- Club UseCase ---
 
     @Provides
     @Singleton
     fun provideEditClubInfoUseCase(repository: ClubRepository): EditClubInfoUseCase =
         EditClubInfoUseCase(repository)
-
-    @Provides
-    @Singleton
-    fun provideGetApplicantUseCase(repository: ClubRepository): GetApplicantUseCase =
-        GetApplicantUseCase(repository)
 
     @Provides
     @Singleton
@@ -74,26 +83,6 @@ object UseCaseModule {
     @Singleton
     fun provideGetDetailUseCase(repository: ClubRepository): GetDetailUseCase =
         GetDetailUseCase(repository)
-
-    @Provides
-    @Singleton
-    fun provideGetMemberUseCase(repository: ClubRepository): GetMemberUseCase =
-        GetMemberUseCase(repository)
-
-    @Provides
-    @Singleton
-    fun provideMandateUseCase(repository: ClubRepository): MandateUseCase =
-        MandateUseCase(repository)
-
-    @Provides
-    @Singleton
-    fun providePostClubApplyUseCase(repository: ClubRepository): PostClubApplyUseCase =
-        PostClubApplyUseCase(repository)
-
-    @Provides
-    @Singleton
-    fun providePostClubCancelUseCase(repository: ClubRepository): PostClubCancelUseCase =
-        PostClubCancelUseCase(repository)
 
     @Provides
     @Singleton
@@ -112,7 +101,28 @@ object UseCaseModule {
 
     @Provides
     @Singleton
-    fun provideUserKickUseCase(repository: ClubRepository): UserKickUseCase =
+    fun provideExitUseCase(repository: ClubRepository): ExitUseCase =
+        ExitUseCase(repository)
+
+    @Provides
+    @Singleton
+    fun provideClubDeleteUseCase(repository: ClubRepository): ClubDeleteUseCase =
+        ClubDeleteUseCase(repository)
+
+    // --- Club Member UserCase
+    @Provides
+    @Singleton
+    fun provideGetMemberUseCase(repository: ClubMemberRepository): GetMemberUseCase =
+        GetMemberUseCase(repository)
+
+    @Provides
+    @Singleton
+    fun provideMandateUseCase(repository: ClubMemberRepository): MandateUseCase =
+        MandateUseCase(repository)
+
+    @Provides
+    @Singleton
+    fun provideUserKickUseCase(repository: ClubMemberRepository): UserKickUseCase =
         UserKickUseCase(repository)
 
     // --- Auth UseCase ---
@@ -124,18 +134,19 @@ object UseCaseModule {
 
     @Provides
     @Singleton
-    fun provideLogoutUseCase(repository: AuthRepository): LogoutUseCase =
-        LogoutUseCase(repository)
-
-    @Provides
-    @Singleton
     fun provideCheckLoginStatusUseCase(repository: AuthRepository): CheckLoginStatusUseCase =
         CheckLoginStatusUseCase(repository)
 
     @Provides
     @Singleton
+    fun provideLogoutUseCase(repository: AuthRepository): LogoutUseCase =
+        LogoutUseCase(repository)
+
+    @Provides
+    @Singleton
     fun provideSaveTokenInfoUseCase(repository: AuthRepository): SaveTokenInfoUseCase =
         SaveTokenInfoUseCase(repository)
+
 
     // --- Image UseCase ---
 
@@ -143,6 +154,7 @@ object UseCaseModule {
     @Singleton
     fun provideImageUseCase(repository: ImageRepository): ImageUseCase =
         ImageUseCase(repository)
+
 
     // --- User UseCase ----
 
@@ -155,11 +167,6 @@ object UseCaseModule {
     @Singleton
     fun provideEditProfileUseCase(repository: UserRepository): EditProfileUseCase =
         EditProfileUseCase(repository)
-
-    @Provides
-    @Singleton
-    fun provideExitUseCase(repository: UserRepository): ExitUseCase =
-        ExitUseCase(repository)
 
     @Provides
     @Singleton

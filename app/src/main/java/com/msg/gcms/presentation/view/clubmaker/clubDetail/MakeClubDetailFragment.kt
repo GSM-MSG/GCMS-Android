@@ -24,7 +24,6 @@ import coil.load
 import coil.transform.RoundedCornersTransformation
 import com.msg.gcms.R
 import com.msg.gcms.data.local.entity.ActivityPhotoType
-import com.msg.gcms.data.remote.dto.user.response.UserData
 import com.msg.gcms.databinding.FragmentMakeClubDetailBinding
 import com.msg.gcms.presentation.adapter.ActivityPhotosAdapter
 import com.msg.gcms.presentation.adapter.ClubMemberAdapter
@@ -173,18 +172,22 @@ class MakeClubDetailFragment :
 
     private fun clubMemberRecyclerView() {
         if (makeClubViewModel.memberList.isEmpty()) {
-            makeClubViewModel.memberList.add(
-                UserData(
-                    email = "",
-                    name = "추가하기",
-                    grade = 0,
-                    `class` = 0,
-                    num = 0,
-                    userImg = R.drawable.bg_banner_placeholder.toString()
-                )
-            )
+
+            //TODO 여기 로직 다 만들어야함
+            // makeClubViewModel.memberList.add(
+            //     UserData(
+            //         uuid = "0",
+            //         email = "",
+            //         name = "추가하기",
+            //         grade = 0,
+            //         `class` = 0,
+            //         num = 0,
+            //         userImg = R.drawable.bg_banner_placeholder.toString()
+            //     )
+            // )
         }
-        clubMemberAdapter = ClubMemberAdapter(makeClubViewModel.memberList)
+        // Todo 여기 로직도 수정하기
+        // clubMemberAdapter = ClubMemberAdapter(makeClubViewModel.memberList)
         clubMemberAdapter.setItemOnClickListener(object : ClubMemberAdapter.OnItemClickListener {
             override fun onClick(position: Int) {
                 findNavController().navigate(R.id.action_makeClubDetailFragment_to_studentSearchFragment)

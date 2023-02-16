@@ -41,8 +41,8 @@ class ClubFragment : BaseFragment<FragmentClubBinding>(R.layout.fragment_club) {
                 override fun onClick(position: Int) {
                     clubViewModel.startLottie(requireActivity().supportFragmentManager)
                     detailViewModel.getDetail(
-                        mainViewModel.clubData.value?.get(position)!!.type,
-                        mainViewModel.clubData.value?.get(position)!!.title
+                        mainViewModel.clubData.value?.get(position)!!.id
+
                     )
                     observeStatus()
                 }

@@ -1,79 +1,72 @@
 package com.msg.gcms.data.repository
 
-import com.msg.gcms.data.remote.datasource.ClubDataSourceImpl
-import com.msg.gcms.data.remote.dto.club.request.ClubIdentificationRequest
-import com.msg.gcms.data.remote.dto.club.request.CreateClubRequest
-import com.msg.gcms.data.remote.dto.club.request.MemberManagementRequest
-import com.msg.gcms.data.remote.dto.club.request.ModifyClubInfoRequest
-import com.msg.gcms.data.remote.dto.club.response.ClubInfoResponse
-import com.msg.gcms.data.remote.dto.club.response.MemberInfo
-import com.msg.gcms.data.remote.dto.club.response.SummaryClubResponse
+import com.msg.gcms.data.mapper.ClubMapper
+import com.msg.gcms.data.remote.datasource.club.ClubDataSourceImpl
+import com.msg.gcms.data.remote.dto.club.create_club.CreateClubRequest
+import com.msg.gcms.data.remote.dto.club.modify_club_info.ModifyClubInfoRequest
+import com.msg.gcms.domain.data.club.get_club_detail.ClubDetailData
+import com.msg.gcms.domain.data.club.get_club_list.GetClubListData
+import com.msg.gcms.domain.data.club.modify_club_info.ModifyClubInfoData
+import com.msg.gcms.domain.data.club.create_club.CreateClubData
 import com.msg.gcms.domain.repository.ClubRepository
 import javax.inject.Inject
 
 class ClubRepositoryImpl @Inject constructor(
     private val dataSource: ClubDataSourceImpl
 ) : ClubRepository {
-    override suspend fun getClubList(type: String): List<SummaryClubResponse> {
-        return dataSource.getClubList(type = type)
+    override suspend fun getClubList(type: String): List<GetClubListData> {
+        return ClubMapper.mapperToGetClubListData(dataSource.getClubList(type = type))
     }
 
-    override suspend fun getDetail(type: String, clubName: String): ClubInfoResponse {
-        return dataSource.getDetail(type = type, clubName = clubName)
+    override suspend fun getDetail(clubId: Long): ClubDetailData {
+        return ClubMapper.mapperToDetailData(dataSource.getDetail(clubId))
     }
 
-    override suspend fun postCreateClub(body: CreateClubRequest) {
-        return dataSource.postCreateClub(body = body)
+    override suspend fun postCreateClub(body: CreateClubData) {
+        return dataSource.postCreateClub(
+            body = CreateClubRequest(
+                activityUrls = body.activityUrls,
+                bannerUrl = body.bannerUrl,
+                contact = body.contact,
+                description = body.description,
+                member = body.member,
+                notionLink = body.notionLink,
+                teacher = body.teacher,
+                title = body.title,
+                type = body.type
+            )
+        )
     }
 
-    override suspend fun putChangeClub(body: ModifyClubInfoRequest) {
-        return dataSource.putChangeClub(body = body)
+    override suspend fun putChangeClub(body: ModifyClubInfoData, clubId: Long) {
+        return dataSource.putChangeClub(
+            body = ModifyClubInfoRequest(
+                type = body.type,
+                activityImgs = body.activityImgs,
+                bannerUrl = body.bannerUrl,
+                contact = body.contact,
+                description = body.description,
+                member = body.member,
+                notionLink = body.notionLink,
+                teacher = body.teacher,
+                title = body.title
+            ), clubId = clubId
+        )
     }
 
-    override suspend fun deleteClub(body: ClubIdentificationRequest) {
-        return dataSource.deleteClub(body = body)
+    override suspend fun deleteClub(clubId: Long) {
+        return dataSource.deleteClub(clubId = clubId)
     }
 
-    override suspend fun getMemberList(clubName: String, type: String): MemberInfo {
-        return dataSource.getMemberList(clubName = clubName, type = type)
+    override suspend fun putClubOpen(clubId: Long) {
+        return dataSource.putClubOpen(clubId = clubId)
     }
 
-    override suspend fun getApplicationList(
-        clubName: String,
-        type: String
-    ): MemberInfo {
-        return dataSource.getApplicantList(clubName = clubName, type = type)
+    override suspend fun putClubClose(clubId: Long) {
+        return dataSource.putClubClose(clubId = clubId)
     }
 
-    override suspend fun postApplicationAccept(body: MemberManagementRequest) {
-        return dataSource.postApplicationAccept(body = body)
-    }
-
-    override suspend fun postApplicationReject(body: MemberManagementRequest) {
-        return dataSource.postApplicationReject(body = body)
-    }
-
-    override suspend fun putClubOpen(body: ClubIdentificationRequest) {
-        return dataSource.putClubOpen(body = body)
-    }
-
-    override suspend fun putClubClose(body: ClubIdentificationRequest) {
-        return dataSource.putClubClose(body = body)
-    }
-
-    override suspend fun deleteMemberExpel(body: MemberManagementRequest) {
-        return dataSource.deleteMemberExpel(body = body)
-    }
-
-    override suspend fun postClubApply(body: ClubIdentificationRequest) {
-        return dataSource.postClubApply(body = body)
-    }
-
-    override suspend fun postClubCancel(body: ClubIdentificationRequest) {
-        return dataSource.postClubCancel(body = body)
-    }
-
-    override suspend fun putDelegationOfRepresentation(body: MemberManagementRequest) {
-        return dataSource.putDelegationOfRepresentation(body = body)
+    override suspend fun exitClub(clubId: Long) {
+        return dataSource.deleteClub(clubId = clubId)
     }
 }

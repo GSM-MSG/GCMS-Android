@@ -1,45 +1,37 @@
 package com.msg.gcms.domain.repository
 
-import com.msg.gcms.data.remote.dto.club.request.ClubIdentificationRequest
-import com.msg.gcms.data.remote.dto.club.request.CreateClubRequest
-import com.msg.gcms.data.remote.dto.club.request.MemberManagementRequest
-import com.msg.gcms.data.remote.dto.club.request.ModifyClubInfoRequest
-import com.msg.gcms.data.remote.dto.club.response.ClubInfoResponse
-import com.msg.gcms.data.remote.dto.club.response.MemberInfo
-import com.msg.gcms.data.remote.dto.club.response.SummaryClubResponse
+import com.msg.gcms.domain.data.club.create_club.CreateClubData
+import com.msg.gcms.domain.data.club.get_club_detail.ClubDetailData
+import com.msg.gcms.domain.data.club.get_club_list.GetClubListData
+import com.msg.gcms.domain.data.club.modify_club_info.ModifyClubInfoData
 
 interface ClubRepository {
-    suspend fun getClubList(type: String): List<SummaryClubResponse>
+    suspend fun getClubList(type: String): List<GetClubListData>
 
-    suspend fun getDetail(type: String, clubName: String): ClubInfoResponse
+    suspend fun getDetail(clubId: Long): ClubDetailData
 
     suspend fun postCreateClub(
-        body: CreateClubRequest
+        body: CreateClubData
     )
 
     suspend fun putChangeClub(
-        body: ModifyClubInfoRequest
+        body: ModifyClubInfoData,
+        clubId: Long
     )
 
-    suspend fun deleteClub(body: ClubIdentificationRequest)
+    suspend fun putClubOpen(
+        clubId: Long
+    )
 
-    suspend fun getMemberList(clubName: String, type: String): MemberInfo
+    suspend fun putClubClose(
+        clubId: Long
+    )
 
-    suspend fun getApplicationList(clubName: String, type: String): MemberInfo
+    suspend fun exitClub(
+        clubId: Long
+    )
 
-    suspend fun postApplicationAccept(body: MemberManagementRequest)
-
-    suspend fun postApplicationReject(body: MemberManagementRequest)
-
-    suspend fun putClubOpen(body: ClubIdentificationRequest)
-
-    suspend fun putClubClose(body: ClubIdentificationRequest)
-
-    suspend fun deleteMemberExpel(body: MemberManagementRequest)
-
-    suspend fun postClubApply(body: ClubIdentificationRequest)
-
-    suspend fun postClubCancel(body: ClubIdentificationRequest)
-
-    suspend fun putDelegationOfRepresentation(body: MemberManagementRequest)
+    suspend fun deleteClub(
+        clubId: Long
+    )
 }

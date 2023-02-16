@@ -49,10 +49,10 @@ class ProfileActivity : BaseActivity<ActivityProfileBinding>(R.layout.activity_p
         profileViewModel.getUserInfo()
         profileViewModel.profileData.observe(this) {
             binding.apply {
-                userNameTxt.text = it.userData.name
+                userNameTxt.text = it.name
                 userClassTxt.text =
-                    "${it.userData.grade}학년 ${it.userData.`class`}반 ${it.userData.num}번"
-                profileImg.load(it.userData.userImg) {
+                    "${it.grade}학년 ${it.classNum}반 ${it.number}번"
+                profileImg.load(it.profileImg) {
                     transformations(CircleCropTransformation())
                 }
             }

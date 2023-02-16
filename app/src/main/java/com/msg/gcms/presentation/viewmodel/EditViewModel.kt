@@ -6,10 +6,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.msg.gcms.R
-import com.msg.gcms.data.remote.dto.club.request.ModifyClubInfoRequest
-import com.msg.gcms.data.remote.dto.club.response.ClubInfoResponse
-import com.msg.gcms.data.remote.dto.user.response.UserData
+import com.msg.gcms.domain.data.club.get_club_detail.ClubDetailData
+import com.msg.gcms.domain.data.club.modify_club_info.ModifyClubInfoData
+import com.msg.gcms.domain.data.user.search_user.GetSearchUserData
 import com.msg.gcms.domain.exception.BadRequestException
 import com.msg.gcms.domain.exception.ConflictException
 import com.msg.gcms.domain.exception.ForBiddenException
@@ -35,23 +34,20 @@ class EditViewModel @Inject constructor(
     private val editClubInfoUseCase: EditClubInfoUseCase
 ) : ViewModel() {
 
-    private val _clubInfo = MutableLiveData<ClubInfoResponse>()
-    val clubInfo: LiveData<ClubInfoResponse> get() = _clubInfo
+    private val _clubInfo = MutableLiveData<ClubDetailData>()
+    val clubInfo: LiveData<ClubDetailData> get() = _clubInfo
 
-    private val _clubType = MutableLiveData<String>()
-    val clubType: LiveData<String> get() = _clubType
+    private val _clubId = MutableLiveData<Long>()
+    val clubId: LiveData<Long> get() = _clubId
 
-    private val _clubName = MutableLiveData<String>()
-    val clubName: LiveData<String> get() = _clubName
-
-    private val _result = MutableLiveData<List<UserData>>()
-    val result: LiveData<List<UserData>> get() = _result
+    private val _result = MutableLiveData<List<GetSearchUserData>>()
+    val result: LiveData<List<GetSearchUserData>> get() = _result
 
     var newPhotos = mutableListOf<String>()
 
     private var clubMemberEmail = mutableListOf<String>()
 
-    var memberList: MutableList<UserData> = mutableListOf()
+    var memberList: MutableList<String> = mutableListOf()
 
     private val _convertImage = MutableLiveData<List<String>>()
     val convertImage: LiveData<List<String>> get() = _convertImage
@@ -61,22 +57,10 @@ class EditViewModel @Inject constructor(
 
     private val lottie by lazy { LottieFragment() }
 
-    fun clubTypeDivider(clubType: String) {
-        val clubType = clubType.split("+")
-        this._clubType.value = clubType[1].trim()
-        this._clubName.value = clubType[0].trim()
-        Log.d("TAG", "clubTypeDivider: ${this.clubType.value}, ${this.clubName.value}")
-    }
-
     fun getClubInfo() {
         viewModelScope.launch {
-            Log.d(
-                "TAG",
-                "getClubInfo: ${_clubType.value.toString()}, ${_clubName.value.toString()}"
-            )
             getDetailUseCase(
-                type = _clubType.value.toString(),
-                clubName = _clubName.value.toString()
+                clubId = clubId.value!!
             ).onSuccess {
                 _clubInfo.value = it
                 Log.d("TAG", "getClubInfo: $it")
@@ -94,26 +78,29 @@ class EditViewModel @Inject constructor(
 
     private fun memberCheck() {
         if (clubInfo.value!!.member.isEmpty()) {
-            memberList.add(
-                UserData(
-                    email = "",
-                    name = "추가하기",
-                    grade = 0,
-                    `class` = 0,
-                    num = 0,
-                    userImg = R.drawable.bg_banner_placeholder.toString()
-                )
-            )
+            // TODO 여기 타입 변경하기
+            // memberList.add(
+            //     MemberListData(
+            //         uuid = "0",
+            //         email = "",
+            //         name = "추가하기",
+            //         grade = 0,
+            //         `class` = 0,
+            //         num = 0,
+            //         userImg = R.drawable.bg_banner_placeholder.toString()
+            //     )
+            // )
         } else {
-            memberList.addAll(clubInfo.value!!.member)
+            //TODO 여기 타입 변경하기
+            // memberList.addAll(clubInfo.value!!.member)
             Log.d("TAG", "memberCheck: ${memberList.distinct()}")
         }
     }
 
-    fun getSearchUser(name: String) {
+    fun getSearchUser(name: String, type: String) {
         val queryString: HashMap<String, String> = HashMap()
         queryString["name"] = name
-        queryString["type"] = clubType.value.toString()
+        queryString["type"] = type
         viewModelScope.launch {
             getSearchUserUseCase(
                 queryString
@@ -132,8 +119,8 @@ class EditViewModel @Inject constructor(
 
     fun setMemberEmail() {
         memberList.forEach {
-            Log.d("TAG", "setMemberEmail: ${it.email}")
-            clubMemberEmail.add(it.email)
+            Log.d("TAG", "setMemberEmail: $it")
+            clubMemberEmail.add(it)
         }
         memberList.distinct()
     }
@@ -145,8 +132,8 @@ class EditViewModel @Inject constructor(
                 list
             ).onSuccess {
                 Log.d("TAG", "uploadImage: $it")
-                newPhotos = it.toMutableList()
-                _convertImage.value = it
+                newPhotos = it.images.toMutableList()
+                _convertImage.value = it.images
 
             }.onFailure {
                 when (it) {
@@ -171,13 +158,12 @@ class EditViewModel @Inject constructor(
         }
     }
 
-    fun putChangeClubInfo(body: ModifyClubInfoRequest) {
+    fun putChangeClubInfo(body: ModifyClubInfoData) {
         viewModelScope.launch {
             editClubInfoUseCase(
-                body = body
+                body = body,
+                clubId = clubId.value!!
             ).onSuccess {
-                //Todo(Leeyeonbin) 여기도 코드 다 수정하기
-                // Log.d("TAG", "putChangeClubInfo: ${it.code()}")
                 _editClubResult.value = Event.Success
             }.onFailure {
                 _editClubResult.value = when (it) {

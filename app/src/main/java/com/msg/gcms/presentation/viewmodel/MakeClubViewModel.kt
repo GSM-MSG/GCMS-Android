@@ -6,8 +6,9 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.msg.gcms.data.local.entity.ActivityPhotoType
-import com.msg.gcms.data.remote.dto.club.request.CreateClubRequest
-import com.msg.gcms.data.remote.dto.user.response.UserData
+import com.msg.gcms.domain.data.club.create_club.CreateClubData
+import com.msg.gcms.domain.data.club_member.get_club_member.MemberData
+import com.msg.gcms.domain.data.user.search_user.GetSearchUserData
 import com.msg.gcms.domain.exception.BadRequestException
 import com.msg.gcms.domain.exception.ConflictException
 import com.msg.gcms.domain.exception.ServerException
@@ -35,8 +36,8 @@ class MakeClubViewModel @Inject constructor(
         _clubType.value = type
     }
 
-    private val _searchUserResult = MutableLiveData<List<UserData>>()
-    val searchUserResult: LiveData<List<UserData>> get() = _searchUserResult
+    private val _searchUserResult = MutableLiveData<List<GetSearchUserData>>()
+    val searchUserResult: LiveData<List<GetSearchUserData>> get() = _searchUserResult
 
     private val _searchUserState = MutableLiveData<Event>()
     val searchUserState: LiveData<Event> get() = _searchUserState
@@ -47,7 +48,7 @@ class MakeClubViewModel @Inject constructor(
     private val _activityPhotoResult = MutableLiveData<List<String>>()
     val activityPhoto: LiveData<List<String>> get() = _activityPhotoResult
 
-    var memberList: MutableList<UserData> = mutableListOf()
+    var memberList: MutableList<MemberData> = mutableListOf()
 
     private var clubMemberEmail = mutableListOf<String>()
 
@@ -127,7 +128,7 @@ class MakeClubViewModel @Inject constructor(
                 image = image
             ).onSuccess {
                 Log.d("TAG", "banner: $it")
-                _bannerResult.value = it[0]
+                _bannerResult.value = it.images[0]
                 _bannerUpload = true
                 imageUploadCheck()
             }.onFailure {
@@ -145,7 +146,7 @@ class MakeClubViewModel @Inject constructor(
                 image = image
             ).onSuccess {
                 Log.d("TAG", "activityPhoto: $it")
-                _activityPhotoResult.value = it
+                _activityPhotoResult.value = it.images
                 _activityUpload = true
                 imageUploadCheck()
             }.onFailure {
@@ -169,7 +170,7 @@ class MakeClubViewModel @Inject constructor(
                 )
                 clubMemberEmail.remove("")
                 postCreateClubUseCase(
-                    CreateClubRequest
+                    CreateClubData
                         (
                         type = clubType.value.toString().trim(),
                         title = title,

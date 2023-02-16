@@ -1,11 +1,13 @@
 package com.msg.gcms.di.module
 
 import com.msg.gcms.BuildConfig
-import com.msg.gcms.data.remote.network.AuthAPI
-import com.msg.gcms.data.remote.network.ClubAPI
-import com.msg.gcms.data.remote.network.ImageAPI
+import com.msg.gcms.data.remote.network.api.ClubAPI
+import com.msg.gcms.data.remote.network.api.AuthAPI
+import com.msg.gcms.data.remote.network.api.ImageAPI
 import com.msg.gcms.data.remote.network.LoginInterceptor
-import com.msg.gcms.data.remote.network.UserAPI
+import com.msg.gcms.data.remote.network.api.ApplicantAPI
+import com.msg.gcms.data.remote.network.api.ClubMemberAPI
+import com.msg.gcms.data.remote.network.api.UserAPI
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -71,6 +73,18 @@ object NetworkModule {
     @Singleton
     fun provideImageService(retrofit: Retrofit): ImageAPI {
         return retrofit.create(ImageAPI::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun provideApplicantService(retrofit: Retrofit): ApplicantAPI {
+        return retrofit.create(ApplicantAPI::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun provideClubMemberService(retrofit: Retrofit): ClubMemberAPI {
+        return retrofit.create(ClubMemberAPI::class.java)
     }
 
     @Provides

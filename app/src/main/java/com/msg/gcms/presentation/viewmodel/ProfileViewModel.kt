@@ -5,8 +5,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.msg.gcms.data.remote.dto.user.request.UserProfileRequest
-import com.msg.gcms.data.remote.dto.user.response.UserInfoResponse
+import com.msg.gcms.domain.data.user.get_my_profile.GetMyProfileData
+import com.msg.gcms.domain.data.user.modify_profile_image.ModifyProfileImageData
 import com.msg.gcms.domain.exception.BadRequestException
 import com.msg.gcms.domain.exception.NotFoundException
 import com.msg.gcms.domain.exception.UnauthorizedException
@@ -27,8 +27,8 @@ class ProfileViewModel @Inject constructor(
     private val _clubStatus = MutableLiveData<Boolean>()
     val clubStatus: LiveData<Boolean> get() = _clubStatus
 
-    private val _profileData = MutableLiveData<UserInfoResponse>()
-    val profileData: LiveData<UserInfoResponse> get() = _profileData
+    private val _profileData = MutableLiveData<GetMyProfileData>()
+    val profileData: LiveData<GetMyProfileData> get() = _profileData
 
     fun getUserInfo() {
         viewModelScope.launch {
@@ -51,7 +51,7 @@ class ProfileViewModel @Inject constructor(
             imgUseCase(
                 image = listOf(img)
             ).onSuccess {
-                saveImg(it[0])
+                saveImg(it.images[0])
             }.onFailure {
                 when (it) {
                     is BadRequestException -> Log.d("TAG", "uploadImg: $it")
@@ -63,7 +63,7 @@ class ProfileViewModel @Inject constructor(
 
     fun saveImg(img: String) {
         viewModelScope.launch {
-            val response = editProfileUseCase(UserProfileRequest(img))
+            val response = editProfileUseCase(ModifyProfileImageData(img))
         }
     }
 }

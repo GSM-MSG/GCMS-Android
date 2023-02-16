@@ -30,9 +30,8 @@ import coil.request.SuccessResult
 import coil.transform.RoundedCornersTransformation
 import com.msg.gcms.R
 import com.msg.gcms.data.local.entity.ActivityPhotoType
-import com.msg.gcms.data.remote.dto.club.request.ModifyClubInfoRequest
-import com.msg.gcms.data.remote.dto.user.response.UserData
 import com.msg.gcms.databinding.FragmentEditClubBinding
+import com.msg.gcms.domain.data.club.get_club_detail.ClubMemberData
 import com.msg.gcms.presentation.adapter.ActivityPhotosAdapter
 import com.msg.gcms.presentation.adapter.ClubMemberAdapter
 import com.msg.gcms.presentation.base.BaseFragment
@@ -69,7 +68,7 @@ class EditClubFragment : BaseFragment<FragmentEditClubBinding>(R.layout.fragment
     private var legacyList = listOf<ActivityPhotoType>()
     private var newPhotosList = mutableListOf<MultipartBody.Part>()
 
-    private var memberList = mutableListOf<UserData>()
+    private var memberList = mutableListOf<ClubMemberData>()
     var getClubInfoListener = false
 
     override fun init() {
@@ -203,13 +202,13 @@ class EditClubFragment : BaseFragment<FragmentEditClubBinding>(R.layout.fragment
     private fun observeConvertImage() {
         editViewModel.convertImage.observe(this) {
             if(it.isNotEmpty()) {
-                editClubInfo()
+                // editClubInfo()
             }
         }
     }
 
     private fun observeClubTypeDivider() {
-        editViewModel.clubName.observe(this) {
+        editViewModel.clubId.observe(this) {
             getClubInfo()
         }
     }
@@ -220,30 +219,31 @@ class EditClubFragment : BaseFragment<FragmentEditClubBinding>(R.layout.fragment
                 getClubInfoListener = true
                 if (it != null) {
                     with(binding) {
-                        clubNameEt.setText(it.club.title)
-                        clubDescriptionEt.setText(it.club.description)
-                        linkEt.setText(it.club.notionLink)
-                        contactEt.setText(it.club.contact)
-                        teacherNameEt.setText(it.club.teacher)
-                        bannerImageView.load(it.club.bannerUrl) {
+                        clubNameEt.setText(it.name)
+                        clubDescriptionEt.setText(it.content)
+                        linkEt.setText(it.notionLink)
+                        contactEt.setText(it.contact)
+                        teacherNameEt.setText(it.teacher)
+                        bannerImageView.load(it.bannerImg) {
                             crossfade(true)
                             transformations(RoundedCornersTransformation(8f, 8f, 8f, 8f))
                         }
                         bannerIcon.visibility = View.GONE
                         bannerTxt.visibility = View.GONE
-                        activityPhotoUrlList = it.activityUrls.toMutableList()
-                        memberList = editViewModel.memberList
-                        Log.d("TAG", "observeClubInfo: ${it.member}, $memberList")
+                        activityPhotoUrlList = it.activityImgs.toMutableList()
+                        // TODO 여기 타입 변경하기
+                        // memberList = editViewModel.memberList
+                        Log.d("TAG", "observeClubInfo: ${it.member}")
                         clubMemberAdapter.notifyDataSetChanged()
                         addBitmapToList()
                         lifecycleScope.launch {
-                            bannerImageBitmap = getBitmapFromUrl(it.club.bannerUrl)
+                            bannerImageBitmap = getBitmapFromUrl(it.bannerImg)
                         }
                     }
                 }
             } else {
                 with(binding) {
-                    bannerImageView.load(it.club.bannerUrl) {
+                    bannerImageView.load(it.bannerImg) {
                         crossfade(true)
                         transformations(RoundedCornersTransformation(8f, 8f, 8f, 8f))
                     }
@@ -257,8 +257,8 @@ class EditClubFragment : BaseFragment<FragmentEditClubBinding>(R.layout.fragment
 
     private fun addBitmapToList() {
         lifecycleScope.launch {
-            Log.d("TAG", "beforeBitmap: ${editViewModel.clubInfo.value?.activityUrls}")
-            editViewModel.clubInfo.value?.activityUrls?.forEach {
+            Log.d("TAG", "beforeBitmap: ${editViewModel.clubInfo.value?.activityImgs}")
+            editViewModel.clubInfo.value?.activityImgs?.forEach {
                 activityPhotoList.add(ActivityPhotoType(activityPhoto = getBitmapFromUrl(it)))
                 Log.d("TAG", "bitmapping: $it")
             }
@@ -292,7 +292,7 @@ class EditClubFragment : BaseFragment<FragmentEditClubBinding>(R.layout.fragment
                             !legacyList.contains(it)
                         }
                     }, removed: ${
-                        editViewModel.clubInfo.value!!.activityUrls.filter {
+                        editViewModel.clubInfo.value!!.activityImgs.filter {
                             !activityPhotoUrlList.contains(
                                 it
                             )
@@ -306,7 +306,8 @@ class EditClubFragment : BaseFragment<FragmentEditClubBinding>(R.layout.fragment
     }
 
     private fun clubMemberRecyclerView() {
-        clubMemberAdapter = ClubMemberAdapter(editViewModel.memberList)
+        // TODO 여기 타입 변경하기
+        // clubMemberAdapter = ClubMemberAdapter(editViewModel.memberList)
         Log.d("TAG", "clubMemberRecyclerView: ${editViewModel.memberList}}")
         binding.clubMemberRv.adapter = clubMemberAdapter
     }
@@ -418,22 +419,22 @@ class EditClubFragment : BaseFragment<FragmentEditClubBinding>(R.layout.fragment
         return image
     }
 
-    private fun editClubInfo() {
-        editViewModel.putChangeClubInfo(
-            ModifyClubInfoRequest(
-                q = editViewModel.clubInfo.value!!.club.title,
-                type = editViewModel.clubInfo.value!!.club.type,
-                title = binding.clubNameEt.text.toString().trim(),
-                description = binding.clubDescriptionEt.text.toString(),
-                contact = binding.contactEt.text.toString(),
-                notionLink = binding.linkEt.text.toString(),
-                teacher = binding.teacherNameEt.text.toString(),
-                deleteActivityUrls = editViewModel.clubInfo.value!!.activityUrls.filterNot { activityPhotoUrlList.contains(it) },
-                bannerUrl = editViewModel.newPhotos.last(),
-                newActivityUrls = editViewModel.newPhotos.dropLast(1)
-            )
-        )
-    }
+    //TODO 동아리 수정 로직 변경된거 수정하기
+    // private fun editClubInfo() {
+    //     editViewModel.putChangeClubInfo(
+    //         ModifyClubInfoRequest(
+    //             type = editViewModel.clubInfo.value!!.type,
+    //             title = binding.clubNameEt.text.toString().trim(),
+    //             description = binding.clubDescriptionEt.text.toString(),
+    //             contact = binding.contactEt.text.toString(),
+    //             notionLink = binding.linkEt.text.toString(),
+    //             teacher = binding.teacherNameEt.text.toString(),
+    //             deleteActivityUrls = editViewModel.clubInfo.value!!.activityImgs.filterNot { activityPhotoUrlList.contains(it) },
+    //             bannerUrl = editViewModel.newPhotos.last(),
+    //             newActivityUrls = editViewModel.newPhotos.dropLast(1)
+    //         )
+    //     )
+    // }
 
     private fun observeEditClubResult() {
         editViewModel.editClubResult.observe(this) {

@@ -10,8 +10,8 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.msg.gcms.R
 import com.msg.gcms.data.local.entity.AddMemberType
-import com.msg.gcms.data.remote.dto.user.response.UserData
 import com.msg.gcms.databinding.FragmentEditSearchBinding
+import com.msg.gcms.domain.data.user.search_user.GetSearchUserData
 import com.msg.gcms.presentation.adapter.AddMemberAdapter
 import com.msg.gcms.presentation.adapter.UserSearchAdapter
 import com.msg.gcms.presentation.base.BaseFragment
@@ -36,8 +36,8 @@ class EditSearchFragment: BaseFragment<FragmentEditSearchBinding>(R.layout.fragm
     private lateinit var searchAdapter: UserSearchAdapter
     private lateinit var addMemberAdapter: AddMemberAdapter
 
-    private var userList = mutableListOf<UserData>()
-    private var memberList = mutableListOf<UserData>()
+    private var userList = mutableListOf<GetSearchUserData>()
+    private var memberList = mutableListOf<GetSearchUserData>()
 
     private val coroutineJob: Job = Job()
     private val coroutineContext: CoroutineContext
@@ -71,15 +71,16 @@ class EditSearchFragment: BaseFragment<FragmentEditSearchBinding>(R.layout.fragm
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
             setHasFixedSize(true)
             addItemDecoration(ItemDecorator(16, "HORIZONTAL"))
-            memberList = editViewModel.memberList
-            addMemberAdapter.setMemberList(memberList.distinct())
+            // TODO 타입 변경하기
+            // memberList = editViewModel.memberList
+            // addMemberAdapter.setMemberList(memberList.distinct())
             adapter = addMemberAdapter
         }
         addMemberAdapter.setItemOnClickListener(object : AddMemberAdapter.OnItemClickListener {
             override fun onClick(position: Int) {
                 val item = memberList[position]
                 memberList.remove(item)
-                addMemberAdapter.removeMember(AddMemberType(item.name, item.email, item.userImg))
+                addMemberAdapter.removeMember(AddMemberType(item.name, item.email, item.profileImg))
             }
         })
         searchAdapter.setItemOnClickListener(object : UserSearchAdapter.OnItemClickListener {
@@ -87,7 +88,7 @@ class EditSearchFragment: BaseFragment<FragmentEditSearchBinding>(R.layout.fragm
                 val item = userList[position]
                 if(!memberList.contains(item)) {
                     memberList.add(item)
-                    addMemberAdapter.submitList(AddMemberType(item.name, item.email, item.userImg))
+                    addMemberAdapter.submitList(AddMemberType(item.name, item.email, item.profileImg))
                     Log.d("TAG", "addMemberList : $memberList")
                 }else {
                     Log.d("TAG", "that user contained list")
@@ -109,14 +110,14 @@ class EditSearchFragment: BaseFragment<FragmentEditSearchBinding>(R.layout.fragm
                 .distinctUntilChanged()
                 .collect {
                     Log.d("TAG", "observeEditText: $it")
-                    editViewModel.getSearchUser(it)
+                    editViewModel.getSearchUser(it, editViewModel.clubInfo.value!!.type)
                 }
         }
     }
 
     private fun observeResult() {
         editViewModel.result.observe(this) {
-            userList = it as MutableList<UserData>
+            userList = it as MutableList<GetSearchUserData>
             searchAdapter.submitList(it)
         }
     }
@@ -128,7 +129,8 @@ class EditSearchFragment: BaseFragment<FragmentEditSearchBinding>(R.layout.fragm
             }
             binding.selectBtn.id -> {
                 if(memberList.isNotEmpty()) {
-                    editViewModel.memberList = memberList.distinct().toMutableList()
+                    // TODO 여기 타입 변경하기
+                    // editViewModel.memberList = memberList.distinct().toMutableList()
                 }
                 editViewModel.setMemberEmail()
                 this.findNavController().popBackStack()
