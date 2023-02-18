@@ -1,4 +1,4 @@
-package com.msg.gcms.presentation.view.clubmaker.clubDetail
+package com.msg.gcms.presentation.view.clubmaker.club_detail
 
 import android.Manifest
 import android.annotation.SuppressLint
@@ -174,20 +174,20 @@ class MakeClubDetailFragment :
         if (makeClubViewModel.memberList.isEmpty()) {
 
             //TODO 여기 로직 다 만들어야함
-            // makeClubViewModel.memberList.add(
-            //     UserData(
-            //         uuid = "0",
-            //         email = "",
-            //         name = "추가하기",
-            //         grade = 0,
-            //         `class` = 0,
-            //         num = 0,
-            //         userImg = R.drawable.bg_banner_placeholder.toString()
-            //     )
-            // )
+            makeClubViewModel.memberList.add(
+                UserData(
+                    uuid = "0",
+                    email = "",
+                    name = "추가하기",
+                    grade = 0,
+                    `class` = 0,
+                    num = 0,
+                    userImg = R.drawable.bg_banner_placeholder.toString()
+                )
+            )
         }
         // Todo 여기 로직도 수정하기
-        // clubMemberAdapter = ClubMemberAdapter(makeClubViewModel.memberList)
+        clubMemberAdapter = ClubMemberAdapter(makeClubViewModel.memberList)
         clubMemberAdapter.setItemOnClickListener(object : ClubMemberAdapter.OnItemClickListener {
             override fun onClick(position: Int) {
                 findNavController().navigate(R.id.action_makeClubDetailFragment_to_studentSearchFragment)

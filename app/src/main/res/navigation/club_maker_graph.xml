@@ -30,7 +30,7 @@
     </fragment>
     <fragment
         android:id="@+id/makeClubDetailFragment"
-        android:name="com.msg.gcms.presentation.view.clubmaker.clubDetail.MakeClubDetailFragment"
+        android:name="com.msg.gcms.presentation.view.clubmaker.club_detail.MakeClubDetailFragment"
         android:label="MakeClubDetailFragment"
         tools:layout="@layout/fragment_make_club_detail">
         <action
