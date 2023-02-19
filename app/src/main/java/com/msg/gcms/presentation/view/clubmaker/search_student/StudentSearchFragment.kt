@@ -1,4 +1,4 @@
-package com.msg.gcms.presentation.view.clubmaker.searchstudent
+package com.msg.gcms.presentation.view.clubmaker.search_student
 
 import android.util.Log
 import android.view.View

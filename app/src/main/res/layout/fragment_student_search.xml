@@ -5,7 +5,7 @@
     <data>
         <variable
             name="fragment"
-            type="com.msg.gcms.presentation.view.clubmaker.searchstudent.StudentSearchFragment" />
+            type="com.msg.gcms.presentation.view.clubmaker.search_student.StudentSearchFragment" />
     </data>
 
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"

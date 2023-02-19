@@ -1,4 +1,4 @@
-package com.msg.gcms.presentation.view.clubmaker.clubIntroduce
+package com.msg.gcms.presentation.view.clubmaker.club_introduce
 
 import android.view.View
 import android.view.WindowManager

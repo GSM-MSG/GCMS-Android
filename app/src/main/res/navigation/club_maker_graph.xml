@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/clubTypeFragment"
-        android:name="com.msg.gcms.presentation.view.clubmaker.clubType.ClubTypeFragment"
+        android:name="com.msg.gcms.presentation.view.clubmaker.club_type.ClubTypeFragment"
         android:label="ClubTypeFragment"
         tools:layout="@layout/fragment_club_type">
         <action
@@ -21,7 +21,7 @@
     </fragment>
     <fragment
         android:id="@+id/clubIntroduceFragment"
-        android:name="com.msg.gcms.presentation.view.clubmaker.clubIntroduce.ClubIntroduceFragment"
+        android:name="com.msg.gcms.presentation.view.clubmaker.club_introduce.ClubIntroduceFragment"
         android:label="ClubIntroduceFragment"
         tools:layout="@layout/fragment_club_introduce">
         <action
@@ -40,7 +40,7 @@
 
     <fragment
         android:id="@+id/studentSearchFragment"
-        android:name="com.msg.gcms.presentation.view.clubmaker.searchstudent.StudentSearchFragment"
+        android:name="com.msg.gcms.presentation.view.clubmaker.search_student.StudentSearchFragment"
         android:label="StudentSearchFragment"
         tools:layout="@layout/fragment_student_search">
         <action
