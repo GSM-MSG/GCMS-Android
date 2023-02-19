@@ -23,9 +23,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import coil.load
 import coil.transform.RoundedCornersTransformation
 import com.msg.gcms.R
-import com.msg.gcms.presentation.adapter.activity_photo.ActivityPhotoType
 import com.msg.gcms.databinding.FragmentMakeClubDetailBinding
+import com.msg.gcms.presentation.adapter.activity_photo.ActivityPhotoType
 import com.msg.gcms.presentation.adapter.activity_photo.ActivityPhotosAdapter
+import com.msg.gcms.presentation.adapter.add_member.AddMemberType
 import com.msg.gcms.presentation.adapter.club_member.ClubMemberAdapter
 import com.msg.gcms.presentation.base.BaseFragment
 import com.msg.gcms.presentation.base.BaseModal
@@ -175,13 +176,9 @@ class MakeClubDetailFragment :
 
             //TODO 여기 로직 다 만들어야함
             makeClubViewModel.memberList.add(
-                UserData(
-                    uuid = "0",
-                    email = "",
-                    name = "추가하기",
-                    grade = 0,
-                    `class` = 0,
-                    num = 0,
+                AddMemberType(
+                    uuid = null,
+                    userName = "추가하기",
                     userImg = R.drawable.bg_banner_placeholder.toString()
                 )
             )

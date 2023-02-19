@@ -1,8 +1,9 @@
 package com.msg.gcms.domain.data.club_member.get_club_member
 
+import java.util.UUID
 
 data class MemberData(
-    val uuid: String,
+    val uuid: UUID,
     val email: String,
     val name: String,
     val grade: Int,

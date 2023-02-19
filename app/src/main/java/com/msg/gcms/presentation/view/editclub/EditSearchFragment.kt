@@ -80,7 +80,7 @@ class EditSearchFragment: BaseFragment<FragmentEditSearchBinding>(R.layout.fragm
             override fun onClick(position: Int) {
                 val item = memberList[position]
                 memberList.remove(item)
-                addMemberAdapter.removeMember(AddMemberType(item.name, item.email, item.profileImg))
+                addMemberAdapter.removeMember(AddMemberType(uuid = item.uuid, userName = item.name, userImg = item.profileImg))
             }
         })
         searchAdapter.setItemOnClickListener(object : UserSearchAdapter.OnItemClickListener {
@@ -88,7 +88,7 @@ class EditSearchFragment: BaseFragment<FragmentEditSearchBinding>(R.layout.fragm
                 val item = userList[position]
                 if(!memberList.contains(item)) {
                     memberList.add(item)
-                    addMemberAdapter.submitList(AddMemberType(item.name, item.email, item.profileImg))
+                    addMemberAdapter.submitList(AddMemberType(uuid = item.uuid, userName = item.name, userImg = item.profileImg))
                     Log.d("TAG", "addMemberList : $memberList")
                 }else {
                     Log.d("TAG", "that user contained list")
