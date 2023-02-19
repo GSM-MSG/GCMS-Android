@@ -12,8 +12,8 @@ import com.msg.gcms.R
 import com.msg.gcms.data.local.entity.AddMemberType
 import com.msg.gcms.databinding.FragmentEditSearchBinding
 import com.msg.gcms.domain.data.user.search_user.GetSearchUserData
-import com.msg.gcms.presentation.adapter.AddMemberAdapter
-import com.msg.gcms.presentation.adapter.UserSearchAdapter
+import com.msg.gcms.presentation.adapter.add_member.AddMemberAdapter
+import com.msg.gcms.presentation.adapter.user_search.UserSearchAdapter
 import com.msg.gcms.presentation.base.BaseFragment
 import com.msg.gcms.presentation.utils.ItemDecorator
 import com.msg.gcms.presentation.viewmodel.EditViewModel

@@ -17,9 +17,9 @@ import com.msg.gcms.data.local.entity.PromotionPicType
 import com.msg.gcms.domain.data.club.get_club_detail.ClubMemberData
 import com.msg.gcms.databinding.FragmentDetailBinding
 import com.msg.gcms.domain.data.club_member.get_club_member.MemberData
-import com.msg.gcms.presentation.adapter.DetailMemberAdapter
-import com.msg.gcms.presentation.adapter.DetailPhotoAdapter
-import com.msg.gcms.presentation.adapter.DetailSideBarAdapter
+import com.msg.gcms.presentation.adapter.detail_member.DetailMemberAdapter
+import com.msg.gcms.presentation.adapter.detail_photo.DetailPhotoAdapter
+import com.msg.gcms.presentation.adapter.detail_side_bar.DetailSideBarAdapter
 import com.msg.gcms.presentation.base.BaseDialog
 import com.msg.gcms.presentation.base.BaseFragment
 import com.msg.gcms.presentation.base.BaseModal

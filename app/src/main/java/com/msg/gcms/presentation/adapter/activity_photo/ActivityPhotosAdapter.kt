@@ -1,4 +1,4 @@
-package com.msg.gcms.presentation.adapter
+package com.msg.gcms.presentation.adapter.activity_photo
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

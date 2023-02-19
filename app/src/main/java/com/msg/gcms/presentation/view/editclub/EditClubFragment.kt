@@ -32,8 +32,8 @@ import com.msg.gcms.R
 import com.msg.gcms.data.local.entity.ActivityPhotoType
 import com.msg.gcms.databinding.FragmentEditClubBinding
 import com.msg.gcms.domain.data.club.get_club_detail.ClubMemberData
-import com.msg.gcms.presentation.adapter.ActivityPhotosAdapter
-import com.msg.gcms.presentation.adapter.ClubMemberAdapter
+import com.msg.gcms.presentation.adapter.activity_photo.ActivityPhotosAdapter
+import com.msg.gcms.presentation.adapter.club_member.ClubMemberAdapter
 import com.msg.gcms.presentation.base.BaseFragment
 import com.msg.gcms.presentation.base.BaseModal
 import com.msg.gcms.presentation.utils.ItemDecorator

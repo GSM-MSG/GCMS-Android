@@ -11,7 +11,7 @@ import coil.transform.RoundedCornersTransformation
 import com.msg.gcms.R
 import com.msg.gcms.databinding.FragmentProfileClubBinding
 import com.msg.gcms.domain.data.user.get_my_profile.ProfileClubData
-import com.msg.gcms.presentation.adapter.EditorialClubAdapter
+import com.msg.gcms.presentation.adapter.editorial_club.EditorialClubAdapter
 import com.msg.gcms.presentation.base.BaseFragment
 import com.msg.gcms.presentation.viewmodel.ClubDetailViewModel
 import com.msg.gcms.presentation.viewmodel.ClubViewModel

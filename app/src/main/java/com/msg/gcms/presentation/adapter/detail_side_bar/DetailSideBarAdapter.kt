@@ -1,4 +1,4 @@
-package com.msg.gcms.presentation.adapter
+package com.msg.gcms.presentation.adapter.detail_side_bar
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -10,7 +10,7 @@ class DetailSideBarAdapter(private val list: List<DetailPageSideBar>) :
     RecyclerView.Adapter<DetailSideBarAdapter.SideBarViewHolder>() {
     class SideBarViewHolder(
         private val binding: ListDetailSidebarBinding,
-        listener: DetailSideBarAdapter.OnItemClickListener
+        listener: OnItemClickListener
     ) : RecyclerView.ViewHolder(binding.root) {
         fun bind(item: DetailPageSideBar) {
             binding.titleTv.text = item.title

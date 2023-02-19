@@ -1,4 +1,4 @@
-package com.msg.gcms.presentation.adapter
+package com.msg.gcms.presentation.adapter.club_member
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
