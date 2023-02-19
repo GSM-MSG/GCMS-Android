@@ -29,7 +29,7 @@ import coil.request.ImageRequest
 import coil.request.SuccessResult
 import coil.transform.RoundedCornersTransformation
 import com.msg.gcms.R
-import com.msg.gcms.data.local.entity.ActivityPhotoType
+import com.msg.gcms.presentation.adapter.activity_photo.ActivityPhotoType
 import com.msg.gcms.databinding.FragmentEditClubBinding
 import com.msg.gcms.domain.data.club.get_club_detail.ClubMemberData
 import com.msg.gcms.presentation.adapter.activity_photo.ActivityPhotosAdapter

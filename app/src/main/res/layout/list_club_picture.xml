@@ -7,7 +7,7 @@
 
         <variable
             name="itemList"
-            type="com.msg.gcms.data.local.entity.ActivityPhotoType" />
+            type="com.msg.gcms.presentation.adapter.activity_photo.ActivityPhotoType" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

@@ -3,7 +3,6 @@ package com.msg.gcms.presentation.adapter.detail_side_bar
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.msg.gcms.data.local.entity.DetailPageSideBar
 import com.msg.gcms.databinding.ListDetailSidebarBinding
 
 class DetailSideBarAdapter(private val list: List<DetailPageSideBar>) :

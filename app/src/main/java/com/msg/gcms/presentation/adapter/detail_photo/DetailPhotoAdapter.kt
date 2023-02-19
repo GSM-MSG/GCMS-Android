@@ -7,7 +7,6 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import coil.transform.RoundedCornersTransformation
-import com.msg.gcms.data.local.entity.PromotionPicType
 import com.msg.gcms.databinding.ListDetailClubPromotionBinding
 
 class DetailPhotoAdapter :

@@ -9,7 +9,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.msg.gcms.R
-import com.msg.gcms.data.local.entity.AddMemberType
+import com.msg.gcms.presentation.adapter.add_member.AddMemberType
 import com.msg.gcms.databinding.FragmentEditSearchBinding
 import com.msg.gcms.domain.data.user.search_user.GetSearchUserData
 import com.msg.gcms.presentation.adapter.add_member.AddMemberAdapter

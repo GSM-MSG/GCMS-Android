@@ -3,7 +3,6 @@ package com.msg.gcms.presentation.adapter.add_member
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.msg.gcms.data.local.entity.AddMemberType
 import com.msg.gcms.databinding.ListAddMemberBinding
 import com.msg.gcms.domain.data.club_member.get_club_member.MemberData
 

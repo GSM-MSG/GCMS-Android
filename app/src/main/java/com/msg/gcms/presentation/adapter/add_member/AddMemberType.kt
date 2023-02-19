@@ -1,4 +1,4 @@
-package com.msg.gcms.data.local.entity
+package com.msg.gcms.presentation.adapter.add_member
 
 data class AddMemberType(
     val userName: String,

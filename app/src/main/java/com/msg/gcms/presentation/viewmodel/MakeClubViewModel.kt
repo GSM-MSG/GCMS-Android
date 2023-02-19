@@ -5,7 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.msg.gcms.data.local.entity.ActivityPhotoType
+import com.msg.gcms.presentation.adapter.activity_photo.ActivityPhotoType
 import com.msg.gcms.domain.data.club.create_club.CreateClubData
 import com.msg.gcms.domain.data.club_member.get_club_member.MemberData
 import com.msg.gcms.domain.data.user.search_user.GetSearchUserData

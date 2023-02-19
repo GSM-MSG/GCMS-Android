@@ -4,7 +4,6 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
-import com.msg.gcms.data.local.entity.ActivityPhotoType
 import com.msg.gcms.databinding.ListClubPictureBinding
 
 class ActivityPhotosAdapter(private val items: List<ActivityPhotoType>) :
