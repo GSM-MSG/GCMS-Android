@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     package="com.msg.gcms">
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -16,8 +15,7 @@
         android:roundIcon="@mipmap/ic_main_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MSGGCMS"
-        android:usesCleartextTraffic="true"
-        tools:ignore="MissingClass">
+        android:usesCleartextTraffic="true">
         <activity
             android:name=".presentation.view.clubmaker.MakeClubActivity"
             android:exported="true"
