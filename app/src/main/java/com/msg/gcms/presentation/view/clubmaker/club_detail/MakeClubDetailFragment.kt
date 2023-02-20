@@ -123,7 +123,7 @@ class MakeClubDetailFragment :
                 val imageUrl = it.data?.data
                 val file = File(getPathFromUri(imageUrl))
                 val requestFile = RequestBody.create("image/*".toMediaTypeOrNull(), file)
-                val img = MultipartBody.Part.createFormData("files", file.name, requestFile)
+                val img = MultipartBody.Part.createFormData("file", file.name, requestFile)
                 Log.d("TAG", "onActivityResult: $img")
                 bannerImage.add(img)
                 bannerImageUri = imageUrl!!
@@ -246,7 +246,7 @@ class MakeClubDetailFragment :
                         activityAdapter = ActivityPhotosAdapter(makeClubViewModel.activityPhotoList)
                         val file = File(getPathFromUri(imageUri))
                         val requestFile = RequestBody.create("image/*".toMediaTypeOrNull(), file)
-                        val img = MultipartBody.Part.createFormData("files", file.name, requestFile)
+                        val img = MultipartBody.Part.createFormData("file", file.name, requestFile)
                         Log.d("TAG", "onActivityResult: $img")
                         activityPhotoMultipart.add(img)
                     }

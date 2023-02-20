@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.msg.gcms">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
+        android:name=".di.GCMSApplication"
         android:requestLegacyExternalStorage="true"
-        android:name="com.msg.gcms.di.GCMSApplication"
         android:allowBackup="true"
         android:configChanges="orientation|screenSize"
         android:icon="@mipmap/ic_main"
@@ -15,7 +16,8 @@
         android:roundIcon="@mipmap/ic_main_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MSGGCMS"
-        android:usesCleartextTraffic="true">
+        android:usesCleartextTraffic="true"
+        tools:ignore="MissingClass">
         <activity
             android:name=".presentation.view.clubmaker.MakeClubActivity"
             android:exported="true"
@@ -23,7 +25,6 @@
         </activity>
         <activity
             android:name=".presentation.view.splash.SplashActivity"
-            android:theme="@style/SplashTheme"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
