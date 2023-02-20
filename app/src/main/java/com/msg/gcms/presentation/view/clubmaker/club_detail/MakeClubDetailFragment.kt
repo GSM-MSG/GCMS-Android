@@ -174,7 +174,6 @@ class MakeClubDetailFragment :
     private fun clubMemberRecyclerView() {
         if (makeClubViewModel.memberList.isEmpty()) {
 
-            //TODO 여기 로직 다 만들어야함
             makeClubViewModel.memberList.add(
                 AddMemberType(
                     uuid = null,
@@ -183,7 +182,6 @@ class MakeClubDetailFragment :
                 )
             )
         }
-        // Todo 여기 로직도 수정하기
         clubMemberAdapter = ClubMemberAdapter(makeClubViewModel.memberList)
         clubMemberAdapter.setItemOnClickListener(object : ClubMemberAdapter.OnItemClickListener {
             override fun onClick(position: Int) {
