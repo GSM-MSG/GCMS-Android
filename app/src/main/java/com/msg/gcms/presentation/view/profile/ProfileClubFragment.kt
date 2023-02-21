@@ -38,8 +38,7 @@ class ProfileClubFragment :
                             }
                             majorClubName.text = clubData.title
                             majorClubImg.setOnClickListener {
-                                // Todo 동아리 디테일페이지로 넘어가는 코드
-                                // getDetail(clubId = clubData.id)
+                                profilePageToDetailPage(clubId = clubData.id)
                             }
                         }
                     }
@@ -52,8 +51,7 @@ class ProfileClubFragment :
                             }
                             freedomClubName.text = clubData.title
                             freedomClubImg.setOnClickListener {
-                                // Todo 동아리 디테일페이지로 넘어가는 코드
-                                // getDetail(clubData.id)
+                                profilePageToDetailPage(clubId = clubData.id)
                             }
                         }
                     }
