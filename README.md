@@ -24,15 +24,12 @@
     Installation 🎁 
 </h2>
 
----
 - PlayStore: [GCMS](https://play.google.com/store/apps/details?id=com.msg.gcms)
 
 <br>
 <h2>
 Tech Stack
 </h2>
-
----
 <img src = "https://user-images.githubusercontent.com/82383983/220412681-daafd612-8375-4496-86ea-286b4b05e169.png"/>
 
 GCMS는 Android 공식문서에 서술된 [Android App Architecture](https://developer.android.com/topic/architecture?hl=ko#recommended-app-arch)를 기반으로 작성되었습니다.
@@ -56,9 +53,6 @@ GCMS는 Android 공식문서에 서술된 [Android App Architecture](https://dev
 <h2>
 Team 👯‍♂️
 </h2>
-
----
-
 <div align = "center">
     <table>
     <th>👑<a href="https://github.com/leehyeonbin">이현빈</a></th>
@@ -96,8 +90,6 @@ Team 👯‍♂️
 <br>
 
 <h2>Packages 📁</h2>
-
----
 
 ```
 GCMS Android
