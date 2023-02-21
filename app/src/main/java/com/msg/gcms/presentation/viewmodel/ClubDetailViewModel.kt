@@ -37,7 +37,7 @@ class ClubDetailViewModel @Inject constructor(
     fun getDetail(clubId: Long) {
         viewModelScope.launch {
             getDetailUseCase(
-                clubId
+                 clubId = clubId
             ).onSuccess {
                 _result.value = it
                 _getClubDetail.value = Event.Success
@@ -77,5 +77,9 @@ class ClubDetailViewModel @Inject constructor(
 
     fun setIsProfile(boolean: Boolean) {
         _isProfile.value = boolean
+    }
+
+    fun clearResult() {
+        _result.value = null
     }
 }
