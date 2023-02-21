@@ -68,10 +68,6 @@ class ProfileClubFragment :
         }
     }
 
-    // private fun getDetail(clubId: Long) {
-    //     clubViewModel.startLottie(requireActivity().supportFragmentManager)
-    // }
-
     private fun setRecyclerView() {
         adapter = EditorialClubAdapter(privateClubList)
         binding.privateClubRecyclerview.adapter = adapter
@@ -109,31 +105,4 @@ class ProfileClubFragment :
         intent.putExtra("clubId", clubId)
         startActivity(intent)
     }
-
-    // private fun observeClubInfoForProfilePageToDetailPage() {
-    //     detailViewModel.clearResult()
-    //
-    //     //code 로 하나씩 observe 하는 로직
-    //     detailViewModel.result.observe(this) {
-    //         if (it != null) {
-    //             when (detailViewModel.getClubDetail.value) {
-    //                 in 200..299 -> {
-    //                     Log.d("TAG", "GetDetail : Status - ${detailViewModel.getClubDetail.value}")
-    //                     val intent = Intent(requireActivity(), MainActivity::class.java)
-    //                     Log.d("TAG", detailViewModel.result.value.toString())
-    //                     intent.putExtra("isProfile", true)
-    //                     intent.putExtra("result", detailViewModel.result.value)
-    //                     startActivity(intent)
-    //                 }
-    //                 else -> {
-    //                     shortToast("동아리 정보를 불러오지 못했습니다.")
-    //                     Log.d(
-    //                         "TAG",
-    //                         "GetDetail : Error Status - ${detailViewModel.getClubDetail.value}"
-    //                     )
-    //                 }
-    //             }
-    //         }
-    //     }
-    // }
 }
