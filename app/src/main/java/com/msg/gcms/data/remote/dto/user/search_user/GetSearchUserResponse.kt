@@ -1,10 +1,11 @@
 package com.msg.gcms.data.remote.dto.user.search_user
 
 import com.google.gson.annotations.SerializedName
+import java.util.UUID
 
 data class GetSearchUserResponse(
     @SerializedName("uuid")
-    val uuid: String,
+    val uuid: UUID,
     @SerializedName("email")
     val email: String,
     @SerializedName("name")

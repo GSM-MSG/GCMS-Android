@@ -7,8 +7,8 @@ import androidx.activity.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.msg.gcms.R
 import com.msg.gcms.databinding.ActivityMemberManagementBinding
-import com.msg.gcms.presentation.adapter.ApplicantAdapter
-import com.msg.gcms.presentation.adapter.MemberAdapter
+import com.msg.gcms.presentation.adapter.applicant.ApplicantAdapter
+import com.msg.gcms.presentation.adapter.member.MemberAdapter
 import com.msg.gcms.presentation.base.BaseActivity
 import com.msg.gcms.presentation.base.BaseDialog
 import com.msg.gcms.presentation.base.BaseModal

@@ -5,9 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.msg.gcms.data.local.entity.ActivityPhotoType
 import com.msg.gcms.domain.data.club.create_club.CreateClubData
-import com.msg.gcms.domain.data.club_member.get_club_member.MemberData
 import com.msg.gcms.domain.data.user.search_user.GetSearchUserData
 import com.msg.gcms.domain.exception.BadRequestException
 import com.msg.gcms.domain.exception.ConflictException
@@ -16,6 +14,8 @@ import com.msg.gcms.domain.exception.UnauthorizedException
 import com.msg.gcms.domain.usecase.club.PostCreateClubUseCase
 import com.msg.gcms.domain.usecase.image.ImageUseCase
 import com.msg.gcms.domain.usecase.user.GetSearchUserUseCase
+import com.msg.gcms.presentation.adapter.activity_photo.ActivityPhotoType
+import com.msg.gcms.presentation.adapter.add_member.AddMemberType
 import com.msg.gcms.presentation.viewmodel.util.Event
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -48,7 +48,7 @@ class MakeClubViewModel @Inject constructor(
     private val _activityPhotoResult = MutableLiveData<List<String>>()
     val activityPhoto: LiveData<List<String>> get() = _activityPhotoResult
 
-    var memberList: MutableList<MemberData> = mutableListOf()
+    var memberList: MutableList<AddMemberType> = mutableListOf()
 
     private var clubMemberEmail = mutableListOf<String>()
 
@@ -115,20 +115,13 @@ class MakeClubViewModel @Inject constructor(
         _activityUpload = true
     }
 
-    fun setMemberEmail() {
-        memberList.forEach {
-            Log.d("TAG", "setMemberEmail: ${it.email}")
-            clubMemberEmail.add(it.email)
-        }
-    }
-
     fun bannerImageUpload(image: List<MultipartBody.Part>) {
         viewModelScope.launch {
             imageUseCase(
                 image = image
             ).onSuccess {
                 Log.d("TAG", "banner: $it")
-                _bannerResult.value = it.images[0]
+                _bannerResult.value = it.images.first()
                 _bannerUpload = true
                 imageUploadCheck()
             }.onFailure {

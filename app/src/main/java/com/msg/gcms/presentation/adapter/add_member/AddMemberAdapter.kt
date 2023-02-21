@@ -1,26 +1,32 @@
-package com.msg.gcms.presentation.adapter
+package com.msg.gcms.presentation.adapter.add_member
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.msg.gcms.data.local.entity.AddMemberType
 import com.msg.gcms.databinding.ListAddMemberBinding
-import com.msg.gcms.domain.data.club_member.get_club_member.MemberData
 
 class AddMemberAdapter : RecyclerView.Adapter<AddMemberAdapter.AddMemberViewHolder>() {
 
-    private val list= mutableListOf<AddMemberType>()
+    private val list = mutableListOf<AddMemberType>()
+
     class AddMemberViewHolder(
         private val binding: ListAddMemberBinding,
         listener: OnItemClickListener
-    ): RecyclerView.ViewHolder(binding.root) {
+    ) : RecyclerView.ViewHolder(binding.root) {
         fun bind(data: AddMemberType) {
             binding.addUserNameTv.text = data.userName
         }
     }
-    fun setMemberList(list: List<MemberData>) {
-        list.filter { it.email != "" }.forEach {
-            this.list.add(AddMemberType(userEmail = it.email, userName = it.name, userImg = it.userImg))
+
+    fun setMemberList(list: List<AddMemberType>) {
+        list.filter { it.uuid != null }.forEach {
+            this.list.add(
+                AddMemberType(
+                    uuid = it.uuid,
+                    userName = it.userName,
+                    userImg = it.userImg
+                )
+            )
         }
         notifyDataSetChanged()
     }
@@ -36,7 +42,8 @@ class AddMemberAdapter : RecyclerView.Adapter<AddMemberAdapter.AddMemberViewHold
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AddMemberViewHolder {
-        val binding = ListAddMemberBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding =
+            ListAddMemberBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return AddMemberViewHolder(binding, itemClickListener)
     }
 

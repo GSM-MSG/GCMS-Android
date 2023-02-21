@@ -1,23 +1,24 @@
-package com.msg.gcms.presentation.adapter
+package com.msg.gcms.presentation.adapter.club_list
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import coil.transform.RoundedCornersTransformation
-import com.msg.gcms.databinding.ListClubEditorialBinding
-import com.msg.gcms.domain.data.user.get_my_profile.ProfileClubData
+import com.msg.gcms.databinding.ListClubSummaryBinding
+import com.msg.gcms.domain.data.club.get_club_list.GetClubListData
 
-class EditorialClubAdapter(private val clubList: ArrayList<ProfileClubData>) :
-    RecyclerView.Adapter<EditorialClubAdapter.ViewHolder>() {
-    class ViewHolder(val binding: ListClubEditorialBinding, listener: OnItemClickListener) :
-        RecyclerView.ViewHolder(binding.root) {
-        fun bind(club: ProfileClubData) {
-            binding.editorialItem = club
-            binding.itemClubImg.load(club.bannerImg) {
+class ClubListAdapter(private val itemList: List<GetClubListData>?) :
+    RecyclerView.Adapter<ClubListAdapter.ViewHolder>() {
+
+    class ViewHolder(val binding: ListClubSummaryBinding, listener: OnItemClickListener) : RecyclerView.ViewHolder(binding.root) {
+        fun bind(data: GetClubListData?) {
+            binding.clubSummary = data
+            binding.itemClubImg.load(data?.bannerUrl) {
                 transformations(RoundedCornersTransformation(9f, 9f, 0f, 0f))
             }
         }
+
         init {
             binding.clubSummaryLayout.setOnClickListener {
                 listener.onClick(adapterPosition)
@@ -27,19 +28,21 @@ class EditorialClubAdapter(private val clubList: ArrayList<ProfileClubData>) :
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding =
-            ListClubEditorialBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+            ListClubSummaryBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         val viewHolder = ViewHolder(binding, itemClickListener)
         return viewHolder
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(clubList[position])
+        holder.bind(itemList?.get(position))
         holder.itemView.setOnClickListener {
             itemClickListener.onClick(position)
         }
     }
 
-    override fun getItemCount(): Int = clubList.size
+    override fun getItemCount(): Int {
+        return itemList?.size ?: 0
+    }
 
     interface OnItemClickListener {
         fun onClick(position: Int)

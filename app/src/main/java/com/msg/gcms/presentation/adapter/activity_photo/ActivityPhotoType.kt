@@ -1,4 +1,4 @@
-package com.msg.gcms.data.local.entity
+package com.msg.gcms.presentation.adapter.activity_photo
 
 import android.graphics.Bitmap
 

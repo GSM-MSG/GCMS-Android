@@ -1,4 +1,4 @@
-package com.msg.gcms.presentation.adapter
+package com.msg.gcms.presentation.adapter.user_search
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

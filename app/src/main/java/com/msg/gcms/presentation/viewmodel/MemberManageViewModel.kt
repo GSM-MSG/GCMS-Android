@@ -26,6 +26,7 @@ import com.msg.gcms.domain.usecase.club_member.UserKickUseCase
 import com.msg.gcms.presentation.viewmodel.util.Event
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import java.util.UUID
 import javax.inject.Inject
 
 @HiltViewModel
@@ -150,7 +151,7 @@ class MemberManageViewModel @Inject constructor(
         }
     }
 
-    fun kickUser(uuid: String) {
+    fun kickUser(uuid: UUID) {
         viewModelScope.launch {
             userKickUseCase(
                 body = MemberExpelledData(uuid),

@@ -1,4 +1,4 @@
-package com.msg.gcms.presentation.view.clubmaker.searchstudent
+package com.msg.gcms.presentation.view.clubmaker.search_student
 
 import android.util.Log
 import android.view.View
@@ -9,12 +9,12 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.msg.gcms.R
-import com.msg.gcms.data.local.entity.AddMemberType
 import com.msg.gcms.databinding.FragmentStudentSearchBinding
 import com.msg.gcms.domain.data.club_member.get_club_member.MemberData
 import com.msg.gcms.domain.data.user.search_user.GetSearchUserData
-import com.msg.gcms.presentation.adapter.AddMemberAdapter
-import com.msg.gcms.presentation.adapter.UserSearchAdapter
+import com.msg.gcms.presentation.adapter.add_member.AddMemberAdapter
+import com.msg.gcms.presentation.adapter.add_member.AddMemberType
+import com.msg.gcms.presentation.adapter.user_search.UserSearchAdapter
 import com.msg.gcms.presentation.base.BaseFragment
 import com.msg.gcms.presentation.utils.ItemDecorator
 import com.msg.gcms.presentation.viewmodel.MakeClubViewModel
@@ -78,7 +78,13 @@ class StudentSearchFragment :
             override fun onClick(position: Int) {
                 val item = memberList[position]
                 memberList.remove(item)
-                addMemberAdapter.removeMember(AddMemberType(item.name, item.email, item.userImg))
+                addMemberAdapter.removeMember(
+                    AddMemberType(
+                        uuid = item.uuid,
+                        userName = item.name,
+                        userImg = item.userImg
+                    )
+                )
             }
         })
         searchAdapter.setItemOnClickListener(object : UserSearchAdapter.OnItemClickListener {
@@ -127,10 +133,13 @@ class StudentSearchFragment :
                 this.findNavController().popBackStack()
             }
             binding.selectBtn.id -> {
-                if(memberList.isNotEmpty()) {
-                    makeClubViewModel.memberList = memberList
+                if (memberList.isNotEmpty()) {
+                    makeClubViewModel.memberList = memberList.map {
+                        AddMemberType(
+                            uuid = it.uuid, userImg = it.userImg, userName = it.name
+                        )
+                    }.toMutableList()
                 }
-                makeClubViewModel.setMemberEmail()
                 this.findNavController().popBackStack()
             }
         }
@@ -140,5 +149,4 @@ class StudentSearchFragment :
         coroutineContext.cancel()
         super.onDestroy()
     }
-
 }

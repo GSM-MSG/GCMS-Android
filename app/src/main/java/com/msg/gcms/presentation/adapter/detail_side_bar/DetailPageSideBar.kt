@@ -1,4 +1,4 @@
-package com.msg.gcms.data.local.entity
+package com.msg.gcms.presentation.adapter.detail_side_bar
 
 data class DetailPageSideBar(
     val title: String,

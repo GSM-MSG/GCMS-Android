@@ -1,4 +1,4 @@
-package com.msg.gcms.presentation.view.clubmaker.clubType
+package com.msg.gcms.presentation.view.clubmaker.club_type
 
 import android.content.Context
 import android.view.View

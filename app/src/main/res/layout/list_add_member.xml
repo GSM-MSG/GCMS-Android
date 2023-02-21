@@ -5,7 +5,7 @@
 
         <variable
             name="addMember"
-            type="com.msg.gcms.data.local.entity.AddMemberType" />
+            type="com.msg.gcms.presentation.adapter.add_member.AddMemberType" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"

@@ -4,7 +4,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import com.msg.gcms.R
 import com.msg.gcms.databinding.FragmentClubBinding
-import com.msg.gcms.presentation.adapter.ClubListAdapter
+import com.msg.gcms.presentation.adapter.club_list.ClubListAdapter
 import com.msg.gcms.presentation.base.BaseFragment
 import com.msg.gcms.presentation.base.BaseModal
 import com.msg.gcms.presentation.utils.enterActivity

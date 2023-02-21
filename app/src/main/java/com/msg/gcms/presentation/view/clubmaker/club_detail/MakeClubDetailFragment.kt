@@ -1,4 +1,4 @@
-package com.msg.gcms.presentation.view.clubmaker.clubDetail
+package com.msg.gcms.presentation.view.clubmaker.club_detail
 
 import android.Manifest
 import android.annotation.SuppressLint
@@ -23,10 +23,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import coil.load
 import coil.transform.RoundedCornersTransformation
 import com.msg.gcms.R
-import com.msg.gcms.data.local.entity.ActivityPhotoType
 import com.msg.gcms.databinding.FragmentMakeClubDetailBinding
-import com.msg.gcms.presentation.adapter.ActivityPhotosAdapter
-import com.msg.gcms.presentation.adapter.ClubMemberAdapter
+import com.msg.gcms.presentation.adapter.activity_photo.ActivityPhotoType
+import com.msg.gcms.presentation.adapter.activity_photo.ActivityPhotosAdapter
+import com.msg.gcms.presentation.adapter.add_member.AddMemberType
+import com.msg.gcms.presentation.adapter.club_member.ClubMemberAdapter
 import com.msg.gcms.presentation.base.BaseFragment
 import com.msg.gcms.presentation.base.BaseModal
 import com.msg.gcms.presentation.utils.ItemDecorator
@@ -122,7 +123,7 @@ class MakeClubDetailFragment :
                 val imageUrl = it.data?.data
                 val file = File(getPathFromUri(imageUrl))
                 val requestFile = RequestBody.create("image/*".toMediaTypeOrNull(), file)
-                val img = MultipartBody.Part.createFormData("files", file.name, requestFile)
+                val img = MultipartBody.Part.createFormData("file", file.name, requestFile)
                 Log.d("TAG", "onActivityResult: $img")
                 bannerImage.add(img)
                 bannerImageUri = imageUrl!!
@@ -173,21 +174,15 @@ class MakeClubDetailFragment :
     private fun clubMemberRecyclerView() {
         if (makeClubViewModel.memberList.isEmpty()) {
 
-            //TODO 여기 로직 다 만들어야함
-            // makeClubViewModel.memberList.add(
-            //     UserData(
-            //         uuid = "0",
-            //         email = "",
-            //         name = "추가하기",
-            //         grade = 0,
-            //         `class` = 0,
-            //         num = 0,
-            //         userImg = R.drawable.bg_banner_placeholder.toString()
-            //     )
-            // )
+            makeClubViewModel.memberList.add(
+                AddMemberType(
+                    uuid = null,
+                    userName = "추가하기",
+                    userImg = R.drawable.bg_banner_placeholder.toString()
+                )
+            )
         }
-        // Todo 여기 로직도 수정하기
-        // clubMemberAdapter = ClubMemberAdapter(makeClubViewModel.memberList)
+        clubMemberAdapter = ClubMemberAdapter(makeClubViewModel.memberList)
         clubMemberAdapter.setItemOnClickListener(object : ClubMemberAdapter.OnItemClickListener {
             override fun onClick(position: Int) {
                 findNavController().navigate(R.id.action_makeClubDetailFragment_to_studentSearchFragment)
@@ -249,7 +244,7 @@ class MakeClubDetailFragment :
                         activityAdapter = ActivityPhotosAdapter(makeClubViewModel.activityPhotoList)
                         val file = File(getPathFromUri(imageUri))
                         val requestFile = RequestBody.create("image/*".toMediaTypeOrNull(), file)
-                        val img = MultipartBody.Part.createFormData("files", file.name, requestFile)
+                        val img = MultipartBody.Part.createFormData("file", file.name, requestFile)
                         Log.d("TAG", "onActivityResult: $img")
                         activityPhotoMultipart.add(img)
                     }

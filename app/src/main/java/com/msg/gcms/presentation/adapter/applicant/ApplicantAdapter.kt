@@ -1,4 +1,4 @@
-package com.msg.gcms.presentation.adapter
+package com.msg.gcms.presentation.adapter.applicant
 
 import android.view.LayoutInflater
 import android.view.View
