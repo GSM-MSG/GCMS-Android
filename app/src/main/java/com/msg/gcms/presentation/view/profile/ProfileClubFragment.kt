@@ -41,7 +41,8 @@ class ProfileClubFragment :
                             }
                             majorClubName.text = clubData.title
                             majorClubImg.setOnClickListener {
-                                getDetail(clubId = clubData.id)
+                                // Todo 동아리 디테일페이지로 넘어가는 코드
+                                // getDetail(clubId = clubData.id)
                             }
                         }
                     }
@@ -54,7 +55,8 @@ class ProfileClubFragment :
                             }
                             freedomClubName.text = clubData.title
                             freedomClubImg.setOnClickListener {
-                                getDetail(clubData.id)
+                                // Todo 동아리 디테일페이지로 넘어가는 코드
+                                // getDetail(clubData.id)
                             }
                         }
                     }
@@ -71,9 +73,9 @@ class ProfileClubFragment :
         }
     }
 
-    private fun getDetail(clubId: Long) {
-        clubViewModel.startLottie(requireActivity().supportFragmentManager)
-    }
+    // private fun getDetail(clubId: Long) {
+    //     clubViewModel.startLottie(requireActivity().supportFragmentManager)
+    // }
 
     private fun setRecyclerView() {
         adapter = EditorialClubAdapter(privateClubList)
