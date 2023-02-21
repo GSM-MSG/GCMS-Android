@@ -19,7 +19,6 @@ import com.msg.gcms.presentation.viewmodel.ProfileViewModel
 
 class ProfileClubFragment :
     BaseFragment<FragmentProfileClubBinding>(R.layout.fragment_profile_club) {
-    private val TAG = "ProfileClubFragment"
     private val viewModel by activityViewModels<ProfileViewModel>()
     private val detailViewModel by activityViewModels<ClubDetailViewModel>()
     private val clubViewModel by activityViewModels<ClubViewModel>()
