@@ -108,7 +108,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
                 setTeacherInfo(it.teacher)
                 directoryTxt.text = it.contact
                 it.head.let {
-                    bossImg.load(it.userImg) {
+                    bossImg.load(it.userImg ?: R.drawable.ic_default_profile) {
                         transformations(CircleCropTransformation())
                     }
                     bossName.text = it.name
