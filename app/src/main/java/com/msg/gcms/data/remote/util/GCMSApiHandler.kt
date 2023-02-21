@@ -3,6 +3,7 @@ package com.msg.gcms.data.remote.util
 import com.msg.gcms.domain.exception.BadRequestException
 import com.msg.gcms.domain.exception.ConflictException
 import com.msg.gcms.domain.exception.ForBiddenException
+import com.msg.gcms.domain.exception.NeedLoginException
 import com.msg.gcms.domain.exception.NoInternetException
 import com.msg.gcms.domain.exception.NotFoundException
 import com.msg.gcms.domain.exception.OtherHttpException
@@ -57,6 +58,8 @@ class GCMSApiHandler<T> {
             throw TimeOutException(message = e.message)
         } catch (e: UnknownHostException) {
             throw NoInternetException()
+        } catch (e: NeedLoginException) {
+            throw NeedLoginException()
         } catch (e: Exception) {
             throw UnKnownException(message = e.message)
         }
