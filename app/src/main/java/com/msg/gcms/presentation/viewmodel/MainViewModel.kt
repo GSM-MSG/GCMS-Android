@@ -42,7 +42,7 @@ class MainViewModel @Inject constructor(
                     else -> "MAJOR"
                 }
             ).onSuccess {
-                _clubData.value
+                _clubData.value = it
                 Log.d("TAG", "getClubList: $it")
             }.onFailure {
                 when (it) {
