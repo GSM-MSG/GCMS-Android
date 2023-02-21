@@ -71,7 +71,6 @@ class ClubFragment : BaseFragment<FragmentClubBinding>(R.layout.fragment_club) {
     }
 
     private fun observeStatus() {
-
         observeClubDetailInfo()
         // detailViewModel.clearResult()
         /*
