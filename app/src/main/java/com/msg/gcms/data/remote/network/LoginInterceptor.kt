@@ -5,6 +5,7 @@ import com.google.gson.JsonObject
 import com.google.gson.JsonParser
 import com.msg.gcms.BuildConfig
 import com.msg.gcms.data.local.datastorage.AuthDataStorage
+import com.msg.gcms.domain.exception.NeedLoginException
 import com.msg.gcms.util.removeDot
 import okhttp3.Interceptor
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
@@ -50,14 +51,13 @@ class LoginInterceptor @Inject constructor(
             val jsonParser = JsonParser()
             val response = client.newCall(refreshRequest).execute()
             if (response.isSuccessful) {
+                Log.d("Interceptor", response.code.toString())
                 val token = jsonParser.parse(response.body!!.string()) as JsonObject
                 authDataStorage.setAccessToken(token["accessToken"].toString().removeDot())
                 authDataStorage.setRefreshToken(token["refreshToken"].toString().removeDot())
                 authDataStorage.setAccessExpiredAt(token["accessExp"].toString().removeDot())
                 authDataStorage.setRefreshExpiredAt(token["refreshExp"].toString().removeDot())
-            } else {
-                Log.d("Interceptor", response.code.toString())
-            }
+            } else throw NeedLoginException()
         }
 
         val accessToken = authDataStorage.getAccessToken()
