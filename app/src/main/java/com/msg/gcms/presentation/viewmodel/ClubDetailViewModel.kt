@@ -58,7 +58,7 @@ class ClubDetailViewModel @Inject constructor(
                         Event.NotFound
                     }
                     else -> {
-                        Log.d(TAG, "getDetail: $it")
+                        Log.d(TAG, "getDetail: ${it.message}")
                         Event.UnKnown
                     }
                 }

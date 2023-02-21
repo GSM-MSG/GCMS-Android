@@ -24,6 +24,10 @@ class MainViewModel @Inject constructor(
     private val _clubData = MutableLiveData<List<GetClubListData>>()
     val clubData: LiveData<List<GetClubListData>> get() = _clubData
 
+    companion object {
+        const val tag = "TAG"
+    }
+
     fun setClubName(position: Int) {
         when (position) {
             0 -> _clubName.value = "전공동아리"
@@ -43,12 +47,12 @@ class MainViewModel @Inject constructor(
                 }
             ).onSuccess {
                 _clubData.value = it
-                Log.d("TAG", "getClubList: $it")
+                Log.d(tag, "getClubList: $it")
             }.onFailure {
                 when (it) {
-                    is BadRequestException -> Log.d("TAG", "getClubList: $it")
-                    is UnauthorizedException -> Log.d("TAG", "getClubList: $it")
-                    else -> Log.d("TAG", "getClubList: $it")
+                    is BadRequestException -> Log.d(tag, "getClubList: $it")
+                    is UnauthorizedException -> Log.d(tag, "getClubList: $it")
+                    else -> Log.d(tag, "getClubList: $it")
                 }
             }
         }
