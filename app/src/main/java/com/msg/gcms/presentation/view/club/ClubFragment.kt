@@ -1,6 +1,5 @@
 package com.msg.gcms.presentation.view.club
 
-import android.util.Log
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import com.msg.gcms.R
