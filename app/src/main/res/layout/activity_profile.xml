@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
@@ -103,13 +104,6 @@
             app:layout_constraintTop_toBottomOf="@id/userNameTxt"
             app:layout_constraintStart_toEndOf="@id/profileImg" />
 
-        <View
-            android:id="@+id/profileScrollViewTop"
-            android:layout_width="match_parent"
-            android:layout_height="10dp"
-            app:layout_constraintBottom_toTopOf="@id/profileScrollView"
-            android:background="@drawable/bg_profile_list" />
-
         <androidx.core.widget.NestedScrollView
             android:id="@+id/profileScrollView"
             android:layout_width="match_parent"
@@ -124,7 +118,8 @@
                 android:id="@+id/profileList"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:name="com.msg.gcms.presentation.view.profile.ProfileNoClubFragment" />
+                android:name="com.msg.gcms.presentation.view.profile.ProfileNoClubFragment"
+                tools:layout="@layout/fragment_profile_no_club" />
         </androidx.core.widget.NestedScrollView>
 
     </androidx.constraintlayout.motion.widget.MotionLayout>

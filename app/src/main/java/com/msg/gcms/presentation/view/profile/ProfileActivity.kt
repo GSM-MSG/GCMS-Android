@@ -52,7 +52,7 @@ class ProfileActivity : BaseActivity<ActivityProfileBinding>(R.layout.activity_p
                 userNameTxt.text = it.name
                 userClassTxt.text =
                     "${it.grade}학년 ${it.classNum}반 ${it.number}번"
-                profileImg.load(it.profileImg) {
+                profileImg.load(it.profileImg ?: R.drawable.ic_default_profile) {
                     transformations(CircleCropTransformation())
                 }
             }

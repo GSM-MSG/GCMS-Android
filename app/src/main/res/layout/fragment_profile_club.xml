@@ -11,7 +11,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/light_black"
+        android:background="@drawable/bg_profile_list"
         android:paddingTop="32dp">
 
         <androidx.constraintlayout.widget.Guideline
