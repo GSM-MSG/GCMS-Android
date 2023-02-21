@@ -4,6 +4,7 @@ import com.msg.gcms.data.remote.dto.club.create_club.CreateClubRequest
 import com.msg.gcms.data.remote.dto.club.get_club_detail.ClubDetailResponse
 import com.msg.gcms.data.remote.dto.club.get_club_list.GetClubListResponse
 import com.msg.gcms.data.remote.dto.club.modify_club_info.ModifyClubInfoRequest
+import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.DELETE
 import retrofit2.http.GET
@@ -27,32 +28,32 @@ interface ClubAPI {
     @POST("club")
     suspend fun postCreateClub(
         @Body body: CreateClubRequest
-    )
+    ): Response<Unit>
 
     @PATCH("club/{club_id}")
     suspend fun putChangeClub(
         @Path("club_id") clubId: Long,
         @Body body: ModifyClubInfoRequest
-    )
+    ): Response<Unit>
 
     @PATCH("club/{club_id}/open")
     suspend fun putClubOpen(
         @Path("club_id") clubId: Long,
-    )
+    ): Response<Unit>
 
     @PATCH("club/{club_id}/close")
     suspend fun putClubClose(
         @Path("club_id") clubId: Long
-    )
+    ): Response<Unit>
 
     @DELETE("club/{club_id}/exit")
     suspend fun exitClub(
         @Path("club_id") clubId: Long
-    )
+    ): Response<Unit>
 
     @DELETE("club/{club_id}")
     suspend fun deleteClub(
         @Path("club_id") clubId: Long
-    )
+    ): Response<Unit>
 
 }

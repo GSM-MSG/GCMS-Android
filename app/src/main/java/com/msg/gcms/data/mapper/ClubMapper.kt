@@ -26,7 +26,7 @@ object ClubMapper {
             bannerImg = data.bannerImg,
             contact = data.contact,
             content = data.content,
-            head = data.head,
+            head = mapperToMemberData(data.head),
             id = data.id,
             isApplied = data.isApplied,
             isOpened = data.isOpened,
