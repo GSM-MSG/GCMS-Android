@@ -37,7 +37,7 @@ class ClubDetailViewModel @Inject constructor(
     fun getDetail(clubId: Long) {
         viewModelScope.launch {
             getDetailUseCase(
-                clubId
+                 clubId = clubId
             ).onSuccess {
                 _result.value = it
                 _getClubDetail.value = Event.Success

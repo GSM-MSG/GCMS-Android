@@ -7,6 +7,6 @@ class GetDetailUseCase @Inject constructor(
     private val repository : ClubRepository
 ) {
     suspend operator fun invoke(clubId: Long) = kotlin.runCatching {
-        repository.getDetail(clubId)
+        repository.getDetail(clubId = clubId)
     }
 }
