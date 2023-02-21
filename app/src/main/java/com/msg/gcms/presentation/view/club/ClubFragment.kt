@@ -36,7 +36,6 @@ class ClubFragment : BaseFragment<FragmentClubBinding>(R.layout.fragment_club) {
     private fun recyclerview() {
         binding.clubRecyclerView.layoutManager = GridLayoutManager(context, 2)
         mainViewModel.clubData.observe(this) {
-            Log.d("TAG", "recyclerview: $it observe")
             adapter = ClubListAdapter(mainViewModel.clubData.value)
             adapter.setItemOnClickListener(object : ClubListAdapter.OnItemClickListener {
                 override fun onClick(position: Int) {
