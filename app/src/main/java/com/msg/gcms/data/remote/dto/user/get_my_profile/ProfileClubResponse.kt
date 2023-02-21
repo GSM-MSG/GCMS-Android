@@ -9,6 +9,6 @@ data class ProfileClubResponse(
     val type: String,
     @SerializedName("bannerImg")
     val bannerImg: String,
-    @SerializedName("title")
+    @SerializedName("name")
     val title: String
 )
