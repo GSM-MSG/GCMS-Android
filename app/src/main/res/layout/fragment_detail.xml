@@ -71,6 +71,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="29dp"
                 android:text="@string/club_name"
+                android:textStyle="bold"
                 android:textColor="@color/white"
                 android:textSize="18sp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -164,6 +165,7 @@
                         android:text="@string/explain_club"
                         android:textColor="@color/white"
                         android:textSize="18sp"
+                        android:textStyle="bold"
                         app:layout_constraintStart_toStartOf="@id/guideline2"
                         app:layout_constraintTop_toTopOf="parent" />
 
@@ -174,6 +176,7 @@
                         app:layout_constraintTop_toBottomOf="@id/explain_club_txt"
                         android:textColor="@color/white"
                         android:textSize="18sp"
+                        android:textStyle="bold"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/notion_link" />
@@ -198,6 +201,7 @@
                         android:text="@string/promotion_club"
                         android:textColor="@color/white"
                         android:textSize="18sp"
+                        android:textStyle="bold"
                         app:layout_constraintStart_toStartOf="@id/guideline2"
                         app:layout_constraintTop_toBottomOf="@id/link" />
 
@@ -210,8 +214,8 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:text="@string/example_text"
-                        android:textColor="@color/white"
                         android:textSize="16sp"
+                        android:background="@drawable/bg_detail_club_link"
                         app:layout_constraintEnd_toEndOf="@id/guideline3"
                         app:layout_constraintStart_toStartOf="@id/guideline2"
                         app:layout_constraintTop_toBottomOf="@id/notion_link" />
@@ -232,6 +236,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="40dp"
                         android:text="@string/members"
+                        android:textStyle="bold"
                         android:textColor="@color/white"
                         android:textSize="18sp"
                         app:layout_constraintStart_toStartOf="@id/guideline2"
@@ -252,6 +257,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="45dp"
                         android:text="@string/club_teacher"
+                        android:textStyle="bold"
                         android:textColor="@color/white"
                         android:textSize="18sp"
                         app:layout_constraintStart_toStartOf="@id/guideline2"
@@ -272,6 +278,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
                         android:text="@string/name"
+                        android:textStyle="bold"
                         android:textColor="@color/white"
                         android:textSize="14sp"
                         app:layout_constraintBottom_toBottomOf="@id/teacher_img"
@@ -284,6 +291,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="45dp"
                         android:text="@string/club_boss"
+                        android:textStyle="bold"
                         android:textColor="@color/white"
                         android:textSize="18sp"
                         app:layout_constraintStart_toStartOf="@id/guideline4"
@@ -315,6 +323,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="39dp"
                         android:text="@string/directory"
+                        android:textStyle="bold"
                         android:textColor="@color/white"
                         android:textSize="18sp"
                         app:layout_constraintStart_toStartOf="@id/guideline2"
