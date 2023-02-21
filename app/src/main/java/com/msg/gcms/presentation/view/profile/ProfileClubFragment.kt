@@ -15,13 +15,11 @@ import com.msg.gcms.domain.data.user.get_my_profile.ProfileClubData
 import com.msg.gcms.presentation.adapter.editorial_club.EditorialClubAdapter
 import com.msg.gcms.presentation.base.BaseFragment
 import com.msg.gcms.presentation.view.main.MainActivity
-import com.msg.gcms.presentation.viewmodel.ClubViewModel
 import com.msg.gcms.presentation.viewmodel.ProfileViewModel
 
 class ProfileClubFragment :
     BaseFragment<FragmentProfileClubBinding>(R.layout.fragment_profile_club) {
     private val viewModel by activityViewModels<ProfileViewModel>()
-    private val clubViewModel by activityViewModels<ClubViewModel>()
     private val privateClubList: ArrayList<ProfileClubData> = ArrayList()
     private lateinit var adapter: EditorialClubAdapter
     override fun init() {
