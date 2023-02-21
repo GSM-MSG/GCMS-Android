@@ -2,7 +2,6 @@ package com.msg.gcms.presentation.view.profile
 
 import android.content.Intent
 import android.graphics.Rect
-import android.util.Log
 import android.view.View
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.GridLayoutManager
@@ -84,7 +83,6 @@ class ProfileClubFragment :
         }
         adapter.setItemOnClickListener(object : EditorialClubAdapter.OnItemClickListener {
             override fun onClick(position: Int) {
-                Log.d("WWWW","클릭")
                 profilePageToDetailPage(privateClubList[position].id)
             }
         })
