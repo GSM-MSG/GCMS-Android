@@ -42,7 +42,6 @@ class ClubFragment : BaseFragment<FragmentClubBinding>(R.layout.fragment_club) {
                     clubViewModel.startLottie(requireActivity().supportFragmentManager)
                     detailViewModel.getDetail(
                         mainViewModel.clubData.value?.get(position)!!.id
-
                     )
                     observeStatus()
                 }
@@ -72,26 +71,6 @@ class ClubFragment : BaseFragment<FragmentClubBinding>(R.layout.fragment_club) {
 
     private fun observeStatus() {
         observeClubDetailInfo()
-        // detailViewModel.clearResult()
-        /*
-        detailViewModel.result.observe(this) {
-            if (it != null) {
-                when (detailViewModel.getDetailStatus.value) {
-                    in 200..299 -> {
-                        Log.d(TAG, "GetDetail : Status - ${detailViewModel.getDetailStatus.value}")
-                        requireActivity().supportFragmentManager.beginTransaction()
-                            .replace(R.id.fragment_club, DetailFragment()).commit()
-                    }
-                    else -> {
-                        shortToast("동아리 정보를 불러오지 못했습니다.")
-                        Log.d(
-                            TAG,
-                            "GetDetail : Error Status - ${detailViewModel.getDetailStatus.value}"
-                        )
-                    }
-                }
-            }
-        }*/
     }
 
     private fun observeClubDetailInfo() {
@@ -111,24 +90,5 @@ class ClubFragment : BaseFragment<FragmentClubBinding>(R.layout.fragment_club) {
                 }
             }
         }
-    }
-
-    // Todo(LeeHyeonbin) 아무리 봐도 이 함수는 의도를 모르겠음. 하는게 없음
-    private fun observeUmm() {
-        /* clubViewModel.getClubStatus.observe(this) {
-            when (it) {
-                Event.Success -> {
-                }
-                Event.Unauthorized -> {
-                    BaseModal("오류", "토큰이 만료되었습니다, 앱 종료후 다시 실행해 주세요", requireContext()).show()
-                }
-                Event.Server -> {
-
-                }
-                Event.UnKnown -> {
-                    BaseModal("오류", "알수 없는 오류 발생, 개발자에게 문의해주세요", requireContext()).show()
-                }
-            }
-        } */
     }
 }
