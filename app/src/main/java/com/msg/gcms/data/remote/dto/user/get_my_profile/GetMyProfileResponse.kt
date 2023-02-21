@@ -1,10 +1,11 @@
 package com.msg.gcms.data.remote.dto.user.get_my_profile
 
 import com.google.gson.annotations.SerializedName
+import java.util.UUID
 
 data class GetMyProfileResponse(
     @SerializedName("uuid")
-    val uuid: String,
+    val uuid: UUID,
     @SerializedName("email")
     val email: String,
     @SerializedName("name")
@@ -16,7 +17,7 @@ data class GetMyProfileResponse(
     @SerializedName("number")
     val number: Int,
     @SerializedName("profileImg")
-    val profileImg: String,
+    val profileImg: String?,
     @SerializedName("clubs")
     val clubs: List<ProfileClubResponse>
 )

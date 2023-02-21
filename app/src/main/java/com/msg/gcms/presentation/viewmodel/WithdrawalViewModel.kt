@@ -32,10 +32,10 @@ class WithdrawalViewModel @Inject constructor(
     }
 
     fun withdrawal() = viewModelScope.launch {
-
         deleteUserUseCase()
             .onSuccess {
                 _withDrawalRequest.value = Event.Success
+                saveTokenInfoUseCase()
             }.onFailure {
                 Log.d("withdrawal",it.toString())
                 _withDrawalRequest.value = when (it) {
@@ -45,6 +45,5 @@ class WithdrawalViewModel @Inject constructor(
                     else -> Event.UnKnown
                 }
             }
-        saveTokenInfoUseCase()
     }
 }
