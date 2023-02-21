@@ -78,4 +78,8 @@ class ClubDetailViewModel @Inject constructor(
     fun setIsProfile(boolean: Boolean) {
         _isProfile.value = boolean
     }
+
+    fun clearResult() {
+        _result.value = null
+    }
 }
