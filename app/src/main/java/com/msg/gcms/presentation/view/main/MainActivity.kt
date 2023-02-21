@@ -5,7 +5,7 @@ import androidx.activity.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.msg.gcms.R
-import com.msg.gcms.data.remote.dto.club.response.ClubInfoResponse
+import com.msg.gcms.domain.data.club.get_club_detail.ClubDetailData
 import com.msg.gcms.databinding.ActivityMainBinding
 import com.msg.gcms.presentation.base.BaseActivity
 import com.msg.gcms.presentation.view.club.detail.DetailFragment
@@ -32,7 +32,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
     override fun onResume() {
         super.onResume()
         if (intent.getBooleanExtra("isProfile", false)) {
-            detailViewModel.setResult(intent.getSerializableExtra("result") as ClubInfoResponse)
+            detailViewModel.setResult(intent.getSerializableExtra("result") as ClubDetailData)
             detailViewModel.setIsProfile(true)
             supportFragmentManager.beginTransaction().replace(R.id.fragment_club, DetailFragment())
                 .commit()
@@ -47,8 +47,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
     private fun observeBottomNav() {
         binding.bottomNavigation.setOnNavigationItemSelectedListener {
-            var fragNum = 0
-            fragNum = when (it.itemId) {
+            val fragNum = when (it.itemId) {
                 R.id.majorFragment -> 0
                 R.id.freeFragment -> 1
                 R.id.personalFragment -> 2

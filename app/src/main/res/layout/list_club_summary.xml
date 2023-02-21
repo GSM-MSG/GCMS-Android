@@ -4,7 +4,7 @@
     <data>
         <variable
             name="clubSummary"
-            type="com.msg.gcms.data.remote.dto.club.response.SummaryClubResponse" />
+            type="com.msg.gcms.domain.data.club.get_club_list.GetClubListData" />
     </data>
 
     <LinearLayout

@@ -6,16 +6,14 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.msg.gcms.data.remote.dto.club.request.ClubIdentificationRequest
-import com.msg.gcms.data.remote.dto.user.request.UserDeleteRequest
 import com.msg.gcms.domain.exception.ConflictException
 import com.msg.gcms.domain.exception.ForBiddenException
 import com.msg.gcms.domain.exception.NotFoundException
 import com.msg.gcms.domain.exception.ServerException
 import com.msg.gcms.domain.exception.UnauthorizedException
+import com.msg.gcms.domain.usecase.applicant.PostClubApplyUseCase
+import com.msg.gcms.domain.usecase.applicant.PostClubCancelUseCase
 import com.msg.gcms.domain.usecase.club.ClubDeleteUseCase
-import com.msg.gcms.domain.usecase.club.PostClubApplyUseCase
-import com.msg.gcms.domain.usecase.club.PostClubCancelUseCase
 import com.msg.gcms.domain.usecase.club.PutClubCloseUseCase
 import com.msg.gcms.domain.usecase.club.PutClubOpenUseCase
 import com.msg.gcms.domain.usecase.user.ExitUseCase
@@ -57,10 +55,10 @@ class ClubViewModel @Inject constructor(
 
     private val TAG = "ClubViewModel"
 
-    fun postClubApply(type: String, q: String) {
+    fun postClubApply(clubId: Long) {
         viewModelScope.launch {
             postClubApplyUseCase(
-                ClubIdentificationRequest(type = type, q = q)
+                clubId = clubId
             ).onSuccess {
                 //Todo(Leeyeonbin) 여기도 스테이터스로 예외하는거 다 수정하기
                 _applyClub.value = Event.Success
@@ -91,10 +89,10 @@ class ClubViewModel @Inject constructor(
         }
     }
 
-    fun postClubCancel(type: String, q: String) {
+    fun postClubCancel(clubId: Long) {
         viewModelScope.launch {
             postClubCancelUseCase(
-                ClubIdentificationRequest(type = type, q = q)
+                clubId = clubId
             ).onSuccess {
                 //Todo(Leeyeonbin) 여기 스테이터스로 예외하는거 수정
                 _cancelClubApply.value = Event.Success
@@ -120,10 +118,10 @@ class ClubViewModel @Inject constructor(
         }
     }
 
-    fun putClubOpen(type: String, q: String) {
+    fun putClubOpen(clubId: Long) {
         viewModelScope.launch {
             putClubOpenUseCase(
-                ClubIdentificationRequest(type = type, q = q)
+                clubId = clubId
             ).onSuccess {
                 //Todo(Leeyeonbin) 여기 스테이터스로 예외하는거 수정
                 _openingClubApplication.value = Event.Success
@@ -149,10 +147,10 @@ class ClubViewModel @Inject constructor(
         }
     }
 
-    fun putClubClose(type: String, q: String) {
+    fun putClubClose(clubId: Long) {
         viewModelScope.launch {
             putClubCloseUseCase(
-                ClubIdentificationRequest(type = type, q = q)
+                clubId = clubId
             ).onSuccess {
                 //Todo(Leeyeonbin) 여기 스테이터스로 예외하는거 수정
                 _closingClubApplication.value = Event.Success
@@ -190,20 +188,20 @@ class ClubViewModel @Inject constructor(
         }
     }
 
-    fun exit(q: String, type: String) {
+    fun exit(clubId: Long) {
         viewModelScope.launch {
             try {
-                exitUseCase(UserDeleteRequest(q = q, type = type))
+                exitUseCase(clubId = clubId)
             } catch (e: Exception) {
                 e.printStackTrace()
             }
         }
     }
 
-    fun deleteClub(q: String, type: String) {
+    fun deleteClub(clubId: Long) {
         viewModelScope.launch {
             clubDeleteUseCase(
-                ClubIdentificationRequest(q = q, type = type)
+                clubId
             ).onSuccess {
                 //Todo(Leeyeonbin) 여기 스테이터스로 예외하는거 수정
                 // Log.d(TAG, "deleteClub: ${it.code()}")

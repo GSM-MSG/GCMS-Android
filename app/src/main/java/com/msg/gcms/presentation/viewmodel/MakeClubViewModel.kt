@@ -5,9 +5,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.msg.gcms.data.local.entity.ActivityPhotoType
-import com.msg.gcms.data.remote.dto.club.request.CreateClubRequest
-import com.msg.gcms.data.remote.dto.user.response.UserData
+import com.msg.gcms.domain.data.club.create_club.CreateClubData
+import com.msg.gcms.domain.data.user.search_user.GetSearchUserData
 import com.msg.gcms.domain.exception.BadRequestException
 import com.msg.gcms.domain.exception.ConflictException
 import com.msg.gcms.domain.exception.ServerException
@@ -15,6 +14,8 @@ import com.msg.gcms.domain.exception.UnauthorizedException
 import com.msg.gcms.domain.usecase.club.PostCreateClubUseCase
 import com.msg.gcms.domain.usecase.image.ImageUseCase
 import com.msg.gcms.domain.usecase.user.GetSearchUserUseCase
+import com.msg.gcms.presentation.adapter.activity_photo.ActivityPhotoType
+import com.msg.gcms.presentation.adapter.add_member.AddMemberType
 import com.msg.gcms.presentation.viewmodel.util.Event
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -35,8 +36,8 @@ class MakeClubViewModel @Inject constructor(
         _clubType.value = type
     }
 
-    private val _searchUserResult = MutableLiveData<List<UserData>>()
-    val searchUserResult: LiveData<List<UserData>> get() = _searchUserResult
+    private val _searchUserResult = MutableLiveData<List<GetSearchUserData>>()
+    val searchUserResult: LiveData<List<GetSearchUserData>> get() = _searchUserResult
 
     private val _searchUserState = MutableLiveData<Event>()
     val searchUserState: LiveData<Event> get() = _searchUserState
@@ -47,7 +48,7 @@ class MakeClubViewModel @Inject constructor(
     private val _activityPhotoResult = MutableLiveData<List<String>>()
     val activityPhoto: LiveData<List<String>> get() = _activityPhotoResult
 
-    var memberList: MutableList<UserData> = mutableListOf()
+    var memberList: MutableList<AddMemberType> = mutableListOf()
 
     private var clubMemberEmail = mutableListOf<String>()
 
@@ -114,20 +115,13 @@ class MakeClubViewModel @Inject constructor(
         _activityUpload = true
     }
 
-    fun setMemberEmail() {
-        memberList.forEach {
-            Log.d("TAG", "setMemberEmail: ${it.email}")
-            clubMemberEmail.add(it.email)
-        }
-    }
-
     fun bannerImageUpload(image: List<MultipartBody.Part>) {
         viewModelScope.launch {
             imageUseCase(
                 image = image
             ).onSuccess {
                 Log.d("TAG", "banner: $it")
-                _bannerResult.value = it[0]
+                _bannerResult.value = it.images.first()
                 _bannerUpload = true
                 imageUploadCheck()
             }.onFailure {
@@ -145,7 +139,7 @@ class MakeClubViewModel @Inject constructor(
                 image = image
             ).onSuccess {
                 Log.d("TAG", "activityPhoto: $it")
-                _activityPhotoResult.value = it
+                _activityPhotoResult.value = it.images
                 _activityUpload = true
                 imageUploadCheck()
             }.onFailure {
@@ -169,7 +163,7 @@ class MakeClubViewModel @Inject constructor(
                 )
                 clubMemberEmail.remove("")
                 postCreateClubUseCase(
-                    CreateClubRequest
+                    CreateClubData
                         (
                         type = clubType.value.toString().trim(),
                         title = title,

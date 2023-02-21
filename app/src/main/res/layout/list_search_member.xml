@@ -4,7 +4,7 @@
     <data>
         <variable
             name="list"
-            type="com.msg.gcms.data.remote.dto.user.response.UserData" />
+            type="com.msg.gcms.domain.data.user.search_user.GetSearchUserData" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"

@@ -5,7 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.msg.gcms.data.remote.dto.club.response.ClubInfoResponse
+import com.msg.gcms.domain.data.club.get_club_detail.ClubDetailData
 import com.msg.gcms.domain.exception.BadRequestException
 import com.msg.gcms.domain.exception.NotFoundException
 import com.msg.gcms.domain.exception.UnauthorizedException
@@ -22,8 +22,8 @@ class ClubDetailViewModel @Inject constructor(
 
     private val TAG = "GetDetailViewModel"
 
-    private val _result = MutableLiveData<ClubInfoResponse?>()
-    val result: LiveData<ClubInfoResponse?> get() = _result
+    private val _result = MutableLiveData<ClubDetailData?>()
+    val result: LiveData<ClubDetailData?> get() = _result
 
     private val _showNav = MutableLiveData<Boolean>()
     val showNav: LiveData<Boolean> get() = _showNav
@@ -36,13 +36,11 @@ class ClubDetailViewModel @Inject constructor(
 
     // private lateinit var clubInfo: ClubInfoResponse
 
-    fun getDetail(type: String, q: String) {
+    fun getDetail(clubId: Long) {
         viewModelScope.launch {
-            Log.d(TAG, "타입 : ${type}, 이름 : ${q}")
             getDetailUseCase(
-                type, q
+                clubId
             ).onSuccess {
-                // Todo(LeeHyeonbin) liveData로 값받아오는거 수정하기
                 _result.value = it
                 _getClubDetail.value = Event.Success
             }.onFailure {
@@ -60,7 +58,7 @@ class ClubDetailViewModel @Inject constructor(
                         Event.NotFound
                     }
                     else -> {
-                        Log.d(TAG, "getDetail: $it")
+                        Log.d(TAG, "getDetail: ${it.message}")
                         Event.UnKnown
                     }
                 }
@@ -69,7 +67,7 @@ class ClubDetailViewModel @Inject constructor(
     }
 
     // Todo (KimHs) 이름 좀 명시적으로 바꿔주세요
-    fun setResult(myClubResult: ClubInfoResponse) {
+    fun setResult(myClubResult: ClubDetailData) {
         if (_result.value == null) {
             _result.value = myClubResult
         }

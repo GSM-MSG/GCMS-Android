@@ -7,8 +7,8 @@ import androidx.activity.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.msg.gcms.R
 import com.msg.gcms.databinding.ActivityMemberManagementBinding
-import com.msg.gcms.presentation.adapter.ApplicantAdapter
-import com.msg.gcms.presentation.adapter.MemberAdapter
+import com.msg.gcms.presentation.adapter.applicant.ApplicantAdapter
+import com.msg.gcms.presentation.adapter.member.MemberAdapter
 import com.msg.gcms.presentation.base.BaseActivity
 import com.msg.gcms.presentation.base.BaseDialog
 import com.msg.gcms.presentation.base.BaseModal
@@ -21,8 +21,8 @@ class MemberManageActivity :
     BaseActivity<ActivityMemberManagementBinding>(R.layout.activity_member_management) {
 
     private val viewModel by viewModels<MemberManageViewModel>()
-    lateinit var memberAdapter: MemberAdapter
-    lateinit var applicantAdapter: ApplicantAdapter
+    private lateinit var memberAdapter: MemberAdapter
+    private lateinit var applicantAdapter: ApplicantAdapter
 
     override fun observeEvent() {
         observeMemberList()
@@ -48,9 +48,8 @@ class MemberManageActivity :
     }
 
     override fun viewSetting() {
-        viewModel.setClub(intent.getStringExtra("name")!!, intent.getStringExtra("type")!!).let {
-            clickExpandable()
-        }
+        viewModel.setClubId(intent.getLongExtra("clubId", 0))
+        clickExpandable()
         clickBackBtn()
         viewTitle()
     }
@@ -79,15 +78,15 @@ class MemberManageActivity :
                     "위임",
                     "권한 넘어감",
                     this@MemberManageActivity
-                ) { viewModel.delegate(viewModel.memberList.value!!.get(position).email) }
+                ) { viewModel.delegate(viewModel.memberList.value!![position].email) }
             }
 
             override fun kick(position: Int) {
                 showDialog(
                     "강퇴",
-                    "${viewModel.memberList.value!!.get(position).name}님을 강퇴하시겠습니까?",
+                    "${viewModel.memberList.value!![position].name}님을 강퇴하시겠습니까?",
                     this@MemberManageActivity
-                ) { viewModel.kickUser(viewModel.memberList.value!!.get(position).email) }
+                ) { viewModel.kickUser(viewModel.memberList.value!![position].uuid) }
             }
         })
         binding.memberList.layoutManager = LinearLayoutManager(this)
@@ -103,7 +102,7 @@ class MemberManageActivity :
                     "승인",
                     "동료가 되었다!!",
                     this@MemberManageActivity
-                ) { viewModel.accept(viewModel.applicantList.value!!.get(position).email) }
+                ) { viewModel.accept(viewModel.applicantList.value!![position].email) }
             }
 
             override fun reject(position: Int) {
@@ -111,7 +110,7 @@ class MemberManageActivity :
                     "거절",
                     "바2",
                     this@MemberManageActivity
-                ) { viewModel.reject(viewModel.applicantList.value!!.get(position).email) }
+                ) { viewModel.reject(viewModel.applicantList.value!![position].email) }
             }
         })
         binding.applicantList.layoutManager = LinearLayoutManager(this)
@@ -164,7 +163,6 @@ class MemberManageActivity :
                 Event.Server -> {
                 }
                 else -> {
-
                 }
             }
         }
@@ -188,7 +186,6 @@ class MemberManageActivity :
                 Event.Server -> {
                 }
                 else -> {
-
                 }
             }
         }
@@ -212,7 +209,6 @@ class MemberManageActivity :
                 Event.Server -> {
                 }
                 else -> {
-
                 }
             }
         }
@@ -236,7 +232,6 @@ class MemberManageActivity :
                 Event.Server -> {
                 }
                 else -> {
-
                 }
             }
         }
@@ -260,7 +255,6 @@ class MemberManageActivity :
                 Event.Server -> {
                 }
                 else -> {
-
                 }
             }
         }
@@ -284,7 +278,6 @@ class MemberManageActivity :
                 Event.Server -> {
                 }
                 else -> {
-
                 }
             }
         }

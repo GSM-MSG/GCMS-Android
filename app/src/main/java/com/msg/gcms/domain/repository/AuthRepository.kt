@@ -1,12 +1,12 @@
 package com.msg.gcms.domain.repository
 
-import com.msg.gcms.data.remote.dto.auth.request.SignInRequest
-import com.msg.gcms.data.remote.dto.auth.response.SignInResponse
+import com.msg.gcms.domain.data.auth.SignInRequestData
+import com.msg.gcms.domain.data.auth.SignInResponseData
 
 interface AuthRepository {
     suspend fun postRegistration(
-        body: SignInRequest
-    ): SignInResponse
+        body: SignInRequestData
+    ): SignInResponseData
 
     suspend fun logout()
 

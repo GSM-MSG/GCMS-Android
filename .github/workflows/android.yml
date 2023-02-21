@@ -26,6 +26,16 @@ jobs:
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
 
+      - name: Cache Gradle Packages
+        uses: actions/cache@v2
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{runner.os}}-gradle-${{hashFiles('**/*.gradle*', '**/gradle-wrapper.properties', '**/buildSrc/**/*.kt')}}
+          restore-keys: |
+            ${{runner.os}}-gradle-
+
       - name: Access CLIENT_ID
         env:
           CLIENT_ID: ${{ secrets.CLIENT_ID }}
