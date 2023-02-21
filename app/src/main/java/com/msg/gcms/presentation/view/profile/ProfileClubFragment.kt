@@ -90,8 +90,6 @@ class ProfileClubFragment :
                 Log.d("WWWW","클릭")
                 getDetail(
                     privateClubList[position].id
-                    // privateClubList[position].type,
-                    // privateClubList[position].title
                 )
                 Log.d("clubsss",viewModel.profileData.value?.clubs.toString())
             }
