@@ -258,7 +258,7 @@
                         app:layout_constraintTop_toBottomOf="@id/member_club_img" />
 
                     <ImageView
-                        android:src="@drawable/ic_teacher_img"
+                        android:src="@drawable/ic_default_profile"
                         android:id="@+id/teacher_img"
                         android:layout_width="60dp"
                         android:layout_height="60dp"
