@@ -34,8 +34,6 @@ class ClubDetailViewModel @Inject constructor(
     private val _getClubDetail = MutableLiveData<Event>()
     val getClubDetail: LiveData<Event> get() = _getClubDetail
 
-    // private lateinit var clubInfo: ClubInfoResponse
-
     fun getDetail(clubId: Long) {
         viewModelScope.launch {
             getDetailUseCase(
@@ -80,11 +78,4 @@ class ClubDetailViewModel @Inject constructor(
     fun setIsProfile(boolean: Boolean) {
         _isProfile.value = boolean
     }
-
-    // Todo (KimHs) 이상한걸 만들어놨냐 - 이현빈
-    fun clearResult() {
-        _result.value = null
-    }
-
-    // fun getClubInfo() = clubInfo
 }

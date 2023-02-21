@@ -21,7 +21,7 @@ interface ClubAPI {
 
     @GET("club/{club_id}")
     suspend fun getDetail(
-        @Path("clubId") clubId: Long,
+        @Path("club_id") clubId: Long,
     ): ClubDetailResponse
 
     @POST("club")
