@@ -1,6 +1,5 @@
 package com.msg.gcms.presentation.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -37,7 +36,6 @@ class WithdrawalViewModel @Inject constructor(
                 _withDrawalRequest.value = Event.Success
                 saveTokenInfoUseCase()
             }.onFailure {
-                Log.d("withdrawal",it.toString())
                 _withDrawalRequest.value = when (it) {
                     is UnauthorizedException -> Event.Unauthorized
                     is NotFoundException -> Event.NotFound
