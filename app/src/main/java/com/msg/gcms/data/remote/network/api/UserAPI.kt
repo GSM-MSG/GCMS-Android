@@ -22,7 +22,7 @@ interface UserAPI {
     @PATCH("user")
     suspend fun putProfile(
         @Body body: ModifyProfileImageRequest
-    ): Void
+    ): Response<Unit>
 
     @DELETE("user")
     suspend fun deleteUser(): Response<Unit>
