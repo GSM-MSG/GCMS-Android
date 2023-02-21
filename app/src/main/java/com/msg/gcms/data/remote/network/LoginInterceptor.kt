@@ -1,5 +1,6 @@
 package com.msg.gcms.data.remote.network
 
+import android.util.Log
 import com.google.gson.JsonObject
 import com.google.gson.JsonParser
 import com.msg.gcms.BuildConfig
@@ -54,7 +55,9 @@ class LoginInterceptor @Inject constructor(
                 authDataStorage.setRefreshToken(token["refreshToken"].toString().removeDot())
                 authDataStorage.setAccessExpiredAt(token["accessExp"].toString().removeDot())
                 authDataStorage.setRefreshExpiredAt(token["refreshExp"].toString().removeDot())
-            } else throw RuntimeException()
+            } else {
+                Log.d("Interceptor", response.code.toString())
+            }
         }
 
         val accessToken = authDataStorage.getAccessToken()

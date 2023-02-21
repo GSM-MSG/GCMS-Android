@@ -55,7 +55,7 @@ class AuthViewModel @Inject constructor(
                     else -> showDebugLog("Logout: Unknown, status: $it")
                 }
             }
-        saveTokenInfoUseCase("", "", "", "")
+        saveTokenInfoUseCase()
     }
 
     private fun saveToken(response: SignInResponseData) = viewModelScope.launch {
