@@ -3,26 +3,45 @@ package com.msg.gcms.presentation.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.msg.gcms.domain.exception.BadRequestException
+import com.msg.gcms.domain.exception.NotFoundException
+import com.msg.gcms.domain.exception.UnauthorizedException
+import com.msg.gcms.domain.usecase.auth.SaveTokenInfoUseCase
 import com.msg.gcms.domain.usecase.user.DeleteUserUseCase
+import com.msg.gcms.presentation.viewmodel.util.Event
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class WithdrawalViewModel @Inject constructor(
-    private val deleteUserUseCase: DeleteUserUseCase
+    private val deleteUserUseCase: DeleteUserUseCase,
+    private val saveTokenInfoUseCase: SaveTokenInfoUseCase
 ) : ViewModel() {
 
     private val _isApproved = MutableLiveData<Boolean>()
     val isApproved: LiveData<Boolean> get() = _isApproved
 
-    private val _isWithdrawal = MutableLiveData<Boolean>()
-    val isWithdrawal: LiveData<Boolean> get() = _isWithdrawal
+    private val _withDrawalRequest = MutableLiveData<Event>()
+    val withDrawalRequest: LiveData<Event> get() = _withDrawalRequest
 
     fun changeIsApproved(isCheck: Boolean) {
         _isApproved.value = isCheck
     }
 
-    fun withdrawal() {
-        TODO("GAuth에 맞는 방식으로 변경 필요")
+    fun withdrawal() = viewModelScope.launch {
+        deleteUserUseCase()
+            .onSuccess {
+                _withDrawalRequest.value = Event.Success
+                saveTokenInfoUseCase()
+            }.onFailure {
+                _withDrawalRequest.value = when (it) {
+                    is UnauthorizedException -> Event.Unauthorized
+                    is NotFoundException -> Event.NotFound
+                    is BadRequestException -> Event.BadRequest
+                    else -> Event.UnKnown
+                }
+            }
     }
 }
