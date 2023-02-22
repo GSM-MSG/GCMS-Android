@@ -17,5 +17,5 @@ data class GetSearchUserResponse(
     @SerializedName("number")
     val number: Int,
     @SerializedName("profileImg")
-    val profileImg: String
+    val profileImg: String?
 )
