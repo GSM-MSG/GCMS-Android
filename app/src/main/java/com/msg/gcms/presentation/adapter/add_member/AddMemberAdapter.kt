@@ -8,35 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.msg.gcms.databinding.ListAddMemberBinding
 
 class AddMemberAdapter :
-    ListAdapter<AddMemberType, AddMemberAdapter.AddMemberViewHolder>(diffUtil) {
-
-    companion object {
-        val diffUtil = object : DiffUtil.ItemCallback<AddMemberType>() {
-            override fun areItemsTheSame(oldItem: AddMemberType, newItem: AddMemberType): Boolean =
-                if (oldItem == newItem) {
-                    oldItem.uuid == newItem.uuid
-                } else {
-                    false
-                }
-
-            override fun areContentsTheSame(
-                oldItem: AddMemberType,
-                newItem: AddMemberType
-            ): Boolean = oldItem == newItem
-        }
-    }
-
-    class AddMemberViewHolder(
-        private val binding: ListAddMemberBinding,
-    ) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(data: AddMemberType) {
-            binding.addUserNameTv.text = data.userName
-        }
-    }
-
-    fun replaceItems(newList: List<AddMemberType>) {
-        submitList(newList)
-    }
+    ListAdapter<AddMemberType, AddMemberAdapter.AddMemberViewHolder>(AddMemberCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AddMemberViewHolder {
         val binding =
@@ -44,20 +16,31 @@ class AddMemberAdapter :
         return AddMemberViewHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: AddMemberViewHolder, position: Int) {
-        holder.bind(data = getItem(position))
-        holder.itemView.setOnClickListener {
-
-        }
-    }
-
     interface OnItemClickListener {
         fun onClick(position: Int)
     }
 
-    fun setItemOnClickListener(onItemClickListener: OnItemClickListener) {
-        this.itemClickListener = onItemClickListener
+    override fun onBindViewHolder(holder: AddMemberViewHolder, position: Int) {
+        holder.bind(data = getItem(position))
     }
 
     private lateinit var itemClickListener: OnItemClickListener
+
+    inner class AddMemberViewHolder(
+        private val binding: ListAddMemberBinding
+    ) : RecyclerView.ViewHolder(binding.root) {
+        fun bind(data: AddMemberType) {
+            binding.addUserNameTv.text = data.userName
+        }
+    }
+
+    private class AddMemberCallback : DiffUtil.ItemCallback<AddMemberType>() {
+        override fun areItemsTheSame(oldItem: AddMemberType, newItem: AddMemberType): Boolean =
+            oldItem.uuid == newItem.uuid
+
+        override fun areContentsTheSame(
+            oldItem: AddMemberType,
+            newItem: AddMemberType
+        ): Boolean = oldItem == newItem
+    }
 }

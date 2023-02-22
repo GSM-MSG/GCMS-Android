@@ -75,13 +75,13 @@ class EditSearchFragment: BaseFragment<FragmentEditSearchBinding>(R.layout.fragm
             // addMemberAdapter.setMemberList(memberList.distinct())
             adapter = addMemberAdapter
         }
-        addMemberAdapter.setItemOnClickListener(object : AddMemberAdapter.OnItemClickListener {
-            override fun onClick(position: Int) {
-                val item = memberList[position]
-                memberList.remove(item)
-                // addMemberAdapter.removeMember(AddMemberType(uuid = item.uuid, userName = item.name, userImg = item.profileImg))
-            }
-        })
+        // addMemberAdapter.setItemOnClickListener(object : AddMemberAdapter.OnItemClickListener {
+        //     override fun onClick(position: Int) {
+        //         val item = memberList[position]
+        //         memberList.remove(item)
+        //         addMemberAdapter.removeMember(AddMemberType(uuid = item.uuid, userName = item.name, userImg = item.profileImg))
+        //     }
+        // })
         searchAdapter.setItemOnClickListener(object : UserSearchAdapter.OnItemClickListener {
             override fun onClick(position: Int) {
                 val item = userList[position]

@@ -92,8 +92,9 @@ class StudentSearchFragment :
                             userImg = item.profileImg
                         )
                     )
+                    addMemberAdapter.submitList(addedMemberList)
+                    binding.memberListRv.adapter = addMemberAdapter
                     Log.d("TAG", "addMemberList : $addedMemberList")
-                    addMemberAdapter.replaceItems(addedMemberList)
                 }
             }
         })
