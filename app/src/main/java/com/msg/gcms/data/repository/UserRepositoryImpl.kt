@@ -1,7 +1,7 @@
 package com.msg.gcms.data.repository
 
 import com.msg.gcms.data.mapper.UserMapper
-import com.msg.gcms.data.remote.datasource.user.UserDataSourceImpl
+import com.msg.gcms.data.remote.datasource.user.UserDataSource
 import com.msg.gcms.data.remote.dto.user.modify_profile_image.ModifyProfileImageRequest
 import com.msg.gcms.domain.data.user.get_my_profile.GetMyProfileData
 import com.msg.gcms.domain.data.user.modify_profile_image.ModifyProfileImageData
@@ -10,7 +10,7 @@ import com.msg.gcms.domain.repository.UserRepository
 import javax.inject.Inject
 
 class UserRepositoryImpl @Inject constructor(
-    private val dataSource: UserDataSourceImpl
+    private val dataSource: UserDataSource
 ) : UserRepository {
     override suspend fun getUserInfo(): GetMyProfileData {
         return UserMapper.mapperToGetMyProfileData(dataSource.getUserInfo())

@@ -1,7 +1,7 @@
 package com.msg.gcms.data.repository
 
 import com.msg.gcms.data.mapper.ApplicantMapper
-import com.msg.gcms.data.remote.datasource.applicant.ApplicantDataSourceImpl
+import com.msg.gcms.data.remote.datasource.applicant.ApplicantDataSource
 import com.msg.gcms.data.remote.dto.applicant.club_apply_accept.ClubApplyAcceptRequest
 import com.msg.gcms.data.remote.dto.applicant.club_apply_reject.ClubApplyRejectRequest
 import com.msg.gcms.domain.data.applicant.clubApplyAccept.ClubApplyAcceptData
@@ -11,7 +11,7 @@ import com.msg.gcms.domain.repository.ApplicantRepository
 import javax.inject.Inject
 
 class ApplicantRepositoryImpl @Inject constructor(
-    private val dataSource: ApplicantDataSourceImpl
+    private val dataSource: ApplicantDataSource
 ): ApplicantRepository {
     override suspend fun getApplicantList(clubId: Long): GetApplicantListData {
         return ApplicantMapper.mapperToGetApplicantListData(dataSource.getApplicantList(clubId = clubId))
