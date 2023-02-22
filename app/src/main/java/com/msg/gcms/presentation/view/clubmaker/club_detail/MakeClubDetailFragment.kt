@@ -58,16 +58,21 @@ class MakeClubDetailFragment :
 
     private var imageState = false
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        activityAdapter = ActivityPhotosAdapter()
-    }
-
     override fun init() {
         settingRecyclerView()
         observeEvent()
         binding.fragment = this
         Log.d("TAG", "lifeCycle: onCreateView")
+    }
+
+    override fun onResume() {
+        imageSetting()
+        super.onResume()
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        activityAdapter = ActivityPhotosAdapter()
     }
 
     private fun observeEvent() {
