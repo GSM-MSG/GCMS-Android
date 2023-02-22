@@ -10,6 +10,7 @@ import android.graphics.Bitmap
 import android.graphics.ImageDecoder
 import android.net.Uri
 import android.os.Build
+import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
 import android.view.View
@@ -57,16 +58,16 @@ class MakeClubDetailFragment :
 
     private var imageState = false
 
-    override fun init() {
-        binding.fragment = this
-        settingRecyclerView()
-        observeEvent()
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        activityAdapter = ActivityPhotosAdapter()
     }
 
-    override fun onResume() {
-        imageSetting()
+    override fun init() {
         settingRecyclerView()
-        super.onResume()
+        observeEvent()
+        binding.fragment = this
+        Log.d("TAG", "lifeCycle: onCreateView")
     }
 
     private fun observeEvent() {
@@ -91,7 +92,7 @@ class MakeClubDetailFragment :
     }
 
     private fun imageSetting() {
-        if (bannerImage.isNotEmpty() || makeClubViewModel.activityPhotoList.isNotEmpty() || makeClubViewModel.memberList.isNotEmpty()) {
+        if (bannerImage.isNotEmpty()) {
             binding.addBannerPicture.load(bannerImageUri) {
                 crossfade(true)
                 transformations(RoundedCornersTransformation(8f))
@@ -101,6 +102,10 @@ class MakeClubDetailFragment :
                 addImageTxt.visibility = View.GONE
             }
         }
+        if(makeClubViewModel.activityPhotoList.isNotEmpty()) {
+            activityAdapter.submitList(makeClubViewModel.activityPhotoList)
+            binding.clubActivePicture.adapter = activityAdapter
+        }
     }
 
     private fun settingRecyclerView() {
@@ -108,6 +113,7 @@ class MakeClubDetailFragment :
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
             setHasFixedSize(true)
             addItemDecoration(ItemDecorator(10, "HORIZONTAL"))
+            binding.clubActivePicture.adapter = activityAdapter
         }
         with(binding.clubMemberRv) {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
@@ -241,7 +247,6 @@ class MakeClubDetailFragment :
                         val imageBitmap = uriToBitMap(imageUri)
                         makeClubViewModel.activityPhotoList.add(ActivityPhotoType(activityPhoto = imageBitmap))
                         Log.d("TAG", "getBitmap: $imageBitmap")
-                        activityAdapter = ActivityPhotosAdapter(makeClubViewModel.activityPhotoList)
                         val file = File(getPathFromUri(imageUri))
                         val requestFile = RequestBody.create("image/*".toMediaTypeOrNull(), file)
                         val img = MultipartBody.Part.createFormData("file", file.name, requestFile)
@@ -256,7 +261,8 @@ class MakeClubDetailFragment :
                         ActivityPhotosAdapter.OnItemClickListener {
                         override fun onClick(position: Int) {
                             makeClubViewModel.activityPhotoList.removeAt(position)
-                            activityAdapter.notifyDataSetChanged()
+                            activityAdapter.submitList(makeClubViewModel.activityPhotoList)
+                            binding.clubActivePicture.adapter = activityAdapter
                         }
                     })
                 }
