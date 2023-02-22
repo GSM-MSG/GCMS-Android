@@ -70,16 +70,15 @@ class StudentSearchFragment :
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
             setHasFixedSize(true)
             addItemDecoration(ItemDecorator(16, "HORIZONTAL"))
-            addMemberAdapter.setMemberList(makeClubViewModel.memberList)
             adapter = addMemberAdapter
         }
-        addMemberAdapter.setItemOnClickListener(object : AddMemberAdapter.OnItemClickListener {
-            override fun onClick(position: Int) {
-                val item = addedMemberList[position]
-                addedMemberList.remove(item)
-                addMemberAdapter.removeMember(item)
-            }
-        })
+        // addMemberAdapter.setItemOnClickListener(object : AddMemberAdapter.OnItemClickListener {
+        //     override fun onClick(position: Int) {
+        //         val item = addedMemberList[position]
+        //         addedMemberList.remove(item)
+        //         addMemberAdapter.removeMember(item)
+        //     }
+        // })
         searchAdapter.setItemOnClickListener(object : UserSearchAdapter.OnItemClickListener {
             override fun onClick(position: Int) {
                 val item = userList[position]
@@ -94,6 +93,7 @@ class StudentSearchFragment :
                         )
                     )
                     Log.d("TAG", "addMemberList : $addedMemberList")
+                    addMemberAdapter.replaceItems(addedMemberList)
                 }
             }
         })
@@ -131,7 +131,8 @@ class StudentSearchFragment :
             }
             binding.selectBtn.id -> {
                 if (addedMemberList.isNotEmpty()) {
-                    makeClubViewModel.memberList = addedMemberList.map { it }.toMutableList()
+                    makeClubViewModel.addedMemberList.clear()
+                    makeClubViewModel.addedMemberList.addAll(addedMemberList)
                 }
                 this.findNavController().popBackStack()
             }

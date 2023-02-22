@@ -1,6 +1,7 @@
 package com.msg.gcms.data.remote.dto.club.create_club
 
 import com.google.gson.annotations.SerializedName
+import java.util.UUID
 
 data class CreateClubRequest(
     @SerializedName("type")
@@ -20,5 +21,5 @@ data class CreateClubRequest(
     @SerializedName("activityImgs")
     val activityUrls: List<String>?,
     @SerializedName("member")
-    val member: List<String>?,
+    val member: List<UUID>?,
 )

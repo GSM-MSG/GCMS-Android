@@ -48,10 +48,6 @@ class MakeClubViewModel @Inject constructor(
     private val _activityPhotoResult = MutableLiveData<List<String>>()
     val activityPhoto: LiveData<List<String>> get() = _activityPhotoResult
 
-    var memberList: MutableList<AddMemberType> = mutableListOf()
-
-    private var clubMemberEmail = mutableListOf<String>()
-
     private val _imageUploadCheck = MutableLiveData<Boolean?>()
     val imageUploadCheck: LiveData<Boolean?> get() = _imageUploadCheck
 
@@ -64,8 +60,7 @@ class MakeClubViewModel @Inject constructor(
     private val _createClubResult = MutableLiveData<Event>()
     val createClubResult: LiveData<Event> get() = _createClubResult
 
-    // private val _status = MutableLiveData<Int>()
-    // val status: LiveData<Int> get() = _status
+    val addedMemberList = mutableListOf<AddMemberType>()
 
     private var isAlreadyRequest = false
 
@@ -153,15 +148,10 @@ class MakeClubViewModel @Inject constructor(
 
     fun createClub() {
         viewModelScope.launch {
-            if(!isAlreadyRequest) {
+            if (!isAlreadyRequest) {
                 isAlreadyRequest = true
                 if (_activityPhotoResult.value == null)
                     _activityPhotoResult.value = emptyList()
-                Log.d(
-                    "TAG",
-                    "createClub: type: ${clubType.value.toString()}, title: $title, description: $description, contact: $contact, notionLink: $notionLink, teacher: $teacher, member: $clubMemberEmail, activityUrls: ${activityPhoto.value}, bannerUrl: ${bannerResult.value}"
-                )
-                clubMemberEmail.remove("")
                 postCreateClubUseCase(
                     CreateClubData
                         (
@@ -171,7 +161,7 @@ class MakeClubViewModel @Inject constructor(
                         contact = contact,
                         notionLink = notionLink,
                         teacher = teacher,
-                        member = clubMemberEmail,
+                        member = addedMemberList.map { it.uuid!! },
                         activityUrls = _activityPhotoResult.value,
                         bannerUrl = _bannerResult.value!!
                     )
@@ -180,7 +170,7 @@ class MakeClubViewModel @Inject constructor(
                     _createClubResult.value = Event.Success
 
                 }.onFailure {
-                    _createClubResult.value = when(it) {
+                    _createClubResult.value = when (it) {
                         is BadRequestException -> {
                             Event.BadRequest
                         }
