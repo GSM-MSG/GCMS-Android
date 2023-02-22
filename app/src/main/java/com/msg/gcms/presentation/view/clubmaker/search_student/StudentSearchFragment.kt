@@ -83,12 +83,17 @@ class StudentSearchFragment :
         searchAdapter.setItemOnClickListener(object : UserSearchAdapter.OnItemClickListener {
             override fun onClick(position: Int) {
                 val item = userList[position]
-                // Todo 여기 유저 검색에서 recyclerView 추가하는 부분 수정하기
-                if (!addedMemberList.map { it.uuid }.contains(item.uuid)) {
-                    
-                    Log.d("TAG", "addMemberList : $addedMemberList")
-                } else {
+                if (addedMemberList.map { it.uuid }.contains(item.uuid)) {
                     Log.d("TAG", "that user contained list")
+                } else {
+                    addedMemberList.add(
+                        AddMemberType(
+                            uuid = item.uuid,
+                            userName = item.name,
+                            userImg = item.profileImg
+                        )
+                    )
+                    Log.d("TAG", "addMemberList : $addedMemberList")
                 }
             }
         })
