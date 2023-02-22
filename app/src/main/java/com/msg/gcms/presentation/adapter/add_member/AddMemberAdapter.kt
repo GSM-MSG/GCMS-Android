@@ -3,12 +3,28 @@ package com.msg.gcms.presentation.adapter.add_member
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.msg.gcms.databinding.ListAddMemberBinding
 
-class AddMemberAdapter : RecyclerView.Adapter<AddMemberAdapter.AddMemberViewHolder>() {
+class AddMemberAdapter :
+    ListAdapter<AddMemberType, AddMemberAdapter.AddMemberViewHolder>(diffUtil) {
 
-    private val list = mutableListOf<AddMemberType>()
+    companion object {
+        val diffUtil = object : DiffUtil.ItemCallback<AddMemberType>() {
+            override fun areItemsTheSame(oldItem: AddMemberType, newItem: AddMemberType): Boolean =
+                if (oldItem == newItem) {
+                    oldItem.uuid == newItem.uuid
+                } else {
+                    false
+                }
+
+            override fun areContentsTheSame(
+                oldItem: AddMemberType,
+                newItem: AddMemberType
+            ): Boolean = oldItem == newItem
+        }
+    }
 
     class AddMemberViewHolder(
         private val binding: ListAddMemberBinding,
@@ -19,13 +35,7 @@ class AddMemberAdapter : RecyclerView.Adapter<AddMemberAdapter.AddMemberViewHold
     }
 
     fun replaceItems(newList: List<AddMemberType>) {
-        val diffCallback = AddMemberCallBack(list, newList)
-        val diffResult = DiffUtil.calculateDiff(diffCallback)
-
-        list.clear()
-        list.addAll(newList)
-
-        diffResult.dispatchUpdatesTo(this)
+        submitList(newList)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AddMemberViewHolder {
@@ -35,13 +45,11 @@ class AddMemberAdapter : RecyclerView.Adapter<AddMemberAdapter.AddMemberViewHold
     }
 
     override fun onBindViewHolder(holder: AddMemberViewHolder, position: Int) {
-        holder.bind(data = list[position])
+        holder.bind(data = getItem(position))
         holder.itemView.setOnClickListener {
 
         }
     }
-
-    override fun getItemCount(): Int = list.size
 
     interface OnItemClickListener {
         fun onClick(position: Int)
@@ -52,27 +60,4 @@ class AddMemberAdapter : RecyclerView.Adapter<AddMemberAdapter.AddMemberViewHold
     }
 
     private lateinit var itemClickListener: OnItemClickListener
-}
-
-class AddMemberCallBack(
-    private val oldList: List<AddMemberType>,
-    private val newList: List<AddMemberType>
-) : DiffUtil.Callback() {
-    override fun getOldListSize(): Int = oldList.size
-
-    override fun getNewListSize(): Int = newList.size
-
-    override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
-        val oldItem = oldList[oldItemPosition]
-        val newItem = newList[newItemPosition]
-        return if (oldItem == newItem) {
-            oldItem.uuid == newItem.uuid
-        } else {
-            false
-        }
-    }
-
-    override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean =
-        oldList[oldItemPosition] == newList[newItemPosition]
-
 }
