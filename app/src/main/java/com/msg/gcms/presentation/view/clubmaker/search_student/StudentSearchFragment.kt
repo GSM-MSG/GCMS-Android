@@ -72,13 +72,13 @@ class StudentSearchFragment :
             addItemDecoration(ItemDecorator(16, "HORIZONTAL"))
             adapter = addMemberAdapter
         }
-        // addMemberAdapter.setItemOnClickListener(object : AddMemberAdapter.OnItemClickListener {
-        //     override fun onClick(position: Int) {
-        //         val item = addedMemberList[position]
-        //         addedMemberList.remove(item)
-        //         addMemberAdapter.removeMember(item)
-        //     }
-        // })
+        addMemberAdapter.setItemOnClickListener(object : AddMemberAdapter.OnItemClickListener {
+            override fun onClick(position: Int) {
+                addedMemberList.removeAt(position)
+                addMemberAdapter.submitList(addedMemberList)
+                binding.memberListRv.adapter = addMemberAdapter
+            }
+        })
         searchAdapter.setItemOnClickListener(object : UserSearchAdapter.OnItemClickListener {
             override fun onClick(position: Int) {
                 val item = userList[position]

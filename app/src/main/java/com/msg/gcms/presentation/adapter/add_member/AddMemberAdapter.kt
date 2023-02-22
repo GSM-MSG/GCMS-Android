@@ -22,9 +22,16 @@ class AddMemberAdapter :
 
     override fun onBindViewHolder(holder: AddMemberViewHolder, position: Int) {
         holder.bind(data = getItem(position))
+        holder.itemView.setOnClickListener {
+            itemClickListener.onClick(position)
+        }
     }
 
     private lateinit var itemClickListener: OnItemClickListener
+
+    fun setItemOnClickListener(onItemClickListener: OnItemClickListener) {
+        this.itemClickListener = onItemClickListener
+    }
 
     inner class AddMemberViewHolder(
         private val binding: ListAddMemberBinding
