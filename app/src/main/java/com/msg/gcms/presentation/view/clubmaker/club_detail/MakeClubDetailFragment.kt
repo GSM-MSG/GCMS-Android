@@ -193,7 +193,8 @@ class MakeClubDetailFragment :
                 )
             )
         }
-        clubMemberAdapter = ClubMemberAdapter(makeClubViewModel.addedMemberList)
+        clubMemberAdapter.submitList(makeClubViewModel.addedMemberList)
+        clubMemberAdapter = ClubMemberAdapter()
         clubMemberAdapter.setItemOnClickListener(object : ClubMemberAdapter.OnItemClickListener {
             override fun onClick(position: Int) {
                 findNavController().navigate(R.id.action_makeClubDetailFragment_to_studentSearchFragment)
