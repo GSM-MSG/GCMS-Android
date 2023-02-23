@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import coil.transform.CircleCropTransformation
+import com.msg.gcms.R
 import com.msg.gcms.databinding.ListClubMemberBinding
 import com.msg.gcms.presentation.adapter.add_member.AddMemberType
 
@@ -40,7 +41,7 @@ class ClubMemberAdapter :
 
         fun bind(data: AddMemberType) {
             binding.userName.text = data.userName
-            binding.userProfileIv.load(data.userImg) {
+            binding.userProfileIv.load(data.userImg ?: R.drawable.ic_default_profile) {
                 crossfade(true)
                 transformations(CircleCropTransformation())
             }
