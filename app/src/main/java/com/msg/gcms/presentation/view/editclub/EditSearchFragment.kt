@@ -131,7 +131,7 @@ class EditSearchFragment: BaseFragment<FragmentEditSearchBinding>(R.layout.fragm
                     // TODO 여기 타입 변경하기
                     // editViewModel.memberList = memberList.distinct().toMutableList()
                 }
-                editViewModel.setMemberEmail()
+                // editViewModel.setMemberEmail()
                 this.findNavController().popBackStack()
             }
         }

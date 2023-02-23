@@ -29,9 +29,8 @@ import coil.request.ImageRequest
 import coil.request.SuccessResult
 import coil.transform.RoundedCornersTransformation
 import com.msg.gcms.R
-import com.msg.gcms.presentation.adapter.activity_photo.ActivityPhotoType
 import com.msg.gcms.databinding.FragmentEditClubBinding
-import com.msg.gcms.domain.data.club.get_club_detail.ClubMemberData
+import com.msg.gcms.presentation.adapter.activity_photo.ActivityPhotoType
 import com.msg.gcms.presentation.adapter.activity_photo.ActivityPhotosAdapter
 import com.msg.gcms.presentation.adapter.club_member.ClubMemberAdapter
 import com.msg.gcms.presentation.base.BaseFragment
@@ -68,7 +67,6 @@ class EditClubFragment : BaseFragment<FragmentEditClubBinding>(R.layout.fragment
     private var legacyList = listOf<ActivityPhotoType>()
     private var newPhotosList = mutableListOf<MultipartBody.Part>()
 
-    private var memberList = mutableListOf<ClubMemberData>()
     var getClubInfoListener = false
 
     override fun init() {
@@ -269,7 +267,7 @@ class EditClubFragment : BaseFragment<FragmentEditClubBinding>(R.layout.fragment
 
     private fun getClubInfo() {
         Log.d("TAG", "getClubInfo")
-        if (editViewModel.memberList.isEmpty()) editViewModel.getClubInfo()
+        // if (editViewModel.memberList.isEmpty()) editViewModel.getClubInfo()
     }
 
     private fun clickBackBtn() {
@@ -308,7 +306,7 @@ class EditClubFragment : BaseFragment<FragmentEditClubBinding>(R.layout.fragment
     private fun clubMemberRecyclerView() {
         // TODO 여기 타입 변경하기
         // clubMemberAdapter = ClubMemberAdapter(editViewModel.memberList)
-        Log.d("TAG", "clubMemberRecyclerView: ${editViewModel.memberList}}")
+        // clubMemberAdapter = ClubMemberAdapter()
         binding.clubMemberRv.adapter = clubMemberAdapter
     }
 

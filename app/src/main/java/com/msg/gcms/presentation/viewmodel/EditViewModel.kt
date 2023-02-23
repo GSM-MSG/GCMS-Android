@@ -47,7 +47,7 @@ class EditViewModel @Inject constructor(
 
     private var clubMemberEmail = mutableListOf<String>()
 
-    var memberList: MutableList<String> = mutableListOf()
+    // var memberList: MutableList<String> = mutableListOf()
 
     private val _convertImage = MutableLiveData<List<String>>()
     val convertImage: LiveData<List<String>> get() = _convertImage
@@ -93,7 +93,6 @@ class EditViewModel @Inject constructor(
         } else {
             //TODO 여기 타입 변경하기
             // memberList.addAll(clubInfo.value!!.member)
-            Log.d("TAG", "memberCheck: ${memberList.distinct()}")
         }
     }
 
@@ -117,13 +116,13 @@ class EditViewModel @Inject constructor(
         }
     }
 
-    fun setMemberEmail() {
-        memberList.forEach {
-            Log.d("TAG", "setMemberEmail: $it")
-            clubMemberEmail.add(it)
-        }
-        memberList.distinct()
-    }
+    // fun setMemberEmail() {
+    //     memberList.forEach {
+    //         Log.d("TAG", "setMemberEmail: $it")
+    //         clubMemberEmail.add(it)
+    //     }
+    //     memberList.distinct()
+    // }
 
     fun uploadImage(list: List<MultipartBody.Part>) {
         Log.d("TAG", "uploadImage")
