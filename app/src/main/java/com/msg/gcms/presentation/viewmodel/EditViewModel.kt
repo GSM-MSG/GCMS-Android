@@ -45,7 +45,7 @@ class EditViewModel @Inject constructor(
 
     var newPhotos = mutableListOf<String>()
 
-    private var clubMemberEmail = mutableListOf<String>()
+    // private var clubMemberEmail = mutableListOf<String>()
 
     // var memberList: MutableList<String> = mutableListOf()
 
@@ -57,10 +57,10 @@ class EditViewModel @Inject constructor(
 
     private val lottie by lazy { LottieFragment() }
 
-    fun getClubInfo() {
+    fun getClubInfo(clubId: Long) {
         viewModelScope.launch {
             getDetailUseCase(
-                clubId = clubId.value!!
+                clubId = clubId
             ).onSuccess {
                 _clubInfo.value = it
                 Log.d("TAG", "getClubInfo: $it")
