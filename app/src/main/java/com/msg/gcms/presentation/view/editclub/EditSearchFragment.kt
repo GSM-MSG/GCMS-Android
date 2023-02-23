@@ -9,7 +9,6 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.msg.gcms.R
-import com.msg.gcms.presentation.adapter.add_member.AddMemberType
 import com.msg.gcms.databinding.FragmentEditSearchBinding
 import com.msg.gcms.domain.data.user.search_user.GetSearchUserData
 import com.msg.gcms.presentation.adapter.add_member.AddMemberAdapter
@@ -76,19 +75,19 @@ class EditSearchFragment: BaseFragment<FragmentEditSearchBinding>(R.layout.fragm
             // addMemberAdapter.setMemberList(memberList.distinct())
             adapter = addMemberAdapter
         }
-        addMemberAdapter.setItemOnClickListener(object : AddMemberAdapter.OnItemClickListener {
-            override fun onClick(position: Int) {
-                val item = memberList[position]
-                memberList.remove(item)
-                addMemberAdapter.removeMember(AddMemberType(uuid = item.uuid, userName = item.name, userImg = item.profileImg))
-            }
-        })
+        // addMemberAdapter.setItemOnClickListener(object : AddMemberAdapter.OnItemClickListener {
+        //     override fun onClick(position: Int) {
+        //         val item = memberList[position]
+        //         memberList.remove(item)
+        //         addMemberAdapter.removeMember(AddMemberType(uuid = item.uuid, userName = item.name, userImg = item.profileImg))
+        //     }
+        // })
         searchAdapter.setItemOnClickListener(object : UserSearchAdapter.OnItemClickListener {
             override fun onClick(position: Int) {
                 val item = userList[position]
                 if(!memberList.contains(item)) {
                     memberList.add(item)
-                    addMemberAdapter.submitList(AddMemberType(uuid = item.uuid, userName = item.name, userImg = item.profileImg))
+                    // addMemberAdapter.submitList(AddMemberType(uuid = item.uuid, userName = item.name, userImg = item.profileImg))
                     Log.d("TAG", "addMemberList : $memberList")
                 }else {
                     Log.d("TAG", "that user contained list")

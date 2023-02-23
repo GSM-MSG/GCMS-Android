@@ -183,9 +183,9 @@ class MakeClubDetailFragment :
     }
 
     private fun clubMemberRecyclerView() {
-        if (makeClubViewModel.memberList.isEmpty()) {
+        if (makeClubViewModel.addedMemberList.isEmpty()) {
 
-            makeClubViewModel.memberList.add(
+            makeClubViewModel.addedMemberList.add(
                 AddMemberType(
                     uuid = null,
                     userName = "추가하기",
@@ -193,7 +193,7 @@ class MakeClubDetailFragment :
                 )
             )
         }
-        clubMemberAdapter = ClubMemberAdapter(makeClubViewModel.memberList)
+        clubMemberAdapter = ClubMemberAdapter(makeClubViewModel.addedMemberList)
         clubMemberAdapter.setItemOnClickListener(object : ClubMemberAdapter.OnItemClickListener {
             override fun onClick(position: Int) {
                 findNavController().navigate(R.id.action_makeClubDetailFragment_to_studentSearchFragment)

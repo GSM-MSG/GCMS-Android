@@ -9,5 +9,5 @@ data class GetSearchUserData(
     val grade: Int,
     val classNum: Int,
     val number: Int,
-    val profileImg: String
+    val profileImg: String?
 )

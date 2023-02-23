@@ -15,7 +15,6 @@ class UserSearchAdapter:
 
     class SearchUserViewHolder(
         private val binding: ListSearchMemberBinding,
-        listener: OnItemClickListener
     ) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(data: GetSearchUserData) {
@@ -33,14 +32,10 @@ class UserSearchAdapter:
         notifyDataSetChanged()
     }
 
-    // fun addMemberList(userData: UserData) {
-    //     this.memberList.add(userData)
-    // }
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SearchUserViewHolder {
         val binding =
             ListSearchMemberBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        val viewHolder = SearchUserViewHolder(binding, itemClickListener)
+        val viewHolder = SearchUserViewHolder(binding)
         return viewHolder
     }
 

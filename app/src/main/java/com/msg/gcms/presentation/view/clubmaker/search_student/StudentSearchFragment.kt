@@ -10,7 +10,6 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.msg.gcms.R
 import com.msg.gcms.databinding.FragmentStudentSearchBinding
-import com.msg.gcms.domain.data.club_member.get_club_member.MemberData
 import com.msg.gcms.domain.data.user.search_user.GetSearchUserData
 import com.msg.gcms.presentation.adapter.add_member.AddMemberAdapter
 import com.msg.gcms.presentation.adapter.add_member.AddMemberType
@@ -37,7 +36,7 @@ class StudentSearchFragment :
     private lateinit var addMemberAdapter: AddMemberAdapter
 
     private var userList = mutableListOf<GetSearchUserData>()
-    private var memberList = mutableListOf<MemberData>()
+    private var addedMemberList = mutableListOf<AddMemberType>()
 
     private val coroutineJob: Job = Job()
     private val coroutineContext: CoroutineContext
@@ -71,33 +70,32 @@ class StudentSearchFragment :
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
             setHasFixedSize(true)
             addItemDecoration(ItemDecorator(16, "HORIZONTAL"))
-            addMemberAdapter.setMemberList(makeClubViewModel.memberList)
             adapter = addMemberAdapter
         }
         addMemberAdapter.setItemOnClickListener(object : AddMemberAdapter.OnItemClickListener {
             override fun onClick(position: Int) {
-                val item = memberList[position]
-                memberList.remove(item)
-                addMemberAdapter.removeMember(
-                    AddMemberType(
-                        uuid = item.uuid,
-                        userName = item.name,
-                        userImg = item.userImg
-                    )
-                )
+                addedMemberList.removeAt(position)
+                addMemberAdapter.submitList(addedMemberList)
+                binding.memberListRv.adapter = addMemberAdapter
             }
         })
         searchAdapter.setItemOnClickListener(object : UserSearchAdapter.OnItemClickListener {
             override fun onClick(position: Int) {
                 val item = userList[position]
-                // Todo 여기 유저 검색에서 recyclerView 추가하는 부분 수정하기
-                // if(!memberList.contains(item)) {
-                //     memberList.add(item)
-                //     addMemberAdapter.submitList(AddMemberType(item.name, item.email, item.profileImg))
-                //     Log.d("TAG", "addMemberList : $memberList")
-                // }else {
-                //     Log.d("TAG", "that user contained list")
-                // }
+                if (addedMemberList.map { it.uuid }.contains(item.uuid)) {
+                    Log.d("TAG", "that user contained list")
+                } else {
+                    addedMemberList.add(
+                        AddMemberType(
+                            uuid = item.uuid,
+                            userName = item.name,
+                            userImg = item.profileImg
+                        )
+                    )
+                    addMemberAdapter.submitList(addedMemberList)
+                    binding.memberListRv.adapter = addMemberAdapter
+                    Log.d("TAG", "addMemberList : $addedMemberList")
+                }
             }
         })
     }
@@ -133,12 +131,9 @@ class StudentSearchFragment :
                 this.findNavController().popBackStack()
             }
             binding.selectBtn.id -> {
-                if (memberList.isNotEmpty()) {
-                    makeClubViewModel.memberList = memberList.map {
-                        AddMemberType(
-                            uuid = it.uuid, userImg = it.userImg, userName = it.name
-                        )
-                    }.toMutableList()
+                if (addedMemberList.isNotEmpty()) {
+                    makeClubViewModel.addedMemberList.clear()
+                    makeClubViewModel.addedMemberList.addAll(addedMemberList)
                 }
                 this.findNavController().popBackStack()
             }
