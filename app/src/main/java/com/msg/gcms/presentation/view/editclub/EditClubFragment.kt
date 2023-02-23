@@ -277,7 +277,7 @@ class EditClubFragment : BaseFragment<FragmentEditClubBinding>(R.layout.fragment
     }
 
     private fun activityPhotoRecyclerView() {
-        activityAdapter = ActivityPhotosAdapter(activityPhotoList)
+        activityAdapter = ActivityPhotosAdapter()
         activityAdapter.setItemOnClickListener(object :
             ActivityPhotosAdapter.OnItemClickListener {
             override fun onClick(position: Int) {
