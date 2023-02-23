@@ -22,6 +22,7 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import coil.ImageLoader
 import coil.load
@@ -207,9 +208,14 @@ class EditClubFragment : BaseFragment<FragmentEditClubBinding>(R.layout.fragment
     }
 
     private fun observeClubTypeDivider() {
-        editViewModel.clubId.observe(this) {
-            getClubInfo()
+        editViewModel.addedMemberData.observe(this) {
+
         }
+    }
+
+    private fun memberRecyclerviewUpdater(list: List<AddMemberType>) {
+        clubMemberAdapter.submitList(list)
+        binding.clubMemberRv.adapter = clubMemberAdapter
     }
 
     private fun observeClubInfo() {
@@ -231,7 +237,7 @@ class EditClubFragment : BaseFragment<FragmentEditClubBinding>(R.layout.fragment
                         bannerTxt.visibility = View.GONE
                         activityPhotoUrlList = it.activityImgs.toMutableList()
                         // TODO 여기 타입 변경하기
-                        clubMemberAdapter.submitList(it.member.map { data ->
+                        memberRecyclerviewUpdater(it.member.map { data ->
                             AddMemberType(
                                 uuid = data.uuid,
                                 userName = data.name,
@@ -271,11 +277,6 @@ class EditClubFragment : BaseFragment<FragmentEditClubBinding>(R.layout.fragment
         }
     }
 
-    private fun getClubInfo() {
-        Log.d("TAG", "getClubInfo")
-        // if (editViewModel.memberList.isEmpty()) editViewModel.getClubInfo()
-    }
-
     private fun clickBackBtn() {
         requireActivity().finish()
     }
@@ -312,6 +313,11 @@ class EditClubFragment : BaseFragment<FragmentEditClubBinding>(R.layout.fragment
     private fun clubMemberRecyclerView() {
         // TODO 여기 타입 변경하기
         clubMemberAdapter = ClubMemberAdapter()
+        clubMemberAdapter.setItemOnClickListener(object : ClubMemberAdapter.OnItemClickListener {
+            override fun onClick(position: Int) {
+                findNavController().navigate(R.id.action_editClubFragment_to_editSearchFragment)
+            }
+        })
         binding.clubMemberRv.adapter = clubMemberAdapter
     }
 
