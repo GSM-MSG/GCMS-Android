@@ -14,6 +14,7 @@ import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.Build
+import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
 import android.view.View
@@ -71,6 +72,12 @@ class EditClubFragment : BaseFragment<FragmentEditClubBinding>(R.layout.fragment
     private var newPhotosList = mutableListOf<MultipartBody.Part>()
 
     var getClubInfoListener = false
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        activityAdapter = ActivityPhotosAdapter()
+        clubMemberAdapter = ClubMemberAdapter()
+    }
 
     override fun init() {
         binding.fragment = this
@@ -288,7 +295,6 @@ class EditClubFragment : BaseFragment<FragmentEditClubBinding>(R.layout.fragment
     }
 
     private fun activityPhotoRecyclerView() {
-        activityAdapter = ActivityPhotosAdapter()
         activityAdapter.setItemOnClickListener(object :
             ActivityPhotosAdapter.OnItemClickListener {
             override fun onClick(position: Int) {
@@ -317,7 +323,6 @@ class EditClubFragment : BaseFragment<FragmentEditClubBinding>(R.layout.fragment
 
     private fun clubMemberRecyclerView() {
         // TODO 여기 타입 변경하기
-        clubMemberAdapter = ClubMemberAdapter()
         clubMemberAdapter.setItemOnClickListener(object : ClubMemberAdapter.OnItemClickListener {
             override fun onClick(position: Int) {
                 findNavController().navigate(R.id.action_editClubFragment_to_editSearchFragment)

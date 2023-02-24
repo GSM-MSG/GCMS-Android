@@ -1,5 +1,6 @@
 package com.msg.gcms.presentation.view.editclub
 
+import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.view.WindowManager
@@ -45,6 +46,12 @@ class EditSearchFragment : BaseFragment<FragmentEditSearchBinding>(R.layout.frag
 
     private val searchQuery = MutableStateFlow("")
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        searchAdapter = UserSearchAdapter()
+        addMemberAdapter = AddMemberAdapter()
+    }
+
     override fun init() {
         binding.fragment = this
         observeEvent()
@@ -58,15 +65,12 @@ class EditSearchFragment : BaseFragment<FragmentEditSearchBinding>(R.layout.frag
     }
 
     private fun settingRecyclerView() {
-        searchAdapter = UserSearchAdapter()
         with(binding.studentListRv) {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
             setHasFixedSize(true)
             addItemDecoration(ItemDecorator(32, "VERTICAL"))
             adapter = searchAdapter
         }
-
-        addMemberAdapter = AddMemberAdapter()
         with(binding.memberListRv) {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
             setHasFixedSize(true)
@@ -145,9 +149,9 @@ class EditSearchFragment : BaseFragment<FragmentEditSearchBinding>(R.layout.frag
             binding.selectBtn.id -> {
                 if (memberList.isNotEmpty()) {
                     // TODO 여기 타입 변경하기
-                    // editViewModel.memberList = memberList.distinct().toMutableList()
+                    editViewModel.changeMemList(memberList)
+                    memberList.clear()
                 }
-                // editViewModel.setMemberEmail()
                 this.findNavController().popBackStack()
             }
         }

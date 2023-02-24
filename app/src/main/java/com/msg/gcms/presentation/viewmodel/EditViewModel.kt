@@ -107,13 +107,9 @@ class EditViewModel @Inject constructor(
         }
     }
 
-    // fun setMemberEmail() {
-    //     memberList.forEach {
-    //         Log.d("TAG", "setMemberEmail: $it")
-    //         clubMemberEmail.add(it)
-    //     }
-    //     memberList.distinct()
-    // }
+    fun changeMemList(memberList: List<AddMemberType>) {
+        _addedMemberData.value = memberList
+    }
 
     fun uploadImage(list: List<MultipartBody.Part>) {
         Log.d("TAG", "uploadImage")
