@@ -416,20 +416,17 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
                 Event.Success -> {
                     BaseModal("성공", "동아리 신청에 성공했습니다.", requireContext()).show()
                 }
+                Event.Unauthorized -> {
+                    BaseModal("오류", "토큰이 만료되었습니다, 로그아웃 이후 다시 로그인해주세요.", requireContext()).show()
+                }
+                Event.ForBidden -> {
+                    BaseModal("실패", "이미 다른 동아리에 소속 또는 신청 중입니다.", requireContext()).show()
+                }
                 Event.NotFound -> {
                     BaseModal("오류", "동아리를 찾을 수 없습니다.", requireContext()).show()
                 }
-                Event.Unauthorized -> {
-                    BaseModal("오류", "토큰이 만료되었습니다, 앱 종료후 다시 실행해 주세요", requireContext()).show()
-                }
-                Event.ForBidden -> {
-                    BaseModal("실패", "부장만이 할수있는 행동입니다.", requireContext()).show()
-                }
-                Event.Conflict -> {
-                    BaseModal("실패", "이미 다른 동아리에 소속 또는 신청중인 사람입니다.", requireContext()).show()
-                }
-                Event.Server -> {
-                    BaseModal("오류", "알수 없는 오류 발생, 개발자에게 문의해주세요", requireContext()).show()
+                else -> {
+                    BaseModal("오류", "알 수 없는 오류 발생, 개발자에게 문의해주세요.", requireContext()).show()
                 }
             }
         }
@@ -440,16 +437,16 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
             detailViewModel.getDetail(detailViewModel.result.value!!.id)
             when (status) {
                 Event.Success -> {
-                    BaseModal("성공", "동아리 신청에 성공했습니다.", requireContext()).show()
+                    BaseModal("성공", "동아리 신청을 취소했습니다.", requireContext()).show()
                 }
                 Event.Unauthorized -> {
-                    BaseModal("오류", "토큰이 만료되었습니다, 앱 종료후 다시 실행해 주세요", requireContext()).show()
+                    BaseModal("오류", "토큰이 만료되었습니다, 로그아웃 이후 다시 로그인해주세요.", requireContext()).show()
                 }
                 Event.NotFound -> {
                     BaseModal("오류", "동아리를 찾을 수 없습니다.", requireContext()).show()
                 }
-                Event.Server -> {
-                    BaseModal("오류", "알수 없는 오류 발생, 개발자에게 문의해주세요", requireContext()).show()
+                else -> {
+                    BaseModal("오류", "알 수 없는 오류 발생, 개발자에게 문의해주세요", requireContext()).show()
                 }
             }
         }
@@ -460,18 +457,18 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
             detailViewModel.getDetail(detailViewModel.result.value!!.id)
             when (status) {
                 Event.Success -> {
-                    BaseModal("성공", "동아리 신청에 성공했습니다.", requireContext()).show()
+                    BaseModal("성공", "동아리 신청을 오픈했습니다.", requireContext()).show()
                 }
                 Event.Unauthorized -> {
-                    BaseModal("오류", "토큰이 만료되었습니다, 앱 종료후 다시 실행해 주세요", requireContext()).show()
+                    BaseModal("오류", "토큰이 만료되었습니다, 로그아웃 이후 다시 로그인해주세요.", requireContext()).show()
                 }
                 Event.ForBidden -> {
                     BaseModal("실패", "부장만이 할수있는 행동입니다.", requireContext()).show()
                 }
-                Event.Conflict -> {
-                    BaseModal("실패", "이미 다른 동아리에 소속 또는 신청중인 사람입니다.", requireContext()).show()
+                Event.NotFound -> {
+                    BaseModal("오류", "동아리를 찾을 수 없습니다.", requireContext()).show()
                 }
-                Event.Server -> {
+                else -> {
                     BaseModal("오류", "알수 없는 오류 발생, 개발자에게 문의해주세요", requireContext()).show()
                 }
             }
@@ -483,18 +480,18 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
             detailViewModel.getDetail(detailViewModel.result.value!!.id)
             when (status) {
                 Event.Success -> {
-                    BaseModal("성공", "동아리 신청에 성공했습니다.", requireContext()).show()
+                    BaseModal("성공", "동아리 신청을 마감했습니다.", requireContext()).show()
                 }
                 Event.Unauthorized -> {
-                    BaseModal("오류", "토큰이 만료되었습니다, 앱 종료후 다시 실행해 주세요", requireContext()).show()
+                    BaseModal("오류", "토큰이 만료되었습니다, 로그아웃 이후 다시 로그인해주세요.", requireContext()).show()
                 }
                 Event.ForBidden -> {
                     BaseModal("실패", "부장만이 할수있는 행동입니다.", requireContext()).show()
                 }
-                Event.Conflict -> {
-                    BaseModal("실패", "이미 다른 동아리에 소속 또는 신청중인 사람입니다.", requireContext()).show()
+                Event.NotFound -> {
+                    BaseModal("오류", "동아리를 찾을 수 없습니다.", requireContext()).show()
                 }
-                Event.Server -> {
+                else -> {
                     BaseModal("오류", "알수 없는 오류 발생, 개발자에게 문의해주세요", requireContext()).show()
                 }
             }
