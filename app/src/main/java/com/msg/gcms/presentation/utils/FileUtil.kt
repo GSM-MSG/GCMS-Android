@@ -2,8 +2,12 @@ package com.msg.gcms.presentation.utils
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.graphics.Bitmap
+import android.graphics.ImageDecoder
 import android.net.Uri
+import android.os.Build
 import android.os.Environment
+import android.provider.MediaStore
 import java.io.File
 import java.io.FileOutputStream
 
@@ -14,6 +18,20 @@ fun Uri.toFile(context: Context): File {
     copyToFile(context, this, file)
 
     return File(file.absolutePath)
+}
+
+fun Uri.uriToBitMap(context: Context): Bitmap {
+    val bitmap = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+        ImageDecoder.decodeBitmap(
+            ImageDecoder.createSource(
+                context.contentResolver,
+                this
+            )
+        )
+    } else {
+        MediaStore.Images.Media.getBitmap(context.contentResolver, this)
+    }
+    return bitmap
 }
 
 private fun Uri.getFileName(context: Context): String {
