@@ -22,6 +22,7 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import coil.ImageLoader
 import coil.load
@@ -29,10 +30,10 @@ import coil.request.ImageRequest
 import coil.request.SuccessResult
 import coil.transform.RoundedCornersTransformation
 import com.msg.gcms.R
-import com.msg.gcms.presentation.adapter.activity_photo.ActivityPhotoType
 import com.msg.gcms.databinding.FragmentEditClubBinding
-import com.msg.gcms.domain.data.club.get_club_detail.ClubMemberData
+import com.msg.gcms.presentation.adapter.activity_photo.ActivityPhotoType
 import com.msg.gcms.presentation.adapter.activity_photo.ActivityPhotosAdapter
+import com.msg.gcms.presentation.adapter.add_member.AddMemberType
 import com.msg.gcms.presentation.adapter.club_member.ClubMemberAdapter
 import com.msg.gcms.presentation.base.BaseFragment
 import com.msg.gcms.presentation.base.BaseModal
@@ -68,7 +69,6 @@ class EditClubFragment : BaseFragment<FragmentEditClubBinding>(R.layout.fragment
     private var legacyList = listOf<ActivityPhotoType>()
     private var newPhotosList = mutableListOf<MultipartBody.Part>()
 
-    private var memberList = mutableListOf<ClubMemberData>()
     var getClubInfoListener = false
 
     override fun init() {
@@ -201,16 +201,26 @@ class EditClubFragment : BaseFragment<FragmentEditClubBinding>(R.layout.fragment
 
     private fun observeConvertImage() {
         editViewModel.convertImage.observe(this) {
-            if(it.isNotEmpty()) {
+            if (it.isNotEmpty()) {
                 // editClubInfo()
             }
         }
     }
 
     private fun observeClubTypeDivider() {
-        editViewModel.clubId.observe(this) {
-            getClubInfo()
+        editViewModel.addedMemberData.observe(this) {
+
         }
+    }
+
+    private fun memberRecyclerviewUpdater(list: List<AddMemberType>) {
+        clubMemberAdapter.submitList(list)
+        binding.clubMemberRv.adapter = clubMemberAdapter
+    }
+
+    private fun activityPhotoRecyclerViewUpdater(list: List<ActivityPhotoType>) {
+        activityAdapter.submitList(list)
+        binding.clubActivePictureRv.adapter = activityAdapter
     }
 
     private fun observeClubInfo() {
@@ -231,12 +241,15 @@ class EditClubFragment : BaseFragment<FragmentEditClubBinding>(R.layout.fragment
                         bannerIcon.visibility = View.GONE
                         bannerTxt.visibility = View.GONE
                         activityPhotoUrlList = it.activityImgs.toMutableList()
-                        // TODO 여기 타입 변경하기
-                        // memberList = editViewModel.memberList
-                        Log.d("TAG", "observeClubInfo: ${it.member}")
-                        clubMemberAdapter.notifyDataSetChanged()
-                        addBitmapToList()
+                        memberRecyclerviewUpdater(it.member.map { data ->
+                            AddMemberType(
+                                uuid = data.uuid,
+                                userName = data.name,
+                                userImg = data.userImg
+                            )
+                        })
                         lifecycleScope.launch {
+                            activityPhotoRecyclerViewUpdater(addBitmapToList(it.activityImgs))
                             bannerImageBitmap = getBitmapFromUrl(it.bannerImg)
                         }
                     }
@@ -255,21 +268,11 @@ class EditClubFragment : BaseFragment<FragmentEditClubBinding>(R.layout.fragment
         }
     }
 
-    private fun addBitmapToList() {
-        lifecycleScope.launch {
-            Log.d("TAG", "beforeBitmap: ${editViewModel.clubInfo.value?.activityImgs}")
-            editViewModel.clubInfo.value?.activityImgs?.forEach {
-                activityPhotoList.add(ActivityPhotoType(activityPhoto = getBitmapFromUrl(it)))
-                Log.d("TAG", "bitmapping: $it")
-            }
-            legacyList = activityPhotoList.toList()
-            activityAdapter.notifyDataSetChanged()
-        }
-    }
-
-    private fun getClubInfo() {
-        Log.d("TAG", "getClubInfo")
-        if (editViewModel.memberList.isEmpty()) editViewModel.getClubInfo()
+    private suspend fun addBitmapToList(list: List<String>): List<ActivityPhotoType> {
+        val activityPhotoList = mutableListOf<ActivityPhotoType>()
+        Log.d("TAG", "beforeBitmap: ${editViewModel.clubInfo.value?.activityImgs}")
+        list.forEach { activityPhotoList.add(ActivityPhotoType(getBitmapFromUrl(it))) }
+        return activityPhotoList
     }
 
     private fun clickBackBtn() {
@@ -299,7 +302,6 @@ class EditClubFragment : BaseFragment<FragmentEditClubBinding>(R.layout.fragment
                         }
                     }"
                 )
-                activityAdapter.notifyDataSetChanged()
             }
         })
         binding.clubActivePictureRv.adapter = activityAdapter
@@ -307,8 +309,12 @@ class EditClubFragment : BaseFragment<FragmentEditClubBinding>(R.layout.fragment
 
     private fun clubMemberRecyclerView() {
         // TODO 여기 타입 변경하기
-        // clubMemberAdapter = ClubMemberAdapter(editViewModel.memberList)
-        Log.d("TAG", "clubMemberRecyclerView: ${editViewModel.memberList}}")
+        clubMemberAdapter = ClubMemberAdapter()
+        clubMemberAdapter.setItemOnClickListener(object : ClubMemberAdapter.OnItemClickListener {
+            override fun onClick(position: Int) {
+                findNavController().navigate(R.id.action_editClubFragment_to_editSearchFragment)
+            }
+        })
         binding.clubMemberRv.adapter = clubMemberAdapter
     }
 
@@ -366,7 +372,6 @@ class EditClubFragment : BaseFragment<FragmentEditClubBinding>(R.layout.fragment
         )
         Log.d("TAG", "imageUpload: $newPhotosList")
         imageUploadToServer(newPhotosList)
-
     }
 
     private fun convertBitmapToFile(list: List<ActivityPhotoType>): List<MultipartBody.Part> {
@@ -438,33 +443,32 @@ class EditClubFragment : BaseFragment<FragmentEditClubBinding>(R.layout.fragment
 
     private fun observeEditClubResult() {
         editViewModel.editClubResult.observe(this) {
-            when(it) {
+            when (it) {
                 Event.Success -> {
                     shortToast("동아리 정보가 수정되었습니다.")
                     requireActivity().finish()
                 }
-                Event.BadRequest-> {
-
+                Event.BadRequest -> {
                 }
                 Event.Unauthorized -> {
                     editViewModel.stopLottie()
                     BaseModal(context = requireContext(), title = "시간 만료", msg = "앱을 재실행 해주세요!!")
                 }
                 Event.ForBidden -> {
-
                 }
                 Event.NotFound -> {
-
                 }
                 Event.Conflict -> {
-
                 }
                 Event.Server -> {
-
                 }
                 Event.UnKnown -> {
                     editViewModel.stopLottie()
-                    BaseModal(context = requireContext(), title = "동아리 정보 수정", msg = "동아리 정보 수정에 실패하였습니다.")
+                    BaseModal(
+                        context = requireContext(),
+                        title = "동아리 정보 수정",
+                        msg = "동아리 정보 수정에 실패하였습니다."
+                    )
                 }
             }
         }

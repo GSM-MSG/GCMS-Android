@@ -6,6 +6,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.msg.gcms.R
 import com.msg.gcms.domain.data.club.get_club_detail.ClubDetailData
 import com.msg.gcms.domain.data.club.modify_club_info.ModifyClubInfoData
 import com.msg.gcms.domain.data.user.search_user.GetSearchUserData
@@ -19,6 +20,7 @@ import com.msg.gcms.domain.usecase.club.EditClubInfoUseCase
 import com.msg.gcms.domain.usecase.club.GetDetailUseCase
 import com.msg.gcms.domain.usecase.image.ImageUseCase
 import com.msg.gcms.domain.usecase.user.GetSearchUserUseCase
+import com.msg.gcms.presentation.adapter.add_member.AddMemberType
 import com.msg.gcms.presentation.base.LottieFragment
 import com.msg.gcms.presentation.viewmodel.util.Event
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -37,17 +39,10 @@ class EditViewModel @Inject constructor(
     private val _clubInfo = MutableLiveData<ClubDetailData>()
     val clubInfo: LiveData<ClubDetailData> get() = _clubInfo
 
-    private val _clubId = MutableLiveData<Long>()
-    val clubId: LiveData<Long> get() = _clubId
-
     private val _result = MutableLiveData<List<GetSearchUserData>>()
     val result: LiveData<List<GetSearchUserData>> get() = _result
 
     var newPhotos = mutableListOf<String>()
-
-    private var clubMemberEmail = mutableListOf<String>()
-
-    var memberList: MutableList<String> = mutableListOf()
 
     private val _convertImage = MutableLiveData<List<String>>()
     val convertImage: LiveData<List<String>> get() = _convertImage
@@ -57,10 +52,15 @@ class EditViewModel @Inject constructor(
 
     private val lottie by lazy { LottieFragment() }
 
-    fun getClubInfo() {
+    val _addedMemberList = mutableListOf<AddMemberType>()
+
+    private val _addedMemberData = MutableLiveData<List<AddMemberType>>()
+    val addedMemberData: LiveData<List<AddMemberType>> get() = _addedMemberData
+
+    fun getClubInfo(clubId: Long) {
         viewModelScope.launch {
             getDetailUseCase(
-                clubId = clubId.value!!
+                clubId = clubId
             ).onSuccess {
                 _clubInfo.value = it
                 Log.d("TAG", "getClubInfo: $it")
@@ -78,22 +78,23 @@ class EditViewModel @Inject constructor(
 
     private fun memberCheck() {
         if (clubInfo.value!!.member.isEmpty()) {
-            // TODO 여기 타입 변경하기
-            // memberList.add(
-            //     MemberListData(
-            //         uuid = "0",
-            //         email = "",
-            //         name = "추가하기",
-            //         grade = 0,
-            //         `class` = 0,
-            //         num = 0,
-            //         userImg = R.drawable.bg_banner_placeholder.toString()
-            //     )
-            // )
+            _addedMemberList.add(
+                AddMemberType(
+                    uuid = null,
+                    userName = "추가하기",
+                    userImg = R.drawable.bg_banner_placeholder.toString()
+                )
+            )
         } else {
             //TODO 여기 타입 변경하기
-            // memberList.addAll(clubInfo.value!!.member)
-            Log.d("TAG", "memberCheck: ${memberList.distinct()}")
+            _addedMemberList.addAll(clubInfo.value!!.member.map {
+                AddMemberType(
+                    uuid = it.uuid,
+                    userName = it.name,
+                    userImg = it.userImg
+                )
+            })
+            _addedMemberData.value = _addedMemberList
         }
     }
 
@@ -117,13 +118,13 @@ class EditViewModel @Inject constructor(
         }
     }
 
-    fun setMemberEmail() {
-        memberList.forEach {
-            Log.d("TAG", "setMemberEmail: $it")
-            clubMemberEmail.add(it)
-        }
-        memberList.distinct()
-    }
+    // fun setMemberEmail() {
+    //     memberList.forEach {
+    //         Log.d("TAG", "setMemberEmail: $it")
+    //         clubMemberEmail.add(it)
+    //     }
+    //     memberList.distinct()
+    // }
 
     fun uploadImage(list: List<MultipartBody.Part>) {
         Log.d("TAG", "uploadImage")
@@ -158,11 +159,11 @@ class EditViewModel @Inject constructor(
         }
     }
 
-    fun putChangeClubInfo(body: ModifyClubInfoData) {
+    fun putChangeClubInfo(body: ModifyClubInfoData, clubId: Long) {
         viewModelScope.launch {
             editClubInfoUseCase(
                 body = body,
-                clubId = clubId.value!!
+                clubId = clubId
             ).onSuccess {
                 _editClubResult.value = Event.Success
             }.onFailure {
