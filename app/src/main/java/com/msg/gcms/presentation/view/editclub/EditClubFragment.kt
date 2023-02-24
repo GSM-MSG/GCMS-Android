@@ -218,6 +218,11 @@ class EditClubFragment : BaseFragment<FragmentEditClubBinding>(R.layout.fragment
         binding.clubMemberRv.adapter = clubMemberAdapter
     }
 
+    private fun activityPhotoRecyclerViewUpdater(list: List<ActivityPhotoType>) {
+        activityAdapter.submitList(list)
+        binding.clubActivePictureRv.adapter = activityAdapter
+    }
+
     private fun observeClubInfo() {
         editViewModel.clubInfo.observe(this) {
             if (!getClubInfoListener) {
@@ -236,7 +241,6 @@ class EditClubFragment : BaseFragment<FragmentEditClubBinding>(R.layout.fragment
                         bannerIcon.visibility = View.GONE
                         bannerTxt.visibility = View.GONE
                         activityPhotoUrlList = it.activityImgs.toMutableList()
-                        // TODO 여기 타입 변경하기
                         memberRecyclerviewUpdater(it.member.map { data ->
                             AddMemberType(
                                 uuid = data.uuid,
@@ -244,9 +248,8 @@ class EditClubFragment : BaseFragment<FragmentEditClubBinding>(R.layout.fragment
                                 userImg = data.userImg
                             )
                         })
-                        Log.d("TAG", "observeClubInfo: ${it.member}")
-                        addBitmapToList()
                         lifecycleScope.launch {
+                            activityPhotoRecyclerViewUpdater(addBitmapToList(it.activityImgs))
                             bannerImageBitmap = getBitmapFromUrl(it.bannerImg)
                         }
                     }
@@ -265,16 +268,11 @@ class EditClubFragment : BaseFragment<FragmentEditClubBinding>(R.layout.fragment
         }
     }
 
-    private fun addBitmapToList() {
-        lifecycleScope.launch {
-            Log.d("TAG", "beforeBitmap: ${editViewModel.clubInfo.value?.activityImgs}")
-            editViewModel.clubInfo.value?.activityImgs?.forEach {
-                activityPhotoList.add(ActivityPhotoType(activityPhoto = getBitmapFromUrl(it)))
-                Log.d("TAG", "bitmapping: $it")
-            }
-            legacyList = activityPhotoList.toList()
-            activityAdapter.notifyDataSetChanged()
-        }
+    private suspend fun addBitmapToList(list: List<String>): List<ActivityPhotoType> {
+        val activityPhotoList = mutableListOf<ActivityPhotoType>()
+        Log.d("TAG", "beforeBitmap: ${editViewModel.clubInfo.value?.activityImgs}")
+        list.forEach { activityPhotoList.add(ActivityPhotoType(getBitmapFromUrl(it))) }
+        return activityPhotoList
     }
 
     private fun clickBackBtn() {
@@ -304,7 +302,6 @@ class EditClubFragment : BaseFragment<FragmentEditClubBinding>(R.layout.fragment
                         }
                     }"
                 )
-                activityAdapter.notifyDataSetChanged()
             }
         })
         binding.clubActivePictureRv.adapter = activityAdapter
