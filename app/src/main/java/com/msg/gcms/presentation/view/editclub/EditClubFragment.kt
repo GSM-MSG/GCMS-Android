@@ -7,11 +7,9 @@ import android.content.ContextWrapper
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
-import android.graphics.ImageDecoder
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
 import android.net.Uri
-import android.os.Build
 import android.provider.MediaStore
 import android.util.Log
 import android.view.View
@@ -37,6 +35,7 @@ import com.msg.gcms.presentation.base.BaseFragment
 import com.msg.gcms.presentation.base.BaseModal
 import com.msg.gcms.presentation.utils.ItemDecorator
 import com.msg.gcms.presentation.utils.toFile
+import com.msg.gcms.presentation.utils.uriToBitMap
 import com.msg.gcms.presentation.viewmodel.EditViewModel
 import com.msg.gcms.presentation.viewmodel.util.Event
 import dagger.hilt.android.AndroidEntryPoint
@@ -105,7 +104,7 @@ class EditClubFragment : BaseFragment<FragmentEditClubBinding>(R.layout.fragment
                 } else {
                     for (i in 0 until data.clipData!!.itemCount) {
                         val imageUri: Uri = data.clipData!!.getItemAt(i).uri
-                        val imageBitmap = getBitmapFromUri(imageUri)
+                        val imageBitmap = imageUri.uriToBitMap(requireContext())
                         activityPhotoList.add(ActivityPhotoType(activityPhoto = imageBitmap))
                         Log.d("TAG", "getBitmap: $imageBitmap")
                         val file = imageUri.toFile(requireContext())
@@ -119,20 +118,6 @@ class EditClubFragment : BaseFragment<FragmentEditClubBinding>(R.layout.fragment
                 }
             }
         }
-    }
-
-    private fun getBitmapFromUri(imageUri: Uri): Bitmap {
-        val bitmap = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-            ImageDecoder.decodeBitmap(
-                ImageDecoder.createSource(
-                    requireContext().contentResolver,
-                    imageUri
-                )
-            )
-        } else {
-            MediaStore.Images.Media.getBitmap(requireContext().contentResolver, imageUri)
-        }
-        return bitmap
     }
 
     fun buttonClickListener(view: View) {

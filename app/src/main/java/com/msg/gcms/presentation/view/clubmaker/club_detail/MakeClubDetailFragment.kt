@@ -4,10 +4,7 @@ import android.Manifest
 import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.graphics.Bitmap
-import android.graphics.ImageDecoder
 import android.net.Uri
-import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
@@ -31,6 +28,7 @@ import com.msg.gcms.presentation.base.BaseFragment
 import com.msg.gcms.presentation.base.BaseModal
 import com.msg.gcms.presentation.utils.ItemDecorator
 import com.msg.gcms.presentation.utils.toFile
+import com.msg.gcms.presentation.utils.uriToBitMap
 import com.msg.gcms.presentation.viewmodel.ClubViewModel
 import com.msg.gcms.presentation.viewmodel.MakeClubViewModel
 import com.msg.gcms.presentation.viewmodel.util.Event
@@ -243,7 +241,7 @@ class MakeClubDetailFragment :
                     activityPhotoMultipart.clear()
                     for (i in 0 until data.clipData!!.itemCount) {
                         val imageUri: Uri = data.clipData!!.getItemAt(i).uri
-                        val imageBitmap = uriToBitMap(imageUri)
+                        val imageBitmap = imageUri.uriToBitMap(requireContext())
                         makeClubViewModel.activityPhotoList.add(ActivityPhotoType(activityPhoto = imageBitmap))
                         Log.d("TAG", "getBitmap: $imageBitmap")
                         val file = imageUri.toFile(requireContext())
@@ -267,20 +265,6 @@ class MakeClubDetailFragment :
                 }
             }
         }
-    }
-
-    private fun uriToBitMap(imageUri: Uri): Bitmap {
-        val bitmap = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-            ImageDecoder.decodeBitmap(
-                ImageDecoder.createSource(
-                    requireContext().contentResolver,
-                    imageUri
-                )
-            )
-        } else {
-            MediaStore.Images.Media.getBitmap(requireContext().contentResolver, imageUri)
-        }
-        return bitmap
     }
 
     private fun observeCreateClubStatus() {
