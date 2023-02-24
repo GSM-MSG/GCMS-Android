@@ -57,6 +57,7 @@ class EditSearchFragment : BaseFragment<FragmentEditSearchBinding>(R.layout.frag
         observeEvent()
         activity?.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING)
         settingRecyclerView()
+        memberList = editViewModel.addedMemberData.value!!.toMutableList()
     }
 
     private fun observeEvent() {
@@ -76,7 +77,6 @@ class EditSearchFragment : BaseFragment<FragmentEditSearchBinding>(R.layout.frag
             setHasFixedSize(true)
             addItemDecoration(ItemDecorator(16, "HORIZONTAL"))
             // TODO 타입 변경하기
-            memberList = editViewModel._addedMemberList
             addMemberAdapter.submitList(
                 editViewModel.addedMemberData.value!!.map {
                     AddMemberType(
@@ -149,9 +149,10 @@ class EditSearchFragment : BaseFragment<FragmentEditSearchBinding>(R.layout.frag
             binding.selectBtn.id -> {
                 if (memberList.isNotEmpty()) {
                     // TODO 여기 타입 변경하기
+                    Log.d("TAG", "onClickListener: $memberList")
                     editViewModel.changeMemList(memberList)
-                    memberList.clear()
                 }
+                memberList.clear()
                 this.findNavController().popBackStack()
             }
         }

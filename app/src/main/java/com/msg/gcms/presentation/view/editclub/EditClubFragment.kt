@@ -85,6 +85,12 @@ class EditClubFragment : BaseFragment<FragmentEditClubBinding>(R.layout.fragment
         recyclerViewSetting()
     }
 
+    override fun onResume() {
+        super.onResume()
+        Log.d("TAG", "onResume: ${editViewModel.addedMemberData.value}")
+        memberRecyclerviewUpdater(editViewModel.addedMemberData.value ?: listOf())
+    }
+
     private val getContent =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
             if (it.resultCode == Activity.RESULT_OK) {
@@ -302,20 +308,20 @@ class EditClubFragment : BaseFragment<FragmentEditClubBinding>(R.layout.fragment
                 if (activityPhotoUrlList.size >= position + 1) activityPhotoUrlList.removeAt(
                     position
                 )
-                Log.d(
-                    "TAG",
-                    "activityPhotoUrlList: $activityPhotoUrlList, newList: ${
-                        activityPhotoList.filter {
-                            !legacyList.contains(it)
-                        }
-                    }, removed: ${
-                        editViewModel.clubInfo.value!!.activityImgs.filter {
-                            !activityPhotoUrlList.contains(
-                                it
-                            )
-                        }
-                    }"
-                )
+                // Log.d(
+                //     "TAG",
+                //     "activityPhotoUrlList: $activityPhotoUrlList, newList: ${
+                //         activityPhotoList.filter {
+                //             !legacyList.contains(it)
+                //         }
+                //     }, removed: ${
+                //         editViewModel.clubInfo.value!!.activityImgs.filter {
+                //             !activityPhotoUrlList.contains(
+                //                 it
+                //             )
+                //         }
+                //     }"
+                // )
             }
         })
         binding.clubActivePictureRv.adapter = activityAdapter
