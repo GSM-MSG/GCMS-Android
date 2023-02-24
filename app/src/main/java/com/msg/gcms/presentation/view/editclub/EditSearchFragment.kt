@@ -12,6 +12,7 @@ import com.msg.gcms.R
 import com.msg.gcms.databinding.FragmentEditSearchBinding
 import com.msg.gcms.domain.data.user.search_user.GetSearchUserData
 import com.msg.gcms.presentation.adapter.add_member.AddMemberAdapter
+import com.msg.gcms.presentation.adapter.add_member.AddMemberType
 import com.msg.gcms.presentation.adapter.user_search.UserSearchAdapter
 import com.msg.gcms.presentation.base.BaseFragment
 import com.msg.gcms.presentation.utils.ItemDecorator
@@ -28,7 +29,7 @@ import kotlinx.coroutines.launch
 import kotlin.coroutines.CoroutineContext
 
 @AndroidEntryPoint
-class EditSearchFragment: BaseFragment<FragmentEditSearchBinding>(R.layout.fragment_edit_search) {
+class EditSearchFragment : BaseFragment<FragmentEditSearchBinding>(R.layout.fragment_edit_search) {
 
     private val editViewModel by activityViewModels<EditViewModel>()
 
@@ -72,24 +73,31 @@ class EditSearchFragment: BaseFragment<FragmentEditSearchBinding>(R.layout.fragm
             addItemDecoration(ItemDecorator(16, "HORIZONTAL"))
             // TODO 타입 변경하기
             // memberList = editViewModel.memberList
-            // addMemberAdapter.setMemberList(memberList.distinct())
+            addMemberAdapter.submitList(
+                editViewModel.addedMemberData.value!!.map {
+                    AddMemberType(
+                        uuid = it.uuid,
+                        userName = it.userName,
+                        userImg = it.userImg
+                    )
+                })
             adapter = addMemberAdapter
         }
-        // addMemberAdapter.setItemOnClickListener(object : AddMemberAdapter.OnItemClickListener {
-        //     override fun onClick(position: Int) {
-        //         val item = memberList[position]
-        //         memberList.remove(item)
-        //         addMemberAdapter.removeMember(AddMemberType(uuid = item.uuid, userName = item.name, userImg = item.profileImg))
-        //     }
-        // })
+        addMemberAdapter.setItemOnClickListener(object : AddMemberAdapter.OnItemClickListener {
+            override fun onClick(position: Int) {
+                val item = memberList[position]
+                memberList.remove(item)
+                addMemberAdapter
+            }
+        })
         searchAdapter.setItemOnClickListener(object : UserSearchAdapter.OnItemClickListener {
             override fun onClick(position: Int) {
                 val item = userList[position]
-                if(!memberList.contains(item)) {
+                if (!memberList.contains(item)) {
                     memberList.add(item)
                     // addMemberAdapter.submitList(AddMemberType(uuid = item.uuid, userName = item.name, userImg = item.profileImg))
                     Log.d("TAG", "addMemberList : $memberList")
-                }else {
+                } else {
                     Log.d("TAG", "that user contained list")
                 }
             }
@@ -127,11 +135,11 @@ class EditSearchFragment: BaseFragment<FragmentEditSearchBinding>(R.layout.fragm
                 this.findNavController().popBackStack()
             }
             binding.selectBtn.id -> {
-                if(memberList.isNotEmpty()) {
+                if (memberList.isNotEmpty()) {
                     // TODO 여기 타입 변경하기
                     // editViewModel.memberList = memberList.distinct().toMutableList()
                 }
-                editViewModel.setMemberEmail()
+                // editViewModel.setMemberEmail()
                 this.findNavController().popBackStack()
             }
         }

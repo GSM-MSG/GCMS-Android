@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import coil.transform.CircleCropTransformation
+import com.msg.gcms.R
 import com.msg.gcms.databinding.ListSearchMemberBinding
 import com.msg.gcms.domain.data.user.search_user.GetSearchUserData
 
@@ -20,7 +21,7 @@ class UserSearchAdapter:
         fun bind(data: GetSearchUserData) {
             binding.userNameTv.text = data.name
             binding.userInfoTv.text = "${data.grade}학년 ${data.classNum}반 ${data.number}번"
-            binding.userProfileIv.load(data.profileImg) {
+            binding.userProfileIv.load(data.profileImg ?: R.drawable.ic_default_profile) {
                 crossfade(true)
                 transformations(CircleCropTransformation())
             }

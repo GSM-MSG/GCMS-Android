@@ -1,19 +1,15 @@
 package com.msg.gcms.presentation.view.editclub
 
 import android.Manifest
-import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
 import android.content.ContextWrapper
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.database.Cursor
 import android.graphics.Bitmap
-import android.graphics.ImageDecoder
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
 import android.net.Uri
-import android.os.Build
 import android.provider.MediaStore
 import android.util.Log
 import android.view.View
@@ -22,6 +18,7 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import coil.ImageLoader
 import coil.load
@@ -29,21 +26,22 @@ import coil.request.ImageRequest
 import coil.request.SuccessResult
 import coil.transform.RoundedCornersTransformation
 import com.msg.gcms.R
-import com.msg.gcms.presentation.adapter.activity_photo.ActivityPhotoType
 import com.msg.gcms.databinding.FragmentEditClubBinding
-import com.msg.gcms.domain.data.club.get_club_detail.ClubMemberData
+import com.msg.gcms.presentation.adapter.activity_photo.ActivityPhotoType
 import com.msg.gcms.presentation.adapter.activity_photo.ActivityPhotosAdapter
+import com.msg.gcms.presentation.adapter.add_member.AddMemberType
 import com.msg.gcms.presentation.adapter.club_member.ClubMemberAdapter
 import com.msg.gcms.presentation.base.BaseFragment
 import com.msg.gcms.presentation.base.BaseModal
 import com.msg.gcms.presentation.utils.ItemDecorator
+import com.msg.gcms.presentation.utils.toFile
+import com.msg.gcms.presentation.utils.toMultiPartBody
+import com.msg.gcms.presentation.utils.uriToBitMap
 import com.msg.gcms.presentation.viewmodel.EditViewModel
 import com.msg.gcms.presentation.viewmodel.util.Event
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
-import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
-import okhttp3.RequestBody
 import java.io.File
 import java.io.FileOutputStream
 import java.io.OutputStream
@@ -68,7 +66,6 @@ class EditClubFragment : BaseFragment<FragmentEditClubBinding>(R.layout.fragment
     private var legacyList = listOf<ActivityPhotoType>()
     private var newPhotosList = mutableListOf<MultipartBody.Part>()
 
-    private var memberList = mutableListOf<ClubMemberData>()
     var getClubInfoListener = false
 
     override fun init() {
@@ -78,17 +75,13 @@ class EditClubFragment : BaseFragment<FragmentEditClubBinding>(R.layout.fragment
     }
 
     private val getContent =
-        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
-            if (it.resultCode == Activity.RESULT_OK) {
-                val imageUrl = it.data?.data
-                val file = File(getPathFromUri(imageUrl))
-                val requestFile = RequestBody.create("image/*".toMediaTypeOrNull(), file)
-                val img = MultipartBody.Part.createFormData("files", file.name, requestFile)
-                Log.d("TAG", "onActivityResult: $img")
-                bannerImage = img
-                bannerImageUri = imageUrl!!
+        registerForActivityResult(ActivityResultContracts.GetContent()) { imageUri ->
+            if (imageUri != null) {
+                val file = imageUri.toFile(requireContext())
+                bannerImage = file.toMultiPartBody()
+                bannerImageUri = imageUri
                 with(binding) {
-                    bannerImageView.load(imageUrl) {
+                    bannerImageView.load(imageUri) {
                         crossfade(true)
                         transformations(RoundedCornersTransformation(8f, 8f, 8f, 8f))
                     }
@@ -107,34 +100,16 @@ class EditClubFragment : BaseFragment<FragmentEditClubBinding>(R.layout.fragment
                 } else {
                     for (i in 0 until data.clipData!!.itemCount) {
                         val imageUri: Uri = data.clipData!!.getItemAt(i).uri
-                        val imageBitmap = getBitmapFromUri(imageUri)
+                        val imageBitmap = imageUri.uriToBitMap(requireContext())
                         activityPhotoList.add(ActivityPhotoType(activityPhoto = imageBitmap))
-                        Log.d("TAG", "getBitmap: $imageBitmap")
-                        val file = File(getPathFromUri(imageUri))
-                        val requestFile = RequestBody.create("image/*".toMediaTypeOrNull(), file)
-                        val img = MultipartBody.Part.createFormData("files", file.name, requestFile)
-                        Log.d("TAG", "onActivityResult: $img")
-                        activityPhotoMultipart.add(img)
+                        val file = imageUri.toFile(requireContext())
+                        activityPhotoMultipart.add(file.toMultiPartBody())
                     }
                     Log.d("TAG", "activityPhotoList: $activityPhotoList")
                     activityAdapter.notifyDataSetChanged()
                 }
             }
         }
-    }
-
-    private fun getBitmapFromUri(imageUri: Uri): Bitmap {
-        val bitmap = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-            ImageDecoder.decodeBitmap(
-                ImageDecoder.createSource(
-                    requireContext().contentResolver,
-                    imageUri
-                )
-            )
-        } else {
-            MediaStore.Images.Media.getBitmap(requireContext().contentResolver, imageUri)
-        }
-        return bitmap
     }
 
     fun buttonClickListener(view: View) {
@@ -163,10 +138,7 @@ class EditClubFragment : BaseFragment<FragmentEditClubBinding>(R.layout.fragment
     }
 
     private fun addBanner() {
-        val photoPickIntent = Intent(Intent.ACTION_PICK)
-        photoPickIntent.type = "image/*"
-        photoPickIntent.data = MediaStore.Images.Media.EXTERNAL_CONTENT_URI
-        getContent.launch(photoPickIntent)
+        getContent.launch("image/*")
     }
 
     private fun addActivityPhoto() {
@@ -201,16 +173,26 @@ class EditClubFragment : BaseFragment<FragmentEditClubBinding>(R.layout.fragment
 
     private fun observeConvertImage() {
         editViewModel.convertImage.observe(this) {
-            if(it.isNotEmpty()) {
+            if (it.isNotEmpty()) {
                 // editClubInfo()
             }
         }
     }
 
     private fun observeClubTypeDivider() {
-        editViewModel.clubId.observe(this) {
-            getClubInfo()
+        editViewModel.addedMemberData.observe(this) {
+
         }
+    }
+
+    private fun memberRecyclerviewUpdater(list: List<AddMemberType>) {
+        clubMemberAdapter.submitList(list)
+        binding.clubMemberRv.adapter = clubMemberAdapter
+    }
+
+    private fun activityPhotoRecyclerViewUpdater(list: List<ActivityPhotoType>) {
+        activityAdapter.submitList(list)
+        binding.clubActivePictureRv.adapter = activityAdapter
     }
 
     private fun observeClubInfo() {
@@ -231,12 +213,15 @@ class EditClubFragment : BaseFragment<FragmentEditClubBinding>(R.layout.fragment
                         bannerIcon.visibility = View.GONE
                         bannerTxt.visibility = View.GONE
                         activityPhotoUrlList = it.activityImgs.toMutableList()
-                        // TODO 여기 타입 변경하기
-                        // memberList = editViewModel.memberList
-                        Log.d("TAG", "observeClubInfo: ${it.member}")
-                        clubMemberAdapter.notifyDataSetChanged()
-                        addBitmapToList()
+                        memberRecyclerviewUpdater(it.member.map { data ->
+                            AddMemberType(
+                                uuid = data.uuid,
+                                userName = data.name,
+                                userImg = data.userImg
+                            )
+                        })
                         lifecycleScope.launch {
+                            activityPhotoRecyclerViewUpdater(addBitmapToList(it.activityImgs))
                             bannerImageBitmap = getBitmapFromUrl(it.bannerImg)
                         }
                     }
@@ -255,21 +240,11 @@ class EditClubFragment : BaseFragment<FragmentEditClubBinding>(R.layout.fragment
         }
     }
 
-    private fun addBitmapToList() {
-        lifecycleScope.launch {
-            Log.d("TAG", "beforeBitmap: ${editViewModel.clubInfo.value?.activityImgs}")
-            editViewModel.clubInfo.value?.activityImgs?.forEach {
-                activityPhotoList.add(ActivityPhotoType(activityPhoto = getBitmapFromUrl(it)))
-                Log.d("TAG", "bitmapping: $it")
-            }
-            legacyList = activityPhotoList.toList()
-            activityAdapter.notifyDataSetChanged()
-        }
-    }
-
-    private fun getClubInfo() {
-        Log.d("TAG", "getClubInfo")
-        if (editViewModel.memberList.isEmpty()) editViewModel.getClubInfo()
+    private suspend fun addBitmapToList(list: List<String>): List<ActivityPhotoType> {
+        val activityPhotoList = mutableListOf<ActivityPhotoType>()
+        Log.d("TAG", "beforeBitmap: ${editViewModel.clubInfo.value?.activityImgs}")
+        list.forEach { activityPhotoList.add(ActivityPhotoType(getBitmapFromUrl(it))) }
+        return activityPhotoList
     }
 
     private fun clickBackBtn() {
@@ -299,7 +274,6 @@ class EditClubFragment : BaseFragment<FragmentEditClubBinding>(R.layout.fragment
                         }
                     }"
                 )
-                activityAdapter.notifyDataSetChanged()
             }
         })
         binding.clubActivePictureRv.adapter = activityAdapter
@@ -307,8 +281,12 @@ class EditClubFragment : BaseFragment<FragmentEditClubBinding>(R.layout.fragment
 
     private fun clubMemberRecyclerView() {
         // TODO 여기 타입 변경하기
-        // clubMemberAdapter = ClubMemberAdapter(editViewModel.memberList)
-        Log.d("TAG", "clubMemberRecyclerView: ${editViewModel.memberList}}")
+        clubMemberAdapter = ClubMemberAdapter()
+        clubMemberAdapter.setItemOnClickListener(object : ClubMemberAdapter.OnItemClickListener {
+            override fun onClick(position: Int) {
+                findNavController().navigate(R.id.action_editClubFragment_to_editSearchFragment)
+            }
+        })
         binding.clubMemberRv.adapter = clubMemberAdapter
     }
 
@@ -319,15 +297,6 @@ class EditClubFragment : BaseFragment<FragmentEditClubBinding>(R.layout.fragment
             .build()
         val result: Drawable = (loading.execute(request) as SuccessResult).drawable
         return (result as BitmapDrawable).bitmap
-    }
-
-    @SuppressLint("Range")
-    private fun getPathFromUri(uri: Uri?): String {
-        val cursor: Cursor? = requireActivity().contentResolver.query(uri!!, null, null, null, null)
-        cursor?.moveToNext()
-        val path: String = cursor!!.getString(cursor.getColumnIndex("_data"))
-        cursor.close()
-        return path
     }
 
     private fun editClub() {
@@ -366,7 +335,6 @@ class EditClubFragment : BaseFragment<FragmentEditClubBinding>(R.layout.fragment
         )
         Log.d("TAG", "imageUpload: $newPhotosList")
         imageUploadToServer(newPhotosList)
-
     }
 
     private fun convertBitmapToFile(list: List<ActivityPhotoType>): List<MultipartBody.Part> {
@@ -383,10 +351,8 @@ class EditClubFragment : BaseFragment<FragmentEditClubBinding>(R.layout.fragment
                 it.activityPhoto.compress(Bitmap.CompressFormat.JPEG, 100, stream)
                 stream.flush()
                 stream.close()
-                val requestFile = RequestBody.create("image/*".toMediaTypeOrNull(), file)
-                val img = MultipartBody.Part.createFormData("files", file.name, requestFile)
 
-                imgList.add(img)
+                imgList.add(file.toMultiPartBody())
                 Log.d("TAG", "convertBitmapToMultiPart: $imgList")
             } catch (e: Exception) {
                 e.printStackTrace()
@@ -403,20 +369,16 @@ class EditClubFragment : BaseFragment<FragmentEditClubBinding>(R.layout.fragment
         val wrapper = ContextWrapper(context)
         var file = wrapper.getDir("images", Context.MODE_PRIVATE)
         file = File(file, "${UUID.randomUUID()}.jpg}")
-        lateinit var image: MultipartBody.Part
 
         try {
             val stream: OutputStream = FileOutputStream(file)
             bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream)
             stream.flush()
             stream.close()
-            val requestFile = RequestBody.create("image/*".toMediaTypeOrNull(), file)
-            image = MultipartBody.Part.createFormData("files", file.name, requestFile)
-            Log.d("TAG", "convertBitmapToMultiPart: $image")
         } catch (e: Exception) {
             e.printStackTrace()
         }
-        return image
+        return file.toMultiPartBody()
     }
 
     //TODO 동아리 수정 로직 변경된거 수정하기
@@ -438,33 +400,32 @@ class EditClubFragment : BaseFragment<FragmentEditClubBinding>(R.layout.fragment
 
     private fun observeEditClubResult() {
         editViewModel.editClubResult.observe(this) {
-            when(it) {
+            when (it) {
                 Event.Success -> {
                     shortToast("동아리 정보가 수정되었습니다.")
                     requireActivity().finish()
                 }
-                Event.BadRequest-> {
-
+                Event.BadRequest -> {
                 }
                 Event.Unauthorized -> {
                     editViewModel.stopLottie()
                     BaseModal(context = requireContext(), title = "시간 만료", msg = "앱을 재실행 해주세요!!")
                 }
                 Event.ForBidden -> {
-
                 }
                 Event.NotFound -> {
-
                 }
                 Event.Conflict -> {
-
                 }
                 Event.Server -> {
-
                 }
                 Event.UnKnown -> {
                     editViewModel.stopLottie()
-                    BaseModal(context = requireContext(), title = "동아리 정보 수정", msg = "동아리 정보 수정에 실패하였습니다.")
+                    BaseModal(
+                        context = requireContext(),
+                        title = "동아리 정보 수정",
+                        msg = "동아리 정보 수정에 실패하였습니다."
+                    )
                 }
             }
         }
