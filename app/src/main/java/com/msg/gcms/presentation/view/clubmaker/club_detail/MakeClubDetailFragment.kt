@@ -1,15 +1,10 @@
 package com.msg.gcms.presentation.view.clubmaker.club_detail
 
 import android.Manifest
-import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.database.Cursor
-import android.graphics.Bitmap
-import android.graphics.ImageDecoder
 import android.net.Uri
-import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
@@ -32,14 +27,14 @@ import com.msg.gcms.presentation.adapter.club_member.ClubMemberAdapter
 import com.msg.gcms.presentation.base.BaseFragment
 import com.msg.gcms.presentation.base.BaseModal
 import com.msg.gcms.presentation.utils.ItemDecorator
+import com.msg.gcms.presentation.utils.toFile
+import com.msg.gcms.presentation.utils.toMultiPartBody
+import com.msg.gcms.presentation.utils.uriToBitMap
 import com.msg.gcms.presentation.viewmodel.ClubViewModel
 import com.msg.gcms.presentation.viewmodel.MakeClubViewModel
 import com.msg.gcms.presentation.viewmodel.util.Event
 import dagger.hilt.android.AndroidEntryPoint
-import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
-import okhttp3.RequestBody
-import java.io.File
 
 @AndroidEntryPoint
 class MakeClubDetailFragment :
@@ -107,7 +102,7 @@ class MakeClubDetailFragment :
                 addImageTxt.visibility = View.GONE
             }
         }
-        if(makeClubViewModel.activityPhotoList.isNotEmpty()) {
+        if (makeClubViewModel.activityPhotoList.isNotEmpty()) {
             activityAdapter.submitList(makeClubViewModel.activityPhotoList)
             binding.clubActivePicture.adapter = activityAdapter
         }
@@ -129,23 +124,19 @@ class MakeClubDetailFragment :
     }
 
     private val getContent =
-        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
-            if (it.resultCode == Activity.RESULT_OK) {
-                val imageUrl = it.data?.data
-                val file = File(getPathFromUri(imageUrl))
-                val requestFile = RequestBody.create("image/*".toMediaTypeOrNull(), file)
-                val img = MultipartBody.Part.createFormData("file", file.name, requestFile)
-                Log.d("TAG", "onActivityResult: $img")
-                bannerImage.add(img)
-                bannerImageUri = imageUrl!!
+        registerForActivityResult(ActivityResultContracts.GetContent()) { imageUri ->
+            if (imageUri != null) {
+                val file = imageUri.toFile(requireContext())
+                bannerImage.add(file.toMultiPartBody())
+                bannerImageUri = imageUri
 
                 with(binding.addBannerPicture) {
-                    setImageURI(imageUrl)
+                    setImageURI(imageUri)
                     scaleType = ImageView.ScaleType.CENTER_CROP
                     binding.imageView7.visibility = View.GONE
                     binding.addImageTxt.visibility = View.GONE
                 }
-                binding.addBannerPicture.load(imageUrl) {
+                binding.addBannerPicture.load(imageUri) {
                     crossfade(true)
                     transformations(RoundedCornersTransformation(8f))
                 }
@@ -224,10 +215,7 @@ class MakeClubDetailFragment :
     }
 
     private fun choseBannerGalley() {
-        val photoPickerIntent = Intent(Intent.ACTION_PICK)
-        photoPickerIntent.type = "image/*"
-        photoPickerIntent.data = MediaStore.Images.Media.EXTERNAL_CONTENT_URI
-        getContent.launch(photoPickerIntent)
+        getContent.launch("image/*")
     }
 
     private fun choseActivityPhotos() {
@@ -250,14 +238,11 @@ class MakeClubDetailFragment :
                     activityPhotoMultipart.clear()
                     for (i in 0 until data.clipData!!.itemCount) {
                         val imageUri: Uri = data.clipData!!.getItemAt(i).uri
-                        val imageBitmap = uriToBitMap(imageUri)
+                        val imageBitmap = imageUri.uriToBitMap(requireContext())
                         makeClubViewModel.activityPhotoList.add(ActivityPhotoType(activityPhoto = imageBitmap))
                         Log.d("TAG", "getBitmap: $imageBitmap")
-                        val file = File(getPathFromUri(imageUri))
-                        val requestFile = RequestBody.create("image/*".toMediaTypeOrNull(), file)
-                        val img = MultipartBody.Part.createFormData("file", file.name, requestFile)
-                        Log.d("TAG", "onActivityResult: $img")
-                        activityPhotoMultipart.add(img)
+                        val file = imageUri.toFile(requireContext())
+                        activityPhotoMultipart.add(file.toMultiPartBody())
                     }
                     Log.d("TAG", "finallyImage: ${makeClubViewModel.activityPhotoList.size}")
                     binding.clubActivePicture.adapter = activityAdapter
@@ -274,29 +259,6 @@ class MakeClubDetailFragment :
                 }
             }
         }
-    }
-
-    private fun uriToBitMap(imageUri: Uri): Bitmap {
-        val bitmap = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-            ImageDecoder.decodeBitmap(
-                ImageDecoder.createSource(
-                    requireContext().contentResolver,
-                    imageUri
-                )
-            )
-        } else {
-            MediaStore.Images.Media.getBitmap(requireContext().contentResolver, imageUri)
-        }
-        return bitmap
-    }
-
-    @SuppressLint("Range")
-    private fun getPathFromUri(uri: Uri?): String {
-        val cursor: Cursor? = requireActivity().contentResolver.query(uri!!, null, null, null, null)
-        cursor?.moveToNext()
-        val path: String = cursor!!.getString(cursor.getColumnIndex("_data"))
-        cursor.close()
-        return path
     }
 
     private fun observeCreateClubStatus() {

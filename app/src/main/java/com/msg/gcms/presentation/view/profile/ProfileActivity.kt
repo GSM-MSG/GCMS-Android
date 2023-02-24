@@ -1,12 +1,9 @@
 package com.msg.gcms.presentation.view.profile
 
 import android.Manifest
-import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.database.Cursor
-import android.net.Uri
-import android.provider.MediaStore
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -18,21 +15,30 @@ import com.msg.gcms.databinding.ActivityProfileBinding
 import com.msg.gcms.presentation.base.BaseActivity
 import com.msg.gcms.presentation.utils.enterActivity
 import com.msg.gcms.presentation.utils.exitActivity
+import com.msg.gcms.presentation.utils.toFile
+import com.msg.gcms.presentation.utils.toMultiPartBody
 import com.msg.gcms.presentation.view.intro.IntroActivity
 import com.msg.gcms.presentation.view.withdrawal.WithdrawalActivity
 import com.msg.gcms.presentation.view.withdrawal.WithdrawalDialog
 import com.msg.gcms.presentation.viewmodel.AuthViewModel
 import com.msg.gcms.presentation.viewmodel.ProfileViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import okhttp3.MediaType.Companion.toMediaTypeOrNull
-import okhttp3.MultipartBody
-import okhttp3.RequestBody
-import java.io.File
 
 @AndroidEntryPoint
 class ProfileActivity : BaseActivity<ActivityProfileBinding>(R.layout.activity_profile) {
     private val profileViewModel by viewModels<ProfileViewModel>()
     private val authViewModel by viewModels<AuthViewModel>()
+
+    private val getContent =
+        registerForActivityResult(ActivityResultContracts.GetContent()) { imageUri ->
+            if (imageUri != null) {
+                binding.profileImg.load(imageUri) {
+                    transformations(CircleCropTransformation())
+                }
+                val file = imageUri.toFile(this)
+                profileViewModel.uploadImg(file.toMultiPartBody())
+            }
+        }
 
     override fun observeEvent() {
         myProfile()
@@ -86,10 +92,7 @@ class ProfileActivity : BaseActivity<ActivityProfileBinding>(R.layout.activity_p
                     android.Manifest.permission.READ_EXTERNAL_STORAGE
                 ) == PackageManager.PERMISSION_GRANTED
             ) {
-                val intent = Intent(Intent.ACTION_PICK)
-                intent.type = "image/*"
-                intent.data = MediaStore.Images.Media.EXTERNAL_CONTENT_URI
-                startActivityForResult(intent, 0)
+                getContent.launch("image/*")
             } else {
                 ActivityCompat.requestPermissions(
                     this,
@@ -118,26 +121,6 @@ class ProfileActivity : BaseActivity<ActivityProfileBinding>(R.layout.activity_p
         }
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == 0) {
-            if (resultCode == RESULT_OK) {
-                try {
-                    binding.profileImg.load(data?.data) {
-                        transformations(CircleCropTransformation())
-                    }
-                    val currentUri = data?.data
-                    val file = File(getPathFromUri(currentUri))
-                    val requestFile = RequestBody.create("image/*".toMediaTypeOrNull(), file)
-                    val img = MultipartBody.Part.createFormData("files", file.name, requestFile)
-                    profileViewModel.uploadImg(img)
-                } catch (e: Exception) {
-                    e.printStackTrace()
-                }
-            }
-        }
-    }
-
     override fun onRequestPermissionsResult(
         requestCode: Int,
         permissions: Array<out String>,
@@ -154,14 +137,5 @@ class ProfileActivity : BaseActivity<ActivityProfileBinding>(R.layout.activity_p
                 }
             }
         }
-    }
-
-    @SuppressLint("Range")
-    private fun getPathFromUri(uri: Uri?): String {
-        val cursor: Cursor? = contentResolver.query(uri!!, null, null, null, null)
-        cursor?.moveToNext()
-        val path: String = cursor!!.getString(cursor.getColumnIndex("_data"))
-        cursor.close()
-        return path
     }
 }
