@@ -6,7 +6,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.msg.gcms.R
 import com.msg.gcms.domain.data.club.get_club_detail.ClubDetailData
 import com.msg.gcms.domain.data.club.get_club_detail.ClubMemberData
 import com.msg.gcms.domain.data.club.modify_club_info.ModifyClubInfoData
@@ -78,24 +77,13 @@ class EditViewModel @Inject constructor(
     }
 
     private fun memberCheck(list: List<ClubMemberData>) {
-        if (list.isEmpty()) {
-            _addedMemberList.add(
-                AddMemberType(
-                    uuid = null,
-                    userName = "추가하기",
-                    userImg = R.drawable.bg_banner_placeholder.toString()
-                )
+        _addedMemberList.addAll(list.map {
+            AddMemberType(
+                uuid = it.uuid,
+                userName = it.name,
+                userImg = it.userImg
             )
-        } else {
-            //TODO 여기 타입 변경하기
-            _addedMemberList.addAll(list.map {
-                AddMemberType(
-                    uuid = it.uuid,
-                    userName = it.name,
-                    userImg = it.userImg
-                )
-            })
-        }
+        })
         _addedMemberData.value = _addedMemberList
     }
 
