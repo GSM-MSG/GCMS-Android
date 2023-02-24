@@ -16,15 +16,13 @@ import com.msg.gcms.presentation.base.BaseActivity
 import com.msg.gcms.presentation.utils.enterActivity
 import com.msg.gcms.presentation.utils.exitActivity
 import com.msg.gcms.presentation.utils.toFile
+import com.msg.gcms.presentation.utils.toMultiPartBody
 import com.msg.gcms.presentation.view.intro.IntroActivity
 import com.msg.gcms.presentation.view.withdrawal.WithdrawalActivity
 import com.msg.gcms.presentation.view.withdrawal.WithdrawalDialog
 import com.msg.gcms.presentation.viewmodel.AuthViewModel
 import com.msg.gcms.presentation.viewmodel.ProfileViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import okhttp3.MediaType.Companion.toMediaTypeOrNull
-import okhttp3.MultipartBody
-import okhttp3.RequestBody
 
 @AndroidEntryPoint
 class ProfileActivity : BaseActivity<ActivityProfileBinding>(R.layout.activity_profile) {
@@ -38,9 +36,7 @@ class ProfileActivity : BaseActivity<ActivityProfileBinding>(R.layout.activity_p
                     transformations(CircleCropTransformation())
                 }
                 val file = imageUri.toFile(this)
-                val requestFile = RequestBody.create("image/*".toMediaTypeOrNull(), file)
-                val img = MultipartBody.Part.createFormData("files", file.name, requestFile)
-                profileViewModel.uploadImg(img)
+                profileViewModel.uploadImg(file.toMultiPartBody())
             }
         }
 

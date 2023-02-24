@@ -28,14 +28,13 @@ import com.msg.gcms.presentation.base.BaseFragment
 import com.msg.gcms.presentation.base.BaseModal
 import com.msg.gcms.presentation.utils.ItemDecorator
 import com.msg.gcms.presentation.utils.toFile
+import com.msg.gcms.presentation.utils.toMultiPartBody
 import com.msg.gcms.presentation.utils.uriToBitMap
 import com.msg.gcms.presentation.viewmodel.ClubViewModel
 import com.msg.gcms.presentation.viewmodel.MakeClubViewModel
 import com.msg.gcms.presentation.viewmodel.util.Event
 import dagger.hilt.android.AndroidEntryPoint
-import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
-import okhttp3.RequestBody
 
 @AndroidEntryPoint
 class MakeClubDetailFragment :
@@ -128,10 +127,8 @@ class MakeClubDetailFragment :
         registerForActivityResult(ActivityResultContracts.GetContent()) { imageUri ->
             if (imageUri != null) {
                 val file = imageUri.toFile(requireContext())
-                val requestFile = RequestBody.create("image/*".toMediaTypeOrNull(), file)
-                val img = MultipartBody.Part.createFormData("file", file.name, requestFile)
-                bannerImage.add(img)
-                bannerImageUri = imageUri!!
+                bannerImage.add(file.toMultiPartBody())
+                bannerImageUri = imageUri
 
                 with(binding.addBannerPicture) {
                     setImageURI(imageUri)
@@ -245,10 +242,7 @@ class MakeClubDetailFragment :
                         makeClubViewModel.activityPhotoList.add(ActivityPhotoType(activityPhoto = imageBitmap))
                         Log.d("TAG", "getBitmap: $imageBitmap")
                         val file = imageUri.toFile(requireContext())
-                        val requestFile = RequestBody.create("image/*".toMediaTypeOrNull(), file)
-                        val img = MultipartBody.Part.createFormData("file", file.name, requestFile)
-                        Log.d("TAG", "onActivityResult: $img")
-                        activityPhotoMultipart.add(img)
+                        activityPhotoMultipart.add(file.toMultiPartBody())
                     }
                     Log.d("TAG", "finallyImage: ${makeClubViewModel.activityPhotoList.size}")
                     binding.clubActivePicture.adapter = activityAdapter

@@ -35,14 +35,13 @@ import com.msg.gcms.presentation.base.BaseFragment
 import com.msg.gcms.presentation.base.BaseModal
 import com.msg.gcms.presentation.utils.ItemDecorator
 import com.msg.gcms.presentation.utils.toFile
+import com.msg.gcms.presentation.utils.toMultiPartBody
 import com.msg.gcms.presentation.utils.uriToBitMap
 import com.msg.gcms.presentation.viewmodel.EditViewModel
 import com.msg.gcms.presentation.viewmodel.util.Event
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
-import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
-import okhttp3.RequestBody
 import java.io.File
 import java.io.FileOutputStream
 import java.io.OutputStream
@@ -79,10 +78,7 @@ class EditClubFragment : BaseFragment<FragmentEditClubBinding>(R.layout.fragment
         registerForActivityResult(ActivityResultContracts.GetContent()) { imageUri ->
             if (imageUri != null) {
                 val file = imageUri.toFile(requireContext())
-                val requestFile = RequestBody.create("image/*".toMediaTypeOrNull(), file)
-                val img = MultipartBody.Part.createFormData("files", file.name, requestFile)
-                Log.d("TAG", "onActivityResult: $img")
-                bannerImage = img
+                bannerImage = file.toMultiPartBody()
                 bannerImageUri = imageUri
                 with(binding) {
                     bannerImageView.load(imageUri) {
@@ -106,12 +102,8 @@ class EditClubFragment : BaseFragment<FragmentEditClubBinding>(R.layout.fragment
                         val imageUri: Uri = data.clipData!!.getItemAt(i).uri
                         val imageBitmap = imageUri.uriToBitMap(requireContext())
                         activityPhotoList.add(ActivityPhotoType(activityPhoto = imageBitmap))
-                        Log.d("TAG", "getBitmap: $imageBitmap")
                         val file = imageUri.toFile(requireContext())
-                        val requestFile = RequestBody.create("image/*".toMediaTypeOrNull(), file)
-                        val img = MultipartBody.Part.createFormData("files", file.name, requestFile)
-                        Log.d("TAG", "onActivityResult: $img")
-                        activityPhotoMultipart.add(img)
+                        activityPhotoMultipart.add(file.toMultiPartBody())
                     }
                     Log.d("TAG", "activityPhotoList: $activityPhotoList")
                     activityAdapter.notifyDataSetChanged()
@@ -359,10 +351,8 @@ class EditClubFragment : BaseFragment<FragmentEditClubBinding>(R.layout.fragment
                 it.activityPhoto.compress(Bitmap.CompressFormat.JPEG, 100, stream)
                 stream.flush()
                 stream.close()
-                val requestFile = RequestBody.create("image/*".toMediaTypeOrNull(), file)
-                val img = MultipartBody.Part.createFormData("files", file.name, requestFile)
 
-                imgList.add(img)
+                imgList.add(file.toMultiPartBody())
                 Log.d("TAG", "convertBitmapToMultiPart: $imgList")
             } catch (e: Exception) {
                 e.printStackTrace()
@@ -379,20 +369,16 @@ class EditClubFragment : BaseFragment<FragmentEditClubBinding>(R.layout.fragment
         val wrapper = ContextWrapper(context)
         var file = wrapper.getDir("images", Context.MODE_PRIVATE)
         file = File(file, "${UUID.randomUUID()}.jpg}")
-        lateinit var image: MultipartBody.Part
 
         try {
             val stream: OutputStream = FileOutputStream(file)
             bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream)
             stream.flush()
             stream.close()
-            val requestFile = RequestBody.create("image/*".toMediaTypeOrNull(), file)
-            image = MultipartBody.Part.createFormData("files", file.name, requestFile)
-            Log.d("TAG", "convertBitmapToMultiPart: $image")
         } catch (e: Exception) {
             e.printStackTrace()
         }
-        return image
+        return file.toMultiPartBody()
     }
 
     //TODO 동아리 수정 로직 변경된거 수정하기
