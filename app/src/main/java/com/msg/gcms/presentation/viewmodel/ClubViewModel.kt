@@ -6,7 +6,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.msg.gcms.domain.exception.ConflictException
+import com.msg.gcms.domain.exception.BadRequestException
 import com.msg.gcms.domain.exception.ForBiddenException
 import com.msg.gcms.domain.exception.NotFoundException
 import com.msg.gcms.domain.exception.ServerException
@@ -64,22 +64,10 @@ class ClubViewModel @Inject constructor(
                 _applyClub.value = Event.Success
             }.onFailure {
                 _applyClub.value = when (it) {
-                    is UnauthorizedException -> {
-                        Log.d(TAG, "postClubApply: $it")
-                        Event.Unauthorized
-                    }
-                    is NotFoundException -> {
-                        Log.d(TAG, "postClubApply: $it")
-                        Event.NotFound
-                    }
-                    is ConflictException -> {
-                        Log.d(TAG, "postClubApply: $it")
-                        Event.Conflict
-                    }
-                    is ServerException -> {
-                        Log.d(TAG, "postClubApply: $it")
-                        Event.Server
-                    }
+                    is UnauthorizedException -> Event.Unauthorized
+                    is ForBiddenException -> Event.ForBidden
+                    is NotFoundException -> Event.NotFound
+                    is ServerException -> Event.Server
                     else -> {
                         Log.d(TAG, "postClubApply: $it")
                         Event.UnKnown
@@ -98,17 +86,9 @@ class ClubViewModel @Inject constructor(
                 _cancelClubApply.value = Event.Success
             }.onFailure {
                 _cancelClubApply.value = when (it) {
-                    is UnauthorizedException -> {
-                        Log.d(TAG, "postClubCancel: $it")
-                        Event.Unauthorized
-                    }
-                    is NotFoundException -> {
-                        Log.d(TAG, "postClubCancel: $it")
-                        Event.NotFound
-                    }
-                    is ServerException -> {
-                        Event.Server
-                    }
+                    is UnauthorizedException -> Event.Unauthorized
+                    is NotFoundException -> Event.NotFound
+                    is ServerException -> Event.Server
                     else -> {
                         Log.d(TAG, "postClubCancel: $it")
                         Event.UnKnown
@@ -127,17 +107,11 @@ class ClubViewModel @Inject constructor(
                 _openingClubApplication.value = Event.Success
             }.onFailure {
                 _openingClubApplication.value = when (it) {
-                    is UnauthorizedException -> {
-                        Log.d(TAG, "putClubOpen: $it")
-                        Event.Unauthorized
-                    }
-                    is ForBiddenException -> {
-                        Log.d(TAG, "putClubOpen: $it")
-                        Event.ForBidden
-                    }
-                    is ServerException -> {
-                        Event.Server
-                    }
+                    is BadRequestException -> Event.BadRequest
+                    is UnauthorizedException -> Event.Unauthorized
+                    is ForBiddenException -> Event.ForBidden
+                    is NotFoundException -> Event.NotFound
+                    is ServerException -> Event.Server
                     else -> {
                         Log.d(TAG, "putClubOpen: $it")
                         Event.UnKnown
@@ -156,17 +130,11 @@ class ClubViewModel @Inject constructor(
                 _closingClubApplication.value = Event.Success
             }.onFailure {
                 _closingClubApplication.value = when (it) {
-                    is UnauthorizedException -> {
-                        Log.d(TAG, "putClubClose: $it")
-                        Event.Unauthorized
-                    }
-                    is ForBiddenException -> {
-                        Log.d(TAG, "putClubClose: $it")
-                        Event.ForBidden
-                    }
-                    is ServerException -> {
-                        Event.Server
-                    }
+                    is BadRequestException -> Event.BadRequest
+                    is UnauthorizedException -> Event.Unauthorized
+                    is ForBiddenException -> Event.ForBidden
+                    is NotFoundException -> Event.NotFound
+                    is ServerException -> Event.Server
                     else -> {
                         Log.d(TAG, "putClubClose: $it")
                         Event.UnKnown
@@ -209,21 +177,11 @@ class ClubViewModel @Inject constructor(
 
             }.onFailure {
                 _deleteClub.value = when (it) {
-                    is UnauthorizedException -> {
-                        Log.d(TAG, "deleteClub: $it")
-                        Event.Unauthorized
-                    }
-                    is ForBiddenException -> {
-                        Log.d(TAG, "deleteClub: $it")
-                        Event.ForBidden
-                    }
-                    is NotFoundException -> {
-                        Log.d(TAG, "deleteClub: $it")
-                        Event.NotFound
-                    }
-                    is ServerException -> {
-                        Event.Server
-                    }
+                    is BadRequestException -> Event.BadRequest
+                    is UnauthorizedException -> Event.Unauthorized
+                    is ForBiddenException -> Event.ForBidden
+                    is NotFoundException -> Event.NotFound
+                    is ServerException -> Event.Server
                     else -> {
                         Log.d(TAG, "deleteClub: $it")
                         Event.UnKnown
