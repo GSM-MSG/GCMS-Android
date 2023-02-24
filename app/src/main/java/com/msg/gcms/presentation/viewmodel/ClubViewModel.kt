@@ -82,7 +82,6 @@ class ClubViewModel @Inject constructor(
             postClubCancelUseCase(
                 clubId = clubId
             ).onSuccess {
-                //Todo(Leeyeonbin) 여기 스테이터스로 예외하는거 수정
                 _cancelClubApply.value = Event.Success
             }.onFailure {
                 _cancelClubApply.value = when (it) {
@@ -103,7 +102,6 @@ class ClubViewModel @Inject constructor(
             putClubOpenUseCase(
                 clubId = clubId
             ).onSuccess {
-                //Todo(Leeyeonbin) 여기 스테이터스로 예외하는거 수정
                 _openingClubApplication.value = Event.Success
             }.onFailure {
                 _openingClubApplication.value = when (it) {
@@ -126,7 +124,6 @@ class ClubViewModel @Inject constructor(
             putClubCloseUseCase(
                 clubId = clubId
             ).onSuccess {
-                //Todo(Leeyeonbin) 여기 스테이터스로 예외하는거 수정
                 _closingClubApplication.value = Event.Success
             }.onFailure {
                 _closingClubApplication.value = when (it) {
@@ -171,10 +168,7 @@ class ClubViewModel @Inject constructor(
             clubDeleteUseCase(
                 clubId
             ).onSuccess {
-                //Todo(Leeyeonbin) 여기 스테이터스로 예외하는거 수정
-                // Log.d(TAG, "deleteClub: ${it.code()}")
                 _deleteClub.value = Event.Success
-
             }.onFailure {
                 _deleteClub.value = when (it) {
                     is BadRequestException -> Event.BadRequest

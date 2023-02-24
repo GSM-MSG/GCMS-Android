@@ -357,12 +357,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
                                     clubViewModel.putClubOpen(clubId = result.id)
                                 }
                             }
-                            clubViewModel.openingClubApplication.observe(this) {
-                                dialog.dismiss()
-                            }
-                            clubViewModel.closingClubApplication.observe(this) {
-                                dialog.dismiss()
-                            }
+                            dialog.dismiss()
                         }
                     }
                 }
@@ -388,12 +383,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
                                     clubViewModel.postClubApply(
                                         clubId = detailViewModel.result.value!!.id
                                     )
-                                clubViewModel.applyClub.observe(this) {
-                                    dialog.dismiss()
-                                }
-                                clubViewModel.cancelClubApply.observe(this) {
-                                    dialog.dismiss()
-                                }
+                                dialog.dismiss()
                             }
                         }
                     }
@@ -446,7 +436,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
                     BaseModal("오류", "동아리를 찾을 수 없습니다.", requireContext()).show()
                 }
                 else -> {
-                    BaseModal("오류", "알 수 없는 오류 발생, 개발자에게 문의해주세요", requireContext()).show()
+                    BaseModal("오류", "알 수 없는 오류 발생, 개발자에게 문의해주세요.", requireContext()).show()
                 }
             }
         }
@@ -469,7 +459,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
                     BaseModal("오류", "동아리를 찾을 수 없습니다.", requireContext()).show()
                 }
                 else -> {
-                    BaseModal("오류", "알수 없는 오류 발생, 개발자에게 문의해주세요", requireContext()).show()
+                    BaseModal("오류", "알수 없는 오류 발생, 개발자에게 문의해주세요.", requireContext()).show()
                 }
             }
         }
@@ -492,7 +482,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
                     BaseModal("오류", "동아리를 찾을 수 없습니다.", requireContext()).show()
                 }
                 else -> {
-                    BaseModal("오류", "알수 없는 오류 발생, 개발자에게 문의해주세요", requireContext()).show()
+                    BaseModal("오류", "알수 없는 오류 발생, 개발자에게 문의해주세요.", requireContext()).show()
                 }
             }
         }
