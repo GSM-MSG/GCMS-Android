@@ -31,6 +31,7 @@ import coil.request.SuccessResult
 import coil.transform.RoundedCornersTransformation
 import com.msg.gcms.R
 import com.msg.gcms.databinding.FragmentEditClubBinding
+import com.msg.gcms.domain.data.club.get_club_detail.ClubMemberData
 import com.msg.gcms.presentation.adapter.activity_photo.ActivityPhotoType
 import com.msg.gcms.presentation.adapter.activity_photo.ActivityPhotosAdapter
 import com.msg.gcms.presentation.adapter.add_member.AddMemberType
@@ -194,7 +195,6 @@ class EditClubFragment : BaseFragment<FragmentEditClubBinding>(R.layout.fragment
 
     private fun observeEvent() {
         observeClubInfo()
-        observeClubTypeDivider()
         observeConvertImage()
         observeEditClubResult()
     }
@@ -204,12 +204,6 @@ class EditClubFragment : BaseFragment<FragmentEditClubBinding>(R.layout.fragment
             if (it.isNotEmpty()) {
                 // editClubInfo()
             }
-        }
-    }
-
-    private fun observeClubTypeDivider() {
-        editViewModel.addedMemberData.observe(this) {
-
         }
     }
 
@@ -241,13 +235,7 @@ class EditClubFragment : BaseFragment<FragmentEditClubBinding>(R.layout.fragment
                         bannerIcon.visibility = View.GONE
                         bannerTxt.visibility = View.GONE
                         activityPhotoUrlList = it.activityImgs.toMutableList()
-                        memberRecyclerviewUpdater(it.member.map { data ->
-                            AddMemberType(
-                                uuid = data.uuid,
-                                userName = data.name,
-                                userImg = data.userImg
-                            )
-                        })
+                        memberRecyclerviewUpdater(clubMemberChecker(it.member))
                         lifecycleScope.launch {
                             activityPhotoRecyclerViewUpdater(addBitmapToList(it.activityImgs))
                             bannerImageBitmap = getBitmapFromUrl(it.bannerImg)
@@ -264,6 +252,26 @@ class EditClubFragment : BaseFragment<FragmentEditClubBinding>(R.layout.fragment
                     bannerTxt.visibility = View.GONE
 
                 }
+            }
+        }
+    }
+
+    private fun clubMemberChecker(list: List<ClubMemberData>): List<AddMemberType> {
+        return if (list.isEmpty()) {
+            listOf(
+                AddMemberType(
+                    uuid = null,
+                    userName = "추가하기",
+                    userImg = null
+                )
+            )
+        } else {
+            list.map {
+                AddMemberType(
+                    uuid = it.uuid,
+                    userName = it.name,
+                    userImg = it.userImg
+                )
             }
         }
     }

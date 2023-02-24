@@ -37,7 +37,7 @@ class EditSearchFragment : BaseFragment<FragmentEditSearchBinding>(R.layout.frag
     private lateinit var addMemberAdapter: AddMemberAdapter
 
     private var userList = mutableListOf<GetSearchUserData>()
-    private var memberList = mutableListOf<GetSearchUserData>()
+    private var memberList = mutableListOf<AddMemberType>()
 
     private val coroutineJob: Job = Job()
     private val coroutineContext: CoroutineContext
@@ -93,9 +93,15 @@ class EditSearchFragment : BaseFragment<FragmentEditSearchBinding>(R.layout.frag
         searchAdapter.setItemOnClickListener(object : UserSearchAdapter.OnItemClickListener {
             override fun onClick(position: Int) {
                 val item = userList[position]
-                if (!memberList.contains(item)) {
-                    memberList.add(item)
-                    // addMemberAdapter.submitList(AddMemberType(uuid = item.uuid, userName = item.name, userImg = item.profileImg))
+                if (!memberList.map { it.uuid }.contains(item.uuid)) {
+                    memberList.add(
+                        AddMemberType(
+                            uuid = item.uuid,
+                            userName = item.name,
+                            userImg = item.profileImg
+                        )
+                    )
+                    addMemberAdapter.submitList(memberList)
                     Log.d("TAG", "addMemberList : $memberList")
                 } else {
                     Log.d("TAG", "that user contained list")

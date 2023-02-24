@@ -8,6 +8,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.msg.gcms.R
 import com.msg.gcms.domain.data.club.get_club_detail.ClubDetailData
+import com.msg.gcms.domain.data.club.get_club_detail.ClubMemberData
 import com.msg.gcms.domain.data.club.modify_club_info.ModifyClubInfoData
 import com.msg.gcms.domain.data.user.search_user.GetSearchUserData
 import com.msg.gcms.domain.exception.BadRequestException
@@ -64,7 +65,7 @@ class EditViewModel @Inject constructor(
             ).onSuccess {
                 _clubInfo.value = it
                 Log.d("TAG", "getClubInfo: $it")
-                memberCheck()
+                memberCheck(it.member)
 
             }.onFailure {
                 when (it) {
@@ -76,8 +77,8 @@ class EditViewModel @Inject constructor(
         }
     }
 
-    private fun memberCheck() {
-        if (clubInfo.value!!.member.isEmpty()) {
+    private fun memberCheck(list: List<ClubMemberData>) {
+        if (list.isEmpty()) {
             _addedMemberList.add(
                 AddMemberType(
                     uuid = null,
@@ -87,15 +88,15 @@ class EditViewModel @Inject constructor(
             )
         } else {
             //TODO 여기 타입 변경하기
-            _addedMemberList.addAll(clubInfo.value!!.member.map {
+            _addedMemberList.addAll(list.map {
                 AddMemberType(
                     uuid = it.uuid,
                     userName = it.name,
                     userImg = it.userImg
                 )
             })
-            _addedMemberData.value = _addedMemberList
         }
+        _addedMemberData.value = _addedMemberList
     }
 
     fun getSearchUser(name: String, type: String) {
