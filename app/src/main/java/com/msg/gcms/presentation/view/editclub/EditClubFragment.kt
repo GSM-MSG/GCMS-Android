@@ -1,13 +1,11 @@
 package com.msg.gcms.presentation.view.editclub
 
 import android.Manifest
-import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
 import android.content.ContextWrapper
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.database.Cursor
 import android.graphics.Bitmap
 import android.graphics.ImageDecoder
 import android.graphics.drawable.BitmapDrawable
@@ -38,6 +36,7 @@ import com.msg.gcms.presentation.adapter.club_member.ClubMemberAdapter
 import com.msg.gcms.presentation.base.BaseFragment
 import com.msg.gcms.presentation.base.BaseModal
 import com.msg.gcms.presentation.utils.ItemDecorator
+import com.msg.gcms.presentation.utils.toFile
 import com.msg.gcms.presentation.viewmodel.EditViewModel
 import com.msg.gcms.presentation.viewmodel.util.Event
 import dagger.hilt.android.AndroidEntryPoint
@@ -78,17 +77,16 @@ class EditClubFragment : BaseFragment<FragmentEditClubBinding>(R.layout.fragment
     }
 
     private val getContent =
-        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
-            if (it.resultCode == Activity.RESULT_OK) {
-                val imageUrl = it.data?.data
-                val file = File(getPathFromUri(imageUrl))
+        registerForActivityResult(ActivityResultContracts.GetContent()) { imageUri ->
+            if (imageUri != null) {
+                val file = imageUri.toFile(requireContext())
                 val requestFile = RequestBody.create("image/*".toMediaTypeOrNull(), file)
                 val img = MultipartBody.Part.createFormData("files", file.name, requestFile)
                 Log.d("TAG", "onActivityResult: $img")
                 bannerImage = img
-                bannerImageUri = imageUrl!!
+                bannerImageUri = imageUri
                 with(binding) {
-                    bannerImageView.load(imageUrl) {
+                    bannerImageView.load(imageUri) {
                         crossfade(true)
                         transformations(RoundedCornersTransformation(8f, 8f, 8f, 8f))
                     }
@@ -110,7 +108,7 @@ class EditClubFragment : BaseFragment<FragmentEditClubBinding>(R.layout.fragment
                         val imageBitmap = getBitmapFromUri(imageUri)
                         activityPhotoList.add(ActivityPhotoType(activityPhoto = imageBitmap))
                         Log.d("TAG", "getBitmap: $imageBitmap")
-                        val file = File(getPathFromUri(imageUri))
+                        val file = imageUri.toFile(requireContext())
                         val requestFile = RequestBody.create("image/*".toMediaTypeOrNull(), file)
                         val img = MultipartBody.Part.createFormData("files", file.name, requestFile)
                         Log.d("TAG", "onActivityResult: $img")
@@ -163,10 +161,7 @@ class EditClubFragment : BaseFragment<FragmentEditClubBinding>(R.layout.fragment
     }
 
     private fun addBanner() {
-        val photoPickIntent = Intent(Intent.ACTION_PICK)
-        photoPickIntent.type = "image/*"
-        photoPickIntent.data = MediaStore.Images.Media.EXTERNAL_CONTENT_URI
-        getContent.launch(photoPickIntent)
+        getContent.launch("image/*")
     }
 
     private fun addActivityPhoto() {
@@ -325,15 +320,6 @@ class EditClubFragment : BaseFragment<FragmentEditClubBinding>(R.layout.fragment
             .build()
         val result: Drawable = (loading.execute(request) as SuccessResult).drawable
         return (result as BitmapDrawable).bitmap
-    }
-
-    @SuppressLint("Range")
-    private fun getPathFromUri(uri: Uri?): String {
-        val cursor: Cursor? = requireActivity().contentResolver.query(uri!!, null, null, null, null)
-        cursor?.moveToNext()
-        val path: String = cursor!!.getString(cursor.getColumnIndex("_data"))
-        cursor.close()
-        return path
     }
 
     private fun editClub() {
