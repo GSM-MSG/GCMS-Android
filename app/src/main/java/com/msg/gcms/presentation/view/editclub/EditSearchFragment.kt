@@ -72,7 +72,7 @@ class EditSearchFragment : BaseFragment<FragmentEditSearchBinding>(R.layout.frag
             setHasFixedSize(true)
             addItemDecoration(ItemDecorator(16, "HORIZONTAL"))
             // TODO 타입 변경하기
-            // memberList = editViewModel.memberList
+            memberList = editViewModel._addedMemberList
             addMemberAdapter.submitList(
                 editViewModel.addedMemberData.value!!.map {
                     AddMemberType(
@@ -87,7 +87,8 @@ class EditSearchFragment : BaseFragment<FragmentEditSearchBinding>(R.layout.frag
             override fun onClick(position: Int) {
                 val item = memberList[position]
                 memberList.remove(item)
-                addMemberAdapter
+                addMemberAdapter.submitList(memberList)
+                binding.memberListRv.adapter = addMemberAdapter
             }
         })
         searchAdapter.setItemOnClickListener(object : UserSearchAdapter.OnItemClickListener {
@@ -102,6 +103,7 @@ class EditSearchFragment : BaseFragment<FragmentEditSearchBinding>(R.layout.frag
                         )
                     )
                     addMemberAdapter.submitList(memberList)
+                    binding.memberListRv.adapter = addMemberAdapter
                     Log.d("TAG", "addMemberList : $memberList")
                 } else {
                     Log.d("TAG", "that user contained list")
