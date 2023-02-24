@@ -175,7 +175,6 @@ class EditClubFragment : BaseFragment<FragmentEditClubBinding>(R.layout.fragment
 
     private fun observeEvent() {
         observeClubInfo()
-        observeClubTypeDivider()
         observeConvertImage()
         observeEditClubResult()
     }
@@ -185,12 +184,6 @@ class EditClubFragment : BaseFragment<FragmentEditClubBinding>(R.layout.fragment
             if (it.isNotEmpty()) {
                 // editClubInfo()
             }
-        }
-    }
-
-    private fun observeClubTypeDivider() {
-        editViewModel.addedMemberData.observe(this) {
-
         }
     }
 
