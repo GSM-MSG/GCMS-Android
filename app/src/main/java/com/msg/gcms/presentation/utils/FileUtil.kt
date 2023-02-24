@@ -8,6 +8,9 @@ import android.net.Uri
 import android.os.Build
 import android.os.Environment
 import android.provider.MediaStore
+import okhttp3.MediaType.Companion.toMediaType
+import okhttp3.MultipartBody
+import okhttp3.RequestBody.Companion.asRequestBody
 import java.io.File
 import java.io.FileOutputStream
 
@@ -33,6 +36,13 @@ fun Uri.uriToBitMap(context: Context): Bitmap {
     }
     return bitmap
 }
+
+fun File.toMultiPartBody(): MultipartBody.Part =
+    MultipartBody.Part.createFormData(
+        name = "files",
+        filename = this.name,
+        body = this.asRequestBody("image/*".toMediaType())
+    )
 
 private fun Uri.getFileName(context: Context): String {
     val name = this.toString().split("/").last()
