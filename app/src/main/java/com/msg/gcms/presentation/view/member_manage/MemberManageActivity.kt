@@ -119,11 +119,11 @@ class MemberManageActivity :
 
     private fun clickExpandable() = with(binding) {
         memberListBtn.setOnClickListener {
-            viewModel.getMember()
+            if (memberList.visibility == View.GONE) viewModel.getMember()
             expandableAnim(memberListBtn, memberList.visibility, memberList)
         }
         applicantListBtn.setOnClickListener {
-            viewModel.getApplicant()
+            if (memberList.visibility == View.GONE) viewModel.getApplicant()
             expandableAnim(applicantListBtn, applicantList.visibility, applicantList)
         }
     }
