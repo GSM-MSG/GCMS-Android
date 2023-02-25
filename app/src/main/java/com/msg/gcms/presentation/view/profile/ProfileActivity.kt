@@ -7,6 +7,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
 import coil.load
 import coil.transform.CircleCropTransformation
 import com.google.android.material.snackbar.Snackbar
@@ -22,6 +23,7 @@ import com.msg.gcms.presentation.view.withdrawal.WithdrawalActivity
 import com.msg.gcms.presentation.view.withdrawal.WithdrawalDialog
 import com.msg.gcms.presentation.viewmodel.AuthViewModel
 import com.msg.gcms.presentation.viewmodel.ProfileViewModel
+import com.msg.gcms.presentation.viewmodel.util.Event
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -43,6 +45,7 @@ class ProfileActivity : BaseActivity<ActivityProfileBinding>(R.layout.activity_p
     override fun observeEvent() {
         myProfile()
         isClub()
+        observeProfileInfo()
     }
 
     override fun viewSetting() {
@@ -60,6 +63,21 @@ class ProfileActivity : BaseActivity<ActivityProfileBinding>(R.layout.activity_p
                     "${it.grade}학년 ${it.classNum}반 ${it.number}번"
                 profileImg.load(it.profileImg ?: R.drawable.ic_default_profile) {
                     transformations(CircleCropTransformation())
+                }
+            }
+        }
+    }
+
+    private fun observeProfileInfo() {
+        profileViewModel.getUserInfo.observe(this) {
+            when (it) {
+                Event.Success -> {
+                    with(binding.profileLoadingView) {
+                        if (isShimmerStarted) {
+                            stopShimmer()
+                            isVisible = false
+                        }
+                    }
                 }
             }
         }
