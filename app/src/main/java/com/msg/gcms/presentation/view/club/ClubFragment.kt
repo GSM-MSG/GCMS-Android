@@ -27,6 +27,7 @@ class ClubFragment : BaseFragment<FragmentClubBinding>(R.layout.fragment_club) {
     private lateinit var adapter: ClubListAdapter
     override fun init() {
         mainViewModel.getClubList()
+        observeClubInfo()
         recyclerview()
         clickProfile()
         clickMakeClubBtn()
