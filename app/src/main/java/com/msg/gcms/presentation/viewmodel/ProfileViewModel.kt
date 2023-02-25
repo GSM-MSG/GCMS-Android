@@ -13,6 +13,7 @@ import com.msg.gcms.domain.exception.UnauthorizedException
 import com.msg.gcms.domain.usecase.image.ImageUseCase
 import com.msg.gcms.domain.usecase.user.EditProfileUseCase
 import com.msg.gcms.domain.usecase.user.GetUserInfoUseCase
+import com.msg.gcms.presentation.viewmodel.util.Event
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import okhttp3.MultipartBody
@@ -30,17 +31,21 @@ class ProfileViewModel @Inject constructor(
     private val _profileData = MutableLiveData<GetMyProfileData>()
     val profileData: LiveData<GetMyProfileData> get() = _profileData
 
+    private var _getUserInfo = MutableLiveData<Event>()
+    val getUserInfo: LiveData<Event> get() = _getUserInfo
+
     fun getUserInfo() {
         viewModelScope.launch {
             profileUseCase().onSuccess {
                 _profileData.value = it
                 _clubStatus.value = it.clubs.isNotEmpty()
+                _getUserInfo.value = Event.Success
             }.onFailure {
                 _clubStatus.value = false
-                when (it) {
-                    is UnauthorizedException -> Log.d("TAG", "getUserInfo: $it")
-                    is NotFoundException -> Log.d("TAG", "getUserInfo: $it")
-                    else -> Log.d("TAG", "getUserInfo: $it")
+                _getUserInfo.value = when (it) {
+                    is UnauthorizedException -> Event.Unauthorized
+                    is NotFoundException -> Event.NotFound
+                    else -> Event.UnKnown
                 }
             }
         }
