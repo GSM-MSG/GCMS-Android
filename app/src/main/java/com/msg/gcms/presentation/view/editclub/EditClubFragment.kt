@@ -355,29 +355,29 @@ class EditClubFragment : BaseFragment<FragmentEditClubBinding>(R.layout.fragment
         // imageUploadToServer(newPhotosList)
     }
 
-    private fun convertBitmapToFile(list: List<ActivityPhotoType>): List<MultipartBody.Part> {
-
-        val imgList = mutableListOf<MultipartBody.Part>()
-
-        list.forEach {
-            val wrapper = ContextWrapper(context)
-            var file = wrapper.getDir("images", Context.MODE_PRIVATE)
-            file = File(file, "${UUID.randomUUID()}.jpg}")
-
-            try {
-                val stream: OutputStream = FileOutputStream(file)
-                it.activityPhoto.compress(Bitmap.CompressFormat.JPEG, 100, stream)
-                stream.flush()
-                stream.close()
-
-                imgList.add(file.toMultiPartBody())
-                Log.d("TAG", "convertBitmapToMultiPart: $imgList")
-            } catch (e: Exception) {
-                e.printStackTrace()
-            }
-        }
-        return imgList
-    }
+    // private fun convertBitmapToFile(list: List<ActivityPhotoType>): List<MultipartBody.Part> {
+    //
+    //     val imgList = mutableListOf<MultipartBody.Part>()
+    //
+    //     list.forEach {
+    //         val wrapper = ContextWrapper(context)
+    //         var file = wrapper.getDir("images", Context.MODE_PRIVATE)
+    //         file = File(file, "${UUID.randomUUID()}.jpg}")
+    //
+    //         try {
+    //             val stream: OutputStream = FileOutputStream(file)
+    //             it.activityPhoto.compress(Bitmap.CompressFormat.JPEG, 100, stream)
+    //             stream.flush()
+    //             stream.close()
+    //
+    //             imgList.add(file.toMultiPartBody())
+    //             Log.d("TAG", "convertBitmapToMultiPart: $imgList")
+    //         } catch (e: Exception) {
+    //             e.printStackTrace()
+    //         }
+    //     }
+    //     return imgList
+    // }
 
     private fun imageBannerUploadToServer(list: List<MultipartBody.Part>) {
         editViewModel.uploadBannerImage(list = list)
