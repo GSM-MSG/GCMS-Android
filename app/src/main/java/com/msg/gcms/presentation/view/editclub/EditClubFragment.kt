@@ -66,7 +66,9 @@ class EditClubFragment : BaseFragment<FragmentEditClubBinding>(R.layout.fragment
     private lateinit var clubMemberAdapter: ClubMemberAdapter
 
     private val activityPhotoList = mutableListOf<ActivityPhotoType>()
-    private var activityPhotoUrlList = mutableListOf<String>()
+    private lateinit var activityPhotoUrlList: List<String>
+
+    private lateinit var bannerImageUrl: String
 
     var getClubInfoListener = false
 
@@ -123,9 +125,9 @@ class EditClubFragment : BaseFragment<FragmentEditClubBinding>(R.layout.fragment
                         activityPhotoRecyclerViewUpdater(activityPhotoList)
                         val file = imageUri.toFile(requireContext())
                         activityPhotoMultipart.add(file.toMultiPartBody())
-                        isActivityImageResponse = false
                     }
                     Log.d("TAG", "activityPhotoList: $activityPhotoList")
+                    isActivityImageResponse = false
                     activityPhotoRecyclerViewUpdater(activityPhotoList)
                 }
             }
@@ -188,6 +190,7 @@ class EditClubFragment : BaseFragment<FragmentEditClubBinding>(R.layout.fragment
         editViewModel.convertBannerImage.observe(this) {
             if (it.isNotEmpty()) {
                 isBannerImageResponse = true
+                bannerImageUrl = it.first()
                 if (isActivityImageResponse)
                     editClubInfo()
             }
@@ -195,6 +198,7 @@ class EditClubFragment : BaseFragment<FragmentEditClubBinding>(R.layout.fragment
         editViewModel.convertActivityPhoto.observe(this) {
             if (it.isNotEmpty()) {
                 isActivityImageResponse = true
+                activityPhotoUrlList = it
                 if (isBannerImageResponse)
                     editClubInfo()
             }
@@ -242,13 +246,14 @@ class EditClubFragment : BaseFragment<FragmentEditClubBinding>(R.layout.fragment
                         linkEt.setText(it.notionLink)
                         contactEt.setText(it.contact)
                         teacherNameEt.setText(it.teacher)
+                        bannerImageUrl = it.bannerImg
                         bannerImageView.load(it.bannerImg) {
                             crossfade(true)
                             transformations(RoundedCornersTransformation(8f, 8f, 8f, 8f))
                         }
                         bannerIcon.visibility = View.GONE
                         bannerTxt.visibility = View.GONE
-                        activityPhotoUrlList = it.activityImgs.toMutableList()
+                        activityPhotoUrlList = it.activityImgs
                         memberRecyclerviewUpdater(clubMemberChecker(it.member))
                         lifecycleScope.launch {
                             val activityPhotoList = addBitmapToList(it.activityImgs)
@@ -329,7 +334,22 @@ class EditClubFragment : BaseFragment<FragmentEditClubBinding>(R.layout.fragment
             if (binding.linkEt.text.startsWith("http://") || binding.linkEt.text.toString()
                     .startsWith("https://")
             ) {
-                imageUpload(bannerImage = bannerImage!!, activityPhotoList = activityPhotoList)
+                if (!isBannerImageResponse && !isActivityImageResponse) {
+                    imageUpload(
+                        bannerImage = bannerImage!!,
+                        activityPhotoList = activityPhotoList
+                    )
+                } else if (isBannerImageResponse && !isActivityImageResponse) {
+                    imageUpload(
+                        activityPhotoList = activityPhotoList
+                    )
+                } else if (!isBannerImageResponse && isActivityImageResponse) {
+                    imageUpload(
+                        bannerImage = bannerImage!!,
+                    )
+                } else {
+                    editClubInfo()
+                }
             } else {
                 editViewModel.stopLottie()
                 shortToast("링크 형식으로 입력해주세요")
@@ -432,8 +452,8 @@ class EditClubFragment : BaseFragment<FragmentEditClubBinding>(R.layout.fragment
                 contact = binding.contactEt.text.toString(),
                 notionLink = binding.linkEt.text.toString(),
                 teacher = binding.teacherNameEt.text.toString(),
-                bannerUrl = editViewModel.convertBannerImage.value!!.first(),
-                activityImgs = editViewModel.convertActivityPhoto.value!!,
+                bannerUrl = bannerImageUrl,
+                activityImgs = activityPhotoUrlList,
                 member = editViewModel.addedMemberData.value!!.filter { it.uuid != null }
                     .map { it.uuid!! },
             ),
