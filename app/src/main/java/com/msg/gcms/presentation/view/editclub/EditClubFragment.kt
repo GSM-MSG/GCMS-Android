@@ -342,6 +342,20 @@ class EditClubFragment : BaseFragment<FragmentEditClubBinding>(R.layout.fragment
 
     private fun imageUpload(
         bannerImage: MultipartBody.Part,
+    ) {
+        imageBannerUploadToServer(list = listOf(bannerImage))
+    }
+
+    private fun imageUpload(
+        activityPhotoList: List<ActivityPhotoType>
+    ) {
+        val activityPhoto = activityPhotoList.map { convertBitmapToMultiPart(it.activityPhoto) }
+
+        activityPhotoUploadToServer(activityPhoto)
+    }
+
+    private fun imageUpload(
+        bannerImage: MultipartBody.Part,
         activityPhotoList: List<ActivityPhotoType>
     ) {
         Log.d("TAG", "imageUploadLogic")
@@ -449,7 +463,11 @@ class EditClubFragment : BaseFragment<FragmentEditClubBinding>(R.layout.fragment
                 // }
                 Event.Server -> {
                     editViewModel.stopLottie()
-                    BaseModal(context = requireContext(), title = "서버 오류", msg = "서버에 일시적인 오류로 인해 해당 기능의 사용이 제한됩니다.")
+                    BaseModal(
+                        context = requireContext(),
+                        title = "서버 오류",
+                        msg = "서버에 일시적인 오류로 인해 해당 기능의 사용이 제한됩니다."
+                    )
                 }
                 Event.UnKnown -> {
                     editViewModel.stopLottie()
@@ -460,7 +478,11 @@ class EditClubFragment : BaseFragment<FragmentEditClubBinding>(R.layout.fragment
                     )
                 }
                 else -> {
-                    BaseModal(context = requireContext(), title = "오류 발생", msg = "알 수 없는 오류가 발생하였습니다. 개발자에게 문의해주세요")
+                    BaseModal(
+                        context = requireContext(),
+                        title = "오류 발생",
+                        msg = "알 수 없는 오류가 발생하였습니다. 개발자에게 문의해주세요"
+                    )
                 }
             }
         }
