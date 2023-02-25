@@ -54,22 +54,22 @@ class MemberManageViewModel @Inject constructor(
 
     private val _clubId = mutableStateOf<Long>(0)
 
-    private val _getMemberListState = MutableLiveData<Event>()
+    private var _getMemberListState = MutableLiveData<Event>()
     val getMemberListState: LiveData<Event> get() = _getMemberListState
 
-    private val _getApplicantListState = MutableLiveData<Event>()
+    private var _getApplicantListState = MutableLiveData<Event>()
     val getApplicantListState: LiveData<Event> get() = _getApplicantListState
 
-    private val _kickUserState = MutableLiveData<Event>()
+    private var _kickUserState = MutableLiveData<Event>()
     val kickUserState: LiveData<Event> get() = _kickUserState
 
-    private val _delegateState = MutableLiveData<Event>()
+    private var _delegateState = MutableLiveData<Event>()
     val delegateState: LiveData<Event> get() = _delegateState
 
-    private val _acceptApplicantState = MutableLiveData<Event>()
+    private var _acceptApplicantState = MutableLiveData<Event>()
     val acceptApplicantState: LiveData<Event> get() = _acceptApplicantState
 
-    private val _rejectApplicantState = MutableLiveData<Event>()
+    private var _rejectApplicantState = MutableLiveData<Event>()
     val rejectApplicantState: LiveData<Event> get() = _rejectApplicantState
 
     fun setClubId(clubId: Long) {
@@ -183,25 +183,15 @@ class MemberManageViewModel @Inject constructor(
             ).onSuccess {
                 _delegateState.value = Event.Success
             }.onFailure {
+                Log.d("delegate", it.toString())
                 _delegateState.value = when (it) {
-                    is UnauthorizedException -> {
-                        Log.d("TAG", "delegate: $it")
-                        Event.Unauthorized
-                    }
-                    is ForBiddenException -> {
-                        Log.d("TAG", "delegate: $it")
-                        Event.ForBidden
-                    }
-                    is NotFoundException -> {
-                        Log.d("TAG", "delegate: $it")
-                        Event.NotFound
-                    }
-                    is ServerException -> {
-                        Log.d("TAG", "delegate: $it")
-                        Event.Server
-                    }
+                    is BadRequestException -> Event.BadRequest
+                    is UnauthorizedException -> Event.Unauthorized
+                    is ForBiddenException -> Event.ForBidden
+                    is NotFoundException -> Event.NotFound
+                    is ServerException -> Event.Server
                     else -> {
-                        Log.d("TAG", "delegate: $it")
+                        Log.d("delegate", "getMember: $it")
                         Event.UnKnown
                     }
                 }
