@@ -17,7 +17,7 @@ data class MemberResponse(
     @SerializedName("number")
     val num: Int,
     @SerializedName("profileImg")
-    val userImg: String,
+    val userImg: String?,
     @SerializedName("scope")
     val scope: String
 )
