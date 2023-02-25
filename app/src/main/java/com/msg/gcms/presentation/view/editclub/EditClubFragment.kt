@@ -10,6 +10,7 @@ import android.graphics.Bitmap
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
 import android.net.Uri
+import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
 import android.view.View
@@ -27,6 +28,7 @@ import coil.request.SuccessResult
 import coil.transform.RoundedCornersTransformation
 import com.msg.gcms.R
 import com.msg.gcms.databinding.FragmentEditClubBinding
+import com.msg.gcms.domain.data.club.get_club_detail.ClubMemberData
 import com.msg.gcms.presentation.adapter.activity_photo.ActivityPhotoType
 import com.msg.gcms.presentation.adapter.activity_photo.ActivityPhotosAdapter
 import com.msg.gcms.presentation.adapter.add_member.AddMemberType
@@ -68,10 +70,23 @@ class EditClubFragment : BaseFragment<FragmentEditClubBinding>(R.layout.fragment
 
     var getClubInfoListener = false
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        clubMemberAdapter = ClubMemberAdapter()
+        activityAdapter = ActivityPhotosAdapter()
+    }
+
     override fun init() {
         binding.fragment = this
         observeEvent()
         recyclerViewSetting()
+        memberRecyclerviewUpdater(editViewModel.addedMemberData.value ?: listOf())
+    }
+
+    private fun observeEvent() {
+        observeClubInfo()
+        observeConvertImage()
+        observeEditClubResult()
     }
 
     private val getContent =
@@ -164,13 +179,6 @@ class EditClubFragment : BaseFragment<FragmentEditClubBinding>(R.layout.fragment
         }
     }
 
-    private fun observeEvent() {
-        observeClubInfo()
-        observeClubTypeDivider()
-        observeConvertImage()
-        observeEditClubResult()
-    }
-
     private fun observeConvertImage() {
         editViewModel.convertImage.observe(this) {
             if (it.isNotEmpty()) {
@@ -179,9 +187,24 @@ class EditClubFragment : BaseFragment<FragmentEditClubBinding>(R.layout.fragment
         }
     }
 
-    private fun observeClubTypeDivider() {
-        editViewModel.addedMemberData.observe(this) {
 
+    private fun clubMemberChecker(list: List<ClubMemberData>): List<AddMemberType> {
+        return if (list.isEmpty()) {
+            listOf(
+                AddMemberType(
+                    uuid = null,
+                    userName = "추가하기",
+                    userImg = null
+                )
+            )
+        } else {
+            list.map {
+                AddMemberType(
+                    uuid = it.uuid,
+                    userName = it.name,
+                    userImg = it.userImg
+                )
+            }
         }
     }
 
@@ -213,13 +236,7 @@ class EditClubFragment : BaseFragment<FragmentEditClubBinding>(R.layout.fragment
                         bannerIcon.visibility = View.GONE
                         bannerTxt.visibility = View.GONE
                         activityPhotoUrlList = it.activityImgs.toMutableList()
-                        memberRecyclerviewUpdater(it.member.map { data ->
-                            AddMemberType(
-                                uuid = data.uuid,
-                                userName = data.name,
-                                userImg = data.userImg
-                            )
-                        })
+                        memberRecyclerviewUpdater(clubMemberChecker(it.member))
                         lifecycleScope.launch {
                             activityPhotoRecyclerViewUpdater(addBitmapToList(it.activityImgs))
                             bannerImageBitmap = getBitmapFromUrl(it.bannerImg)
@@ -252,7 +269,6 @@ class EditClubFragment : BaseFragment<FragmentEditClubBinding>(R.layout.fragment
     }
 
     private fun activityPhotoRecyclerView() {
-        activityAdapter = ActivityPhotosAdapter()
         activityAdapter.setItemOnClickListener(object :
             ActivityPhotosAdapter.OnItemClickListener {
             override fun onClick(position: Int) {
@@ -280,8 +296,6 @@ class EditClubFragment : BaseFragment<FragmentEditClubBinding>(R.layout.fragment
     }
 
     private fun clubMemberRecyclerView() {
-        // TODO 여기 타입 변경하기
-        clubMemberAdapter = ClubMemberAdapter()
         clubMemberAdapter.setItemOnClickListener(object : ClubMemberAdapter.OnItemClickListener {
             override fun onClick(position: Int) {
                 findNavController().navigate(R.id.action_editClubFragment_to_editSearchFragment)

@@ -6,8 +6,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.msg.gcms.R
 import com.msg.gcms.domain.data.club.get_club_detail.ClubDetailData
+import com.msg.gcms.domain.data.club.get_club_detail.ClubMemberData
 import com.msg.gcms.domain.data.club.modify_club_info.ModifyClubInfoData
 import com.msg.gcms.domain.data.user.search_user.GetSearchUserData
 import com.msg.gcms.domain.exception.BadRequestException
@@ -62,10 +62,9 @@ class EditViewModel @Inject constructor(
             getDetailUseCase(
                 clubId = clubId
             ).onSuccess {
+                memberCheck(it.member)
                 _clubInfo.value = it
                 Log.d("TAG", "getClubInfo: $it")
-                memberCheck()
-
             }.onFailure {
                 when (it) {
                     is UnauthorizedException -> Log.d("TAG", "getClubInfo: $it")
@@ -76,26 +75,15 @@ class EditViewModel @Inject constructor(
         }
     }
 
-    private fun memberCheck() {
-        if (clubInfo.value!!.member.isEmpty()) {
-            _addedMemberList.add(
-                AddMemberType(
-                    uuid = null,
-                    userName = "추가하기",
-                    userImg = R.drawable.bg_banner_placeholder.toString()
-                )
+    private fun memberCheck(list: List<ClubMemberData>) {
+        _addedMemberList.addAll(list.map {
+            AddMemberType(
+                uuid = it.uuid,
+                userName = it.name,
+                userImg = it.userImg
             )
-        } else {
-            //TODO 여기 타입 변경하기
-            _addedMemberList.addAll(clubInfo.value!!.member.map {
-                AddMemberType(
-                    uuid = it.uuid,
-                    userName = it.name,
-                    userImg = it.userImg
-                )
-            })
-            _addedMemberData.value = _addedMemberList
-        }
+        })
+        _addedMemberData.value = _addedMemberList
     }
 
     fun getSearchUser(name: String, type: String) {
@@ -118,13 +106,17 @@ class EditViewModel @Inject constructor(
         }
     }
 
-    // fun setMemberEmail() {
-    //     memberList.forEach {
-    //         Log.d("TAG", "setMemberEmail: $it")
-    //         clubMemberEmail.add(it)
-    //     }
-    //     memberList.distinct()
-    // }
+    fun changeMemList(memberList: List<AddMemberType>) {
+        _addedMemberData.value = memberList.ifEmpty {
+            listOf(
+                AddMemberType(
+                    uuid = null,
+                    userName = "추가하기",
+                    userImg = null
+                )
+            )
+        }
+    }
 
     fun uploadImage(list: List<MultipartBody.Part>) {
         Log.d("TAG", "uploadImage")
