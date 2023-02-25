@@ -29,6 +29,7 @@ import coil.transform.RoundedCornersTransformation
 import com.msg.gcms.R
 import com.msg.gcms.databinding.FragmentEditClubBinding
 import com.msg.gcms.domain.data.club.get_club_detail.ClubMemberData
+import com.msg.gcms.domain.data.club.modify_club_info.ModifyClubInfoData
 import com.msg.gcms.presentation.adapter.activity_photo.ActivityPhotoType
 import com.msg.gcms.presentation.adapter.activity_photo.ActivityPhotosAdapter
 import com.msg.gcms.presentation.adapter.add_member.AddMemberType
@@ -55,8 +56,9 @@ class EditClubFragment : BaseFragment<FragmentEditClubBinding>(R.layout.fragment
     private val editViewModel by activityViewModels<EditViewModel>()
 
     private var bannerImage: MultipartBody.Part? = null
-    private var bannerImageUri: Uri? = null
-    private var bannerImageBitmap: Bitmap? = null
+
+    // private var bannerImageUri: Uri? = null
+    // private var bannerImageBitmap: Bitmap? = null
 
     private val activityPhotoMultipart = mutableListOf<MultipartBody.Part>()
 
@@ -65,10 +67,11 @@ class EditClubFragment : BaseFragment<FragmentEditClubBinding>(R.layout.fragment
 
     private val activityPhotoList = mutableListOf<ActivityPhotoType>()
     private var activityPhotoUrlList = mutableListOf<String>()
-    private var legacyList = listOf<ActivityPhotoType>()
-    private var newPhotosList = mutableListOf<MultipartBody.Part>()
 
     var getClubInfoListener = false
+
+    private var isBannerImageResponse = true
+    private var isActivityImageResponse = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -94,7 +97,7 @@ class EditClubFragment : BaseFragment<FragmentEditClubBinding>(R.layout.fragment
             if (imageUri != null) {
                 val file = imageUri.toFile(requireContext())
                 bannerImage = file.toMultiPartBody()
-                bannerImageUri = imageUri
+                isBannerImageResponse = false
                 with(binding) {
                     bannerImageView.load(imageUri) {
                         crossfade(true)
@@ -120,6 +123,7 @@ class EditClubFragment : BaseFragment<FragmentEditClubBinding>(R.layout.fragment
                         activityPhotoRecyclerViewUpdater(activityPhotoList)
                         val file = imageUri.toFile(requireContext())
                         activityPhotoMultipart.add(file.toMultiPartBody())
+                        isActivityImageResponse = false
                     }
                     Log.d("TAG", "activityPhotoList: $activityPhotoList")
                     activityPhotoRecyclerViewUpdater(activityPhotoList)
@@ -181,13 +185,21 @@ class EditClubFragment : BaseFragment<FragmentEditClubBinding>(R.layout.fragment
     }
 
     private fun observeConvertImage() {
-        editViewModel.convertImage.observe(this) {
+        editViewModel.convertBannerImage.observe(this) {
             if (it.isNotEmpty()) {
-                // editClubInfo()
+                isBannerImageResponse = true
+                if (isActivityImageResponse)
+                    editClubInfo()
+            }
+        }
+        editViewModel.convertActivityPhoto.observe(this) {
+            if (it.isNotEmpty()) {
+                isActivityImageResponse = true
+                if (isBannerImageResponse)
+                    editClubInfo()
             }
         }
     }
-
 
     private fun clubMemberChecker(list: List<ClubMemberData>): List<AddMemberType> {
         return if (list.isEmpty()) {
@@ -317,52 +329,68 @@ class EditClubFragment : BaseFragment<FragmentEditClubBinding>(R.layout.fragment
             if (binding.linkEt.text.startsWith("http://") || binding.linkEt.text.toString()
                     .startsWith("https://")
             ) {
-                imageUpload()
-            } else shortToast("링크 형식으로 입력해주세요")
-        } else shortToast("필수 기입 요소들을 다시 확인해주세요!!")
-    }
-
-    private fun imageUpload() {
-        Log.d("TAG", "imageUploadLogic")
-        val newActivityPhoto: MutableList<ActivityPhotoType> =
-            activityPhotoList.filterNot { legacyList.contains(it) }.toMutableList()
-
-        newPhotosList = convertBitmapToFile(newActivityPhoto).toMutableList()
-        newPhotosList.add(
-            if (bannerImage != null) bannerImage!! else convertBitmapToMultiPart(
-                bannerImageBitmap!!
-            )
-        )
-        Log.d("TAG", "imageUpload: $newPhotosList")
-        imageUploadToServer(newPhotosList)
-    }
-
-    private fun convertBitmapToFile(list: List<ActivityPhotoType>): List<MultipartBody.Part> {
-
-        val imgList = mutableListOf<MultipartBody.Part>()
-
-        list.forEach {
-            val wrapper = ContextWrapper(context)
-            var file = wrapper.getDir("images", Context.MODE_PRIVATE)
-            file = File(file, "${UUID.randomUUID()}.jpg}")
-
-            try {
-                val stream: OutputStream = FileOutputStream(file)
-                it.activityPhoto.compress(Bitmap.CompressFormat.JPEG, 100, stream)
-                stream.flush()
-                stream.close()
-
-                imgList.add(file.toMultiPartBody())
-                Log.d("TAG", "convertBitmapToMultiPart: $imgList")
-            } catch (e: Exception) {
-                e.printStackTrace()
+                imageUpload(bannerImage = bannerImage!!, activityPhotoList = activityPhotoList)
+            } else {
+                editViewModel.stopLottie()
+                shortToast("링크 형식으로 입력해주세요")
             }
+        } else {
+            editViewModel.stopLottie()
+            shortToast("필수 기입 요소들을 다시 확인해주세요!!")
         }
-        return imgList
     }
 
-    private fun imageUploadToServer(list: List<MultipartBody.Part>) {
-        editViewModel.uploadImage(list)
+    private fun imageUpload(
+        bannerImage: MultipartBody.Part,
+        activityPhotoList: List<ActivityPhotoType>
+    ) {
+        Log.d("TAG", "imageUploadLogic")
+
+        val activityPhoto = activityPhotoList.map { convertBitmapToMultiPart(it.activityPhoto) }
+
+        activityPhotoUploadToServer(activityPhoto)
+
+        imageBannerUploadToServer(list = listOf(bannerImage))
+
+        // newPhotosList = convertBitmapToFile(newActivityPhoto).toMutableList()
+        // newPhotosList.add(
+        //     if (bannerImage != null) bannerImage!! else convertBitmapToMultiPart(
+        //         bannerImageBitmap!!
+        //     )
+        // )
+        // imageUploadToServer(newPhotosList)
+    }
+
+    // private fun convertBitmapToFile(list: List<ActivityPhotoType>): List<MultipartBody.Part> {
+    //
+    //     val imgList = mutableListOf<MultipartBody.Part>()
+    //
+    //     list.forEach {
+    //         val wrapper = ContextWrapper(context)
+    //         var file = wrapper.getDir("images", Context.MODE_PRIVATE)
+    //         file = File(file, "${UUID.randomUUID()}.jpg}")
+    //
+    //         try {
+    //             val stream: OutputStream = FileOutputStream(file)
+    //             it.activityPhoto.compress(Bitmap.CompressFormat.JPEG, 100, stream)
+    //             stream.flush()
+    //             stream.close()
+    //
+    //             imgList.add(file.toMultiPartBody())
+    //             Log.d("TAG", "convertBitmapToMultiPart: $imgList")
+    //         } catch (e: Exception) {
+    //             e.printStackTrace()
+    //         }
+    //     }
+    //     return imgList
+    // }
+
+    private fun imageBannerUploadToServer(list: List<MultipartBody.Part>) {
+        editViewModel.uploadBannerImage(list = list)
+    }
+
+    private fun activityPhotoUploadToServer(list: List<MultipartBody.Part>) {
+        editViewModel.uploadActivityPhoto(list = list)
     }
 
     private fun convertBitmapToMultiPart(bitmap: Bitmap): MultipartBody.Part {
@@ -381,22 +409,23 @@ class EditClubFragment : BaseFragment<FragmentEditClubBinding>(R.layout.fragment
         return file.toMultiPartBody()
     }
 
-    //TODO 동아리 수정 로직 변경된거 수정하기
-    // private fun editClubInfo() {
-    //     editViewModel.putChangeClubInfo(
-    //         ModifyClubInfoRequest(
-    //             type = editViewModel.clubInfo.value!!.type,
-    //             title = binding.clubNameEt.text.toString().trim(),
-    //             description = binding.clubDescriptionEt.text.toString(),
-    //             contact = binding.contactEt.text.toString(),
-    //             notionLink = binding.linkEt.text.toString(),
-    //             teacher = binding.teacherNameEt.text.toString(),
-    //             deleteActivityUrls = editViewModel.clubInfo.value!!.activityImgs.filterNot { activityPhotoUrlList.contains(it) },
-    //             bannerUrl = editViewModel.newPhotos.last(),
-    //             newActivityUrls = editViewModel.newPhotos.dropLast(1)
-    //         )
-    //     )
-    // }
+    private fun editClubInfo() {
+        editViewModel.putChangeClubInfo(
+            ModifyClubInfoData(
+                type = editViewModel.clubInfo.value!!.type,
+                title = binding.clubNameEt.text.toString().trim(),
+                description = binding.clubDescriptionEt.text.toString(),
+                contact = binding.contactEt.text.toString(),
+                notionLink = binding.linkEt.text.toString(),
+                teacher = binding.teacherNameEt.text.toString(),
+                bannerUrl = editViewModel.convertBannerImage.value!!.first(),
+                activityImgs = editViewModel.convertActivityPhoto.value!!,
+                member = editViewModel.addedMemberData.value!!.filter { it.uuid != null }
+                    .map { it.uuid!! },
+            ),
+            clubId = editViewModel.clubInfo.value!!.id
+        )
+    }
 
     private fun observeEditClubResult() {
         editViewModel.editClubResult.observe(this) {
@@ -405,19 +434,22 @@ class EditClubFragment : BaseFragment<FragmentEditClubBinding>(R.layout.fragment
                     shortToast("동아리 정보가 수정되었습니다.")
                     requireActivity().finish()
                 }
-                Event.BadRequest -> {
-                }
+                // Event.BadRequest -> {
+                // }
                 Event.Unauthorized -> {
                     editViewModel.stopLottie()
                     BaseModal(context = requireContext(), title = "시간 만료", msg = "앱을 재실행 해주세요!!")
                 }
-                Event.ForBidden -> {
-                }
-                Event.NotFound -> {
-                }
-                Event.Conflict -> {
-                }
+                // Event.ForBidden -> {
+                // }
+                // Event.NotFound -> {
+                //
+                // }
+                // Event.Conflict -> {
+                // }
                 Event.Server -> {
+                    editViewModel.stopLottie()
+                    BaseModal(context = requireContext(), title = "서버 오류", msg = "서버에 일시적인 오류로 인해 해당 기능의 사용이 제한됩니다.")
                 }
                 Event.UnKnown -> {
                     editViewModel.stopLottie()
@@ -426,6 +458,9 @@ class EditClubFragment : BaseFragment<FragmentEditClubBinding>(R.layout.fragment
                         title = "동아리 정보 수정",
                         msg = "동아리 정보 수정에 실패하였습니다."
                     )
+                }
+                else -> {
+                    BaseModal(context = requireContext(), title = "오류 발생", msg = "알 수 없는 오류가 발생하였습니다. 개발자에게 문의해주세요")
                 }
             }
         }
