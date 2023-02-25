@@ -117,6 +117,7 @@ class EditClubFragment : BaseFragment<FragmentEditClubBinding>(R.layout.fragment
                         val imageUri: Uri = data.clipData!!.getItemAt(i).uri
                         val imageBitmap = imageUri.uriToBitMap(requireContext())
                         activityPhotoList.add(ActivityPhotoType(activityPhoto = imageBitmap))
+                        activityPhotoRecyclerViewUpdater(activityPhotoList)
                         val file = imageUri.toFile(requireContext())
                         activityPhotoMultipart.add(file.toMultiPartBody())
                     }
@@ -238,8 +239,9 @@ class EditClubFragment : BaseFragment<FragmentEditClubBinding>(R.layout.fragment
                         activityPhotoUrlList = it.activityImgs.toMutableList()
                         memberRecyclerviewUpdater(clubMemberChecker(it.member))
                         lifecycleScope.launch {
-                            activityPhotoRecyclerViewUpdater(addBitmapToList(it.activityImgs))
-                            bannerImageBitmap = getBitmapFromUrl(it.bannerImg)
+                            val activityPhotoList = addBitmapToList(it.activityImgs)
+                            this@EditClubFragment.activityPhotoList.addAll(activityPhotoList)
+                            activityPhotoRecyclerViewUpdater(activityPhotoList)
                         }
                     }
                 }
