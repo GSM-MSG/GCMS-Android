@@ -1,6 +1,5 @@
 package com.msg.gcms.presentation.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -9,6 +8,7 @@ import com.msg.gcms.domain.data.club.get_club_list.GetClubListData
 import com.msg.gcms.domain.exception.BadRequestException
 import com.msg.gcms.domain.exception.UnauthorizedException
 import com.msg.gcms.domain.usecase.club.GetClubListUseCase
+import com.msg.gcms.presentation.viewmodel.util.Event
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -23,6 +23,9 @@ class MainViewModel @Inject constructor(
 
     private val _clubData = MutableLiveData<List<GetClubListData>>()
     val clubData: LiveData<List<GetClubListData>> get() = _clubData
+
+    private var _getClubList = MutableLiveData<Event>()
+    val getClubList: LiveData<Event> get() = _getClubList
 
     companion object {
         const val tag = "TAG"
@@ -46,13 +49,13 @@ class MainViewModel @Inject constructor(
                     else -> "MAJOR"
                 }
             ).onSuccess {
+                _getClubList.value = Event.Success
                 _clubData.value = it
-                Log.d(tag, "getClubList: $it")
             }.onFailure {
-                when (it) {
-                    is BadRequestException -> Log.d(tag, "getClubList: $it")
-                    is UnauthorizedException -> Log.d(tag, "getClubList: $it")
-                    else -> Log.d(tag, "getClubList: $it")
+                _getClubList.value = when (it) {
+                    is BadRequestException -> Event.BadRequest
+                    is UnauthorizedException -> Event.Unauthorized
+                    else -> Event.UnKnown
                 }
             }
         }

@@ -1,5 +1,6 @@
 package com.msg.gcms.presentation.view.club
 
+import androidx.core.view.isVisible
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import com.msg.gcms.R
@@ -26,6 +27,7 @@ class ClubFragment : BaseFragment<FragmentClubBinding>(R.layout.fragment_club) {
     private lateinit var adapter: ClubListAdapter
     override fun init() {
         mainViewModel.getClubList()
+        observeClubInfo()
         recyclerview()
         clickProfile()
         clickMakeClubBtn()
@@ -42,7 +44,7 @@ class ClubFragment : BaseFragment<FragmentClubBinding>(R.layout.fragment_club) {
                     detailViewModel.getDetail(
                         mainViewModel.clubData.value?.get(position)!!.id
                     )
-                    observeStatus()
+                    observeClubDetailInfo()
                 }
             })
             binding.clubRecyclerView.adapter = adapter
@@ -68,8 +70,19 @@ class ClubFragment : BaseFragment<FragmentClubBinding>(R.layout.fragment_club) {
         }
     }
 
-    private fun observeStatus() {
-        observeClubDetailInfo()
+    private fun observeClubInfo() {
+        mainViewModel.getClubList.observe(this) {
+            when (it) {
+                Event.Success -> {
+                    with(binding.clubLoadingView) {
+                        if (isShimmerStarted) {
+                            stopShimmer()
+                            isVisible = false
+                        }
+                    }
+                }
+            }
+        }
     }
 
     private fun observeClubDetailInfo() {
