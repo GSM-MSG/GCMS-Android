@@ -42,17 +42,18 @@ class EditViewModel @Inject constructor(
     private val _result = MutableLiveData<List<GetSearchUserData>>()
     val result: LiveData<List<GetSearchUserData>> get() = _result
 
-    var newPhotos = mutableListOf<String>()
+    private val _convertBannerImage = MutableLiveData<List<String>>()
+    val convertBannerImage: LiveData<List<String>> get() = _convertBannerImage
 
-    private val _convertImage = MutableLiveData<List<String>>()
-    val convertImage: LiveData<List<String>> get() = _convertImage
+    private val _convertActivityPhoto = MutableLiveData<List<String>>()
+    val convertActivityPhoto: LiveData<List<String>> get() = _convertActivityPhoto
 
     private val _editClubResult = MutableLiveData<Event>()
     val editClubResult: LiveData<Event> get() = _editClubResult
 
     private val lottie by lazy { LottieFragment() }
 
-    val _addedMemberList = mutableListOf<AddMemberType>()
+    private val _addedMemberList = mutableListOf<AddMemberType>()
 
     private val _addedMemberData = MutableLiveData<List<AddMemberType>>()
     val addedMemberData: LiveData<List<AddMemberType>> get() = _addedMemberData
@@ -118,15 +119,32 @@ class EditViewModel @Inject constructor(
         }
     }
 
-    fun uploadImage(list: List<MultipartBody.Part>) {
+    fun uploadActivityPhoto(list: List<MultipartBody.Part>) {
+        viewModelScope.launch {
+            imageUseCase(
+                image = list
+            ).onSuccess {
+                _convertActivityPhoto.value = it.images
+            }.onFailure {
+                when (it) {
+                    is BadRequestException -> Log.d("TAG", "uploadImage: $it")
+                    else -> {
+                        Log.e("TAG", "uploadImage: $it")
+                    }
+                }
+            }
+        }
+    }
+
+    fun uploadBannerImage(list: List<MultipartBody.Part>) {
         Log.d("TAG", "uploadImage")
         viewModelScope.launch {
             imageUseCase(
-                list
+                image = list
             ).onSuccess {
                 Log.d("TAG", "uploadImage: $it")
-                newPhotos = it.images.toMutableList()
-                _convertImage.value = it.images
+                // newPhotos = it.images.toMutableList()
+                _convertBannerImage.value = it.images
 
             }.onFailure {
                 when (it) {

@@ -29,6 +29,7 @@ import coil.transform.RoundedCornersTransformation
 import com.msg.gcms.R
 import com.msg.gcms.databinding.FragmentEditClubBinding
 import com.msg.gcms.domain.data.club.get_club_detail.ClubMemberData
+import com.msg.gcms.domain.data.club.modify_club_info.ModifyClubInfoData
 import com.msg.gcms.presentation.adapter.activity_photo.ActivityPhotoType
 import com.msg.gcms.presentation.adapter.activity_photo.ActivityPhotosAdapter
 import com.msg.gcms.presentation.adapter.add_member.AddMemberType
@@ -55,7 +56,8 @@ class EditClubFragment : BaseFragment<FragmentEditClubBinding>(R.layout.fragment
     private val editViewModel by activityViewModels<EditViewModel>()
 
     private var bannerImage: MultipartBody.Part? = null
-    private var bannerImageUri: Uri? = null
+
+    // private var bannerImageUri: Uri? = null
     private var bannerImageBitmap: Bitmap? = null
 
     private val activityPhotoMultipart = mutableListOf<MultipartBody.Part>()
@@ -65,10 +67,11 @@ class EditClubFragment : BaseFragment<FragmentEditClubBinding>(R.layout.fragment
 
     private val activityPhotoList = mutableListOf<ActivityPhotoType>()
     private var activityPhotoUrlList = mutableListOf<String>()
-    private var legacyList = listOf<ActivityPhotoType>()
-    private var newPhotosList = mutableListOf<MultipartBody.Part>()
 
     var getClubInfoListener = false
+
+    private var isBannerImageResponse = true
+    private var isActivityImageResponse = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -94,7 +97,7 @@ class EditClubFragment : BaseFragment<FragmentEditClubBinding>(R.layout.fragment
             if (imageUri != null) {
                 val file = imageUri.toFile(requireContext())
                 bannerImage = file.toMultiPartBody()
-                bannerImageUri = imageUri
+                isBannerImageResponse = false
                 with(binding) {
                     bannerImageView.load(imageUri) {
                         crossfade(true)
@@ -119,6 +122,7 @@ class EditClubFragment : BaseFragment<FragmentEditClubBinding>(R.layout.fragment
                         activityPhotoList.add(ActivityPhotoType(activityPhoto = imageBitmap))
                         val file = imageUri.toFile(requireContext())
                         activityPhotoMultipart.add(file.toMultiPartBody())
+                        isActivityImageResponse = false
                     }
                     Log.d("TAG", "activityPhotoList: $activityPhotoList")
                     activityAdapter.notifyDataSetChanged()
@@ -180,13 +184,21 @@ class EditClubFragment : BaseFragment<FragmentEditClubBinding>(R.layout.fragment
     }
 
     private fun observeConvertImage() {
-        editViewModel.convertImage.observe(this) {
+        editViewModel.convertBannerImage.observe(this) {
             if (it.isNotEmpty()) {
-                // editClubInfo()
+                isBannerImageResponse = true
+                if (isActivityImageResponse)
+                    editClubInfo()
+            }
+        }
+        editViewModel.convertActivityPhoto.observe(this) {
+            if (it.isNotEmpty()) {
+                isActivityImageResponse = true
+                if (isBannerImageResponse)
+                    editClubInfo()
             }
         }
     }
-
 
     private fun clubMemberChecker(list: List<ClubMemberData>): List<AddMemberType> {
         return if (list.isEmpty()) {
@@ -276,20 +288,20 @@ class EditClubFragment : BaseFragment<FragmentEditClubBinding>(R.layout.fragment
                 if (activityPhotoUrlList.size >= position + 1) activityPhotoUrlList.removeAt(
                     position
                 )
-                Log.d(
-                    "TAG",
-                    "activityPhotoUrlList: $activityPhotoUrlList, newList: ${
-                        activityPhotoList.filter {
-                            !legacyList.contains(it)
-                        }
-                    }, removed: ${
-                        editViewModel.clubInfo.value!!.activityImgs.filter {
-                            !activityPhotoUrlList.contains(
-                                it
-                            )
-                        }
-                    }"
-                )
+                // Log.d(
+                //     "TAG",
+                //     "activityPhotoUrlList: $activityPhotoUrlList, newList: ${
+                //         activityPhotoList.filter {
+                //             !legacyList.contains(it)
+                //         }
+                //     }, removed: ${
+                //         editViewModel.clubInfo.value!!.activityImgs.filter {
+                //             !activityPhotoUrlList.contains(
+                //                 it
+                //             )
+                //         }
+                //     }"
+                // )
             }
         })
         binding.clubActivePictureRv.adapter = activityAdapter
@@ -331,24 +343,30 @@ class EditClubFragment : BaseFragment<FragmentEditClubBinding>(R.layout.fragment
             if (binding.linkEt.text.startsWith("http://") || binding.linkEt.text.toString()
                     .startsWith("https://")
             ) {
-                imageUpload()
+                imageUpload(bannerImage = bannerImage!!, activityPhotoList = activityPhotoList)
             } else shortToast("링크 형식으로 입력해주세요")
         } else shortToast("필수 기입 요소들을 다시 확인해주세요!!")
     }
 
-    private fun imageUpload() {
+    private fun imageUpload(
+        bannerImage: MultipartBody.Part,
+        activityPhotoList: List<ActivityPhotoType>
+    ) {
         Log.d("TAG", "imageUploadLogic")
-        val newActivityPhoto: MutableList<ActivityPhotoType> =
-            activityPhotoList.filterNot { legacyList.contains(it) }.toMutableList()
 
-        newPhotosList = convertBitmapToFile(newActivityPhoto).toMutableList()
-        newPhotosList.add(
-            if (bannerImage != null) bannerImage!! else convertBitmapToMultiPart(
-                bannerImageBitmap!!
-            )
-        )
-        Log.d("TAG", "imageUpload: $newPhotosList")
-        imageUploadToServer(newPhotosList)
+        val activityPhoto = activityPhotoList.map { convertBitmapToMultiPart(it.activityPhoto) }
+
+        activityPhotoUploadToServer(activityPhoto)
+
+        imageBannerUploadToServer(list = listOf(bannerImage))
+
+        // newPhotosList = convertBitmapToFile(newActivityPhoto).toMutableList()
+        // newPhotosList.add(
+        //     if (bannerImage != null) bannerImage!! else convertBitmapToMultiPart(
+        //         bannerImageBitmap!!
+        //     )
+        // )
+        // imageUploadToServer(newPhotosList)
     }
 
     private fun convertBitmapToFile(list: List<ActivityPhotoType>): List<MultipartBody.Part> {
@@ -375,8 +393,12 @@ class EditClubFragment : BaseFragment<FragmentEditClubBinding>(R.layout.fragment
         return imgList
     }
 
-    private fun imageUploadToServer(list: List<MultipartBody.Part>) {
-        editViewModel.uploadImage(list)
+    private fun imageBannerUploadToServer(list: List<MultipartBody.Part>) {
+        editViewModel.uploadBannerImage(list = list)
+    }
+
+    private fun activityPhotoUploadToServer(list: List<MultipartBody.Part>) {
+        editViewModel.uploadActivityPhoto(list = list)
     }
 
     private fun convertBitmapToMultiPart(bitmap: Bitmap): MultipartBody.Part {
@@ -396,21 +418,23 @@ class EditClubFragment : BaseFragment<FragmentEditClubBinding>(R.layout.fragment
     }
 
     //TODO 동아리 수정 로직 변경된거 수정하기
-    // private fun editClubInfo() {
-    //     editViewModel.putChangeClubInfo(
-    //         ModifyClubInfoRequest(
-    //             type = editViewModel.clubInfo.value!!.type,
-    //             title = binding.clubNameEt.text.toString().trim(),
-    //             description = binding.clubDescriptionEt.text.toString(),
-    //             contact = binding.contactEt.text.toString(),
-    //             notionLink = binding.linkEt.text.toString(),
-    //             teacher = binding.teacherNameEt.text.toString(),
-    //             deleteActivityUrls = editViewModel.clubInfo.value!!.activityImgs.filterNot { activityPhotoUrlList.contains(it) },
-    //             bannerUrl = editViewModel.newPhotos.last(),
-    //             newActivityUrls = editViewModel.newPhotos.dropLast(1)
-    //         )
-    //     )
-    // }
+    private fun editClubInfo() {
+        editViewModel.putChangeClubInfo(
+            ModifyClubInfoData(
+                type = editViewModel.clubInfo.value!!.type,
+                title = binding.clubNameEt.text.toString().trim(),
+                description = binding.clubDescriptionEt.text.toString(),
+                contact = binding.contactEt.text.toString(),
+                notionLink = binding.linkEt.text.toString(),
+                teacher = binding.teacherNameEt.text.toString(),
+                bannerUrl = editViewModel.convertBannerImage.value!!.first(),
+                activityImgs = editViewModel.convertActivityPhoto.value!!,
+                member = editViewModel.addedMemberData.value!!.filter { it.uuid != null }
+                    .map { it.uuid!! },
+            ),
+            clubId = editViewModel.clubInfo.value!!.id
+        )
+    }
 
     private fun observeEditClubResult() {
         editViewModel.editClubResult.observe(this) {
