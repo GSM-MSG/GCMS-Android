@@ -58,7 +58,7 @@ class EditClubFragment : BaseFragment<FragmentEditClubBinding>(R.layout.fragment
     private var bannerImage: MultipartBody.Part? = null
 
     // private var bannerImageUri: Uri? = null
-    private var bannerImageBitmap: Bitmap? = null
+    // private var bannerImageBitmap: Bitmap? = null
 
     private val activityPhotoMultipart = mutableListOf<MultipartBody.Part>()
 
