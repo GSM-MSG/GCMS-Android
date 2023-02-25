@@ -40,11 +40,10 @@ class ClubFragment : BaseFragment<FragmentClubBinding>(R.layout.fragment_club) {
             adapter = ClubListAdapter(mainViewModel.clubData.value)
             adapter.setItemOnClickListener(object : ClubListAdapter.OnItemClickListener {
                 override fun onClick(position: Int) {
-                    clubViewModel.startLottie(requireActivity().supportFragmentManager)
                     detailViewModel.getDetail(
                         mainViewModel.clubData.value?.get(position)!!.id
                     )
-                    observeClubDetailInfo()
+                    enterFragment(requireActivity(), R.id.fragment_club, DetailFragment())
                 }
             })
             binding.clubRecyclerView.adapter = adapter
@@ -80,25 +79,6 @@ class ClubFragment : BaseFragment<FragmentClubBinding>(R.layout.fragment_club) {
                             isVisible = false
                         }
                     }
-                }
-            }
-        }
-    }
-
-    private fun observeClubDetailInfo() {
-        detailViewModel.getClubDetail.observe(this) {
-            when (it) {
-                Event.Success -> {
-                    enterFragment(requireActivity(), R.id.fragment_club, DetailFragment())
-                }
-                Event.BadRequest -> {
-                    shortToast("동아리 정보를 불러오지 못했습니다.")
-                }
-                Event.Unauthorized -> {
-                    BaseModal("오류", "토큰이 만료되었습니다, 앱 종료후 다시 실행해 주세요", requireContext()).show()
-                }
-                Event.UnKnown -> {
-                    BaseModal("오류", "알수 없는 오류 발생, 개발자에게 문의해주세요", requireContext()).show()
                 }
             }
         }
