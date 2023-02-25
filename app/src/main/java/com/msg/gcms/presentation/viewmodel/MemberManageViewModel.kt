@@ -178,7 +178,7 @@ class MemberManageViewModel @Inject constructor(
         }
     }
 
-    fun accept(id: String) {
+    fun accept(id: UUID) {
         viewModelScope.launch {
             applicantAcceptUseCase(
                 clubId = _clubId.value,

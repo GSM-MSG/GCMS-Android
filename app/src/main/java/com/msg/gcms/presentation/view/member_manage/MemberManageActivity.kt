@@ -105,7 +105,7 @@ class MemberManageActivity :
                     "동료가 되었다!!",
                     this@MemberManageActivity
                 ) {
-                    viewModel.accept(viewModel.applicantList.value!![position].email)
+                    viewModel.accept(viewModel.applicantList.value!![position].uuid)
                     observeAcceptApplicantStatus()
                 }
             }

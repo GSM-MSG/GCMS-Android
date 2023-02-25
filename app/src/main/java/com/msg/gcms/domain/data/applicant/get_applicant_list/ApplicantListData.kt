@@ -1,7 +1,9 @@
 package com.msg.gcms.domain.data.applicant.get_applicant_list
 
-data class ApplicantListData (
-    val uuid: String,
+import java.util.UUID
+
+data class ApplicantListData(
+    val uuid: UUID,
     val email: String,
     val name: String,
     val grade: Int,
