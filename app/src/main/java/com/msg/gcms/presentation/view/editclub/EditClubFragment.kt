@@ -448,6 +448,7 @@ class EditClubFragment : BaseFragment<FragmentEditClubBinding>(R.layout.fragment
                 // Event.Conflict -> {
                 // }
                 Event.Server -> {
+                    editViewModel.stopLottie()
                     BaseModal(context = requireContext(), title = "서버 오류", msg = "서버에 일시적인 오류로 인해 해당 기능의 사용이 제한됩니다.")
                 }
                 Event.UnKnown -> {
