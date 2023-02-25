@@ -121,7 +121,7 @@ class EditClubFragment : BaseFragment<FragmentEditClubBinding>(R.layout.fragment
                         activityPhotoMultipart.add(file.toMultiPartBody())
                     }
                     Log.d("TAG", "activityPhotoList: $activityPhotoList")
-                    activityAdapter.notifyDataSetChanged()
+                    activityPhotoRecyclerViewUpdater(activityPhotoList)
                 }
             }
         }
