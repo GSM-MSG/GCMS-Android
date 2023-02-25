@@ -12,8 +12,8 @@ import com.msg.gcms.domain.data.applicant.get_applicant_list.ApplicantListData
 import com.msg.gcms.domain.data.club_member.delegation_of_manager.DelegationOfManagerData
 import com.msg.gcms.domain.data.club_member.get_club_member.MemberData
 import com.msg.gcms.domain.data.club_member.member_expelled.MemberExpelledData
+import com.msg.gcms.domain.exception.BadRequestException
 import com.msg.gcms.domain.exception.ForBiddenException
-import com.msg.gcms.domain.exception.NotAcceptableException
 import com.msg.gcms.domain.exception.NotFoundException
 import com.msg.gcms.domain.exception.ServerException
 import com.msg.gcms.domain.exception.UnauthorizedException
@@ -96,18 +96,11 @@ class MemberManageViewModel @Inject constructor(
                 _getMemberListState.value = Event.Success
             }.onFailure {
                 _getMemberListState.value = when (it) {
-                    is ForBiddenException -> {
-                        Log.d("TAG", "getMember: $it")
-                        Event.ForBidden
-                    }
-                    is NotAcceptableException -> {
-                        Log.d("TAG", "getMember: $it")
-                        Event.NotAcceptable
-                    }
-                    is ServerException -> {
-                        Log.d("TAG", "getMember: $it")
-                        Event.Server
-                    }
+                    is BadRequestException -> Event.BadRequest
+                    is UnauthorizedException -> Event.Unauthorized
+                    is ForBiddenException -> Event.ForBidden
+                    is NotFoundException -> Event.NotFound
+                    is ServerException -> Event.Server
                     else -> {
                         Log.d("TAG", "getMember: $it")
                         Event.UnKnown
@@ -126,22 +119,10 @@ class MemberManageViewModel @Inject constructor(
                 _getApplicantListState.value = Event.Success
             }.onFailure {
                 _getApplicantListState.value = when (it) {
-                    is UnauthorizedException -> {
-                        Log.d("TAG", "getApplicant: $it")
-                        Event.Unauthorized
-                    }
-                    is NotFoundException -> {
-                        Log.d("TAG", "getApplicant: $it")
-                        Event.NotFound
-                    }
-                    is NotAcceptableException -> {
-                        Log.d("TAG", "getApplicant: $it")
-                        Event.NotAcceptable
-                    }
-                    is ServerException -> {
-                        Log.d("TAG", "getApplicant: $it")
-                        Event.Server
-                    }
+                    is BadRequestException -> Event.BadRequest
+                    is UnauthorizedException -> Event.Unauthorized
+                    is NotFoundException -> Event.NotFound
+                    is ServerException -> Event.Server
                     else -> {
                         Log.d("TAG", "getApplicant: $it")
                         Event.UnKnown
@@ -160,18 +141,11 @@ class MemberManageViewModel @Inject constructor(
                 _kickUserState.value = Event.Success
             }.onFailure {
                 _kickUserState.value = when (it) {
-                    is UnauthorizedException -> {
-                        Log.d("TAG", "kickUser: $it")
-                        Event.Unauthorized
-                    }
-                    is ForBiddenException -> {
-                        Log.d("TAG", "kickUser: $it")
-                        Event.ForBidden
-                    }
-                    is ServerException -> {
-                        Log.d("TAG", "kickUser: $it")
-                        Event.Server
-                    }
+                    is BadRequestException -> Event.BadRequest
+                    is UnauthorizedException -> Event.Unauthorized
+                    is ForBiddenException -> Event.ForBidden
+                    is NotFoundException -> Event.NotFound
+                    is ServerException -> Event.Server
                     else -> {
                         Log.d("TAG", "kickUser: $it")
                         Event.UnKnown
@@ -181,7 +155,7 @@ class MemberManageViewModel @Inject constructor(
         }
     }
 
-    fun delegate(id: String) {
+    fun delegate(id: UUID) {
         viewModelScope.launch {
             userDelegateUseCase(
                 clubId = _clubId.value,
@@ -190,24 +164,13 @@ class MemberManageViewModel @Inject constructor(
                 _delegateState.value = Event.Success
             }.onFailure {
                 _delegateState.value = when (it) {
-                    is UnauthorizedException -> {
-                        Log.d("TAG", "delegate: $it")
-                        Event.Unauthorized
-                    }
-                    is ForBiddenException -> {
-                        Log.d("TAG", "delegate: $it")
-                        Event.ForBidden
-                    }
-                    is NotFoundException -> {
-                        Log.d("TAG", "delegate: $it")
-                        Event.NotFound
-                    }
-                    is ServerException -> {
-                        Log.d("TAG", "delegate: $it")
-                        Event.Server
-                    }
+                    is BadRequestException -> Event.BadRequest
+                    is UnauthorizedException -> Event.Unauthorized
+                    is ForBiddenException -> Event.ForBidden
+                    is NotFoundException -> Event.NotFound
+                    is ServerException -> Event.Server
                     else -> {
-                        Log.d("TAG", "delegate: $it")
+                        Log.d("delegate", "getMember: $it")
                         Event.UnKnown
                     }
                 }

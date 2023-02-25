@@ -29,10 +29,6 @@ class MemberManageActivity :
         observeApplicantList()
         observeMemberStatus()
         observeApplicantStatus()
-        observeKickUserStatus()
-        observeDelegateStatus()
-        observeAcceptApplicantStatus()
-        observeRejectApplicantStatus()
     }
 
     private fun observeMemberList() {
@@ -75,10 +71,13 @@ class MemberManageActivity :
         memberAdapter.setItemOnClickListener(object : MemberAdapter.OnItemClickListener {
             override fun mandate(position: Int) {
                 showDialog(
-                    "위임",
-                    "권한 넘어감",
+                    "경고",
+                    "정말 부장 권한을 ${viewModel.memberList.value!![position].name}님에게 \n위임하시겠습니까?",
                     this@MemberManageActivity
-                ) { viewModel.delegate(viewModel.memberList.value!![position].email) }
+                ) {
+                    viewModel.delegate(viewModel.memberList.value!![position].uuid)
+                    observeDelegateStatus()
+                }
             }
 
             override fun kick(position: Int) {
@@ -86,7 +85,10 @@ class MemberManageActivity :
                     "강퇴",
                     "${viewModel.memberList.value!![position].name}님을 강퇴하시겠습니까?",
                     this@MemberManageActivity
-                ) { viewModel.kickUser(viewModel.memberList.value!![position].uuid) }
+                ) {
+                    viewModel.kickUser(viewModel.memberList.value!![position].uuid)
+                    observeKickUserStatus()
+                }
             }
         })
         binding.memberList.layoutManager = LinearLayoutManager(this)
@@ -102,7 +104,10 @@ class MemberManageActivity :
                     "승인",
                     "동료가 되었다!!",
                     this@MemberManageActivity
-                ) { viewModel.accept(viewModel.applicantList.value!![position].email) }
+                ) {
+                    viewModel.accept(viewModel.applicantList.value!![position].email)
+                    observeAcceptApplicantStatus()
+                }
             }
 
             override fun reject(position: Int) {
@@ -110,7 +115,10 @@ class MemberManageActivity :
                     "거절",
                     "바2",
                     this@MemberManageActivity
-                ) { viewModel.reject(viewModel.applicantList.value!![position].email) }
+                ) {
+                    viewModel.reject(viewModel.applicantList.value!![position].email)
+                    observeRejectApplicantStatus()
+                }
             }
         })
         binding.applicantList.layoutManager = LinearLayoutManager(this)
@@ -148,21 +156,19 @@ class MemberManageActivity :
     private fun observeMemberStatus() {
         viewModel.getMemberListState.observe(this) {
             when (it) {
-                Event.Success, Event.NotAcceptable -> {
-                    BaseModal("오류", "알수 없는 오류 발생, 개발자에게 문의해주세요", this).show()
+                Event.Success -> {
+                }
+                Event.Unauthorized -> {
+                    BaseModal("오류", "토큰이 만료되었습니다, 로그아웃 이후 다시 로그인해주세요.", this).show()
                 }
                 Event.ForBidden -> {
-                    BaseModal("실패", "부장만이 이 행동을 할수 있습니다.", this).show()
+                    BaseModal("실패", "동아리 구성원만이 맴버 정보를 확인할 수 있습니다.", this).show()
                 }
                 Event.NotFound -> {
                     BaseModal("오류", "동아리를 찾을 수 없습니다.", this).show()
                 }
-                Event.Conflict -> {
-                    BaseModal("불가", "이미 현재 동아리 또는 다른 동아리에 소속되어 있습니다.", this).show()
-                }
-                Event.Server -> {
-                }
                 else -> {
+                    BaseModal("오류", "알 수 없는 오류 발생, 개발자에게 문의해주세요", this).show()
                 }
             }
         }
@@ -171,21 +177,16 @@ class MemberManageActivity :
     private fun observeApplicantStatus() {
         viewModel.getApplicantListState.observe(this) {
             when (it) {
-                Event.Success, Event.NotAcceptable -> {
-                    BaseModal("오류", "알수 없는 오류 발생, 개발자에게 문의해주세요", this).show()
+                Event.Success -> {
                 }
-                Event.ForBidden -> {
-                    BaseModal("실패", "부장만이 이 행동을 할수 있습니다.", this).show()
+                Event.Unauthorized -> {
+                    BaseModal("오류", "토큰이 만료되었습니다, 로그아웃 이후 다시 로그인해주세요.", this).show()
                 }
                 Event.NotFound -> {
                     BaseModal("오류", "동아리를 찾을 수 없습니다.", this).show()
                 }
-                Event.Conflict -> {
-                    BaseModal("불가", "이미 현재 동아리 또는 다른 동아리에 소속되어 있습니다.", this).show()
-                }
-                Event.Server -> {
-                }
                 else -> {
+                    BaseModal("오류", "알 수 없는 오류 발생, 개발자에게 문의해주세요", this).show()
                 }
             }
         }
@@ -194,8 +195,11 @@ class MemberManageActivity :
     private fun observeKickUserStatus() {
         viewModel.kickUserState.observe(this) {
             when (it) {
-                Event.Success, Event.NotAcceptable -> {
-                    BaseModal("오류", "알수 없는 오류 발생, 개발자에게 문의해주세요", this).show()
+                Event.Success -> {
+                    BaseModal("성공", "강퇴를 완료하였습니다.", this).show()
+                }
+                Event.BadRequest -> {
+                    BaseModal("실패", "자기 자신을 강퇴할 수 없습니다.", this).show()
                 }
                 Event.ForBidden -> {
                     BaseModal("실패", "부장만이 이 행동을 할수 있습니다.", this).show()
@@ -203,12 +207,8 @@ class MemberManageActivity :
                 Event.NotFound -> {
                     BaseModal("오류", "동아리를 찾을 수 없습니다.", this).show()
                 }
-                Event.Conflict -> {
-                    BaseModal("불가", "이미 현재 동아리 또는 다른 동아리에 소속되어 있습니다.", this).show()
-                }
-                Event.Server -> {
-                }
                 else -> {
+                    BaseModal("오류", "알 수 없는 오류 발생, 개발자에게 문의해주세요.", this).show()
                 }
             }
         }
@@ -217,26 +217,29 @@ class MemberManageActivity :
     private fun observeDelegateStatus() {
         viewModel.delegateState.observe(this) {
             when (it) {
-                Event.Success, Event.NotAcceptable -> {
-                    BaseModal("오류", "알수 없는 오류 발생, 개발자에게 문의해주세요", this).show()
+                Event.Success -> {
+                    BaseModal("성공", "권한 위임을 완료했습니다.", this).show()
+                }
+                Event.BadRequest -> {
+                    BaseModal("실패", "부장 자신에겐 권한을 위임할 수 없습니다.", this).show()
+                }
+                Event.Unauthorized -> {
+                    BaseModal("오류", "토큰이 만료되었습니다, 로그아웃 이후 다시 로그인해주세요.", this).show()
                 }
                 Event.ForBidden -> {
-                    BaseModal("실패", "부장만이 이 행동을 할수 있습니다.", this).show()
+                    BaseModal("실패", "부장만이 권한 위임을 진행할 수 있습니다.", this).show()
                 }
                 Event.NotFound -> {
                     BaseModal("오류", "동아리를 찾을 수 없습니다.", this).show()
                 }
-                Event.Conflict -> {
-                    BaseModal("불가", "이미 현재 동아리 또는 다른 동아리에 소속되어 있습니다.", this).show()
-                }
-                Event.Server -> {
-                }
                 else -> {
+                    BaseModal("오류", "알 수 없는 오류 발생, 개발자에게 문의해주세요.", this).show()
                 }
             }
         }
     }
 
+    //TODO 신청자 수락, 거절 건드리는 브랜치에서 수정 예정
     private fun observeAcceptApplicantStatus() {
         viewModel.acceptApplicantState.observe(this) {
             when (it) {
@@ -260,6 +263,7 @@ class MemberManageActivity :
         }
     }
 
+    //TODO 신청자 수락, 거절 건드리는 브랜치에서 수정 예정
     private fun observeRejectApplicantStatus() {
         viewModel.rejectApplicantState.observe(this) {
             when (it) {
