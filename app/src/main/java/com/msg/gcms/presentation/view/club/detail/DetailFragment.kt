@@ -76,6 +76,12 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
         callback.remove()
     }
 
+    override fun onStop() {
+        super.onStop()
+        detailViewModel.initializationProperties()
+        clubViewModel.initializationProperties()
+    }
+
     override fun init() {
         observeEvent()
         clickEvent()
@@ -84,8 +90,8 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
     }
 
     private fun observeEvent() {
-        observeStatus()
         observeResult()
+        observeStatus()
     }
 
     private fun clickEvent() {
