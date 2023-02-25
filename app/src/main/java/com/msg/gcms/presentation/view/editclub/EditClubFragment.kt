@@ -417,7 +417,6 @@ class EditClubFragment : BaseFragment<FragmentEditClubBinding>(R.layout.fragment
         return file.toMultiPartBody()
     }
 
-    //TODO 동아리 수정 로직 변경된거 수정하기
     private fun editClubInfo() {
         editViewModel.putChangeClubInfo(
             ModifyClubInfoData(
