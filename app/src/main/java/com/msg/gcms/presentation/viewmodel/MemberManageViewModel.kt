@@ -102,7 +102,7 @@ class MemberManageViewModel @Inject constructor(
                     is NotFoundException -> Event.NotFound
                     is ServerException -> Event.Server
                     else -> {
-                        Log.d("TAG", "getMember: $it")
+                        Log.d("getMember", "getMember: $it")
                         Event.UnKnown
                     }
                 }
@@ -124,7 +124,7 @@ class MemberManageViewModel @Inject constructor(
                     is NotFoundException -> Event.NotFound
                     is ServerException -> Event.Server
                     else -> {
-                        Log.d("TAG", "getApplicant: $it")
+                        Log.d("getApplicant", "getApplicant: $it")
                         Event.UnKnown
                     }
                 }
@@ -147,7 +147,7 @@ class MemberManageViewModel @Inject constructor(
                     is NotFoundException -> Event.NotFound
                     is ServerException -> Event.Server
                     else -> {
-                        Log.d("TAG", "kickUser: $it")
+                        Log.d("kickUser", "kickUser: $it")
                         Event.UnKnown
                     }
                 }
@@ -170,7 +170,7 @@ class MemberManageViewModel @Inject constructor(
                     is NotFoundException -> Event.NotFound
                     is ServerException -> Event.Server
                     else -> {
-                        Log.d("delegate", "getMember: $it")
+                        Log.d("delegate", "delegate: $it")
                         Event.UnKnown
                     }
                 }
@@ -210,24 +210,13 @@ class MemberManageViewModel @Inject constructor(
                 _rejectApplicantState.value = Event.Success
             }.onFailure {
                 _rejectApplicantState.value = when (it) {
-                    is UnauthorizedException -> {
-                        Log.d("TAG", "delegate: $it")
-                        Event.Unauthorized
-                    }
-                    is ForBiddenException -> {
-                        Log.d("TAG", "delegate: $it")
-                        Event.ForBidden
-                    }
-                    is NotFoundException -> {
-                        Log.d("TAG", "delegate: $it")
-                        Event.NotFound
-                    }
-                    is ServerException -> {
-                        Log.d("TAG", "delegate: $it")
-                        Event.Server
-                    }
+                    is BadRequestException -> Event.BadRequest
+                    is UnauthorizedException -> Event.Unauthorized
+                    is ForBiddenException -> Event.ForBidden
+                    is NotFoundException -> Event.NotFound
+                    is ServerException -> Event.Server
                     else -> {
-                        Log.d("TAG", "delegate: $it")
+                        Log.d("Reject", "Reject: $it")
                         Event.UnKnown
                     }
                 }
