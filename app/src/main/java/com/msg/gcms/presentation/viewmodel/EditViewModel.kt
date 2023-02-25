@@ -107,7 +107,15 @@ class EditViewModel @Inject constructor(
     }
 
     fun changeMemList(memberList: List<AddMemberType>) {
-        _addedMemberData.value = memberList
+        _addedMemberData.value = memberList.ifEmpty {
+            listOf(
+                AddMemberType(
+                    uuid = null,
+                    userName = "추가하기",
+                    userImg = null
+                )
+            )
+        }
     }
 
     fun uploadImage(list: List<MultipartBody.Part>) {

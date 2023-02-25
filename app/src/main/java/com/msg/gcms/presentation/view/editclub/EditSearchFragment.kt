@@ -43,7 +43,6 @@ class EditSearchFragment : BaseFragment<FragmentEditSearchBinding>(R.layout.frag
     private val coroutineJob: Job = Job()
     private val coroutineContext: CoroutineContext
         get() = Dispatchers.IO + coroutineJob
-
     private val searchQuery = MutableStateFlow("")
 
     override fun onCreate(savedInstanceState: Bundle?) {
