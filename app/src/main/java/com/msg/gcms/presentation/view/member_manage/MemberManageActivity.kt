@@ -239,25 +239,23 @@ class MemberManageActivity :
         }
     }
 
-    //TODO 신청자 수락, 거절 건드리는 브랜치에서 수정 예정
     private fun observeAcceptApplicantStatus() {
         viewModel.acceptApplicantState.observe(this) {
             when (it) {
-                Event.Success, Event.NotAcceptable -> {
-                    BaseModal("오류", "알수 없는 오류 발생, 개발자에게 문의해주세요", this).show()
+                Event.Success -> {
+                    BaseModal("완료", "승인을 완료했습니다.", this).show()
+                }
+                Event.Unauthorized -> {
+                    BaseModal("오류", "토큰이 만료되었습니다, 로그아웃 이후 다시 로그인해주세요.", this).show()
                 }
                 Event.ForBidden -> {
-                    BaseModal("실패", "부장만이 이 행동을 할수 있습니다.", this).show()
+                    BaseModal("실패", "부장만이 이 행동을 할 수 있습니다.", this).show()
                 }
                 Event.NotFound -> {
                     BaseModal("오류", "동아리를 찾을 수 없습니다.", this).show()
                 }
-                Event.Conflict -> {
-                    BaseModal("불가", "이미 현재 동아리 또는 다른 동아리에 소속되어 있습니다.", this).show()
-                }
-                Event.Server -> {
-                }
                 else -> {
+                    BaseModal("오류", "알 수 없는 오류 발생, 개발자에게 문의해주세요.", this).show()
                 }
             }
         }

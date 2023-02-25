@@ -187,24 +187,13 @@ class MemberManageViewModel @Inject constructor(
                 _acceptApplicantState.value = Event.Success
             }.onFailure {
                 _acceptApplicantState.value = when (it) {
-                    is UnauthorizedException -> {
-                        Log.d("TAG", "delegate: $it")
-                        Event.Unauthorized
-                    }
-                    is ForBiddenException -> {
-                        Log.d("TAG", "delegate: $it")
-                        Event.ForBidden
-                    }
-                    is NotFoundException -> {
-                        Log.d("TAG", "delegate: $it")
-                        Event.NotFound
-                    }
-                    is ServerException -> {
-                        Log.d("TAG", "delegate: $it")
-                        Event.Server
-                    }
+                    is BadRequestException -> Event.BadRequest
+                    is UnauthorizedException -> Event.Unauthorized
+                    is ForBiddenException -> Event.ForBidden
+                    is NotFoundException -> Event.NotFound
+                    is ServerException -> Event.Server
                     else -> {
-                        Log.d("TAG", "delegate: $it")
+                        Log.d("Accept", "Accept: $it")
                         Event.UnKnown
                     }
                 }
