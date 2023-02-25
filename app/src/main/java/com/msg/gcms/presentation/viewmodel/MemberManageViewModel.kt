@@ -12,6 +12,7 @@ import com.msg.gcms.domain.data.applicant.get_applicant_list.ApplicantListData
 import com.msg.gcms.domain.data.club_member.delegation_of_manager.DelegationOfManagerData
 import com.msg.gcms.domain.data.club_member.get_club_member.MemberData
 import com.msg.gcms.domain.data.club_member.member_expelled.MemberExpelledData
+import com.msg.gcms.domain.exception.BadRequestException
 import com.msg.gcms.domain.exception.ForBiddenException
 import com.msg.gcms.domain.exception.NotAcceptableException
 import com.msg.gcms.domain.exception.NotFoundException
@@ -96,18 +97,11 @@ class MemberManageViewModel @Inject constructor(
                 _getMemberListState.value = Event.Success
             }.onFailure {
                 _getMemberListState.value = when (it) {
-                    is ForBiddenException -> {
-                        Log.d("TAG", "getMember: $it")
-                        Event.ForBidden
-                    }
-                    is NotAcceptableException -> {
-                        Log.d("TAG", "getMember: $it")
-                        Event.NotAcceptable
-                    }
-                    is ServerException -> {
-                        Log.d("TAG", "getMember: $it")
-                        Event.Server
-                    }
+                    is BadRequestException -> Event.BadRequest
+                    is UnauthorizedException -> Event.Unauthorized
+                    is ForBiddenException -> Event.ForBidden
+                    is NotFoundException -> Event.NotFound
+                    is ServerException -> Event.Server
                     else -> {
                         Log.d("TAG", "getMember: $it")
                         Event.UnKnown
