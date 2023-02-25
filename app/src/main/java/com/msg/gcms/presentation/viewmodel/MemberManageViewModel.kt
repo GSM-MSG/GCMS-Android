@@ -53,22 +53,22 @@ class MemberManageViewModel @Inject constructor(
 
     private val _clubId = mutableStateOf<Long>(0)
 
-    private var _getMemberListState = MutableLiveData<Event>()
+    private val _getMemberListState = MutableLiveData<Event>()
     val getMemberListState: LiveData<Event> get() = _getMemberListState
 
-    private var _getApplicantListState = MutableLiveData<Event>()
+    private val _getApplicantListState = MutableLiveData<Event>()
     val getApplicantListState: LiveData<Event> get() = _getApplicantListState
 
-    private var _kickUserState = MutableLiveData<Event>()
+    private val _kickUserState = MutableLiveData<Event>()
     val kickUserState: LiveData<Event> get() = _kickUserState
 
-    private var _delegateState = MutableLiveData<Event>()
+    private val _delegateState = MutableLiveData<Event>()
     val delegateState: LiveData<Event> get() = _delegateState
 
-    private var _acceptApplicantState = MutableLiveData<Event>()
+    private val _acceptApplicantState = MutableLiveData<Event>()
     val acceptApplicantState: LiveData<Event> get() = _acceptApplicantState
 
-    private var _rejectApplicantState = MutableLiveData<Event>()
+    private val _rejectApplicantState = MutableLiveData<Event>()
     val rejectApplicantState: LiveData<Event> get() = _rejectApplicantState
 
     fun setClubId(clubId: Long) {
