@@ -31,8 +31,8 @@ class ClubDetailViewModel @Inject constructor(
     private val _isProfile = MutableLiveData<Boolean>()
     val isProfile: LiveData<Boolean> get() = _isProfile
 
-    private val _getClubDetail = MutableLiveData<Event>()
-    val getClubDetail: LiveData<Event> get() = _getClubDetail
+    private val _getClubDetail = MutableLiveData<Event?>()
+    val getClubDetail: LiveData<Event?> get() = _getClubDetail
 
     private val _refreshClubDetail = MutableLiveData<Event>()
     val refreshClubDetail: LiveData<Event> get() = _refreshClubDetail
@@ -112,7 +112,8 @@ class ClubDetailViewModel @Inject constructor(
         _isProfile.value = boolean
     }
 
-    fun clearResult() {
+    fun clear() {
         _result.value = null
+        _getClubDetail.value = null
     }
 }

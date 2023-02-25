@@ -76,6 +76,11 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
         callback.remove()
     }
 
+    override fun onStop() {
+        super.onStop()
+        detailViewModel.clear()
+    }
+
     override fun init() {
         observeEvent()
         clickEvent()
@@ -84,7 +89,6 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
     }
 
     private fun observeEvent() {
-        observeStatus()
         observeResult()
     }
 
@@ -211,6 +215,8 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
     private fun clickSubmitBtn() {
         binding.submitBtn.setOnClickListener {
             changeDialog()
+            clubViewModel.clear()
+            observeStatus()
         }
     }
 
@@ -402,6 +408,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
     private fun observeApplyClubEvent() {
         clubViewModel.applyClub.observe(this) { status ->
             detailViewModel.refreshDetailInfo(detailViewModel.result.value!!.id)
+            Log.d("ApplyClub", "observe")
             when (status) {
                 Event.Success -> {
                     BaseModal("성공", "동아리 신청에 성공했습니다.", requireContext()).show()
@@ -415,6 +422,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
                 Event.NotFound -> {
                     BaseModal("오류", "동아리를 찾을 수 없습니다.", requireContext()).show()
                 }
+                null -> {}
                 else -> {
                     BaseModal("오류", "알 수 없는 오류 발생, 개발자에게 문의해주세요.", requireContext()).show()
                 }
@@ -425,6 +433,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
     private fun observeCancelClubEvent() {
         clubViewModel.cancelClubApply.observe(this) { status ->
             detailViewModel.refreshDetailInfo(detailViewModel.result.value!!.id)
+            Log.d("CancelClubApply", "observe")
             when (status) {
                 Event.Success -> {
                     BaseModal("성공", "동아리 신청을 취소했습니다.", requireContext()).show()
@@ -435,6 +444,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
                 Event.NotFound -> {
                     BaseModal("오류", "동아리를 찾을 수 없습니다.", requireContext()).show()
                 }
+                null -> {}
                 else -> {
                     BaseModal("오류", "알 수 없는 오류 발생, 개발자에게 문의해주세요.", requireContext()).show()
                 }
@@ -445,6 +455,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
     private fun observeOpenClubApplyEvent() {
         clubViewModel.openingClubApplication.observe(this) { status ->
             detailViewModel.refreshDetailInfo(detailViewModel.result.value!!.id)
+            Log.d("OpeningClubApplication", "observe")
             when (status) {
                 Event.Success -> {
                     BaseModal("성공", "동아리 신청을 오픈했습니다.", requireContext()).show()
@@ -458,6 +469,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
                 Event.NotFound -> {
                     BaseModal("오류", "동아리를 찾을 수 없습니다.", requireContext()).show()
                 }
+                null -> {}
                 else -> {
                     BaseModal("오류", "알수 없는 오류 발생, 개발자에게 문의해주세요.", requireContext()).show()
                 }
@@ -468,6 +480,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
     private fun observeCloseClubApplyEvent() {
         clubViewModel.closingClubApplication.observe(this) { status ->
             detailViewModel.refreshDetailInfo(detailViewModel.result.value!!.id)
+            Log.d("closingClubApplication", "observe")
             when (status) {
                 Event.Success -> {
                     BaseModal("성공", "동아리 신청을 마감했습니다.", requireContext()).show()
@@ -481,6 +494,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
                 Event.NotFound -> {
                     BaseModal("오류", "동아리를 찾을 수 없습니다.", requireContext()).show()
                 }
+                null -> {}
                 else -> {
                     BaseModal("오류", "알수 없는 오류 발생, 개발자에게 문의해주세요.", requireContext()).show()
                 }

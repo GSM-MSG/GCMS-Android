@@ -38,17 +38,17 @@ class ClubViewModel @Inject constructor(
     // private val _getClubStatus = MutableLiveData<Event>()
     // val getClubStatus: LiveData<Event> get() = _getClubStatus
 
-    private val _cancelClubApply = MutableLiveData<Event>()
-    val cancelClubApply: LiveData<Event> get() = _cancelClubApply
+    private val _cancelClubApply = MutableLiveData<Event?>()
+    val cancelClubApply: LiveData<Event?> get() = _cancelClubApply
 
-    private val _applyClub = MutableLiveData<Event>()
-    val applyClub: LiveData<Event> get() = _applyClub
+    private val _applyClub = MutableLiveData<Event?>()
+    val applyClub: LiveData<Event?> get() = _applyClub
 
-    private val _closingClubApplication = MutableLiveData<Event>()
-    val closingClubApplication: LiveData<Event> get() = _closingClubApplication
+    private val _closingClubApplication = MutableLiveData<Event?>()
+    val closingClubApplication: LiveData<Event?> get() = _closingClubApplication
 
-    private val _openingClubApplication = MutableLiveData<Event>()
-    val openingClubApplication: LiveData<Event> get() = _openingClubApplication
+    private val _openingClubApplication = MutableLiveData<Event?>()
+    val openingClubApplication: LiveData<Event?> get() = _openingClubApplication
 
     private val _deleteClub = MutableLiveData<Event>()
     val deleteClub: LiveData<Event> get() = _deleteClub
@@ -183,5 +183,12 @@ class ClubViewModel @Inject constructor(
                 }
             }
         }
+    }
+
+    fun clear() {
+        _applyClub.value = null
+        _cancelClubApply.value = null
+        _openingClubApplication.value = null
+        _closingClubApplication.value = null
     }
 }
