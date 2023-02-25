@@ -74,7 +74,6 @@ class EditClubFragment : BaseFragment<FragmentEditClubBinding>(R.layout.fragment
         super.onCreate(savedInstanceState)
         clubMemberAdapter = ClubMemberAdapter()
         activityAdapter = ActivityPhotosAdapter()
-
     }
 
     override fun init() {
