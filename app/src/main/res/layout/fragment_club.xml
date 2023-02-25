@@ -105,7 +105,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-                <include layout="@layout/shimmer_promotion" />
+                <include layout="@layout/shimmer_club" />
             </LinearLayout>
         </com.facebook.shimmer.ShimmerFrameLayout>
 
