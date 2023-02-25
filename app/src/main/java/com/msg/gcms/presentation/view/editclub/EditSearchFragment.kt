@@ -151,8 +151,9 @@ class EditSearchFragment : BaseFragment<FragmentEditSearchBinding>(R.layout.frag
                     // TODO 여기 타입 변경하기
                     Log.d("TAG", "onClickListener: $memberList")
                     editViewModel.changeMemList(memberList)
+                } else {
+                    Log.d("TAG", "onClickListener: $memberList")
                 }
-                memberList.clear()
                 this.findNavController().popBackStack()
             }
         }

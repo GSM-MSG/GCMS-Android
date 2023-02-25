@@ -81,6 +81,14 @@ class EditClubFragment : BaseFragment<FragmentEditClubBinding>(R.layout.fragment
         binding.fragment = this
         observeEvent()
         recyclerViewSetting()
+        memberRecyclerviewUpdater(editViewModel.addedMemberData.value ?: listOf())
+    }
+
+    private fun observeEvent() {
+        observeClubInfo()
+        observeConvertImage()
+        observeEditClubResult()
+        observeClubMember()
     }
 
     private val getContent =
@@ -173,10 +181,10 @@ class EditClubFragment : BaseFragment<FragmentEditClubBinding>(R.layout.fragment
         }
     }
 
-    private fun observeEvent() {
-        observeClubInfo()
-        observeConvertImage()
-        observeEditClubResult()
+    private fun observeClubMember() {
+        editViewModel.addedMemberData.observe(this) {
+            Log.d("TAG", "observeClubMember: $it")
+        }
     }
 
     private fun observeConvertImage() {
@@ -186,6 +194,7 @@ class EditClubFragment : BaseFragment<FragmentEditClubBinding>(R.layout.fragment
             }
         }
     }
+
 
     private fun clubMemberChecker(list: List<ClubMemberData>): List<AddMemberType> {
         return if (list.isEmpty()) {

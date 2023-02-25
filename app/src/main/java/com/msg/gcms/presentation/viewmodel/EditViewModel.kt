@@ -62,10 +62,9 @@ class EditViewModel @Inject constructor(
             getDetailUseCase(
                 clubId = clubId
             ).onSuccess {
+                memberCheck(it.member)
                 _clubInfo.value = it
                 Log.d("TAG", "getClubInfo: $it")
-                memberCheck(it.member)
-
             }.onFailure {
                 when (it) {
                     is UnauthorizedException -> Log.d("TAG", "getClubInfo: $it")
