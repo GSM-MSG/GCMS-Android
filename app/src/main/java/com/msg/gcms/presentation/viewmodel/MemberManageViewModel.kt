@@ -141,18 +141,11 @@ class MemberManageViewModel @Inject constructor(
                 _kickUserState.value = Event.Success
             }.onFailure {
                 _kickUserState.value = when (it) {
-                    is UnauthorizedException -> {
-                        Log.d("TAG", "kickUser: $it")
-                        Event.Unauthorized
-                    }
-                    is ForBiddenException -> {
-                        Log.d("TAG", "kickUser: $it")
-                        Event.ForBidden
-                    }
-                    is ServerException -> {
-                        Log.d("TAG", "kickUser: $it")
-                        Event.Server
-                    }
+                    is BadRequestException -> Event.BadRequest
+                    is UnauthorizedException -> Event.Unauthorized
+                    is ForBiddenException -> Event.ForBidden
+                    is NotFoundException -> Event.NotFound
+                    is ServerException -> Event.Server
                     else -> {
                         Log.d("TAG", "kickUser: $it")
                         Event.UnKnown

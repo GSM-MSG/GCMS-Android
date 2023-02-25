@@ -195,8 +195,11 @@ class MemberManageActivity :
     private fun observeKickUserStatus() {
         viewModel.kickUserState.observe(this) {
             when (it) {
-                Event.Success, Event.NotAcceptable -> {
-                    BaseModal("오류", "알수 없는 오류 발생, 개발자에게 문의해주세요", this).show()
+                Event.Success -> {
+                    BaseModal("성공", "강퇴를 완료하였습니다.", this).show()
+                }
+                Event.BadRequest -> {
+                    BaseModal("실패", "자기 자신을 강퇴할 수 없습니다.", this).show()
                 }
                 Event.ForBidden -> {
                     BaseModal("실패", "부장만이 이 행동을 할수 있습니다.", this).show()
@@ -204,12 +207,8 @@ class MemberManageActivity :
                 Event.NotFound -> {
                     BaseModal("오류", "동아리를 찾을 수 없습니다.", this).show()
                 }
-                Event.Conflict -> {
-                    BaseModal("불가", "이미 현재 동아리 또는 다른 동아리에 소속되어 있습니다.", this).show()
-                }
-                Event.Server -> {
-                }
                 else -> {
+                    BaseModal("오류", "알 수 없는 오류 발생, 개발자에게 문의해주세요.", this).show()
                 }
             }
         }
@@ -240,6 +239,7 @@ class MemberManageActivity :
         }
     }
 
+    //TODO 신청자 수락, 거절 건드리는 브랜치에서 수정 예정
     private fun observeAcceptApplicantStatus() {
         viewModel.acceptApplicantState.observe(this) {
             when (it) {
@@ -263,6 +263,7 @@ class MemberManageActivity :
         }
     }
 
+    //TODO 신청자 수락, 거절 건드리는 브랜치에서 수정 예정
     private fun observeRejectApplicantStatus() {
         viewModel.rejectApplicantState.observe(this) {
             when (it) {
