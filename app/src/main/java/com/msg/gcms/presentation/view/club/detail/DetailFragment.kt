@@ -79,6 +79,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
     override fun onStop() {
         super.onStop()
         detailViewModel.clear()
+        clubViewModel.clear()
     }
 
     override fun init() {
@@ -90,6 +91,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
 
     private fun observeEvent() {
         observeResult()
+        observeStatus()
     }
 
     private fun clickEvent() {
@@ -215,8 +217,6 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
     private fun clickSubmitBtn() {
         binding.submitBtn.setOnClickListener {
             changeDialog()
-            clubViewModel.clear()
-            observeStatus()
         }
     }
 
