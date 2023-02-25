@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import coil.transform.CircleCropTransformation
+import com.msg.gcms.R
 import com.msg.gcms.databinding.ListMemberBinding
 import com.msg.gcms.domain.data.club_member.get_club_member.MemberData
 
@@ -14,7 +15,7 @@ class MemberAdapter(private val itemList: List<MemberData>, private val role: St
     class ViewHolder(val binding: ListMemberBinding, listener: OnItemClickListener) : RecyclerView.ViewHolder(binding.root) {
         fun bind(item: MemberData, role: String) {
             binding.member = item
-            binding.userProfileImg.load(item.userImg){
+            binding.userProfileImg.load(item.userImg ?: R.drawable.ic_default_profile){
                 transformations(CircleCropTransformation())
             }
             binding.userClassTxt.text = "${item.grade}학년 ${item.`class`}반 ${item.num}번"
