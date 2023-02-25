@@ -97,13 +97,6 @@ class ClubDetailViewModel @Inject constructor(
         }
     }
 
-    // Todo (KimHs) 이름 좀 명시적으로 바꿔주세요
-    fun setResult(myClubResult: ClubDetailData) {
-        if (_result.value == null) {
-            _result.value = myClubResult
-        }
-    }
-
     fun setNav(boolean: Boolean) {
         _showNav.value = boolean
     }
