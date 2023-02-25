@@ -276,23 +276,6 @@ class EditClubFragment : BaseFragment<FragmentEditClubBinding>(R.layout.fragment
             override fun onClick(position: Int) {
                 activityPhotoList.removeAt(position)
                 activityPhotoRecyclerViewUpdater(activityPhotoList)
-                // if (activityPhotoUrlList.size >= position + 1) activityPhotoUrlList.removeAt(
-                //     position
-                // )
-                // Log.d(
-                //     "TAG",
-                //     "activityPhotoUrlList: $activityPhotoUrlList, newList: ${
-                //         activityPhotoList.filter {
-                //             !legacyList.contains(it)
-                //         }
-                //     }, removed: ${
-                //         editViewModel.clubInfo.value!!.activityImgs.filter {
-                //             !activityPhotoUrlList.contains(
-                //                 it
-                //             )
-                //         }
-                //     }"
-                // )
             }
         })
         binding.clubActivePictureRv.adapter = activityAdapter
