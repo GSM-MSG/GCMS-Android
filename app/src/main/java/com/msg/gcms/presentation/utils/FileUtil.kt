@@ -39,7 +39,7 @@ fun Uri.uriToBitMap(context: Context): Bitmap {
 
 fun File.toMultiPartBody(): MultipartBody.Part =
     MultipartBody.Part.createFormData(
-        name = "files",
+        name = "file",
         filename = this.name,
         body = this.asRequestBody("image/*".toMediaType())
     )

@@ -1,6 +1,7 @@
 package com.msg.gcms.data.remote.dto.club.modify_club_info
 
 import com.google.gson.annotations.SerializedName
+import java.util.UUID
 
 data class ModifyClubInfoRequest(
     @SerializedName("type")
@@ -20,6 +21,6 @@ data class ModifyClubInfoRequest(
     @SerializedName("activityImgs")
     val activityImgs: List<String>,
     @SerializedName("member")
-    val member: List<String>
+    val member: List<UUID>
 
 )
