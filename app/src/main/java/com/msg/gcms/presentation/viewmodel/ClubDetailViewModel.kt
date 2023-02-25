@@ -22,8 +22,8 @@ class ClubDetailViewModel @Inject constructor(
 
     private val TAG = "GetDetailViewModel"
 
-    private val _result = MutableLiveData<ClubDetailData?>()
-    val result: LiveData<ClubDetailData?> get() = _result
+    private var _result = MutableLiveData<ClubDetailData>()
+    val result: LiveData<ClubDetailData> get() = _result
 
     private val _showNav = MutableLiveData<Boolean>()
     val showNav: LiveData<Boolean> get() = _showNav
@@ -31,7 +31,7 @@ class ClubDetailViewModel @Inject constructor(
     private val _isProfile = MutableLiveData<Boolean>()
     val isProfile: LiveData<Boolean> get() = _isProfile
 
-    private val _getClubDetail = MutableLiveData<Event>()
+    private var _getClubDetail = MutableLiveData<Event>()
     val getClubDetail: LiveData<Event> get() = _getClubDetail
 
     private val _refreshClubDetail = MutableLiveData<Event>()
@@ -97,13 +97,6 @@ class ClubDetailViewModel @Inject constructor(
         }
     }
 
-    // Todo (KimHs) 이름 좀 명시적으로 바꿔주세요
-    fun setResult(myClubResult: ClubDetailData) {
-        if (_result.value == null) {
-            _result.value = myClubResult
-        }
-    }
-
     fun setNav(boolean: Boolean) {
         _showNav.value = boolean
     }
@@ -112,7 +105,8 @@ class ClubDetailViewModel @Inject constructor(
         _isProfile.value = boolean
     }
 
-    fun clearResult() {
-        _result.value = null
+    fun initializationProperties() {
+        _result = MutableLiveData()
+        _getClubDetail = MutableLiveData()
     }
 }
