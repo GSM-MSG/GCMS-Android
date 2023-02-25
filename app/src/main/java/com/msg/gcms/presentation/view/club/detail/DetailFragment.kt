@@ -12,13 +12,13 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import coil.load
 import coil.transform.CircleCropTransformation
 import com.msg.gcms.R
-import com.msg.gcms.presentation.adapter.detail_side_bar.DetailPageSideBar
-import com.msg.gcms.presentation.adapter.detail_photo.PromotionPicType
-import com.msg.gcms.domain.data.club.get_club_detail.ClubMemberData
 import com.msg.gcms.databinding.FragmentDetailBinding
+import com.msg.gcms.domain.data.club.get_club_detail.ClubMemberData
 import com.msg.gcms.domain.data.club_member.get_club_member.MemberData
 import com.msg.gcms.presentation.adapter.detail_member.DetailMemberAdapter
 import com.msg.gcms.presentation.adapter.detail_photo.DetailPhotoAdapter
+import com.msg.gcms.presentation.adapter.detail_photo.PromotionPicType
+import com.msg.gcms.presentation.adapter.detail_side_bar.DetailPageSideBar
 import com.msg.gcms.presentation.adapter.detail_side_bar.DetailSideBarAdapter
 import com.msg.gcms.presentation.base.BaseDialog
 import com.msg.gcms.presentation.base.BaseFragment
@@ -84,6 +84,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
     }
 
     private fun observeEvent() {
+        observeStatus()
         observeResult()
     }
 
@@ -209,7 +210,6 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
 
     private fun clickSubmitBtn() {
         binding.submitBtn.setOnClickListener {
-            observeStatus()
             changeDialog()
         }
     }
@@ -357,12 +357,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
                                     clubViewModel.putClubOpen(clubId = result.id)
                                 }
                             }
-                            clubViewModel.openingClubApplication.observe(this) {
-                                dialog.dismiss()
-                            }
-                            clubViewModel.closingClubApplication.observe(this) {
-                                dialog.dismiss()
-                            }
+                            dialog.dismiss()
                         }
                     }
                 }
@@ -388,12 +383,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
                                     clubViewModel.postClubApply(
                                         clubId = detailViewModel.result.value!!.id
                                     )
-                                clubViewModel.applyClub.observe(this) {
-                                    dialog.dismiss()
-                                }
-                                clubViewModel.cancelClubApply.observe(this) {
-                                    dialog.dismiss()
-                                }
+                                dialog.dismiss()
                             }
                         }
                     }
@@ -403,25 +393,97 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
     }
 
     private fun observeStatus() {
-        clubViewModel.deleteClub.observe(this) { status ->
-            detailViewModel.result.value!!.let {
-                detailViewModel.getDetail(it.id)
-            }
+        observeApplyClubEvent()
+        observeCancelClubEvent()
+        observeOpenClubApplyEvent()
+        observeCloseClubApplyEvent()
+    }
+
+    private fun observeApplyClubEvent() {
+        clubViewModel.applyClub.observe(this) { status ->
+            detailViewModel.refreshDetailInfo(detailViewModel.result.value!!.id)
             when (status) {
-                Event.Success -> {}
+                Event.Success -> {
+                    BaseModal("성공", "동아리 신청에 성공했습니다.", requireContext()).show()
+                }
                 Event.Unauthorized -> {
-                    BaseModal("오류", "토큰이 만료되었습니다, 앱 종료후 다시 실행해 주세요", requireContext()).show()
+                    BaseModal("오류", "토큰이 만료되었습니다, 로그아웃 이후 다시 로그인해주세요.", requireContext()).show()
+                }
+                Event.ForBidden -> {
+                    BaseModal("실패", "이미 다른 동아리에 소속 또는 신청 중입니다.", requireContext()).show()
+                }
+                Event.NotFound -> {
+                    BaseModal("오류", "동아리를 찾을 수 없습니다.", requireContext()).show()
+                }
+                else -> {
+                    BaseModal("오류", "알 수 없는 오류 발생, 개발자에게 문의해주세요.", requireContext()).show()
+                }
+            }
+        }
+    }
+
+    private fun observeCancelClubEvent() {
+        clubViewModel.cancelClubApply.observe(this) { status ->
+            detailViewModel.refreshDetailInfo(detailViewModel.result.value!!.id)
+            when (status) {
+                Event.Success -> {
+                    BaseModal("성공", "동아리 신청을 취소했습니다.", requireContext()).show()
+                }
+                Event.Unauthorized -> {
+                    BaseModal("오류", "토큰이 만료되었습니다, 로그아웃 이후 다시 로그인해주세요.", requireContext()).show()
+                }
+                Event.NotFound -> {
+                    BaseModal("오류", "동아리를 찾을 수 없습니다.", requireContext()).show()
+                }
+                else -> {
+                    BaseModal("오류", "알 수 없는 오류 발생, 개발자에게 문의해주세요.", requireContext()).show()
+                }
+            }
+        }
+    }
+
+    private fun observeOpenClubApplyEvent() {
+        clubViewModel.openingClubApplication.observe(this) { status ->
+            detailViewModel.refreshDetailInfo(detailViewModel.result.value!!.id)
+            when (status) {
+                Event.Success -> {
+                    BaseModal("성공", "동아리 신청을 오픈했습니다.", requireContext()).show()
+                }
+                Event.Unauthorized -> {
+                    BaseModal("오류", "토큰이 만료되었습니다, 로그아웃 이후 다시 로그인해주세요.", requireContext()).show()
                 }
                 Event.ForBidden -> {
                     BaseModal("실패", "부장만이 할수있는 행동입니다.", requireContext()).show()
                 }
-                Event.Conflict -> {
-                    BaseModal("실패", "이미 다른 동아리에 소속 또는 신청중인 사람입니다.", requireContext()).show()
+                Event.NotFound -> {
+                    BaseModal("오류", "동아리를 찾을 수 없습니다.", requireContext()).show()
                 }
-                Event.UnKnown -> {
-                    BaseModal("오류", "알수 없는 오류 발생, 개발자에게 문의해주세요", requireContext()).show()
+                else -> {
+                    BaseModal("오류", "알수 없는 오류 발생, 개발자에게 문의해주세요.", requireContext()).show()
                 }
-                Event.Server -> {}
+            }
+        }
+    }
+
+    private fun observeCloseClubApplyEvent() {
+        clubViewModel.closingClubApplication.observe(this) { status ->
+            detailViewModel.refreshDetailInfo(detailViewModel.result.value!!.id)
+            when (status) {
+                Event.Success -> {
+                    BaseModal("성공", "동아리 신청을 마감했습니다.", requireContext()).show()
+                }
+                Event.Unauthorized -> {
+                    BaseModal("오류", "토큰이 만료되었습니다, 로그아웃 이후 다시 로그인해주세요.", requireContext()).show()
+                }
+                Event.ForBidden -> {
+                    BaseModal("실패", "부장만이 할수있는 행동입니다.", requireContext()).show()
+                }
+                Event.NotFound -> {
+                    BaseModal("오류", "동아리를 찾을 수 없습니다.", requireContext()).show()
+                }
+                else -> {
+                    BaseModal("오류", "알수 없는 오류 발생, 개발자에게 문의해주세요.", requireContext()).show()
+                }
             }
         }
     }

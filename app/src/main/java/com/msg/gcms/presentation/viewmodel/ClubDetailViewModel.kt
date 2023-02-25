@@ -34,15 +34,48 @@ class ClubDetailViewModel @Inject constructor(
     private val _getClubDetail = MutableLiveData<Event>()
     val getClubDetail: LiveData<Event> get() = _getClubDetail
 
+    private val _refreshClubDetail = MutableLiveData<Event>()
+    val refreshClubDetail: LiveData<Event> get() = _refreshClubDetail
+
     fun getDetail(clubId: Long) {
         viewModelScope.launch {
             getDetailUseCase(
-                 clubId = clubId
+                clubId = clubId
             ).onSuccess {
                 _result.value = it
                 _getClubDetail.value = Event.Success
             }.onFailure {
                 _getClubDetail.value = when (it) {
+                    is BadRequestException -> {
+                        Log.d(TAG, "getDetail: $it.")
+                        Event.BadRequest
+                    }
+                    is UnauthorizedException -> {
+                        Log.d(TAG, "getDetail: $it")
+                        Event.Unauthorized
+                    }
+                    is NotFoundException -> {
+                        Log.d(TAG, "getDetail: $it")
+                        Event.NotFound
+                    }
+                    else -> {
+                        Log.d(TAG, "getDetail: ${it.message}")
+                        Event.UnKnown
+                    }
+                }
+            }
+        }
+    }
+
+    fun refreshDetailInfo(clubId: Long) {
+        viewModelScope.launch {
+            getDetailUseCase(
+                clubId = clubId
+            ).onSuccess {
+                _result.value = it
+                _refreshClubDetail.value = Event.Success
+            }.onFailure {
+                _refreshClubDetail.value = when (it) {
                     is BadRequestException -> {
                         Log.d(TAG, "getDetail: $it.")
                         Event.BadRequest
