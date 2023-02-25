@@ -53,6 +53,12 @@ class MakeClubDetailFragment :
 
     private var imageState = false
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        activityAdapter = ActivityPhotosAdapter()
+        clubMemberAdapter = ClubMemberAdapter()
+    }
+
     override fun init() {
         settingRecyclerView()
         observeEvent()
@@ -63,11 +69,6 @@ class MakeClubDetailFragment :
     override fun onResume() {
         imageSetting()
         super.onResume()
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        activityAdapter = ActivityPhotosAdapter()
     }
 
     private fun observeEvent() {
@@ -185,7 +186,6 @@ class MakeClubDetailFragment :
             )
         }
         clubMemberAdapter.submitList(makeClubViewModel.addedMemberList)
-        clubMemberAdapter = ClubMemberAdapter()
         clubMemberAdapter.setItemOnClickListener(object : ClubMemberAdapter.OnItemClickListener {
             override fun onClick(position: Int) {
                 findNavController().navigate(R.id.action_makeClubDetailFragment_to_studentSearchFragment)
