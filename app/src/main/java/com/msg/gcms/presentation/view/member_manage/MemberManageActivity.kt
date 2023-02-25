@@ -102,7 +102,7 @@ class MemberManageActivity :
             override fun accept(position: Int) {
                 showDialog(
                     "승인",
-                    "동료가 되었다!!",
+                    "${viewModel.applicantList.value!![position].name}님의 동아리 신청을\n승인하시겠습니까?",
                     this@MemberManageActivity
                 ) {
                     viewModel.accept(viewModel.applicantList.value!![position].uuid)
