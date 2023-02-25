@@ -75,7 +75,6 @@ class EditSearchFragment : BaseFragment<FragmentEditSearchBinding>(R.layout.frag
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
             setHasFixedSize(true)
             addItemDecoration(ItemDecorator(16, "HORIZONTAL"))
-            // TODO 타입 변경하기
             addMemberAdapter.submitList(
                 editViewModel.addedMemberData.value!!.map {
                     AddMemberType(
@@ -147,7 +146,6 @@ class EditSearchFragment : BaseFragment<FragmentEditSearchBinding>(R.layout.frag
             }
             binding.selectBtn.id -> {
                 if (memberList.isNotEmpty()) {
-                    // TODO 여기 타입 변경하기
                     Log.d("TAG", "onClickListener: $memberList")
                     editViewModel.changeMemList(memberList)
                 } else {

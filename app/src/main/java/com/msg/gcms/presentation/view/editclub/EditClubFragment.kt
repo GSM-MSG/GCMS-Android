@@ -296,7 +296,6 @@ class EditClubFragment : BaseFragment<FragmentEditClubBinding>(R.layout.fragment
     }
 
     private fun clubMemberRecyclerView() {
-        // TODO 여기 타입 변경하기
         clubMemberAdapter.setItemOnClickListener(object : ClubMemberAdapter.OnItemClickListener {
             override fun onClick(position: Int) {
                 findNavController().navigate(R.id.action_editClubFragment_to_editSearchFragment)
