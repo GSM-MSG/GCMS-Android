@@ -113,10 +113,10 @@ class MemberManageActivity :
             override fun reject(position: Int) {
                 showDialog(
                     "거절",
-                    "바2",
+                    "${viewModel.applicantList.value!![position].name}님의 동아리 신청을\n거절하시겠습니까?",
                     this@MemberManageActivity
                 ) {
-                    viewModel.reject(viewModel.applicantList.value!![position].email)
+                    viewModel.reject(viewModel.applicantList.value!![position].uuid)
                     observeRejectApplicantStatus()
                 }
             }

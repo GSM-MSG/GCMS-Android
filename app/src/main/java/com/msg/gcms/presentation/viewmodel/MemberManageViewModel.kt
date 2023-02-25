@@ -201,7 +201,7 @@ class MemberManageViewModel @Inject constructor(
         }
     }
 
-    fun reject(id: String) {
+    fun reject(id: UUID) {
         viewModelScope.launch {
             applicantRejectUseCase(
                 clubId = _clubId.value,
