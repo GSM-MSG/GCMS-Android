@@ -87,7 +87,6 @@ class EditClubFragment : BaseFragment<FragmentEditClubBinding>(R.layout.fragment
         observeClubInfo()
         observeConvertImage()
         observeEditClubResult()
-        observeClubMember()
     }
 
     private val getContent =
@@ -177,12 +176,6 @@ class EditClubFragment : BaseFragment<FragmentEditClubBinding>(R.layout.fragment
             setHasFixedSize(true)
             addItemDecoration(ItemDecorator(50, "HORIZONTAL"))
             clubMemberRecyclerView()
-        }
-    }
-
-    private fun observeClubMember() {
-        editViewModel.addedMemberData.observe(this) {
-            Log.d("TAG", "observeClubMember: $it")
         }
     }
 
