@@ -78,8 +78,8 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
 
     override fun onStop() {
         super.onStop()
-        detailViewModel.clear()
-        clubViewModel.clear()
+        detailViewModel.initializationProperties()
+        clubViewModel.initializationProperties()
     }
 
     override fun init() {
@@ -422,7 +422,6 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
                 Event.NotFound -> {
                     BaseModal("오류", "동아리를 찾을 수 없습니다.", requireContext()).show()
                 }
-                null -> {}
                 else -> {
                     BaseModal("오류", "알 수 없는 오류 발생, 개발자에게 문의해주세요.", requireContext()).show()
                 }
@@ -444,7 +443,6 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
                 Event.NotFound -> {
                     BaseModal("오류", "동아리를 찾을 수 없습니다.", requireContext()).show()
                 }
-                null -> {}
                 else -> {
                     BaseModal("오류", "알 수 없는 오류 발생, 개발자에게 문의해주세요.", requireContext()).show()
                 }
@@ -469,7 +467,6 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
                 Event.NotFound -> {
                     BaseModal("오류", "동아리를 찾을 수 없습니다.", requireContext()).show()
                 }
-                null -> {}
                 else -> {
                     BaseModal("오류", "알수 없는 오류 발생, 개발자에게 문의해주세요.", requireContext()).show()
                 }
@@ -494,7 +491,6 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
                 Event.NotFound -> {
                     BaseModal("오류", "동아리를 찾을 수 없습니다.", requireContext()).show()
                 }
-                null -> {}
                 else -> {
                     BaseModal("오류", "알수 없는 오류 발생, 개발자에게 문의해주세요.", requireContext()).show()
                 }
