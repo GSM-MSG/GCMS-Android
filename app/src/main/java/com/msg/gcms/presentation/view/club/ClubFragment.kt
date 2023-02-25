@@ -27,7 +27,6 @@ class ClubFragment : BaseFragment<FragmentClubBinding>(R.layout.fragment_club) {
     private lateinit var adapter: ClubListAdapter
     override fun init() {
         mainViewModel.getClubList()
-        observeClubInfo()
         recyclerview()
         clickProfile()
         clickMakeClubBtn()
@@ -79,6 +78,9 @@ class ClubFragment : BaseFragment<FragmentClubBinding>(R.layout.fragment_club) {
                             isVisible = false
                         }
                     }
+                }
+                Event.UnKnown -> {
+                    BaseModal("오류", "알수 없는 오류 발생, 개발자에게 문의해주세요", requireContext()).show()
                 }
             }
         }
