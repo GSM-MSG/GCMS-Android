@@ -1,5 +1,6 @@
 package com.msg.gcms.presentation.view.editclub
 
+import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.view.WindowManager
@@ -37,19 +38,25 @@ class EditSearchFragment : BaseFragment<FragmentEditSearchBinding>(R.layout.frag
     private lateinit var addMemberAdapter: AddMemberAdapter
 
     private var userList = mutableListOf<GetSearchUserData>()
-    private var memberList = mutableListOf<GetSearchUserData>()
+    private var memberList = mutableListOf<AddMemberType>()
 
     private val coroutineJob: Job = Job()
     private val coroutineContext: CoroutineContext
         get() = Dispatchers.IO + coroutineJob
-
     private val searchQuery = MutableStateFlow("")
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        searchAdapter = UserSearchAdapter()
+        addMemberAdapter = AddMemberAdapter()
+    }
 
     override fun init() {
         binding.fragment = this
         observeEvent()
         activity?.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING)
         settingRecyclerView()
+        memberList = editViewModel.addedMemberData.value!!.toMutableList()
     }
 
     private fun observeEvent() {
@@ -58,21 +65,16 @@ class EditSearchFragment : BaseFragment<FragmentEditSearchBinding>(R.layout.frag
     }
 
     private fun settingRecyclerView() {
-        searchAdapter = UserSearchAdapter()
         with(binding.studentListRv) {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
             setHasFixedSize(true)
             addItemDecoration(ItemDecorator(32, "VERTICAL"))
             adapter = searchAdapter
         }
-
-        addMemberAdapter = AddMemberAdapter()
         with(binding.memberListRv) {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
             setHasFixedSize(true)
             addItemDecoration(ItemDecorator(16, "HORIZONTAL"))
-            // TODO 타입 변경하기
-            // memberList = editViewModel.memberList
             addMemberAdapter.submitList(
                 editViewModel.addedMemberData.value!!.map {
                     AddMemberType(
@@ -87,15 +89,23 @@ class EditSearchFragment : BaseFragment<FragmentEditSearchBinding>(R.layout.frag
             override fun onClick(position: Int) {
                 val item = memberList[position]
                 memberList.remove(item)
-                addMemberAdapter
+                addMemberAdapter.submitList(memberList)
+                binding.memberListRv.adapter = addMemberAdapter
             }
         })
         searchAdapter.setItemOnClickListener(object : UserSearchAdapter.OnItemClickListener {
             override fun onClick(position: Int) {
                 val item = userList[position]
-                if (!memberList.contains(item)) {
-                    memberList.add(item)
-                    // addMemberAdapter.submitList(AddMemberType(uuid = item.uuid, userName = item.name, userImg = item.profileImg))
+                if (!memberList.map { it.uuid }.contains(item.uuid)) {
+                    memberList.add(
+                        AddMemberType(
+                            uuid = item.uuid,
+                            userName = item.name,
+                            userImg = item.profileImg
+                        )
+                    )
+                    addMemberAdapter.submitList(memberList)
+                    binding.memberListRv.adapter = addMemberAdapter
                     Log.d("TAG", "addMemberList : $memberList")
                 } else {
                     Log.d("TAG", "that user contained list")
@@ -136,10 +146,11 @@ class EditSearchFragment : BaseFragment<FragmentEditSearchBinding>(R.layout.frag
             }
             binding.selectBtn.id -> {
                 if (memberList.isNotEmpty()) {
-                    // TODO 여기 타입 변경하기
-                    // editViewModel.memberList = memberList.distinct().toMutableList()
+                    Log.d("TAG", "onClickListener: $memberList")
+                    editViewModel.changeMemList(memberList)
+                } else {
+                    Log.d("TAG", "onClickListener: $memberList")
                 }
-                // editViewModel.setMemberEmail()
                 this.findNavController().popBackStack()
             }
         }
