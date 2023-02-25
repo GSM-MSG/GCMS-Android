@@ -117,11 +117,12 @@ class EditClubFragment : BaseFragment<FragmentEditClubBinding>(R.layout.fragment
                         val imageUri: Uri = data.clipData!!.getItemAt(i).uri
                         val imageBitmap = imageUri.uriToBitMap(requireContext())
                         activityPhotoList.add(ActivityPhotoType(activityPhoto = imageBitmap))
+                        activityPhotoRecyclerViewUpdater(activityPhotoList)
                         val file = imageUri.toFile(requireContext())
                         activityPhotoMultipart.add(file.toMultiPartBody())
                     }
                     Log.d("TAG", "activityPhotoList: $activityPhotoList")
-                    activityAdapter.notifyDataSetChanged()
+                    activityPhotoRecyclerViewUpdater(activityPhotoList)
                 }
             }
         }
@@ -238,8 +239,9 @@ class EditClubFragment : BaseFragment<FragmentEditClubBinding>(R.layout.fragment
                         activityPhotoUrlList = it.activityImgs.toMutableList()
                         memberRecyclerviewUpdater(clubMemberChecker(it.member))
                         lifecycleScope.launch {
-                            activityPhotoRecyclerViewUpdater(addBitmapToList(it.activityImgs))
-                            bannerImageBitmap = getBitmapFromUrl(it.bannerImg)
+                            val activityPhotoList = addBitmapToList(it.activityImgs)
+                            this@EditClubFragment.activityPhotoList.addAll(activityPhotoList)
+                            activityPhotoRecyclerViewUpdater(activityPhotoList)
                         }
                     }
                 }
@@ -273,23 +275,7 @@ class EditClubFragment : BaseFragment<FragmentEditClubBinding>(R.layout.fragment
             ActivityPhotosAdapter.OnItemClickListener {
             override fun onClick(position: Int) {
                 activityPhotoList.removeAt(position)
-                if (activityPhotoUrlList.size >= position + 1) activityPhotoUrlList.removeAt(
-                    position
-                )
-                Log.d(
-                    "TAG",
-                    "activityPhotoUrlList: $activityPhotoUrlList, newList: ${
-                        activityPhotoList.filter {
-                            !legacyList.contains(it)
-                        }
-                    }, removed: ${
-                        editViewModel.clubInfo.value!!.activityImgs.filter {
-                            !activityPhotoUrlList.contains(
-                                it
-                            )
-                        }
-                    }"
-                )
+                activityPhotoRecyclerViewUpdater(activityPhotoList)
             }
         })
         binding.clubActivePictureRv.adapter = activityAdapter
