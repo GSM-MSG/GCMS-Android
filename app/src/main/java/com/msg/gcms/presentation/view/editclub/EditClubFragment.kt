@@ -330,8 +330,14 @@ class EditClubFragment : BaseFragment<FragmentEditClubBinding>(R.layout.fragment
                     .startsWith("https://")
             ) {
                 imageUpload(bannerImage = bannerImage!!, activityPhotoList = activityPhotoList)
-            } else shortToast("링크 형식으로 입력해주세요")
-        } else shortToast("필수 기입 요소들을 다시 확인해주세요!!")
+            } else {
+                editViewModel.stopLottie()
+                shortToast("링크 형식으로 입력해주세요")
+            }
+        } else {
+            editViewModel.stopLottie()
+            shortToast("필수 기입 요소들을 다시 확인해주세요!!")
+        }
     }
 
     private fun imageUpload(
