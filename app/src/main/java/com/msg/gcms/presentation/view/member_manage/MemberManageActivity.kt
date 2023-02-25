@@ -75,7 +75,7 @@ class MemberManageActivity :
                     "정말 부장 권한을 ${viewModel.memberList.value!![position].name}님에게 \n위임하시겠습니까?",
                     this@MemberManageActivity
                 ) {
-                    viewModel.delegate(viewModel.memberList.value!![position].email)
+                    viewModel.delegate(viewModel.memberList.value!![position].uuid)
                     observeDelegateStatus()
                 }
             }

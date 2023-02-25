@@ -162,7 +162,7 @@ class MemberManageViewModel @Inject constructor(
         }
     }
 
-    fun delegate(id: String) {
+    fun delegate(id: UUID) {
         viewModelScope.launch {
             userDelegateUseCase(
                 clubId = _clubId.value,
@@ -170,7 +170,6 @@ class MemberManageViewModel @Inject constructor(
             ).onSuccess {
                 _delegateState.value = Event.Success
             }.onFailure {
-                Log.d("delegate", it.toString())
                 _delegateState.value = when (it) {
                     is BadRequestException -> Event.BadRequest
                     is UnauthorizedException -> Event.Unauthorized
