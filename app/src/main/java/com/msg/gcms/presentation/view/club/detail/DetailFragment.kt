@@ -249,8 +249,8 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
                                         clubId = detailViewModel.result.value!!.id
                                     )
                                     dialog.dismiss()
-                                    requireActivity().supportFragmentManager.beginTransaction()
-                                        .replace(R.id.fragment_club, DetailFragment()).commit()
+                                    // requireActivity().supportFragmentManager.beginTransaction()
+                                    //     .replace(R.id.fragment_club, DetailFragment()).commit()
                                 }
                             }
                         }
@@ -404,6 +404,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
         observeCancelClubEvent()
         observeOpenClubApplyEvent()
         observeCloseClubApplyEvent()
+        observeExitClubEvent()
     }
 
     private fun observeApplyClubEvent() {
@@ -530,6 +531,28 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
                 }
                 else -> {
                     BaseModal("오류", "알수 없는 오류 발생, 개발자에게 문의해주세요.", requireContext()).show()
+                }
+            }
+        }
+    }
+
+    private fun observeExitClubEvent() {
+        clubViewModel.exitClubStatus.observe(this) { status ->
+            when (status) {
+                Event.Success -> {
+                    BaseModal("성공", "동아리를 탈퇴하였습니다.", requireContext()).show()
+                }
+                Event.Unauthorized -> {
+                    BaseModal("오류", "토큰이 만료되었습니다, 다시 로그인해주세요.", requireContext()).show()
+                }
+                Event.NotFound -> {
+                    BaseModal("오류", "동아리를 찾을 수 없습니다.", requireContext()).show()
+                }
+                Event.Server -> {
+                    BaseModal("오류", "서버에 일시적인 오류가 발생하였습니다. \n 잠시후에 다시 시도해주세요", requireContext()).show()
+                }
+                else -> {
+                    BaseModal("성공", "동아리를 탈퇴하였습니다.", requireContext()).show()
                 }
             }
         }
