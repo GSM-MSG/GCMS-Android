@@ -38,7 +38,10 @@ class WithdrawalViewModel @Inject constructor(
                 saveTokenInfoUseCase()
             }.onFailure {
                 _withDrawalRequest.value = when (it) {
-                    is UnauthorizedException, is NeedLoginException -> Event.Unauthorized
+                    is UnauthorizedException, is NeedLoginException -> {
+                        saveTokenInfoUseCase()
+                        Event.Unauthorized
+                    }
                     is NotFoundException -> Event.NotFound
                     is BadRequestException -> Event.BadRequest
                     else -> Event.UnKnown

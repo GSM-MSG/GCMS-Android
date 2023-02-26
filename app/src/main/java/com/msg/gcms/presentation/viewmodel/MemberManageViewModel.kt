@@ -21,6 +21,7 @@ import com.msg.gcms.domain.exception.UnauthorizedException
 import com.msg.gcms.domain.usecase.applicant.ApplicantAcceptUseCase
 import com.msg.gcms.domain.usecase.applicant.ApplicantRejectUseCase
 import com.msg.gcms.domain.usecase.applicant.GetApplicantUseCase
+import com.msg.gcms.domain.usecase.auth.SaveTokenInfoUseCase
 import com.msg.gcms.domain.usecase.club_member.GetMemberUseCase
 import com.msg.gcms.domain.usecase.club_member.MandateUseCase
 import com.msg.gcms.domain.usecase.club_member.UserKickUseCase
@@ -37,7 +38,8 @@ class MemberManageViewModel @Inject constructor(
     private val userKickUseCase: UserKickUseCase,
     private val userDelegateUseCase: MandateUseCase,
     private val applicantRejectUseCase: ApplicantRejectUseCase,
-    private val applicantAcceptUseCase: ApplicantAcceptUseCase
+    private val applicantAcceptUseCase: ApplicantAcceptUseCase,
+    private val saveTokenInfoUseCase: SaveTokenInfoUseCase
 ) : ViewModel() {
 
     private val _memberList = MutableLiveData<List<MemberData>>()
@@ -98,7 +100,10 @@ class MemberManageViewModel @Inject constructor(
             }.onFailure {
                 _getMemberListState.value = when (it) {
                     is BadRequestException -> Event.BadRequest
-                    is UnauthorizedException -> Event.Unauthorized
+                    is UnauthorizedException, is NeedLoginException -> {
+                        saveTokenInfoUseCase()
+                        Event.Unauthorized
+                    }
                     is ForBiddenException -> Event.ForBidden
                     is NotFoundException -> Event.NotFound
                     is ServerException -> Event.Server
@@ -121,7 +126,10 @@ class MemberManageViewModel @Inject constructor(
             }.onFailure {
                 _getApplicantListState.value = when (it) {
                     is BadRequestException -> Event.BadRequest
-                    is UnauthorizedException -> Event.Unauthorized
+                    is UnauthorizedException, is NeedLoginException -> {
+                        saveTokenInfoUseCase()
+                        Event.Unauthorized
+                    }
                     is NotFoundException -> Event.NotFound
                     is ServerException -> Event.Server
                     else -> {
@@ -143,7 +151,10 @@ class MemberManageViewModel @Inject constructor(
             }.onFailure {
                 _kickUserState.value = when (it) {
                     is BadRequestException -> Event.BadRequest
-                    is UnauthorizedException -> Event.Unauthorized
+                    is UnauthorizedException, is NeedLoginException -> {
+                        saveTokenInfoUseCase()
+                        Event.Unauthorized
+                    }
                     is ForBiddenException -> Event.ForBidden
                     is NotFoundException -> Event.NotFound
                     is ServerException -> Event.Server
@@ -166,7 +177,10 @@ class MemberManageViewModel @Inject constructor(
             }.onFailure {
                 _delegateState.value = when (it) {
                     is BadRequestException -> Event.BadRequest
-                    is UnauthorizedException, is NeedLoginException -> Event.Unauthorized
+                    is UnauthorizedException, is NeedLoginException -> {
+                        saveTokenInfoUseCase()
+                        Event.Unauthorized
+                    }
                     is ForBiddenException -> Event.ForBidden
                     is NotFoundException -> Event.NotFound
                     is ServerException -> Event.Server
@@ -189,7 +203,10 @@ class MemberManageViewModel @Inject constructor(
             }.onFailure {
                 _acceptApplicantState.value = when (it) {
                     is BadRequestException -> Event.BadRequest
-                    is UnauthorizedException, is NeedLoginException -> Event.Unauthorized
+                    is UnauthorizedException, is NeedLoginException -> {
+                        saveTokenInfoUseCase()
+                        Event.Unauthorized
+                    }
                     is ForBiddenException -> Event.ForBidden
                     is NotFoundException -> Event.NotFound
                     is ServerException -> Event.Server
@@ -212,7 +229,10 @@ class MemberManageViewModel @Inject constructor(
             }.onFailure {
                 _rejectApplicantState.value = when (it) {
                     is BadRequestException -> Event.BadRequest
-                    is UnauthorizedException, is NeedLoginException -> Event.Unauthorized
+                    is UnauthorizedException, is NeedLoginException -> {
+                        saveTokenInfoUseCase()
+                        Event.Unauthorized
+                    }
                     is ForBiddenException -> Event.ForBidden
                     is NotFoundException -> Event.NotFound
                     is ServerException -> Event.Server

@@ -14,6 +14,7 @@ import com.msg.gcms.domain.exception.ServerException
 import com.msg.gcms.domain.exception.UnauthorizedException
 import com.msg.gcms.domain.usecase.applicant.PostClubApplyUseCase
 import com.msg.gcms.domain.usecase.applicant.PostClubCancelUseCase
+import com.msg.gcms.domain.usecase.auth.SaveTokenInfoUseCase
 import com.msg.gcms.domain.usecase.club.ClubDeleteUseCase
 import com.msg.gcms.domain.usecase.club.PutClubCloseUseCase
 import com.msg.gcms.domain.usecase.club.PutClubOpenUseCase
@@ -32,6 +33,7 @@ class ClubViewModel @Inject constructor(
     private val putClubCloseUseCase: PutClubCloseUseCase,
     private val exitUseCase: ExitUseCase,
     private val clubDeleteUseCase: ClubDeleteUseCase,
+    private val saveTokenInfoUseCase: SaveTokenInfoUseCase
 ) : ViewModel() {
 
     private val lottie by lazy { LottieFragment() }
@@ -65,7 +67,10 @@ class ClubViewModel @Inject constructor(
                 _applyClub.value = Event.Success
             }.onFailure {
                 _applyClub.value = when (it) {
-                    is UnauthorizedException, is NeedLoginException -> Event.Unauthorized
+                    is UnauthorizedException, is NeedLoginException -> {
+                        saveTokenInfoUseCase()
+                        Event.Unauthorized
+                    }
                     is ForBiddenException -> Event.ForBidden
                     is NotFoundException -> Event.NotFound
                     is ServerException -> Event.Server
@@ -86,7 +91,10 @@ class ClubViewModel @Inject constructor(
                 _cancelClubApply.value = Event.Success
             }.onFailure {
                 _cancelClubApply.value = when (it) {
-                    is UnauthorizedException, is NeedLoginException -> Event.Unauthorized
+                    is UnauthorizedException, is NeedLoginException -> {
+                        saveTokenInfoUseCase()
+                        Event.Unauthorized
+                    }
                     is NotFoundException -> Event.NotFound
                     is ServerException -> Event.Server
                     else -> {
@@ -107,7 +115,10 @@ class ClubViewModel @Inject constructor(
             }.onFailure {
                 _openingClubApplication.value = when (it) {
                     is BadRequestException -> Event.BadRequest
-                    is UnauthorizedException, is NeedLoginException -> Event.Unauthorized
+                    is UnauthorizedException, is NeedLoginException -> {
+                        saveTokenInfoUseCase()
+                        Event.Unauthorized
+                    }
                     is ForBiddenException -> Event.ForBidden
                     is NotFoundException -> Event.NotFound
                     is ServerException -> Event.Server
@@ -129,7 +140,10 @@ class ClubViewModel @Inject constructor(
             }.onFailure {
                 _closingClubApplication.value = when (it) {
                     is BadRequestException -> Event.BadRequest
-                    is UnauthorizedException, is NeedLoginException -> Event.Unauthorized
+                    is UnauthorizedException, is NeedLoginException -> {
+                        saveTokenInfoUseCase()
+                        Event.Unauthorized
+                    }
                     is ForBiddenException -> Event.ForBidden
                     is NotFoundException -> Event.NotFound
                     is ServerException -> Event.Server
@@ -173,7 +187,10 @@ class ClubViewModel @Inject constructor(
             }.onFailure {
                 _deleteClub.value = when (it) {
                     is BadRequestException -> Event.BadRequest
-                    is UnauthorizedException, is NeedLoginException -> Event.Unauthorized
+                    is UnauthorizedException, is NeedLoginException -> {
+                        saveTokenInfoUseCase()
+                        Event.Unauthorized
+                    }
                     is ForBiddenException -> Event.ForBidden
                     is NotFoundException -> Event.NotFound
                     is ServerException -> Event.Server
