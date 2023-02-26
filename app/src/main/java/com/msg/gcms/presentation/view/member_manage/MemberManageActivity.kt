@@ -12,6 +12,8 @@ import com.msg.gcms.presentation.adapter.member.MemberAdapter
 import com.msg.gcms.presentation.base.BaseActivity
 import com.msg.gcms.presentation.base.BaseDialog
 import com.msg.gcms.presentation.base.BaseModal
+import com.msg.gcms.presentation.utils.enterActivity
+import com.msg.gcms.presentation.view.intro.IntroActivity
 import com.msg.gcms.presentation.viewmodel.MemberManageViewModel
 import com.msg.gcms.presentation.viewmodel.util.Event
 import dagger.hilt.android.AndroidEntryPoint
@@ -159,7 +161,17 @@ class MemberManageActivity :
                 Event.Success -> {
                 }
                 Event.Unauthorized -> {
-                    BaseModal("오류", "토큰이 만료되었습니다, 로그아웃 이후 다시 로그인해주세요.", this).show()
+                    BaseModal(
+                        "오류",
+                        "토큰이 만료되었습니다, 로그아웃 이후 다시 로그인해주세요.",
+                        this
+                    ).let { dialog ->
+                        dialog.show()
+                        dialog.dialogBinding.ok.setOnClickListener {
+                            enterActivity(this, IntroActivity())
+                            dialog.dismiss()
+                        }
+                    }
                 }
                 Event.ForBidden -> {
                     BaseModal("실패", "동아리 구성원만이 맴버 정보를 확인할 수 있습니다.", this).show()
@@ -183,7 +195,17 @@ class MemberManageActivity :
                 Event.Success -> {
                 }
                 Event.Unauthorized -> {
-                    BaseModal("오류", "토큰이 만료되었습니다, 로그아웃 이후 다시 로그인해주세요.", this).show()
+                    BaseModal(
+                        "오류",
+                        "토큰이 만료되었습니다, 로그아웃 이후 다시 로그인해주세요.",
+                        this
+                    ).let { dialog ->
+                        dialog.show()
+                        dialog.dialogBinding.ok.setOnClickListener {
+                            enterActivity(this, IntroActivity())
+                            dialog.dismiss()
+                        }
+                    }
                 }
                 Event.NotFound -> {
                     BaseModal("오류", "동아리를 찾을 수 없습니다.", this).show()
@@ -233,7 +255,17 @@ class MemberManageActivity :
                     BaseModal("실패", "부장 자신에겐 권한을 위임할 수 없습니다.", this).show()
                 }
                 Event.Unauthorized -> {
-                    BaseModal("오류", "토큰이 만료되었습니다, 로그아웃 이후 다시 로그인해주세요.", this).show()
+                    BaseModal(
+                        "오류",
+                        "토큰이 만료되었습니다, 로그아웃 이후 다시 로그인해주세요.",
+                        this
+                    ).let { dialog ->
+                        dialog.show()
+                        dialog.dialogBinding.ok.setOnClickListener {
+                            enterActivity(this, IntroActivity())
+                            dialog.dismiss()
+                        }
+                    }
                 }
                 Event.ForBidden -> {
                     BaseModal("실패", "부장만이 권한 위임을 진행할 수 있습니다.", this).show()
@@ -258,7 +290,17 @@ class MemberManageActivity :
                     BaseModal("완료", "동아리 신청을 승인했습니다.", this).show()
                 }
                 Event.Unauthorized -> {
-                    BaseModal("오류", "토큰이 만료되었습니다, 로그아웃 이후 다시 로그인해주세요.", this).show()
+                    BaseModal(
+                        "오류",
+                        "토큰이 만료되었습니다, 로그아웃 이후 다시 로그인해주세요.",
+                        this
+                    ).let { dialog ->
+                        dialog.show()
+                        dialog.dialogBinding.ok.setOnClickListener {
+                            enterActivity(this, IntroActivity())
+                            dialog.dismiss()
+                        }
+                    }
                 }
                 Event.ForBidden -> {
                     BaseModal("실패", "부장만이 이 행동을 할 수 있습니다.", this).show()
@@ -283,7 +325,17 @@ class MemberManageActivity :
                     BaseModal("완료", "동아리 신청을 거절했습니다.", this).show()
                 }
                 Event.Unauthorized -> {
-                    BaseModal("오류", "토큰이 만료되었습니다, 로그아웃 이후 다시 로그인해주세요.", this).show()
+                    BaseModal(
+                        "오류",
+                        "토큰이 만료되었습니다, 로그아웃 이후 다시 로그인해주세요.",
+                        this
+                    ).let { dialog ->
+                        dialog.show()
+                        dialog.dialogBinding.ok.setOnClickListener {
+                            enterActivity(this, IntroActivity())
+                            dialog.dismiss()
+                        }
+                    }
                 }
                 Event.ForBidden -> {
                     BaseModal("실패", "부장만이 이 행동을 할 수 있습니다.", this).show()

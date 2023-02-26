@@ -81,7 +81,17 @@ class ProfileActivity : BaseActivity<ActivityProfileBinding>(R.layout.activity_p
                     }
                 }
                 Event.Unauthorized -> {
-                    BaseModal("오류", "토큰이 만료되었습니다, 앱 종료후 다시 실행해 주세요", this).show()
+                    BaseModal(
+                        "오류",
+                        "토큰이 만료되었습니다, 로그아웃 이후 다시 로그인해주세요.",
+                        this
+                    ).let { dialog ->
+                        dialog.show()
+                        dialog.dialogBinding.ok.setOnClickListener {
+                            enterActivity(this, IntroActivity())
+                            dialog.dismiss()
+                        }
+                    }
                 }
                 Event.NotFound -> {
                     BaseModal("오류", "사용자를 찾을 수 없습니다.", this).show()
