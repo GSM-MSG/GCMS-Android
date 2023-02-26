@@ -28,7 +28,7 @@ interface ClubAPI {
     @POST("club")
     suspend fun postCreateClub(
         @Body body: CreateClubRequest
-    ): Response<Unit>
+    )
 
     @PATCH("club/{club_id}")
     suspend fun putChangeClub(
