@@ -126,8 +126,8 @@ dependencies {
     debugImplementation(Dependency.Compose.COMPOSE_TOOLING)
     debugImplementation(Dependency.Compose.COMPOSE_TEST)
 
-    implementation("com.google.android.play:app-update:2.0.1")
-    implementation("com.google.android.play:app-update-ktx:2.0.1")
+    implementation(Dependency.Google.GOOGLE_PLAY_UPDATE)
+    implementation(Dependency.Google.GOOGLE_PLAY_KOTLIN_UPDATE)
 }
 
 fun getApiKey(propertyKey: String): String {
