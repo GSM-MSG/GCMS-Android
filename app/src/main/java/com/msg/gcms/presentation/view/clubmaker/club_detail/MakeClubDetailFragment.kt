@@ -268,6 +268,7 @@ class MakeClubDetailFragment :
                     BaseModal("생성 성공", "동아리 생성에 성공했습니다.", requireContext()).let { dialog ->
                         dialog.show()
                         dialog.dialogBinding.ok.setOnClickListener {
+                            dialog.dismiss()
                             requireActivity().finish()
                         }
                     }
@@ -276,6 +277,7 @@ class MakeClubDetailFragment :
                     BaseModal("생성 실패", "이미 다른 동아리에 소속 또는 신청중입니다.", requireContext()).let { dialog ->
                         dialog.show()
                         dialog.dialogBinding.ok.setOnClickListener {
+                            dialog.dismiss()
                             requireActivity().finish()
                         }
                     }

@@ -161,7 +161,7 @@ class MakeClubViewModel @Inject constructor(
                         contact = contact,
                         notionLink = notionLink,
                         teacher = teacher,
-                        member = addedMemberList.map { it.uuid!! },
+                        member = addedMemberList.filter { false }.map { it.uuid!! },
                         activityUrls = _activityPhotoResult.value,
                         bannerUrl = _bannerResult.value!!
                     )
