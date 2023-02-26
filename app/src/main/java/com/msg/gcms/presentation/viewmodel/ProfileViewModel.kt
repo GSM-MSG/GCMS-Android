@@ -11,6 +11,7 @@ import com.msg.gcms.domain.exception.BadRequestException
 import com.msg.gcms.domain.exception.NeedLoginException
 import com.msg.gcms.domain.exception.NotFoundException
 import com.msg.gcms.domain.exception.UnauthorizedException
+import com.msg.gcms.domain.usecase.auth.SaveTokenInfoUseCase
 import com.msg.gcms.domain.usecase.image.ImageUseCase
 import com.msg.gcms.domain.usecase.user.EditProfileUseCase
 import com.msg.gcms.domain.usecase.user.GetUserInfoUseCase
@@ -24,7 +25,8 @@ import javax.inject.Inject
 class ProfileViewModel @Inject constructor(
     private val profileUseCase: GetUserInfoUseCase,
     private val imgUseCase: ImageUseCase,
-    private val editProfileUseCase: EditProfileUseCase
+    private val editProfileUseCase: EditProfileUseCase,
+    private val saveTokenInfoUseCase: SaveTokenInfoUseCase
 ) : ViewModel() {
     private val _clubStatus = MutableLiveData<Boolean>()
     val clubStatus: LiveData<Boolean> get() = _clubStatus
@@ -44,7 +46,10 @@ class ProfileViewModel @Inject constructor(
             }.onFailure {
                 _clubStatus.value = false
                 _getUserInfo.value = when (it) {
-                    is UnauthorizedException, is NeedLoginException -> Event.Unauthorized
+                    is UnauthorizedException, is NeedLoginException -> {
+                        saveTokenInfoUseCase()
+                        Event.Unauthorized
+                    }
                     is NotFoundException -> Event.NotFound
                     else -> Event.UnKnown
                 }

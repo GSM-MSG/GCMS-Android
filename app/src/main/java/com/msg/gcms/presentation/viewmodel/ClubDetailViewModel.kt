@@ -10,6 +10,7 @@ import com.msg.gcms.domain.exception.BadRequestException
 import com.msg.gcms.domain.exception.NeedLoginException
 import com.msg.gcms.domain.exception.NotFoundException
 import com.msg.gcms.domain.exception.UnauthorizedException
+import com.msg.gcms.domain.usecase.auth.SaveTokenInfoUseCase
 import com.msg.gcms.domain.usecase.club.GetDetailUseCase
 import com.msg.gcms.presentation.viewmodel.util.Event
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -18,7 +19,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ClubDetailViewModel @Inject constructor(
-    private val getDetailUseCase: GetDetailUseCase
+    private val getDetailUseCase: GetDetailUseCase,
+    private val saveTokenInfoUseCase: SaveTokenInfoUseCase
 ) : ViewModel() {
 
     private val TAG = "GetDetailViewModel"
@@ -51,8 +53,9 @@ class ClubDetailViewModel @Inject constructor(
                         Log.d(TAG, "getDetail: $it.")
                         Event.BadRequest
                     }
-                    is UnauthorizedException -> {
+                    is UnauthorizedException, is NeedLoginException -> {
                         Log.d(TAG, "getDetail: $it")
+                        saveTokenInfoUseCase()
                         Event.Unauthorized
                     }
                     is NotFoundException -> {
@@ -83,6 +86,7 @@ class ClubDetailViewModel @Inject constructor(
                     }
                     is UnauthorizedException, is NeedLoginException -> {
                         Log.d(TAG, "getDetail: $it")
+                        saveTokenInfoUseCase()
                         Event.Unauthorized
                     }
                     is NotFoundException -> {

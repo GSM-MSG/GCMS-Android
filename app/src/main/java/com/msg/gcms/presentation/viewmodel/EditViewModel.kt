@@ -17,6 +17,7 @@ import com.msg.gcms.domain.exception.NeedLoginException
 import com.msg.gcms.domain.exception.NotFoundException
 import com.msg.gcms.domain.exception.ServerException
 import com.msg.gcms.domain.exception.UnauthorizedException
+import com.msg.gcms.domain.usecase.auth.SaveTokenInfoUseCase
 import com.msg.gcms.domain.usecase.club.EditClubInfoUseCase
 import com.msg.gcms.domain.usecase.club.GetDetailUseCase
 import com.msg.gcms.domain.usecase.image.ImageUseCase
@@ -34,7 +35,8 @@ class EditViewModel @Inject constructor(
     private val getDetailUseCase: GetDetailUseCase,
     private val getSearchUserUseCase: GetSearchUserUseCase,
     private val imageUseCase: ImageUseCase,
-    private val editClubInfoUseCase: EditClubInfoUseCase
+    private val editClubInfoUseCase: EditClubInfoUseCase,
+    private val saveTokenInfoUseCase: SaveTokenInfoUseCase
 ) : ViewModel() {
 
     private val _clubInfo = MutableLiveData<ClubDetailData>()
@@ -69,7 +71,10 @@ class EditViewModel @Inject constructor(
                 Log.d("TAG", "getClubInfo: $it")
             }.onFailure {
                 when (it) {
-                    is UnauthorizedException, is NeedLoginException -> Log.d("TAG", "getClubInfo: $it")
+                    is UnauthorizedException, is NeedLoginException -> {
+                        saveTokenInfoUseCase()
+                        Log.d("TAG", "getClubInfo: $it")
+                    }
                     is NotFoundException -> Log.d("TAG", "getClubInfo: $it")
                     else -> Log.d("TAG", "getClubInfo: $it")
                 }
@@ -100,7 +105,10 @@ class EditViewModel @Inject constructor(
                 Log.d("TAG", "searchResult: ${_result.value}")
             }.onFailure {
                 when (it) {
-                    is UnauthorizedException -> Log.d("TAG", "getSearchUser: $it")
+                    is UnauthorizedException, is NeedLoginException -> {
+                        saveTokenInfoUseCase()
+                        Log.d("TAG", "getSearchUser: $it")
+                    }
                     is ServerException -> Log.d("TAG", "getSearchUser: $it")
                     else -> Log.d("TAG", "getSearchUser: $it")
                 }
@@ -183,8 +191,9 @@ class EditViewModel @Inject constructor(
                         Log.d("TAG", "putChangeClubInfo: $it")
                         Event.BadRequest
                     }
-                    is UnauthorizedException -> {
+                    is UnauthorizedException, is NeedLoginException -> {
                         Log.d("TAG", "putChangeClubInfo: $it")
+                        saveTokenInfoUseCase()
                         Event.Unauthorized
                     }
                     is ForBiddenException -> {

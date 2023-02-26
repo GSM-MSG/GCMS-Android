@@ -13,6 +13,7 @@ import com.msg.gcms.domain.exception.ForBiddenException
 import com.msg.gcms.domain.exception.NeedLoginException
 import com.msg.gcms.domain.exception.ServerException
 import com.msg.gcms.domain.exception.UnauthorizedException
+import com.msg.gcms.domain.usecase.auth.SaveTokenInfoUseCase
 import com.msg.gcms.domain.usecase.club.PostCreateClubUseCase
 import com.msg.gcms.domain.usecase.image.ImageUseCase
 import com.msg.gcms.domain.usecase.user.GetSearchUserUseCase
@@ -28,7 +29,8 @@ import javax.inject.Inject
 class MakeClubViewModel @Inject constructor(
     private val postCreateClubUseCase: PostCreateClubUseCase,
     private val getSearchUserUseCase: GetSearchUserUseCase,
-    private val imageUseCase: ImageUseCase
+    private val imageUseCase: ImageUseCase,
+    private val saveTokenInfoUseCase: SaveTokenInfoUseCase
 ) : ViewModel() {
 
     private var _clubType = MutableLiveData("MAJOR")
@@ -87,6 +89,7 @@ class MakeClubViewModel @Inject constructor(
                 _searchUserState.value = when (it) {
                     is UnauthorizedException, is NeedLoginException -> {
                         Log.d("TAG", "searchResult: $it ")
+                        saveTokenInfoUseCase()
                         Event.Unauthorized
                     }
                     is ServerException -> {
@@ -177,6 +180,7 @@ class MakeClubViewModel @Inject constructor(
                             Event.BadRequest
                         }
                         is UnauthorizedException, is NeedLoginException -> {
+                            saveTokenInfoUseCase()
                             Event.Unauthorized
                         }
                         is ConflictException -> {
