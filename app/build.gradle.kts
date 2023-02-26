@@ -125,6 +125,9 @@ dependencies {
     androidTestImplementation(Dependency.Compose.COMPOSE_JUNIT)
     debugImplementation(Dependency.Compose.COMPOSE_TOOLING)
     debugImplementation(Dependency.Compose.COMPOSE_TEST)
+
+    implementation(Dependency.Google.GOOGLE_PLAY_UPDATE)
+    implementation(Dependency.Google.GOOGLE_PLAY_KOTLIN_UPDATE)
 }
 
 fun getApiKey(propertyKey: String): String {

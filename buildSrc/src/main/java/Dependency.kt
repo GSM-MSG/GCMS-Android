@@ -56,6 +56,8 @@ object Dependency {
             "com.google.android.gms:play-services-base:${Versions.GMS_PLAY_SERVICE_BASE}"
         const val FIREBASE = "com.google.firebase:firebase-auth-ktx:${Versions.FIREBASE}"
         const val LIVEDATA = "androidx.lifecycle:lifecycle-livedata-ktx:${Versions.LIVEDATA}"
+        const val GOOGLE_PLAY_UPDATE = "com.google.android.play:app-update:${Versions.GOOGLE_PLAY_UPDATE}"
+        const val GOOGLE_PLAY_KOTLIN_UPDATE = "com.google.android.play:app-update-ktx:${Versions.GOOGLE_PLAY_UPDATE}"
     }
 
     object Libraries {

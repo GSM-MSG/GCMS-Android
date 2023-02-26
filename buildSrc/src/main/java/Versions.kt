@@ -30,6 +30,7 @@ object Versions {
     const val GMS_GOOGLE_SERVICE = "4.3.10"
     const val FIREBASE_BOM = "30.0.1"
     const val LIVEDATA = "2.4.1"
+    const val GOOGLE_PLAY_UPDATE ="2.0.1"
 
     const val MOSHI = "1.13.0"
 
