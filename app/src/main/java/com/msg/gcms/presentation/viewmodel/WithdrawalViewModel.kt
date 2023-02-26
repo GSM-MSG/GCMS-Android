@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.msg.gcms.domain.exception.BadRequestException
+import com.msg.gcms.domain.exception.NeedLoginException
 import com.msg.gcms.domain.exception.NotFoundException
 import com.msg.gcms.domain.exception.UnauthorizedException
 import com.msg.gcms.domain.usecase.auth.SaveTokenInfoUseCase
@@ -37,7 +38,7 @@ class WithdrawalViewModel @Inject constructor(
                 saveTokenInfoUseCase()
             }.onFailure {
                 _withDrawalRequest.value = when (it) {
-                    is UnauthorizedException -> Event.Unauthorized
+                    is UnauthorizedException, is NeedLoginException -> Event.Unauthorized
                     is NotFoundException -> Event.NotFound
                     is BadRequestException -> Event.BadRequest
                     else -> Event.UnKnown

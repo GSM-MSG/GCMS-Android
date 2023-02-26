@@ -10,6 +10,7 @@ import com.msg.gcms.domain.data.user.search_user.GetSearchUserData
 import com.msg.gcms.domain.exception.BadRequestException
 import com.msg.gcms.domain.exception.ConflictException
 import com.msg.gcms.domain.exception.ForBiddenException
+import com.msg.gcms.domain.exception.NeedLoginException
 import com.msg.gcms.domain.exception.ServerException
 import com.msg.gcms.domain.exception.UnauthorizedException
 import com.msg.gcms.domain.usecase.club.PostCreateClubUseCase
@@ -84,7 +85,7 @@ class MakeClubViewModel @Inject constructor(
                 Log.d("TAG", "searchResult: ${_searchUserResult.value}")
             }.onFailure {
                 _searchUserState.value = when (it) {
-                    is UnauthorizedException -> {
+                    is UnauthorizedException, is NeedLoginException -> {
                         Log.d("TAG", "searchResult: $it ")
                         Event.Unauthorized
                     }
@@ -167,19 +168,29 @@ class MakeClubViewModel @Inject constructor(
                         bannerUrl = _bannerResult.value!!
                     )
                 ).onSuccess {
+                    Log.d("TAG", "createClub: 성공")
                     _createClubResult.value = Event.Success
+
                 }.onFailure {
                     _createClubResult.value = when (it) {
-                        is BadRequestException -> Event.BadRequest
-                        is UnauthorizedException -> Event.Unauthorized
-                        is ForBiddenException -> Event.ForBidden
-                        is ConflictException -> Event.Conflict
-                        is ServerException -> Event.Server
+                        is BadRequestException -> {
+                            Event.BadRequest
+                        }
+                        is UnauthorizedException, is NeedLoginException -> {
+                            Event.Unauthorized
+                        }
+                        is ConflictException -> {
+                            Event.Conflict
+                        }
+                        is ServerException -> {
+                            Event.Server
+                        }
                         else -> {
                             Log.d("createClub", it.toString())
                             Event.UnKnown
                         }
                     }
+                    Log.d("TAG", "createClub: $it")
                 }
             }
         }

@@ -13,6 +13,7 @@ import com.msg.gcms.domain.data.user.search_user.GetSearchUserData
 import com.msg.gcms.domain.exception.BadRequestException
 import com.msg.gcms.domain.exception.ConflictException
 import com.msg.gcms.domain.exception.ForBiddenException
+import com.msg.gcms.domain.exception.NeedLoginException
 import com.msg.gcms.domain.exception.NotFoundException
 import com.msg.gcms.domain.exception.ServerException
 import com.msg.gcms.domain.exception.UnauthorizedException
@@ -68,7 +69,7 @@ class EditViewModel @Inject constructor(
                 Log.d("TAG", "getClubInfo: $it")
             }.onFailure {
                 when (it) {
-                    is UnauthorizedException -> Log.d("TAG", "getClubInfo: $it")
+                    is UnauthorizedException, is NeedLoginException -> Log.d("TAG", "getClubInfo: $it")
                     is NotFoundException -> Log.d("TAG", "getClubInfo: $it")
                     else -> Log.d("TAG", "getClubInfo: $it")
                 }

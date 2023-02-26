@@ -14,6 +14,7 @@ import com.msg.gcms.domain.data.club_member.get_club_member.MemberData
 import com.msg.gcms.domain.data.club_member.member_expelled.MemberExpelledData
 import com.msg.gcms.domain.exception.BadRequestException
 import com.msg.gcms.domain.exception.ForBiddenException
+import com.msg.gcms.domain.exception.NeedLoginException
 import com.msg.gcms.domain.exception.NotFoundException
 import com.msg.gcms.domain.exception.ServerException
 import com.msg.gcms.domain.exception.UnauthorizedException
@@ -165,7 +166,7 @@ class MemberManageViewModel @Inject constructor(
             }.onFailure {
                 _delegateState.value = when (it) {
                     is BadRequestException -> Event.BadRequest
-                    is UnauthorizedException -> Event.Unauthorized
+                    is UnauthorizedException, is NeedLoginException -> Event.Unauthorized
                     is ForBiddenException -> Event.ForBidden
                     is NotFoundException -> Event.NotFound
                     is ServerException -> Event.Server
@@ -188,7 +189,7 @@ class MemberManageViewModel @Inject constructor(
             }.onFailure {
                 _acceptApplicantState.value = when (it) {
                     is BadRequestException -> Event.BadRequest
-                    is UnauthorizedException -> Event.Unauthorized
+                    is UnauthorizedException, is NeedLoginException -> Event.Unauthorized
                     is ForBiddenException -> Event.ForBidden
                     is NotFoundException -> Event.NotFound
                     is ServerException -> Event.Server
@@ -211,7 +212,7 @@ class MemberManageViewModel @Inject constructor(
             }.onFailure {
                 _rejectApplicantState.value = when (it) {
                     is BadRequestException -> Event.BadRequest
-                    is UnauthorizedException -> Event.Unauthorized
+                    is UnauthorizedException, is NeedLoginException -> Event.Unauthorized
                     is ForBiddenException -> Event.ForBidden
                     is NotFoundException -> Event.NotFound
                     is ServerException -> Event.Server

@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.msg.gcms.domain.data.club.get_club_list.GetClubListData
 import com.msg.gcms.domain.exception.BadRequestException
+import com.msg.gcms.domain.exception.NeedLoginException
 import com.msg.gcms.domain.exception.UnauthorizedException
 import com.msg.gcms.domain.usecase.club.GetClubListUseCase
 import com.msg.gcms.presentation.viewmodel.util.Event
@@ -54,7 +55,7 @@ class MainViewModel @Inject constructor(
             }.onFailure {
                 _getClubList.value = when (it) {
                     is BadRequestException -> Event.BadRequest
-                    is UnauthorizedException -> Event.Unauthorized
+                    is UnauthorizedException, is NeedLoginException -> Event.Unauthorized
                     else -> Event.UnKnown
                 }
             }
