@@ -10,13 +10,6 @@ import com.msg.gcms.domain.data.club.get_club_detail.ClubDetailData
 import com.msg.gcms.domain.data.club.get_club_detail.ClubMemberData
 import com.msg.gcms.domain.data.club.modify_club_info.ModifyClubInfoData
 import com.msg.gcms.domain.data.user.search_user.GetSearchUserData
-import com.msg.gcms.domain.exception.BadRequestException
-import com.msg.gcms.domain.exception.ConflictException
-import com.msg.gcms.domain.exception.ForBiddenException
-import com.msg.gcms.domain.exception.NeedLoginException
-import com.msg.gcms.domain.exception.NotFoundException
-import com.msg.gcms.domain.exception.ServerException
-import com.msg.gcms.domain.exception.UnauthorizedException
 import com.msg.gcms.domain.usecase.auth.SaveTokenInfoUseCase
 import com.msg.gcms.domain.usecase.club.EditClubInfoUseCase
 import com.msg.gcms.domain.usecase.club.GetDetailUseCase
@@ -25,6 +18,7 @@ import com.msg.gcms.domain.usecase.user.GetSearchUserUseCase
 import com.msg.gcms.presentation.adapter.add_member.AddMemberType
 import com.msg.gcms.presentation.base.LottieFragment
 import com.msg.gcms.presentation.viewmodel.util.Event
+import com.msg.gcms.presentation.viewmodel.util.errorHandling
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import okhttp3.MultipartBody
@@ -70,14 +64,7 @@ class EditViewModel @Inject constructor(
                 _clubInfo.value = it
                 Log.d("TAG", "getClubInfo: $it")
             }.onFailure {
-                when (it) {
-                    is UnauthorizedException, is NeedLoginException -> {
-                        saveTokenInfoUseCase()
-                        Log.d("TAG", "getClubInfo: $it")
-                    }
-                    is NotFoundException -> Log.d("TAG", "getClubInfo: $it")
-                    else -> Log.d("TAG", "getClubInfo: $it")
-                }
+                it.errorHandling(unauthorizedAction = { saveTokenInfoUseCase() })
             }
         }
     }
@@ -104,14 +91,7 @@ class EditViewModel @Inject constructor(
                 _result.value = it
                 Log.d("TAG", "searchResult: ${_result.value}")
             }.onFailure {
-                when (it) {
-                    is UnauthorizedException, is NeedLoginException -> {
-                        saveTokenInfoUseCase()
-                        Log.d("TAG", "getSearchUser: $it")
-                    }
-                    is ServerException -> Log.d("TAG", "getSearchUser: $it")
-                    else -> Log.d("TAG", "getSearchUser: $it")
-                }
+                it.errorHandling(unauthorizedAction = { saveTokenInfoUseCase() })
             }
         }
     }
@@ -135,12 +115,7 @@ class EditViewModel @Inject constructor(
             ).onSuccess {
                 _convertActivityPhoto.value = it.images
             }.onFailure {
-                when (it) {
-                    is BadRequestException -> Log.d("TAG", "uploadImage: $it")
-                    else -> {
-                        Log.e("TAG", "uploadImage: $it")
-                    }
-                }
+                it.errorHandling(unauthorizedAction = { saveTokenInfoUseCase() })
             }
         }
     }
@@ -156,12 +131,7 @@ class EditViewModel @Inject constructor(
                 _convertBannerImage.value = it.images
 
             }.onFailure {
-                when (it) {
-                    is BadRequestException -> Log.d("TAG", "uploadImage: $it")
-                    else -> {
-                        Log.e("TAG", "uploadImage: $it")
-                    }
-                }
+                it.errorHandling(unauthorizedAction = { saveTokenInfoUseCase() })
             }
         }
     }
@@ -186,37 +156,8 @@ class EditViewModel @Inject constructor(
             ).onSuccess {
                 _editClubResult.value = Event.Success
             }.onFailure {
-                _editClubResult.value = when (it) {
-                    is BadRequestException -> {
-                        Log.d("TAG", "putChangeClubInfo: $it")
-                        Event.BadRequest
-                    }
-                    is UnauthorizedException, is NeedLoginException -> {
-                        Log.d("TAG", "putChangeClubInfo: $it")
-                        saveTokenInfoUseCase()
-                        Event.Unauthorized
-                    }
-                    is ForBiddenException -> {
-                        Log.d("TAG", "putChangeClubInfo: $it")
-                        Event.ForBidden
-                    }
-                    is NotFoundException -> {
-                        Log.d("TAG", "putChangeClubInfo: $it")
-                        Event.NotFound
-                    }
-                    is ConflictException -> {
-                        Log.d("TAG", "putChangeClubInfo: $it")
-                        Event.Conflict
-                    }
-                    is ServerException -> {
-                        Log.d("TAG", "putChangeClubInfo: $it")
-                        Event.Server
-                    }
-                    else -> {
-                        Log.d("TAG", "putChangeClubInfo: $it")
-                        Event.UnKnown
-                    }
-                }
+                _editClubResult.value =
+                    it.errorHandling(unauthorizedAction = { saveTokenInfoUseCase() })
             }
         }
     }

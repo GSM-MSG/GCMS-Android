@@ -20,6 +20,7 @@ import com.msg.gcms.domain.usecase.user.GetSearchUserUseCase
 import com.msg.gcms.presentation.adapter.activity_photo.ActivityPhotoType
 import com.msg.gcms.presentation.adapter.add_member.AddMemberType
 import com.msg.gcms.presentation.viewmodel.util.Event
+import com.msg.gcms.presentation.viewmodel.util.errorHandling
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import okhttp3.MultipartBody
@@ -86,21 +87,8 @@ class MakeClubViewModel @Inject constructor(
                 _searchUserState.value = Event.Success
                 Log.d("TAG", "searchResult: ${_searchUserResult.value}")
             }.onFailure {
-                _searchUserState.value = when (it) {
-                    is UnauthorizedException, is NeedLoginException -> {
-                        Log.d("TAG", "searchResult: $it ")
-                        saveTokenInfoUseCase()
-                        Event.Unauthorized
-                    }
-                    is ServerException -> {
-                        Log.d("TAG", "getSearchUser: $it")
-                        Event.Server
-                    }
-                    else -> {
-                        Log.d("TAG", "searchResult: $it ")
-                        Event.UnKnown
-                    }
-                }
+                _searchUserState.value =
+                    it.errorHandling(unauthorizedAction = { saveTokenInfoUseCase() })
             }
         }
     }
@@ -125,10 +113,7 @@ class MakeClubViewModel @Inject constructor(
                 _bannerUpload = true
                 imageUploadCheck()
             }.onFailure {
-                when (it) {
-                    is BadRequestException -> Log.d("TAG", "changeImage: else $it")
-                    else -> Log.d("TAG", "changeImage: else $it")
-                }
+                it.errorHandling(unauthorizedAction = { saveTokenInfoUseCase() })
             }
         }
     }
@@ -143,10 +128,7 @@ class MakeClubViewModel @Inject constructor(
                 _activityUpload = true
                 imageUploadCheck()
             }.onFailure {
-                when (it) {
-                    is BadRequestException -> Log.d("TAG", "changeImage: else $it")
-                    else -> Log.d("TAG", "changeImage: else $it")
-                }
+                it.errorHandling(unauthorizedAction = { saveTokenInfoUseCase() })
             }
         }
     }
@@ -175,26 +157,8 @@ class MakeClubViewModel @Inject constructor(
                     _createClubResult.value = Event.Success
 
                 }.onFailure {
-                    _createClubResult.value = when (it) {
-                        is BadRequestException -> {
-                            Event.BadRequest
-                        }
-                        is UnauthorizedException, is NeedLoginException -> {
-                            saveTokenInfoUseCase()
-                            Event.Unauthorized
-                        }
-                        is ConflictException -> {
-                            Event.Conflict
-                        }
-                        is ServerException -> {
-                            Event.Server
-                        }
-                        else -> {
-                            Log.d("createClub", it.toString())
-                            Event.UnKnown
-                        }
-                    }
-                    Log.d("TAG", "createClub: $it")
+                    _createClubResult.value =
+                        it.errorHandling(unauthorizedAction = { saveTokenInfoUseCase() })
                 }
             }
         }

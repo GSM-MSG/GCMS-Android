@@ -4,13 +4,10 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.msg.gcms.domain.exception.BadRequestException
-import com.msg.gcms.domain.exception.NeedLoginException
-import com.msg.gcms.domain.exception.NotFoundException
-import com.msg.gcms.domain.exception.UnauthorizedException
 import com.msg.gcms.domain.usecase.auth.SaveTokenInfoUseCase
 import com.msg.gcms.domain.usecase.user.DeleteUserUseCase
 import com.msg.gcms.presentation.viewmodel.util.Event
+import com.msg.gcms.presentation.viewmodel.util.errorHandling
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -37,15 +34,8 @@ class WithdrawalViewModel @Inject constructor(
                 _withDrawalRequest.value = Event.Success
                 saveTokenInfoUseCase()
             }.onFailure {
-                _withDrawalRequest.value = when (it) {
-                    is UnauthorizedException, is NeedLoginException -> {
-                        saveTokenInfoUseCase()
-                        Event.Unauthorized
-                    }
-                    is NotFoundException -> Event.NotFound
-                    is BadRequestException -> Event.BadRequest
-                    else -> Event.UnKnown
-                }
+                _withDrawalRequest.value =
+                    it.errorHandling(unauthorizedAction = { saveTokenInfoUseCase() })
             }
     }
 }
