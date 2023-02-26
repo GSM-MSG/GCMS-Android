@@ -25,7 +25,6 @@ import com.msg.gcms.presentation.base.BaseDialog
 import com.msg.gcms.presentation.base.BaseFragment
 import com.msg.gcms.presentation.base.BaseModal
 import com.msg.gcms.presentation.utils.ItemDecorator
-import com.msg.gcms.presentation.utils.enterActivity
 import com.msg.gcms.presentation.utils.exitActivity
 import com.msg.gcms.presentation.utils.exitFragment
 import com.msg.gcms.presentation.view.club.ClubFragment
@@ -500,9 +499,6 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
             when (status) {
                 Event.Success -> {
                     BaseModal("성공", "동아리를 탈퇴하였습니다.", requireContext()).show()
-                    enterActivity(requireActivity(), MainActivity())
-                    requireActivity().finish()
-
                 }
                 Event.Unauthorized -> {
                     BaseModal("오류", "토큰이 만료되었습니다, 다시 로그인해주세요.", requireContext()).show()

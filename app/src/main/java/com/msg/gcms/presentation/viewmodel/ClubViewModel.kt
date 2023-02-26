@@ -47,7 +47,7 @@ class ClubViewModel @Inject constructor(
     private var _openingClubApplication = MutableLiveData<Event>()
     val openingClubApplication: LiveData<Event> get() = _openingClubApplication
 
-    private val _exitClubStatus = MutableLiveData<Event>()
+    private var _exitClubStatus = MutableLiveData<Event>()
     val exitClubStatus: LiveData<Event> get() = _exitClubStatus
 
     private val _deleteClub = MutableLiveData<Event>()
@@ -158,8 +158,10 @@ class ClubViewModel @Inject constructor(
             exitUseCase(
                 clubId = clubId
             ).onSuccess {
+                Log.d(TAG, "exit: $it")
                 _exitClubStatus.value = Event.Success
             }.onFailure {
+                Log.d(TAG, "exit: $it")
                 _exitClubStatus.value = when(it) {
                     is BadRequestException -> Event.BadRequest
                     is UnauthorizedException -> Event.Unauthorized
@@ -198,5 +200,6 @@ class ClubViewModel @Inject constructor(
         _cancelClubApply = MutableLiveData()
         _openingClubApplication = MutableLiveData()
         _closingClubApplication = MutableLiveData()
+        _exitClubStatus = MutableLiveData()
     }
 }
