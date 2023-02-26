@@ -8,6 +8,7 @@ import com.msg.gcms.domain.data.club.get_club_list.GetClubListData
 import com.msg.gcms.domain.exception.BadRequestException
 import com.msg.gcms.domain.exception.NeedLoginException
 import com.msg.gcms.domain.exception.UnauthorizedException
+import com.msg.gcms.domain.usecase.auth.SaveTokenInfoUseCase
 import com.msg.gcms.domain.usecase.club.GetClubListUseCase
 import com.msg.gcms.presentation.viewmodel.util.Event
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -16,7 +17,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
-    private val getClubListUseCase: GetClubListUseCase
+    private val getClubListUseCase: GetClubListUseCase,
+    private val saveTokenInfoUseCase: SaveTokenInfoUseCase
 ) : ViewModel() {
     private val _clubName = MutableLiveData<String>()
     val clubName: LiveData<String>
@@ -55,7 +57,10 @@ class MainViewModel @Inject constructor(
             }.onFailure {
                 _getClubList.value = when (it) {
                     is BadRequestException -> Event.BadRequest
-                    is UnauthorizedException, is NeedLoginException -> Event.Unauthorized
+                    is UnauthorizedException, is NeedLoginException -> {
+                        saveTokenInfoUseCase()
+                        Event.Unauthorized
+                    }
                     else -> Event.UnKnown
                 }
             }
