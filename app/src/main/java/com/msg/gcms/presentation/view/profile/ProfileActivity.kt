@@ -7,12 +7,14 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
 import coil.load
 import coil.transform.CircleCropTransformation
 import com.google.android.material.snackbar.Snackbar
 import com.msg.gcms.R
 import com.msg.gcms.databinding.ActivityProfileBinding
 import com.msg.gcms.presentation.base.BaseActivity
+import com.msg.gcms.presentation.base.BaseModal
 import com.msg.gcms.presentation.utils.enterActivity
 import com.msg.gcms.presentation.utils.exitActivity
 import com.msg.gcms.presentation.utils.toFile
@@ -22,6 +24,7 @@ import com.msg.gcms.presentation.view.withdrawal.WithdrawalActivity
 import com.msg.gcms.presentation.view.withdrawal.WithdrawalDialog
 import com.msg.gcms.presentation.viewmodel.AuthViewModel
 import com.msg.gcms.presentation.viewmodel.ProfileViewModel
+import com.msg.gcms.presentation.viewmodel.util.Event
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -43,6 +46,7 @@ class ProfileActivity : BaseActivity<ActivityProfileBinding>(R.layout.activity_p
     override fun observeEvent() {
         myProfile()
         isClub()
+        observeProfileInfo()
     }
 
     override fun viewSetting() {
@@ -60,6 +64,30 @@ class ProfileActivity : BaseActivity<ActivityProfileBinding>(R.layout.activity_p
                     "${it.grade}학년 ${it.classNum}반 ${it.number}번"
                 profileImg.load(it.profileImg ?: R.drawable.ic_default_profile) {
                     transformations(CircleCropTransformation())
+                }
+            }
+        }
+    }
+
+    private fun observeProfileInfo() {
+        profileViewModel.getUserInfo.observe(this) {
+            when (it) {
+                Event.Success -> {
+                    with(binding.profileLoadingView) {
+                        if (isShimmerStarted) {
+                            stopShimmer()
+                            isVisible = false
+                        }
+                    }
+                }
+                Event.Unauthorized -> {
+                    BaseModal("오류", "토큰이 만료되었습니다, 앱 종료후 다시 실행해 주세요", this).show()
+                }
+                Event.NotFound -> {
+                    BaseModal("오류", "사용자를 찾을 수 없습니다.", this).show()
+                }
+                Event.UnKnown -> {
+                    BaseModal("오류", "알수 없는 오류 발생, 개발자에게 문의해주세요", this).show()
                 }
             }
         }

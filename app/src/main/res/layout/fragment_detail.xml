@@ -62,8 +62,7 @@
                 android:padding="5dp"
                 android:src="@drawable/ic_back_btn"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/clubName"
@@ -89,7 +88,7 @@
                 android:padding="5dp"
                 android:onClick="@{detail::clickSideBar}"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"/>
+                app:layout_constraintTop_toTopOf="parent" />
 
 
             <ImageView
@@ -101,6 +100,20 @@
                 android:translationZ="-1dp"
                 android:background="@color/transparent_black"
                 app:layout_constraintTop_toTopOf="parent" />
+
+            <com.facebook.shimmer.ShimmerFrameLayout
+                android:id="@+id/bannerLoadingView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <include layout="@layout/shimmer_banner" />
+                </LinearLayout>
+            </com.facebook.shimmer.ShimmerFrameLayout>
 
             <ImageView
                 android:scaleType="fitXY"
@@ -119,6 +132,29 @@
                 app:layout_constraintTop_toTopOf="@id/guideline1" />
 
             <ScrollView
+                android:id="@+id/infoLoadingScroll"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toTopOf="@id/guideline5">
+
+                <com.facebook.shimmer.ShimmerFrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/infoLoadingView">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <include layout="@layout/shimmer_detail_info" />
+                    </LinearLayout>
+
+                </com.facebook.shimmer.ShimmerFrameLayout>
+            </ScrollView>
+
+            <ScrollView
+                android:visibility="gone"
                 android:overScrollMode="never"
                 android:id="@+id/scroll"
                 android:layout_width="match_parent"
@@ -362,6 +398,7 @@
         <!--    사이드 바    -->
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/sideBar"
+            android:visibility="gone"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             app:headerLayout="@layout/header_layout"
@@ -390,8 +427,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/textView13"
                 tools:listitem="@layout/list_detail_sidebar"
                 android:layout_marginTop="16dp"
-                android:padding="10dp"
-                />
+                android:padding="10dp" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.drawerlayout.widget.DrawerLayout>
 </layout>

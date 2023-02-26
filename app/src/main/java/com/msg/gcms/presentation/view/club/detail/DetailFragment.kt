@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.View
 import androidx.activity.OnBackPressedCallback
 import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -92,6 +93,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
     private fun observeEvent() {
         observeResult()
         observeStatus()
+        observeClubDetailInfo()
     }
 
     private fun clickEvent() {
@@ -102,7 +104,6 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
     private fun viewSet() {
         detailViewModel.setNav(false)
         settingRecyclerView()
-        controlShimmer(true)
     }
 
     private fun showInfo() {
@@ -122,8 +123,6 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
                 }
                 clubMemberRecycler(it.member)
                 clubPromotionImgRecycler(it.activityImgs)
-                controlShimmer(false)
-                clubViewModel.stopLottie()
             }
         }
     }
@@ -494,20 +493,41 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
         }
     }
 
-    private fun controlShimmer(loading: Boolean) {
-        with(binding) {
-            if (loading) {
-                clubBanner.visibility = View.GONE
-            } else {
-                clubBanner.visibility = View.VISIBLE
-            }
-        }
-    }
-
     private fun observeResult() {
         detailViewModel.result.observe(this) {
             showInfo()
             checkRole()
+        }
+    }
+
+    private fun observeClubDetailInfo() {
+        detailViewModel.getClubDetail.observe(this) {
+            when (it) {
+                Event.Success -> {
+                    with(binding.infoLoadingView) {
+                        if (isShimmerStarted) {
+                            stopShimmer()
+                            binding.infoLoadingScroll.visibility = View.GONE
+                            binding.scroll.visibility = View.VISIBLE
+                        }
+                    }
+                    with(binding.bannerLoadingView) {
+                        if (isShimmerStarted) {
+                            stopShimmer()
+                            isVisible = false
+                        }
+                    }
+                }
+                Event.BadRequest -> {
+                    shortToast("동아리 정보를 불러오지 못했습니다.")
+                }
+                Event.Unauthorized -> {
+                    BaseModal("오류", "토큰이 만료되었습니다, 앱 종료후 다시 실행해 주세요", requireContext()).show()
+                }
+                Event.UnKnown -> {
+                    BaseModal("오류", "알수 없는 오류 발생, 개발자에게 문의해주세요", requireContext()).show()
+                }
+            }
         }
     }
 
