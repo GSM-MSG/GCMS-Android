@@ -124,13 +124,8 @@ class ClubViewModel @Inject constructor(
             ).onSuccess {
                 _exitClubStatus.value = Event.Success
             }.onFailure {
-                _exitClubStatus.value = when(it) {
-                    is BadRequestException -> Event.BadRequest
-                    is UnauthorizedException -> Event.Unauthorized
-                    is NotFoundException -> Event.NotFound
-                    is ServerException -> Event.Server
-                    else -> Event.UnKnown
-                }
+                _exitClubStatus.value =
+                    it.errorHandling(unauthorizedAction = { saveTokenInfoUseCase() })
             }
         }
     }
