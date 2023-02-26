@@ -7,17 +7,14 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.msg.gcms.domain.data.club.create_club.CreateClubData
 import com.msg.gcms.domain.data.user.search_user.GetSearchUserData
-import com.msg.gcms.domain.exception.BadRequestException
-import com.msg.gcms.domain.exception.ConflictException
-import com.msg.gcms.domain.exception.ForBiddenException
-import com.msg.gcms.domain.exception.ServerException
-import com.msg.gcms.domain.exception.UnauthorizedException
+import com.msg.gcms.domain.usecase.auth.SaveTokenInfoUseCase
 import com.msg.gcms.domain.usecase.club.PostCreateClubUseCase
 import com.msg.gcms.domain.usecase.image.ImageUseCase
 import com.msg.gcms.domain.usecase.user.GetSearchUserUseCase
 import com.msg.gcms.presentation.adapter.activity_photo.ActivityPhotoType
 import com.msg.gcms.presentation.adapter.add_member.AddMemberType
 import com.msg.gcms.presentation.viewmodel.util.Event
+import com.msg.gcms.presentation.viewmodel.util.errorHandling
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import okhttp3.MultipartBody
@@ -27,7 +24,8 @@ import javax.inject.Inject
 class MakeClubViewModel @Inject constructor(
     private val postCreateClubUseCase: PostCreateClubUseCase,
     private val getSearchUserUseCase: GetSearchUserUseCase,
-    private val imageUseCase: ImageUseCase
+    private val imageUseCase: ImageUseCase,
+    private val saveTokenInfoUseCase: SaveTokenInfoUseCase
 ) : ViewModel() {
 
     private var _clubType = MutableLiveData("MAJOR")
@@ -83,20 +81,8 @@ class MakeClubViewModel @Inject constructor(
                 _searchUserState.value = Event.Success
                 Log.d("TAG", "searchResult: ${_searchUserResult.value}")
             }.onFailure {
-                _searchUserState.value = when (it) {
-                    is UnauthorizedException -> {
-                        Log.d("TAG", "searchResult: $it ")
-                        Event.Unauthorized
-                    }
-                    is ServerException -> {
-                        Log.d("TAG", "getSearchUser: $it")
-                        Event.Server
-                    }
-                    else -> {
-                        Log.d("TAG", "searchResult: $it ")
-                        Event.UnKnown
-                    }
-                }
+                _searchUserState.value =
+                    it.errorHandling(unauthorizedAction = { saveTokenInfoUseCase() })
             }
         }
     }
@@ -121,10 +107,7 @@ class MakeClubViewModel @Inject constructor(
                 _bannerUpload = true
                 imageUploadCheck()
             }.onFailure {
-                when (it) {
-                    is BadRequestException -> Log.d("TAG", "changeImage: else $it")
-                    else -> Log.d("TAG", "changeImage: else $it")
-                }
+                it.errorHandling(unauthorizedAction = { saveTokenInfoUseCase() })
             }
         }
     }
@@ -139,10 +122,7 @@ class MakeClubViewModel @Inject constructor(
                 _activityUpload = true
                 imageUploadCheck()
             }.onFailure {
-                when (it) {
-                    is BadRequestException -> Log.d("TAG", "changeImage: else $it")
-                    else -> Log.d("TAG", "changeImage: else $it")
-                }
+                it.errorHandling(unauthorizedAction = { saveTokenInfoUseCase() })
             }
         }
     }
@@ -167,19 +147,12 @@ class MakeClubViewModel @Inject constructor(
                         bannerUrl = _bannerResult.value!!
                     )
                 ).onSuccess {
+                    Log.d("TAG", "createClub: 성공")
                     _createClubResult.value = Event.Success
+
                 }.onFailure {
-                    _createClubResult.value = when (it) {
-                        is BadRequestException -> Event.BadRequest
-                        is UnauthorizedException -> Event.Unauthorized
-                        is ForBiddenException -> Event.ForBidden
-                        is ConflictException -> Event.Conflict
-                        is ServerException -> Event.Server
-                        else -> {
-                            Log.d("createClub", it.toString())
-                            Event.UnKnown
-                        }
-                    }
+                    _createClubResult.value =
+                        it.errorHandling(unauthorizedAction = { saveTokenInfoUseCase() })
                 }
             }
         }
