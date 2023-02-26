@@ -7,12 +7,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.msg.gcms.domain.data.club.create_club.CreateClubData
 import com.msg.gcms.domain.data.user.search_user.GetSearchUserData
-import com.msg.gcms.domain.exception.BadRequestException
-import com.msg.gcms.domain.exception.ConflictException
-import com.msg.gcms.domain.exception.ForBiddenException
-import com.msg.gcms.domain.exception.NeedLoginException
-import com.msg.gcms.domain.exception.ServerException
-import com.msg.gcms.domain.exception.UnauthorizedException
 import com.msg.gcms.domain.usecase.auth.SaveTokenInfoUseCase
 import com.msg.gcms.domain.usecase.club.PostCreateClubUseCase
 import com.msg.gcms.domain.usecase.image.ImageUseCase

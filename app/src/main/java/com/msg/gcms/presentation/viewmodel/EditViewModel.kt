@@ -10,7 +10,6 @@ import com.msg.gcms.domain.data.club.get_club_detail.ClubDetailData
 import com.msg.gcms.domain.data.club.get_club_detail.ClubMemberData
 import com.msg.gcms.domain.data.club.modify_club_info.ModifyClubInfoData
 import com.msg.gcms.domain.data.user.search_user.GetSearchUserData
-import com.msg.gcms.domain.usecase.auth.SaveTokenInfoUseCase
 import com.msg.gcms.domain.usecase.club.EditClubInfoUseCase
 import com.msg.gcms.domain.usecase.club.GetDetailUseCase
 import com.msg.gcms.domain.usecase.image.ImageUseCase
@@ -29,8 +28,7 @@ class EditViewModel @Inject constructor(
     private val getDetailUseCase: GetDetailUseCase,
     private val getSearchUserUseCase: GetSearchUserUseCase,
     private val imageUseCase: ImageUseCase,
-    private val editClubInfoUseCase: EditClubInfoUseCase,
-    private val saveTokenInfoUseCase: SaveTokenInfoUseCase
+    private val editClubInfoUseCase: EditClubInfoUseCase
 ) : ViewModel() {
 
     private val _clubInfo = MutableLiveData<ClubDetailData>()
