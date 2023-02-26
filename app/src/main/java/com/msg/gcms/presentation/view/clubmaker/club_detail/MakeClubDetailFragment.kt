@@ -273,7 +273,10 @@ class MakeClubDetailFragment :
                         }
                     }
                 }
-                Event.BadRequest -> {
+                Event.Unauthorized -> {
+                    BaseModal("오류", "토큰이 만료되었습니다, 앱 종료후 다시 실행해 주세요", requireContext()).show()
+                }
+                Event.ForBidden -> {
                     BaseModal("생성 실패", "이미 다른 동아리에 소속 또는 신청중입니다.", requireContext()).let { dialog ->
                         dialog.show()
                         dialog.dialogBinding.ok.setOnClickListener {
@@ -285,11 +288,8 @@ class MakeClubDetailFragment :
                 Event.Conflict -> {
                     BaseModal("생성 실패", "이미 존재하는 동아리 입니다.", requireContext()).show()
                 }
-                Event.Unauthorized -> {
-                    BaseModal("오류", "토큰이 만료되었습니다, 앱 종료후 다시 실행해 주세요", requireContext()).show()
-                }
                 Event.Server -> {
-                    Log.d("TAG", "observeStatus: $it")
+                    BaseModal("생성 실패", "서버상의 문제가 발생하였습니다.", requireContext()).show()
                 }
                 else -> {
                     BaseModal("생성 실패", "알수 없는 오류 발생, 개발자에게 문의해주세요", requireContext()).show()

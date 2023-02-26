@@ -9,6 +9,7 @@ import com.msg.gcms.domain.data.club.create_club.CreateClubData
 import com.msg.gcms.domain.data.user.search_user.GetSearchUserData
 import com.msg.gcms.domain.exception.BadRequestException
 import com.msg.gcms.domain.exception.ConflictException
+import com.msg.gcms.domain.exception.ForBiddenException
 import com.msg.gcms.domain.exception.ServerException
 import com.msg.gcms.domain.exception.UnauthorizedException
 import com.msg.gcms.domain.usecase.club.PostCreateClubUseCase
@@ -166,28 +167,19 @@ class MakeClubViewModel @Inject constructor(
                         bannerUrl = _bannerResult.value!!
                     )
                 ).onSuccess {
-                    Log.d("TAG", "createClub: 성공")
                     _createClubResult.value = Event.Success
-
                 }.onFailure {
                     _createClubResult.value = when (it) {
-                        is BadRequestException -> {
-                            Event.BadRequest
-                        }
-                        is UnauthorizedException -> {
-                            Event.Unauthorized
-                        }
-                        is ConflictException -> {
-                            Event.Conflict
-                        }
-                        is ServerException -> {
-                            Event.Server
-                        }
+                        is BadRequestException -> Event.BadRequest
+                        is UnauthorizedException -> Event.Unauthorized
+                        is ForBiddenException -> Event.ForBidden
+                        is ConflictException -> Event.Conflict
+                        is ServerException -> Event.Server
                         else -> {
+                            Log.d("createClub", it.toString())
                             Event.UnKnown
                         }
                     }
-                    Log.d("TAG", "createClub: $it")
                 }
             }
         }
