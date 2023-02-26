@@ -35,9 +35,6 @@ class ClubViewModel @Inject constructor(
 
     private val lottie by lazy { LottieFragment() }
 
-    // private val _getClubStatus = MutableLiveData<Event>()
-    // val getClubStatus: LiveData<Event> get() = _getClubStatus
-
     private var _cancelClubApply = MutableLiveData<Event>()
     val cancelClubApply: LiveData<Event> get() = _cancelClubApply
 
@@ -49,6 +46,9 @@ class ClubViewModel @Inject constructor(
 
     private var _openingClubApplication = MutableLiveData<Event>()
     val openingClubApplication: LiveData<Event> get() = _openingClubApplication
+
+    private val _exitClubStatus = MutableLiveData<Event>()
+    val exitClubStatus: LiveData<Event> get() = _exitClubStatus
 
     private val _deleteClub = MutableLiveData<Event>()
     val deleteClub: LiveData<Event> get() = _deleteClub
@@ -155,10 +155,18 @@ class ClubViewModel @Inject constructor(
 
     fun exit(clubId: Long) {
         viewModelScope.launch {
-            try {
-                exitUseCase(clubId = clubId)
-            } catch (e: Exception) {
-                e.printStackTrace()
+            exitUseCase(
+                clubId = clubId
+            ).onSuccess {
+                _exitClubStatus.value = Event.Success
+            }.onFailure {
+                _exitClubStatus.value = when(it) {
+                    is BadRequestException -> Event.BadRequest
+                    is UnauthorizedException -> Event.Unauthorized
+                    is NotFoundException -> Event.NotFound
+                    is ServerException -> Event.Server
+                    else -> Event.UnKnown
+                }
             }
         }
     }

@@ -49,7 +49,7 @@ interface ClubAPI {
     @DELETE("club/{club_id}/exit")
     suspend fun exitClub(
         @Path("club_id") clubId: Long
-    ): Response<Unit>
+    )
 
     @DELETE("club/{club_id}")
     suspend fun deleteClub(
