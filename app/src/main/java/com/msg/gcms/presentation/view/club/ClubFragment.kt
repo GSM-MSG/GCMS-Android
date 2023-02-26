@@ -12,6 +12,7 @@ import com.msg.gcms.presentation.utils.enterActivity
 import com.msg.gcms.presentation.utils.enterFragment
 import com.msg.gcms.presentation.view.club.detail.DetailFragment
 import com.msg.gcms.presentation.view.clubmaker.MakeClubActivity
+import com.msg.gcms.presentation.view.intro.IntroActivity
 import com.msg.gcms.presentation.view.profile.ProfileActivity
 import com.msg.gcms.presentation.viewmodel.ClubDetailViewModel
 import com.msg.gcms.presentation.viewmodel.ClubViewModel
@@ -81,7 +82,17 @@ class ClubFragment : BaseFragment<FragmentClubBinding>(R.layout.fragment_club) {
                     }
                 }
                 Event.Unauthorized -> {
-                    BaseModal("오류", "토큰이 만료되었습니다, 앱 종료후 다시 실행해 주세요", requireContext()).show()
+                    BaseModal(
+                        "오류",
+                        "토큰이 만료되었습니다, 로그아웃 이후 다시 로그인해주세요.",
+                        requireContext()
+                    ).let { dialog ->
+                        dialog.show()
+                        dialog.dialogBinding.ok.setOnClickListener {
+                            enterActivity(requireActivity(), IntroActivity())
+                            dialog.dismiss()
+                        }
+                    }
                 }
                 Event.UnKnown -> {
                     BaseModal("오류", "알수 없는 오류 발생, 개발자에게 문의해주세요", requireContext()).show()

@@ -25,10 +25,12 @@ import com.msg.gcms.presentation.base.BaseDialog
 import com.msg.gcms.presentation.base.BaseFragment
 import com.msg.gcms.presentation.base.BaseModal
 import com.msg.gcms.presentation.utils.ItemDecorator
+import com.msg.gcms.presentation.utils.enterActivity
 import com.msg.gcms.presentation.utils.exitActivity
 import com.msg.gcms.presentation.utils.exitFragment
 import com.msg.gcms.presentation.view.club.ClubFragment
 import com.msg.gcms.presentation.view.editclub.EditClubActivity
+import com.msg.gcms.presentation.view.intro.IntroActivity
 import com.msg.gcms.presentation.view.main.MainActivity
 import com.msg.gcms.presentation.view.member_manage.MemberManageActivity
 import com.msg.gcms.presentation.view.profile.ProfileActivity
@@ -412,7 +414,17 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
                     BaseModal("성공", "동아리 신청에 성공했습니다.", requireContext()).show()
                 }
                 Event.Unauthorized -> {
-                    BaseModal("오류", "토큰이 만료되었습니다, 로그아웃 이후 다시 로그인해주세요.", requireContext()).show()
+                    BaseModal(
+                        "오류",
+                        "토큰이 만료되었습니다. 다시 로그인해주세요.",
+                        requireContext()
+                    ).let { dialog ->
+                        dialog.show()
+                        dialog.dialogBinding.ok.setOnClickListener {
+                            enterActivity(requireActivity(), IntroActivity())
+                            dialog.dismiss()
+                        }
+                    }
                 }
                 Event.ForBidden -> {
                     BaseModal("실패", "이미 다른 동아리에 소속 또는 신청 중입니다.", requireContext()).show()
@@ -435,7 +447,17 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
                     BaseModal("성공", "동아리 신청을 취소했습니다.", requireContext()).show()
                 }
                 Event.Unauthorized -> {
-                    BaseModal("오류", "토큰이 만료되었습니다, 로그아웃 이후 다시 로그인해주세요.", requireContext()).show()
+                    BaseModal(
+                        "오류",
+                        "토큰이 만료되었습니다. 다시 로그인해주세요.",
+                        requireContext()
+                    ).let { dialog ->
+                        dialog.show()
+                        dialog.dialogBinding.ok.setOnClickListener {
+                            enterActivity(requireActivity(), IntroActivity())
+                            dialog.dismiss()
+                        }
+                    }
                 }
                 Event.NotFound -> {
                     BaseModal("오류", "동아리를 찾을 수 없습니다.", requireContext()).show()
@@ -455,7 +477,17 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
                     BaseModal("성공", "동아리 신청을 오픈했습니다.", requireContext()).show()
                 }
                 Event.Unauthorized -> {
-                    BaseModal("오류", "토큰이 만료되었습니다, 로그아웃 이후 다시 로그인해주세요.", requireContext()).show()
+                    BaseModal(
+                        "오류",
+                        "토큰이 만료되었습니다. 다시 로그인해주세요.",
+                        requireContext()
+                    ).let { dialog ->
+                        dialog.show()
+                        dialog.dialogBinding.ok.setOnClickListener {
+                            enterActivity(requireActivity(), IntroActivity())
+                            dialog.dismiss()
+                        }
+                    }
                 }
                 Event.ForBidden -> {
                     BaseModal("실패", "부장만이 할수있는 행동입니다.", requireContext()).show()
@@ -478,7 +510,17 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
                     BaseModal("성공", "동아리 신청을 마감했습니다.", requireContext()).show()
                 }
                 Event.Unauthorized -> {
-                    BaseModal("오류", "토큰이 만료되었습니다, 로그아웃 이후 다시 로그인해주세요.", requireContext()).show()
+                    BaseModal(
+                        "오류",
+                        "토큰이 만료되었습니다. 다시 로그인해주세요.",
+                        requireContext()
+                    ).let { dialog ->
+                        dialog.show()
+                        dialog.dialogBinding.ok.setOnClickListener {
+                            enterActivity(requireActivity(), IntroActivity())
+                            dialog.dismiss()
+                        }
+                    }
                 }
                 Event.ForBidden -> {
                     BaseModal("실패", "부장만이 할수있는 행동입니다.", requireContext()).show()
@@ -522,7 +564,17 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
                     shortToast("동아리 정보를 불러오지 못했습니다.")
                 }
                 Event.Unauthorized -> {
-                    BaseModal("오류", "토큰이 만료되었습니다, 앱 종료후 다시 실행해 주세요", requireContext()).show()
+                    BaseModal(
+                        "오류",
+                        "토큰이 만료되었습니다. 다시 로그인해주세요.",
+                        requireContext()
+                    ).let { dialog ->
+                        dialog.show()
+                        dialog.dialogBinding.ok.setOnClickListener {
+                            enterActivity(requireActivity(), IntroActivity())
+                            dialog.dismiss()
+                        }
+                    }
                 }
                 Event.UnKnown -> {
                     BaseModal("오류", "알수 없는 오류 발생, 개발자에게 문의해주세요", requireContext()).show()
