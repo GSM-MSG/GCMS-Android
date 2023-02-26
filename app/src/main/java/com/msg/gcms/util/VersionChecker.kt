@@ -14,7 +14,7 @@ import com.google.android.play.core.install.model.AppUpdateType
 import com.google.android.play.core.install.model.InstallStatus
 import com.google.android.play.core.install.model.UpdateAvailability
 
-class VersionChecker(private val activity: Activity) : InstallStateUpdatedListener {
+class VersionChecker(private val activity: Activity, private val afterLogic: Unit) : InstallStateUpdatedListener {
 
     private var appUpdateManager: AppUpdateManager = AppUpdateManagerFactory.create(activity)
     private val MY_REQUEST_CODE = 500
@@ -82,7 +82,7 @@ class VersionChecker(private val activity: Activity) : InstallStateUpdatedListen
                     // Do not show in-app update
                 }
             } else {
-                // UPDATE IS NOT AVAILABLE
+                afterLogic
             }
         }
         appUpdateManager.registerListener(this)
@@ -99,7 +99,7 @@ class VersionChecker(private val activity: Activity) : InstallStateUpdatedListen
             if (currentType == AppUpdateType.FLEXIBLE) {
                 // If the update is downloaded but not installed, notify the user to complete the update.
                 if (info.installStatus() == InstallStatus.DOWNLOADED)
-                    flexibleUpdateDownloadCompleted()
+                    flexibleUpdateDownloadCompleted(afterLogic = afterLogic)
             } else if (currentType == AppUpdateType.IMMEDIATE) {
                 // for AppUpdateType.IMMEDIATE only, already executing updater
                 if (info.updateAvailability() == UpdateAvailability.DEVELOPER_TRIGGERED_UPDATE_IN_PROGRESS) {
@@ -124,12 +124,13 @@ class VersionChecker(private val activity: Activity) : InstallStateUpdatedListen
 
     override fun onStateUpdate(state: InstallState) {
         if (state.installStatus() == InstallStatus.DOWNLOADED) {
-            flexibleUpdateDownloadCompleted()
+            flexibleUpdateDownloadCompleted(afterLogic = afterLogic)
         }
     }
 
-    private fun flexibleUpdateDownloadCompleted() {
+    private fun flexibleUpdateDownloadCompleted(afterLogic:Unit) {
         Toast.makeText(activity, "업데이트가 완료되었습니다.", Toast.LENGTH_SHORT).show()
         appUpdateManager.completeUpdate()
+        afterLogic
     }
 }

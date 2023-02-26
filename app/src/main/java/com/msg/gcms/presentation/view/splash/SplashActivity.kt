@@ -22,10 +22,12 @@ class SplashActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
-        splashViewModel.checkIsLogin(this)
-        versionChecker = VersionChecker(this)
+        versionChecker = VersionChecker(this, afterLogic = afterLogic())
         startActivity()
+    }
 
+    private fun afterLogic() {
+        splashViewModel.checkIsLogin(this)
     }
 
     private fun startActivity() {
