@@ -167,6 +167,9 @@ class MemberManageActivity :
                 Event.NotFound -> {
                     BaseModal("오류", "동아리를 찾을 수 없습니다.", this).show()
                 }
+                Event.Server -> {
+                    BaseModal("오류", "서버에서 문제가 발생하였습니다.", this).show()
+                }
                 else -> {
                     BaseModal("오류", "알 수 없는 오류 발생, 개발자에게 문의해주세요", this).show()
                 }
@@ -184,6 +187,9 @@ class MemberManageActivity :
                 }
                 Event.NotFound -> {
                     BaseModal("오류", "동아리를 찾을 수 없습니다.", this).show()
+                }
+                Event.Server -> {
+                    BaseModal("오류", "서버에서 문제가 발생하였습니다.", this).show()
                 }
                 else -> {
                     BaseModal("오류", "알 수 없는 오류 발생, 개발자에게 문의해주세요", this).show()
@@ -206,6 +212,9 @@ class MemberManageActivity :
                 }
                 Event.NotFound -> {
                     BaseModal("오류", "동아리를 찾을 수 없습니다.", this).show()
+                }
+                Event.Server -> {
+                    BaseModal("오류", "서버에서 문제가 발생하였습니다.", this).show()
                 }
                 else -> {
                     BaseModal("오류", "알 수 없는 오류 발생, 개발자에게 문의해주세요.", this).show()
@@ -232,6 +241,9 @@ class MemberManageActivity :
                 Event.NotFound -> {
                     BaseModal("오류", "동아리를 찾을 수 없습니다.", this).show()
                 }
+                Event.Server -> {
+                    BaseModal("오류", "서버에서 문제가 발생하였습니다.", this).show()
+                }
                 else -> {
                     BaseModal("오류", "알 수 없는 오류 발생, 개발자에게 문의해주세요.", this).show()
                 }
@@ -243,7 +255,7 @@ class MemberManageActivity :
         viewModel.acceptApplicantState.observe(this) {
             when (it) {
                 Event.Success -> {
-                    BaseModal("완료", "승인을 완료했습니다.", this).show()
+                    BaseModal("완료", "동아리 신청을 승인했습니다.", this).show()
                 }
                 Event.Unauthorized -> {
                     BaseModal("오류", "토큰이 만료되었습니다, 로그아웃 이후 다시 로그인해주세요.", this).show()
@@ -253,6 +265,9 @@ class MemberManageActivity :
                 }
                 Event.NotFound -> {
                     BaseModal("오류", "동아리를 찾을 수 없습니다.", this).show()
+                }
+                Event.Server -> {
+                    BaseModal("오류", "서버에서 문제가 발생하였습니다.", this).show()
                 }
                 else -> {
                     BaseModal("오류", "알 수 없는 오류 발생, 개발자에게 문의해주세요.", this).show()
@@ -265,7 +280,7 @@ class MemberManageActivity :
         viewModel.rejectApplicantState.observe(this) {
             when (it) {
                 Event.Success -> {
-                    BaseModal("완료", "거절을 완료했습니다.", this).show()
+                    BaseModal("완료", "동아리 신청을 거절했습니다.", this).show()
                 }
                 Event.Unauthorized -> {
                     BaseModal("오류", "토큰이 만료되었습니다, 로그아웃 이후 다시 로그인해주세요.", this).show()
@@ -275,6 +290,9 @@ class MemberManageActivity :
                 }
                 Event.NotFound -> {
                     BaseModal("오류", "해당 동아리, 또는 유저를 찾을 수 없습니다.", this).show()
+                }
+                Event.Server -> {
+                    BaseModal("오류", "서버에서 문제가 발생하였습니다.", this).show()
                 }
                 else -> {
                     BaseModal("오류", "알 수 없는 오류 발생, 개발자에게 문의해주세요.", this).show()
