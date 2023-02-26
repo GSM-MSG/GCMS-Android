@@ -85,6 +85,7 @@ class VersionChecker(private val activity: Activity, private val afterLogic: () 
                 afterLogic()
             }
         }
+        afterLogic()
         appUpdateManager.registerListener(this)
     }
 
@@ -99,7 +100,7 @@ class VersionChecker(private val activity: Activity, private val afterLogic: () 
             if (currentType == AppUpdateType.FLEXIBLE) {
                 // If the update is downloaded but not installed, notify the user to complete the update.
                 if (info.installStatus() == InstallStatus.DOWNLOADED)
-                    flexibleUpdateDownloadCompleted(afterLogic = { afterLogic() })
+                    flexibleUpdateDownloadCompleted()
             } else if (currentType == AppUpdateType.IMMEDIATE) {
                 // for AppUpdateType.IMMEDIATE only, already executing updater
                 if (info.updateAvailability() == UpdateAvailability.DEVELOPER_TRIGGERED_UPDATE_IN_PROGRESS) {
@@ -124,11 +125,11 @@ class VersionChecker(private val activity: Activity, private val afterLogic: () 
 
     override fun onStateUpdate(state: InstallState) {
         if (state.installStatus() == InstallStatus.DOWNLOADED) {
-            flexibleUpdateDownloadCompleted(afterLogic = { afterLogic() })
+            flexibleUpdateDownloadCompleted()
         }
     }
 
-    private fun flexibleUpdateDownloadCompleted(afterLogic: () -> Unit) {
+    private fun flexibleUpdateDownloadCompleted() {
         Toast.makeText(activity, "업데이트가 완료되었습니다.", Toast.LENGTH_SHORT).show()
         appUpdateManager.completeUpdate()
         afterLogic()
