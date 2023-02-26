@@ -71,7 +71,6 @@
             android:layout_height="100dp"
             android:layout_marginTop="33dp"
             android:scaleType="centerCrop"
-            android:background="@drawable/bg_profile_img"
             app:layout_constraintStart_toStartOf="@id/guideline5"
             app:layout_constraintEnd_toEndOf="@id/guideline6"
             app:layout_constraintTop_toBottomOf="@id/back_btn" />
@@ -82,7 +81,6 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="23dp"
             android:layout_marginStart="16dp"
-            android:text="@string/profileDefaultName"
             android:textColor="@color/white"
             android:textSize="20sp"
             android:fontFamily="@font/notosans"
@@ -96,7 +94,6 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="2dp"
-            android:text="@string/profileDefaultClass"
             android:textColor="#80FFFFFF"
             android:textSize="14sp"
             android:fontFamily="@font/roboto"
@@ -121,6 +118,23 @@
                 android:name="com.msg.gcms.presentation.view.profile.ProfileNoClubFragment"
                 tools:layout="@layout/fragment_profile_no_club" />
         </androidx.core.widget.NestedScrollView>
+
+        <com.facebook.shimmer.ShimmerFrameLayout
+            android:id="@+id/profileLoadingView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:shimmer_auto_start="true"
+            app:layout_constraintTop_toTopOf="@id/profileImg"
+            app:layout_constraintStart_toStartOf="@id/profileImg">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <include layout="@layout/shimmer_profile" />
+            </LinearLayout>
+
+        </com.facebook.shimmer.ShimmerFrameLayout>
 
     </androidx.constraintlayout.motion.widget.MotionLayout>
 </layout>

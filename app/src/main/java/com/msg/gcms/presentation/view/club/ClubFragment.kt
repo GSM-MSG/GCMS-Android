@@ -1,5 +1,6 @@
 package com.msg.gcms.presentation.view.club
 
+import androidx.core.view.isVisible
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import com.msg.gcms.R
@@ -26,6 +27,7 @@ class ClubFragment : BaseFragment<FragmentClubBinding>(R.layout.fragment_club) {
     private lateinit var adapter: ClubListAdapter
     override fun init() {
         mainViewModel.getClubList()
+        observeClubInfo()
         recyclerview()
         clickProfile()
         clickMakeClubBtn()
@@ -38,11 +40,10 @@ class ClubFragment : BaseFragment<FragmentClubBinding>(R.layout.fragment_club) {
             adapter = ClubListAdapter(mainViewModel.clubData.value)
             adapter.setItemOnClickListener(object : ClubListAdapter.OnItemClickListener {
                 override fun onClick(position: Int) {
-                    clubViewModel.startLottie(requireActivity().supportFragmentManager)
                     detailViewModel.getDetail(
                         mainViewModel.clubData.value?.get(position)!!.id
                     )
-                    observeStatus()
+                    enterFragment(requireActivity(), R.id.fragment_club, DetailFragment())
                 }
             })
             binding.clubRecyclerView.adapter = adapter
@@ -68,18 +69,16 @@ class ClubFragment : BaseFragment<FragmentClubBinding>(R.layout.fragment_club) {
         }
     }
 
-    private fun observeStatus() {
-        observeClubDetailInfo()
-    }
-
-    private fun observeClubDetailInfo() {
-        detailViewModel.getClubDetail.observe(this) {
+    private fun observeClubInfo() {
+        mainViewModel.getClubList.observe(this) {
             when (it) {
                 Event.Success -> {
-                    enterFragment(requireActivity(), R.id.fragment_club, DetailFragment())
-                }
-                Event.BadRequest -> {
-                    shortToast("동아리 정보를 불러오지 못했습니다.")
+                    with(binding.clubLoadingView) {
+                        if (isShimmerStarted) {
+                            stopShimmer()
+                            isVisible = false
+                        }
+                    }
                 }
                 Event.Unauthorized -> {
                     BaseModal("오류", "토큰이 만료되었습니다, 앱 종료후 다시 실행해 주세요", requireContext()).show()
