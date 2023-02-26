@@ -82,7 +82,7 @@ class VersionChecker(private val activity: Activity, private val afterLogic: () 
                     // Do not show in-app update
                 }
             } else {
-                afterLogic
+                afterLogic()
             }
         }
         appUpdateManager.registerListener(this)
@@ -131,6 +131,6 @@ class VersionChecker(private val activity: Activity, private val afterLogic: () 
     private fun flexibleUpdateDownloadCompleted(afterLogic: () -> Unit) {
         Toast.makeText(activity, "업데이트가 완료되었습니다.", Toast.LENGTH_SHORT).show()
         appUpdateManager.completeUpdate()
-        afterLogic
+        afterLogic()
     }
 }
