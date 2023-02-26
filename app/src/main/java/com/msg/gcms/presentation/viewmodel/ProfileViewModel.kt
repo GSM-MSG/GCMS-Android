@@ -8,6 +8,7 @@ import androidx.lifecycle.viewModelScope
 import com.msg.gcms.domain.data.user.get_my_profile.GetMyProfileData
 import com.msg.gcms.domain.data.user.modify_profile_image.ModifyProfileImageData
 import com.msg.gcms.domain.exception.BadRequestException
+import com.msg.gcms.domain.exception.NeedLoginException
 import com.msg.gcms.domain.exception.NotFoundException
 import com.msg.gcms.domain.exception.UnauthorizedException
 import com.msg.gcms.domain.usecase.image.ImageUseCase
@@ -43,7 +44,7 @@ class ProfileViewModel @Inject constructor(
             }.onFailure {
                 _clubStatus.value = false
                 _getUserInfo.value = when (it) {
-                    is UnauthorizedException -> Event.Unauthorized
+                    is UnauthorizedException, is NeedLoginException -> Event.Unauthorized
                     is NotFoundException -> Event.NotFound
                     else -> Event.UnKnown
                 }

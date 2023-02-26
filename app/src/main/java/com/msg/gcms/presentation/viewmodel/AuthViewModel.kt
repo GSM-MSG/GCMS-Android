@@ -8,6 +8,7 @@ import androidx.lifecycle.viewModelScope
 import com.msg.gcms.domain.data.auth.SignInRequestData
 import com.msg.gcms.domain.data.auth.SignInResponseData
 import com.msg.gcms.domain.exception.BadRequestException
+import com.msg.gcms.domain.exception.NeedLoginException
 import com.msg.gcms.domain.exception.NotFoundException
 import com.msg.gcms.domain.exception.UnauthorizedException
 import com.msg.gcms.domain.usecase.auth.LogoutUseCase
@@ -37,7 +38,7 @@ class AuthViewModel @Inject constructor(
         }.onFailure {
             _postSignInRequest.value = when (it) {
                 is BadRequestException -> Event.BadRequest
-                is UnauthorizedException -> Event.Unauthorized
+                is UnauthorizedException, is NeedLoginException -> Event.Unauthorized
                 is NotFoundException -> Event.NotFound
                 else -> Event.UnKnown
             }
@@ -50,7 +51,7 @@ class AuthViewModel @Inject constructor(
                 showDebugLog("Logout: Success!")
             }.onFailure {
                 when (it) {
-                    is UnauthorizedException -> showDebugLog("Logout: UnauthorizedException")
+                    is UnauthorizedException, is NeedLoginException -> showDebugLog("Logout: UnauthorizedException")
                     is NotFoundException -> showDebugLog("Logout: NotFoundException")
                     else -> showDebugLog("Logout: Unknown, status: $it")
                 }
