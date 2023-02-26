@@ -36,7 +36,12 @@ class LoginInterceptor @Inject constructor(
         val accessExp = LocalDateTime.parse(
             authDataStorage.getAccessExpiredAt().substring(0, 19)
         )
+        val refreshExp = LocalDateTime.parse(
+            authDataStorage.getRefreshExpiredAt().substring(0, 19)
+        )
         val refreshToken = authDataStorage.getRefreshToken()
+
+        if (currentTime.isAfter(refreshExp)) throw NeedLoginException()
 
         if (currentTime.isAfter(accessExp)) {
             val client = OkHttpClient()

@@ -7,13 +7,11 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.msg.gcms.domain.data.auth.SignInRequestData
 import com.msg.gcms.domain.data.auth.SignInResponseData
-import com.msg.gcms.domain.exception.BadRequestException
-import com.msg.gcms.domain.exception.NotFoundException
-import com.msg.gcms.domain.exception.UnauthorizedException
 import com.msg.gcms.domain.usecase.auth.LogoutUseCase
 import com.msg.gcms.domain.usecase.auth.SaveTokenInfoUseCase
 import com.msg.gcms.domain.usecase.auth.SignInUseCase
 import com.msg.gcms.presentation.viewmodel.util.Event
+import com.msg.gcms.presentation.viewmodel.util.errorHandling
 import com.msg.gcms.util.removeDot
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -35,12 +33,8 @@ class AuthViewModel @Inject constructor(
             saveToken(it)
             _postSignInRequest.value = Event.Success
         }.onFailure {
-            _postSignInRequest.value = when (it) {
-                is BadRequestException -> Event.BadRequest
-                is UnauthorizedException -> Event.Unauthorized
-                is NotFoundException -> Event.NotFound
-                else -> Event.UnKnown
-            }
+            _postSignInRequest.value =
+                it.errorHandling(unauthorizedAction = { saveTokenInfoUseCase() })
         }
     }
 
@@ -49,11 +43,7 @@ class AuthViewModel @Inject constructor(
             .onSuccess {
                 showDebugLog("Logout: Success!")
             }.onFailure {
-                when (it) {
-                    is UnauthorizedException -> showDebugLog("Logout: UnauthorizedException")
-                    is NotFoundException -> showDebugLog("Logout: NotFoundException")
-                    else -> showDebugLog("Logout: Unknown, status: $it")
-                }
+                it.errorHandling()
             }
         saveTokenInfoUseCase()
     }

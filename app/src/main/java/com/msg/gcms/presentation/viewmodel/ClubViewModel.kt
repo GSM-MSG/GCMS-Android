@@ -1,24 +1,20 @@
 package com.msg.gcms.presentation.viewmodel
 
-import android.util.Log
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.msg.gcms.domain.exception.BadRequestException
-import com.msg.gcms.domain.exception.ForBiddenException
-import com.msg.gcms.domain.exception.NotFoundException
-import com.msg.gcms.domain.exception.ServerException
-import com.msg.gcms.domain.exception.UnauthorizedException
 import com.msg.gcms.domain.usecase.applicant.PostClubApplyUseCase
 import com.msg.gcms.domain.usecase.applicant.PostClubCancelUseCase
+import com.msg.gcms.domain.usecase.auth.SaveTokenInfoUseCase
 import com.msg.gcms.domain.usecase.club.ClubDeleteUseCase
 import com.msg.gcms.domain.usecase.club.PutClubCloseUseCase
 import com.msg.gcms.domain.usecase.club.PutClubOpenUseCase
 import com.msg.gcms.domain.usecase.user.ExitUseCase
 import com.msg.gcms.presentation.base.LottieFragment
 import com.msg.gcms.presentation.viewmodel.util.Event
+import com.msg.gcms.presentation.viewmodel.util.errorHandling
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -31,6 +27,7 @@ class ClubViewModel @Inject constructor(
     private val putClubCloseUseCase: PutClubCloseUseCase,
     private val exitUseCase: ExitUseCase,
     private val clubDeleteUseCase: ClubDeleteUseCase,
+    private val saveTokenInfoUseCase: SaveTokenInfoUseCase
 ) : ViewModel() {
 
     private val lottie by lazy { LottieFragment() }
@@ -63,16 +60,8 @@ class ClubViewModel @Inject constructor(
                 //Todo(Leeyeonbin) 여기도 스테이터스로 예외하는거 다 수정하기
                 _applyClub.value = Event.Success
             }.onFailure {
-                _applyClub.value = when (it) {
-                    is UnauthorizedException -> Event.Unauthorized
-                    is ForBiddenException -> Event.ForBidden
-                    is NotFoundException -> Event.NotFound
-                    is ServerException -> Event.Server
-                    else -> {
-                        Log.d(TAG, "postClubApply: $it")
-                        Event.UnKnown
-                    }
-                }
+                _applyClub.value =
+                    it.errorHandling(unauthorizedAction = { saveTokenInfoUseCase() })
             }
         }
     }
@@ -84,15 +73,8 @@ class ClubViewModel @Inject constructor(
             ).onSuccess {
                 _cancelClubApply.value = Event.Success
             }.onFailure {
-                _cancelClubApply.value = when (it) {
-                    is UnauthorizedException -> Event.Unauthorized
-                    is NotFoundException -> Event.NotFound
-                    is ServerException -> Event.Server
-                    else -> {
-                        Log.d(TAG, "postClubCancel: $it")
-                        Event.UnKnown
-                    }
-                }
+                _cancelClubApply.value =
+                    it.errorHandling(unauthorizedAction = { saveTokenInfoUseCase() })
             }
         }
     }
@@ -104,17 +86,8 @@ class ClubViewModel @Inject constructor(
             ).onSuccess {
                 _openingClubApplication.value = Event.Success
             }.onFailure {
-                _openingClubApplication.value = when (it) {
-                    is BadRequestException -> Event.BadRequest
-                    is UnauthorizedException -> Event.Unauthorized
-                    is ForBiddenException -> Event.ForBidden
-                    is NotFoundException -> Event.NotFound
-                    is ServerException -> Event.Server
-                    else -> {
-                        Log.d(TAG, "putClubOpen: $it")
-                        Event.UnKnown
-                    }
-                }
+                _openingClubApplication.value =
+                    it.errorHandling(unauthorizedAction = { saveTokenInfoUseCase() })
             }
         }
     }
@@ -126,17 +99,8 @@ class ClubViewModel @Inject constructor(
             ).onSuccess {
                 _closingClubApplication.value = Event.Success
             }.onFailure {
-                _closingClubApplication.value = when (it) {
-                    is BadRequestException -> Event.BadRequest
-                    is UnauthorizedException -> Event.Unauthorized
-                    is ForBiddenException -> Event.ForBidden
-                    is NotFoundException -> Event.NotFound
-                    is ServerException -> Event.Server
-                    else -> {
-                        Log.d(TAG, "putClubClose: $it")
-                        Event.UnKnown
-                    }
-                }
+                _closingClubApplication.value =
+                    it.errorHandling(unauthorizedAction = { saveTokenInfoUseCase() })
             }
         }
     }
@@ -178,17 +142,8 @@ class ClubViewModel @Inject constructor(
             ).onSuccess {
                 _deleteClub.value = Event.Success
             }.onFailure {
-                _deleteClub.value = when (it) {
-                    is BadRequestException -> Event.BadRequest
-                    is UnauthorizedException -> Event.Unauthorized
-                    is ForBiddenException -> Event.ForBidden
-                    is NotFoundException -> Event.NotFound
-                    is ServerException -> Event.Server
-                    else -> {
-                        Log.d(TAG, "deleteClub: $it")
-                        Event.UnKnown
-                    }
-                }
+                _deleteClub.value =
+                    it.errorHandling(unauthorizedAction = { saveTokenInfoUseCase() })
             }
         }
     }
