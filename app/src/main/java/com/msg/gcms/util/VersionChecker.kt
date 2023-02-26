@@ -79,7 +79,7 @@ class VersionChecker(private val activity: Activity, private val afterLogic: () 
                     // Trigger FLEXIBLE flow
                     startUpdate(updateInfo, AppUpdateType.FLEXIBLE)
                 } else { // Priority: 0
-                    // Do not show in-app update
+                    afterLogic()
                 }
             } else {
                 afterLogic()
