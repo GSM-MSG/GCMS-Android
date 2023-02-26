@@ -14,6 +14,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.msg.gcms.R
 import com.msg.gcms.databinding.ActivityProfileBinding
 import com.msg.gcms.presentation.base.BaseActivity
+import com.msg.gcms.presentation.base.BaseModal
 import com.msg.gcms.presentation.utils.enterActivity
 import com.msg.gcms.presentation.utils.exitActivity
 import com.msg.gcms.presentation.utils.toFile
@@ -78,6 +79,15 @@ class ProfileActivity : BaseActivity<ActivityProfileBinding>(R.layout.activity_p
                             isVisible = false
                         }
                     }
+                }
+                Event.Unauthorized -> {
+                    BaseModal("오류", "토큰이 만료되었습니다, 앱 종료후 다시 실행해 주세요", this).show()
+                }
+                Event.NotFound -> {
+                    BaseModal("오류", "사용자를 찾을 수 없습니다.", this).show()
+                }
+                Event.UnKnown -> {
+                    BaseModal("오류", "알수 없는 오류 발생, 개발자에게 문의해주세요", this).show()
                 }
             }
         }
