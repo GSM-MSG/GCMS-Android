@@ -14,11 +14,11 @@ import com.google.android.play.core.install.model.AppUpdateType
 import com.google.android.play.core.install.model.InstallStatus
 import com.google.android.play.core.install.model.UpdateAvailability
 
-class VersionChecker(private val activity: Activity, private val afterLogic: () -> Unit) : InstallStateUpdatedListener {
+class VersionChecker(private val activity: Activity, private val afterLogic: () -> Unit) :
+    InstallStateUpdatedListener {
 
     private var appUpdateManager: AppUpdateManager = AppUpdateManagerFactory.create(activity)
     private val MY_REQUEST_CODE = 500
-
 
     private var currentType = AppUpdateType.FLEXIBLE
 
@@ -99,7 +99,7 @@ class VersionChecker(private val activity: Activity, private val afterLogic: () 
             if (currentType == AppUpdateType.FLEXIBLE) {
                 // If the update is downloaded but not installed, notify the user to complete the update.
                 if (info.installStatus() == InstallStatus.DOWNLOADED)
-                    flexibleUpdateDownloadCompleted(afterLogic = afterLogic)
+                    flexibleUpdateDownloadCompleted(afterLogic = { afterLogic() })
             } else if (currentType == AppUpdateType.IMMEDIATE) {
                 // for AppUpdateType.IMMEDIATE only, already executing updater
                 if (info.updateAvailability() == UpdateAvailability.DEVELOPER_TRIGGERED_UPDATE_IN_PROGRESS) {
@@ -124,7 +124,7 @@ class VersionChecker(private val activity: Activity, private val afterLogic: () 
 
     override fun onStateUpdate(state: InstallState) {
         if (state.installStatus() == InstallStatus.DOWNLOADED) {
-            flexibleUpdateDownloadCompleted(afterLogic = afterLogic)
+            flexibleUpdateDownloadCompleted(afterLogic = { afterLogic() })
         }
     }
 
