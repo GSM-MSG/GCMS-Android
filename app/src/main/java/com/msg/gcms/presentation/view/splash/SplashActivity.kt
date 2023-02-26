@@ -22,7 +22,7 @@ class SplashActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
-        versionChecker = VersionChecker(this, afterLogic = afterLogic())
+        versionChecker = VersionChecker(this, afterLogic = { afterLogic() })
         startActivity()
     }
 
@@ -44,7 +44,7 @@ class SplashActivity : AppCompatActivity() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        versionChecker.onActivityResult(requestCode,resultCode, data)
+        versionChecker.onActivityResult(requestCode, resultCode, data)
     }
 
     override fun onResume() {

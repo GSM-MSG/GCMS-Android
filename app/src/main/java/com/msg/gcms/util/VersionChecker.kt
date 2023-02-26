@@ -14,7 +14,7 @@ import com.google.android.play.core.install.model.AppUpdateType
 import com.google.android.play.core.install.model.InstallStatus
 import com.google.android.play.core.install.model.UpdateAvailability
 
-class VersionChecker(private val activity: Activity, private val afterLogic: Unit) : InstallStateUpdatedListener {
+class VersionChecker(private val activity: Activity, private val afterLogic: () -> Unit) : InstallStateUpdatedListener {
 
     private var appUpdateManager: AppUpdateManager = AppUpdateManagerFactory.create(activity)
     private val MY_REQUEST_CODE = 500
@@ -128,7 +128,7 @@ class VersionChecker(private val activity: Activity, private val afterLogic: Uni
         }
     }
 
-    private fun flexibleUpdateDownloadCompleted(afterLogic:Unit) {
+    private fun flexibleUpdateDownloadCompleted(afterLogic: () -> Unit) {
         Toast.makeText(activity, "업데이트가 완료되었습니다.", Toast.LENGTH_SHORT).show()
         appUpdateManager.completeUpdate()
         afterLogic
