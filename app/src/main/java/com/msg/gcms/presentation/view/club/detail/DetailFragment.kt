@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.View
 import androidx.activity.OnBackPressedCallback
 import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -503,7 +504,19 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
         detailViewModel.getClubDetail.observe(this) {
             when (it) {
                 Event.Success -> {
-
+                    with(binding.infoLoadingView) {
+                        if (isShimmerStarted) {
+                            stopShimmer()
+                            binding.infoLoadingScroll.visibility = View.GONE
+                            binding.scroll.visibility = View.VISIBLE
+                        }
+                    }
+                    with(binding.bannerLoadingView) {
+                        if (isShimmerStarted) {
+                            stopShimmer()
+                            isVisible = false
+                        }
+                    }
                 }
                 Event.BadRequest -> {
                     shortToast("동아리 정보를 불러오지 못했습니다.")
