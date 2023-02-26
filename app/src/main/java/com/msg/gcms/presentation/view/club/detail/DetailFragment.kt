@@ -510,7 +510,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
                     BaseModal("오류", "서버에 일시적인 오류가 발생하였습니다. \n 잠시후에 다시 시도해주세요", requireContext()).show()
                 }
                 else -> {
-                    BaseModal("오류", "알수 없는 오류 발생, 개발자에게 문의해주세요.", requireContext()).show()
+                    BaseModal("성공", "동아리를 탈퇴하였습니다.", requireContext()).show()
                 }
             }
         }
