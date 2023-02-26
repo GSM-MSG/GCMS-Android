@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.msg.gcms.domain.data.club.get_club_detail.ClubDetailData
 import com.msg.gcms.domain.exception.BadRequestException
+import com.msg.gcms.domain.exception.NeedLoginException
 import com.msg.gcms.domain.exception.NotFoundException
 import com.msg.gcms.domain.exception.UnauthorizedException
 import com.msg.gcms.domain.usecase.club.GetDetailUseCase
@@ -80,7 +81,7 @@ class ClubDetailViewModel @Inject constructor(
                         Log.d(TAG, "getDetail: $it.")
                         Event.BadRequest
                     }
-                    is UnauthorizedException -> {
+                    is UnauthorizedException, is NeedLoginException -> {
                         Log.d(TAG, "getDetail: $it")
                         Event.Unauthorized
                     }

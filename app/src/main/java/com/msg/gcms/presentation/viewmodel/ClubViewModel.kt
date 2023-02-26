@@ -8,6 +8,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.msg.gcms.domain.exception.BadRequestException
 import com.msg.gcms.domain.exception.ForBiddenException
+import com.msg.gcms.domain.exception.NeedLoginException
 import com.msg.gcms.domain.exception.NotFoundException
 import com.msg.gcms.domain.exception.ServerException
 import com.msg.gcms.domain.exception.UnauthorizedException
@@ -64,7 +65,7 @@ class ClubViewModel @Inject constructor(
                 _applyClub.value = Event.Success
             }.onFailure {
                 _applyClub.value = when (it) {
-                    is UnauthorizedException -> Event.Unauthorized
+                    is UnauthorizedException, is NeedLoginException -> Event.Unauthorized
                     is ForBiddenException -> Event.ForBidden
                     is NotFoundException -> Event.NotFound
                     is ServerException -> Event.Server
@@ -85,7 +86,7 @@ class ClubViewModel @Inject constructor(
                 _cancelClubApply.value = Event.Success
             }.onFailure {
                 _cancelClubApply.value = when (it) {
-                    is UnauthorizedException -> Event.Unauthorized
+                    is UnauthorizedException, is NeedLoginException -> Event.Unauthorized
                     is NotFoundException -> Event.NotFound
                     is ServerException -> Event.Server
                     else -> {
@@ -106,7 +107,7 @@ class ClubViewModel @Inject constructor(
             }.onFailure {
                 _openingClubApplication.value = when (it) {
                     is BadRequestException -> Event.BadRequest
-                    is UnauthorizedException -> Event.Unauthorized
+                    is UnauthorizedException, is NeedLoginException -> Event.Unauthorized
                     is ForBiddenException -> Event.ForBidden
                     is NotFoundException -> Event.NotFound
                     is ServerException -> Event.Server
@@ -128,7 +129,7 @@ class ClubViewModel @Inject constructor(
             }.onFailure {
                 _closingClubApplication.value = when (it) {
                     is BadRequestException -> Event.BadRequest
-                    is UnauthorizedException -> Event.Unauthorized
+                    is UnauthorizedException, is NeedLoginException -> Event.Unauthorized
                     is ForBiddenException -> Event.ForBidden
                     is NotFoundException -> Event.NotFound
                     is ServerException -> Event.Server
@@ -172,7 +173,7 @@ class ClubViewModel @Inject constructor(
             }.onFailure {
                 _deleteClub.value = when (it) {
                     is BadRequestException -> Event.BadRequest
-                    is UnauthorizedException -> Event.Unauthorized
+                    is UnauthorizedException, is NeedLoginException -> Event.Unauthorized
                     is ForBiddenException -> Event.ForBidden
                     is NotFoundException -> Event.NotFound
                     is ServerException -> Event.Server
