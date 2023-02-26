@@ -43,7 +43,7 @@ class LoginInterceptor @Inject constructor(
 
         if (currentTime.isAfter(refreshExp)) throw NeedLoginException()
 
-        if (currentTime.isBefore(accessExp)) {
+        if (currentTime.isAfter(accessExp)) {
             val client = OkHttpClient()
             val refreshRequest = Request.Builder()
                 .url(BuildConfig.BASE_URL + "auth")
