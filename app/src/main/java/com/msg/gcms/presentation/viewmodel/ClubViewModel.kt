@@ -158,10 +158,8 @@ class ClubViewModel @Inject constructor(
             exitUseCase(
                 clubId = clubId
             ).onSuccess {
-                Log.d(TAG, "exit: $it")
                 _exitClubStatus.value = Event.Success
             }.onFailure {
-                Log.d(TAG, "exit: $it")
                 _exitClubStatus.value = when(it) {
                     is BadRequestException -> Event.BadRequest
                     is UnauthorizedException -> Event.Unauthorized
