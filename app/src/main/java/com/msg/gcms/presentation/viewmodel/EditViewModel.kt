@@ -29,7 +29,8 @@ class EditViewModel @Inject constructor(
     private val getDetailUseCase: GetDetailUseCase,
     private val getSearchUserUseCase: GetSearchUserUseCase,
     private val imageUseCase: ImageUseCase,
-    private val editClubInfoUseCase: EditClubInfoUseCase
+    private val editClubInfoUseCase: EditClubInfoUseCase,
+    private val saveTokenInfoUseCase: SaveTokenInfoUseCase
 ) : ViewModel() {
 
     private val _clubInfo = MutableLiveData<ClubDetailData>()
