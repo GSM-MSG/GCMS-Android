@@ -27,9 +27,11 @@ import com.msg.gcms.presentation.adapter.club_member.ClubMemberAdapter
 import com.msg.gcms.presentation.base.BaseFragment
 import com.msg.gcms.presentation.base.BaseModal
 import com.msg.gcms.presentation.utils.ItemDecorator
+import com.msg.gcms.presentation.utils.enterActivity
 import com.msg.gcms.presentation.utils.toFile
 import com.msg.gcms.presentation.utils.toMultiPartBody
 import com.msg.gcms.presentation.utils.uriToBitMap
+import com.msg.gcms.presentation.view.intro.IntroActivity
 import com.msg.gcms.presentation.viewmodel.ClubViewModel
 import com.msg.gcms.presentation.viewmodel.MakeClubViewModel
 import com.msg.gcms.presentation.viewmodel.util.Event
@@ -274,7 +276,17 @@ class MakeClubDetailFragment :
                     }
                 }
                 Event.Unauthorized -> {
-                    BaseModal("오류", "토큰이 만료되었습니다, 앱 종료후 다시 실행해 주세요", requireContext()).show()
+                    BaseModal(
+                        "오류",
+                        "토큰이 만료되었습니다, 로그아웃 이후 다시 로그인해주세요.",
+                        requireContext()
+                    ).let { dialog ->
+                        dialog.show()
+                        dialog.dialogBinding.ok.setOnClickListener {
+                            enterActivity(requireActivity(), IntroActivity())
+                            dialog.dismiss()
+                        }
+                    }
                 }
                 Event.ForBidden -> {
                     BaseModal("생성 실패", "이미 다른 동아리에 소속 또는 신청중입니다.", requireContext()).let { dialog ->
