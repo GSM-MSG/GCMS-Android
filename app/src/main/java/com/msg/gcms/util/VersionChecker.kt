@@ -23,61 +23,61 @@ class VersionChecker(private val activity: Activity) : InstallStateUpdatedListen
     private var currentType = AppUpdateType.FLEXIBLE
 
     init {
-        appUpdateManager.appUpdateInfo.addOnSuccessListener { info ->
+        appUpdateManager.appUpdateInfo.addOnSuccessListener { updateInfo ->
             // Check if update is available
-            if (info.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE) { // UPDATE IS AVAILABLE
-                if (info.updatePriority() == 5) { // Priority: 5 (Immediate update flow)
-                    if (info.isUpdateTypeAllowed(AppUpdateType.IMMEDIATE)) {
-                        startUpdate(info, AppUpdateType.IMMEDIATE)
+            if (updateInfo.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE) { // UPDATE IS AVAILABLE
+                if (updateInfo.updatePriority() == 5) { // Priority: 5 (Immediate update flow)
+                    if (updateInfo.isUpdateTypeAllowed(AppUpdateType.IMMEDIATE)) {
+                        startUpdate(updateInfo, AppUpdateType.IMMEDIATE)
                     }
-                } else if (info.updatePriority() == 4) { // Priority: 4
-                    val clientVersionStalenessDays = info.clientVersionStalenessDays()
-                    if (clientVersionStalenessDays != null && clientVersionStalenessDays >= 5 && info.isUpdateTypeAllowed(
+                } else if (updateInfo.updatePriority() == 4) { // Priority: 4
+                    val clientVersionStalenessDays = updateInfo.clientVersionStalenessDays()
+                    if (clientVersionStalenessDays != null && clientVersionStalenessDays >= 5 && updateInfo.isUpdateTypeAllowed(
                             AppUpdateType.IMMEDIATE
                         )
                     ) {
                         // Trigger IMMEDIATE flow
-                        startUpdate(info, AppUpdateType.IMMEDIATE)
-                    } else if (clientVersionStalenessDays != null && clientVersionStalenessDays >= 3 && info.isUpdateTypeAllowed(
+                        startUpdate(updateInfo, AppUpdateType.IMMEDIATE)
+                    } else if (clientVersionStalenessDays != null && clientVersionStalenessDays >= 3 && updateInfo.isUpdateTypeAllowed(
                             AppUpdateType.FLEXIBLE
                         )
                     ) {
                         // Trigger FLEXIBLE flow
-                        startUpdate(info, AppUpdateType.FLEXIBLE)
+                        startUpdate(updateInfo, AppUpdateType.FLEXIBLE)
                     }
-                } else if (info.updatePriority() == 3) { // Priority: 3
-                    val clientVersionStalenessDays = info.clientVersionStalenessDays()
-                    if (clientVersionStalenessDays != null && clientVersionStalenessDays >= 30 && info.isUpdateTypeAllowed(
+                } else if (updateInfo.updatePriority() == 3) { // Priority: 3
+                    val clientVersionStalenessDays = updateInfo.clientVersionStalenessDays()
+                    if (clientVersionStalenessDays != null && clientVersionStalenessDays >= 30 && updateInfo.isUpdateTypeAllowed(
                             AppUpdateType.IMMEDIATE
                         )
                     ) {
                         // Trigger IMMEDIATE flow
-                        startUpdate(info, AppUpdateType.IMMEDIATE)
-                    } else if (clientVersionStalenessDays != null && clientVersionStalenessDays >= 15 && info.isUpdateTypeAllowed(
+                        startUpdate(updateInfo, AppUpdateType.IMMEDIATE)
+                    } else if (clientVersionStalenessDays != null && clientVersionStalenessDays >= 15 && updateInfo.isUpdateTypeAllowed(
                             AppUpdateType.FLEXIBLE
                         )
                     ) {
                         // Trigger FLEXIBLE flow
-                        startUpdate(info, AppUpdateType.FLEXIBLE)
+                        startUpdate(updateInfo, AppUpdateType.FLEXIBLE)
                     }
-                } else if (info.updatePriority() == 2) { // Priority: 2
-                    val clientVersionStalenessDays = info.clientVersionStalenessDays()
-                    if (clientVersionStalenessDays != null && clientVersionStalenessDays >= 90 && info.isUpdateTypeAllowed(
+                } else if (updateInfo.updatePriority() == 2) { // Priority: 2
+                    val clientVersionStalenessDays = updateInfo.clientVersionStalenessDays()
+                    if (clientVersionStalenessDays != null && clientVersionStalenessDays >= 90 && updateInfo.isUpdateTypeAllowed(
                             AppUpdateType.IMMEDIATE
                         )
                     ) {
                         // Trigger IMMEDIATE flow
-                        startUpdate(info, AppUpdateType.IMMEDIATE)
-                    } else if (clientVersionStalenessDays != null && clientVersionStalenessDays >= 30 && info.isUpdateTypeAllowed(
+                        startUpdate(updateInfo, AppUpdateType.IMMEDIATE)
+                    } else if (clientVersionStalenessDays != null && clientVersionStalenessDays >= 30 && updateInfo.isUpdateTypeAllowed(
                             AppUpdateType.FLEXIBLE
                         )
                     ) {
                         // Trigger FLEXIBLE flow
-                        startUpdate(info, AppUpdateType.FLEXIBLE)
+                        startUpdate(updateInfo, AppUpdateType.FLEXIBLE)
                     }
-                } else if (info.updatePriority() == 1) { // Priority: 1
+                } else if (updateInfo.updatePriority() == 1) { // Priority: 1
                     // Trigger FLEXIBLE flow
-                    startUpdate(info, AppUpdateType.FLEXIBLE)
+                    startUpdate(updateInfo, AppUpdateType.FLEXIBLE)
                 } else { // Priority: 0
                     // Do not show in-app update
                 }
@@ -88,9 +88,10 @@ class VersionChecker(private val activity: Activity) : InstallStateUpdatedListen
         appUpdateManager.registerListener(this)
     }
 
+    // the logic that update version
     private fun startUpdate(info: AppUpdateInfo, type: Int) {
-        appUpdateManager.startUpdateFlowForResult(info, type, activity, MY_REQUEST_CODE)
         currentType = type
+        appUpdateManager.startUpdateFlowForResult(info, type, activity, MY_REQUEST_CODE)
     }
 
     fun onResume() {
@@ -129,5 +130,6 @@ class VersionChecker(private val activity: Activity) : InstallStateUpdatedListen
 
     private fun flexibleUpdateDownloadCompleted() {
         Toast.makeText(activity, "업데이트가 완료되었습니다.", Toast.LENGTH_SHORT).show()
+        appUpdateManager.completeUpdate()
     }
 }
