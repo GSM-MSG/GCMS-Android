@@ -1,6 +1,5 @@
 package com.msg.gcms.presentation.viewmodel
 
-import android.util.Log
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -12,12 +11,6 @@ import com.msg.gcms.domain.data.applicant.get_applicant_list.ApplicantListData
 import com.msg.gcms.domain.data.club_member.delegation_of_manager.DelegationOfManagerData
 import com.msg.gcms.domain.data.club_member.get_club_member.MemberData
 import com.msg.gcms.domain.data.club_member.member_expelled.MemberExpelledData
-import com.msg.gcms.domain.exception.BadRequestException
-import com.msg.gcms.domain.exception.ForBiddenException
-import com.msg.gcms.domain.exception.NeedLoginException
-import com.msg.gcms.domain.exception.NotFoundException
-import com.msg.gcms.domain.exception.ServerException
-import com.msg.gcms.domain.exception.UnauthorizedException
 import com.msg.gcms.domain.usecase.applicant.ApplicantAcceptUseCase
 import com.msg.gcms.domain.usecase.applicant.ApplicantRejectUseCase
 import com.msg.gcms.domain.usecase.applicant.GetApplicantUseCase
@@ -26,6 +19,7 @@ import com.msg.gcms.domain.usecase.club_member.GetMemberUseCase
 import com.msg.gcms.domain.usecase.club_member.MandateUseCase
 import com.msg.gcms.domain.usecase.club_member.UserKickUseCase
 import com.msg.gcms.presentation.viewmodel.util.Event
+import com.msg.gcms.presentation.viewmodel.util.errorHandling
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import java.util.UUID
@@ -98,20 +92,8 @@ class MemberManageViewModel @Inject constructor(
                     }
                 _getMemberListState.value = Event.Success
             }.onFailure {
-                _getMemberListState.value = when (it) {
-                    is BadRequestException -> Event.BadRequest
-                    is UnauthorizedException, is NeedLoginException -> {
-                        saveTokenInfoUseCase()
-                        Event.Unauthorized
-                    }
-                    is ForBiddenException -> Event.ForBidden
-                    is NotFoundException -> Event.NotFound
-                    is ServerException -> Event.Server
-                    else -> {
-                        Log.d("getMember", "getMember: $it")
-                        Event.UnKnown
-                    }
-                }
+                _getMemberListState.value =
+                    it.errorHandling(unauthorizedAction = { saveTokenInfoUseCase() })
             }
         }
     }
@@ -124,19 +106,8 @@ class MemberManageViewModel @Inject constructor(
                 _applicantList.value = it.applicantList
                 _getApplicantListState.value = Event.Success
             }.onFailure {
-                _getApplicantListState.value = when (it) {
-                    is BadRequestException -> Event.BadRequest
-                    is UnauthorizedException, is NeedLoginException -> {
-                        saveTokenInfoUseCase()
-                        Event.Unauthorized
-                    }
-                    is NotFoundException -> Event.NotFound
-                    is ServerException -> Event.Server
-                    else -> {
-                        Log.d("getApplicant", "getApplicant: $it")
-                        Event.UnKnown
-                    }
-                }
+                _getApplicantListState.value =
+                    it.errorHandling(unauthorizedAction = { saveTokenInfoUseCase() })
             }
         }
     }
@@ -149,20 +120,8 @@ class MemberManageViewModel @Inject constructor(
             ).onSuccess {
                 _kickUserState.value = Event.Success
             }.onFailure {
-                _kickUserState.value = when (it) {
-                    is BadRequestException -> Event.BadRequest
-                    is UnauthorizedException, is NeedLoginException -> {
-                        saveTokenInfoUseCase()
-                        Event.Unauthorized
-                    }
-                    is ForBiddenException -> Event.ForBidden
-                    is NotFoundException -> Event.NotFound
-                    is ServerException -> Event.Server
-                    else -> {
-                        Log.d("kickUser", "kickUser: $it")
-                        Event.UnKnown
-                    }
-                }
+                _kickUserState.value =
+                    it.errorHandling(unauthorizedAction = { saveTokenInfoUseCase() })
             }
         }
     }
@@ -175,20 +134,8 @@ class MemberManageViewModel @Inject constructor(
             ).onSuccess {
                 _delegateState.value = Event.Success
             }.onFailure {
-                _delegateState.value = when (it) {
-                    is BadRequestException -> Event.BadRequest
-                    is UnauthorizedException, is NeedLoginException -> {
-                        saveTokenInfoUseCase()
-                        Event.Unauthorized
-                    }
-                    is ForBiddenException -> Event.ForBidden
-                    is NotFoundException -> Event.NotFound
-                    is ServerException -> Event.Server
-                    else -> {
-                        Log.d("delegate", "delegate: $it")
-                        Event.UnKnown
-                    }
-                }
+                _delegateState.value =
+                    it.errorHandling(unauthorizedAction = { saveTokenInfoUseCase() })
             }
         }
     }
@@ -201,20 +148,8 @@ class MemberManageViewModel @Inject constructor(
             ).onSuccess {
                 _acceptApplicantState.value = Event.Success
             }.onFailure {
-                _acceptApplicantState.value = when (it) {
-                    is BadRequestException -> Event.BadRequest
-                    is UnauthorizedException, is NeedLoginException -> {
-                        saveTokenInfoUseCase()
-                        Event.Unauthorized
-                    }
-                    is ForBiddenException -> Event.ForBidden
-                    is NotFoundException -> Event.NotFound
-                    is ServerException -> Event.Server
-                    else -> {
-                        Log.d("Accept", "Accept: $it")
-                        Event.UnKnown
-                    }
-                }
+                _acceptApplicantState.value =
+                    it.errorHandling(unauthorizedAction = { saveTokenInfoUseCase() })
             }
         }
     }
@@ -227,20 +162,8 @@ class MemberManageViewModel @Inject constructor(
             ).onSuccess {
                 _rejectApplicantState.value = Event.Success
             }.onFailure {
-                _rejectApplicantState.value = when (it) {
-                    is BadRequestException -> Event.BadRequest
-                    is UnauthorizedException, is NeedLoginException -> {
-                        saveTokenInfoUseCase()
-                        Event.Unauthorized
-                    }
-                    is ForBiddenException -> Event.ForBidden
-                    is NotFoundException -> Event.NotFound
-                    is ServerException -> Event.Server
-                    else -> {
-                        Log.d("Reject", "Reject: $it")
-                        Event.UnKnown
-                    }
-                }
+                _rejectApplicantState.value =
+                    it.errorHandling(unauthorizedAction = { saveTokenInfoUseCase() })
             }
         }
     }

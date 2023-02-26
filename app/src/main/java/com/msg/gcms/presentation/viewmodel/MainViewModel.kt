@@ -5,12 +5,10 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.msg.gcms.domain.data.club.get_club_list.GetClubListData
-import com.msg.gcms.domain.exception.BadRequestException
-import com.msg.gcms.domain.exception.NeedLoginException
-import com.msg.gcms.domain.exception.UnauthorizedException
 import com.msg.gcms.domain.usecase.auth.SaveTokenInfoUseCase
 import com.msg.gcms.domain.usecase.club.GetClubListUseCase
 import com.msg.gcms.presentation.viewmodel.util.Event
+import com.msg.gcms.presentation.viewmodel.util.errorHandling
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -55,14 +53,8 @@ class MainViewModel @Inject constructor(
                 _getClubList.value = Event.Success
                 _clubData.value = it
             }.onFailure {
-                _getClubList.value = when (it) {
-                    is BadRequestException -> Event.BadRequest
-                    is UnauthorizedException, is NeedLoginException -> {
-                        saveTokenInfoUseCase()
-                        Event.Unauthorized
-                    }
-                    else -> Event.UnKnown
-                }
+                _getClubList.value =
+                    it.errorHandling(unauthorizedAction = { saveTokenInfoUseCase() })
             }
         }
     }
