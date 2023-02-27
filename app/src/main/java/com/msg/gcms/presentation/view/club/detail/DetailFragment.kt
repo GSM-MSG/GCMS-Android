@@ -411,7 +411,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
         clubViewModel.applyClub.observe(this) { status ->
             detailViewModel.refreshDetailInfo(detailViewModel.result.value!!.id)
             when (status) {
-                Event.Success -> {
+                Event.Success, Event.UnKnown -> {
                     BaseModal("성공", "동아리 신청에 성공했습니다.", requireContext()).show()
                 }
                 Event.Unauthorized -> {
@@ -444,7 +444,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
         clubViewModel.cancelClubApply.observe(this) { status ->
             detailViewModel.refreshDetailInfo(detailViewModel.result.value!!.id)
             when (status) {
-                Event.Success -> {
+                Event.Success, Event.UnKnown -> {
                     BaseModal("성공", "동아리 신청을 취소했습니다.", requireContext()).show()
                 }
                 Event.Unauthorized -> {
