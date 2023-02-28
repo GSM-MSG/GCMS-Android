@@ -136,7 +136,7 @@
 
     <string name="create_club_forbidden_message">이미 다른 동아리에 소속 또는 신청중입니다.</string>
 
-    <string name="create_club_conflict_message">이미 존재하는 동아리 입니다.</string>
+    <string name="create_club_server_message">서버에 오류가 발생하였습니다.\n 잠시후에 다시 시도해주세요.</string>
 
     <string name="create_club_unknown_message">알수 없는 오류 발생!!, 개발자에게 문의해주세요</string>
 </resources>

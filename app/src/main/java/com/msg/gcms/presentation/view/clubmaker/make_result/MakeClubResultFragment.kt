@@ -29,13 +29,13 @@ class MakeClubResultFragment :
                 state = R.string.create_club_success_state.toString()
                 message = R.string.create_club_success_message.toString()
             }
-            Event.ForBidden -> {
+            Event.Server -> {
                 state = R.string.create_club_error_state.toString()
                 message = R.string.create_club_forbidden_message.toString()
             }
-            Event.Conflict -> {
+            Event.Server -> {
                 state = R.string.create_club_error_state.toString()
-                message = R.string.create_club_conflict_message.toString()
+                message = R.string.create_club_server_message.toString()
             }
             else -> {
                 state = R.string.create_club_error_state.toString()
