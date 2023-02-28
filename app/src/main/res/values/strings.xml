@@ -128,6 +128,15 @@
     <string name="withdrawal2">강퇴</string>
     <string name="approve">승인</string>
     <string name="refuse">거절</string>
-    <string name="create_club_message">동아리 개설 신청 됨</string>
-    <string name="create_club_secondary_message">어드민이 동아리 개설 신청을 수락한 후에\n동아리가 개설되요</string>
+
+    <string name="create_club_success_state">동아리 개설 신청 됨</string>
+    <string name="create_club_success_message">어드민이 동아리 개설 신청을 수락한 후에\n동아리가 개설되요</string>
+
+    <string name="create_club_error_state">동아리 개설 실패</string>
+
+    <string name="create_club_forbidden_message">이미 다른 동아리에 소속 또는 신청중입니다.</string>
+
+    <string name="create_club_conflict_message">이미 존재하는 동아리 입니다.</string>
+
+    <string name="create_club_unknown_message">알수 없는 오류 발생!!, 개발자에게 문의해주세요</string>
 </resources>

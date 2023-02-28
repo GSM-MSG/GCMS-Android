@@ -43,14 +43,15 @@
             app:layout_constraintGuide_percent="0.9562243" />
 
         <ImageView
+            android:id="@+id/exitBtn"
             android:layout_width="20dp"
             android:layout_height="20dp"
             android:src="@drawable/ic_close_button"
             android:padding="2dp"
             android:scaleType="center"
+            android:onClick="@{fragment::onClickExitBtn}"
             app:layout_constraintStart_toStartOf="@+id/guideline49"
-            app:layout_constraintTop_toTopOf="@+id/guideline58"
-            android:id="@+id/imageView2" />
+            app:layout_constraintTop_toTopOf="@+id/guideline58" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -81,22 +82,23 @@
                 android:id="@+id/imageView4" />
 
             <TextView
+                android:id="@+id/statusTv"
                 android:layout_marginTop="26dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                android:text="@string/create_club_message"
+                android:text="@string/create_club_success_state"
                 android:textStyle="bold"
                 app:layout_constraintTop_toBottomOf="@id/imageView4"
-                android:textColor="@color/white"
-                android:id="@+id/textView32" />
+                android:textColor="@color/white" />
 
             <TextView
+                android:id="@+id/statusMessageTv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/create_club_secondary_message"
-                app:layout_constraintTop_toBottomOf="@+id/textView32"
+                android:text="@string/create_club_success_message"
+                app:layout_constraintTop_toBottomOf="@+id/statusTv"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 android:layout_marginTop="20dp"
@@ -106,6 +108,7 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <TextView
+            android:id="@+id/checkBtn"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:background="@drawable/bg_check_btn"

@@ -288,18 +288,20 @@ class MakeClubDetailFragment :
                         }
                     }
                 }
-                Event.ForBidden -> {
-                    BaseModal("생성 실패", "이미 다른 동아리에 소속 또는 신청중입니다.", requireContext()).let { dialog ->
-                        dialog.show()
-                        dialog.dialogBinding.ok.setOnClickListener {
-                            dialog.dismiss()
-                            requireActivity().finish()
-                        }
-                    }
+                Event.ForBidden, Event.Conflict -> {
+                    // BaseModal("생성 실패", "이미 다른 동아리에 소속 또는 신청중입니다.", requireContext()).let { dialog ->
+                    //     dialog.show()
+                    //     dialog.dialogBinding.ok.setOnClickListener {
+                    //         dialog.dismiss()
+                    //         requireActivity().finish()
+                    //     }
+                    // }
+                    this.findNavController()
+                        .navigate(R.id.action_makeClubDetailFragment_to_makeClubResultFragment)
                 }
-                Event.Conflict -> {
-                    BaseModal("생성 실패", "이미 존재하는 동아리 입니다.", requireContext()).show()
-                }
+                // Event.Conflict -> {
+                //     BaseModal("생성 실패", "이미 존재하는 동아리 입니다.", requireContext()).show()
+                // }
                 Event.Server -> {
                     BaseModal("생성 실패", "서버상의 문제가 발생하였습니다.", requireContext()).show()
                 }
