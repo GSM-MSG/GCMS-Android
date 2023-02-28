@@ -128,4 +128,6 @@
     <string name="withdrawal2">강퇴</string>
     <string name="approve">승인</string>
     <string name="refuse">거절</string>
+    <string name="create_club_message">동아리 개설 신청 됨</string>
+    <string name="create_club_secondary_message">어드민이 동아리 개설 신청을 수락한 후에\n동아리가 개설되요</string>
 </resources>
