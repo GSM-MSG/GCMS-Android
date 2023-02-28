@@ -130,13 +130,13 @@
     <string name="refuse">거절</string>
 
     <string name="create_club_success_state">동아리 개설 신청 됨</string>
-    <string name="create_club_success_message">어드민이 동아리 개설 신청을 수락한 후에\n동아리가 개설되요</string>
+    <string name="create_club_success_message">어드민이 동아리 개설 신청을 수락한 후에\n동아리가 개설돼요</string>
 
     <string name="create_club_error_state">동아리 개설 실패</string>
 
-    <string name="create_club_forbidden_message">이미 다른 동아리에 소속 또는 신청중입니다.</string>
+    <string name="create_club_forbidden_message">이미 다른 전공 혹은 자율 동아리에\n 소속되었거나 신청중이에요.</string>
 
     <string name="create_club_server_message">서버에 오류가 발생하였습니다.\n 잠시후에 다시 시도해주세요.</string>
 
-    <string name="create_club_unknown_message">알수 없는 오류 발생!!, 개발자에게 문의해주세요</string>
+    <string name="create_club_unknown_message">개발자에게 문의해주세요</string>
 </resources>
