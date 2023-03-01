@@ -266,15 +266,16 @@ class MakeClubDetailFragment :
     private fun observeCreateClubStatus() {
         makeClubViewModel.createClubResult.observe(this) {
             when (it) {
-                Event.Success -> {
-                    BaseModal("생성 성공", "동아리 생성에 성공했습니다.", requireContext()).let { dialog ->
-                        dialog.show()
-                        dialog.dialogBinding.ok.setOnClickListener {
-                            dialog.dismiss()
-                            requireActivity().finish()
-                        }
-                    }
-                }
+                // Event.Success -> {
+                //     // BaseModal("생성 성공", "동아리 생성에 성공했습니다.", requireContext()).let { dialog ->
+                //     //     dialog.show()
+                //     //     dialog.dialogBinding.ok.setOnClickListener {
+                //     //         dialog.dismiss()
+                //     //         requireActivity().finish()
+                //     //     }
+                // }
+
+                // }
                 Event.Unauthorized -> {
                     BaseModal(
                         "오류",
@@ -288,7 +289,10 @@ class MakeClubDetailFragment :
                         }
                     }
                 }
-                Event.ForBidden, Event.Server -> {
+                Event.Conflict -> {
+                    BaseModal("생성 실패", "이미 존재하는 동아리 입니다.", requireContext()).show()
+                }
+                Event.Success, Event.ForBidden, Event.Server -> {
                     // BaseModal("생성 실패", "이미 다른 동아리에 소속 또는 신청중입니다.", requireContext()).let { dialog ->
                     //     dialog.show()
                     //     dialog.dialogBinding.ok.setOnClickListener {
@@ -299,14 +303,12 @@ class MakeClubDetailFragment :
                     this.findNavController()
                         .navigate(R.id.action_makeClubDetailFragment_to_makeClubResultFragment)
                 }
-                Event.Conflict -> {
-                    BaseModal("생성 실패", "이미 존재하는 동아리 입니다.", requireContext()).show()
-                }
                 // Event.Server -> {
                 //     BaseModal("생성 실패", "서버상의 문제가 발생하였습니다.", requireContext()).show()
                 // }
                 else -> {
-                    BaseModal("생성 실패", "알수 없는 오류 발생, 개발자에게 문의해주세요", requireContext()).show()
+                    this.findNavController()
+                        .navigate(R.id.action_makeClubDetailFragment_to_makeClubResultFragment)
                 }
             }
             clubViewModel.stopLottie()
