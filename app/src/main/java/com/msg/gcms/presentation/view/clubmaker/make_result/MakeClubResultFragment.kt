@@ -61,6 +61,7 @@ class MakeClubResultFragment :
         when (view.id) {
             binding.checkBtn.id, binding.exitBtn.id -> {
                 enterActivity(requireActivity(), MainActivity())
+                requireActivity().finish()
             }
         }
     }
