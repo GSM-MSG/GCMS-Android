@@ -16,42 +16,44 @@ class MakeClubResultFragment :
     private val makeClubViewModel by activityViewModels<MakeClubViewModel>()
 
     override fun init() {
+        binding.fragment = this
         val result = makeClubViewModel.createClubResult.value!!
         showCreateClubResult(result)
     }
 
     private fun showCreateClubResult(result: Event) {
-        lateinit var state: String
-        lateinit var message: String
-        var icon = R.drawable.ic_email
+        val state: Int
+        val message: Int
+        val icon: Int
 
         when (result) {
             Event.Success -> {
-                state = R.string.create_club_success_state.toString()
-                message = R.string.create_club_success_message.toString()
+                state = R.string.create_club_success_state
+                message = R.string.create_club_success_message
+                icon = R.drawable.ic_email
             }
             Event.ForBidden -> {
-                state = R.string.create_club_error_state.toString()
-                message = R.string.create_club_forbidden_message.toString()
+                state = R.string.create_club_error_state
+                message = R.string.create_club_forbidden_message
                 icon = R.drawable.ic_error
             }
             Event.Server -> {
-                state = R.string.create_club_server_error_state.toString()
-                message = R.string.create_club_server_message.toString()
+                state = R.string.create_club_server_error_state
+                message = R.string.create_club_server_message
                 icon = R.drawable.ic_server_error
             }
             else -> {
-                state = R.string.create_club_unknown_error_state.toString()
-                message = R.string.create_club_unknown_message.toString()
+                state = R.string.create_club_unknown_error_state
+                message = R.string.create_club_unknown_message
                 icon = R.drawable.ic_unknown
             }
         }
         showResultState(state = state, message = message, icon = icon)
     }
 
-    private fun showResultState(state: String, message: String, icon: Int) {
-        binding.statusTv.text = state
-        binding.statusMessageTv.text = message
+    private fun showResultState(state: Int, message: Int, icon: Int) {
+        binding.statusTv.setText(state)
+        binding.statusMessageTv.setText(message)
         binding.stateImg.setImageResource(icon)
     }
 
