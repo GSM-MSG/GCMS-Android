@@ -36,6 +36,9 @@
         <action
             android:id="@+id/action_makeClubDetailFragment_to_studentSearchFragment"
             app:destination="@id/studentSearchFragment" />
+        <action
+            android:id="@+id/action_makeClubDetailFragment_to_makeClubResultFragment"
+            app:destination="@id/makeClubResultFragment" />
     </fragment>
 
     <fragment
@@ -47,5 +50,10 @@
             android:id="@+id/action_studentSearchFragment_to_makeClubDetailFragment"
             app:destination="@id/makeClubDetailFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/makeClubResultFragment"
+        android:name="com.msg.gcms.presentation.view.clubmaker.make_result.MakeClubResultFragment"
+        android:label="MakeClubResultFragment"
+        tools:layout="@layout/fragment_make_club_result"/>
 
 </navigation>

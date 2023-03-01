@@ -15,17 +15,17 @@
     <color name="white_3">#FCFFFF</color>
     <color name="white_4">#ECECEC</color>
 
-    <color name="invisible_white">#66FFFFFF</color>
+    <color name="invisible_white">#50FFFFFF</color>
     <color name="pink">#FF8181</color>
     <color name="light_black">#1C1C1E</color>
     <color name="dark_blue">#4C53FF</color>
     <color name="dark_blue2">#5959FF</color>
+    <color name="dark_blue3">#4164E1</color>
     <color name="light_blue">#00A8FE</color>
     <color name="light_blue_2">#C3C3FF</color>
     <color name="light_blue3">#8989FF</color>
     <color name="light_blue4">#2E5CFF</color>
     <color name="light_blue5">#5169E8</color>
-
 
     <color name="gray_1">#F4F4F4</color>
     <color name="gray_2">#8D8D8D</color>
