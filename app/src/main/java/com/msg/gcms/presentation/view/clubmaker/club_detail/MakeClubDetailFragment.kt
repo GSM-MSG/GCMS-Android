@@ -283,10 +283,30 @@ class MakeClubDetailFragment :
                     BaseModal("생성 실패", "이미 존재하는 동아리 입니다.", requireContext()).show()
                 }
                 Event.ForBidden -> {
-                    BaseModal("생성 실패", "이미 다른 동아리에 소속되어있습니다.", requireContext()).show()
+                    BaseModal(
+                        "생성 실패",
+                        "이미 다른 동아리에 소속되어있습니다.",
+                        requireContext()
+                    ).let { dialog ->
+                        dialog.show()
+                        dialog.dialogBinding.ok.setOnClickListener {
+                            enterActivity(requireActivity(), IntroActivity())
+                            dialog.dismiss()
+                        }
+                    }
                 }
                 Event.Server -> {
-                    BaseModal("오류", "서버상의 오류가 발생했습니다, 잠시 후 다시 시도해주세요", requireContext()).show()
+                    BaseModal(
+                        "오류",
+                        "서버상의 오류가 발생했습니다.",
+                        requireContext()
+                    ).let { dialog ->
+                        dialog.show()
+                        dialog.dialogBinding.ok.setOnClickListener {
+                            enterActivity(requireActivity(), IntroActivity())
+                            dialog.dismiss()
+                        }
+                    }
                 }
                 Event.Success -> {
                     this.findNavController()
