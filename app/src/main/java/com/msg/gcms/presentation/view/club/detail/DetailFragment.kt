@@ -68,7 +68,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
         super.onAttach(context)
         callback = object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
-                exitActivity(requireActivity())
+                goBack()
             }
         }
         requireActivity().onBackPressedDispatcher.addCallback(this, callback)

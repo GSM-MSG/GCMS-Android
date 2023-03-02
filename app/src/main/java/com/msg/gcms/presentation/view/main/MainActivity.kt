@@ -68,9 +68,10 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
     }
 
     override fun onBackPressed() {
-        supportFragmentManager.fragments.filter { it is OnBackPressedListener }
-            .map { it as OnBackPressedListener }
-            .forEach { it.onBackPressed(); return }
+        if (onBackPressedDispatcher.hasEnabledCallbacks()) {
+            onBackPressedDispatcher.onBackPressed()
+            return
+        }
 
         if (System.currentTimeMillis() - backButtonWait >= 2000) {
             backButtonWait = System.currentTimeMillis()

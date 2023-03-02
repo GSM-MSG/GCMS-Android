@@ -47,7 +47,6 @@ class StudentSearchFragment :
     override fun init() {
         binding.fragment = this
         observeEvent()
-        activity?.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING)
         settingRecyclerView()
     }
 
