@@ -128,13 +128,17 @@ class MemberManageActivity :
     }
 
     private fun clickExpandable() = with(binding) {
-        memberListBtn.setOnClickListener {
-            if (memberList.visibility == View.GONE) viewModel.getMember()
-            expandableAnim(memberListBtn, memberList.visibility, memberList)
+        listOf(memberListBtn, memberListLayout).forEach {
+            it.setOnClickListener {
+                if (memberList.visibility == View.GONE) viewModel.getMember()
+                expandableAnim(memberListBtn, memberList.visibility, memberList)
+            }
         }
-        applicantListBtn.setOnClickListener {
-            if (memberList.visibility == View.GONE) viewModel.getApplicant()
-            expandableAnim(applicantListBtn, applicantList.visibility, applicantList)
+        listOf(applicantListBtn, applicantListLayout).forEach {
+            it.setOnClickListener {
+                if (memberList.visibility == View.GONE) viewModel.getApplicant()
+                expandableAnim(applicantListBtn, applicantList.visibility, applicantList)
+            }
         }
     }
 
