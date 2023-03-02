@@ -80,7 +80,7 @@ class IntroActivity : BaseActivity<ActivityIntroBinding>(R.layout.activity_intro
                 startActivity(
                     Intent(
                         Intent.ACTION_VIEW,
-                        Uri.parse("https://www.notion.so/f4b4084f6235444bbcc164f7c5d86fb2")
+                        Uri.parse("https://matsogeum.notion.site/db8c0669605e4685b036cc08293aceb7")
                     )
                 )
             }
@@ -88,7 +88,7 @@ class IntroActivity : BaseActivity<ActivityIntroBinding>(R.layout.activity_intro
                 startActivity(
                     Intent(
                         Intent.ACTION_VIEW,
-                        Uri.parse("https://www.notion.so/252fc57341834617b7d3c1903286c730")
+                        Uri.parse("https://matsogeum.notion.site/0f7c494b26114da098d0c8ea50bb5588")
                     )
                 )
             }

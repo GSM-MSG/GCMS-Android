@@ -283,7 +283,7 @@ class MakeClubDetailFragment :
                     BaseModal("생성 실패", "이미 존재하는 동아리 입니다.", requireContext()).show()
                 }
                 else -> {
-                    this.findNavController()
+                    findNavController()
                         .navigate(R.id.action_makeClubDetailFragment_to_makeClubResultFragment)
                 }
             }
