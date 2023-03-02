@@ -282,10 +282,6 @@ class MakeClubDetailFragment :
                 Event.Conflict -> {
                     BaseModal("생성 실패", "이미 존재하는 동아리 입니다.", requireContext()).show()
                 }
-                Event.Success, Event.ForBidden, Event.Server -> {
-                    this.findNavController()
-                        .navigate(R.id.action_makeClubDetailFragment_to_makeClubResultFragment)
-                }
                 else -> {
                     this.findNavController()
                         .navigate(R.id.action_makeClubDetailFragment_to_makeClubResultFragment)
