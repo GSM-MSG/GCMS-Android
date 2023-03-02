@@ -54,7 +54,6 @@ class EditSearchFragment : BaseFragment<FragmentEditSearchBinding>(R.layout.frag
     override fun init() {
         binding.fragment = this
         observeEvent()
-        activity?.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING)
         settingRecyclerView()
         memberList = editViewModel.addedMemberData.value!!.toMutableList()
     }
