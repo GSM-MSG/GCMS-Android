@@ -13,6 +13,7 @@ import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
 import java.io.File
 import java.io.FileOutputStream
+import java.net.URLDecoder
 
 @SuppressLint("Range")
 fun Uri.toFile(context: Context): File {
@@ -45,7 +46,7 @@ fun File.toMultiPartBody(): MultipartBody.Part =
     )
 
 private fun Uri.getFileName(context: Context): String {
-    val name = this.toString().split("/").last()
+    val name = URLDecoder.decode(toString().split("/").last(), Charsets.UTF_8.name())
     val ext = context.contentResolver.getType(this)!!.split("/").last()
     return "$name.$ext"
 }
