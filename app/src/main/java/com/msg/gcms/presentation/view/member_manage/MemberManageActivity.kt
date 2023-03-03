@@ -155,6 +155,7 @@ class MemberManageActivity :
 
     private fun clickBackBtn() {
         binding.backBtn.setOnClickListener {
+            setResult(viewModel.clubId.value.toInt())
             finish()
         }
     }

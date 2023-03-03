@@ -284,6 +284,7 @@ class EditClubFragment : BaseFragment<FragmentEditClubBinding>(R.layout.fragment
     }
 
     private fun clickBackBtn() {
+        requireActivity().setResult(editViewModel.clubInfo.value!!.id.toInt())
         requireActivity().finish()
     }
 

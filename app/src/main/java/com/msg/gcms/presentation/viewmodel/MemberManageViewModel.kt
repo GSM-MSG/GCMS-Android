@@ -49,6 +49,7 @@ class MemberManageViewModel @Inject constructor(
     // private val _clubType = MutableLiveData<String>()
 
     private val _clubId = mutableStateOf<Long>(0)
+    val clubId get() = _clubId
 
     private val _getMemberListState = MutableLiveData<Event>()
     val getMemberListState: LiveData<Event> get() = _getMemberListState
