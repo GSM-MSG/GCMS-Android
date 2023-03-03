@@ -351,7 +351,7 @@ class MemberManageActivity :
                     BaseModal("오류", "서버에서 문제가 발생하였습니다.", this).show()
                 }
                 else -> {
-                    BaseModal("오류", "알 수 없는 오류 발생, 개발자에게 문의해주세요.", this).show()
+                    BaseModal("완료", "동아리 신청을 거절했습니다.", this).show()
                 }
             }
         }
