@@ -467,6 +467,7 @@ class EditClubFragment : BaseFragment<FragmentEditClubBinding>(R.layout.fragment
             when (it) {
                 Event.Success -> {
                     shortToast("동아리 정보가 수정되었습니다.")
+                    requireActivity().setResult(editViewModel.clubInfo.value!!.id.toInt())
                     requireActivity().finish()
                 }
                 // Event.BadRequest -> {
