@@ -252,8 +252,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
                                         clubId = detailViewModel.result.value!!.id
                                     )
                                     dialog.dismiss()
-                                    // requireActivity().supportFragmentManager.beginTransaction()
-                                    //     .replace(R.id.fragment_club, DetailFragment()).commit()
+                                    goBack()
                                 }
                             }
                         }
@@ -279,8 +278,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
                                         detailViewModel.result.value!!.id
                                     )
                                     dialog.dismiss()
-                                    requireActivity().supportFragmentManager.beginTransaction()
-                                        .replace(R.id.fragment_club, ClubFragment()).commit()
+                                    goBack()
                                     detailViewModel.setNav(true)
                                 }
                             }
