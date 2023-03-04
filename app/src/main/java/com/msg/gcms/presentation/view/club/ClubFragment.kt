@@ -53,8 +53,10 @@ class ClubFragment : BaseFragment<FragmentClubBinding>(R.layout.fragment_club) {
 
     private fun clubTxt() {
         mainViewModel.clubName.observe(this) {
+            if (binding.clubNameTxt.text != mainViewModel.clubName.value) {
+                mainViewModel.getClubList()
+            }
             binding.clubNameTxt.text = mainViewModel.clubName.value
-            mainViewModel.getClubList()
         }
     }
 
