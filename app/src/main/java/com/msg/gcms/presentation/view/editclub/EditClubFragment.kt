@@ -284,6 +284,10 @@ class EditClubFragment : BaseFragment<FragmentEditClubBinding>(R.layout.fragment
     }
 
     private fun clickBackBtn() {
+        requireActivity().setResult(
+            Activity.RESULT_OK,
+            Intent().putExtra("clubId", editViewModel.clubInfo.value!!.id)
+        )
         requireActivity().finish()
     }
 
@@ -466,6 +470,10 @@ class EditClubFragment : BaseFragment<FragmentEditClubBinding>(R.layout.fragment
             when (it) {
                 Event.Success -> {
                     shortToast("동아리 정보가 수정되었습니다.")
+                    requireActivity().setResult(
+                        Activity.RESULT_OK,
+                        Intent().putExtra("clubId", editViewModel.clubInfo.value!!.id)
+                    )
                     requireActivity().finish()
                 }
                 // Event.BadRequest -> {

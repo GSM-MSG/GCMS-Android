@@ -55,8 +55,12 @@ class ProfileActivity : BaseActivity<ActivityProfileBinding>(R.layout.activity_p
         clickLogout()
     }
 
-    private fun myProfile() {
+    override fun onResume() {
+        super.onResume()
         profileViewModel.getUserInfo()
+    }
+
+    private fun myProfile() {
         profileViewModel.profileData.observe(this) {
             binding.apply {
                 userNameTxt.text = it.name

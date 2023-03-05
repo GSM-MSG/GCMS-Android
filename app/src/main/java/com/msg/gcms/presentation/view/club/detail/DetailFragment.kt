@@ -77,12 +77,15 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
     override fun onDetach() {
         super.onDetach()
         callback.remove()
-    }
-
-    override fun onStop() {
-        super.onStop()
         detailViewModel.initializationProperties()
         clubViewModel.initializationProperties()
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == 0) {
+            detailViewModel.refreshDetailInfo(requireActivity().intent.getLongExtra("clubId", 0L))
+        }
     }
 
     override fun init() {
@@ -249,8 +252,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
                                         clubId = detailViewModel.result.value!!.id
                                     )
                                     dialog.dismiss()
-                                    // requireActivity().supportFragmentManager.beginTransaction()
-                                    //     .replace(R.id.fragment_club, DetailFragment()).commit()
+                                    goBack()
                                 }
                             }
                         }
@@ -266,7 +268,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
                                 "clubId",
                                 detailViewModel.result.value!!.id
                             )
-                            startActivity(intent)
+                            startActivityForResult(intent, 0)
                         }
                         2 -> {
                             BaseDialog("동아리 삭제", "정말 삭제할꺼에요??", context!!).let { dialog ->
@@ -276,8 +278,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
                                         detailViewModel.result.value!!.id
                                     )
                                     dialog.dismiss()
-                                    requireActivity().supportFragmentManager.beginTransaction()
-                                        .replace(R.id.fragment_club, ClubFragment()).commit()
+                                    goBack()
                                     detailViewModel.setNav(true)
                                 }
                             }
@@ -293,7 +294,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
         val intent = Intent(context, MemberManageActivity::class.java)
         intent.putExtra("clubId", detailViewModel.result.value!!.id)
         intent.putExtra("role", detailViewModel.result.value!!.scope)
-        startActivity(intent)
+        startActivityForResult(intent, 0)
     }
 
     private fun checkRole() {
@@ -552,7 +553,11 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
                     BaseModal("타임 아웃", "너무 오래 기다렸어요...", requireContext()).show()
                 }
                 Event.Server -> {
-                    BaseModal("오류", "서버에 일시적인 오류가 발생하였습니다. \n 잠시후에 다시 시도해주세요", requireContext()).show()
+                    BaseModal(
+                        "오류",
+                        "서버에 일시적인 오류가 발생하였습니다. \n 잠시후에 다시 시도해주세요",
+                        requireContext()
+                    ).show()
                 }
                 else -> {
                     BaseModal("성공", "동아리를 탈퇴하였습니다.", requireContext()).show()

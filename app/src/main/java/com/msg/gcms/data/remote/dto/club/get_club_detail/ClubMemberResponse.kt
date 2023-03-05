@@ -16,6 +16,6 @@ data class ClubMemberResponse(
     val `class`: Int,
     @SerializedName("num")
     val num: Int,
-    @SerializedName("userImg")
+    @SerializedName("profileImg")
     val userImg: String?,
 )

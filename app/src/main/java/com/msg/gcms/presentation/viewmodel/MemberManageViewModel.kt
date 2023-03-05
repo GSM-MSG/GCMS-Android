@@ -49,6 +49,9 @@ class MemberManageViewModel @Inject constructor(
     // private val _clubType = MutableLiveData<String>()
 
     private val _clubId = mutableStateOf<Long>(0)
+    val clubId get() = _clubId
+    private val _role = mutableStateOf<String>("MEMBER")
+    val role get() = _role
 
     private val _getMemberListState = MutableLiveData<Event>()
     val getMemberListState: LiveData<Event> get() = _getMemberListState
@@ -70,6 +73,10 @@ class MemberManageViewModel @Inject constructor(
 
     fun setClubId(clubId: Long) {
         _clubId.value = clubId
+    }
+
+    fun setRole(role: String) {
+        _role.value = role
     }
 
     fun getMember() {
@@ -132,6 +139,7 @@ class MemberManageViewModel @Inject constructor(
                 clubId = _clubId.value,
                 body = DelegationOfManagerData(id)
             ).onSuccess {
+                _role.value = "MEMBER"
                 _delegateState.value = Event.Success
             }.onFailure {
                 _delegateState.value =

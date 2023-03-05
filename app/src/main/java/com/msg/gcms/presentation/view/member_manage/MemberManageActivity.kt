@@ -1,7 +1,9 @@
 package com.msg.gcms.presentation.view.member_manage
 
 import android.animation.ObjectAnimator
+import android.app.Activity
 import android.content.Context
+import android.content.Intent
 import android.view.View
 import androidx.activity.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -47,13 +49,14 @@ class MemberManageActivity :
 
     override fun viewSetting() {
         viewModel.setClubId(intent.getLongExtra("clubId", 0))
+        viewModel.setRole(intent.getStringExtra("role") ?: "MEMBER")
         clickExpandable()
         clickBackBtn()
         viewTitle()
     }
 
     private fun viewTitle() {
-        if (intent.getStringExtra("role").equals("MEMBER")) binding.title.text = "동아리 멤버 확인하기"
+        if (viewModel.role.value == "MEMBER") binding.title.text = "동아리 멤버 확인하기"
     }
 
     private fun showDialog(title: String, msg: String, context: Context, action: () -> Unit) {
@@ -69,7 +72,7 @@ class MemberManageActivity :
     }
 
     private fun settingMemberAdapter() {
-        memberAdapter = MemberAdapter(viewModel.memberList.value!!, intent.getStringExtra("role")!!)
+        memberAdapter = MemberAdapter(viewModel.memberList.value!!, viewModel.role.value)
         memberAdapter.setItemOnClickListener(object : MemberAdapter.OnItemClickListener {
             override fun mandate(position: Int) {
                 showDialog(
@@ -99,7 +102,7 @@ class MemberManageActivity :
 
     private fun settingApplicantAdapter() {
         applicantAdapter =
-            ApplicantAdapter(viewModel.applicantList.value!!, intent.getStringExtra("role")!!)
+            ApplicantAdapter(viewModel.applicantList.value!!, viewModel.role.value)
         applicantAdapter.setOnClickListener(object : ApplicantAdapter.onClickListener {
             override fun accept(position: Int) {
                 showDialog(
@@ -155,6 +158,10 @@ class MemberManageActivity :
 
     private fun clickBackBtn() {
         binding.backBtn.setOnClickListener {
+            setResult(
+                Activity.RESULT_OK,
+                Intent().putExtra("clubId", viewModel.clubId.value)
+            )
             finish()
         }
     }
@@ -226,6 +233,7 @@ class MemberManageActivity :
 
     private fun observeKickUserStatus() {
         viewModel.kickUserState.observe(this) {
+            viewModel.getMember()
             when (it) {
                 Event.Success -> {
                     BaseModal("성공", "강퇴를 완료하였습니다.", this).show()
@@ -251,6 +259,8 @@ class MemberManageActivity :
 
     private fun observeDelegateStatus() {
         viewModel.delegateState.observe(this) {
+            viewModel.getMember()
+            viewTitle()
             when (it) {
                 Event.Success -> {
                     BaseModal("성공", "권한 위임을 완료했습니다.", this).show()
@@ -289,6 +299,8 @@ class MemberManageActivity :
 
     private fun observeAcceptApplicantStatus() {
         viewModel.acceptApplicantState.observe(this) {
+            viewModel.getMember()
+            viewModel.getApplicant()
             when (it) {
                 Event.Success -> {
                     BaseModal("완료", "동아리 신청을 승인했습니다.", this).show()
@@ -324,6 +336,7 @@ class MemberManageActivity :
 
     private fun observeRejectApplicantStatus() {
         viewModel.rejectApplicantState.observe(this) {
+            viewModel.getApplicant()
             when (it) {
                 Event.Success -> {
                     BaseModal("완료", "동아리 신청을 거절했습니다.", this).show()

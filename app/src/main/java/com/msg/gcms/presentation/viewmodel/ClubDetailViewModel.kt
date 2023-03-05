@@ -27,7 +27,7 @@ class ClubDetailViewModel @Inject constructor(
     private val _showNav = MutableLiveData<Boolean>()
     val showNav: LiveData<Boolean> get() = _showNav
 
-    private val _isProfile = MutableLiveData<Boolean>()
+    private val _isProfile = MutableLiveData<Boolean>(false)
     val isProfile: LiveData<Boolean> get() = _isProfile
 
     private var _getClubDetail = MutableLiveData<Event>()

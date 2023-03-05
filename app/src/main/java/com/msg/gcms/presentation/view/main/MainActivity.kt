@@ -30,7 +30,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
     override fun onResume() {
         super.onResume()
-        if (intent.getBooleanExtra("isProfile", false)) {
+        if (intent.getBooleanExtra("isProfile", false) && detailViewModel.isProfile.value == false) {
             detailViewModel.getDetail(intent.getLongExtra("clubId", 0))
             // detailViewModel.setResult(intent.getSerializableExtra("result") as ClubDetailData)
             detailViewModel.setIsProfile(true)
