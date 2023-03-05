@@ -33,7 +33,9 @@ class ClubTypeFragment : BaseFragment<FragmentClubTypeBinding>(R.layout.fragment
         callback.remove()
     }
 
-    override fun init() {
+    override fun observeEvent() = Unit
+
+    override fun initView() {
         binding.fragment = this
     }
 
