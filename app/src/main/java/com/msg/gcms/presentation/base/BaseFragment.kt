@@ -14,17 +14,24 @@ abstract class BaseFragment<B : ViewDataBinding>(@LayoutRes private val LayoutRe
     val binding get() = _binding!!
     private var _binding: B? = null
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        observeEvent()
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         _binding = DataBindingUtil.inflate(inflater, LayoutResId, container, false)
-        init()
+        initView()
         return binding.root
     }
 
-    abstract fun init()
+    abstract fun initView()
+
+    abstract fun observeEvent()
 
     protected fun shortToast(msg: String) {
         Toast.makeText(context, msg, Toast.LENGTH_SHORT).show()
