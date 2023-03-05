@@ -144,12 +144,7 @@ class EditSearchFragment : BaseFragment<FragmentEditSearchBinding>(R.layout.frag
                 this.findNavController().popBackStack()
             }
             binding.selectBtn.id -> {
-                if (memberList.isNotEmpty()) {
-                    Log.d("TAG", "onClickListener: $memberList")
-                    editViewModel.changeMemList(memberList)
-                } else {
-                    Log.d("TAG", "onClickListener: $memberList")
-                }
+                editViewModel.changeMemList(memberList)
                 this.findNavController().popBackStack()
             }
         }
