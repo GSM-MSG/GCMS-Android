@@ -11,6 +11,7 @@ import coil.transform.RoundedCornersTransformation
 import com.msg.gcms.R
 import com.msg.gcms.databinding.FragmentProfileClubBinding
 import com.msg.gcms.domain.data.user.get_my_profile.ProfileClubData
+import com.msg.gcms.presentation.adapter.editorial_club.ClubType
 import com.msg.gcms.presentation.adapter.editorial_club.EditorialClubAdapter
 import com.msg.gcms.presentation.base.BaseFragment
 import com.msg.gcms.presentation.view.main.MainActivity
@@ -24,6 +25,7 @@ class ProfileClubFragment :
 
     override fun observeEvent() {
         observeGetClubData()
+        adapter = EditorialClubAdapter()
     }
 
     override fun initView() {
@@ -32,6 +34,14 @@ class ProfileClubFragment :
 
     private fun observeGetClubData() {
         viewModel.profileData.observe(this) {
+            it.clubs.map { data ->
+                ClubType(
+                    id = data.id,
+                    type = data.type,
+                    bannerImg = data.bannerImg,
+                    title = data.title
+                )
+            }
             it.clubs.forEach { clubData ->
                 when (clubData.type) {
                     "MAJOR" -> {
@@ -69,17 +79,19 @@ class ProfileClubFragment :
                     }
                 }
             }
-            setRecyclerView()
         }
     }
 
     private fun viewClub() {
+        setRecyclerView()
+    }
 
+    private fun setClubListData(list: List<ClubType>) {
+        adapter.submitList(list)
+        binding.privateClubRecyclerview.adapter = adapter
     }
 
     private fun setRecyclerView() {
-        adapter = EditorialClubAdapter(privateClubList)
-        binding.privateClubRecyclerview.adapter = adapter
         binding.privateClubRecyclerview.apply {
             layoutManager = GridLayoutManager(context, 2)
             addItemDecoration(HorizontalItemDecorator(20))
@@ -89,6 +101,7 @@ class ProfileClubFragment :
                 profilePageToDetailPage(privateClubList[position].id)
             }
         })
+        binding.privateClubRecyclerview.adapter = adapter
     }
 
     inner class HorizontalItemDecorator(private val divHeight: Int) :

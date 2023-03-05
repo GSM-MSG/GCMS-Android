@@ -5,7 +5,7 @@
 
         <variable
             name="editorialItem"
-            type="com.msg.gcms.domain.data.user.get_my_profile.ProfileClubData" />
+            type="com.msg.gcms.presentation.adapter.editorial_club.ClubType" />
     </data>
 
     <LinearLayout
