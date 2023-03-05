@@ -1,7 +1,9 @@
 package com.msg.gcms.presentation.view.member_manage
 
 import android.animation.ObjectAnimator
+import android.app.Activity
 import android.content.Context
+import android.content.Intent
 import android.view.View
 import androidx.activity.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -156,7 +158,10 @@ class MemberManageActivity :
 
     private fun clickBackBtn() {
         binding.backBtn.setOnClickListener {
-            setResult(viewModel.clubId.value.toInt())
+            setResult(
+                Activity.RESULT_OK,
+                Intent().putExtra("clubId", viewModel.clubId.value)
+            )
             finish()
         }
     }

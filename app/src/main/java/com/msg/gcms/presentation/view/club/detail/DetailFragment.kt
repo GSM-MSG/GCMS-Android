@@ -84,7 +84,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == 0) {
-            detailViewModel.refreshDetailInfo(resultCode.toLong())
+            detailViewModel.refreshDetailInfo(requireActivity().intent.getLongExtra("clubId", 0L))
         }
     }
 
