@@ -15,7 +15,9 @@ class MakeClubResultFragment :
 
     private val makeClubViewModel by activityViewModels<MakeClubViewModel>()
 
-    override fun init() {
+    override fun observeEvent() = Unit
+
+    override fun initView() {
         binding.fragment = this
         val result = makeClubViewModel.createClubResult.value!!
         showCreateClubResult(result)
