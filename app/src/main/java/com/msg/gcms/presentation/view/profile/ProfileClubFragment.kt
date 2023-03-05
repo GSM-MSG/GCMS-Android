@@ -21,11 +21,16 @@ class ProfileClubFragment :
     private val viewModel by activityViewModels<ProfileViewModel>()
     private val privateClubList: ArrayList<ProfileClubData> = ArrayList()
     private lateinit var adapter: EditorialClubAdapter
-    override fun init() {
+
+    override fun observeEvent() {
+        observeGetClubData()
+    }
+
+    override fun initView() {
         viewClub()
     }
 
-    private fun viewClub() {
+    private fun observeGetClubData() {
         viewModel.profileData.observe(this) {
             it.clubs.forEach { clubData ->
                 when (clubData.type) {
@@ -66,6 +71,10 @@ class ProfileClubFragment :
             }
             setRecyclerView()
         }
+    }
+
+    private fun viewClub() {
+
     }
 
     private fun setRecyclerView() {
