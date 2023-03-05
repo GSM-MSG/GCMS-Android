@@ -20,11 +20,18 @@ abstract class BaseFragment<B : ViewDataBinding>(@LayoutRes private val LayoutRe
         savedInstanceState: Bundle?
     ): View? {
         _binding = DataBindingUtil.inflate(inflater, LayoutResId, container, false)
-        init()
+        viewSetting()
         return binding.root
     }
 
-    abstract fun init()
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        onCreateSetting()
+    }
+
+    abstract fun onCreateSetting()
+
+    abstract fun viewSetting()
 
     protected fun shortToast(msg: String) {
         Toast.makeText(context, msg, Toast.LENGTH_SHORT).show()
