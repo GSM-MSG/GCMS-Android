@@ -88,22 +88,21 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
         }
     }
 
-    override fun init() {
-        observeEvent()
-        clickEvent()
+    override fun initView() {
+        clickBackBtn()
+        clickSubmitBtn()
         viewSet()
         binding.detail = this
     }
 
-    private fun observeEvent() {
+    override fun observeEvent() {
         observeResult()
-        observeStatus()
         observeClubDetailInfo()
-    }
-
-    private fun clickEvent() {
-        clickBackBtn()
-        clickSubmitBtn()
+        observeApplyClubEvent()
+        observeCancelClubEvent()
+        observeOpenClubApplyEvent()
+        observeCloseClubApplyEvent()
+        observeExitClubEvent()
     }
 
     private fun viewSet() {
@@ -398,14 +397,6 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
                 }
             }
         }
-    }
-
-    private fun observeStatus() {
-        observeApplyClubEvent()
-        observeCancelClubEvent()
-        observeOpenClubApplyEvent()
-        observeCloseClubApplyEvent()
-        observeExitClubEvent()
     }
 
     private fun observeApplyClubEvent() {

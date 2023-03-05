@@ -15,7 +15,6 @@ import com.msg.gcms.presentation.view.clubmaker.MakeClubActivity
 import com.msg.gcms.presentation.view.intro.IntroActivity
 import com.msg.gcms.presentation.view.profile.ProfileActivity
 import com.msg.gcms.presentation.viewmodel.ClubDetailViewModel
-import com.msg.gcms.presentation.viewmodel.ClubViewModel
 import com.msg.gcms.presentation.viewmodel.MainViewModel
 import com.msg.gcms.presentation.viewmodel.util.Event
 import dagger.hilt.android.AndroidEntryPoint
@@ -24,40 +23,23 @@ import dagger.hilt.android.AndroidEntryPoint
 class ClubFragment : BaseFragment<FragmentClubBinding>(R.layout.fragment_club) {
     private val mainViewModel by activityViewModels<MainViewModel>()
     private val detailViewModel by activityViewModels<ClubDetailViewModel>()
-    private val clubViewModel by activityViewModels<ClubViewModel>()
     private lateinit var adapter: ClubListAdapter
-    override fun init() {
+
+    override fun observeEvent() {
         mainViewModel.getClubList()
+        observeClubName()
+        observeClubData()
         observeClubInfo()
+    }
+
+    override fun initView() {
         recyclerview()
         clickProfile()
         clickMakeClubBtn()
-        clubTxt()
     }
 
     private fun recyclerview() {
         binding.clubRecyclerView.layoutManager = GridLayoutManager(context, 2)
-        mainViewModel.clubData.observe(this) {
-            adapter = ClubListAdapter(mainViewModel.clubData.value)
-            adapter.setItemOnClickListener(object : ClubListAdapter.OnItemClickListener {
-                override fun onClick(position: Int) {
-                    detailViewModel.getDetail(
-                        mainViewModel.clubData.value?.get(position)!!.id
-                    )
-                    enterFragment(requireActivity(), R.id.fragment_club, DetailFragment())
-                }
-            })
-            binding.clubRecyclerView.adapter = adapter
-        }
-    }
-
-    private fun clubTxt() {
-        mainViewModel.clubName.observe(this) {
-            if (binding.clubNameTxt.text != mainViewModel.clubName.value) {
-                mainViewModel.getClubList()
-            }
-            binding.clubNameTxt.text = mainViewModel.clubName.value
-        }
     }
 
     private fun clickProfile() {
@@ -69,6 +51,30 @@ class ClubFragment : BaseFragment<FragmentClubBinding>(R.layout.fragment_club) {
     private fun clickMakeClubBtn() {
         binding.addClubBtn.setOnClickListener {
             enterActivity(requireActivity(), MakeClubActivity())
+        }
+    }
+
+    private fun observeClubName() {
+        mainViewModel.clubName.observe(this) {
+            if (binding.clubNameTxt.text != mainViewModel.clubName.value) {
+                mainViewModel.getClubList()
+            }
+            binding.clubNameTxt.text = mainViewModel.clubName.value
+        }
+    }
+
+    private fun observeClubData() {
+        mainViewModel.clubData.observe(this) {
+            adapter = ClubListAdapter(mainViewModel.clubData.value)
+            adapter.setItemOnClickListener(object : ClubListAdapter.OnItemClickListener {
+                override fun onClick(position: Int) {
+                    detailViewModel.getDetail(
+                        mainViewModel.clubData.value?.get(position)!!.id
+                    )
+                    enterFragment(requireActivity(), R.id.fragment_club, DetailFragment())
+                }
+            })
+            binding.clubRecyclerView.adapter = adapter
         }
     }
 
