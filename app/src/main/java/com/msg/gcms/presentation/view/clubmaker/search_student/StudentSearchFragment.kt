@@ -44,13 +44,12 @@ class StudentSearchFragment :
 
     private val searchQuery = MutableStateFlow("")
 
-    override fun init() {
+    override fun initView() {
         binding.fragment = this
-        observeEvent()
         settingRecyclerView()
     }
 
-    private fun observeEvent() {
+    override fun observeEvent() {
         observeEditText()
         observeSearchResult()
     }

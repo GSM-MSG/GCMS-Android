@@ -16,7 +16,9 @@ class ClubIntroduceFragment :
 
     private val makeClubViewModel by activityViewModels<MakeClubViewModel>()
 
-    override fun init() {
+    override fun observeEvent() = Unit
+
+    override fun initView() {
         binding.fragment = this
         activity?.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
     }
@@ -28,9 +30,11 @@ class ClubIntroduceFragment :
         }
     }
 
-    fun editTextCheck() {
+    private fun editTextCheck() {
         if (binding.clubNameEt.text.isNotEmpty() && binding.clubIntroduceEt.text.isNotEmpty() && binding.contactEt.text.isNotEmpty() && binding.linkUrlEt.text.isNotEmpty() && binding.linkName.text.isNotEmpty()) {
-            if(binding.linkUrlEt.text.startsWith("http://") || binding.linkUrlEt.text.toString().startsWith("https://")) {
+            if (binding.linkUrlEt.text.startsWith("http://") || binding.linkUrlEt.text.toString()
+                    .startsWith("https://")
+            ) {
                 with(makeClubViewModel) {
                     title = binding.clubNameEt.text.toString().trim()
                     description = binding.clubIntroduceEt.text.toString().trim()
