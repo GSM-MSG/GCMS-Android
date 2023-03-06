@@ -3,7 +3,6 @@ package com.msg.gcms.presentation.view.editclub
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.view.WindowManager
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
@@ -51,14 +50,13 @@ class EditSearchFragment : BaseFragment<FragmentEditSearchBinding>(R.layout.frag
         addMemberAdapter = AddMemberAdapter()
     }
 
-    override fun init() {
+    override fun initView() {
         binding.fragment = this
-        observeEvent()
         settingRecyclerView()
         memberList = editViewModel.addedMemberData.value!!.toMutableList()
     }
 
-    private fun observeEvent() {
+    override fun observeEvent() {
         observeEditText()
         observeResult()
     }

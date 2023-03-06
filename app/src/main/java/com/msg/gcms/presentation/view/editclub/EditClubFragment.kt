@@ -81,14 +81,13 @@ class EditClubFragment : BaseFragment<FragmentEditClubBinding>(R.layout.fragment
         activityAdapter = ActivityPhotosAdapter()
     }
 
-    override fun init() {
+    override fun initView() {
         binding.fragment = this
-        observeEvent()
         recyclerViewSetting()
         memberRecyclerviewUpdater(editViewModel.addedMemberData.value ?: listOf())
     }
 
-    private fun observeEvent() {
+    override fun observeEvent() {
         observeClubInfo()
         observeConvertImage()
         observeEditClubResult()
