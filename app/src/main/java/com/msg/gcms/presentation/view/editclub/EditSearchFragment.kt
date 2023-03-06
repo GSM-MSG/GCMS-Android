@@ -53,11 +53,11 @@ class EditSearchFragment : BaseFragment<FragmentEditSearchBinding>(R.layout.frag
     override fun initView() {
         binding.fragment = this
         settingRecyclerView()
+        observeEditText()
         memberList = editViewModel.addedMemberData.value!!.toMutableList()
     }
 
     override fun observeEvent() {
-        observeEditText()
         observeResult()
     }
 

@@ -47,10 +47,10 @@ class StudentSearchFragment :
     override fun initView() {
         binding.fragment = this
         settingRecyclerView()
+        observeEditText()
     }
 
     override fun observeEvent() {
-        observeEditText()
         observeSearchResult()
     }
 
