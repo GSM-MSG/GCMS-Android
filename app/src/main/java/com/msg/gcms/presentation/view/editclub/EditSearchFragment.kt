@@ -16,6 +16,7 @@ import com.msg.gcms.presentation.adapter.add_member.AddMemberType
 import com.msg.gcms.presentation.adapter.user_search.UserSearchAdapter
 import com.msg.gcms.presentation.base.BaseFragment
 import com.msg.gcms.presentation.utils.ItemDecorator
+import com.msg.gcms.presentation.utils.keyboardHide
 import com.msg.gcms.presentation.viewmodel.EditViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
@@ -44,20 +45,19 @@ class EditSearchFragment : BaseFragment<FragmentEditSearchBinding>(R.layout.frag
         get() = Dispatchers.IO + coroutineJob
     private val searchQuery = MutableStateFlow("")
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        searchAdapter = UserSearchAdapter()
-        addMemberAdapter = AddMemberAdapter()
-    }
-
     override fun initView() {
         binding.fragment = this
         settingRecyclerView()
+        observeEditText()
         memberList = editViewModel.addedMemberData.value!!.toMutableList()
+        binding.editSearchLayout.setOnClickListener {
+            keyboardHide(requireActivity(), binding.searchEt)
+        }
     }
 
     override fun observeEvent() {
-        observeEditText()
+        searchAdapter = UserSearchAdapter()
+        addMemberAdapter = AddMemberAdapter()
         observeResult()
     }
 

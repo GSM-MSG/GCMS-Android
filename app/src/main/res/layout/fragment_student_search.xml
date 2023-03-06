@@ -3,150 +3,151 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="fragment"
             type="com.msg.gcms.presentation.view.clubmaker.search_student.StudentSearchFragment" />
     </data>
 
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/light_black">
-
-    <androidx.constraintlayout.widget.Guideline
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.0515"
-        android:id="@+id/guideline35" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.113"
-        android:id="@+id/guideline40" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.175"
-        android:id="@+id/guideline37" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.274"
-        android:id="@+id/guideline39" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:layout_width="0.5dp"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.055"
-        android:id="@+id/guideline36" />
+        android:background="@color/light_black"
+        android:id="@+id/studentSearchLayout">
 
-    <androidx.constraintlayout.widget.Guideline
-        android:layout_width="0.5dp"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.944444"
-        android:id="@+id/guideline38" />
-
-    <ImageView
-        android:id="@+id/goBackBtn"
-        android:layout_width="19dp"
-        android:layout_height="26dp"
-        android:padding="5dp"
-        android:src="@drawable/ic_back_btn"
-        android:onClick="@{fragment::onClickListener}"
-        app:layout_constraintTop_toTopOf="@+id/guideline35"
-        app:layout_constraintBottom_toTopOf="@+id/guideline35"
-        app:layout_constraintStart_toStartOf="@+id/guideline36"
-        />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/student_search_str"
-        android:textColor="@color/white"
-        android:textSize="18sp"
-        android:fontFamily="@font/notosans"
-        android:layout_marginStart="14dp"
-        app:layout_constraintTop_toTopOf="@+id/guideline35"
-        app:layout_constraintBottom_toTopOf="@+id/guideline35"
-        app:layout_constraintStart_toEndOf="@+id/goBackBtn"
-        android:id="@+id/textView9" />
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        app:layout_constraintTop_toTopOf="@+id/guideline37"
-        app:layout_constraintStart_toStartOf="@+id/guideline36"
-        android:layout_marginStart="12dp"
-        app:endIconMode="clear_text"
-        app:endIconTint="@color/gray_2"
-        app:boxStrokeColor="@color/white"
-        app:startIconDrawable="@drawable/ic_search_icon"
-        app:startIconTint="@color/gray_2"
-        app:boxStrokeWidthFocused="0.5dp"
-        app:boxStrokeWidth="0.5dp"
-        app:hintEnabled="false"
-        app:layout_constraintEnd_toStartOf="@+id/guideline38"
-        android:id="@+id/textInputLayout">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/searchEt"
+        <androidx.constraintlayout.widget.Guideline
             android:layout_width="match_parent"
-            android:hint="@string/search_user_str"
-            android:textColor="@color/white_4"
-            android:textSize="13sp"
-            android:maxLines="1"
-            android:singleLine="true"
-            android:textColorHint="@color/gray_2"
-            android:layout_height="50dp" />
-    </com.google.android.material.textfield.TextInputLayout>
+            android:layout_height="0.5dp"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.0515"
+            android:id="@+id/guideline35" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/studentListRv"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:orientation="vertical"
-        tools:listitem="@layout/list_search_member"
-        app:layout_constraintStart_toStartOf="@+id/guideline36"
-        app:layout_constraintEnd_toStartOf="@+id/guideline38"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline39" />
+        <androidx.constraintlayout.widget.Guideline
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.113"
+            android:id="@+id/guideline40" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/memberListRv"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:orientation="horizontal"
-        tools:listitem="@layout/list_add_member"
-        app:layout_constraintTop_toTopOf="@+id/guideline40"
-        app:layout_constraintBottom_toTopOf="@+id/guideline37"
-        app:layout_constraintEnd_toStartOf="@+id/guideline38"
-        app:layout_constraintStart_toStartOf="@+id/guideline36" />
+        <androidx.constraintlayout.widget.Guideline
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.175"
+            android:id="@+id/guideline37" />
 
-    <TextView
-        android:id="@+id/selectBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/check"
-        android:gravity="center"
-        android:textColor="@color/dark_blue"
-        android:fontFamily="@font/notosans"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        android:onClick="@{fragment::onClickListener}"
-        app:layout_constraintEnd_toStartOf="@+id/guideline38"
-        app:layout_constraintTop_toTopOf="@+id/guideline35"
-        app:layout_constraintBottom_toTopOf="@+id/guideline35" />
+        <androidx.constraintlayout.widget.Guideline
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.274"
+            android:id="@+id/guideline39" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <androidx.constraintlayout.widget.Guideline
+            android:layout_width="0.5dp"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.055"
+            android:id="@+id/guideline36" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:layout_width="0.5dp"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.944444"
+            android:id="@+id/guideline38" />
+
+        <ImageView
+            android:id="@+id/goBackBtn"
+            android:layout_width="19dp"
+            android:layout_height="26dp"
+            android:padding="5dp"
+            android:src="@drawable/ic_back_btn"
+            android:onClick="@{fragment::onClickListener}"
+            app:layout_constraintTop_toTopOf="@+id/guideline35"
+            app:layout_constraintBottom_toTopOf="@+id/guideline35"
+            app:layout_constraintStart_toStartOf="@+id/guideline36" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/student_search_str"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:fontFamily="@font/notosans"
+            android:layout_marginStart="14dp"
+            app:layout_constraintTop_toTopOf="@+id/guideline35"
+            app:layout_constraintBottom_toTopOf="@+id/guideline35"
+            app:layout_constraintStart_toEndOf="@+id/goBackBtn"
+            android:id="@+id/textView9" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            app:layout_constraintTop_toTopOf="@+id/guideline37"
+            app:layout_constraintStart_toStartOf="@+id/guideline36"
+            android:layout_marginStart="12dp"
+            app:endIconMode="clear_text"
+            app:endIconTint="@color/gray_2"
+            app:boxStrokeColor="@color/white"
+            app:startIconDrawable="@drawable/ic_search_icon"
+            app:startIconTint="@color/gray_2"
+            app:boxStrokeWidthFocused="0.5dp"
+            app:boxStrokeWidth="0.5dp"
+            app:hintEnabled="false"
+            app:layout_constraintEnd_toStartOf="@+id/guideline38"
+            android:id="@+id/textInputLayout">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/searchEt"
+                android:layout_width="match_parent"
+                android:hint="@string/search_user_str"
+                android:textColor="@color/white_4"
+                android:textSize="13sp"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:textColorHint="@color/gray_2"
+                android:layout_height="50dp" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/studentListRv"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:orientation="vertical"
+            tools:listitem="@layout/list_search_member"
+            app:layout_constraintStart_toStartOf="@+id/guideline36"
+            app:layout_constraintEnd_toStartOf="@+id/guideline38"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/guideline39" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/memberListRv"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:orientation="horizontal"
+            tools:listitem="@layout/list_add_member"
+            app:layout_constraintTop_toTopOf="@+id/guideline40"
+            app:layout_constraintBottom_toTopOf="@+id/guideline37"
+            app:layout_constraintEnd_toStartOf="@+id/guideline38"
+            app:layout_constraintStart_toStartOf="@+id/guideline36" />
+
+        <TextView
+            android:id="@+id/selectBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/check"
+            android:gravity="center"
+            android:textColor="@color/dark_blue"
+            android:fontFamily="@font/notosans"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:onClick="@{fragment::onClickListener}"
+            app:layout_constraintEnd_toStartOf="@+id/guideline38"
+            app:layout_constraintTop_toTopOf="@+id/guideline35"
+            app:layout_constraintBottom_toTopOf="@+id/guideline35" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>
