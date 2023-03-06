@@ -7,6 +7,7 @@ import androidx.navigation.fragment.findNavController
 import com.msg.gcms.R
 import com.msg.gcms.databinding.FragmentClubIntroduceBinding
 import com.msg.gcms.presentation.base.BaseFragment
+import com.msg.gcms.presentation.utils.keyboardHide
 import com.msg.gcms.presentation.viewmodel.MakeClubViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -21,6 +22,17 @@ class ClubIntroduceFragment :
     override fun initView() {
         binding.fragment = this
         activity?.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
+        binding.clubIntroduceLayout.setOnClickListener {
+            keyboardHide(
+                requireActivity(),
+                binding.clubNameEt,
+                binding.clubIntroduceEt,
+                binding.linkName,
+                binding.linkUrlEt,
+                binding.teacherNameEt,
+                binding.contactEt
+            )
+        }
     }
 
     fun clickedButton(view: View) {

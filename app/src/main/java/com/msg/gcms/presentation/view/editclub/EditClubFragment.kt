@@ -10,7 +10,6 @@ import android.graphics.Bitmap
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
 import android.net.Uri
-import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
 import android.view.View
@@ -37,6 +36,7 @@ import com.msg.gcms.presentation.adapter.club_member.ClubMemberAdapter
 import com.msg.gcms.presentation.base.BaseFragment
 import com.msg.gcms.presentation.base.BaseModal
 import com.msg.gcms.presentation.utils.ItemDecorator
+import com.msg.gcms.presentation.utils.keyboardHide
 import com.msg.gcms.presentation.utils.toFile
 import com.msg.gcms.presentation.utils.toMultiPartBody
 import com.msg.gcms.presentation.utils.uriToBitMap
@@ -75,19 +75,25 @@ class EditClubFragment : BaseFragment<FragmentEditClubBinding>(R.layout.fragment
     private var isBannerImageResponse = true
     private var isActivityImageResponse = true
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        clubMemberAdapter = ClubMemberAdapter()
-        activityAdapter = ActivityPhotosAdapter()
-    }
-
     override fun initView() {
         binding.fragment = this
         recyclerViewSetting()
         memberRecyclerviewUpdater(editViewModel.addedMemberData.value ?: listOf())
+        binding.editClubLayout.setOnClickListener {
+            keyboardHide(
+                requireActivity(),
+                binding.clubNameEt,
+                binding.clubDescriptionEt,
+                binding.linkEt,
+                binding.contactEt,
+                binding.teacherNameEt
+            )
+        }
     }
 
     override fun observeEvent() {
+        clubMemberAdapter = ClubMemberAdapter()
+        activityAdapter = ActivityPhotosAdapter()
         observeClubInfo()
         observeConvertImage()
         observeEditClubResult()

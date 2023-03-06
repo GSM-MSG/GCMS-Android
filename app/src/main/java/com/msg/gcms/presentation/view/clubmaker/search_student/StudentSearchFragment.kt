@@ -2,7 +2,6 @@ package com.msg.gcms.presentation.view.clubmaker.search_student
 
 import android.util.Log
 import android.view.View
-import android.view.WindowManager
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
@@ -16,6 +15,7 @@ import com.msg.gcms.presentation.adapter.add_member.AddMemberType
 import com.msg.gcms.presentation.adapter.user_search.UserSearchAdapter
 import com.msg.gcms.presentation.base.BaseFragment
 import com.msg.gcms.presentation.utils.ItemDecorator
+import com.msg.gcms.presentation.utils.keyboardHide
 import com.msg.gcms.presentation.viewmodel.MakeClubViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -48,6 +48,9 @@ class StudentSearchFragment :
         binding.fragment = this
         settingRecyclerView()
         observeEditText()
+        binding.studentSearchLayout.setOnClickListener {
+            keyboardHide(requireActivity(), binding.searchEt)
+        }
     }
 
     override fun observeEvent() {

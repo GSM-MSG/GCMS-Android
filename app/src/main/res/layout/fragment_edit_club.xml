@@ -17,7 +17,8 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/light_black">
+            android:background="@color/light_black"
+            android:id="@+id/editClubLayout">
 
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/guideline20"
