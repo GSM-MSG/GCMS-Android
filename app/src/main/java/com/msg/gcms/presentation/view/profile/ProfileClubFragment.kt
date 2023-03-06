@@ -11,6 +11,7 @@ import coil.transform.RoundedCornersTransformation
 import com.msg.gcms.R
 import com.msg.gcms.databinding.FragmentProfileClubBinding
 import com.msg.gcms.domain.data.user.get_my_profile.ProfileClubData
+import com.msg.gcms.presentation.adapter.editorial_club.ClubType
 import com.msg.gcms.presentation.adapter.editorial_club.EditorialClubAdapter
 import com.msg.gcms.presentation.base.BaseFragment
 import com.msg.gcms.presentation.view.main.MainActivity
@@ -21,12 +22,26 @@ class ProfileClubFragment :
     private val viewModel by activityViewModels<ProfileViewModel>()
     private val privateClubList: ArrayList<ProfileClubData> = ArrayList()
     private lateinit var adapter: EditorialClubAdapter
-    override fun init() {
+
+    override fun observeEvent() {
+        observeGetClubData()
+        adapter = EditorialClubAdapter()
+    }
+
+    override fun initView() {
         viewClub()
     }
 
-    private fun viewClub() {
+    private fun observeGetClubData() {
         viewModel.profileData.observe(this) {
+            it.clubs.map { data ->
+                ClubType(
+                    id = data.id,
+                    type = data.type,
+                    bannerImg = data.bannerImg,
+                    title = data.title
+                )
+            }
             it.clubs.forEach { clubData ->
                 when (clubData.type) {
                     "MAJOR" -> {
@@ -64,13 +79,19 @@ class ProfileClubFragment :
                     }
                 }
             }
-            setRecyclerView()
         }
     }
 
-    private fun setRecyclerView() {
-        adapter = EditorialClubAdapter(privateClubList)
+    private fun viewClub() {
+        setRecyclerView()
+    }
+
+    private fun setClubListData(list: List<ClubType>) {
+        adapter.submitList(list)
         binding.privateClubRecyclerview.adapter = adapter
+    }
+
+    private fun setRecyclerView() {
         binding.privateClubRecyclerview.apply {
             layoutManager = GridLayoutManager(context, 2)
             addItemDecoration(HorizontalItemDecorator(20))
@@ -80,6 +101,7 @@ class ProfileClubFragment :
                 profilePageToDetailPage(privateClubList[position].id)
             }
         })
+        binding.privateClubRecyclerview.adapter = adapter
     }
 
     inner class HorizontalItemDecorator(private val divHeight: Int) :
