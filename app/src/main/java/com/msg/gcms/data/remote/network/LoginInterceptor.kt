@@ -1,6 +1,5 @@
 package com.msg.gcms.data.remote.network
 
-import android.util.Log
 import com.google.gson.JsonObject
 import com.google.gson.JsonParser
 import com.msg.gcms.BuildConfig
@@ -25,11 +24,19 @@ class LoginInterceptor @Inject constructor(
         val request = chain.request()
         val path = request.url.encodedPath
         val method = request.method
-        val ignorePath = "/auth"
-        val ignoreMethod = "POST"
+        val ignorePath = listOf(
+            "/auth",
+            "/club"
+        )
+        val ignoreMethod = listOf(
+            "POST",
+            "GET"
+        )
 
-        if (ignorePath == path && ignoreMethod == method) {
-            return chain.proceed(request)
+        ignorePath.forEachIndexed { index, s ->
+            if (s == path && ignoreMethod[index] == method) {
+                return chain.proceed(request)
+            }
         }
 
         val currentTime = LocalDateTime.now()
@@ -56,7 +63,6 @@ class LoginInterceptor @Inject constructor(
             val jsonParser = JsonParser()
             val response = client.newCall(refreshRequest).execute()
             if (response.isSuccessful) {
-                Log.d("Interceptor", response.code.toString())
                 val token = jsonParser.parse(response.body!!.string()) as JsonObject
                 authDataStorage.setAccessToken(token["accessToken"].toString().removeDot())
                 authDataStorage.setRefreshToken(token["refreshToken"].toString().removeDot())
