@@ -1,4 +1,4 @@
-package com.msg.gcms.ui.component.intro.component
+package com.msg.gcms.presentation.view.progress
 
 import android.app.Dialog
 import android.content.Context
