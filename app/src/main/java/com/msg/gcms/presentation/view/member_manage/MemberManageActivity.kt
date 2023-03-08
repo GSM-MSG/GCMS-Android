@@ -139,7 +139,7 @@ class MemberManageActivity :
         }
         listOf(applicantListBtn, applicantListLayout).forEach {
             it.setOnClickListener {
-                if (memberList.visibility == View.GONE) viewModel.getApplicant()
+                if (applicantList.visibility == View.GONE) viewModel.getApplicant()
                 expandableAnim(applicantListBtn, applicantList.visibility, applicantList)
             }
         }
