@@ -33,6 +33,10 @@ class MemberManageActivity :
         observeApplicantList()
         observeMemberStatus()
         observeApplicantStatus()
+        observeAcceptApplicantStatus()
+        observeRejectApplicantStatus()
+        observeDelegateStatus()
+        observeKickUserStatus()
     }
 
     private fun observeMemberList() {
@@ -81,7 +85,6 @@ class MemberManageActivity :
                     this@MemberManageActivity
                 ) {
                     viewModel.delegate(viewModel.memberList.value!![position].uuid)
-                    observeDelegateStatus()
                 }
             }
 
@@ -92,7 +95,6 @@ class MemberManageActivity :
                     this@MemberManageActivity
                 ) {
                     viewModel.kickUser(viewModel.memberList.value!![position].uuid)
-                    observeKickUserStatus()
                 }
             }
         })
@@ -111,7 +113,6 @@ class MemberManageActivity :
                     this@MemberManageActivity
                 ) {
                     viewModel.accept(viewModel.applicantList.value!![position].uuid)
-                    observeAcceptApplicantStatus()
                 }
             }
 
@@ -122,7 +123,6 @@ class MemberManageActivity :
                     this@MemberManageActivity
                 ) {
                     viewModel.reject(viewModel.applicantList.value!![position].uuid)
-                    observeRejectApplicantStatus()
                 }
             }
         })
