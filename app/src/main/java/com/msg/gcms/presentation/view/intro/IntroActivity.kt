@@ -15,7 +15,7 @@ import com.msg.gcms.presentation.base.BaseActivity
 import com.msg.gcms.presentation.view.main.MainActivity
 import com.msg.gcms.presentation.viewmodel.AuthViewModel
 import com.msg.gcms.presentation.viewmodel.util.Event
-import com.msg.gcms.ui.component.intro.component.ProgressDialog
+import com.msg.gcms.presentation.view.progress.ProgressDialog
 import dagger.hilt.android.AndroidEntryPoint
 import kotlin.system.exitProcess
 
