@@ -7,6 +7,7 @@ import android.view.View
 import androidx.activity.OnBackPressedCallback
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
+import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -93,6 +94,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
         clickSubmitBtn()
         viewSet()
         binding.detail = this
+        binding.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
     }
 
     override fun observeEvent() {
@@ -299,14 +301,16 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
     private fun checkRole() {
         binding.submitBtn.let {
             when (detailViewModel.result.value!!.scope) {
-                "HEAD" -> {
+                 "HEAD" -> {
+                    binding.sideBarBtn.visibility = View.VISIBLE
                     it.setBackgroundColor(
                         ContextCompat.getColor(
                             requireActivity(),
                             R.color.dark_blue
                         )
                     )
-                    it.text = getString(
+                     binding.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
+                     it.text = getString(
                         if (detailViewModel.result.value!!.isOpened) {
                             R.string.close_application
                         } else R.string.open_application
@@ -316,13 +320,14 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
                     sideBarRvSetting()
                 }
                 "MEMBER" -> {
+                    binding.sideBarBtn.visibility = View.VISIBLE
                     it.visibility = View.INVISIBLE
                     sideBarAdapter = DetailSideBarAdapter(memberSideBarItem)
+                    binding.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
                     sideBarRvSetting()
                 }
                 "OTHER" -> {
                     it.visibility = View.INVISIBLE
-                    binding.sideBarBtn.visibility = View.GONE
                 }
                 "USER" -> {
                     if (detailViewModel.result.value!!.isOpened) {
@@ -340,7 +345,6 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
                     } else {
                         it.visibility = View.INVISIBLE
                     }
-                    binding.sideBarBtn.visibility = View.GONE
                 }
             }
         }
