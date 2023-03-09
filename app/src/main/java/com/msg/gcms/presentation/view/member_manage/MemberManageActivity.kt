@@ -133,14 +133,18 @@ class MemberManageActivity :
     private fun clickExpandable() = with(binding) {
         listOf(memberListBtn, memberListLayout).forEach {
             it.setOnClickListener {
-                if (memberList.visibility == View.GONE) viewModel.getMember()
-                expandableAnim(memberListBtn, memberList.visibility, memberList)
+                if (memberListBtn.rotation == 0F || memberListBtn.rotation == -90F) {
+                    if (memberList.visibility == View.GONE) viewModel.getMember()
+                    expandableAnim(memberListBtn, memberList.visibility, memberList)
+                }
             }
         }
         listOf(applicantListBtn, applicantListLayout).forEach {
             it.setOnClickListener {
-                if (applicantList.visibility == View.GONE) viewModel.getApplicant()
-                expandableAnim(applicantListBtn, applicantList.visibility, applicantList)
+                if (applicantListBtn.rotation == 0F || applicantListBtn.rotation == -90F) {
+                    if (applicantList.visibility == View.GONE) viewModel.getApplicant()
+                    expandableAnim(applicantListBtn, applicantList.visibility, applicantList)
+                }
             }
         }
     }
