@@ -18,7 +18,8 @@ class AuthRepositoryImpl @Inject constructor(
         return AuthMapper.mapperToSignInData(
             remoteDatasource.postRegistration(
                 body = SignInRequest(
-                    code = body.code
+                    code = body.code,
+                    token = body.token
                 )
             )
         )
