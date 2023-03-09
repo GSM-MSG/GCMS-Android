@@ -5,6 +5,7 @@ object Dependency {
         const val ANDROID_LIBRARY_PLUGIN = "com.android.library"
         const val KTLINT_PLUGIN = "org.jlleitschuh.gradle.ktlint"
         const val GRADLE_HILT = "com.google.dagger:hilt-android-gradle-plugin:${Versions.HILT}"
+        const val GOOGLE_PLUGIN = "com.google.gms:google-services:${Versions.GRADLE_GOOGLE}"
     }
 
     object Kotlin {
@@ -39,11 +40,14 @@ object Dependency {
         const val LEGACY_SUPPORT = "androidx.legacy:legacy-support-v4:${Versions.LEGACY}"
 
         const val SPLASH_SCREEN = "androidx.core:core-splashscreen:${Versions.SPLASH}"
-
+        const val WORK_RUNTIME = "androidx.work:work-runtime-ktx:${Versions.WORK_RUNTIME}"
     }
 
     object Google {
-        const val FIREBASE_ANALYTICS = "com.google.firebase:firebase-analytics-ktx"
+        const val FIREBASE_ANALYTICS =
+            "com.google.firebase:firebase-analytics-ktx:${Versions.FIREBASE_ANALYTICS}"
+        const val FIREBASE_MESSAGING =
+            "com.google.firebase:firebase-messaging-ktx:${Versions.FIREBASE_MESSAGING}"
         const val FIREBASE_BOM = "com.google.firebase:firebase-bom:${Versions.FIREBASE_BOM}"
         const val GMS_PLAY_SERVICE_AUTH =
             "com.google.android.gms:play-services-auth:${Versions.GMS_PLAY_SERVICE_AUTH}"
@@ -56,8 +60,10 @@ object Dependency {
             "com.google.android.gms:play-services-base:${Versions.GMS_PLAY_SERVICE_BASE}"
         const val FIREBASE = "com.google.firebase:firebase-auth-ktx:${Versions.FIREBASE}"
         const val LIVEDATA = "androidx.lifecycle:lifecycle-livedata-ktx:${Versions.LIVEDATA}"
-        const val GOOGLE_PLAY_UPDATE = "com.google.android.play:app-update:${Versions.GOOGLE_PLAY_UPDATE}"
-        const val GOOGLE_PLAY_KOTLIN_UPDATE = "com.google.android.play:app-update-ktx:${Versions.GOOGLE_PLAY_UPDATE}"
+        const val GOOGLE_PLAY_UPDATE =
+            "com.google.android.play:app-update:${Versions.GOOGLE_PLAY_UPDATE}"
+        const val GOOGLE_PLAY_KOTLIN_UPDATE =
+            "com.google.android.play:app-update-ktx:${Versions.GOOGLE_PLAY_UPDATE}"
     }
 
     object Libraries {
