@@ -5,6 +5,7 @@ import android.net.Uri
 import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
+import com.google.firebase.messaging.FirebaseMessaging
 import com.msg.gauthsignin.GAuthButton
 import com.msg.gauthsignin.GAuthSigninWebView
 import com.msg.gauthsignin.component.utils.Types
@@ -54,9 +55,18 @@ class IntroActivity : BaseActivity<ActivityIntroBinding>(R.layout.activity_intro
                 clientId = BuildConfig.CLIENT_ID,
                 redirectUri = BuildConfig.REDIRECT_URI,
             ) {
+
                 progressDialog.show()
                 binding.gAuthWebView.visibility = View.INVISIBLE
-                viewModel.postSignInRequest(code = it)
+                FirebaseMessaging.getInstance().token
+                    .addOnCompleteListener { token ->
+                        if (token.isSuccessful) {
+                            viewModel.postSignInRequest(
+                                code = it,
+                                token = token.result
+                            )
+                        }
+                    }
             }
         }
     }
