@@ -5,17 +5,18 @@ import android.net.Uri
 import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
-import com.msg.gauthsignin.GAuthButton
+import androidx.compose.ui.unit.dp
 import com.msg.gauthsignin.GAuthSigninWebView
+import com.msg.gauthsignin.component.GAuthButton
 import com.msg.gauthsignin.component.utils.Types
 import com.msg.gcms.BuildConfig
 import com.msg.gcms.R
 import com.msg.gcms.databinding.ActivityIntroBinding
 import com.msg.gcms.presentation.base.BaseActivity
 import com.msg.gcms.presentation.view.main.MainActivity
+import com.msg.gcms.presentation.view.progress.ProgressDialog
 import com.msg.gcms.presentation.viewmodel.AuthViewModel
 import com.msg.gcms.presentation.viewmodel.util.Event
-import com.msg.gcms.presentation.view.progress.ProgressDialog
 import dagger.hilt.android.AndroidEntryPoint
 import kotlin.system.exitProcess
 
@@ -40,7 +41,8 @@ class IntroActivity : BaseActivity<ActivityIntroBinding>(R.layout.activity_intro
             GAuthButton(
                 style = Types.Style.DEFAULT,
                 actionType = Types.ActionType.SIGNIN,
-                colors = Types.Colors.OUTLINE
+                colors = Types.Colors.OUTLINE,
+                horizontalPaddingValue = 80.dp
             ) {
                 binding.gAuthWebView.visibility = View.VISIBLE
                 setGAuthWebViewComponent()
