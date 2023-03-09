@@ -2,9 +2,12 @@ package com.msg.gcms.presentation.view.splash
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import com.google.firebase.messaging.FirebaseMessaging
 import com.msg.gcms.R
+import com.msg.gcms.data.remote.dto.auth.response.SignInResponse
 import com.msg.gcms.presentation.base.BaseModal
 import com.msg.gcms.presentation.utils.enterActivity
 import com.msg.gcms.presentation.view.intro.IntroActivity
@@ -36,7 +39,7 @@ class SplashActivity : AppCompatActivity() {
     private fun startActivity() {
         splashViewModel.isLoginAble.observe(this) {
             if (it) checkTokenIsNormal()
-            else enterActivity(this@SplashActivity, IntroActivity())
+            else enterActivity(this@SplashActivity, IntroActivity(), true)
         }
     }
 
@@ -48,8 +51,8 @@ class SplashActivity : AppCompatActivity() {
     private fun observeGetClubEvent() {
         mainViewModel.getClubList.observe(this) {
             when (it) {
-                Event.Success -> enterActivity(this@SplashActivity, MainActivity())
-                Event.Unauthorized -> enterActivity(this@SplashActivity, IntroActivity())
+                Event.Success -> enterActivity(this@SplashActivity, MainActivity(), true)
+                Event.Unauthorized -> enterActivity(this@SplashActivity, IntroActivity(), true)
                 else -> BaseModal("오류", "알수 없는 오류가 발생했습니다.", this).show()
             }
         }
