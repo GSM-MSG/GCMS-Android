@@ -1,6 +1,7 @@
 package com.msg.gcms.data.remote.network.api
 
 import com.msg.gcms.data.remote.dto.user.get_my_profile.GetMyProfileResponse
+import com.msg.gcms.data.remote.dto.user.get_profile_image.GetProfileImageResponse
 import com.msg.gcms.data.remote.dto.user.modify_profile_image.ModifyProfileImageRequest
 import com.msg.gcms.data.remote.dto.user.search_user.GetSearchUserResponse
 import retrofit2.Response
@@ -18,6 +19,9 @@ interface UserAPI {
     suspend fun getUserSearch(
         @QueryMap QueryString: Map<String, String>
     ): List<GetSearchUserResponse>
+
+    @GET("user/profile")
+    suspend fun getUserProfileImage(): GetProfileImageResponse
 
     @PATCH("user")
     suspend fun putProfile(
