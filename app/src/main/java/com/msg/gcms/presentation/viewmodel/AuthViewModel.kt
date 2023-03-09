@@ -26,9 +26,9 @@ class AuthViewModel @Inject constructor(
     private val _postSignInRequest = MutableLiveData<Event>()
     val postSignInRequest: LiveData<Event> get() = _postSignInRequest
 
-    fun postSignInRequest(code: String) = viewModelScope.launch {
+    fun postSignInRequest(code: String, token: String) = viewModelScope.launch {
         signInUseCase(
-            SignInRequestData(code = code)
+            SignInRequestData(code = code, token = token)
         ).onSuccess {
             saveToken(it)
             _postSignInRequest.value = Event.Success
