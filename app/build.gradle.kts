@@ -6,6 +6,7 @@ plugins {
     id("dagger.hilt.android.plugin")
     id("kotlin-android")
     id("kotlin-kapt")
+    id("com.google.gms.google-services")
 }
 
 android {
@@ -77,6 +78,7 @@ dependencies {
     implementation(platform(Dependency.Google.FIREBASE_BOM))
     implementation(Dependency.Google.FIREBASE_ANALYTICS)
     implementation(Dependency.Google.FIREBASE)
+    implementation(Dependency.Google.FIREBASE_MESSAGING)
     implementation(Dependency.Google.GMS_PLAY_SERVICE_AUTH)
     implementation(Dependency.Google.GMS_PLAY_SERVICE_BASE)
     kapt(Dependency.AndroidX.ROOM_COMPILER)
@@ -129,6 +131,8 @@ dependencies {
 
     implementation(Dependency.Google.GOOGLE_PLAY_UPDATE)
     implementation(Dependency.Google.GOOGLE_PLAY_KOTLIN_UPDATE)
+
+    implementation(Dependency.AndroidX.WORK_RUNTIME)
 }
 
 fun getApiKey(propertyKey: String): String {

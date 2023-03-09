@@ -1,6 +1,7 @@
 buildscript {
     dependencies {
         classpath(Dependency.GradlePlugin.GRADLE_HILT)
+        classpath(Dependency.GradlePlugin.GOOGLE_PLUGIN)
     }
 }
 
