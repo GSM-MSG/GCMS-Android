@@ -5,8 +5,10 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.msg.gcms.domain.data.club.get_club_list.GetClubListData
+import com.msg.gcms.domain.data.user.get_profile_image.GetProfileImageData
 import com.msg.gcms.domain.usecase.auth.SaveTokenInfoUseCase
 import com.msg.gcms.domain.usecase.club.GetClubListUseCase
+import com.msg.gcms.domain.usecase.user.GetProfileImageUseCase
 import com.msg.gcms.presentation.viewmodel.util.Event
 import com.msg.gcms.presentation.viewmodel.util.errorHandling
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -16,7 +18,8 @@ import javax.inject.Inject
 @HiltViewModel
 class MainViewModel @Inject constructor(
     private val getClubListUseCase: GetClubListUseCase,
-    private val saveTokenInfoUseCase: SaveTokenInfoUseCase
+    private val saveTokenInfoUseCase: SaveTokenInfoUseCase,
+    private val getProfileImageUseCase: GetProfileImageUseCase
 ) : ViewModel() {
     private val _clubName = MutableLiveData<String>()
     val clubName: LiveData<String>
@@ -28,6 +31,11 @@ class MainViewModel @Inject constructor(
     private var _getClubList = MutableLiveData<Event>()
     val getClubList: LiveData<Event> get() = _getClubList
 
+    private val _getProfile = MutableLiveData<Event>()
+    val getProfile: LiveData<Event> get() = _getProfile
+
+    private var _profileImage: GetProfileImageData? = null
+
     companion object {
         const val tag = "TAG"
     }
@@ -38,6 +46,10 @@ class MainViewModel @Inject constructor(
             1 -> _clubName.value = "자율동아리"
             2 -> _clubName.value = "사설동아리"
         }
+    }
+
+    fun getProfile(): GetProfileImageData? {
+        return _profileImage
     }
 
     fun getClubList() {
@@ -54,6 +66,18 @@ class MainViewModel @Inject constructor(
                 _clubData.value = it
             }.onFailure {
                 _getClubList.value =
+                    it.errorHandling(unauthorizedAction = { saveTokenInfoUseCase() })
+            }
+        }
+    }
+
+    fun getProfileImageFromServer() {
+        viewModelScope.launch {
+            getProfileImageUseCase().onSuccess {
+                _profileImage = it
+                _getProfile.value = Event.Success
+            }.onFailure {
+                _getProfile.value =
                     it.errorHandling(unauthorizedAction = { saveTokenInfoUseCase() })
             }
         }

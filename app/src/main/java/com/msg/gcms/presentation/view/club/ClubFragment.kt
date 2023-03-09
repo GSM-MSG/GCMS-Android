@@ -3,6 +3,7 @@ package com.msg.gcms.presentation.view.club
 import androidx.core.view.isVisible
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.GridLayoutManager
+import coil.load
 import com.msg.gcms.R
 import com.msg.gcms.databinding.FragmentClubBinding
 import com.msg.gcms.presentation.adapter.club_list.ClubListAdapter
@@ -30,12 +31,20 @@ class ClubFragment : BaseFragment<FragmentClubBinding>(R.layout.fragment_club) {
         observeClubName()
         observeClubData()
         observeClubInfo()
+        observeProfileImage()
     }
 
     override fun initView() {
         recyclerview()
         clickProfile()
         clickMakeClubBtn()
+    }
+
+    private fun observeProfileImage() {
+        mainViewModel.getProfile.observe(this) {
+            if (it != null) binding.profileBtn.load(mainViewModel.getProfile())
+            else binding.profileBtn.setImageResource(R.drawable.ic_profile)
+        }
     }
 
     private fun recyclerview() {

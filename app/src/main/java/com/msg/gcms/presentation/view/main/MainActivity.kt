@@ -21,11 +21,24 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
     override fun viewSetting() {
         initBottomNav()
+        getProfileImage()
     }
 
     override fun observeEvent() {
         observeBottomNav()
         observeSetNav()
+        getProfileImage()
+        observeProfileImage()
+    }
+
+    private fun getProfileImage() {
+        mainViewModel.getProfileImageFromServer()
+    }
+
+    private fun observeProfileImage() {
+        mainViewModel.getProfile.observe(this) {
+            mainViewModel.getProfile()
+        }
     }
 
     override fun onResume() {
