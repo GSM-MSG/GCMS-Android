@@ -400,7 +400,6 @@
         <!--    사이드 바    -->
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/sideBar"
-            android:visibility="gone"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             app:headerLayout="@layout/header_layout"
