@@ -1,6 +1,5 @@
 package com.msg.gcms.presentation.view.club
 
-import androidx.core.view.isVisible
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import com.msg.gcms.R
@@ -10,6 +9,8 @@ import com.msg.gcms.presentation.base.BaseFragment
 import com.msg.gcms.presentation.base.BaseModal
 import com.msg.gcms.presentation.utils.enterActivity
 import com.msg.gcms.presentation.utils.enterFragment
+import com.msg.gcms.presentation.utils.start
+import com.msg.gcms.presentation.utils.stop
 import com.msg.gcms.presentation.view.club.detail.DetailFragment
 import com.msg.gcms.presentation.view.clubmaker.MakeClubActivity
 import com.msg.gcms.presentation.view.intro.IntroActivity
@@ -26,16 +27,21 @@ class ClubFragment : BaseFragment<FragmentClubBinding>(R.layout.fragment_club) {
     private lateinit var adapter: ClubListAdapter
 
     override fun observeEvent() {
-        mainViewModel.getClubList()
         observeClubName()
         observeClubData()
         observeClubInfo()
     }
 
     override fun initView() {
+        getClubInfo()
         recyclerview()
         clickProfile()
         clickMakeClubBtn()
+    }
+
+    private fun getClubInfo() {
+        binding.clubLoadingView.start()
+        mainViewModel.getClubList()
     }
 
     private fun recyclerview() {
@@ -57,7 +63,7 @@ class ClubFragment : BaseFragment<FragmentClubBinding>(R.layout.fragment_club) {
     private fun observeClubName() {
         mainViewModel.clubName.observe(this) {
             if (binding.clubNameTxt.text != mainViewModel.clubName.value) {
-                mainViewModel.getClubList()
+                getClubInfo()
             }
             binding.clubNameTxt.text = mainViewModel.clubName.value
         }
@@ -82,12 +88,7 @@ class ClubFragment : BaseFragment<FragmentClubBinding>(R.layout.fragment_club) {
         mainViewModel.getClubList.observe(this) {
             when (it) {
                 Event.Success -> {
-                    with(binding.clubLoadingView) {
-                        if (isShimmerStarted) {
-                            stopShimmer()
-                            isVisible = false
-                        }
-                    }
+                    binding.clubLoadingView.stop()
                 }
                 Event.Unauthorized -> {
                     BaseModal(
