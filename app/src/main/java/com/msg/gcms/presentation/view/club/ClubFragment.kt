@@ -1,5 +1,6 @@
 package com.msg.gcms.presentation.view.club
 
+import android.content.Context
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import com.msg.gcms.R
@@ -23,6 +24,11 @@ class ClubFragment : BaseFragment<FragmentClubBinding>(R.layout.fragment_club) {
     private val mainViewModel by activityViewModels<MainViewModel>()
     private val detailViewModel by activityViewModels<ClubDetailViewModel>()
     private lateinit var adapter: ClubListAdapter
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        mainViewModel.setIsHeader(true)
+    }
 
     override fun observeEvent() {
         observeClubData()
@@ -48,6 +54,7 @@ class ClubFragment : BaseFragment<FragmentClubBinding>(R.layout.fragment_club) {
             adapter = ClubListAdapter(mainViewModel.clubData.value)
             adapter.setItemOnClickListener(object : ClubListAdapter.OnItemClickListener {
                 override fun onClick(position: Int) {
+                    mainViewModel.setIsHeader(false)
                     detailViewModel.getDetail(
                         mainViewModel.clubData.value?.get(position)!!.id
                     )

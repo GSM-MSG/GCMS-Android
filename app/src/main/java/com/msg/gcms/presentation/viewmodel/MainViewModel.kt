@@ -34,6 +34,9 @@ class MainViewModel @Inject constructor(
     private val _getProfile = MutableLiveData<Event>()
     val getProfile: LiveData<Event> get() = _getProfile
 
+    private val _isHeader = MutableLiveData<Boolean>()
+    val isHeader: LiveData<Boolean> get() = _isHeader
+
     private var _profileImage: GetProfileImageData? = null
 
     companion object {
@@ -46,6 +49,10 @@ class MainViewModel @Inject constructor(
             1 -> _clubName.value = "자율동아리"
             2 -> _clubName.value = "사설동아리"
         }
+    }
+
+    fun setIsHeader(isHeader: Boolean) {
+        _isHeader.value = isHeader
     }
 
     fun getProfile(): GetProfileImageData? {
