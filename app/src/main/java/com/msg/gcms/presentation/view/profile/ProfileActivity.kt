@@ -7,7 +7,6 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import androidx.core.view.isVisible
 import coil.load
 import coil.transform.CircleCropTransformation
 import com.google.android.material.snackbar.Snackbar
@@ -17,7 +16,6 @@ import com.msg.gcms.presentation.base.BaseActivity
 import com.msg.gcms.presentation.base.BaseModal
 import com.msg.gcms.presentation.utils.enterActivity
 import com.msg.gcms.presentation.utils.exitActivity
-import com.msg.gcms.presentation.utils.start
 import com.msg.gcms.presentation.utils.stop
 import com.msg.gcms.presentation.utils.toFile
 import com.msg.gcms.presentation.utils.toMultiPartBody
