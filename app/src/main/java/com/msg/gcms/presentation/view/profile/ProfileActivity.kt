@@ -17,6 +17,8 @@ import com.msg.gcms.presentation.base.BaseActivity
 import com.msg.gcms.presentation.base.BaseModal
 import com.msg.gcms.presentation.utils.enterActivity
 import com.msg.gcms.presentation.utils.exitActivity
+import com.msg.gcms.presentation.utils.start
+import com.msg.gcms.presentation.utils.stop
 import com.msg.gcms.presentation.utils.toFile
 import com.msg.gcms.presentation.utils.toMultiPartBody
 import com.msg.gcms.presentation.view.intro.IntroActivity
@@ -35,9 +37,6 @@ class ProfileActivity : BaseActivity<ActivityProfileBinding>(R.layout.activity_p
     private val getContent =
         registerForActivityResult(ActivityResultContracts.GetContent()) { imageUri ->
             if (imageUri != null) {
-                binding.profileImg.load(imageUri) {
-                    transformations(CircleCropTransformation())
-                }
                 val file = imageUri.toFile(this)
                 profileViewModel.uploadImg(file.toMultiPartBody())
             }
@@ -47,17 +46,18 @@ class ProfileActivity : BaseActivity<ActivityProfileBinding>(R.layout.activity_p
         myProfile()
         isClub()
         observeProfileInfo()
+        observeEditProfile()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        profileViewModel.getUserInfo()
     }
 
     override fun viewSetting() {
         clickBackBtn()
         clickProfileEdit()
         clickLogout()
-    }
-
-    override fun onResume() {
-        super.onResume()
-        profileViewModel.getUserInfo()
     }
 
     private fun myProfile() {
@@ -77,12 +77,7 @@ class ProfileActivity : BaseActivity<ActivityProfileBinding>(R.layout.activity_p
         profileViewModel.getUserInfo.observe(this) {
             when (it) {
                 Event.Success -> {
-                    with(binding.profileLoadingView) {
-                        if (isShimmerStarted) {
-                            stopShimmer()
-                            isVisible = false
-                        }
-                    }
+                    binding.profileLoadingView.stop()
                 }
                 Event.Unauthorized -> {
                     BaseModal(
@@ -102,6 +97,32 @@ class ProfileActivity : BaseActivity<ActivityProfileBinding>(R.layout.activity_p
                 }
                 Event.UnKnown -> {
                     BaseModal("오류", "알수 없는 오류 발생, 개발자에게 문의해주세요", this).show()
+                }
+            }
+        }
+    }
+
+    private fun observeEditProfile() {
+        profileViewModel.editUserInfo.observe(this) {
+            when (it) {
+                Event.Success -> {
+                    profileViewModel.getUserInfo()
+                }
+                Event.Unauthorized -> {
+                    BaseModal(
+                        "오류",
+                        "토큰이 만료되었습니다, 로그아웃 이후 다시 로그인해주세요.",
+                        this
+                    ).let { dialog ->
+                        dialog.show()
+                        dialog.dialogBinding.ok.setOnClickListener {
+                            enterActivity(this, IntroActivity())
+                            dialog.dismiss()
+                        }
+                    }
+                }
+                else -> {
+                    BaseModal("오류", "프로필 수정에 실패했습니다, 다시 시도해주세요.", this).show()
                 }
             }
         }

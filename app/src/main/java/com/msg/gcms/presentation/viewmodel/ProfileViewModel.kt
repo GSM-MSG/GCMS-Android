@@ -33,6 +33,9 @@ class ProfileViewModel @Inject constructor(
     private var _getUserInfo = MutableLiveData<Event>()
     val getUserInfo: LiveData<Event> get() = _getUserInfo
 
+    private var _editUserInfo = MutableLiveData<Event>()
+    val editUserInfo: LiveData<Event> get() = _editUserInfo
+
     fun getUserInfo() {
         viewModelScope.launch {
             profileUseCase().onSuccess {
@@ -59,9 +62,15 @@ class ProfileViewModel @Inject constructor(
         }
     }
 
-    fun saveImg(img: String) {
+    private fun saveImg(img: String) {
         viewModelScope.launch {
-            val response = editProfileUseCase(ModifyProfileImageData(img))
+            editProfileUseCase(ModifyProfileImageData(img))
+                .onSuccess {
+                    _editUserInfo.value = Event.Success
+                }.onFailure {
+                    _editUserInfo.value =
+                        it.errorHandling(unauthorizedAction = { saveTokenInfoUseCase() })
+                }
         }
     }
 }
