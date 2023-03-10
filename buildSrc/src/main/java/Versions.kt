@@ -56,7 +56,7 @@ object Versions {
     const val SHIMMER = "0.5.0"
     const val LOTTIE_VERSION = "5.2.0"
 
-    const val GAUTH = "1.0.2"
+    const val GAUTH = "1.0.7"
     const val COMPOSE = "1.2.0-alpha03"
     const val ACTIVITY_COMPOSE = "1.3.1"
     const val COMPOSE_METARIAL = "1.1.1"
