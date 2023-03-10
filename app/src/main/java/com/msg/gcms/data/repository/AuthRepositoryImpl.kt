@@ -14,8 +14,8 @@ class AuthRepositoryImpl @Inject constructor(
     private val remoteDatasource: AuthDataSource,
     private val localDataSource: LocalDataSource
 ) : AuthRepository {
-    override suspend fun postRegistration(body: SignInRequestData): SignInResponseData {
-        return AuthMapper.mapperToSignInData(
+    override suspend fun postRegistration(body: SignInRequestData): SignInResponseData =
+        AuthMapper.mapperToSignInData(
             remoteDatasource.postRegistration(
                 body = SignInRequest(
                     code = body.code,
@@ -23,7 +23,6 @@ class AuthRepositoryImpl @Inject constructor(
                 )
             )
         )
-    }
 
     override suspend fun logout() =
         remoteDatasource.logout()
@@ -33,17 +32,18 @@ class AuthRepositoryImpl @Inject constructor(
             false
         } else {
             val currentTime = LocalDateTime.now()
-            val refreshExpriedAt = LocalDateTime.parse(
+            val refreshExpiredAt = LocalDateTime.parse(
                 localDataSource.getRefreshExp()
             )
-            !currentTime.isAfter(refreshExpriedAt)
+            !currentTime.isAfter(refreshExpiredAt)
         }
 
     override suspend fun saveTokenInfo(
         accessToken: String,
         refreshToken: String,
         accessExp: String,
-        refreshExp: String
+        refreshExp: String,
+        fcmToken: String
     ) =
-        localDataSource.saveTokenInfo(accessToken, refreshToken, accessExp, refreshExp)
+        localDataSource.saveTokenInfo(accessToken, refreshToken, accessExp, refreshExp, fcmToken)
 }
