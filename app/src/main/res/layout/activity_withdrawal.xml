@@ -15,7 +15,7 @@
         android:background="@color/light_black">
 
         <ImageView
-            android:id="@+id/back_btn"
+            android:id="@+id/backBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
@@ -32,7 +32,7 @@
             android:text="@string/withdrawal"
             android:textColor="@color/white"
             android:textSize="18sp"
-            app:layout_constraintStart_toEndOf="@id/back_btn"
+            app:layout_constraintStart_toEndOf="@id/backBtn"
             app:layout_constraintTop_toTopOf="parent" />
 
         <View
