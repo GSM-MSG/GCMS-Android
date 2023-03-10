@@ -32,15 +32,15 @@
             app:layout_constraintGuide_percent="0.29" />
 
         <ImageView
-            android:padding="5dp"
             android:id="@+id/back_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="29dp"
-            android:background="@drawable/ic_back_btn"
+            android:layout_width="20dp"
+            android:layout_height="27dp"
+            android:layout_marginStart="11dp"
+            android:padding="5dp"
+            android:src="@drawable/ic_back_btn"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="@id/textView"
+            app:layout_constraintBottom_toBottomOf="@id/textView" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -53,7 +53,8 @@
             android:fontFamily="@font/notosans"
             android:textFontWeight="500"
             app:layout_constraintStart_toEndOf="@id/back_btn"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toTopOf="@id/back_btn"
+            app:layout_constraintBottom_toBottomOf="@id/back_btn"
             android:id="@+id/textView" />
 
         <ImageView
