@@ -4,13 +4,13 @@ import com.google.gson.JsonObject
 import com.google.gson.JsonParser
 import com.msg.gcms.BuildConfig
 import com.msg.gcms.data.local.datastorage.AuthDataStorage
+import com.msg.gcms.data.remote.dto.auth.request.RefreshRequest
+import com.msg.gcms.data.remote.dto.auth.request.toRequestBody
 import com.msg.gcms.domain.exception.NeedLoginException
 import com.msg.gcms.util.removeDot
 import okhttp3.Interceptor
-import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.OkHttpClient
 import okhttp3.Request
-import okhttp3.RequestBody.Companion.toRequestBody
 import okhttp3.Response
 import java.io.IOException
 import java.time.LocalDateTime
@@ -54,7 +54,7 @@ class LoginInterceptor @Inject constructor(
             val client = OkHttpClient()
             val refreshRequest = Request.Builder()
                 .url(BuildConfig.BASE_URL + "auth")
-                .patch("".toRequestBody("application/json".toMediaTypeOrNull()))
+                .patch(RefreshRequest(authDataStorage.getFcmToken()).toRequestBody())
                 .addHeader(
                     "Refresh-Token",
                     "Bearer $refreshToken"
