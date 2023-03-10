@@ -3,7 +3,6 @@ package com.msg.gcms.presentation.view.club
 import androidx.core.view.isVisible
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.GridLayoutManager
-import coil.load
 import com.msg.gcms.R
 import com.msg.gcms.databinding.FragmentClubBinding
 import com.msg.gcms.presentation.adapter.club_list.ClubListAdapter
@@ -12,9 +11,7 @@ import com.msg.gcms.presentation.base.BaseModal
 import com.msg.gcms.presentation.utils.enterActivity
 import com.msg.gcms.presentation.utils.enterFragment
 import com.msg.gcms.presentation.view.club.detail.DetailFragment
-import com.msg.gcms.presentation.view.clubmaker.MakeClubActivity
 import com.msg.gcms.presentation.view.intro.IntroActivity
-import com.msg.gcms.presentation.view.profile.ProfileActivity
 import com.msg.gcms.presentation.viewmodel.ClubDetailViewModel
 import com.msg.gcms.presentation.viewmodel.MainViewModel
 import com.msg.gcms.presentation.viewmodel.util.Event
@@ -28,48 +25,16 @@ class ClubFragment : BaseFragment<FragmentClubBinding>(R.layout.fragment_club) {
 
     override fun observeEvent() {
         mainViewModel.getClubList()
-        observeClubName()
         observeClubData()
         observeClubInfo()
-        observeProfileImage()
     }
 
     override fun initView() {
         recyclerview()
-        clickProfile()
-        clickMakeClubBtn()
-    }
-
-    private fun observeProfileImage() {
-        mainViewModel.getProfile.observe(this) {
-            if (it != null) binding.profileBtn.load(mainViewModel.getProfile())
-            else binding.profileBtn.setImageResource(R.drawable.ic_profile)
-        }
     }
 
     private fun recyclerview() {
         binding.clubRecyclerView.layoutManager = GridLayoutManager(context, 2)
-    }
-
-    private fun clickProfile() {
-        binding.profileBtn.setOnClickListener {
-            enterActivity(requireActivity(), ProfileActivity())
-        }
-    }
-
-    private fun clickMakeClubBtn() {
-        binding.addClubBtn.setOnClickListener {
-            enterActivity(requireActivity(), MakeClubActivity())
-        }
-    }
-
-    private fun observeClubName() {
-        mainViewModel.clubName.observe(this) {
-            if (binding.clubNameTxt.text != mainViewModel.clubName.value) {
-                mainViewModel.getClubList()
-            }
-            binding.clubNameTxt.text = mainViewModel.clubName.value
-        }
     }
 
     private fun observeClubData() {
@@ -111,7 +76,7 @@ class ClubFragment : BaseFragment<FragmentClubBinding>(R.layout.fragment_club) {
                         }
                     }
                 }
-                Event.UnKnown -> {
+                else -> {
                     BaseModal("오류", "알수 없는 오류 발생, 개발자에게 문의해주세요", requireContext()).show()
                 }
             }
