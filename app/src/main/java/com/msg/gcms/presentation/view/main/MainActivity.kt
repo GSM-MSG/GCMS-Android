@@ -4,10 +4,15 @@ import android.view.View
 import androidx.activity.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
+import coil.load
+import coil.transform.CircleCropTransformation
 import com.msg.gcms.R
 import com.msg.gcms.databinding.ActivityMainBinding
 import com.msg.gcms.presentation.base.BaseActivity
+import com.msg.gcms.presentation.utils.enterActivity
 import com.msg.gcms.presentation.view.club.detail.DetailFragment
+import com.msg.gcms.presentation.view.clubmaker.MakeClubActivity
+import com.msg.gcms.presentation.view.profile.ProfileActivity
 import com.msg.gcms.presentation.viewmodel.ClubDetailViewModel
 import com.msg.gcms.presentation.viewmodel.MainViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -21,16 +26,66 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
     override fun viewSetting() {
         initBottomNav()
+        getProfileImage()
+        clickProfile()
+        clickMakeClubBtn()
     }
 
     override fun observeEvent() {
         observeBottomNav()
         observeSetNav()
+        getProfileImage()
+        observeProfileImage()
+        observeClubName()
+        observeProfileImage()
+    }
+
+    private fun getProfileImage() {
+        mainViewModel.getProfileImageFromServer()
+    }
+
+    private fun observeProfileImage() {
+        mainViewModel.getProfile.observe(this) {
+            if (mainViewModel.getProfile()?.profileImg != null) {
+                binding.profileBtn.load(mainViewModel.getProfile()!!.profileImg) {
+                    crossfade(true)
+                    placeholder(R.drawable.ic_profile)
+                    size(20)
+                    transformations(CircleCropTransformation())
+                }
+            }
+            else binding.profileBtn.setImageResource(R.drawable.ic_profile)
+        }
+    }
+
+    private fun clickProfile() {
+        binding.profileBtn.setOnClickListener {
+            enterActivity(this, ProfileActivity())
+        }
+    }
+
+    private fun clickMakeClubBtn() {
+        binding.addClubBtn.setOnClickListener {
+            enterActivity(this, MakeClubActivity())
+        }
+    }
+
+    private fun observeClubName() {
+        mainViewModel.clubName.observe(this) {
+            if (binding.clubNameTxt.text != mainViewModel.clubName.value) {
+                mainViewModel.getClubList()
+            }
+            binding.clubNameTxt.text = mainViewModel.clubName.value
+        }
     }
 
     override fun onResume() {
         super.onResume()
-        if (intent.getBooleanExtra("isProfile", false) && detailViewModel.isProfile.value == false) {
+        if (intent.getBooleanExtra(
+                "isProfile",
+                false
+            ) && detailViewModel.isProfile.value == false
+        ) {
             detailViewModel.getDetail(intent.getLongExtra("clubId", 0))
             // detailViewModel.setResult(intent.getSerializableExtra("result") as ClubDetailData)
             detailViewModel.setIsProfile(true)

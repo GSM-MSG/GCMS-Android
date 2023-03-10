@@ -1,6 +1,7 @@
 package com.msg.gcms.data.remote.datasource.user
 
 import com.msg.gcms.data.remote.dto.user.get_my_profile.GetMyProfileResponse
+import com.msg.gcms.data.remote.dto.user.get_profile_image.GetProfileImageResponse
 import com.msg.gcms.data.remote.dto.user.modify_profile_image.ModifyProfileImageRequest
 import com.msg.gcms.data.remote.dto.user.search_user.GetSearchUserResponse
 import com.msg.gcms.data.remote.network.api.UserAPI
@@ -21,6 +22,12 @@ class UserDataSourceImpl @Inject constructor(
     ) {
         return GCMSApiHandler<Unit>()
             .httpRequest { service.putProfile(body) }
+            .sendRequest()
+    }
+
+    override suspend fun getProfileImage(): GetProfileImageResponse {
+        return GCMSApiHandler<GetProfileImageResponse>()
+            .httpRequest { service.getUserProfileImage() }
             .sendRequest()
     }
 

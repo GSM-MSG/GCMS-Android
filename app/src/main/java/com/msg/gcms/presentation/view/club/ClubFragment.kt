@@ -11,9 +11,7 @@ import com.msg.gcms.presentation.base.BaseModal
 import com.msg.gcms.presentation.utils.enterActivity
 import com.msg.gcms.presentation.utils.enterFragment
 import com.msg.gcms.presentation.view.club.detail.DetailFragment
-import com.msg.gcms.presentation.view.clubmaker.MakeClubActivity
 import com.msg.gcms.presentation.view.intro.IntroActivity
-import com.msg.gcms.presentation.view.profile.ProfileActivity
 import com.msg.gcms.presentation.viewmodel.ClubDetailViewModel
 import com.msg.gcms.presentation.viewmodel.MainViewModel
 import com.msg.gcms.presentation.viewmodel.util.Event
@@ -27,40 +25,16 @@ class ClubFragment : BaseFragment<FragmentClubBinding>(R.layout.fragment_club) {
 
     override fun observeEvent() {
         mainViewModel.getClubList()
-        observeClubName()
         observeClubData()
         observeClubInfo()
     }
 
     override fun initView() {
         recyclerview()
-        clickProfile()
-        clickMakeClubBtn()
     }
 
     private fun recyclerview() {
         binding.clubRecyclerView.layoutManager = GridLayoutManager(context, 2)
-    }
-
-    private fun clickProfile() {
-        binding.profileBtn.setOnClickListener {
-            enterActivity(requireActivity(), ProfileActivity())
-        }
-    }
-
-    private fun clickMakeClubBtn() {
-        binding.addClubBtn.setOnClickListener {
-            enterActivity(requireActivity(), MakeClubActivity())
-        }
-    }
-
-    private fun observeClubName() {
-        mainViewModel.clubName.observe(this) {
-            if (binding.clubNameTxt.text != mainViewModel.clubName.value) {
-                mainViewModel.getClubList()
-            }
-            binding.clubNameTxt.text = mainViewModel.clubName.value
-        }
     }
 
     private fun observeClubData() {
@@ -102,7 +76,7 @@ class ClubFragment : BaseFragment<FragmentClubBinding>(R.layout.fragment_club) {
                         }
                     }
                 }
-                Event.UnKnown -> {
+                else -> {
                     BaseModal("오류", "알수 없는 오류 발생, 개발자에게 문의해주세요", requireContext()).show()
                 }
             }
