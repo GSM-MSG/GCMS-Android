@@ -1,11 +1,11 @@
 package com.msg.gcms.presentation.view.main
 
-import android.util.Log
 import android.view.View
 import androidx.activity.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
 import coil.load
+import coil.transform.CircleCropTransformation
 import com.msg.gcms.R
 import com.msg.gcms.databinding.ActivityMainBinding
 import com.msg.gcms.presentation.base.BaseActivity
@@ -46,8 +46,14 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
     private fun observeProfileImage() {
         mainViewModel.getProfile.observe(this) {
-            Log.d("TAG", "observeProfileImage: $it")
-            if (it != null) binding.profileBtn.load(mainViewModel.getProfile())
+            if (mainViewModel.getProfile()?.profileImg != null) {
+                binding.profileBtn.load(mainViewModel.getProfile()!!.profileImg) {
+                    crossfade(true)
+                    placeholder(R.drawable.ic_profile)
+                    size(20)
+                    transformations(CircleCropTransformation())
+                }
+            }
             else binding.profileBtn.setImageResource(R.drawable.ic_profile)
         }
     }
