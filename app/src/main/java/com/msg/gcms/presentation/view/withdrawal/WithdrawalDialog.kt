@@ -36,13 +36,17 @@ class WithdrawalDialog(context: Context) : BottomSheetDialog(context) {
             )
             setGravity(Gravity.BOTTOM)
         }
-        logoutBtn.setOnClickListener {
-            withdrawalDialogListener.logout()
-            this@WithdrawalDialog.dismiss()
+        listOf(logoutBtn, logoutTxt).forEach {
+            it.setOnClickListener {
+                withdrawalDialogListener.logout()
+                this@WithdrawalDialog.dismiss()
+            }
         }
-        withdrawalBtn.setOnClickListener {
-            withdrawalDialogListener.goWithdrawal()
-            this@WithdrawalDialog.dismiss()
+        listOf(withdrawalBtn, withdrawalTxt).forEach {
+            it.setOnClickListener {
+                withdrawalDialogListener.goWithdrawal()
+                this@WithdrawalDialog.dismiss()
+            }
         }
     }
 }

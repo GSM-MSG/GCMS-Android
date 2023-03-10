@@ -38,6 +38,7 @@
             app:layout_constraintTop_toBottomOf="@id/isLogoutTxt" />
 
         <TextView
+            android:id="@+id/logoutTxt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/logoutBtn"
@@ -61,6 +62,7 @@
             app:layout_constraintTop_toBottomOf="@id/logoutBtn" />
 
         <TextView
+            android:id="@+id/withdrawalTxt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/withdrawalBtn"
