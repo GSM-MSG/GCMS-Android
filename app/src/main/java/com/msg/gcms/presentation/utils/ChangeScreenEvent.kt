@@ -6,9 +6,16 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import com.msg.gcms.R
 
-fun enterActivity(activity: FragmentActivity, destination: Activity) {
+fun enterActivity(
+    activity: FragmentActivity,
+    destination: Activity,
+    isCurrentFinish: Boolean = false
+) {
     activity.startActivity(Intent(activity, destination::class.java))
     activity.overridePendingTransition(R.anim.enter_anim, R.anim.no_anim)
+    if (isCurrentFinish) {
+        activity.finish()
+    }
 }
 
 fun exitActivity(activity: FragmentActivity) {

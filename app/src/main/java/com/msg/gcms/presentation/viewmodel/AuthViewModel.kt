@@ -26,11 +26,11 @@ class AuthViewModel @Inject constructor(
     private val _postSignInRequest = MutableLiveData<Event>()
     val postSignInRequest: LiveData<Event> get() = _postSignInRequest
 
-    fun postSignInRequest(code: String) = viewModelScope.launch {
+    fun postSignInRequest(code: String, token: String) = viewModelScope.launch {
         signInUseCase(
-            SignInRequestData(code = code)
+            SignInRequestData(code = code, token = token)
         ).onSuccess {
-            saveToken(it)
+            saveToken(response = it, fcmToken = token)
             _postSignInRequest.value = Event.Success
         }.onFailure {
             _postSignInRequest.value =
@@ -48,12 +48,13 @@ class AuthViewModel @Inject constructor(
         saveTokenInfoUseCase()
     }
 
-    private fun saveToken(response: SignInResponseData) = viewModelScope.launch {
+    private fun saveToken(response: SignInResponseData, fcmToken: String) = viewModelScope.launch {
         saveTokenInfoUseCase(
             accessToken = response.accessToken.removeDot(),
             refreshToken = response.refreshToken.removeDot(),
             accessExp = response.accessExp.removeDot(),
-            refreshExp = response.refreshExp.removeDot()
+            refreshExp = response.refreshExp.removeDot(),
+            fcmToken = fcmToken
         )
     }
 

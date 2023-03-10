@@ -16,4 +16,8 @@ interface AuthDataStorage {
     fun setRefreshExpiredAt(refreshExp: String)
 
     fun getRefreshExpiredAt(): String
+
+    fun setFcmToken(fcmToken: String)
+
+    fun getFcmToken(): String
 }
