@@ -12,5 +12,11 @@ interface AuthRepository {
 
     suspend fun checkLoginStatus(): Boolean
 
-    suspend fun saveTokenInfo(accessToken: String, refreshToken: String, accessExp: String, refreshExp: String)
+    suspend fun saveTokenInfo(
+        accessToken: String,
+        refreshToken: String,
+        accessExp: String,
+        refreshExp: String,
+        fcmToken: String
+    )
 }
