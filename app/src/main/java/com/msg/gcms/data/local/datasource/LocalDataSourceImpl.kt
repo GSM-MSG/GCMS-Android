@@ -14,6 +14,8 @@ class LocalDataSourceImpl @Inject constructor(
 
     override suspend fun getRefreshExp(): String = authDataStorage.getRefreshExpiredAt()
 
+    override suspend fun getFcmToken(): String = authDataStorage.getFcmToken()
+
     override suspend fun saveTokenInfo(
         accessToken: String,
         refreshToken: String,
