@@ -113,17 +113,15 @@
                     android:layout_height="match_parent">
 
                     <include layout="@layout/shimmer_banner" />
+
+                    <ImageView
+                        android:scaleType="fitXY"
+                        android:layout_width="match_parent"
+                        android:background="#4D000000"
+                        android:layout_height="0dp"
+                        android:translationZ="-1dp" />
                 </LinearLayout>
             </com.facebook.shimmer.ShimmerFrameLayout>
-
-            <ImageView
-                android:scaleType="fitXY"
-                app:layout_constraintBottom_toTopOf="@id/guideline7"
-                android:layout_width="match_parent"
-                android:background="#4D000000"
-                android:layout_height="0dp"
-                android:translationZ="-1dp"
-                app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
                 android:layout_width="match_parent"
