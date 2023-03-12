@@ -39,8 +39,8 @@
             android:padding="5dp"
             android:src="@drawable/ic_back_btn"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/myProfileText"
-            app:layout_constraintBottom_toBottomOf="@id/myProfileText" />
+            app:layout_constraintTop_toTopOf="@id/myProfileTv"
+            app:layout_constraintBottom_toBottomOf="@id/myProfileTv" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -54,7 +54,7 @@
             app:layout_constraintStart_toEndOf="@id/backBtn"
             app:layout_constraintTop_toTopOf="@id/backBtn"
             app:layout_constraintBottom_toBottomOf="@id/backBtn"
-            android:id="@+id/myProfileText" />
+            android:id="@+id/myProfileTv" />
 
         <ImageView
             android:id="@+id/logoutOption"
