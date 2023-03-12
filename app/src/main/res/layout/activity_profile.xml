@@ -32,28 +32,29 @@
             app:layout_constraintGuide_percent="0.29" />
 
         <ImageView
-            android:id="@+id/back_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="29dp"
-            android:background="@drawable/ic_back_btn"
+            android:id="@+id/backBtn"
+            android:layout_width="20dp"
+            android:layout_height="27dp"
+            android:layout_marginStart="15dp"
+            android:padding="5dp"
+            android:src="@drawable/ic_back_btn"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="@id/myProfileTv"
+            app:layout_constraintBottom_toBottomOf="@id/myProfileTv" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="13.85dp"
-            android:layout_marginTop="26dp"
+            android:layout_marginStart="12dp"
             android:text="@string/myProfile"
             android:textColor="@color/white"
             android:textSize="18sp"
             android:fontFamily="@font/notosans"
             android:textFontWeight="500"
-            app:layout_constraintStart_toEndOf="@id/back_btn"
-            app:layout_constraintTop_toTopOf="parent"
-            android:id="@+id/textView" />
+            app:layout_constraintStart_toEndOf="@id/backBtn"
+            app:layout_constraintTop_toTopOf="@id/backBtn"
+            app:layout_constraintBottom_toBottomOf="@id/backBtn"
+            android:id="@+id/myProfileTv" />
 
         <ImageView
             android:id="@+id/logoutOption"
@@ -73,7 +74,7 @@
             android:scaleType="centerCrop"
             app:layout_constraintStart_toStartOf="@id/guideline5"
             app:layout_constraintEnd_toEndOf="@id/guideline6"
-            app:layout_constraintTop_toBottomOf="@id/back_btn" />
+            app:layout_constraintTop_toBottomOf="@id/backBtn" />
 
         <TextView
             android:id="@+id/userNameTxt"

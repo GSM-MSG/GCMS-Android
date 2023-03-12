@@ -15,25 +15,31 @@
         android:background="@color/light_black">
 
         <ImageView
-            android:id="@+id/back_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:id="@+id/backBtn"
+            android:layout_width="20dp"
+            android:layout_height="27dp"
             android:layout_marginStart="20dp"
-            android:layout_marginTop="29dp"
-            android:background="@drawable/ic_back_btn"
+            android:layout_marginTop="26dp"
+            android:padding="5dp"
+            android:src="@drawable/ic_back_btn"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="@id/withdrawalTv"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="13.85dp"
+            android:layout_marginStart="12dp"
             android:layout_marginTop="26dp"
             android:text="@string/withdrawal"
             android:textColor="@color/white"
             android:textSize="18sp"
-            app:layout_constraintStart_toEndOf="@id/back_btn"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:fontFamily="@font/notosans"
+            android:textFontWeight="500"
+            app:layout_constraintStart_toEndOf="@id/backBtn"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="@id/backBtn"
+            android:id="@+id/withdrawalTv" />
 
         <View
             android:layout_width="140dp"
