@@ -39,14 +39,13 @@
             android:padding="5dp"
             android:src="@drawable/ic_back_btn"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/textView"
-            app:layout_constraintBottom_toBottomOf="@id/textView" />
+            app:layout_constraintTop_toTopOf="@id/myProfileText"
+            app:layout_constraintBottom_toBottomOf="@id/myProfileText" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
-            android:layout_marginTop="26dp"
             android:text="@string/myProfile"
             android:textColor="@color/white"
             android:textSize="18sp"
@@ -55,7 +54,7 @@
             app:layout_constraintStart_toEndOf="@id/backBtn"
             app:layout_constraintTop_toTopOf="@id/backBtn"
             app:layout_constraintBottom_toBottomOf="@id/backBtn"
-            android:id="@+id/textView" />
+            android:id="@+id/myProfileText" />
 
         <ImageView
             android:id="@+id/logoutOption"

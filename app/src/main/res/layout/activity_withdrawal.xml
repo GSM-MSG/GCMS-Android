@@ -23,7 +23,7 @@
             android:padding="5dp"
             android:src="@drawable/ic_back_btn"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toBottomOf="@id/textView"
+            app:layout_constraintBottom_toBottomOf="@id/withdrawalText"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
@@ -39,7 +39,7 @@
             app:layout_constraintStart_toEndOf="@id/backBtn"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="@id/backBtn"
-            android:id="@+id/textView" />
+            android:id="@+id/withdrawalText" />
 
         <View
             android:layout_width="140dp"
