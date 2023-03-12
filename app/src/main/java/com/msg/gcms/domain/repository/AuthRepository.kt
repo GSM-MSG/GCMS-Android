@@ -10,7 +10,7 @@ interface AuthRepository {
 
     suspend fun logout()
 
-    suspend fun checkLoginStatus(): Boolean
+    suspend fun checkLoginStatus()
 
     suspend fun saveTokenInfo(
         accessToken: String,
