@@ -2,6 +2,7 @@ package com.msg.gcms.presentation.view.main
 
 import android.view.View
 import androidx.activity.viewModels
+import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
 import coil.load
@@ -38,6 +39,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         observeProfileImage()
         observeClubName()
         observeProfileImage()
+        observeHeader()
     }
 
     private fun getProfileImage() {
@@ -53,8 +55,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                     size(20)
                     transformations(CircleCropTransformation())
                 }
-            }
-            else binding.profileBtn.setImageResource(R.drawable.ic_profile)
+            } else binding.profileBtn.setImageResource(R.drawable.ic_profile)
         }
     }
 
@@ -87,7 +88,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
             ) && detailViewModel.isProfile.value == false
         ) {
             detailViewModel.getDetail(intent.getLongExtra("clubId", 0))
-            // detailViewModel.setResult(intent.getSerializableExtra("result") as ClubDetailData)
+            mainViewModel.setIsHeader(false)
             detailViewModel.setIsProfile(true)
             supportFragmentManager.beginTransaction().replace(R.id.fragment_club, DetailFragment())
                 .commit()
@@ -119,6 +120,21 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         val nav = binding.bottomNavigation
         navController?.let {
             nav.setupWithNavController(navController)
+        }
+    }
+
+    private fun observeHeader() {
+        mainViewModel.isHeader.observe(this) {
+            with(binding) {
+                listOf(clubNameTxt, profileBtn, addClubBtn).forEach { view ->
+                    view.isVisible = it
+                }
+                if (it) {
+                    guideline9.setGuidelinePercent(0.09F)
+                } else {
+                    guideline9.setGuidelinePercent(0F)
+                }
+            }
         }
     }
 

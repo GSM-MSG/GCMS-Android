@@ -6,7 +6,6 @@ import android.util.Log
 import android.view.View
 import androidx.activity.OnBackPressedCallback
 import androidx.core.content.ContextCompat
-import androidx.core.view.isVisible
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.GridLayoutManager
@@ -29,6 +28,7 @@ import com.msg.gcms.presentation.utils.ItemDecorator
 import com.msg.gcms.presentation.utils.enterActivity
 import com.msg.gcms.presentation.utils.exitActivity
 import com.msg.gcms.presentation.utils.exitFragment
+import com.msg.gcms.presentation.utils.stop
 import com.msg.gcms.presentation.view.club.ClubFragment
 import com.msg.gcms.presentation.view.editclub.EditClubActivity
 import com.msg.gcms.presentation.view.intro.IntroActivity
@@ -84,8 +84,8 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == 0) {
-            detailViewModel.refreshDetailInfo(requireActivity().intent.getLongExtra("clubId", 0L))
+        if (requestCode == 0 && data != null) {
+            detailViewModel.refreshDetailInfo(data.getLongExtra("clubId", 0L))
         }
     }
 
@@ -301,7 +301,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
     private fun checkRole() {
         binding.submitBtn.let {
             when (detailViewModel.result.value!!.scope) {
-                 "HEAD" -> {
+                "HEAD" -> {
                     binding.sideBarBtn.visibility = View.VISIBLE
                     it.setBackgroundColor(
                         ContextCompat.getColor(
@@ -309,8 +309,8 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
                             R.color.dark_blue
                         )
                     )
-                     binding.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
-                     it.text = getString(
+                    binding.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
+                    it.text = getString(
                         if (detailViewModel.result.value!!.isOpened) {
                             R.string.close_application
                         } else R.string.open_application
@@ -572,18 +572,11 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
         detailViewModel.getClubDetail.observe(this) {
             when (it) {
                 Event.Success -> {
-                    with(binding.infoLoadingView) {
-                        if (isShimmerStarted) {
-                            stopShimmer()
-                            binding.infoLoadingScroll.visibility = View.GONE
-                            binding.scroll.visibility = View.VISIBLE
-                        }
-                    }
-                    with(binding.bannerLoadingView) {
-                        if (isShimmerStarted) {
-                            stopShimmer()
-                            isVisible = false
-                        }
+                    with(binding) {
+                        infoLoadingScroll.visibility = View.GONE
+                        scroll.visibility = View.VISIBLE
+                        infoLoadingView.stop()
+                        bannerLoadingView.stop()
                     }
                 }
                 Event.BadRequest -> {
