@@ -20,8 +20,8 @@ class AuthDataSourceImpl @Inject constructor(
             .httpRequest { service.logout() }
             .sendRequest()
 
-    override suspend fun refresh(header: String, body: RefreshRequest): SignInResponse =
+    override suspend fun refreshToken(header: String, body: RefreshRequest): SignInResponse =
         GCMSApiHandler<SignInResponse>()
-            .httpRequest { service.refresh(header = header, body = body) }
+            .httpRequest { service.refreshToken(header = header, body = body) }
             .sendRequest()
 }

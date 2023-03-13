@@ -21,7 +21,7 @@ interface AuthAPI {
     suspend fun logout(): Response<Unit>
 
     @PATCH("auth")
-    suspend fun refresh(
+    suspend fun refreshToken(
         @Header("Refresh-Token") header: String,
         @Body body: RefreshRequest
     ): SignInResponse

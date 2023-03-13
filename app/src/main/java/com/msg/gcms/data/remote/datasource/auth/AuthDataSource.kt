@@ -9,5 +9,5 @@ interface AuthDataSource {
 
     suspend fun logout()
 
-    suspend fun refresh(header: String, body: RefreshRequest): SignInResponse
+    suspend fun refreshToken(header: String, body: RefreshRequest): SignInResponse
 }
