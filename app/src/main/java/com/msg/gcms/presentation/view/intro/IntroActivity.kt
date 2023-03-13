@@ -43,11 +43,8 @@ class IntroActivity : BaseActivity<ActivityIntroBinding>(R.layout.activity_intro
         val display: Display = windowManager.defaultDisplay
         val outMetrics = DisplayMetrics()
         display.getMetrics(outMetrics)
-
         val density = resources.displayMetrics.density
         val dpWidth = outMetrics.widthPixels / density
-
-        print(dpWidth)
 
         binding.signInBtn.setContent {
             GAuthButton(
