@@ -37,24 +37,20 @@ class AuthRepositoryImpl @Inject constructor(
         )
         val refreshToken = localDataSource.getRefreshToken()
         val fcmToken = localDataSource.getFcmToken()
-        if (LocalDateTime.now().isBefore(accessExpiredAt)) return
+        if (LocalDateTime.now().isAfter(accessExpiredAt)) return
 
-        kotlin.runCatching {
-            remoteDatasource.refresh(
-                header = "Bearer $refreshToken",
-                body = RefreshRequest(fcmToken)
-            )
-        }.onSuccess {
-            localDataSource.saveTokenInfo(
-                accessToken = it.accessToken,
-                refreshToken = it.refreshToken,
-                accessExp = it.accessExp,
-                refreshExp = it.refreshExp,
-                fcmToken = fcmToken
-            )
-        }.onFailure {
-            throw it
-        }
+        val response = remoteDatasource.refresh(
+            header = "Bearer $refreshToken",
+            body = RefreshRequest(fcmToken)
+        )
+
+        localDataSource.saveTokenInfo(
+            accessToken = response.accessToken,
+            refreshToken = response.refreshToken,
+            accessExp = response.accessExp,
+            refreshExp = response.refreshExp,
+            fcmToken = fcmToken
+        )
     }
 
     override suspend fun saveTokenInfo(
