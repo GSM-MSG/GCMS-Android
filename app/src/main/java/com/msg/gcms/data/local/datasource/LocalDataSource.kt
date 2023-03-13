@@ -9,5 +9,13 @@ interface LocalDataSource {
 
     suspend fun getRefreshExp(): String
 
-    suspend fun saveTokenInfo(accessToken: String, refreshToken: String, accessExp: String, refreshExp: String, fcmToken: String)
+    suspend fun getFcmToken(): String
+
+    suspend fun saveTokenInfo(
+        accessToken: String,
+        refreshToken: String,
+        accessExp: String,
+        refreshExp: String,
+        fcmToken: String
+    )
 }
