@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="withdrawal"
+            type="com.msg.gcms.presentation.view.withdrawal.WithdrawalActivity" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/light_black">
+
+        <ImageView
+            android:id="@+id/backBtn"
+            android:layout_width="20dp"
+            android:layout_height="27dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="26dp"
+            android:padding="5dp"
+            android:src="@drawable/ic_back_btn"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="@id/withdrawalTv"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="26dp"
+            android:text="@string/withdrawal"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:fontFamily="@font/notosans"
+            android:textFontWeight="500"
+            app:layout_constraintStart_toEndOf="@id/backBtn"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="@id/backBtn"
+            android:id="@+id/withdrawalTv" />
+
+        <View
+            android:layout_width="140dp"
+            android:layout_height="140dp"
+            android:background="@drawable/bg_withdrawal_gradient"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="58dp"/>
+
+        <ImageView
+            android:id="@+id/imgView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ic_withdrawal_gcms"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="98dp" />
+
+        <TextView
+            android:id="@+id/warningTxt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:text="@string/withdrawalAsk"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:fontFamily="@font/notosans"
+            android:textFontWeight="500"
+            app:layout_constraintTop_toBottomOf="@id/imgView"
+            android:layout_marginTop="16dp" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            app:layout_constraintStart_toStartOf="@id/warningTxt"
+            app:layout_constraintEnd_toEndOf="@id/warningTxt"
+            app:layout_constraintTop_toBottomOf="@id/warningTxt"
+            android:background="@color/white" />
+
+        <LinearLayout
+            android:id="@+id/warningLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/warningTxt"
+            android:orientation="vertical"
+            android:paddingVertical="16dp"
+            android:gravity="center_horizontal"
+            android:layout_marginHorizontal="20dp"
+            android:background="@drawable/bg_withdrawal_warning"
+            android:layout_marginTop="16dp">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/ic_withdrawal_point"
+                    android:layout_gravity="center_vertical"
+                    android:layout_margin="7dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textFontWeight="500"
+                    android:textSize="13sp"
+                    android:fontFamily="@font/notosans"
+                    android:text="@string/withdrawalRule1"
+                    android:textColor="@color/gray_14" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="8dp">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/ic_withdrawal_point"
+                    android:layout_gravity="center_vertical"
+                    android:layout_margin="7dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textFontWeight="500"
+                    android:textSize="13sp"
+                    android:fontFamily="@font/notosans"
+                    android:text="@string/withdrawalRule2"
+                    android:textColor="@color/gray_14" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/warningLayout"
+            android:layout_marginTop="19dp">
+            <CheckBox
+                android:id="@+id/checkbox"
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:background="@drawable/selector_withdrawal_check_btn"
+                android:layout_gravity="center"
+                android:button="@android:color/transparent"/>
+            <TextView
+                android:layout_marginStart="9dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/withdrawalCheck"
+                android:textFontWeight="500"
+                android:textSize="13sp"
+                android:fontFamily="@font/notosans"
+                android:textColor="@color/gray_14"/>
+        </LinearLayout>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/withdrawalBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:text="@string/withdrawal"
+            android:textSize="16sp"
+            android:fontFamily="@font/notosans"
+            android:textFontWeight="500"
+            android:textColor="@color/white"
+            android:paddingVertical="12dp"
+            android:background="@drawable/selector_withdrawal_btn"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginBottom="32dp"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

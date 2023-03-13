@@ -1,17 +1,13 @@
 buildscript {
-    repositories {
-        google()
-        mavenCentral()
-    }
-
     dependencies {
-        classpath (Dependency.GradlePlugin.GRADLE_ANDROID)
-        classpath (Dependency.GradlePlugin.GRADLE_KOTLIN)
-        classpath (Dependency.GradlePlugin.GRADLE_HILT)
-        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.6.10")
+        classpath(Dependency.GradlePlugin.GRADLE_HILT)
+        classpath(Dependency.GradlePlugin.GOOGLE_PLUGIN)
     }
 }
 
-tasks.register("clean", Delete::class) {
-    delete(rootProject.buildDir)
+plugins {
+    id(Dependency.GradlePlugin.KTLINT_PLUGIN) version Versions.KTLINT_PLUGIN
+    id(Dependency.GradlePlugin.ANDROID_APPLICATION_PLUGIN) version Versions.GRADLE_ANDROID apply false
+    id(Dependency.GradlePlugin.ANDROID_LIBRARY_PLUGIN) version Versions.GRADLE_ANDROID apply false
+    id(Dependency.GradlePlugin.KOTLIN_ANDROID_PLUGIN) version Versions.GRADLE_KOTLIN apply false
 }

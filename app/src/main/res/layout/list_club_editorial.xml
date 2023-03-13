@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <variable
+            name="editorialItem"
+            type="com.msg.gcms.presentation.adapter.editorial_club.ClubType" />
+    </data>
+
+    <LinearLayout
+        android:id="@+id/clubSummaryLayout"
+        android:layout_width="match_parent"
+        android:layout_height="182dp"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/itemClubImg"
+            android:layout_width="match_parent"
+            android:layout_height="150dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="32dp"
+            android:background="@drawable/bg_summary_club_txt"
+            android:textColor="@color/white_3"
+            android:fontFamily="@font/notosans"
+            android:textFontWeight="500"
+            android:textSize="13sp"
+            android:text="@{editorialItem.title}"
+            android:gravity="center" />
+    </LinearLayout>
+</layout>

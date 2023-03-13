@@ -19,3 +19,9 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
+
+-keep class com.msg.gcms.data.** {*;}
+-keep interface com.msg.gcms.data.** {*;}
+
+-keep class com.msg.gcms.domain.** {*;}
+-keep interface com.msg.gcms.domain.** {*;}
