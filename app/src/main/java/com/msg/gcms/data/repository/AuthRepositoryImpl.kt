@@ -39,7 +39,7 @@ class AuthRepositoryImpl @Inject constructor(
         val fcmToken = localDataSource.getFcmToken()
         if (LocalDateTime.now().isAfter(accessExpiredAt)) return
 
-        val response = remoteDatasource.refresh(
+        val response = remoteDatasource.refreshToken(
             header = "Bearer $refreshToken",
             body = RefreshRequest(fcmToken)
         )
