@@ -25,12 +25,10 @@ class LoginInterceptor @Inject constructor(
         val path = request.url.encodedPath
         val method = request.method
         val ignorePath = listOf(
-            "/auth",
-            "/club"
+            "/auth"
         )
         val ignoreMethod = listOf(
-            "POST",
-            "GET"
+            "POST"
         )
 
         ignorePath.forEachIndexed { index, s ->
