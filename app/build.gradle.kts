@@ -16,8 +16,8 @@ android {
         applicationId = "com.msg.gcms"
         minSdk = Versions.MIN_SDK_VERSION
         targetSdk = Versions.TARGET_SDK_VERSION
-        versionCode = 10
-        versionName = "2.0.8"
+        versionCode = 11
+        versionName = "2.1.0"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
         buildConfigField(
