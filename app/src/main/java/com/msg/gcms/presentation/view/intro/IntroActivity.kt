@@ -2,11 +2,13 @@ package com.msg.gcms.presentation.view.intro
 
 import android.content.Intent
 import android.net.Uri
+import android.util.DisplayMetrics
+import android.view.Display
 import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
-import com.google.firebase.messaging.FirebaseMessaging
 import androidx.compose.ui.unit.dp
+import com.google.firebase.messaging.FirebaseMessaging
 import com.msg.gauthsignin.GAuthSigninWebView
 import com.msg.gauthsignin.component.GAuthButton
 import com.msg.gauthsignin.component.utils.Types
@@ -38,12 +40,21 @@ class IntroActivity : BaseActivity<ActivityIntroBinding>(R.layout.activity_intro
     }
 
     private fun setGAuthButtonComponent() {
+        val display: Display = windowManager.defaultDisplay
+        val outMetrics = DisplayMetrics()
+        display.getMetrics(outMetrics)
+
+        val density = resources.displayMetrics.density
+        val dpWidth = outMetrics.widthPixels / density
+
+        print(dpWidth)
+
         binding.signInBtn.setContent {
             GAuthButton(
                 style = Types.Style.DEFAULT,
                 actionType = Types.ActionType.SIGNIN,
                 colors = Types.Colors.OUTLINE,
-                horizontalPaddingValue = 80.dp
+                horizontalPaddingValue = (dpWidth / 2 - 120).dp
             ) {
                 binding.gAuthWebView.visibility = View.VISIBLE
                 setGAuthWebViewComponent()

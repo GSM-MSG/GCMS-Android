@@ -180,10 +180,8 @@
 
         <androidx.compose.ui.platform.ComposeView
             android:id="@+id/signInBtn"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintEnd_toStartOf="@+id/guideline18"
-            app:layout_constraintStart_toStartOf="@+id/guideline17"
             app:layout_constraintTop_toTopOf="@+id/guideline21" />
 
         <androidx.compose.ui.platform.ComposeView
