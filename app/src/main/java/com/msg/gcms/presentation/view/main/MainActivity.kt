@@ -97,7 +97,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
     private fun observeSetNav() {
         detailViewModel.showNav.observe(this) {
-            binding.bottomNavigation.visibility = if (it) View.VISIBLE else View.GONE
+            binding.guideline1.setGuidelinePercent(if (it) 0.92F else 1F)
         }
     }
 
