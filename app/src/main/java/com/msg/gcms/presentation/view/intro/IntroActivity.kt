@@ -26,7 +26,7 @@ import kotlin.system.exitProcess
 @AndroidEntryPoint
 class IntroActivity : BaseActivity<ActivityIntroBinding>(R.layout.activity_intro) {
     private var backButtonWait: Long = 0
-    private val lottie by lazy { LottieFragment(R.layout.progress_dialog) }
+    private val lottie by lazy { LottieFragment(R.layout.intro_progress_lottie) }
     private val viewModel by viewModels<AuthViewModel>()
 
     override fun viewSetting() {
