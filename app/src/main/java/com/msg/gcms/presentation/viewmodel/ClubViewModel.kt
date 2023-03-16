@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.msg.gcms.R
 import com.msg.gcms.domain.usecase.applicant.PostClubApplyUseCase
 import com.msg.gcms.domain.usecase.applicant.PostClubCancelUseCase
 import com.msg.gcms.domain.usecase.auth.SaveTokenInfoUseCase
@@ -30,7 +31,7 @@ class ClubViewModel @Inject constructor(
     private val saveTokenInfoUseCase: SaveTokenInfoUseCase
 ) : ViewModel() {
 
-    private val lottie by lazy { LottieFragment() }
+    private val lottie by lazy { LottieFragment(R.layout.progress_bar) }
 
     private var _cancelClubApply = MutableLiveData<Event>()
     val cancelClubApply: LiveData<Event> get() = _cancelClubApply

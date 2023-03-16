@@ -6,6 +6,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.msg.gcms.R
 import com.msg.gcms.domain.data.club.get_club_detail.ClubDetailData
 import com.msg.gcms.domain.data.club.get_club_detail.ClubMemberData
 import com.msg.gcms.domain.data.club.modify_club_info.ModifyClubInfoData
@@ -48,7 +49,7 @@ class EditViewModel @Inject constructor(
     private val _editClubResult = MutableLiveData<Event>()
     val editClubResult: LiveData<Event> get() = _editClubResult
 
-    private val lottie by lazy { LottieFragment() }
+    private val lottie by lazy { LottieFragment(R.layout.progress_bar) }
 
     private val _addedMemberList = mutableListOf<AddMemberType>()
 
