@@ -4,7 +4,6 @@
     android:layout_height="wrap_content">
 
     <com.airbnb.lottie.LottieAnimationView
-        app:lottie_speed="2"
         android:layout_width="300dp"
         android:layout_height="300dp"
         app:lottie_rawRes="@raw/progress_lottie"
