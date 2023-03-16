@@ -16,6 +16,7 @@ import com.msg.gcms.presentation.view.clubmaker.MakeClubActivity
 import com.msg.gcms.presentation.view.profile.ProfileActivity
 import com.msg.gcms.presentation.viewmodel.ClubDetailViewModel
 import com.msg.gcms.presentation.viewmodel.MainViewModel
+import com.msg.gcms.util.toDp
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -97,7 +98,13 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
     private fun observeSetNav() {
         detailViewModel.showNav.observe(this) {
-            binding.guideline1.setGuidelinePercent(if (it) 0.92F else 1F)
+            with(binding.bottomNavigation) {
+                layoutParams =
+                    layoutParams.apply {
+                        height = if (it) 50F.toDp(this@MainActivity) else 1
+                    }
+                visibility = if (it) View.VISIBLE else View.GONE
+            }
         }
     }
 
