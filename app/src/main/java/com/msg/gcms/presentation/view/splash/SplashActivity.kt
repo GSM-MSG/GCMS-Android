@@ -29,8 +29,25 @@ class SplashActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
+        observeEvent()
+        internetConnectionChecker()
         //versionChecker = VersionChecker(this, afterLogic = { afterLogic() })
+    }
+
+    private fun observeEvent() {
         observeIsLogin()
+    }
+
+    private fun observeIsLogin() {
+        splashViewModel.isLogin.observe(this) {
+            when (it) {
+                Event.Success -> enterActivity(this@SplashActivity, MainActivity(), true)
+                else -> enterActivity(this@SplashActivity, IntroActivity(), true)
+            }
+        }
+    }
+
+    private fun internetConnectionChecker() {
         try {
             checkIsInterConnected()
         } catch (e: NoInternetException) {
@@ -44,19 +61,10 @@ class SplashActivity : AppCompatActivity() {
         }
     }
 
-    private fun observeIsLogin() {
-        splashViewModel.isLogin.observe(this) {
-            when (it) {
-                Event.Success -> enterActivity(this@SplashActivity, MainActivity(), true)
-                else -> enterActivity(this@SplashActivity, IntroActivity(), true)
-            }
-        }
-    }
-
     private fun checkIsInterConnected() {
-        val cm: ConnectivityManager =
+        val connectivityManager: ConnectivityManager =
             this.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-        val networkInfo: NetworkInfo? = cm.activeNetworkInfo
+        val networkInfo: NetworkInfo? = connectivityManager.activeNetworkInfo
         if (networkInfo == null) throw NoInternetException() else splashViewModel.checkIsLogin(this)
     }
 
