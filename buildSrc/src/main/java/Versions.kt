@@ -67,4 +67,6 @@ object Versions {
 
     const val SPLASH = "1.0.0-beta01"
     const val WORK_RUNTIME = "2.7.1"
+
+    const val MACARONI = "1.0.0"
 }

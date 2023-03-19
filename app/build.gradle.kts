@@ -133,6 +133,8 @@ dependencies {
     implementation(Dependency.Google.GOOGLE_PLAY_KOTLIN_UPDATE)
 
     implementation(Dependency.AndroidX.WORK_RUNTIME)
+
+    implementation(Dependency.Macaroni.MACARONI)
 }
 
 fun getApiKey(propertyKey: String): String {

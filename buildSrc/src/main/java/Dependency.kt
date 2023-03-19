@@ -124,4 +124,8 @@ object Dependency {
         const val COMPOSE_MATERIAL =
             "androidx.compose.material:material:${Versions.COMPOSE_METARIAL}"
     }
+
+    object Macaroni {
+        const val MACARONI = "com.github.GSM-MSG:Macaroni:${Versions.MACARONI}"
+    }
 }
