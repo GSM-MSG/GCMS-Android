@@ -1,9 +1,11 @@
 package com.msg.gcms.data.local.dao
 
+import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
 import com.msg.gcms.data.local.entity.ClubEntity
 
+@Dao
 interface ClubDao {
 
     @Query("SELECT * FROM clubEntity WHERE type = :type")
