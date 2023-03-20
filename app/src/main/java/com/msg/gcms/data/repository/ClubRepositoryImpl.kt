@@ -10,14 +10,18 @@ import com.msg.gcms.domain.data.club.get_club_detail.ClubDetailData
 import com.msg.gcms.domain.data.club.get_club_list.GetClubListData
 import com.msg.gcms.domain.data.club.modify_club_info.ModifyClubInfoData
 import com.msg.gcms.domain.repository.ClubRepository
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
 class ClubRepositoryImpl @Inject constructor(
     private val remoteDataSource: ClubDataSource,
     private val localDataSource: ClubLocalDataSource
 ) : ClubRepository {
-    override suspend fun getClubList(type: String): List<GetClubListData> {
-        return ClubMapper.mapperToGetClubListData(remoteDataSource.getClubList(type = type))
+    override suspend fun getClubList(type: String): Flow<List<GetClubListData>> {
+        return flow {
+            emit(ClubMapper.mapperToGetClubListData(remoteDataSource.getClubList(type = type)))
+        }
     }
 
     override suspend fun getDetail(clubId: Long): ClubDetailData {
