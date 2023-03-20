@@ -7,4 +7,7 @@ interface ClubDao {
 
     @Query("SELECT * FROM clubEntity WHERE type = :type")
     fun getClubList(type: String): List<ClubEntity>
+
+    @Query("DELETE FROM clubEntity WHERE type = :type")
+    fun deleteClubData(type: String)
 }
