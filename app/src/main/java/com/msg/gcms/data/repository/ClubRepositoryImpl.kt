@@ -1,6 +1,8 @@
 package com.msg.gcms.data.repository
 
+import Macaroni
 import com.msg.gcms.data.local.datasource.club.ClubLocalDataSource
+import com.msg.gcms.data.local.entity.ClubEntity
 import com.msg.gcms.data.mapper.ClubMapper
 import com.msg.gcms.data.remote.datasource.club.ClubDataSource
 import com.msg.gcms.data.remote.dto.club.create_club.CreateClubRequest
@@ -10,7 +12,6 @@ import com.msg.gcms.domain.data.club.get_club_detail.ClubDetailData
 import com.msg.gcms.domain.data.club.get_club_list.GetClubListData
 import com.msg.gcms.domain.data.club.modify_club_info.ModifyClubInfoData
 import com.msg.gcms.domain.repository.ClubRepository
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
@@ -18,10 +19,13 @@ class ClubRepositoryImpl @Inject constructor(
     private val remoteDataSource: ClubDataSource,
     private val localDataSource: ClubLocalDataSource
 ) : ClubRepository {
-    override suspend fun getClubList(type: String): Flow<List<GetClubListData>> {
-        return flow {
-            emit(ClubMapper.mapperToGetClubListData(remoteDataSource.getClubList(type = type)))
-        }
+    override suspend fun getClubList(type: String): Macaroni<List<GetClubListData>> {
+        return Macaroni(
+            onRemoteFailure = { onRemoteFailure(it) },
+            onRemoteObservable = { onRemoteObservable(type = type) },
+            onUpdateLocal = { onUpdateLocal(type = type, clubData = it) },
+            getLocalData = { getLocalData(type = type) }
+        )
     }
 
     override suspend fun getDetail(clubId: Long): ClubDetailData {
@@ -74,5 +78,40 @@ class ClubRepositoryImpl @Inject constructor(
 
     override suspend fun exitClub(clubId: Long) {
         return remoteDataSource.exitClub(clubId = clubId)
+    }
+
+    private fun onRemoteFailure(exception: Throwable) {
+        throw exception
+    }
+
+    private fun onRemoteObservable(type: String) = flow {
+        emit(
+            ClubMapper.mapperToGetClubListData(
+                remoteDataSource.getClubList(type = type)
+            )
+        )
+    }
+
+    private fun onUpdateLocal(type: String, clubData: List<GetClubListData>) {
+        localDataSource.deleteClubData(type = type)
+        localDataSource.insertClubData(clubData = clubData.map { data ->
+            ClubEntity(
+                clubId = data.id,
+                type = data.type,
+                name = data.title,
+                bannerImg = data.bannerUrl
+            )
+        })
+    }
+
+    private fun getLocalData(type: String): List<GetClubListData> {
+        return localDataSource.getClubData(type = type).map {
+            GetClubListData(
+                id = it.clubId,
+                type = it.type,
+                title = it.name,
+                bannerUrl = it.bannerImg
+            )
+        }
     }
 }
