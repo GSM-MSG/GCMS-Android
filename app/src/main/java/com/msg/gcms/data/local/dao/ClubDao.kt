@@ -1,5 +1,6 @@
 package com.msg.gcms.data.local.dao
 
+import androidx.room.Insert
 import androidx.room.Query
 import com.msg.gcms.data.local.entity.ClubEntity
 
@@ -10,4 +11,7 @@ interface ClubDao {
 
     @Query("DELETE FROM clubEntity WHERE type = :type")
     fun deleteClubData(type: String)
+
+    @Insert
+    fun insertClubData(clubEntity: ClubEntity)
 }
