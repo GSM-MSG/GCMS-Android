@@ -2,6 +2,8 @@ package com.msg.gcms.di.module
 
 import com.msg.gcms.data.local.datasource.LocalDataSource
 import com.msg.gcms.data.local.datasource.LocalDataSourceImpl
+import com.msg.gcms.data.local.datasource.club.ClubLocalDataSource
+import com.msg.gcms.data.local.datasource.club.ClubLocalDataSourceImpl
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -15,4 +17,9 @@ abstract class LocalDataSourceModule {
     abstract fun provideLocalDataSource(
         localDataSourceImpl: LocalDataSourceImpl
     ): LocalDataSource
+
+    @Binds
+    abstract fun provideClubLocalDataSource(
+        clubLocalDataSourceImpl: ClubLocalDataSourceImpl
+    ): ClubLocalDataSource
 }
