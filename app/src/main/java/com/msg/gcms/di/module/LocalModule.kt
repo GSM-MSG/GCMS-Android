@@ -2,6 +2,7 @@ package com.msg.gcms.di.module
 
 import android.content.Context
 import androidx.room.Room
+import com.msg.gcms.data.local.dao.ClubDao
 import com.msg.gcms.data.local.database.GCMSDataBase
 import dagger.Module
 import dagger.Provides
@@ -25,4 +26,10 @@ object LocalModule {
             "gcms_database"
         ).fallbackToDestructiveMigration()
         .build()
+
+    @Provides
+    @Singleton
+    fun provideClubDao(
+        gcmsDataBase: GCMSDataBase
+    ): ClubDao = gcmsDataBase.clubDao()
 }
