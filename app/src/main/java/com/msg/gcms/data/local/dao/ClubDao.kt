@@ -13,5 +13,5 @@ interface ClubDao {
     fun deleteClubData(type: String)
 
     @Insert
-    fun insertClubData(clubEntity: ClubEntity)
+    fun insertClubData(clubEntity: List<ClubEntity>)
 }
