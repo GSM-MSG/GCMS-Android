@@ -82,6 +82,7 @@ dependencies {
     implementation(Dependency.Google.GMS_PLAY_SERVICE_AUTH)
     implementation(Dependency.Google.GMS_PLAY_SERVICE_BASE)
     kapt(Dependency.AndroidX.ROOM_COMPILER)
+    kapt(Dependency.Xerial.SQLITE_JDBC)
 
     implementation(Dependency.Kotlin.COROUTINES_CORE)
     implementation(Dependency.Kotlin.COROUTINES_ANDROID)

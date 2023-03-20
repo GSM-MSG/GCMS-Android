@@ -125,6 +125,10 @@ object Dependency {
             "androidx.compose.material:material:${Versions.COMPOSE_METARIAL}"
     }
 
+    object Xerial {
+        const val SQLITE_JDBC = "org.xerial:sqlite-jdbc:${Versions.SQLITE_JDBC_VERSION}"
+    }
+
     object Macaroni {
         const val MACARONI = "com.github.GSM-MSG:Macaroni:${Versions.MACARONI}"
     }
