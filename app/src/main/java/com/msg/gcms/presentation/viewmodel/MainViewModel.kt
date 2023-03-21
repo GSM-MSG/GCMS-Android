@@ -70,7 +70,9 @@ class MainViewModel @Inject constructor(
                 }
             ).onSuccess {
                 _getClubList.value = Event.Success
-                _clubData.value = it
+                // _clubData.value = it
+                it.fetch { status, getClubListData -> _clubData.value = getClubListData }
+
             }.onFailure {
                 _getClubList.value =
                     it.errorHandling(unauthorizedAction = { saveTokenInfoUseCase() })
