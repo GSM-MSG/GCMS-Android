@@ -11,7 +11,7 @@ class ClubLocalDataSourceImpl @Inject constructor(
         return clubDao.getClubList(type = type)
     }
 
-    override suspend fun insertClubData(clubData: List<ClubEntity>) {
+    override suspend fun insertClubData(clubData: ClubEntity) {
         return clubDao.insertClubData(clubEntity = clubData)
     }
 
