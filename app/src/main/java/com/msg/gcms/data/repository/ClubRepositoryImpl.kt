@@ -92,7 +92,7 @@ class ClubRepositoryImpl @Inject constructor(
         )
     }
 
-    private fun onUpdateLocal(type: String, clubData: List<GetClubListData>) {
+    private suspend fun onUpdateLocal(type: String, clubData: List<GetClubListData>) {
         localDataSource.deleteClubData(type = type)
         localDataSource.insertClubData(clubData = clubData.map { data ->
             ClubEntity(
@@ -104,7 +104,7 @@ class ClubRepositoryImpl @Inject constructor(
         })
     }
 
-    private fun getLocalData(type: String): List<GetClubListData> {
+    private suspend fun getLocalData(type: String): List<GetClubListData> {
         return localDataSource.getClubData(type = type).map {
             GetClubListData(
                 id = it.clubId,

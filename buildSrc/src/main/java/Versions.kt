@@ -68,7 +68,7 @@ object Versions {
     const val SPLASH = "1.0.0-beta01"
     const val WORK_RUNTIME = "2.7.1"
 
-    const val MACARONI = "1.0.3"
+    const val MACARONI = "1.0.4"
 
     const val SQLITE_JDBC_VERSION = "3.34.0"
 }
