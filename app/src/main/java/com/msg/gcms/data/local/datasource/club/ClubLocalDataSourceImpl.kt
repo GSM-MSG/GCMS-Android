@@ -7,15 +7,15 @@ import javax.inject.Inject
 class ClubLocalDataSourceImpl @Inject constructor(
     private val clubDao: ClubDao
 ): ClubLocalDataSource {
-    override fun getClubData(type: String): List<ClubEntity> {
+    override suspend fun getClubData(type: String): List<ClubEntity> {
         return clubDao.getClubList(type = type)
     }
 
-    override fun insertClubData(clubData: List<ClubEntity>) {
+    override suspend fun insertClubData(clubData: List<ClubEntity>) {
         return clubDao.insertClubData(clubEntity = clubData)
     }
 
-    override fun deleteClubData(type: String) {
+    override suspend fun deleteClubData(type: String) {
         return clubDao.deleteClubData(type = type)
     }
 }

@@ -9,11 +9,11 @@ import com.msg.gcms.data.local.entity.ClubEntity
 interface ClubDao {
 
     @Query("SELECT * FROM clubEntity WHERE type = :type")
-    fun getClubList(type: String): List<ClubEntity>
+    suspend fun getClubList(type: String): List<ClubEntity>
 
     @Query("DELETE FROM clubEntity WHERE type = :type")
-    fun deleteClubData(type: String)
+    suspend fun deleteClubData(type: String)
 
     @Insert
-    fun insertClubData(clubEntity: List<ClubEntity>)
+    suspend fun insertClubData(clubEntity: List<ClubEntity>)
 }
