@@ -1,6 +1,7 @@
 package com.msg.gcms.data.repository
 
 import Macaroni
+import android.util.Log
 import com.msg.gcms.data.local.datasource.club.ClubLocalDataSource
 import com.msg.gcms.data.local.entity.ClubEntity
 import com.msg.gcms.data.mapper.ClubMapper
@@ -81,7 +82,8 @@ class ClubRepositoryImpl @Inject constructor(
     }
 
     private fun onRemoteFailure(exception: Throwable) {
-        throw exception
+        Log.d("TAG", "onRemoteFailure: ${exception.message}")
+        // throw exception
     }
 
     private fun onRemoteObservable(type: String) = flow {
@@ -94,17 +96,14 @@ class ClubRepositoryImpl @Inject constructor(
 
     private suspend fun onUpdateLocal(type: String, clubData: List<GetClubListData>) {
         localDataSource.deleteClubData(type = type)
-        clubData.forEach { data ->
-            localDataSource.insertClubData(
-                clubData =
-                ClubEntity(
-                    clubId = data.id,
-                    type = data.type,
-                    name = data.title,
-                    bannerImg = data.bannerUrl
-                )
+        localDataSource.insertClubData(clubData.map {
+            ClubEntity(
+                type = it.type,
+                clubId = it.id,
+                name = it.title,
+                bannerImg = it.bannerUrl
             )
-        }
+        })
     }
 
     private suspend fun getLocalData(type: String): List<GetClubListData> {
