@@ -12,7 +12,7 @@ class ClubLocalDataSourceImpl @Inject constructor(
     }
 
     override suspend fun insertClubData(clubData: ClubEntity) {
-        return clubDao.insertClubData(clubEntity = clubData)
+        return clubDao.insertAllClubData(clubEntity = clubData)
     }
 
     override suspend fun deleteClubData(type: String) {
