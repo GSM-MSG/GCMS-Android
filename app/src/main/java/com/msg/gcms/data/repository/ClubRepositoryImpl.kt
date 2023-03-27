@@ -13,6 +13,7 @@ import com.msg.gcms.domain.data.club.get_club_detail.ClubDetailData
 import com.msg.gcms.domain.data.club.get_club_list.GetClubListData
 import com.msg.gcms.domain.data.club.modify_club_info.ModifyClubInfoData
 import com.msg.gcms.domain.repository.ClubRepository
+import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
@@ -24,7 +25,10 @@ class ClubRepositoryImpl @Inject constructor(
         return Macaroni(
             onRemoteFailure = { onRemoteFailure(it) },
             onRemoteObservable = { onRemoteObservable(type = type) },
-            onUpdateLocal = { onUpdateLocal(type = type, clubData = it) },
+            onUpdateLocal = {
+                println(it)
+                onUpdateLocal(type = type, clubData = it)
+            },
             getLocalData = { getLocalData(type = type) }
         )
     }
@@ -61,7 +65,8 @@ class ClubRepositoryImpl @Inject constructor(
                 notionLink = body.notionLink,
                 teacher = body.teacher,
                 title = body.title
-            ), clubId = clubId
+            ),
+            clubId = clubId
         )
     }
 
@@ -92,6 +97,8 @@ class ClubRepositoryImpl @Inject constructor(
                 remoteDataSource.getClubList(type = type)
             )
         )
+    }.catch {
+        println(it.message)
     }
 
     private suspend fun onUpdateLocal(type: String, clubData: List<GetClubListData>) {

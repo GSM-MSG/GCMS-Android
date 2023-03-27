@@ -1,5 +1,6 @@
 package com.msg.gcms.presentation.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -65,14 +66,17 @@ class MainViewModel @Inject constructor(
                 when (clubName.value) {
                     "전공동아리" -> "MAJOR"
                     "자율동아리" -> "FREEDOM"
-                    "사설동아리" -> "EDITORIAL"
+                    //TODO macaroni test 때메 잠깐 소문자로 바꿔놓음
+                    "사설동아리" -> "eDITORIAL"
                     else -> "MAJOR"
                 }
             ).onSuccess {
                 _getClubList.value = Event.Success
                 // _clubData.value = it
-                it.fetch { status, getClubListData -> _clubData.value = getClubListData }
-
+                it.fetch { status, getClubListData ->
+                    Log.d("TAG", "getClubList: $status")
+                    _clubData.value = getClubListData
+                }
             }.onFailure {
                 _getClubList.value =
                     it.errorHandling(unauthorizedAction = { saveTokenInfoUseCase() })

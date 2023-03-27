@@ -13,9 +13,7 @@ class ClubDataSourceImpl @Inject constructor(
 ) : ClubDataSource {
 
     override suspend fun getClubList(type: String): List<GetClubListResponse> {
-        return GCMSApiHandler<List<GetClubListResponse>>()
-            .httpRequest { service.getClubList(type = type) }
-            .sendRequest()
+        return service.getClubList(type = type)
     }
 
     override suspend fun getDetail(clubId: Long): ClubDetailResponse {
@@ -32,7 +30,7 @@ class ClubDataSourceImpl @Inject constructor(
 
     override suspend fun putChangeClub(body: ModifyClubInfoRequest, clubId: Long) {
         return GCMSApiHandler<Unit>()
-            .httpRequest { service.putChangeClub(body = body, clubId = clubId)}
+            .httpRequest { service.putChangeClub(body = body, clubId = clubId) }
             .sendRequest()
     }
 
@@ -58,6 +56,5 @@ class ClubDataSourceImpl @Inject constructor(
         return GCMSApiHandler<Unit>()
             .httpRequest { service.putClubClose(clubId = clubId) }
             .sendRequest()
-
     }
 }
