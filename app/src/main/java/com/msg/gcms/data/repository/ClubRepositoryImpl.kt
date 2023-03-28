@@ -13,7 +13,6 @@ import com.msg.gcms.domain.data.club.get_club_detail.ClubDetailData
 import com.msg.gcms.domain.data.club.get_club_list.GetClubListData
 import com.msg.gcms.domain.data.club.modify_club_info.ModifyClubInfoData
 import com.msg.gcms.domain.repository.ClubRepository
-import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
@@ -97,9 +96,10 @@ class ClubRepositoryImpl @Inject constructor(
                 remoteDataSource.getClubList(type = type)
             )
         )
-    }.catch {
-        println(it.message)
     }
+    // }.catch {
+    //     throw it
+    // }
 
     private suspend fun onUpdateLocal(type: String, clubData: List<GetClubListData>) {
         localDataSource.deleteClubData(type = type)
