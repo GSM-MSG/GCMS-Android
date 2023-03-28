@@ -66,8 +66,7 @@ class MainViewModel @Inject constructor(
                 when (clubName.value) {
                     "전공동아리" -> "MAJOR"
                     "자율동아리" -> "FREEDOM"
-                    //TODO macaroni test 때메 잠깐 소문자로 바꿔놓음
-                    "사설동아리" -> "eDITORIAL"
+                    "사설동아리" -> "EDITORIAL"
                     else -> "MAJOR"
                 }
             ).onSuccess {
