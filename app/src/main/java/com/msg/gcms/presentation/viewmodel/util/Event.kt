@@ -2,6 +2,9 @@ package com.msg.gcms.presentation.viewmodel.util
 
 sealed class Event (
 ) {
+
+    object Loading: Event()
+
     /**
      * 성공
      */
