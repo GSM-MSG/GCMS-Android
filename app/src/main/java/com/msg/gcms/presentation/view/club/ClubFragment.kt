@@ -85,7 +85,7 @@ class ClubFragment : BaseFragment<FragmentClubBinding>(R.layout.fragment_club) {
                     }
                 }
                 else -> {
-                    BaseModal("오류", "알수 없는 오류 발생, 개발자에게 문의해주세요", requireContext()).show()
+                    BaseModal("오류", "정보를 불러오는 중에\n 오류가 발생하였습니다.", requireContext()).show()
                 }
             }
         }
