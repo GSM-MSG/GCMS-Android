@@ -4,7 +4,7 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity
+@Entity(tableName = "club")
 data class ClubEntity(
     @PrimaryKey val clubId: Long,
     @ColumnInfo(name = "type") val type: String,
