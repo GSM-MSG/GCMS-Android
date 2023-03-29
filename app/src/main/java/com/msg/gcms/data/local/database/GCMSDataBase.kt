@@ -9,7 +9,7 @@ import com.msg.gcms.data.local.entity.ClubEntity
     entities = [
         ClubEntity::class
     ],
-    version = 1,
+    version = 2,
     exportSchema = false
 )
 abstract class GCMSDataBase: RoomDatabase() {
