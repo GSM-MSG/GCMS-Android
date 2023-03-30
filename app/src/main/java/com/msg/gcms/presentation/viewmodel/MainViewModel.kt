@@ -72,7 +72,6 @@ class MainViewModel @Inject constructor(
             ).onSuccess {
                 // _clubData.value = it
                 it.fetch { status, getClubListData ->
-                    Log.d("TAG", "getClubList: $status")
                     _getClubList.value = when (status) {
                         Status.Loading -> {
                             Event.Loading
