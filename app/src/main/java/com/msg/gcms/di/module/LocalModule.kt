@@ -24,7 +24,8 @@ object LocalModule {
             context,
             GCMSDataBase::class.java,
             "gcms_database"
-        ).fallbackToDestructiveMigration()
+        )
+        .fallbackToDestructiveMigration()
         .build()
 
     @Provides
