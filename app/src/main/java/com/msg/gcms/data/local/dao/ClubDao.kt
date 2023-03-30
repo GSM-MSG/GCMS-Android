@@ -15,5 +15,5 @@ interface ClubDao {
     suspend fun deleteClubData(type: String)
 
     @Insert
-    suspend fun insertAllClubData(clubData: List<ClubEntity>)
+    suspend fun insertAllClubData(vararg clubData: ClubEntity)
 }
