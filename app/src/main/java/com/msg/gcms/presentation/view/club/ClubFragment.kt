@@ -1,6 +1,7 @@
 package com.msg.gcms.presentation.view.club
 
 import android.content.Context
+import android.util.Log
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import com.msg.gcms.R
@@ -70,6 +71,9 @@ class ClubFragment : BaseFragment<FragmentClubBinding>(R.layout.fragment_club) {
             when (it) {
                 Event.Success -> {
                     binding.clubLoadingView.stop()
+                }
+                Event.Loading -> {
+                    Log.d("TAG", "observeClubInfo: $it")
                 }
                 Event.Unauthorized -> {
                     BaseModal(
