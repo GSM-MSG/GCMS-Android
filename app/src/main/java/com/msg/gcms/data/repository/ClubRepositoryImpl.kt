@@ -13,7 +13,9 @@ import com.msg.gcms.domain.data.club.get_club_detail.ClubDetailData
 import com.msg.gcms.domain.data.club.get_club_list.GetClubListData
 import com.msg.gcms.domain.data.club.modify_club_info.ModifyClubInfoData
 import com.msg.gcms.domain.repository.ClubRepository
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class ClubRepositoryImpl @Inject constructor(
@@ -114,13 +116,15 @@ class ClubRepositoryImpl @Inject constructor(
     }
 
     private suspend fun getLocalData(type: String): List<GetClubListData> {
-        return localDataSource.getClubData(type = type).map {
-            GetClubListData(
-                id = it.clubId,
-                type = it.type,
-                title = it.name,
-                bannerUrl = it.bannerImg
-            )
+        return withContext(Dispatchers.IO) {
+            localDataSource.getClubData(type = type).map {
+                GetClubListData(
+                    id = it.clubId,
+                    type = it.type,
+                    title = it.name,
+                    bannerUrl = it.bannerImg
+                )
+            }
         }
     }
 }
