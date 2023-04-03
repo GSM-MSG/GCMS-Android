@@ -104,8 +104,7 @@ class ClubRepositoryImpl @Inject constructor(
     // }
 
     private suspend fun onUpdateLocal(type: String, clubData: List<GetClubListData>) {
-        localDataSource.deleteClubData(type = type)
-        localDataSource.insertClubData(clubData.map {
+        localDataSource.deleteAndInsertClubData(type = type, clubData = clubData.map {
             ClubEntity(
                 type = it.type,
                 clubId = it.id,
