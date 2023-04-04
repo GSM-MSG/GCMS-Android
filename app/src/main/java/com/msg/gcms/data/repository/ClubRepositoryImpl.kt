@@ -104,19 +104,22 @@ class ClubRepositoryImpl @Inject constructor(
     // }
 
     private suspend fun onUpdateLocal(type: String, clubData: List<GetClubListData>) {
-        localDataSource.deleteAndInsertClubData(type = type, clubData = clubData.map {
-            ClubEntity(
-                type = it.type,
-                clubId = it.id,
-                name = it.title,
-                bannerImg = it.bannerUrl
-            )
-        })
+        withContext(Dispatchers.IO) {
+            localDataSource.deleteAndInsertClubData(type = type, clubData = clubData.map {
+                ClubEntity(
+                    type = it.type,
+                    clubId = it.id,
+                    name = it.title,
+                    bannerImg = it.bannerUrl
+                )
+            })
+        }
     }
 
     private suspend fun getLocalData(type: String): List<GetClubListData> {
-        return withContext(Dispatchers.IO) {
-            localDataSource.getClubData(type = type).map {
+        val data: List<GetClubListData>
+        withContext(Dispatchers.IO) {
+            data = localDataSource.getClubData(type = type).map {
                 GetClubListData(
                     id = it.clubId,
                     type = it.type,
@@ -124,6 +127,8 @@ class ClubRepositoryImpl @Inject constructor(
                     bannerUrl = it.bannerImg
                 )
             }
+            Log.d("TAG", "getLocalData: $data")
         }
+        return data
     }
 }
