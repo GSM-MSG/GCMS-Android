@@ -1,5 +1,6 @@
 package com.msg.gcms.data.local.dao
 
+import android.util.Log
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
@@ -19,8 +20,10 @@ interface ClubDao {
     suspend fun insertAllClubData(vararg clubData: ClubEntity)
 
     @Transaction
-    suspend fun deleteAndInsertData(type: String, vararg clubData: ClubEntity) {
+    suspend fun deleteAndInsertData(type: String, clubData: List<ClubEntity>) {
+        Log.d("TAG", "deleteAndInsertData: $type")
         deleteClubData(type = type)
-        insertAllClubData(clubData = clubData)
+        Log.d("TAG", "deleteAndInsertData: $clubData")
+        insertAllClubData(clubData = clubData.toTypedArray())
     }
 }
