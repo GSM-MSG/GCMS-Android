@@ -11,12 +11,11 @@ class ClubLocalDataSourceImpl @Inject constructor(
         return clubDao.getClubList(type = type)
     }
 
-    override suspend fun insertClubData(vararg clubData: ClubEntity) {
+    override fun insertClubData(clubData: List<ClubEntity>) {
         return clubDao.insertAllClubData(clubData = clubData)
-
     }
 
-    override suspend fun deleteClubData(type: String) {
+    override fun deleteClubData(type: String) {
         return clubDao.deleteClubData(type = type)
     }
 

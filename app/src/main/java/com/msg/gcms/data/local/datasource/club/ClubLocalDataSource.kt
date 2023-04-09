@@ -6,9 +6,9 @@ interface ClubLocalDataSource {
 
     suspend fun getClubData(type: String): List<ClubEntity>
 
-    suspend fun insertClubData(vararg clubData: ClubEntity)
+    fun insertClubData(clubData: List<ClubEntity>)
 
-    suspend fun deleteClubData(type: String)
+    fun deleteClubData(type: String)
 
     suspend fun deleteAndInsertClubData(type: String, clubData: List<ClubEntity>)
 }
