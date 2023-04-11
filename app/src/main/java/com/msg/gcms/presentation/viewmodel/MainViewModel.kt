@@ -1,5 +1,7 @@
 package com.msg.gcms.presentation.viewmodel
 
+import Loading
+import Success
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -73,10 +75,10 @@ class MainViewModel @Inject constructor(
                 // _clubData.value = it
                 it.fetch { status, getClubListData ->
                     _getClubList.value = when (status) {
-                        Status.Loading -> {
+                        Loading -> {
                             Event.Loading
                         }
-                        Status.Success -> {
+                        Success -> {
                             Event.Success
                         }
                         else -> {
