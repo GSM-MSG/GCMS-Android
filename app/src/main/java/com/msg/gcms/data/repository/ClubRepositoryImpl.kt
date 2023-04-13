@@ -89,7 +89,6 @@ class ClubRepositoryImpl @Inject constructor(
 
     private fun onRemoteFailure(exception: Throwable) {
         Log.d("TAG", "onRemoteFailure: ${exception.message}")
-        // throw exception
     }
 
     private fun onRemoteObservable(type: String) = flow {
@@ -99,9 +98,6 @@ class ClubRepositoryImpl @Inject constructor(
             )
         )
     }
-    // }.catch {
-    //     throw it
-    // }
 
     private suspend fun onUpdateLocal(type: String, clubData: List<GetClubListData>) {
         withContext(Dispatchers.IO) {
