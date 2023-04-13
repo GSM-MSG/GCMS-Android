@@ -15,7 +15,7 @@ object ClubMapper {
                 id = it.id,
                 bannerUrl = it.bannerUrl,
                 title = it.title,
-                type = it.title
+                type = it.type
             )
         }
     }
