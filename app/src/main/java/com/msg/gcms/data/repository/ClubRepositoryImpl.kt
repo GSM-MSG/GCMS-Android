@@ -101,19 +101,6 @@ class ClubRepositoryImpl @Inject constructor(
 
     private suspend fun onUpdateLocal(type: String, clubData: List<GetClubListData>) {
         withContext(Dispatchers.IO) {
-            Log.d(
-                "TAG",
-                "onUpdateLocal: ${
-                    clubData.map {
-                        ClubEntity(
-                            clubId = it.id,
-                            type = it.type,
-                            name = it.title,
-                            bannerImg = it.bannerUrl
-                        )
-                    }
-                }"
-            )
             localDataSource.deleteAndInsertClubData(type = type, clubData = clubData.map {
                 ClubEntity(
                     type = it.type,
