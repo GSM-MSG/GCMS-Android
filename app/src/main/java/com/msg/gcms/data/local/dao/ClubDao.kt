@@ -2,6 +2,7 @@ package com.msg.gcms.data.local.dao
 
 import androidx.room.Dao
 import androidx.room.Insert
+import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Transaction
 import com.msg.gcms.data.local.entity.ClubEntity
@@ -15,7 +16,7 @@ interface ClubDao {
     @Query("DELETE FROM club WHERE type = :type")
     fun deleteClubData(type: String)
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertAllClubData(clubData: List<ClubEntity>)
 
     @Transaction

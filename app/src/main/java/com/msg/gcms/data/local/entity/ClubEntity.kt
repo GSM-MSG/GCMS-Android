@@ -6,8 +6,12 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "club")
 data class ClubEntity(
-    @PrimaryKey val clubId: Long,
-    @ColumnInfo(name = "type") val type: String,
-    @ColumnInfo(name = "name") val name: String,
-    @ColumnInfo(name = "bannerImg") val bannerImg: String,
+    @PrimaryKey
+    val clubId: Long,
+    @ColumnInfo(name = "type")
+    val type: String,
+    @ColumnInfo(name = "name")
+    val name: String,
+    @ColumnInfo(name = "bannerImg")
+    val bannerImg: String,
 )
