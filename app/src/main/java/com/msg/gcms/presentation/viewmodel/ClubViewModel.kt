@@ -58,7 +58,6 @@ class ClubViewModel @Inject constructor(
             postClubApplyUseCase(
                 clubId = clubId
             ).onSuccess {
-                //Todo(Leeyeonbin) 여기도 스테이터스로 예외하는거 다 수정하기
                 _applyClub.value = Event.Success
             }.onFailure {
                 _applyClub.value =

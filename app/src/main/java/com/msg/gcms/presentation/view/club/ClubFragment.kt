@@ -1,6 +1,7 @@
 package com.msg.gcms.presentation.view.club
 
 import android.content.Context
+import android.util.Log
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import com.msg.gcms.R
@@ -71,6 +72,9 @@ class ClubFragment : BaseFragment<FragmentClubBinding>(R.layout.fragment_club) {
                 Event.Success -> {
                     binding.clubLoadingView.stop()
                 }
+                Event.Loading -> {
+                    Log.d("TAG", "observeClubInfo: $it")
+                }
                 Event.Unauthorized -> {
                     BaseModal(
                         "오류",
@@ -85,7 +89,7 @@ class ClubFragment : BaseFragment<FragmentClubBinding>(R.layout.fragment_club) {
                     }
                 }
                 else -> {
-                    BaseModal("오류", "알수 없는 오류 발생, 개발자에게 문의해주세요", requireContext()).show()
+                    BaseModal("오류", "정보를 불러오는 중에\n 오류가 발생하였습니다.", requireContext()).show()
                 }
             }
         }
