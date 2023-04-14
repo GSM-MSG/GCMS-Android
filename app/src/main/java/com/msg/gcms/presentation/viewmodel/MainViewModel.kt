@@ -72,7 +72,6 @@ class MainViewModel @Inject constructor(
                     else -> "MAJOR"
                 }
             ).onSuccess {
-                // _clubData.value = it
                 it.fetch { status, getClubListData ->
                     _getClubList.value = when (status) {
                         Loading -> {
