@@ -14,13 +14,11 @@ data class GetClubListResponse(
     val bannerUrl: String
 )
 
-fun List<GetClubListResponse>.toClubListData(): List<GetClubListData> {
-    return this.map {
-        GetClubListData(
-            id = it.id,
-            bannerUrl = it.bannerUrl,
-            title = it.title,
-            type = it.type
-        )
-    }
+fun GetClubListResponse.toClubListData(): GetClubListData {
+    return GetClubListData(
+        id = id,
+        bannerUrl = bannerUrl,
+        title = title,
+        type = type
+    )
 }
