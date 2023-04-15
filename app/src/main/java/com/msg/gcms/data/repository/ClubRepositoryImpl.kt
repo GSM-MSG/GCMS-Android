@@ -7,6 +7,7 @@ import com.msg.gcms.data.local.entity.ClubEntity
 import com.msg.gcms.data.mapper.ClubMapper
 import com.msg.gcms.data.remote.datasource.club.ClubDataSource
 import com.msg.gcms.data.remote.dto.club.create_club.CreateClubRequest
+import com.msg.gcms.data.remote.dto.club.get_club_list.toClubListData
 import com.msg.gcms.data.remote.dto.club.modify_club_info.ModifyClubInfoRequest
 import com.msg.gcms.domain.data.club.create_club.CreateClubData
 import com.msg.gcms.domain.data.club.get_club_detail.ClubDetailData
@@ -93,9 +94,7 @@ class ClubRepositoryImpl @Inject constructor(
 
     private fun onRemoteObservable(type: String) = flow {
         emit(
-            ClubMapper.mapperToGetClubListData(
-                remoteDataSource.getClubList(type = type)
-            )
+            remoteDataSource.getClubList(type = type).toClubListData()
         )
     }
 
