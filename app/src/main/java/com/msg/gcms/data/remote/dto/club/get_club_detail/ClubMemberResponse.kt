@@ -1,6 +1,7 @@
 package com.msg.gcms.data.remote.dto.club.get_club_detail
 
 import com.google.gson.annotations.SerializedName
+import com.msg.gcms.domain.data.club.get_club_detail.ClubMemberData
 import java.util.UUID
 
 data class ClubMemberResponse(
@@ -19,3 +20,15 @@ data class ClubMemberResponse(
     @SerializedName("profileImg")
     val userImg: String?,
 )
+
+fun ClubMemberResponse.toClubMemberData(): ClubMemberData {
+    return ClubMemberData(
+        uuid = uuid,
+        email = email,
+        `class` = `class`,
+        grade = grade,
+        name = name,
+        num = num,
+        userImg = userImg
+    )
+}
