@@ -1,29 +1,46 @@
 package com.msg.gcms.data.repository
 
-import com.msg.gcms.data.mapper.ClubMapper
+import Macaroni
+import android.util.Log
+import com.msg.gcms.data.local.datasource.club.ClubLocalDataSource
+import com.msg.gcms.data.local.entity.ClubEntity
 import com.msg.gcms.data.remote.datasource.club.ClubDataSource
 import com.msg.gcms.data.remote.dto.club.create_club.CreateClubRequest
+import com.msg.gcms.data.remote.dto.club.get_club_detail.toClubDetailData
+import com.msg.gcms.data.remote.dto.club.get_club_list.toClubListData
 import com.msg.gcms.data.remote.dto.club.modify_club_info.ModifyClubInfoRequest
+import com.msg.gcms.domain.data.club.create_club.CreateClubData
 import com.msg.gcms.domain.data.club.get_club_detail.ClubDetailData
 import com.msg.gcms.domain.data.club.get_club_list.GetClubListData
 import com.msg.gcms.domain.data.club.modify_club_info.ModifyClubInfoData
-import com.msg.gcms.domain.data.club.create_club.CreateClubData
 import com.msg.gcms.domain.repository.ClubRepository
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class ClubRepositoryImpl @Inject constructor(
-    private val dataSource: ClubDataSource
+    private val remoteDataSource: ClubDataSource,
+    private val localDataSource: ClubLocalDataSource
 ) : ClubRepository {
-    override suspend fun getClubList(type: String): List<GetClubListData> {
-        return ClubMapper.mapperToGetClubListData(dataSource.getClubList(type = type))
+    override suspend fun getClubList(type: String): Macaroni<List<GetClubListData>> {
+        return Macaroni(
+            onRemoteFailure = { onRemoteFailure(it) },
+            onRemoteObservable = { onRemoteObservable(type = type) },
+            onUpdateLocal = {
+                println(it)
+                onUpdateLocal(type = type, clubData = it)
+            },
+            getLocalData = { getLocalData(type = type) }
+        )
     }
 
     override suspend fun getDetail(clubId: Long): ClubDetailData {
-        return ClubMapper.mapperToDetailData(dataSource.getDetail(clubId))
+        return remoteDataSource.getDetail(clubId).toClubDetailData()
     }
 
     override suspend fun postCreateClub(body: CreateClubData) {
-        return dataSource.postCreateClub(
+        return remoteDataSource.postCreateClub(
             body = CreateClubRequest(
                 activityUrls = body.activityUrls,
                 bannerUrl = body.bannerUrl,
@@ -39,7 +56,7 @@ class ClubRepositoryImpl @Inject constructor(
     }
 
     override suspend fun putChangeClub(body: ModifyClubInfoData, clubId: Long) {
-        return dataSource.putChangeClub(
+        return remoteDataSource.putChangeClub(
             body = ModifyClubInfoRequest(
                 type = body.type,
                 activityImgs = body.activityImgs,
@@ -50,23 +67,63 @@ class ClubRepositoryImpl @Inject constructor(
                 notionLink = body.notionLink,
                 teacher = body.teacher,
                 title = body.title
-            ), clubId = clubId
+            ),
+            clubId = clubId
         )
     }
 
     override suspend fun deleteClub(clubId: Long) {
-        return dataSource.deleteClub(clubId = clubId)
+        return remoteDataSource.deleteClub(clubId = clubId)
     }
 
     override suspend fun putClubOpen(clubId: Long) {
-        return dataSource.putClubOpen(clubId = clubId)
+        return remoteDataSource.putClubOpen(clubId = clubId)
     }
 
     override suspend fun putClubClose(clubId: Long) {
-        return dataSource.putClubClose(clubId = clubId)
+        return remoteDataSource.putClubClose(clubId = clubId)
     }
 
     override suspend fun exitClub(clubId: Long) {
-        return dataSource.exitClub(clubId = clubId)
+        return remoteDataSource.exitClub(clubId = clubId)
+    }
+
+    private fun onRemoteFailure(exception: Throwable) {
+        Log.d("TAG", "onRemoteFailure: ${exception.message}")
+    }
+
+    private fun onRemoteObservable(type: String) = flow {
+        emit(
+            remoteDataSource.getClubList(type = type).map { it.toClubListData() }
+        )
+    }
+
+    private suspend fun onUpdateLocal(type: String, clubData: List<GetClubListData>) {
+        withContext(Dispatchers.IO) {
+            localDataSource.deleteAndInsertClubData(type = type, clubData = clubData.map {
+                ClubEntity(
+                    type = it.type,
+                    clubId = it.id,
+                    name = it.title,
+                    bannerImg = it.bannerUrl
+                )
+            })
+        }
+    }
+
+    private suspend fun getLocalData(type: String): List<GetClubListData> {
+        val data: List<GetClubListData>
+        withContext(Dispatchers.IO) {
+            data = localDataSource.getClubData(type = type).map {
+                GetClubListData(
+                    id = it.clubId,
+                    type = it.type,
+                    title = it.name,
+                    bannerUrl = it.bannerImg
+                )
+            }
+            Log.d("TAG", "getLocalData: $data")
+        }
+        return data
     }
 }

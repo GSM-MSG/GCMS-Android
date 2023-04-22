@@ -16,8 +16,8 @@ android {
         applicationId = "com.msg.gcms"
         minSdk = Versions.MIN_SDK_VERSION
         targetSdk = Versions.TARGET_SDK_VERSION
-        versionCode = 12
-        versionName = "2.1.1"
+        versionCode = 13
+        versionName = "2.2.0"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
         buildConfigField(
@@ -82,6 +82,7 @@ dependencies {
     implementation(Dependency.Google.GMS_PLAY_SERVICE_AUTH)
     implementation(Dependency.Google.GMS_PLAY_SERVICE_BASE)
     kapt(Dependency.AndroidX.ROOM_COMPILER)
+    kapt(Dependency.Xerial.SQLITE_JDBC)
 
     implementation(Dependency.Kotlin.COROUTINES_CORE)
     implementation(Dependency.Kotlin.COROUTINES_ANDROID)
@@ -133,6 +134,8 @@ dependencies {
     implementation(Dependency.Google.GOOGLE_PLAY_KOTLIN_UPDATE)
 
     implementation(Dependency.AndroidX.WORK_RUNTIME)
+
+    implementation(Dependency.Macaroni.MACARONI)
 }
 
 fun getApiKey(propertyKey: String): String {

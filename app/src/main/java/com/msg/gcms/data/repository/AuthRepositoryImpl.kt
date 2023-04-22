@@ -1,10 +1,10 @@
 package com.msg.gcms.data.repository
 
 import com.msg.gcms.data.local.datasource.LocalDataSource
-import com.msg.gcms.data.mapper.AuthMapper
 import com.msg.gcms.data.remote.datasource.auth.AuthDataSource
 import com.msg.gcms.data.remote.dto.auth.request.RefreshRequest
 import com.msg.gcms.data.remote.dto.auth.request.SignInRequest
+import com.msg.gcms.data.remote.dto.auth.response.toSignInData
 import com.msg.gcms.domain.data.auth.SignInRequestData
 import com.msg.gcms.domain.data.auth.SignInResponseData
 import com.msg.gcms.domain.exception.NeedLoginException
@@ -17,14 +17,12 @@ class AuthRepositoryImpl @Inject constructor(
     private val localDataSource: LocalDataSource
 ) : AuthRepository {
     override suspend fun postRegistration(body: SignInRequestData): SignInResponseData =
-        AuthMapper.mapperToSignInData(
-            remoteDatasource.postRegistration(
-                body = SignInRequest(
-                    code = body.code,
-                    token = body.token
-                )
+        remoteDatasource.postRegistration(
+            body = SignInRequest(
+                code = body.code,
+                token = body.token
             )
-        )
+        ).toSignInData()
 
     override suspend fun logout() =
         remoteDatasource.logout()

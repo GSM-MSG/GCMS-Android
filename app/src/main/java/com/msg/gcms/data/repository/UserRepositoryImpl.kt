@@ -1,8 +1,10 @@
 package com.msg.gcms.data.repository
 
-import com.msg.gcms.data.mapper.UserMapper
 import com.msg.gcms.data.remote.datasource.user.UserDataSource
+import com.msg.gcms.data.remote.dto.user.get_my_profile.toGetMyProfileData
+import com.msg.gcms.data.remote.dto.user.get_profile_image.toGetProfileImageData
 import com.msg.gcms.data.remote.dto.user.modify_profile_image.ModifyProfileImageRequest
+import com.msg.gcms.data.remote.dto.user.search_user.toGetSearchUserData
 import com.msg.gcms.domain.data.user.get_my_profile.GetMyProfileData
 import com.msg.gcms.domain.data.user.get_profile_image.GetProfileImageData
 import com.msg.gcms.domain.data.user.modify_profile_image.ModifyProfileImageData
@@ -14,7 +16,7 @@ class UserRepositoryImpl @Inject constructor(
     private val dataSource: UserDataSource
 ) : UserRepository {
     override suspend fun getUserInfo(): GetMyProfileData {
-        return UserMapper.mapperToGetMyProfileData(dataSource.getUserInfo())
+        return dataSource.getUserInfo().toGetMyProfileData()
     }
 
     override suspend fun putProfile(
@@ -25,11 +27,11 @@ class UserRepositoryImpl @Inject constructor(
 
     override suspend fun getUserSearch(QueryString: Map<String, String>): List<GetSearchUserData> {
         return dataSource.getUserSearch(QueryString)
-            .map { UserMapper.mapperToGetSearchUserData(it) }
+            .map { it.toGetSearchUserData() }
     }
 
     override suspend fun getProfileImage(): GetProfileImageData {
-        return UserMapper.mapperToGetProfileImageData(dataSource.getProfileImage())
+        return dataSource.getProfileImage().toGetProfileImageData()
     }
 
     override suspend fun deleteUser() {

@@ -1,6 +1,7 @@
 package com.msg.gcms.data.remote.dto.auth.response
 
 import com.google.gson.annotations.SerializedName
+import com.msg.gcms.domain.data.auth.SignInResponseData
 
 data class SignInResponse(
     @SerializedName("accessToken")
@@ -12,3 +13,12 @@ data class SignInResponse(
     @SerializedName("refreshExp")
     val refreshExp: String
 )
+
+fun SignInResponse.toSignInData(): SignInResponseData {
+    return SignInResponseData(
+        accessToken = accessToken,
+        refreshToken = refreshToken,
+        accessExp = accessExp,
+        refreshExp = refreshExp
+    )
+}

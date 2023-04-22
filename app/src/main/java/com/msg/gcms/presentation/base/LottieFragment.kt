@@ -10,9 +10,8 @@ import android.view.ViewGroup
 import android.view.Window
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentManager
-import com.msg.gcms.R
 
-class LottieFragment : DialogFragment() {
+class LottieFragment(private val layoutId: Int) : DialogFragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -21,7 +20,7 @@ class LottieFragment : DialogFragment() {
         dialog?.requestWindowFeature(Window.FEATURE_NO_TITLE)
         dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         isCancelable = false
-        return inflater.inflate(R.layout.progress_bar, container, false)
+        return inflater.inflate(layoutId, container, false)
     }
 
     override fun show(manager: FragmentManager, tag: String?) {

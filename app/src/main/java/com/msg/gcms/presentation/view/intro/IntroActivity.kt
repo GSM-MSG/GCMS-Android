@@ -16,8 +16,8 @@ import com.msg.gcms.BuildConfig
 import com.msg.gcms.R
 import com.msg.gcms.databinding.ActivityIntroBinding
 import com.msg.gcms.presentation.base.BaseActivity
+import com.msg.gcms.presentation.base.LottieFragment
 import com.msg.gcms.presentation.view.main.MainActivity
-import com.msg.gcms.presentation.view.progress.ProgressDialog
 import com.msg.gcms.presentation.viewmodel.AuthViewModel
 import com.msg.gcms.presentation.viewmodel.util.Event
 import dagger.hilt.android.AndroidEntryPoint
@@ -26,12 +26,11 @@ import kotlin.system.exitProcess
 @AndroidEntryPoint
 class IntroActivity : BaseActivity<ActivityIntroBinding>(R.layout.activity_intro) {
     private var backButtonWait: Long = 0
-    private lateinit var progressDialog: ProgressDialog
+    private val lottie by lazy { LottieFragment(R.layout.intro_progress_lottie) }
     private val viewModel by viewModels<AuthViewModel>()
 
     override fun viewSetting() {
         binding.login = this
-        progressDialog = ProgressDialog(this)
         setGAuthButtonComponent()
     }
 
@@ -65,7 +64,7 @@ class IntroActivity : BaseActivity<ActivityIntroBinding>(R.layout.activity_intro
                 clientId = BuildConfig.CLIENT_ID,
                 redirectUri = BuildConfig.REDIRECT_URI,
             ) {
-                progressDialog.show()
+                lottie.show(supportFragmentManager, "IntroProgressLottie")
                 binding.gAuthWebView.visibility = View.INVISIBLE
                 FirebaseMessaging.getInstance().token
                     .addOnCompleteListener { token ->
@@ -82,7 +81,7 @@ class IntroActivity : BaseActivity<ActivityIntroBinding>(R.layout.activity_intro
 
     private fun observeSignInEvent() {
         viewModel.postSignInRequest.observe(this) { event ->
-            progressDialog.dismiss()
+            lottie.dismiss()
             when (event) {
                 Event.Success -> {
                     startActivity(Intent(this, MainActivity::class.java))

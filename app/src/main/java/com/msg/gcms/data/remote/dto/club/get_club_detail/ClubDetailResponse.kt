@@ -1,6 +1,7 @@
 package com.msg.gcms.data.remote.dto.club.get_club_detail
 
 import com.google.gson.annotations.SerializedName
+import com.msg.gcms.domain.data.club.get_club_detail.ClubDetailData
 
 data class ClubDetailResponse(
     @SerializedName("id")
@@ -32,3 +33,22 @@ data class ClubDetailResponse(
     @SerializedName("isApplied")
     val isApplied: Boolean
 )
+
+fun ClubDetailResponse.toClubDetailData(): ClubDetailData {
+    return ClubDetailData(
+        activityImgs = activityImgs,
+        bannerImg = bannerImg,
+        contact = contact,
+        content = content,
+        head = head.toClubMemberData(),
+        id = id,
+        isApplied = isApplied,
+        isOpened = isOpened,
+        member = member.map { it.toClubMemberData() },
+        name = name,
+        notionLink = notionLink,
+        scope = scope,
+        teacher = teacher,
+        type = type
+    )
+}

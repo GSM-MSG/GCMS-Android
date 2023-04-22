@@ -1,5 +1,8 @@
 package com.msg.gcms.presentation.viewmodel
 
+import Loading
+import Success
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -69,11 +72,23 @@ class MainViewModel @Inject constructor(
                     else -> "MAJOR"
                 }
             ).onSuccess {
-                _getClubList.value = Event.Success
-                _clubData.value = it
+                it.fetch { status, getClubListData ->
+                    _getClubList.value = when (status) {
+                        Loading -> {
+                            Event.Loading
+                        }
+                        Success -> {
+                            Event.Success
+                        }
+                        else -> {
+                            Event.UnKnown
+                        }
+                    }
+                    Log.d("TAG", "getClubList: $status")
+                    _clubData.value = getClubListData
+                }
             }.onFailure {
-                _getClubList.value =
-                    it.errorHandling(unauthorizedAction = { saveTokenInfoUseCase() })
+                _getClubList.value = it.errorHandling(unauthorizedAction = { saveTokenInfoUseCase() })
             }
         }
     }
