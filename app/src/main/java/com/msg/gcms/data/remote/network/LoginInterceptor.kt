@@ -24,12 +24,8 @@ class LoginInterceptor @Inject constructor(
         val request = chain.request()
         val path = request.url.encodedPath
         val method = request.method
-        val ignorePath = listOf(
-            "/auth"
-        )
-        val ignoreMethod = listOf(
-            "POST"
-        )
+        val ignorePath = listOf("/auth")
+        val ignoreMethod = listOf("POST")
 
         ignorePath.forEachIndexed { index, s ->
             if (s == path && ignoreMethod[index] == method) {
@@ -66,6 +62,13 @@ class LoginInterceptor @Inject constructor(
                 authDataStorage.setRefreshToken(token["refreshToken"].toString().removeDot())
                 authDataStorage.setAccessExpiredAt(token["accessExp"].toString().removeDot())
                 authDataStorage.setRefreshExpiredAt(token["refreshExp"].toString().removeDot())
+
+                val reAccessToken = authDataStorage.getAccessToken()
+                val reAccessRequest = chain.request()
+                    .newBuilder()
+                    .addHeader("Authorization", "Bearer $reAccessToken")
+                    .build()
+                return chain.proceed(reAccessRequest)
             } else throw NeedLoginException()
         }
 

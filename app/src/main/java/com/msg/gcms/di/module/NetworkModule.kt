@@ -1,5 +1,6 @@
 package com.msg.gcms.di.module
 
+import android.util.Log
 import com.msg.gcms.BuildConfig
 import com.msg.gcms.data.remote.network.api.ClubAPI
 import com.msg.gcms.data.remote.network.api.AuthAPI
@@ -13,6 +14,7 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
@@ -23,8 +25,14 @@ import javax.inject.Singleton
 object NetworkModule {
 
     @Provides
+    fun provideHttpLoggingInterceptor(): HttpLoggingInterceptor =
+        HttpLoggingInterceptor { message -> Log.v("HTTP", message) }
+            .setLevel(HttpLoggingInterceptor.Level.BODY)
+
+    @Provides
     @Singleton
     fun provideOkhttpClient(
+        httpLoggingInterceptor: HttpLoggingInterceptor,
         loginInterceptor: LoginInterceptor
     ): OkHttpClient {
         return OkHttpClient.Builder()
@@ -35,6 +43,7 @@ object NetworkModule {
             // 읽기 타임 아웃의 반대 방향. 얼마나 빨리 서버에 바이트를 보낼 수 있는지 확인
             .writeTimeout(30, TimeUnit.SECONDS)
             .addInterceptor(loginInterceptor)
+            .addInterceptor(httpLoggingInterceptor)
             .build()
     }
 
