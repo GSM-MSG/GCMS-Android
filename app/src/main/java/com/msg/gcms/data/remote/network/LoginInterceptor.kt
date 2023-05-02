@@ -68,7 +68,7 @@ class LoginInterceptor @Inject constructor(
                     .newBuilder()
                     .addHeader("Authorization", "Bearer $reAccessToken")
                     .build()
-                return chain.proceed(reAccessRequest)
+                chain.proceed(reAccessRequest)
             } else throw NeedLoginException()
         }
 
