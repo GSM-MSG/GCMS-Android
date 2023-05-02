@@ -25,9 +25,10 @@ import javax.inject.Singleton
 object NetworkModule {
 
     @Provides
-    fun provideHttpLoggingInterceptor(): HttpLoggingInterceptor =
-        HttpLoggingInterceptor { message -> Log.v("HTTP", message) }
+    fun provideHttpLoggingInterceptor(): HttpLoggingInterceptor {
+        return HttpLoggingInterceptor { message -> Log.v("HTTP", message) }
             .setLevel(HttpLoggingInterceptor.Level.BODY)
+    }
 
     @Provides
     @Singleton
