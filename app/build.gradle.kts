@@ -136,6 +136,8 @@ dependencies {
     implementation(Dependency.AndroidX.WORK_RUNTIME)
 
     implementation(Dependency.Macaroni.MACARONI)
+
+    implementation(Dependency.AndroidX.VIEW_PAGER2)
 }
 
 fun getApiKey(propertyKey: String): String {

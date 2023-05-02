@@ -41,6 +41,7 @@ object Dependency {
 
         const val SPLASH_SCREEN = "androidx.core:core-splashscreen:${Versions.SPLASH}"
         const val WORK_RUNTIME = "androidx.work:work-runtime-ktx:${Versions.WORK_RUNTIME}"
+        const val VIEW_PAGER2 = "androidx.viewpager2:viewpager2:${Versions.View_Pager2}"
     }
 
     object Google {

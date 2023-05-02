@@ -71,4 +71,6 @@ object Versions {
     const val MACARONI = "1.1.2"
 
     const val SQLITE_JDBC_VERSION = "3.34.0"
+
+    const val View_Pager2 = "1.0.0"
 }
