@@ -6,16 +6,16 @@
     app:startDestination="@id/majorFragment">
 
     <fragment
-        android:id="@+id/freeFragment"
-        android:name="com.msg.gcms.presentation.view.club.ClubFragment"
-        tools:layout="@layout/fragment_club"/>
-    <fragment
         android:id="@+id/majorFragment"
-        android:name="com.msg.gcms.presentation.view.club.ClubFragment"
-        tools:layout="@layout/fragment_club"/>
+        android:name="com.msg.gcms.presentation.view.club.MajorFragment"
+        tools:layout="@layout/fragment_major"/>
+    <fragment
+        android:id="@+id/freeFragment"
+        android:name="com.msg.gcms.presentation.view.club.FreeFragment"
+        tools:layout="@layout/fragment_free"/>
     <fragment
         android:id="@+id/personalFragment"
-        android:name="com.msg.gcms.presentation.view.club.ClubFragment"
-        tools:layout="@layout/fragment_club"/>
+        android:name="com.msg.gcms.presentation.view.club.PersonalFragment"
+        tools:layout="@layout/fragment_personal"/>
 
 </navigation>

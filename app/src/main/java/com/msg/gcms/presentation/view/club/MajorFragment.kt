@@ -5,7 +5,7 @@ import android.util.Log
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import com.msg.gcms.R
-import com.msg.gcms.databinding.FragmentClubBinding
+import com.msg.gcms.databinding.FragmentMajorBinding
 import com.msg.gcms.presentation.adapter.club_list.ClubListAdapter
 import com.msg.gcms.presentation.base.BaseFragment
 import com.msg.gcms.presentation.base.BaseModal
@@ -21,7 +21,7 @@ import com.msg.gcms.presentation.viewmodel.util.Event
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class ClubFragment : BaseFragment<FragmentClubBinding>(R.layout.fragment_club) {
+class MajorFragment : BaseFragment<FragmentMajorBinding>(R.layout.fragment_major) {
     private val mainViewModel by activityViewModels<MainViewModel>()
     private val detailViewModel by activityViewModels<ClubDetailViewModel>()
     private lateinit var adapter: ClubListAdapter

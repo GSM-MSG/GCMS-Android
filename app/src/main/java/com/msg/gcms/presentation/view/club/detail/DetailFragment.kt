@@ -29,7 +29,7 @@ import com.msg.gcms.presentation.utils.enterActivity
 import com.msg.gcms.presentation.utils.exitActivity
 import com.msg.gcms.presentation.utils.exitFragment
 import com.msg.gcms.presentation.utils.stop
-import com.msg.gcms.presentation.view.club.ClubFragment
+import com.msg.gcms.presentation.view.club.MajorFragment
 import com.msg.gcms.presentation.view.editclub.EditClubActivity
 import com.msg.gcms.presentation.view.intro.IntroActivity
 import com.msg.gcms.presentation.view.main.MainActivity
@@ -152,7 +152,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
             exitActivity(requireActivity())
         } else {
             detailViewModel.setNav(true)
-            exitFragment(requireActivity(), R.id.fragment_club, ClubFragment())
+            exitFragment(requireActivity(), R.id.fragment_club, MajorFragment())
         }
         detailViewModel.setIsProfile(false)
     }
@@ -609,7 +609,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
         } else {
             detailViewModel.setNav(true)
             requireActivity().supportFragmentManager.beginTransaction()
-                .replace(R.id.fragment_club, ClubFragment()).commit()
+                .replace(R.id.fragment_club, MajorFragment()).commit()
         }
 
         detailViewModel.setIsProfile(false)
