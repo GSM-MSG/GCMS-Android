@@ -62,13 +62,6 @@ class LoginInterceptor @Inject constructor(
                 authDataStorage.setRefreshToken(token["refreshToken"].toString().removeDot())
                 authDataStorage.setAccessExpiredAt(token["accessExp"].toString().removeDot())
                 authDataStorage.setRefreshExpiredAt(token["refreshExp"].toString().removeDot())
-
-                val reAccessToken = authDataStorage.getAccessToken()
-                val reAccessRequest = chain.request()
-                    .newBuilder()
-                    .addHeader("Authorization", "Bearer $reAccessToken")
-                    .build()
-                chain.proceed(reAccessRequest)
             } else throw NeedLoginException()
         }
 
