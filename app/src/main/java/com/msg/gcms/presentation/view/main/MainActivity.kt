@@ -5,10 +5,12 @@ import androidx.activity.viewModels
 import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
+import androidx.viewpager2.widget.ViewPager2
 import coil.load
 import coil.transform.CircleCropTransformation
 import com.msg.gcms.R
 import com.msg.gcms.databinding.ActivityMainBinding
+import com.msg.gcms.presentation.adapter.view_pager.ViewPagerAdapter
 import com.msg.gcms.presentation.base.BaseActivity
 import com.msg.gcms.presentation.utils.enterActivity
 import com.msg.gcms.presentation.view.club.detail.DetailFragment
@@ -31,6 +33,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         getProfileImage()
         clickProfile()
         clickMakeClubBtn()
+        initViewPager()
     }
 
     override fun observeEvent() {
@@ -41,6 +44,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         observeClubName()
         observeProfileImage()
         observeHeader()
+        observeViewPager()
     }
 
     private fun getProfileImage() {
@@ -110,13 +114,21 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
     private fun observeBottomNav() {
         binding.bottomNavigation.setOnNavigationItemSelectedListener {
-            val fragNum = when (it.itemId) {
-                R.id.majorFragment -> 0
-                R.id.freeFragment -> 1
-                R.id.personalFragment -> 2
+            when (it.itemId) {
+                R.id.majorFragment -> {
+                    binding.viewPager.currentItem = 0
+                    mainViewModel.setClubName(0)
+                }
+                R.id.freeFragment -> {
+                    binding.viewPager.currentItem = 1
+                    mainViewModel.setClubName(1)
+                }
+                R.id.personalFragment -> {
+                    binding.viewPager.currentItem = 2
+                    mainViewModel.setClubName(2)
+                }
                 else -> return@setOnNavigationItemSelectedListener false
             }
-            mainViewModel.setClubName(fragNum)
             return@setOnNavigationItemSelectedListener true
         }
     }
@@ -158,6 +170,25 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
             super.onBackPressed()
             finish()
         }
+    }
+
+    fun initViewPager() {
+        binding.viewPager.adapter = ViewPagerAdapter(this)
+    }
+
+    fun observeViewPager() {
+        binding.viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+            override fun onPageSelected(position: Int) {
+                super.onPageSelected(position)
+                binding.bottomNavigation.menu.getItem(position).isCheckable = true
+
+                when(position) {
+                    0 -> binding.bottomNavigation.selectedItemId = R.id.majorFragment
+                    1 -> binding.bottomNavigation.selectedItemId = R.id.freeFragment
+                    2 -> binding.bottomNavigation.selectedItemId = R.id.personalFragment
+                }
+            }
+        })
     }
 
     interface OnBackPressedListener {
