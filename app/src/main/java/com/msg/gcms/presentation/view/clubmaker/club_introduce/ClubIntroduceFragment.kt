@@ -28,7 +28,6 @@ class ClubIntroduceFragment :
                 binding.clubNameEt,
                 binding.clubIntroduceEt,
                 binding.linkName,
-                binding.linkUrlEt,
                 binding.teacherNameEt,
                 binding.contactEt
             )
@@ -43,15 +42,15 @@ class ClubIntroduceFragment :
     }
 
     private fun editTextCheck() {
-        if (binding.clubNameEt.text.isNotEmpty() && binding.clubIntroduceEt.text.isNotEmpty() && binding.contactEt.text.isNotEmpty() && binding.linkUrlEt.text.isNotEmpty() && binding.linkName.text.isNotEmpty()) {
-            if (binding.linkUrlEt.text.startsWith("http://") || binding.linkUrlEt.text.toString()
+        if (binding.clubNameEt.text.isNotEmpty() && binding.clubIntroduceEt.text.isNotEmpty() && binding.contactEt.text.isNotEmpty() && binding.linkName.text.isNotEmpty()) {
+            if (binding.linkName.text.startsWith("http://") || binding.linkName.text.toString()
                     .startsWith("https://")
             ) {
                 with(makeClubViewModel) {
                     title = binding.clubNameEt.text.toString().trim()
                     description = binding.clubIntroduceEt.text.toString().trim()
                     contact = binding.contactEt.text.toString().trim()
-                    notionLink = binding.linkUrlEt.text.toString().trim()
+                    notionLink = binding.linkName.text.toString().trim()
                     teacher = binding.teacherNameEt.text.toString().trim()
                 }
                 this.findNavController()
