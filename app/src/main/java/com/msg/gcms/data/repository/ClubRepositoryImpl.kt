@@ -6,6 +6,7 @@ import com.msg.gcms.data.local.datasource.club.ClubLocalDataSource
 import com.msg.gcms.data.local.entity.ClubEntity
 import com.msg.gcms.data.remote.datasource.club.ClubDataSource
 import com.msg.gcms.data.remote.dto.club.create_club.CreateClubRequest
+import com.msg.gcms.data.remote.dto.club.create_club.toRequest
 import com.msg.gcms.data.remote.dto.club.get_club_detail.toClubDetailData
 import com.msg.gcms.data.remote.dto.club.get_club_list.toClubListData
 import com.msg.gcms.data.remote.dto.club.modify_club_info.ModifyClubInfoRequest
@@ -41,17 +42,7 @@ class ClubRepositoryImpl @Inject constructor(
 
     override suspend fun postCreateClub(body: CreateClubData) {
         return remoteDataSource.postCreateClub(
-            body = CreateClubRequest(
-                activityUrls = body.activityUrls,
-                bannerUrl = body.bannerUrl,
-                contact = body.contact,
-                description = body.description,
-                member = body.member,
-                notionLink = body.notionLink,
-                teacher = body.teacher,
-                title = body.title,
-                type = body.type
-            )
+            body.toRequest()
         )
     }
 
