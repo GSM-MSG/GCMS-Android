@@ -30,7 +30,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         initBottomNav()
         getProfileImage()
         clickProfile()
-        clickMakeClubBtn()
     }
 
     override fun observeEvent() {
@@ -63,12 +62,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
     private fun clickProfile() {
         binding.profileBtn.setOnClickListener {
             enterActivity(this, ProfileActivity())
-        }
-    }
-
-    private fun clickMakeClubBtn() {
-        binding.addClubBtn.setOnClickListener {
-            enterActivity(this, MakeClubActivity())
         }
     }
 
@@ -133,7 +126,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
     private fun observeHeader() {
         mainViewModel.isHeader.observe(this) {
             with(binding) {
-                listOf(clubNameTxt, profileBtn, addClubBtn).forEach { view ->
+                listOf(clubNameTxt, profileBtn).forEach { view ->
                     view.isVisible = it
                 }
                 if (it) {

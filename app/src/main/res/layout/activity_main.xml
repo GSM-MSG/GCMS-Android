@@ -93,16 +93,6 @@
             app:layout_constraintTop_toTopOf="@+id/guideline8"
             app:layout_constraintEnd_toStartOf="@+id/guideline3" />
 
-        <ImageView
-            android:id="@+id/add_club_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/ic_add_club"
-            android:layout_marginRight="20dp"
-            app:layout_constraintTop_toTopOf="@+id/guideline8"
-            app:layout_constraintEnd_toStartOf="@+id/profile_btn"
-            app:layout_constraintBottom_toBottomOf="@+id/profile_btn" />
-
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/fragment_club"
             android:name="androidx.navigation.fragment.NavHostFragment"
