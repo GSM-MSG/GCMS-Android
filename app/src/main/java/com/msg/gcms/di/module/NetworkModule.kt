@@ -7,6 +7,7 @@ import com.msg.gcms.data.remote.network.api.AuthAPI
 import com.msg.gcms.data.remote.network.api.ImageAPI
 import com.msg.gcms.data.remote.network.LoginInterceptor
 import com.msg.gcms.data.remote.network.api.ApplicantAPI
+import com.msg.gcms.data.remote.network.api.AttendAPI
 import com.msg.gcms.data.remote.network.api.ClubMemberAPI
 import com.msg.gcms.data.remote.network.api.UserAPI
 import dagger.Module
@@ -17,6 +18,7 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.create
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
@@ -101,5 +103,11 @@ object NetworkModule {
     @Singleton
     fun provideUserService(retrofit: Retrofit): UserAPI {
         return retrofit.create(UserAPI::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun provideAttendService(retrofit: Retrofit): AttendAPI {
+        return retrofit.create(AttendAPI::class.java)
     }
 }
