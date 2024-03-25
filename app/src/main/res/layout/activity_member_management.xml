@@ -35,7 +35,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="13.85dp"
                 android:text="@string/clubMemberManage"
-                android:textColor="@color/white"
+                android:textColor="@color/white_3"
                 android:textSize="18sp"
                 android:fontFamily="@font/notosans"
                 android:textFontWeight="500" />
