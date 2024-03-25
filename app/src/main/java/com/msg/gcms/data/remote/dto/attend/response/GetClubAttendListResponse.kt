@@ -18,6 +18,8 @@ data class GetClubAttendListResponse(
     data class User(
         @SerializedName("id")
         val id: UUID,
+        @SerializedName("attendanceId")
+        val attendanceId: Long,
         @SerializedName("name")
         val name: String,
         @SerializedName("grade")
@@ -27,17 +29,18 @@ data class GetClubAttendListResponse(
         @SerializedName("number")
         val number: Int,
         @SerializedName("attendanceState")
-        val attendanceState: String
+        val attendanceStatus: String
     )
 
     fun User.toDomainUser(): DomainUser {
         return DomainUser(
             id = id,
+            attendanceId = attendanceId,
             name = name,
             grade = grade,
             classNum = classNum,
             number = number,
-            attendanceState = attendanceState
+            attendanceStatus = attendanceStatus
         )
     }
 }

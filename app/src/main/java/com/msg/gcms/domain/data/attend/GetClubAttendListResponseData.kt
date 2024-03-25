@@ -11,10 +11,11 @@ data class GetClubAttendListResponseData(
 ) {
     data class User(
         val id: UUID,
+        val attendanceId: Long,
         val name: String,
         val grade: Int,
         val classNum: Int,
         val number: Int,
-        val attendanceState: String
+        val attendanceStatus: String
     )
 }
