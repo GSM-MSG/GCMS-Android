@@ -5,5 +5,5 @@ import java.time.LocalDate
 import java.time.LocalTime
 
 interface AttendRepository {
-    suspend fun getClubAttendList(clubId: Long, date: LocalDate, period: LocalTime): GetClubAttendListResponseData
+    suspend fun getClubAttendList(clubId: Long, date: LocalDate, period: String): GetClubAttendListResponseData
 }

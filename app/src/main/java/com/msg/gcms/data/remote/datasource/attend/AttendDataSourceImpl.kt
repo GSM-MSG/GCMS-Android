@@ -13,7 +13,7 @@ class AttendDataSourceImpl @Inject constructor(
     override suspend fun getClubAttendList(
         clubId: Long,
         date: LocalDate,
-        period: LocalTime
+        period: String
     ): GetClubAttendListResponse {
         return GCMSApiHandler<GetClubAttendListResponse>()
             .httpRequest {

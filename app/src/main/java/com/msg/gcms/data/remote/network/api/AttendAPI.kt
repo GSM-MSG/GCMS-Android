@@ -1,7 +1,6 @@
 package com.msg.gcms.data.remote.network.api
 
 import com.msg.gcms.data.remote.dto.attend.response.GetClubAttendListResponse
-import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
@@ -14,6 +13,6 @@ interface AttendAPI {
     suspend fun getAttendList(
         @Path("club_id") clubId: Long,
         @Query("date") date: LocalDate,
-        @Query("period") period: LocalTime
+        @Query("period") period: String
     ): GetClubAttendListResponse
 }
