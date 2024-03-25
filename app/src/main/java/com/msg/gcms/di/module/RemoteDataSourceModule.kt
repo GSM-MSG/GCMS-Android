@@ -2,6 +2,8 @@ package com.msg.gcms.di.module
 
 import com.msg.gcms.data.remote.datasource.applicant.ApplicantDataSource
 import com.msg.gcms.data.remote.datasource.applicant.ApplicantDataSourceImpl
+import com.msg.gcms.data.remote.datasource.attend.AttendDataSource
+import com.msg.gcms.data.remote.datasource.attend.AttendDataSourceImpl
 import com.msg.gcms.data.remote.datasource.auth.AuthDataSource
 import com.msg.gcms.data.remote.datasource.auth.AuthDataSourceImpl
 import com.msg.gcms.data.remote.datasource.club.ClubDataSource
@@ -51,4 +53,8 @@ abstract class RemoteDataSourceModule {
         clubMemberDataSourceImpl: ClubMemberDataSourceImpl
     ): ClubMemberDataSource
 
+    @Binds
+    abstract fun bindAttendDataSource(
+        attendDataSourceImpl: AttendDataSourceImpl
+    ): AttendDataSource
 }
