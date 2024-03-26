@@ -118,6 +118,7 @@
     <string name="myProfile">내 프로필</string>
     <string name="profileDefaultName">닉네임</string>
     <string name="profileDefaultClass">x학년 x반 x번</string>
+    <string name="period"><u>x교시</u></string>
 
     <string name="findClub">찾아보기</string>
     <string name="noAfterSchool">아직 가입된 방과후가 없어요</string>
@@ -141,4 +142,7 @@
     <string name="create_club_server_message">잠시후에 다시 시도해주세요.</string>
 
     <string name="create_club_unknown_message">개발자에게 문의해주세요</string>
+
+    <string name="club_attend_member_check">동아리 출석체크</string>
+    <string name="club_attend_member_check_button">출석 체크하기</string>
 </resources>
