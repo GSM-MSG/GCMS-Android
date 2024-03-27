@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#373737"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/attend"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:textStyle="normal"
+            android:textFontWeight="500"
+            android:fontFamily="@font/notosans"
+            android:gravity="center"
+            android:layout_marginTop="32dp"/>
+        
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/attend_member_attend_ask"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:textFontWeight="500"
+            android:textStyle="normal"
+            android:fontFamily="@font/notosans"
+            android:gravity="center"
+            android:layout_marginBottom="32dp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:background="@color/dark_blue3"
+            android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:text="@string/attend"
+            android:textSize="15sp"
+            android:textStyle="normal"
+            android:textColor="@color/white"
+            android:fontFamily="@font/notosans"
+            android:textFontWeight="600"
+            android:drawablePadding="8dp"
+            android:drawableLeft="@drawable/ic_attend_check"
+            android:layout_gravity="center"
+            android:gravity="center"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:background="#F4B925"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
+                android:text="@string/late"
+                android:textStyle="normal"
+                android:textFontWeight="600"
+                android:textColor="@color/white"
+                android:fontFamily="@font/notosans"
+                android:textSize="15sp"
+                android:drawableLeft="@drawable/ic_attend_late"
+                android:drawablePadding="8dp"
+                android:layout_gravity="center"
+                android:gravity="center"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:background="#FF6666"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
+                android:text="@string/absent"
+                android:textStyle="normal"
+                android:textFontWeight="600"
+                android:fontFamily="@font/notosans"
+                android:textColor="@color/white"
+                android:textSize="15sp"
+                android:drawableLeft="@drawable/ic_attend_absent"
+                android:drawablePadding="8dp"
+                android:layout_gravity="center"
+                android:gravity="center"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:background="#373737"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
+                android:text="@string/sick"
+                android:textSize="15sp"
+                android:textColor="@color/white"
+                android:textStyle="normal"
+                android:fontFamily="@font/notosans"
+                android:textFontWeight="600"
+                android:drawableLeft="@drawable/ic_attend_sick"
+                android:drawablePadding="8dp"
+                android:layout_gravity="center"
+                android:gravity="center"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</layout>
