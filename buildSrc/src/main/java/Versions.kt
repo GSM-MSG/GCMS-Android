@@ -10,7 +10,7 @@ object Versions {
     const val KOTLINX_COROUTINES = "1.6.0"
 
     const val COMPILE_SDK_VERSION = 32
-    const val MIN_SDK_VERSION = 29
+    const val MIN_SDK_VERSION = 26
     const val TARGET_SDK_VERSION = 32
 
     const val CONSTRAINT_LAYOUT = "2.1.2"
