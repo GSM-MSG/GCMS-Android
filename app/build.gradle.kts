@@ -62,6 +62,15 @@ android {
     composeOptions {
         kotlinCompilerExtensionVersion = "1.2.0-alpha03"
     }
+    buildTypes{
+        release {
+            isDebuggable = false
+            isShrinkResources = true
+            isMinifyEnabled = true
+
+            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+        }
+    }
 }
 
 dependencies {
