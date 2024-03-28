@@ -34,4 +34,8 @@
         <item name="android:windowBackground">@drawable/bg_splash</item>
     </style>
 
+    <style name="CustomRadioButton" parent="Theme.AppCompat.Light">
+        <item name="colorAccent">#575CE0</item>
+        <item name="colorControlNormal">#6A6A6A</item>
+    </style>
 </resources>
