@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#262626"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/timeSetting"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:textFontWeight="500"
+            android:fontFamily="@font/notosans"
+            android:textStyle="normal"
+            android:layout_marginTop="32dp"
+            android:layout_marginBottom="32dp"
+            android:gravity="center"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_horizontal">
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/periodEight"
+                android:layout_width="85dp"
+                android:layout_height="48dp"
+                android:text="@string/eight_period"
+                android:textColor="@color/white"
+                android:fontFamily="@font/notosans"
+                android:textFontWeight="600"
+                android:textSize="15sp"
+                android:textStyle="normal"
+                android:gravity="center"
+                android:background="@drawable/bg_period_btn_color"
+                android:layout_marginBottom="48dp" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/periodNine"
+                android:layout_width="85dp"
+                android:layout_height="48dp"
+                android:text="@string/nine_period"
+                android:textColor="@color/white"
+                android:textSize="15sp"
+                android:textFontWeight="600"
+                android:gravity="center"
+                android:fontFamily="@font/notosans"
+                android:textStyle="normal"
+                android:background="@drawable/bg_period_btn_color"/>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/periodTen"
+                android:layout_width="85dp"
+                android:layout_height="48dp"
+                android:text="@string/ten_period"
+                android:textColor="@color/white"
+                android:textSize="15sp"
+                android:textFontWeight="600"
+                android:gravity="center"
+                android:fontFamily="@font/notosans"
+                android:textStyle="normal"
+                android:background="@drawable/bg_period_btn_color" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/periodEleven"
+                android:layout_width="85dp"
+                android:layout_height="48dp"
+                android:text="@string/eleven_period"
+                android:textColor="@color/white"
+                android:textSize="15sp"
+                android:textFontWeight="600"
+                android:gravity="center"
+                android:fontFamily="@font/notosans"
+                android:textStyle="normal"
+                android:background="@drawable/bg_period_btn_color" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</layout>

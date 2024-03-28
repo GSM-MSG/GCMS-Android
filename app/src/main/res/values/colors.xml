@@ -26,6 +26,7 @@
     <color name="light_blue3">#8989FF</color>
     <color name="light_blue4">#2E5CFF</color>
     <color name="light_blue5">#5169E8</color>
+    <color name="light_blue6">#0A84FF</color>
 
     <color name="gray_1">#F4F4F4</color>
     <color name="gray_2">#8D8D8D</color>
@@ -42,6 +43,7 @@
     <color name="gray_13">#2D2D2D</color>
     <color name="gray_14">#B7B7B7</color>
     <color name="gray_15">#585858</color>
+    <color name="gray_16">#262626</color>
 
     <color name="mtrl_textinput_default_box_stroke_color" tools:override="true">#FCFFFF</color>
 </resources>
