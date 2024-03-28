@@ -24,6 +24,7 @@ class BaseDialog(val title: String, val msg: String, context: Context) : AlertDi
         cancel.setOnClickListener {
             dismiss()
         }
+        
         dialogTitle.text = title
         dialogMsg.text = msg
     }
