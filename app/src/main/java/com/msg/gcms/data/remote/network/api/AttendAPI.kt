@@ -1,9 +1,11 @@
 package com.msg.gcms.data.remote.network.api
 
+import com.msg.gcms.data.remote.dto.attend.request.PatchAttendStatusRequest
 import com.msg.gcms.data.remote.dto.attend.request.PostAttendListRequest
 import com.msg.gcms.data.remote.dto.attend.response.GetClubAttendListResponse
 import retrofit2.http.Body
 import retrofit2.http.GET
+import retrofit2.http.PATCH
 import retrofit2.http.POST
 import retrofit2.http.Path
 import retrofit2.http.Query
@@ -22,5 +24,10 @@ interface AttendAPI {
     @POST("attend/{club_id}/club")
     suspend fun postAttendList(
         @Body body: PostAttendListRequest
+    )
+
+    @PATCH("attend")
+    suspend fun patchAttendStatus(
+        @Body body: PatchAttendStatusRequest
     )
 }

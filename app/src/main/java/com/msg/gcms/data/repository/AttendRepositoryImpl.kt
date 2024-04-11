@@ -1,9 +1,11 @@
 package com.msg.gcms.data.repository
 
 import com.msg.gcms.data.remote.datasource.attend.AttendDataSource
+import com.msg.gcms.data.remote.dto.attend.request.PatchAttendStatusRequest
 import com.msg.gcms.data.remote.dto.attend.request.PostAttendListRequest
 import com.msg.gcms.data.remote.dto.attend.response.toGetClubAttendListResponseData
 import com.msg.gcms.domain.data.attend.GetClubAttendListResponseData
+import com.msg.gcms.domain.data.attend.PatchAttendStatusRequestData
 import com.msg.gcms.domain.data.attend.PostAttendListRequestData
 import com.msg.gcms.domain.repository.AttendRepository
 import kotlinx.coroutines.flow.Flow
@@ -35,6 +37,15 @@ class AttendRepositoryImpl @Inject constructor(
                 name = body.name,
                 date = body.date,
                 periods = body.periods
+            )
+        )
+    }
+
+    override suspend fun patchAttendStatus(body: PatchAttendStatusRequestData): Flow<Unit> {
+        return attendDataSource.patchAttendStatus(
+            body = PatchAttendStatusRequest(
+                attendanceId = body.attendanceId,
+                attendanceStatus = body.attendanceStatus
             )
         )
     }
