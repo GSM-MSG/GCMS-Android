@@ -4,7 +4,7 @@ import com.msg.gcms.domain.data.attend.PatchAttendStatusCollectivelyRequestData
 import com.msg.gcms.domain.repository.AttendRepository
 import javax.inject.Inject
 
-class PatchAttendStatusCollectively @Inject constructor(
+class PatchAttendStatusCollectivelyUseCase @Inject constructor(
     private val attendRepository: AttendRepository
 ) {
     suspend operator fun invoke(body: PatchAttendStatusCollectivelyRequestData) = runCatching {
