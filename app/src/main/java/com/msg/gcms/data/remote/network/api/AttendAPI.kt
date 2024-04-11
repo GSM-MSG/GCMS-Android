@@ -1,5 +1,6 @@
 package com.msg.gcms.data.remote.network.api
 
+import com.msg.gcms.data.remote.dto.attend.request.PatchAttendStatusCollectivelyRequest
 import com.msg.gcms.data.remote.dto.attend.request.PatchAttendStatusRequest
 import com.msg.gcms.data.remote.dto.attend.request.PostAttendListRequest
 import com.msg.gcms.data.remote.dto.attend.response.GetClubAttendListResponse
@@ -29,5 +30,10 @@ interface AttendAPI {
     @PATCH("attend")
     suspend fun patchAttendStatus(
         @Body body: PatchAttendStatusRequest
+    )
+
+    @PATCH("attend/batch")
+    suspend fun patchAttendStatusCollectively(
+        @Body body: PatchAttendStatusCollectivelyRequest
     )
 }

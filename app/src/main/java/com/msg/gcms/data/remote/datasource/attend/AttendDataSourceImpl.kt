@@ -1,5 +1,6 @@
 package com.msg.gcms.data.remote.datasource.attend
 
+import com.msg.gcms.data.remote.dto.attend.request.PatchAttendStatusCollectivelyRequest
 import com.msg.gcms.data.remote.dto.attend.request.PatchAttendStatusRequest
 import com.msg.gcms.data.remote.dto.attend.request.PostAttendListRequest
 import com.msg.gcms.data.remote.dto.attend.response.GetClubAttendListResponse
@@ -49,6 +50,18 @@ class AttendDataSourceImpl @Inject constructor(
             GCMSApiHandler<Unit>()
                 .httpRequest {
                     attendAPI.patchAttendStatus(
+                        body = body
+                    )
+                }
+                .sendRequest()
+        )
+    }
+
+    override suspend fun patchAttendStatusCollectively(body: PatchAttendStatusCollectivelyRequest): Flow<Unit> = flow {
+        emit(
+            GCMSApiHandler<Unit>()
+                .httpRequest {
+                    attendAPI.patchAttendStatusCollectively(
                         body = body
                     )
                 }

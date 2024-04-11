@@ -1,10 +1,12 @@
 package com.msg.gcms.data.repository
 
 import com.msg.gcms.data.remote.datasource.attend.AttendDataSource
+import com.msg.gcms.data.remote.dto.attend.request.PatchAttendStatusCollectivelyRequest
 import com.msg.gcms.data.remote.dto.attend.request.PatchAttendStatusRequest
 import com.msg.gcms.data.remote.dto.attend.request.PostAttendListRequest
 import com.msg.gcms.data.remote.dto.attend.response.toGetClubAttendListResponseData
 import com.msg.gcms.domain.data.attend.GetClubAttendListResponseData
+import com.msg.gcms.domain.data.attend.PatchAttendStatusCollectivelyRequestData
 import com.msg.gcms.domain.data.attend.PatchAttendStatusRequestData
 import com.msg.gcms.domain.data.attend.PostAttendListRequestData
 import com.msg.gcms.domain.repository.AttendRepository
@@ -45,6 +47,15 @@ class AttendRepositoryImpl @Inject constructor(
         return attendDataSource.patchAttendStatus(
             body = PatchAttendStatusRequest(
                 attendanceId = body.attendanceId,
+                attendanceStatus = body.attendanceStatus
+            )
+        )
+    }
+
+    override suspend fun patchAttendStatusCollectively(body: PatchAttendStatusCollectivelyRequestData): Flow<Unit> {
+        return attendDataSource.patchAttendStatusCollectively(
+            body = PatchAttendStatusCollectivelyRequest(
+                attendanceIds = body.attendanceIds,
                 attendanceStatus = body.attendanceStatus
             )
         )
