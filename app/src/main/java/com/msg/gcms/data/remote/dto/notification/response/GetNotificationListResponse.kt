@@ -1,7 +1,6 @@
 package com.msg.gcms.data.remote.dto.notification.response
 
 import com.google.gson.annotations.SerializedName
-import com.msg.gcms.domain.data.notification.GetDetailNotificationResponseData
 import com.msg.gcms.domain.data.notification.GetNotificationListResponseData
 import com.msg.gcms.domain.data.notification.GetNotificationListResponseData.Notice as DomainNotice
 import java.time.LocalDateTime
