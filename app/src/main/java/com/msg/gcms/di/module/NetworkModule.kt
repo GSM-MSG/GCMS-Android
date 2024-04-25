@@ -9,6 +9,7 @@ import com.msg.gcms.data.remote.network.LoginInterceptor
 import com.msg.gcms.data.remote.network.api.ApplicantAPI
 import com.msg.gcms.data.remote.network.api.AttendAPI
 import com.msg.gcms.data.remote.network.api.ClubMemberAPI
+import com.msg.gcms.data.remote.network.api.NotificationAPI
 import com.msg.gcms.data.remote.network.api.UserAPI
 import dagger.Module
 import dagger.Provides
@@ -109,5 +110,11 @@ object NetworkModule {
     @Singleton
     fun provideAttendService(retrofit: Retrofit): AttendAPI {
         return retrofit.create(AttendAPI::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun provideNotificationService(retrofit: Retrofit): NotificationAPI {
+        return retrofit.create(NotificationAPI::class.java)
     }
 }

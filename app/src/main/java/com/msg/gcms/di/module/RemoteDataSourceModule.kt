@@ -12,6 +12,8 @@ import com.msg.gcms.data.remote.datasource.club_member.ClubMemberDataSource
 import com.msg.gcms.data.remote.datasource.club_member.ClubMemberDataSourceImpl
 import com.msg.gcms.data.remote.datasource.image.ImageDataSource
 import com.msg.gcms.data.remote.datasource.image.ImageDataSourceImpl
+import com.msg.gcms.data.remote.datasource.notification.NotificationDataSource
+import com.msg.gcms.data.remote.datasource.notification.NotificationDataSourceImpl
 import com.msg.gcms.data.remote.datasource.user.UserDataSource
 import com.msg.gcms.data.remote.datasource.user.UserDataSourceImpl
 import dagger.Binds
@@ -57,4 +59,9 @@ abstract class RemoteDataSourceModule {
     abstract fun bindAttendDataSource(
         attendDataSourceImpl: AttendDataSourceImpl
     ): AttendDataSource
+
+    @Binds
+    abstract fun bindNotificationDataSource(
+        notificationDataSourceImpl: NotificationDataSourceImpl
+    ): NotificationDataSource
 }
