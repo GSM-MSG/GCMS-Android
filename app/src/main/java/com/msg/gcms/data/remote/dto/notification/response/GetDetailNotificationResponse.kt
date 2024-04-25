@@ -1,6 +1,7 @@
 package com.msg.gcms.data.remote.dto.notification.response
 
 import com.google.gson.annotations.SerializedName
+import com.msg.gcms.domain.data.notification.GetDetailNotificationResponseData
 import java.time.LocalDateTime
 
 data class GetDetailNotificationResponse(
@@ -15,3 +16,13 @@ data class GetDetailNotificationResponse(
     @SerializedName("createdAt")
     val createdAt: LocalDateTime
 )
+
+fun GetDetailNotificationResponse.toDetailNotificationData(): GetDetailNotificationResponseData {
+    return GetDetailNotificationResponseData(
+        title = title,
+        content = content,
+        username = username,
+        userProfileImg = userProfileImg,
+        createdAt = createdAt
+    )
+}
