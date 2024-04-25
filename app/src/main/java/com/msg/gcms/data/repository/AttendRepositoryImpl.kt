@@ -21,8 +21,8 @@ class AttendRepositoryImpl @Inject constructor(
 ) : AttendRepository {
     override suspend fun getClubAttendList(
         clubId: Long,
-        date: LocalDate,
-        period: String
+        date: LocalDate?,
+        period: String?
     ): Flow<GetClubAttendListResponseData> {
         return attendDataSource.getClubAttendList(
             clubId = clubId,

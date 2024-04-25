@@ -6,7 +6,7 @@ import java.util.UUID
 
 data class GetClubAttendListResponseData(
     val date: LocalDate,
-    val period: LocalTime,
+    val period: String,
     val users: List<User>
 ) {
     data class User(
