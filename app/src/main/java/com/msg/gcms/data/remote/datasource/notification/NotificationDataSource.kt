@@ -7,9 +7,9 @@ import com.msg.gcms.data.remote.dto.notification.response.GetNotificationListRes
 import kotlinx.coroutines.flow.Flow
 
 interface NotificationDataSource {
-    suspend fun postWriteNotice(body: PostWriteNotificationRequest): Flow<Unit>
-    suspend fun getNoticeList(): Flow<GetNotificationListResponse>
-    suspend fun getDetailNotice(): Flow<GetDetailNotificationResponse>
-    suspend fun patchNotice(body: PatchModifyNotificationRequest): Flow<Unit>
-    suspend fun deleteNotice(): Flow<Unit>
+    suspend fun postWriteNotice(clubId: Long, body: PostWriteNotificationRequest): Flow<Unit>
+    suspend fun getNoticeList(clubId: Long): Flow<GetNotificationListResponse>
+    suspend fun getDetailNotice(id: Long): Flow<GetDetailNotificationResponse>
+    suspend fun patchNotice(id: Long ,body: PatchModifyNotificationRequest): Flow<Unit>
+    suspend fun deleteNotice(id: Long): Flow<Unit>
 }

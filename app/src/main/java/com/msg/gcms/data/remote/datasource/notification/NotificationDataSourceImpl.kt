@@ -13,51 +13,57 @@ import javax.inject.Inject
 class NotificationDataSourceImpl @Inject constructor(
     private val noticeService: NotificationAPI
 ) : NotificationDataSource {
-    override suspend fun postWriteNotice(body: PostWriteNotificationRequest): Flow<Unit> = flow {
+    override suspend fun postWriteNotice(clubId: Long, body: PostWriteNotificationRequest): Flow<Unit> = flow {
         emit(
             GCMSApiHandler<Unit>()
                 .httpRequest {
-                    noticeService.writeNotification(body = body)
+                    noticeService.writeNotification(
+                        clubId = clubId,
+                        body = body
+                    )
                 }
                 .sendRequest()
         )
     }
 
-    override suspend fun getNoticeList(): Flow<GetNotificationListResponse> = flow {
+    override suspend fun getNoticeList(clubId: Long): Flow<GetNotificationListResponse> = flow {
         emit(
             GCMSApiHandler<GetNotificationListResponse>()
                 .httpRequest {
-                    noticeService.getNoticeList()
+                    noticeService.getNoticeList(clubId = clubId)
                 }
                 .sendRequest()
         )
     }
 
-    override suspend fun getDetailNotice(): Flow<GetDetailNotificationResponse> = flow {
+    override suspend fun getDetailNotice(id: Long): Flow<GetDetailNotificationResponse> = flow {
         emit(
             GCMSApiHandler<GetDetailNotificationResponse>()
                 .httpRequest {
-                    noticeService.getDetailNotification()
+                    noticeService.getDetailNotification(id = id)
                 }
                 .sendRequest()
         )
     }
 
-    override suspend fun patchNotice(body: PatchModifyNotificationRequest): Flow<Unit> = flow {
+    override suspend fun patchNotice(id: Long, body: PatchModifyNotificationRequest): Flow<Unit> = flow {
         emit(
             GCMSApiHandler<Unit>()
                 .httpRequest {
-                    noticeService.patchNotification(body = body)
+                    noticeService.patchNotification(
+                        id = id,
+                        body = body
+                    )
                 }
                 .sendRequest()
         )
     }
 
-    override suspend fun deleteNotice(): Flow<Unit> = flow {
+    override suspend fun deleteNotice(id: Long): Flow<Unit> = flow {
         emit(
             GCMSApiHandler<Unit>()
                 .httpRequest {
-                    noticeService.deleteNotification()
+                    noticeService.deleteNotification(id = id)
                 }
                 .sendRequest()
         )

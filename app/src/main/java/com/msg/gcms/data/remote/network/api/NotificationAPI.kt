@@ -9,25 +9,34 @@ import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.PATCH
 import retrofit2.http.POST
+import retrofit2.http.Path
 
 interface NotificationAPI {
 
     @POST("notification/{club_id}")
     fun writeNotification(
+        @Path("club_id") clubId: Long,
         @Body body: PostWriteNotificationRequest
     )
 
     @GET("notification/{club_id}/all")
-    fun getNoticeList(): GetNotificationListResponse
+    fun getNoticeList(
+        @Path("club_id") clubId: Long
+    ): GetNotificationListResponse
 
     @GET("notification/{id}")
-    fun getDetailNotification(): GetDetailNotificationResponse
+    fun getDetailNotification(
+        @Path("id") id: Long
+    ): GetDetailNotificationResponse
 
     @PATCH("notification/{id}")
     fun patchNotification(
+        @Path("id") id: Long,
         @Body body: PatchModifyNotificationRequest
     )
 
     @DELETE("notification/{id}")
-    fun deleteNotification()
+    fun deleteNotification(
+        @Path("id") id: Long
+    )
 }
