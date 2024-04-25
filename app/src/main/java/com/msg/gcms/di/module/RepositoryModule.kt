@@ -6,6 +6,7 @@ import com.msg.gcms.data.repository.AuthRepositoryImpl
 import com.msg.gcms.data.repository.ClubMemberRepositoryImpl
 import com.msg.gcms.data.repository.ClubRepositoryImpl
 import com.msg.gcms.data.repository.ImageRepositoryImpl
+import com.msg.gcms.data.repository.NotificationRepositoryImpl
 import com.msg.gcms.data.repository.UserRepositoryImpl
 import com.msg.gcms.domain.repository.ApplicantRepository
 import com.msg.gcms.domain.repository.AttendRepository
@@ -13,6 +14,7 @@ import com.msg.gcms.domain.repository.AuthRepository
 import com.msg.gcms.domain.repository.ClubMemberRepository
 import com.msg.gcms.domain.repository.ClubRepository
 import com.msg.gcms.domain.repository.ImageRepository
+import com.msg.gcms.domain.repository.NotificationRepository
 import com.msg.gcms.domain.repository.UserRepository
 import dagger.Binds
 import dagger.Module
@@ -57,4 +59,9 @@ abstract class RepositoryModule {
     abstract fun bindAttendRepository(
         attendRepositoryImpl: AttendRepositoryImpl
     ): AttendRepository
+
+    @Binds
+    abstract fun bindNotification(
+        notificationImpl: NotificationRepositoryImpl
+    ): NotificationRepository
 }
