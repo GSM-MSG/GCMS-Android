@@ -22,10 +22,11 @@
             android:layout_marginTop="32dp"/>
 
         <TextView
+            android:id="@+id/attendStudentTv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/attend_member_attend_ask"
-            android:textColor="@color/white"
+            android:textColor="@color/gray_4"
             android:textSize="16sp"
             android:textFontWeight="500"
             android:textStyle="normal"
@@ -34,6 +35,7 @@
             android:layout_marginBottom="32dp"/>
 
         <LinearLayout
+            android:id="@+id/attendBtn"
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:background="@color/dark_blue3"
@@ -49,12 +51,13 @@
                 android:fontFamily="@font/notosans"
                 android:textFontWeight="600"
                 android:drawablePadding="8dp"
-                android:drawableLeft="@drawable/ic_attend_check"
+                android:drawableLeft="@drawable/ic_attend_check_white"
                 android:layout_gravity="center"
                 android:gravity="center"/>
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/lateBtn"
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:background="#F4B925"
@@ -69,13 +72,14 @@
                 android:textColor="@color/white"
                 android:fontFamily="@font/notosans"
                 android:textSize="15sp"
-                android:drawableLeft="@drawable/ic_attend_late"
+                android:drawableLeft="@drawable/ic_attend_late_white"
                 android:drawablePadding="8dp"
                 android:layout_gravity="center"
                 android:gravity="center"/>
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/absentBtn"
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:background="#FF6666"
@@ -90,13 +94,14 @@
                 android:fontFamily="@font/notosans"
                 android:textColor="@color/white"
                 android:textSize="15sp"
-                android:drawableLeft="@drawable/ic_attend_absent"
+                android:drawableLeft="@drawable/ic_attend_absent_white"
                 android:drawablePadding="8dp"
                 android:layout_gravity="center"
                 android:gravity="center"/>
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/sickBtn"
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:background="#373737"
@@ -111,12 +116,25 @@
                 android:textStyle="normal"
                 android:fontFamily="@font/notosans"
                 android:textFontWeight="600"
-                android:drawableLeft="@drawable/ic_attend_sick"
+                android:drawableLeft="@drawable/ic_attend_sick_white"
                 android:drawablePadding="8dp"
                 android:layout_gravity="center"
                 android:gravity="center"/>
 
         </LinearLayout>
+
+        <TextView
+            android:id="@+id/cancelBtn"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:text="@string/cancel"
+            android:textSize="15sp"
+            android:textColor="@color/black"
+            android:textStyle="normal"
+            android:fontFamily="@font/notosans"
+            android:textFontWeight="600"
+            android:background="@color/gray_2"
+            android:gravity="center" />
 
     </LinearLayout>
 
