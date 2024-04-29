@@ -48,7 +48,7 @@ class AttendViewModel @Inject constructor(
 
     var postClubAttendData = mutableStateOf(
         PostAttendListRequestData(
-            name = "",
+            name = "attend",
             date = LocalDate.now(),
             periods = listOf()
         )
