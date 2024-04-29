@@ -29,6 +29,7 @@ import com.msg.gcms.presentation.utils.enterActivity
 import com.msg.gcms.presentation.utils.exitActivity
 import com.msg.gcms.presentation.utils.exitFragment
 import com.msg.gcms.presentation.utils.stop
+import com.msg.gcms.presentation.view.attend.AttendActivity
 import com.msg.gcms.presentation.view.club.ClubFragment
 import com.msg.gcms.presentation.view.editclub.EditClubActivity
 import com.msg.gcms.presentation.view.intro.IntroActivity
@@ -56,6 +57,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
 
     private val headSideBarItem = arrayListOf(
         DetailPageSideBar("동아리 멤버 관리하기", R.drawable.ic_person_two),
+        DetailPageSideBar("동아리 출석체크", R.drawable.ic_shake_hand),
         DetailPageSideBar("동아리 정보 수정하기", R.drawable.ic_edit),
         DetailPageSideBar("동아리 삭제하기", R.drawable.ic_club_delete)
     )
@@ -264,6 +266,9 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
                             goManageActivity()
                         }
                         1 -> {
+                            goAttendActivity()
+                        }
+                        2 -> {
                             val intent = Intent(context, EditClubActivity::class.java)
                             intent.putExtra(
                                 "clubId",
@@ -271,7 +276,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
                             )
                             startActivityForResult(intent, 0)
                         }
-                        2 -> {
+                        3 -> {
                             BaseDialog("동아리 삭제", "정말 삭제할꺼에요??", context!!).let { dialog ->
                                 dialog.show()
                                 dialog.dialogBinding.ok.setOnClickListener {
@@ -295,6 +300,12 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
         val intent = Intent(context, MemberManageActivity::class.java)
         intent.putExtra("clubId", detailViewModel.result.value!!.id)
         intent.putExtra("role", detailViewModel.result.value!!.scope)
+        startActivityForResult(intent, 0)
+    }
+
+    private fun goAttendActivity() {
+        val intent = Intent(context, AttendActivity::class.java)
+        intent.putExtra("clubId", detailViewModel.result.value!!.id)
         startActivityForResult(intent, 0)
     }
 
