@@ -18,8 +18,8 @@ interface AttendAPI {
     @GET("attend/{club_id}")
     suspend fun getAttendList(
         @Path("club_id") clubId: Long,
-        @Query("date") date: LocalDate,
-        @Query("period") period: String
+        @Query("date") date: LocalDate?,
+        @Query("period") period: String?
     ): GetClubAttendListResponse
 
     @POST("attend/{club_id}/club")

@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.Flow
 import java.time.LocalDate
 
 interface AttendRepository {
-    suspend fun getClubAttendList(clubId: Long, date: LocalDate, period: String): Flow<GetClubAttendListResponseData>
+    suspend fun getClubAttendList(clubId: Long, date: LocalDate?, period: String?): Flow<GetClubAttendListResponseData>
     suspend fun postAttendList(body: PostAttendListRequestData): Flow<Unit>
     suspend fun patchAttendStatus(body: PatchAttendStatusRequestData): Flow<Unit>
     suspend fun patchAttendStatusCollectively(body: PatchAttendStatusCollectivelyRequestData): Flow<Unit>

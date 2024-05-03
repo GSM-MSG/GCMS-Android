@@ -17,8 +17,8 @@ class AttendDataSourceImpl @Inject constructor(
 ) : AttendDataSource {
     override suspend fun getClubAttendList(
         clubId: Long,
-        date: LocalDate,
-        period: String
+        date: LocalDate?,
+        period: String?
     ): Flow<GetClubAttendListResponse> = flow {
         emit(
             GCMSApiHandler<GetClubAttendListResponse>()

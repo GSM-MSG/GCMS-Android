@@ -2,6 +2,11 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable
+            name="member"
+            type="com.msg.gcms.domain.data.attend.GetClubAttendListResponseData.User" />
+    </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -14,13 +19,15 @@
             android:id="@+id/userProfileImg"
             android:layout_width="40dp"
             android:layout_height="40dp"
+            android:src="@drawable/bg_profile_img"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"/>
 
         <TextView
+            android:id="@+id/userName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{}"
+            android:text="@{member.name}"
             android:textSize="14sp"
             android:textFontWeight="500"
             android:layout_marginStart="12dp"
@@ -28,9 +35,16 @@
             app:layout_constraintStart_toEndOf="@id/userProfileImg"
             app:layout_constraintTop_toTopOf="parent"/>
 
+        <ImageView
+            android:id="@+id/attendState"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toEndOf="@id/userName"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <TextView
             android:id="@+id/userClassTxt"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="@string/profileDefaultClass"
             android:textColor="@color/gray_5"
@@ -38,17 +52,27 @@
             android:textFontWeight="500"
             android:layout_marginStart="12dp"
             app:layout_constraintStart_toEndOf="@id/userProfileImg"
+            app:layout_constraintEnd_toStartOf="@id/checkAttendMember"
             app:layout_constraintBottom_toBottomOf="parent"/>
 
-        <RadioButton
+<!--        <RadioButton-->
+<!--            android:id="@+id/checkAttendMember"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginEnd="0dp"-->
+<!--            app:layout_constraintStart_toEndOf="@id/userClassTxt"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintBottom_toBottomOf="parent"/>-->
+        <CheckBox
             android:id="@+id/checkAttendMember"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:layoutDirection="rtl"
-            android:scaleX="0.75"
-            android:scaleY="0.75"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:button="@null"
+            android:background="@drawable/selector_attend_checkbox"
+            android:layout_marginEnd="0dp"
+            app:layout_constraintStart_toEndOf="@id/userClassTxt"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"/>
 
 

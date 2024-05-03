@@ -7,7 +7,7 @@ import javax.inject.Inject
 class PostAttendListUseCase @Inject constructor(
     private val attendRepository: AttendRepository
 ) {
-    suspend fun invoke(body: PostAttendListRequestData) = runCatching {
+    suspend operator fun invoke(body: PostAttendListRequestData) = runCatching {
         attendRepository.postAttendList(
             body = body
         )

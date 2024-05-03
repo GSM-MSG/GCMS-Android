@@ -46,4 +46,8 @@
     <color name="gray_16">#262626</color>
 
     <color name="mtrl_textinput_default_box_stroke_color" tools:override="true">#FCFFFF</color>
+
+    <color name="checkbox_unchecked">#26FFFFFF</color>
+    <color name="yellow">#FFF4B925</color>
+    <color name="red_error">#FFFF6666</color>
 </resources>

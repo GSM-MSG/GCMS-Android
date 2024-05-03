@@ -49,6 +49,9 @@
         <activity
             android:name=".presentation.view.member_manage.MemberManageActivity"
             android:exported="false" />
+        <activity
+            android:name=".presentation.view.attend.AttendActivity"
+            android:exported="false" />
 
         <service
             android:name=".presentation.service.GCMSMessagingService"
