@@ -4,14 +4,13 @@ import com.google.gson.annotations.SerializedName
 import com.msg.gcms.domain.data.attend.GetClubAttendListResponseData
 import com.msg.gcms.domain.data.attend.GetClubAttendListResponseData.User as DomainUser
 import java.time.LocalDate
-import java.time.LocalTime
 import java.util.UUID
 
 data class GetClubAttendListResponse(
     @SerializedName("date")
     val date: LocalDate,
     @SerializedName("period")
-    val period: LocalTime,
+    val period: String,
     @SerializedName("users")
     val users: List<User>
 ) {
